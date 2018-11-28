@@ -12,7 +12,7 @@ pip install ddb
 ddb
 # OR
 ddb --config-dir --query 'select * from `tablename` where column=value limit 0,10'
-``
+```
 
 ### Code integration
 ```
