@@ -5,7 +5,7 @@ from table import table
 
 class database:
     tables=[]
-    def __init__(self,directory,show_config=False):
+    def __init__(self,directory='.',show_config=False):
         self.tables=[]
         is_file=False
 
