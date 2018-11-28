@@ -281,6 +281,7 @@ class table_delimiters:
         self.field=":"
         self.array=","
         self.error="#"
+        self.block_quote=None
         self.comment=["#",";","/"]        
         if None != yaml:
             if 'field' in yaml:
@@ -291,6 +292,13 @@ class table_delimiters:
                 self.array=yaml['array']
             if 'comment' in yaml:
                 self.comment=yaml['comment']
+            if 'block_quote' in yaml:
+                self.block_quote=yaml['block_quote']
+                if isinstance(self.block_quote,str):
+                    if not  self.block_quote.strip():
+                        self.block_quote=None    
+                else:
+                    self.block_quote=None
                             
 
 

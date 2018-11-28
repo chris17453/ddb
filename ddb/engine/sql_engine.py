@@ -52,19 +52,17 @@ class sql_engine:
             self.table=self.database.get(query_object.source)
 
         
-        if None==self.table:
-            print("No table found")
-            exit(1)
-
-        #get columns
+        
+        #get columns, doesnt need a table
         if query_object.mode=="show":
             if query_object.show=="tables":
                 self.results=show_tables(self.database)    
             if query_object.show=="columns":
+            # items below need a table
                 self.results=show_columns(self.database,self.table)
             if query_object.show=="errors":
                 self.results=show_errors(self.database,self.table)
-             
+
         if query_object.mode=='select':
             self.results=self.select(query_object)
            
@@ -124,6 +122,14 @@ class sql_engine:
                     else:
                         line_data=None
                     line_type='error'
+                # fields are surrounded by something... trim
+                #print self.table.delimiters.block_quote
+                if None != self.table.delimiters.block_quote:
+                    line_data_cleaned=[]
+                    for d in line_data:
+                        line_data_cleaned.append(d[1:-1])
+                    line_data=line_data_cleaned
+
         match_results=evaluate_match(query_object.where,line_data,self.table)
                     
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results}

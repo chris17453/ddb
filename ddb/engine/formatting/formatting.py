@@ -3,6 +3,8 @@ import os
 from colors import *
 
 def format_string(data,length,fill_character=' ',no_clip=False):
+    if None == data:
+        data=''
     data=data.replace('\t','       ')
     if False==no_clip:
         return data[:length-2].ljust(length-2,fill_character)
