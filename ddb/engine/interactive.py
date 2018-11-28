@@ -69,7 +69,7 @@ class ddbPrompt(Cmd):
     def do_config_dir(self, inp):
         try:
             self.msg("info","configuration_dir set to'{}'".format(inp))
-            self.engine=sql_engine(database=inp,debug=self.debug)
+            self.engine=self.engine(database=inp,debug=self.debug)
         except Exception as ex:
             self.msg("error","config_dir",ex)
 
@@ -77,12 +77,12 @@ class ddbPrompt(Cmd):
         self.msg("info","Set configuration Directory. Files end in ddb.yaml.")
 
     ##
-    def do_show_errors(self, inp):
-        self.engine.print_errors()
+    #def do_show_errors(self, inp):
+    #    self.engine.print_errors()
         
 
-    def help_show_errors(self):
-        self.msg("info","Show last error(s) generated")
+    #def help_show_errors(self):
+    #   self.msg("info","Show last error(s) generated")
     ##
 
 
