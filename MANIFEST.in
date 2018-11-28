@@ -1,3 +1,2 @@
-README.md
-ddb/*
-ddb/engine/*
+include README.md
+recursive-include ddb *
