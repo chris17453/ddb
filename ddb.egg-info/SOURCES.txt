@@ -1,0 +1,11 @@
+MANIFEST.in
+README.md
+setup.py
+ddb/__init__.py
+ddb/cli.py
+ddb.egg-info/PKG-INFO
+ddb.egg-info/SOURCES.txt
+ddb.egg-info/dependency_links.txt
+ddb.egg-info/entry_points.txt
+ddb.egg-info/top_level.txt
+test/test.py
