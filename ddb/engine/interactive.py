@@ -5,6 +5,7 @@ from .structure.table import table
 from .structure.database import database
 from sql_engine  import sql_engine
 from .formatting.colors import bcolors
+from .formatting.formatting import format_data
 
 
 class ddbPrompt(Cmd):
@@ -97,7 +98,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             self.engine.query(sql_query=inp)
             end = time.time()
-            self.engine.format_data(no_clip=self.no_clip,width='auto',format='term')
+            format_data(no_clip=self.no_clip,width='auto',format='term')
             self.msg("info","executed in {} seconds".format(end - start))
         except Exception as ex:
             self.msg("error",ex)
