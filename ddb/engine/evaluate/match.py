@@ -7,6 +7,9 @@ def evaluate_single_match(test,row,table):
     compare2=None
     compare1_is_column=False
     compare2_is_column=False
+    if None !=test['condition']:
+        test['condition']=test['condition'].lower()
+        
     for column in table.columns:
         #print column.data.name
         if column.data.name==test['expression1']:

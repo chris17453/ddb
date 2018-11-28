@@ -47,3 +47,6 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
 
+### Demo
+![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
+
