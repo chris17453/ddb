@@ -72,18 +72,30 @@ class table:
             if True == show_config:
                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
 
-        
+
+    def append_data(self,data):
+        """Add a row to the resultset for this table"""
+        self.results.append(data)
+
+
     def column_count(self):
+        """Return the column count for this table"""
         return len(self.columns)
-    
+
+
     def results_length(self):
+        """Return the result set length for this table"""
         return len(self.results)
-    
+
+
     def add_error(self,error):
+        """Add an error to the list of errors processed this cycle"""
         self.errors.append(error)
         self.error_count+=1
 
+
     def add_column(self,name,display=None):
+        """Add a column to this table"""
         column=column_v2()
         column.data.name=name
         column.display.name=display
@@ -92,12 +104,14 @@ class table:
 
 
     def has_column(self,column):
+        """determine if a column exists by string name"""
         if column=='*':
             return True
         for c in self.columns:
             if column==c.data.name:
                 return True
         return False
+
 
     def column_ordinals(self):
         temp_columns=[]
