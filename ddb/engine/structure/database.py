@@ -8,7 +8,9 @@ class database:
     def __init__(self,directory='.',show_config=False):
         self.tables=[]
         is_file=False
-
+        if None == directory:
+            return
+            
         if False == os.path.isdir(directory):
             if False == os.path.isfile(directory):
                 raise Exception("Not a directory or a file: {}".format(directory))
