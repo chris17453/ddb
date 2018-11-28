@@ -70,7 +70,7 @@ class ddbPrompt(Cmd):
     def do_config_dir(self, inp):
         try:
             self.msg("info","configuration_dir set to'{}'".format(inp))
-            self.engine=sql_engine(database=inp,debug=self.debug)
+            self.engine=sql_engine(database_dir=inp,debug=self.debug)
         except Exception as ex:
             self.msg("error","config_dir",ex)
 
