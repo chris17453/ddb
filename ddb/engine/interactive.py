@@ -96,9 +96,9 @@ class ddbPrompt(Cmd):
                 print ("sql engin gone")
                 return
             start = time.time()
-            self.engine.query(sql_query=inp)
+            results_table=self.engine.query(sql_query=inp)
             end = time.time()
-            format_data(no_clip=self.no_clip,width='auto',format='term')
+            format_data(no_clip=self.no_clip,width='auto',format='term',table=results_table)
             self.msg("info","executed in {} seconds".format(end - start))
         except Exception as ex:
             self.msg("error",ex)
