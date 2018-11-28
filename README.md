@@ -5,6 +5,8 @@
 ## Install
 ```
 pip install ddb
+# OR
+pipenv install ddb
 ```
 
 ### Commandline interface
@@ -32,7 +34,7 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 - This code is slow. It will be refactored, but not until more support is added.
 
 
-## Supported Querys
+### Supported Querys
 - SELECT [COLUMNS] FROM [Table] [WHERE] [ORDER BY] [LIMIT]
 - INSERT INTO [TABLE] ([COLUMNS]) VALUES ([VALUES])
 - DELETE FROM [TABLE] [WHERE] 
@@ -40,7 +42,7 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 - SHOW COLUMNS
 - SHOW TABLES
 
-## Not supported
+### Not supported
 - Right now this is a POC, complex operations are not supported, but are in the works.
 - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
