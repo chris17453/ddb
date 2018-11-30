@@ -1,4 +1,5 @@
-def show_columns(database,table):
+def show_columns(database,parser):
+    table=database.get(parser.query_object['meta']['from']['table'])
     temp_table=database.temp_table(columns=['table','column'])
     
     for c in table.columns:
@@ -11,6 +12,7 @@ def show_tables(database):
     for t in database.tables:
         columns=[t.data.name]
         temp_table.append_data(columns)
+    print temp_table
     return temp_table
 
 

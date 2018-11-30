@@ -4,9 +4,7 @@ from .language import query_matrix
 import copy 
 
 debug_on=False
-def info(msg,arg1=None,arg2=None,arg3=None):
-    if True == debug_on:
-        print(msg,arg1,arg2,arg3)
+
 
 
 class sql_parser:
@@ -132,6 +130,10 @@ class sql_parser:
                     optional=False
 
 
+                if isinstance(switch['name'],list):
+                    object_id=' '.join([str(x) for x in switch['name'] ]) 
+                else:
+                    object_id=switch['name']
 
                 if False == no_keyword:
                     keyword_compare=self.get_sub_array(switch,'name')
@@ -141,13 +143,9 @@ class sql_parser:
                         info("match", keyword_compare,haystack)
                         # we use name because it may be a list. and its simpler to hash by name
                         # as long as the compare is good, we dont care
-                        if isinstance(switch['name'],list):
-                            object_id=' '.join([str(x) for x in switch['name'] ]) 
-                        else:
-                            object_id=switch['name']
                         curent_object['mode']=object_id
                         if switch_index==1:
-                            query_mode=switch['name'] 
+                            query_mode=object_id
                         keyword_found=True
                     else:
                         if False == optional:
@@ -163,7 +161,7 @@ class sql_parser:
                     token_index+=len(keyword_compare)
                     info("advance token index ",token_index,switch['data'])
                 else:
-                    curent_object['mode']=switch['name'] 
+                    curent_object['mode']=object_id
 
                 if None == switch['data'] or False == switch['data']:
                     info("No data to match")
@@ -266,7 +264,7 @@ class sql_parser:
                                 argument_index+=1
                                 if argument_index>=arguments:
 
-                                    info("----------Adding",curent_object['mode'],)
+                                    info("----------Adding",curent_object['mode'])
                                     if True == store_array:
                                         if curent_object['mode'] not in query_object:
                                             query_object[curent_object['mode']]=[]
@@ -305,7 +303,7 @@ class sql_parser:
                                     if tokens[token_index]['data']!=',':
                                         info("---not list")
                                         # only append object after argument collection is done
-                                        info("----------Adding",curent_object['mode'],)
+                                        info("----------Adding",curent_object['mode'])
                                         if True == store_array:
                                             if curent_object['mode'] not in query_object:
                                                 query_object[curent_object['mode']]=[]

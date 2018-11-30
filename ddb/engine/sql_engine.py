@@ -63,10 +63,12 @@ class sql_engine:
         #print  query_object
         #exit(9)
         #get columns, doesnt need a table
+        #print query_object['mode']
         if query_object['mode']=="show tables":
+
             self.results=show_tables(self.database)    
         if query_object['mode']=="show columns":
-            self.results=show_columns(self.database,query_object['meta']['from'])
+            self.results=show_columns(self.database,parser)
         #if query_object['mode']=="show errors":
         #    self.results=show_errors(self.database,self.table)
 
