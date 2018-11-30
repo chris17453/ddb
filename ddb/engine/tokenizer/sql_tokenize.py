@@ -1,8 +1,14 @@
+debug_on=False
+def info(msg,arg1=None,arg2=None,arg3=None):
+    if True == debug_on:
+        print(msg,arg1,arg2,arg3)
 
 # yes, this could be a giant regex, but no.
 # TODO: memory optimization.. maybe not sure how wastefull this is
-def tokenize(text,discard_delimiters=False,discard_whitespace=True):
-    
+
+def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
+    global debug_on
+    debug_on=debug
     tokens=[]
     
     # visual formatting characters
@@ -320,41 +326,45 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True):
     in_block=None
     block=None
     while c < text_length:
-        #print "-",c
+        
+        info("-",c)
         just_crossed_block=False
         for b in blocks:
             delimter_len=len(b[0])
-            #print b[0],b[1],c,delimter_len
+            #info(b[0],b[1],c,delimter_len)
             fragment=text[c:c+delimter_len]
             # only check for block start if not in one
             if None == in_block:
                 if True == compare_text_fragment(fragment,b[0]):
                     just_crossed_block=True
-                    #print  "IN BLOCK",c
+                    info("IN BLOCK",c)
                     in_block=b
                     block=b
                     c+=delimter_len
-                    #print  "IN BLOCK",c
+                    info("IN BLOCK",c)
                     break
             # check for block end
-            if True == compare_text_fragment(fragment,b[1]) or c==text_length-1:
+            if True == compare_text_fragment(fragment,b[1]) or c>=text_length-1:
                 just_crossed_block=True
-                #print  "NOT IN BLOCK",c
+                info("NOT IN BLOCK",c)
                 in_block=None
                 c+=delimter_len
                 break
         # skip stuff in block
         if None != in_block :
-            #print "in block skipp"
+            info("in block skipp")
             if just_crossed_block==False:
                 c+=1
             continue           
         for d in delimiters_sorted:
             delimter_len=len(d)
             fragment=text[c:c+delimter_len]
-            if True == compare_text_fragment(fragment,d):
+            if True == compare_text_fragment(fragment,d) or c>=text_length-1:
+                info("Delemiter found",c,fragment)
                 if c-word_start>0:
                     word_end=c
+                    if word_end>=text_length:
+                        word_end=text_length-1
                     not_delimiter=text[word_start:word_end]
                     token_type='data'
                     if not_delimiter.upper() in keywords:
@@ -369,15 +379,14 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True):
                         block_left=None
                         block_right=None
                         block_type=None
-
+                    info(c,not_delimiter)
                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})
-
-                word_start=c+delimter_len
-
                 
+                if  c>=text_length-1:
+                    break
+                word_start=c+delimter_len
                 
                 if True == discard_whitespace and fragment in whitespace:
-                    
                     break
                 
                 #if True == discard_delimiters:
@@ -391,13 +400,16 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True):
                         delimiter_type='whitespace'
 
      
+                info(c,fragment)
                 tokens.append({'type':delimiter_type,'data':fragment})
                 break
         c+=delimter_len
     
-    #for t in tokens:
-    #    print t
-    #exit(1)
+    if True == debug_on:
+        info("-[Tokens]----------------")
+        for t in tokens:
+            info( t)
+        info("-[End-Tokens]------------")
     return tokens
 
 

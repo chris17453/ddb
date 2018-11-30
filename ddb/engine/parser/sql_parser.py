@@ -3,9 +3,9 @@ from ..structure.table import *
 from .language import query_matrix
 import copy 
 
-debug=False
+debug_on=False
 def info(msg,arg1=None,arg2=None,arg3=None):
-    if True == debug:
+    if True == debug_on:
         print(msg,arg1,arg2,arg3)
 
 
@@ -81,9 +81,11 @@ class sql_parser:
         # delete from table where x=y and y=2
 
 
-        tokens=tokenize(query,discard_whitespace=True)
+        global debug_on
+        self.debug=debug
+        self.debug_on=debug
+        tokens=tokenize(query,discard_whitespace=True,debug=debug)
         self.query_object=self.parse(tokens)
-
         if None == self.query_object:
             raise Exception("Object failed to decode")
 

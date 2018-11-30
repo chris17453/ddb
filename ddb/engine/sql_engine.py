@@ -33,7 +33,12 @@ class sql_engine:
     #    self.database=database
     #    if False == self.has_configuration():
     #        raise Exception("No configuration data")
-    
+
+
+    def debugging(self,debug=False):
+        self.debug=debug
+
+
     def has_configuration(self):
         if None==self.database:
             return False
@@ -46,12 +51,15 @@ class sql_engine:
         if False==self.has_configuration():
             raise Exception("No table found")
         
+        
         parser=sql_parser(sql_query,self.debug)
         if False == parser.query_object:
             raise Exception ("Invalid SQL")
-        
+      
         query_object=parser.query_object
         
+        if True==self.debug:
+            print(query_object)
         #print  query_object
         #exit(9)
         #get columns, doesnt need a table

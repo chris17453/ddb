@@ -61,6 +61,7 @@ class ddbPrompt(Cmd):
         else:
             self.debug=False
             self.msg("info","Debugging Off")
+        self.engine.debugging(debug=self.debug)
 
     def help_debug(self,inp):
         self.msg("info",'Toggle debugging on or off')
