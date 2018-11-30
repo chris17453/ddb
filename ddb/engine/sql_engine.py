@@ -52,8 +52,8 @@ class sql_engine:
         
         query_object=parser.query_object
         
-        print  query_object
-        exit(9)
+        #print  query_object
+        #exit(9)
         #get columns, doesnt need a table
         if query_object['mode']=="show tables":
             self.results=show_tables(self.database)    

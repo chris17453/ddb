@@ -3,7 +3,7 @@ from ..structure.table import *
 from .language import query_matrix
 import copy 
 
-debug=True
+debug=False
 def info(msg,arg1=None,arg2=None,arg3=None):
     if True == debug:
         print(msg,arg1,arg2,arg3)
