@@ -5,15 +5,18 @@ from colors import *
 def format_string(data,length,fill_character=' ',no_clip=False):
     if None == data:
         data=''
-    data=data.replace('\t','       ')
+        data=data.replace('\t','       ')
+    # because we are splicing strings (no ints etc)
+    data='{}'.format(data)
     if False==no_clip:
         return data[:length-2].ljust(length-2,fill_character)
     else:
         return data.ljust(length-2,fill_character)
 
 def format_data(format='term',width=10,no_clip=False,table=None):
-    try:
-        if None == table:
+    #try:
+
+        if None == table or isinstance(table,list):
             raise Exception("No table to display")
         # defaults
         if None == format:
@@ -65,7 +68,7 @@ def format_data(format='term',width=10,no_clip=False,table=None):
             for line in table.results:
                 columns="{0}|{1}".format(bcolors.OKBLUE,bcolors.ENDC)
                 data_type='data'
-                if len(line) == 1:
+                if len(line) == 1 and True == isinstance(line[0],str):
                     if not line[0]:
                         data_type='whitespace'
                     else:
@@ -75,7 +78,7 @@ def format_data(format='term',width=10,no_clip=False,table=None):
                 if 'data' == data_type:
                     for c in line:
                         #print c
-                        if len(c)>width_per_column-2:
+                        if len('{}'.format(c))>width_per_column-2:
                             wall_color=bcolors.WARNING
                         else:
                             wall_color=bcolors.OKBLUE
@@ -95,10 +98,10 @@ def format_data(format='term',width=10,no_clip=False,table=None):
                     index=0
                     print (header)
             print (header)
-            print ("Error Count: {0}. Results: {1}".format(table.error_count,table.results_length()) )
+            print ("Error Count: {0}. Results: {1}".format(table.error_count(),table.results_length()) )
 
-    except Exception as ex:
-        print "Formatting error: {}".format(ex)
+    #except Exception as ex:
+     #   print "Formatting error: {}".format(ex)
 
 def print_errors(table):
     for e in table.errors:

@@ -320,26 +320,35 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True):
     in_block=None
     block=None
     while c < text_length:
+        #print "-",c
+        just_crossed_block=False
         for b in blocks:
             delimter_len=len(b[0])
+            #print b[0],b[1],c,delimter_len
             fragment=text[c:c+delimter_len]
             # only check for block start if not in one
             if None == in_block:
                 if True == compare_text_fragment(fragment,b[0]):
+                    just_crossed_block=True
+                    #print  "IN BLOCK",c
                     in_block=b
                     block=b
                     c+=delimter_len
-                    continue
+                    #print  "IN BLOCK",c
+                    break
             # check for block end
-            if True == compare_text_fragment(fragment,b[1]):
+            if True == compare_text_fragment(fragment,b[1]) or c==text_length-1:
+                just_crossed_block=True
+                #print  "NOT IN BLOCK",c
                 in_block=None
                 c+=delimter_len
-                continue
+                break
         # skip stuff in block
-        if None != in_block:
-            c+=1
+        if None != in_block :
+            #print "in block skipp"
+            if just_crossed_block==False:
+                c+=1
             continue           
-
         for d in delimiters_sorted:
             delimter_len=len(d)
             fragment=text[c:c+delimter_len]
@@ -368,6 +377,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True):
                 
                 
                 if True == discard_whitespace and fragment in whitespace:
+                    
                     break
                 
                 #if True == discard_delimiters:

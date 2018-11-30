@@ -3,19 +3,20 @@
 
 
 def evaluate_single_match(test,row,table):
+
     compare1=None
     compare2=None
     compare1_is_column=False
     compare2_is_column=False
     if None !=test['condition']:
         test['condition']=test['condition'].lower()
-        
+
     for column in table.columns:
         #print column.data.name
         if column.data.name==test['expression1']:
             #print "found1", column.data.name
             compare1=table.get_data_from_column(column,row)
-            compare1_is_column=True
+            #compare1_is_column=True
         if column.data.name==test['expression2']:
             #print "found2", column.data.name
             compare2=table.get_data_from_column(column,row)
@@ -31,6 +32,7 @@ def evaluate_single_match(test,row,table):
         
     if test['condition']=='=' or test['condition']=='is' :
         if compare1==compare2:
+            #print compare1,compare2
             return True
     if test['condition']=='like':  #paritial match
 
@@ -101,42 +103,37 @@ def evaluate_match(where,row,table):
     if None == row: 
         return False
     if 0 == len(where):
+        #print "0 len"
         return True
     success=None
-    in_condition="and"
     skip_section=False
+    operation=""
     for test in where:
-
+        #print test
         # if a evaluation chain failed, continue until out of that section
-        if True == skip_section:
-            if test['condition'] in {'or','and','not'}:
-                skip_section=False
-            else:
+        if 'and' in test and skip_section==True:
+            continue
+        else:
+            skip_section=False
+           
+        operation=None
+        if 'where' in test:
+            operation='where'
+
+        if 'or' in test:
+            operation='or'
+            if success==True:
+                return True
+        
+        if 'and' in test:
+
+            operation='and'
+            if success==False:
+                skip_section=True
                 continue
 
-        if isinstance(test,list):
-            print "in list"
-            success=evaluate_match(test,row,table)
-        else:
-            if test['condition']=='or':
-                if success==True:
-                    return True
-                in_condition="or"
-                continue
-            
-            if test['condition']=='and':
-                in_condition="and"
-                if success==False:
-                    skip_section=True
-                continue
-            
-            if test['condition']=='not':
-                in_condition='not'
-                continue
-            
-            # evaluator
-            success=evaluate_single_match(test,row,table)
-                    
+        test_operation=test[operation]
+        success=evaluate_single_match(test_operation,row,table)
 
     # never matched anytthing...
     if success==None:

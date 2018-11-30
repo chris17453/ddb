@@ -17,7 +17,6 @@ class table:
         self.active                = True
 
         self.errors=[]
-        self.error_count=0
         self.results=[]
 
         if None != columns:
@@ -81,17 +80,26 @@ class table:
     def column_count(self):
         """Return the column count for this table"""
         return len(self.columns)
-
+    
+    def get_columns(self):
+        """return a list of columns"""
+        columns=[]
+        for column in self.columns:
+            columns.append(column.data.name)
+        return columns
 
     def results_length(self):
         """Return the result set length for this table"""
         return len(self.results)
 
+    def error_count(self):
+        """Return the result set length for this table"""
+        return len(self.errors)
+
 
     def add_error(self,error):
         """Add an error to the list of errors processed this cycle"""
         self.errors.append(error)
-        self.error_count+=1
 
 
     def add_column(self,name,display=None):
@@ -101,6 +109,12 @@ class table:
         column.display.name=display
         self.columns.append(column)
         self.update_ordinals()
+    
+    def get_column_at_data_ordinal(self,ordinal):
+        for c in self.columns:
+            if c.data.ordinal==int(ordinal):
+                return c.data.name
+        return None
 
 
     def has_column(self,column):
@@ -112,6 +126,11 @@ class table:
                 return True
         return False
 
+    def get_ordinal_by_name(self,name):
+        for c in self.columns:
+            if c.data.name==name:
+                return c.data.ordinal
+        return None
 
     def column_ordinals(self):
         temp_columns=[]
@@ -283,6 +302,8 @@ class table_delimiters:
         self.error="#"
         self.block_quote=None
         self.comment=["#",";","/"]        
+        # TODO hard coding this for a moment... must think
+        self.new_line="\n" 
         if None != yaml:
             if 'field' in yaml:
                 self.field=yaml['field']
