@@ -46,6 +46,11 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 - Right now this is a POC, complex operations are not supported, but are in the works.
 - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
+### TODO
+- curses browser for results
+- token sanitization on open ended block as end of string
+- unit testing
+
 
 ### Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
