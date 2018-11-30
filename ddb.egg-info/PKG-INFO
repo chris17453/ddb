@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: ddb
-Version: 1.0.15
+Version: 1.0.16
 Summary: UNKNOWN
 Home-page: https://github.com/chris17453/ddb/
 Author: Charles Watkins
@@ -54,6 +54,9 @@ Description: # ddb
         - Right now this is a POC, complex operations are not supported, but are in the works.
         - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
         
+        
+        ### Demo
+        ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
         
         
 Platform: UNKNOWN

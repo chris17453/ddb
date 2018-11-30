@@ -18,6 +18,7 @@ ddb/engine/formatting/colors.py
 ddb/engine/formatting/formatting.py
 ddb/engine/functions/__init__.py
 ddb/engine/parser/__init__.py
+ddb/engine/parser/language.py
 ddb/engine/parser/sql_parser.py
 ddb/engine/structure/__init__.py
 ddb/engine/structure/column.py
