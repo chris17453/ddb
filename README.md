@@ -5,14 +5,18 @@
 ## Install
 ```
 pip install ddb
-# OR
+```
+OR
+```
 pipenv install ddb
 ```
 
 ### Commandline interface
 ```
 ddb
-# OR
+```
+OR
+```
 ddb --config-dir --query 'select * from `tablename` where column=value limit 0,10'
 ```
 
@@ -29,8 +33,8 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 
 
 ### Query support
-- Query support is limited. As needed I'll improve the system.
-- If you're doing vastly comlicated things, it shouldn't be with a flat file.
+- Query support is limited. I'll improve the system as needed.
+- If you're doing vastly complicated things, it shouldn't be with a flat file.
 - This code is slow. It will be refactored, but not until more support is added.
 
 
@@ -43,7 +47,7 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 - SHOW TABLES
 
 ### Not supported
-- Right now this is a POC, complex operations are not supported, but are in the works.
+- Right now this is a PoC, complex operations are not supported, but are in the works.
 - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
 ### TODO
