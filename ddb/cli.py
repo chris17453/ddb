@@ -38,8 +38,8 @@ def cli_main():
             #print results.results
             #if True == args.show_errors:
             args.columns=results
-            config=flextable.config.table_config()
-            config.set_columns(results.get_columns())
+            config=flextable.table_config()
+            config.columns=results.get_columns()
             flextable.table(data=results.results,args=config)
 
     else:

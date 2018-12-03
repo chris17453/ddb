@@ -9,7 +9,6 @@ name = "pypi"
 pip = "==18"
 pyyaml = "*"
 bumpversion = "*"
-delimiteddb = {path = "."}
 ddb = {path = "."}
 flextable = {path = "./../flextable"}
 

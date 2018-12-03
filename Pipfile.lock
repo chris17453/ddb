@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c83a515c7459218e0752d088ae901d5b0a3fdfe4a73db9637dae035ce21764ab"
+            "sha256": "f87fe70d5359505a3b002cd9ea378ef7c46328bdcb9d866290067818a13e3753"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -25,9 +25,6 @@
             "version": "==0.5.3"
         },
         "ddb": {
-            "path": "."
-        },
-        "delimiteddb": {
             "path": "."
         },
         "flextable": {

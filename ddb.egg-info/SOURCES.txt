@@ -13,9 +13,9 @@ ddb/engine/interactive.py
 ddb/engine/sql_engine.py
 ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.py
-ddb/engine/formatting/__init__.py
-ddb/engine/formatting/colors.py
-ddb/engine/formatting/formatting.py
+ddb/engine/formatting.old/__init__.py
+ddb/engine/formatting.old/colors.py
+ddb/engine/formatting.old/formatting.py
 ddb/engine/functions/__init__.py
 ddb/engine/parser/__init__.py
 ddb/engine/parser/language.py
