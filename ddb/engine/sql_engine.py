@@ -77,7 +77,7 @@ class sql_engine:
             self.results=show_columns(self.database,parser)
         #if query_object['mode']=="show errors":
         #    self.results=show_errors(self.database,self.table)
-
+        print query_object
         if query_object['mode']=='select':
             self.results=self.select(parser)
 
@@ -163,7 +163,7 @@ class sql_engine:
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
     def select(self,parser):
-        try:
+        #try:
             temp_data=[]
             query_object=parser.query_object
             table_name=query_object['meta']['from']['table']
@@ -235,7 +235,7 @@ class sql_engine:
             
             temp_table.results=self.limit(temp_data,limit_start,limit_length)
             return temp_table
-        except Exception as ex:
+        #except Exception as ex:
             
             print (ex)
             #exit(1)

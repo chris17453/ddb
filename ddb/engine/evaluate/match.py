@@ -10,13 +10,12 @@ def evaluate_single_match(test,row,table):
     compare2_is_column=False
     if None !=test['condition']:
         test['condition']=test['condition'].lower()
-
     for column in table.columns:
         #print column.data.name
         if column.data.name==test['expression1']:
             #print "found1", column.data.name
             compare1=table.get_data_from_column(column,row)
-            #compare1_is_column=True
+            compare1_is_column=True
         if column.data.name==test['expression2']:
             #print "found2", column.data.name
             compare2=table.get_data_from_column(column,row)
@@ -46,6 +45,12 @@ def evaluate_single_match(test,row,table):
             like=compare1
             data=compare2
 
+        if None == like:
+            return False
+        #if len(like)==0:
+        #    return False
+        #print "--"
+        #print compare1,compare2,like
         if like[0]=='%':
             like_left=True
         else:

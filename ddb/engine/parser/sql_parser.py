@@ -131,9 +131,11 @@ class sql_parser:
 
 
                 if isinstance(switch['name'],list):
-                    object_id=' '.join([str(x) for x in switch['name'] ]) 
+                    object_id=' '.join([str(x) for x in switch['name'] ])
+                    object_id=object_id.lower()
                 else:
                     object_id=switch['name']
+                    object_id=object_id.lower()
 
                 if False == no_keyword:
                     keyword_compare=self.get_sub_array(switch,'name')
