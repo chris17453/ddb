@@ -11,6 +11,7 @@ pyyaml = "*"
 bumpversion = "*"
 delimiteddb = {path = "."}
 ddb = {path = "."}
+flextable = {path = "./../flextable"}
 
 [requires]
 python_version = "2.7"

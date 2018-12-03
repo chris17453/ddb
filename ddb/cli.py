@@ -1,7 +1,10 @@
 import argparse
 from engine.sql_engine  import sql_engine
 from engine.interactive import ddbPrompt
-from engine.formatting import format_data
+import tempfile
+import flextable
+
+
 def cli_main():
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]'
                     ,description=
@@ -27,11 +30,17 @@ def cli_main():
             config_dir="."
         else:
             config_dir=args.config_dir
-        e=sql_engine(database_dir=config_dir,debug=args.debug)
-        results=e.query(args.query)
-        #if True == args.show_errors:
-            
-        format_data(no_clip=args.term_no_clip,width=args.term_width,format=args.format,table=results)
+
+            temp = tempfile.TemporaryFile() #2
+
+            e=sql_engine(database_dir=config_dir,debug=args.debug)
+            results=e.query(args.query)
+            #print results.results
+            #if True == args.show_errors:
+            args.columns=results
+            config=flextable.config.table_config()
+            config.set_columns(results.get_columns())
+            flextable.table(data=results.results,args=config)
 
     else:
         # interactive session

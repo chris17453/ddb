@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c11c530cb746fefd798aae6f91df4fabdbdac97438fe63fdff702ca67b8e369a"
+            "sha256": "c83a515c7459218e0752d088ae901d5b0a3fdfe4a73db9637dae035ce21764ab"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -29,6 +29,9 @@
         },
         "delimiteddb": {
             "path": "."
+        },
+        "flextable": {
+            "path": "./../flextable"
         },
         "pyyaml": {
             "hashes": [

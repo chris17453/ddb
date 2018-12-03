@@ -2,13 +2,13 @@ import os
 import json
 import copy
 from .parser.sql_parser  import sql_parser
-from .formatting.colors import bcolors
 from .structure.table import table
 from .structure.database import database
 from .structure.column import column_v2
 from .evaluate.match import evaluate_match
 from .functions import *
 import operator
+import flextable
 
 #from table import table
 import tempfile
@@ -20,7 +20,13 @@ import tempfile
 # Fix errors
 # Add Update
 
+def enum(**enums):
+    return type('Enum', (), enums)
+
+
 class sql_engine:
+    data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
+
     def __init__(self,database_dir,query=None,debug=False):
      
         self.debug=debug
@@ -109,19 +115,21 @@ class sql_engine:
         column_len=query_object['table'].column_count()
         line_cleaned=line.rstrip()
         line_data=None
-        if query_object['table'].data.starts_on_line<line_number:
-            line_type='comment'
+        if query_object['table'].data.starts_on_line>line_number:
+            line_type=self.data_type.COMMENT
+            line_data=line
+            #print query_object['table'].data.starts_on_line,line_number
         else:
-            line_type='data'
+            line_type=self.data_type.DATA
         if not line_cleaned.rstrip():
             if True == query_object['table'].visible.whitespace:
                 line_data=['']
-            line_type='whitespace'
+            line_type=self.data_type.WHITESPACE
         else:
             if line_cleaned[0] in query_object['table'].delimiters.comment:
                 if True == query_object['table'].visible.comments:
                     line_data=[line_cleaned]
-                line_type='comments'
+                line_type=self.data_type.COMMENT
             else:
                 line_data=line_cleaned.split(query_object['table'].delimiters.field)
                 cur_column_len=len(line_data)
@@ -131,13 +139,14 @@ class sql_engine:
                     else:
                         err="Table {2}: Line #{0}, missing {1} Column(s)".format(line_number,column_len-cur_column_len,query_object['table'].data.name)
                     #query_object['table'].add_error(err)
+                    line_type=self.data_type.ERROR
                     
                     #turn error into coment
                     if True == query_object['table'].visible.errors:
                         line_data=line_cleaned
                     else:
                         line_data=None
-                    line_type='error'
+                    line_type=self.data_type.ERROR
                 # fields are surrounded by something... trim
                 #print self.table.delimiters.block_quote
                 if None != query_object['table'].delimiters.block_quote:
@@ -151,7 +160,6 @@ class sql_engine:
         else:
             match_results=evaluate_match(query_object['meta']['where'],line_data,query_object['table'])
         
-                    
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
     def select(self,parser):
@@ -193,7 +201,7 @@ class sql_engine:
                         restructured_line=[]
                         for c in query_object['meta']['select']:
                             restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
-                        temp_data.append(restructured_line)
+                        temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
             
         
             # file is closed at this point
@@ -286,7 +294,8 @@ class sql_engine:
                             continue
                         temp_file.write(processed_line['raw'])
             
-            temp_table.results=[[deleted]]
+            return {'data':[deleted],type:'data','error':None}
+            temp_table.results=[data]
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
             return temp_table
@@ -332,7 +341,8 @@ class sql_engine:
                         inserted+=1
 
             
-            temp_table.results=[[inserted]]
+            data= {'data':[inserted],type:'data','error':None}
+            temp_table.results=[data]
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
             return temp_table
@@ -375,9 +385,9 @@ class sql_engine:
                         temp_file.write(query_object['table'].delimiters.new_line)
                     temp_file.write(new_line+query_object['table'].delimiters.new_line)
         if False==err:
-            return True
+            return {'data':[False],type:'data','error':None}
         else:
-            return False
+            return {'data':[True],type:'data','error':None}
         
 
     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):
@@ -417,9 +427,9 @@ class sql_engine:
                 temp_file.write(query_object['table'].delimiters.new_line)
             temp_file.write(new_line+query_object['table'].delimiters.new_line)
         if False==err:
-            return True
+            return {'data':[False],type:'data','error':None}
         else:
-            return False
+            return {'data':[True],type:'data','error':None}
         
 
 
@@ -456,7 +466,7 @@ class sql_engine:
                             continue
                         temp_file.write(processed_line['raw'])
             
-            temp_table.results=[[updated]]
+            temp_table.results=[updated]
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
             return temp_table

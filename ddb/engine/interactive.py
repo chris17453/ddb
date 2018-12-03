@@ -4,8 +4,7 @@ from cmd import Cmd
 from .structure.table import table
 from .structure.database import database
 from sql_engine  import sql_engine
-from .formatting.colors import bcolors
-from .formatting.formatting import format_data
+import flextable
 
 
 class ddbPrompt(Cmd):
