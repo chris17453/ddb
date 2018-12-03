@@ -77,7 +77,7 @@ class sql_engine:
             self.results=show_columns(self.database,parser)
         #if query_object['mode']=="show errors":
         #    self.results=show_errors(self.database,self.table)
-        print query_object
+        #print query_object
         if query_object['mode']=='select':
             self.results=self.select(parser)
 
