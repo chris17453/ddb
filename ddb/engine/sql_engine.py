@@ -163,7 +163,7 @@ class sql_engine:
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
     def select(self,parser):
-        #try:
+        try:
             temp_data=[]
             query_object=parser.query_object
             table_name=query_object['meta']['from']['table']
@@ -235,7 +235,7 @@ class sql_engine:
             
             temp_table.results=self.limit(temp_data,limit_start,limit_length)
             return temp_table
-        #except Exception as ex:
+        except Exception as ex:
             
             print (ex)
             #exit(1)
@@ -252,10 +252,10 @@ class sql_engine:
 
 
             #%print x[ordinal],y[ordinal],-1
-            if x[ordinal]==y[ordinal]:
+            if x['data'][ordinal]==y['data'][ordinal]:
                 continue
             
-            if x[ordinal]<y[ordinal]:
+            if x['data'][ordinal]<y['data'][ordinal]:
                 return -1*direction
             else:
                 return 1*direction
@@ -294,8 +294,8 @@ class sql_engine:
                             continue
                         temp_file.write(processed_line['raw'])
             
-            return {'data':[deleted],type:'data','error':None}
-            temp_table.results=[data]
+            data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
+            temp_table.append_data(data)
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
             return temp_table
@@ -341,10 +341,11 @@ class sql_engine:
                         inserted+=1
 
             
-            data= {'data':[inserted],type:'data','error':None}
-            temp_table.results=[data]
+            data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
+            temp_table.append_data(data)
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
+            #print temp_table.errors
             return temp_table
         
         except Exception as ex:
@@ -385,9 +386,9 @@ class sql_engine:
                         temp_file.write(query_object['table'].delimiters.new_line)
                     temp_file.write(new_line+query_object['table'].delimiters.new_line)
         if False==err:
-            return {'data':[False],type:'data','error':None}
+            return True
         else:
-            return {'data':[True],type:'data','error':None}
+            return False
         
 
     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):
@@ -427,9 +428,9 @@ class sql_engine:
                 temp_file.write(query_object['table'].delimiters.new_line)
             temp_file.write(new_line+query_object['table'].delimiters.new_line)
         if False==err:
-            return {'data':[False],type:'data','error':None}
+            return True
         else:
-            return {'data':[True],type:'data','error':None}
+            return False
         
 
 
@@ -465,8 +466,9 @@ class sql_engine:
                                 updated+=1
                             continue
                         temp_file.write(processed_line['raw'])
-            
-            temp_table.results=[updated]
+            data= {'data':[updated],'type':self.data_type.DATA,'error':None}
+
+            temp_table.append_data(data)
             os.remove(parser.query_object['table'].data.path)
             os.rename(temp_file_name,parser.query_object['table'].data.path)
             return temp_table

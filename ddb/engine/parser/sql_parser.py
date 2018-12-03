@@ -136,7 +136,7 @@ class sql_parser:
                 else:
                     object_id=switch['name']
                     object_id=object_id.lower()
-
+                info("------",object_id,token_index)
                 if False == no_keyword:
                     keyword_compare=self.get_sub_array(switch,'name')
                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
@@ -172,6 +172,7 @@ class sql_parser:
                     if dispose != True:
                         info("----------Adding",curent_object['mode'])
                         query_object[curent_object['mode']]=None
+                    
                     
                 # This is where data colection happens
                 else:
@@ -337,6 +338,7 @@ class sql_parser:
                                         token_index+=1
             
             # This is where we exit if we reached the end of processing with a full length
+            #print token_index,len(tokens) 
             info(token_index,len(tokens))
             info (query_object)
             if token_index==len(tokens):

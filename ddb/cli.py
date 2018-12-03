@@ -31,13 +31,12 @@ def cli_main():
         else:
             config_dir=args.config_dir
 
-            temp = tempfile.TemporaryFile() #2
+            #temp = tempfile.TemporaryFile() #2
 
             e=sql_engine(database_dir=config_dir,debug=args.debug)
             results=e.query(args.query)
             #print results.results
             #if True == args.show_errors:
-            args.columns=results
             config=flextable.table_config()
             config.columns=results.get_columns()
             flextable.table(data=results.results,args=config)
