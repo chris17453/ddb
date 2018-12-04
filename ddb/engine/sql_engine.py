@@ -109,14 +109,14 @@ class sql_engine:
         
         #only return last command
         if None != self.results:
+            if self.mode=='full':
+                return self.results 
+
             if self.mode=='array':
                 new_array=[]
                 for line in self.results:
                     new_array.append(line['data'])
                 return new_array
-
-            if self.mode=='full':
-                return self.results #TODO Fix
 
             if self.mode=='object':
                 new_array=[]
@@ -130,7 +130,6 @@ class sql_engine:
                         new_dict[columns[i]]=line['data'][i]
                     new_array.append(new_dict)
                 return new_array 
-
 
         return None
     
