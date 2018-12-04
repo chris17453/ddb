@@ -9,7 +9,7 @@ def evaluate_single_match(test,row,table):
     compare1_is_column=False
     compare2_is_column=False
 
-    comparitor=comparitor
+    comparitor=test['c']
 
 
     if None !=comparitor:
