@@ -135,7 +135,9 @@ class sql_engine:
     
 
     def change_database(self,database_name):
-        results=self.query("use {}".format(database_name))
+        query="use {}".format(database_name)
+        print query
+        results=self.query(query)
         if None==results:
             return False
         return True
