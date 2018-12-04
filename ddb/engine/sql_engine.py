@@ -122,7 +122,7 @@ class sql_engine:
 
                 if self.mode=='object':
                     new_array=[]
-                    columns=results.get_columns()
+                    columns=self.results.get_columns()
                     len_col=len(columns)
                     for line in self.results.results:
                         new_dict=[]
