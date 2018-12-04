@@ -12,8 +12,9 @@ def evaluate_single_match(test,row,table):
     comparitor=test['c']
 
 
-    if None !=comparitor:
-        comparitor=comparitor.lower()
+    #if None !=comparitor:
+    #   comparitor=comparitor.lower()
+
     for column in table.columns:
         #print column.data.name
         if column.data.name==test['e1']:

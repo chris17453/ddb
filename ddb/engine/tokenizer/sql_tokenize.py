@@ -406,7 +406,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
 
      
                 info(c,fragment)
-                tokens.append({'type':delimiter_type,'data':fragment})
+                tokens.append({'type':delimiter_type,'data':fragment.lower()})
                 break
         c+=delimter_len
     
