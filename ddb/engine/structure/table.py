@@ -201,7 +201,7 @@ class table:
             return
 
         column_count=len(self.columns)
-        has_ordinal=[i for i in range(column_count)]
+        #has_ordinal=[i for i in range(column_count)]
 
         self.ordinals={}
         for k,v in enumerate(self.columns):
@@ -209,7 +209,9 @@ class table:
 
                 #print (self.columns[k].data.ordinal)
                 self.columns[k].data.ordinal=self.get_lowest_available_ordinal()
-                self.ordinals[self.columns[k].data.name]=self.columns[k].data.ordinal
+                self.ordinals[v.data.name]=self.columns[k].data.ordinal
+            else:
+                self.ordinals[v.data.name]=v.data.ordinal
         
         ## create lookup hash
         #for i in range (0,column_count):
