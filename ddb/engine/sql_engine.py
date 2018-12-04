@@ -111,32 +111,33 @@ class sql_engine:
         if None != self.results:
             if self.mode=='full':
                 return self.results 
+            
+            #if the result set it not empty
+            if None !=self.results.results:
+                if self.mode=='array':
+                    new_array=[]
+                    for line in self.results.results:
+                        new_array.append(line['data'])
+                    return new_array
 
-            if self.mode=='array':
-                new_array=[]
-                for line in self.results:
-                    new_array.append(line['data'])
-                return new_array
-
-            if self.mode=='object':
-                new_array=[]
-                columns=query_object['table'].get_columns()
-                len_col=len(columns)
-                for line in self.results:
-                    new_dict=[]
-                    for i in range(0,len_col):
-                        if len(line['data'])<i:
-                            break
-                        new_dict[columns[i]]=line['data'][i]
-                    new_array.append(new_dict)
-                return new_array 
+                if self.mode=='object':
+                    new_array=[]
+                    columns=query_object['table'].get_columns()
+                    len_col=len(columns)
+                    for line in self.results.results:
+                        new_dict=[]
+                        for i in range(0,len_col):
+                            if len(line['data'])<i:
+                                break
+                            new_dict[columns[i]]=line['data'][i]
+                        new_array.append(new_dict)
+                    return new_array 
 
         return None
     
 
     def change_database(self,database_name):
         query="use {}".format(database_name)
-        print query
         results=self.query(query)
         if None==results:
             return False
