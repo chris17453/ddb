@@ -8,32 +8,32 @@ def evaluate_single_match(test,row,table):
     compare2=None
     compare1_is_column=False
     compare2_is_column=False
-    if None !=test['condition']:
-        test['condition']=test['condition'].lower()
+    if None !=test['c']:
+        test['c']=test['c'].lower()
     for column in table.columns:
         #print column.data.name
-        if column.data.name==test['expression1']:
+        if column.data.name==test['e1']:
             #print "found1", column.data.name
             compare1=table.get_data_from_column(column,row)
             compare1_is_column=True
-        if column.data.name==test['expression2']:
+        if column.data.name==test['e2']:
             #print "found2", column.data.name
             compare2=table.get_data_from_column(column,row)
             compare2_is_column=True
         if None !=compare1 and None != compare2:
             break
     if None == compare1:
-        compare1=test['expression1']
+        compare1=test['e1']
     if None == compare2:
-        compare2=test['expression2']
+        compare2=test['e2']
     if None == compare1 and None == compare2:
         raise Exception("Where invalid {}".format(test))
         
-    if test['condition']=='=' or test['condition']=='is' :
+    if test['c']=='=' or test['c']=='is' :
         if compare1==compare2:
             #print compare1,compare2
             return True
-    if test['condition']=='like':  #paritial match
+    if test['c']=='like':  #paritial match
 
         if True == compare1_is_column and  True == compare2_is_column:
             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
@@ -84,19 +84,19 @@ def evaluate_single_match(test,row,table):
         
         
         return False
-    if test['condition']=='<' :
+    if test['c']=='<' :
         if compare1<compare2:
             return True
-    if test['condition']=='>' :
+    if test['c']=='>' :
         if compare1>compare2:
             return True
-    if test['condition']=='>=' :
+    if test['c']=='>=' :
         if compare1>=compare2:
             return True
-    if test['condition']=='<=' :
+    if test['c']=='<=' :
         if compare1<=compare2:
             return True
-    if test['condition']=='!=' or test['condition']=='<>' or test['condition']=='not':
+    if test['c']=='!=' or test['c']=='<>' or test['c']=='not':
         if compare1!=compare2:
             return True
 
