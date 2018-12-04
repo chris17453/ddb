@@ -48,8 +48,21 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 
 ### TODO
 - curses browser for results
-- token sanitization on open ended block as end of string
 - unit testing
+
+### Examples
+
+# SELECT
+# UPDATE
+# INSERT
+# DELETE
+# CONFIG
+```
+```
+
+
+
+
 
 
 ### Demo

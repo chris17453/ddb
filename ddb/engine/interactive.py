@@ -32,18 +32,19 @@ class ddbPrompt(Cmd):
                 self.help_exit("")
 
     def set_vars(self,
-                 database,
-                 debug,
-                 no_clip,
-                 width ,
-                 format):
+                 database=None,
+                 config_file=None,
+                 debug=False,
+                 no_clip=False,
+                 width ='auto',
+                 format='term'):
         if debug==None:
             debug=False
         self.debug=debug
         self.no_clip=no_clip
         self.width=width
         self.format=format
-        self.engine=sql_engine(database,debug=self.debug)
+        self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug)
 
     def msg(self,type,name,message=''):
         if type=='info':

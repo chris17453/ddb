@@ -103,7 +103,9 @@ class sql_parser:
             keyword_found=False
             switch_index=0
             query_mode=None
-            while switch_index<len(query['switch']):
+            while switch_index<len(query['switch']) and token_index<len(tokens):
+                
+                info("token",token_index,tokens[token_index])
                 switch=query['switch'][switch_index]
                 switch_index+=1
                 curent_object={}
@@ -147,7 +149,7 @@ class sql_parser:
                         # as long as the compare is good, we dont care
                         curent_object['mode']=object_id
                         if switch_index==1:
-                            query_mode=object_id
+                            query_mode=query['query']
                         keyword_found=True
                     else:
                         if False == optional:
@@ -339,9 +341,38 @@ class sql_parser:
             
             # This is where we exit if we reached the end of processing with a full length
             #print token_index,len(tokens) 
-            info(token_index,len(tokens))
+            info(switch_index,token_index,len(tokens))
+            
             info (query_object)
+            #so we have run out of text to match and everything is good so far
             if token_index==len(tokens):
+                info("############################think its a match")
+               
+                if 'arguments' not in curent_object and 'arguments' in switch:
+                    info("Missing argument in last element")
+                    bad=True
+                    break
+
+                #lets make sure the rest are optional
+                if len(query['switch'])>=switch_index:
+                    info("still checking")
+                    bad=False
+                    for t in  range(switch_index,len(query['switch'])):
+                        if 'optional' not in query['switch'][t]:
+                            bad=True
+                            break
+                        else:
+                            if  query['switch'][t]['optional']!=True:
+                                bad=True
+                                break
+                        
+                    
+
+                    if True == bad:
+                        info("Not successful. required arguments missing")
+                        break
+                  
+                    
                 info("SUCCESS")
                 sql_object={'mode':query_mode,'meta':query_object}
                 return sql_object

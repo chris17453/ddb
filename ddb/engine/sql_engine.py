@@ -15,6 +15,12 @@ import tempfile
 
 
 #
+
+debug_on=False
+def info(msg,arg1=None,arg2=None,arg3=None):
+    if True == debug_on:
+        print(msg,arg1,arg2,arg3)
+
 # Fix delete
 # Add insert
 # Fix errors
@@ -27,11 +33,12 @@ def enum(**enums):
 class sql_engine:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
 
-    def __init__(self,database_dir,query=None,debug=False):
-     
+    def __init__(self,database_dir=None,config_file=None,query=None,debug=False):
+        global debug_on
+        debug_on=debug
         self.debug=debug
         self.results=None
-        self.database=database(database_dir)
+        self.database=database(directory=database_dir,config_file=config_file)
         if None !=query:
             self.query(query)
     
@@ -89,6 +96,16 @@ class sql_engine:
            
         if query_object['mode']=='delete':
             self.results=self.delete(parser)
+
+        if query_object['mode']=='use':
+            self.current_database=self.use(parser)
+
+        if query_object['mode']=='drop table':
+            self.results=self.drop_table(parser)
+
+        info(query_object)
+        if query_object['mode']=='create table':
+            self.results=self.create_table(parser)
         if None != self.results:
             return self.results #TODO Fix
         return []
@@ -477,6 +494,45 @@ class sql_engine:
             
             print (ex)
 
+
+    def use(self,parser):
+        info("Use")
+        self.current_database=parser.query_object['meta']['use']['table']
+        temp_table=self.database.temp_table()
+        temp_table.add_column('changed_db')
+        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        temp_table.append_data(data)
+        return temp_table                
+
+    
+    def create_table(self,parser):
+        info("Create Table")
+        self.current_database=parser.query_object['meta']['create']['table']
+        temp_table=self.database.temp_table()
+        
+        columns=[]
+        for c in parser.query_object['meta']['columns']:
+            columns.append(c['column'])
+
+        self.database.create_table(database_name=self.current_database,
+                                   table_name=parser.query_object['meta']['create']['table'],
+                                   columns=columns,
+                                   data_file=parser.query_object['meta']['file']['file'])
+
+        temp_table.add_column('create table')
+        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        temp_table.append_data(data)
+        return temp_table
+
+
+    def drop_table(self,parser):
+        info("Drop Table")
+        temp_table=self.database.temp_table()
+        self.database.drop_table(self.current_database,parser.query_object['meta']['table']['table'])
+        
+        temp_table.add_column('dropped')
+        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        temp_table.append_data(data)
   
                 
 

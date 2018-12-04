@@ -1,24 +1,24 @@
 import sys
 import yaml
 import os
+import os
 from column import *
 
-        
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,columns=None,name=None):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
         self.visible               = table_visible_attributes()
-        self.data                  = table_data(name=name) 
+        self.data                  = table_data(name=name,database=database) 
         self.columns               = []
         self.active                = True
 
         self.errors=[]
         self.results=[]
-
+        
         if None != columns:
             for column in columns:
                 self.add_column(column)
@@ -224,7 +224,33 @@ class table:
         #    else:
         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
             
+    def save(self):
+        home = os.path.expanduser("~")
+        #make app dir
+        if not os.path.exists(os.path.join(home, '.ddb')):
+           os.makedirs(os.path.join(home, '.ddb'))
+
+        home=os.path.join(home, '.ddb')
+        if None == self.data.name:
+            raise Exception ("Cannot save a table without a name")
+
+        if None == self.data.database:
+            raise Exception ("Cannot save a table without a database name")
             
+        if not os.path.exists(os.path.join(home, self.data.database)):
+            os.makedirs(os.path.join(home, self.data.database))
+
+        home=os.path.join(home, self.data.database)
+        if None == self.data.path:
+            self.data.path=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
+
+        with open(self.data.path, 'w') as stream:
+            yaml.emitter.Emitter.process_tag = self.noop
+            yaml.dump(self,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True,stream=stream)
+            stream.close()
+
+        
+      
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
@@ -246,8 +272,9 @@ class table_visible_attributes:
 class table_data:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,yaml=None,name=None):
+    def __init__(self,yaml=None,name=None,database=None):
         self.name           = None
+        self.database       = 'main'
         self.display_name   = None
         self.multi_search   = True
         self.starts_on_line = 0
@@ -257,10 +284,15 @@ class table_data:
         self.ordinal        = -1
         if None != name:
             self.name=name
+        
+        if None != database:
+            self.database=database
 
         if None != yaml:
             if 'name' in yaml:
                 self.name=yaml['name']
+            if 'database' in yaml:
+                self.database=yaml['database']
             if 'display_name' in yaml:
                 self.display_name=yaml['display_name']
             if 'multi_search' in yaml:
