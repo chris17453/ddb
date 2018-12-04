@@ -44,7 +44,7 @@ class ddbPrompt(Cmd):
         self.no_clip=no_clip
         self.width=width
         self.format=format
-        self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug)
+        self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
 
     def msg(self,type,name,message=''):
         if type=='info':

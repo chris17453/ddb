@@ -59,9 +59,9 @@ def cli_main():
     
     if None != args.query:
         if None != args.config:
-            e=sql_engine(database_dir=args.config,debug=args.debug)
+            e=sql_engine(database_dir=args.config,debug=args.debug,mode="full")
         else:
-            e=sql_engine(config_file=config_file,debug=args.debug)
+            e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
             results=e.query(args.query)
             if results!=None:
                 config=flextable.table_config()
