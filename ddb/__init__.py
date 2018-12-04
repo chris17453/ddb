@@ -1,5 +1,6 @@
 from cli import cli_main
-from os.path import expanduser
+import os
+
 
 from .engine.sql_engine import sql_engine
 
@@ -7,7 +8,7 @@ from .engine.sql_engine import sql_engine
 def engine(config_file=None):
 
     if None==config_file:
-        home = expanduser("~")
+        home = os.path.expanduser("~")
         config_file=os.path.join(os.path.join(home, '.ddb'),'ddb.conf')
     return sql_engine(config_file=config_file)
 
