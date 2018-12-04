@@ -16,7 +16,7 @@ def evaluate_single_match(test,row,table):
     #   comparitor=comparitor.lower()
 
     
-    for 
+     
     for column in table.columns:
         index=table.ordinals[column.data.name]
         #print column.data.name
