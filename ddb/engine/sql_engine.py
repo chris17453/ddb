@@ -39,6 +39,7 @@ class sql_engine:
         self.debug=debug
         self.results=None
         self.database=database(directory=database_dir,config_file=config_file)
+        self.current_database=self.database.get_default_database()
         if None !=query:
             self.query(query)
     
@@ -63,53 +64,59 @@ class sql_engine:
     def query(self,sql_query):
         if False==self.has_configuration():
             raise Exception("No table found")
-        
-        
+        self.results=None
         parser=sql_parser(sql_query,self.debug)
-        if False == parser.query_object:
+        if False == parser.query_objects:
             raise Exception ("Invalid SQL")
       
-        query_object=parser.query_object
+        for query_object in parser.query_objects:
+            
+            if True==self.debug:
+                print(query_object)
+            #print  query_object
+            #exit(9)
+            #get columns, doesnt need a table
+            #print query_object['mode']
+            if query_object['mode']=="show tables":
+
+                self.results=show_tables(self.database)    
+            if query_object['mode']=="show columns":
+                self.results=show_columns(self.database,query_object)
+            #if query_object['mode']=="show errors":
+            #    self.results=show_errors(self.database,self.table)
+            #print query_object
+            if query_object['mode']=='select':
+                self.results=self.select(query_object,parser)
+
+            if query_object['mode']=='insert':
+                self.results=self.insert(query_object)
+
+            if query_object['mode']=='update':
+                self.results=self.update(query_object)
+            
+            if query_object['mode']=='delete':
+                self.results=self.delete(query_object)
+
+            if query_object['mode']=='use':
+                self.results=self.use(query_object)
+
+            if query_object['mode']=='drop table':
+                self.results=self.drop_table(query_object)
+
+            if query_object['mode']=='create table':
+                self.results=self.create_table(query_object)
         
-        if True==self.debug:
-            print(query_object)
-        #print  query_object
-        #exit(9)
-        #get columns, doesnt need a table
-        #print query_object['mode']
-        if query_object['mode']=="show tables":
-
-            self.results=show_tables(self.database)    
-        if query_object['mode']=="show columns":
-            self.results=show_columns(self.database,parser)
-        #if query_object['mode']=="show errors":
-        #    self.results=show_errors(self.database,self.table)
-        #print query_object
-        if query_object['mode']=='select':
-            self.results=self.select(parser)
-
-        if query_object['mode']=='insert':
-            self.results=self.insert(parser)
-
-        if query_object['mode']=='update':
-            self.results=self.update(parser)
-           
-        if query_object['mode']=='delete':
-            self.results=self.delete(parser)
-
-        if query_object['mode']=='use':
-            self.current_database=self.use(parser)
-
-        if query_object['mode']=='drop table':
-            self.results=self.drop_table(parser)
-
-        info(query_object)
-        if query_object['mode']=='create table':
-            self.results=self.create_table(parser)
+        #only return last command
         if None != self.results:
             return self.results #TODO Fix
-        return []
+        return None
     
+
+    def change_database(self,database_name):
+        results=self.query("USE {}".format(database_name))
+        if None==results.query_objects:
+            return False
+        return True
 
 
     def limit(self,data_stream,index,length):
@@ -179,23 +186,23 @@ class sql_engine:
         
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
-    def select(self,parser):
+    def select(self,query_object,parser):
         try:
             temp_data=[]
-            query_object=parser.query_object
             table_name=query_object['meta']['from']['table']
-            parser.query_object['table']=self.database.get(table_name)
-            parser.expand_columns(parser.query_object['table'].get_columns())
+            query_object['table']=self.database.get(table_name)
+            table_columns=query_object['table'].get_columns()                      
+            parser.expand_columns(query_object,table_columns)
             column_len=query_object['table'].column_count()
             if column_len==0:
                 raise Exception("No defined columns in configuration")
          
             temp_table=self.database.temp_table()
-            for c in  query_object['meta']['select']:
+            for column in  query_object['meta']['select']:
                 display=None
-                if 'display' in c:
-                    display=c['display']
-                temp_table.add_column(c['column'],display)
+                if 'display' in column:
+                    display=column['display']
+                temp_table.add_column(column['column'],display)
 
             
             line_number=1
@@ -254,7 +261,7 @@ class sql_engine:
             return temp_table
         except Exception as ex:
             
-            print (ex)
+            print ("Select",ex)
             #exit(1)
     
     
@@ -285,11 +292,10 @@ class sql_engine:
     # puts the raw original lines in temp file
     # ignores matches
     # File is as untouched as possible
-    def delete(self,parser):
+    def delete(self,query_object):
         try:
-            query_object=parser.query_object
             table_name=query_object['meta']['from']['table']
-            parser.query_object['table']=self.database.get(table_name)
+            query_object['table']=self.database.get(table_name)
 
             temp_table=self.database.temp_table()
             temp_table.add_column('deleted')
@@ -298,7 +304,7 @@ class sql_engine:
             line_number=1
             deleted=0
             # process file
-            with open(parser.query_object['table'].data.path, 'r') as content_file:
+            with open(query_object['table'].data.path, 'r') as content_file:
                 with open(temp_file_name, 'w') as temp_file:
                     for line in content_file:
                         processed_line=self.process_line(query_object,line,line_number)
@@ -313,8 +319,8 @@ class sql_engine:
             
             data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
             temp_table.append_data(data)
-            os.remove(parser.query_object['table'].data.path)
-            os.rename(temp_file_name,parser.query_object['table'].data.path)
+            os.remove(query_object['table'].data.path)
+            os.rename(temp_file_name,query_object['table'].data.path)
             return temp_table
         
         except Exception as ex:
@@ -326,11 +332,10 @@ class sql_engine:
     # puts the raw original lines in temp file
     # File is as untouched as possible
     # new lines are joined at the end
-    def insert(self,parser):
+    def insert(self,query_object):
         try:
-            query_object=parser.query_object
             table_name=query_object['meta']['into']['table']
-            parser.query_object['table']=self.database.get(table_name)
+            query_object['table']=self.database.get(table_name)
 
             temp_table=self.database.temp_table()
             temp_table.add_column('inserted')
@@ -340,7 +345,7 @@ class sql_engine:
             inserted=0
             # process file
             requires_new_line=False
-            with open(parser.query_object['table'].data.path, 'r') as content_file:
+            with open(query_object['table'].data.path, 'r') as content_file:
                 with open(temp_file_name, 'w') as temp_file:
                     for line in content_file:
                         processed_line=self.process_line(query_object,line,line_number)
@@ -360,8 +365,8 @@ class sql_engine:
             
             data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
             temp_table.append_data(data)
-            os.remove(parser.query_object['table'].data.path)
-            os.rename(temp_file_name,parser.query_object['table'].data.path)
+            os.remove(query_object['table'].data.path)
+            os.rename(temp_file_name,query_object['table'].data.path)
             #print temp_table.errors
             return temp_table
         
@@ -456,11 +461,10 @@ class sql_engine:
     # puts the raw original lines in temp file
     # ignores matches
     # File is as untouched as possible
-    def update(self,parser):
+    def update(self,query_object):
         try:
-            query_object=parser.query_object
             table_name=query_object['meta']['update']['table']
-            parser.query_object['table']=self.database.get(table_name)
+            query_object['table']=self.database.get(table_name)
 
             temp_table=self.database.temp_table()
             temp_table.add_column('updated')
@@ -469,7 +473,7 @@ class sql_engine:
             line_number=1
             updated=0
             # process file
-            with open(parser.query_object['table'].data.path, 'r') as content_file:
+            with open(query_object['table'].data.path, 'r') as content_file:
                 with open(temp_file_name, 'w') as temp_file:
                     for line in content_file:
                         processed_line=self.process_line(query_object,line,line_number)
@@ -486,8 +490,8 @@ class sql_engine:
             data= {'data':[updated],'type':self.data_type.DATA,'error':None}
 
             temp_table.append_data(data)
-            os.remove(parser.query_object['table'].data.path)
-            os.rename(temp_file_name,parser.query_object['table'].data.path)
+            os.remove(query_object['table'].data.path)
+            os.rename(temp_file_name,query_object['table'].data.path)
             return temp_table
         
         except Exception as ex:
@@ -495,44 +499,51 @@ class sql_engine:
             print (ex)
 
 
-    def use(self,parser):
+    def use(self,query_object):
         info("Use")
-        self.current_database=parser.query_object['meta']['use']['table']
+        target_db=query_object['meta']['use']['table']
+        self.database.set_database(target_db)
         temp_table=self.database.temp_table()
         temp_table.add_column('changed_db')
-        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        data= {'data':[target_db],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
         return temp_table                
 
     
-    def create_table(self,parser):
+    def create_table(self,query_object):
         info("Create Table")
-        self.current_database=parser.query_object['meta']['create']['table']
         temp_table=self.database.temp_table()
         
         columns=[]
-        for c in parser.query_object['meta']['columns']:
+        for c in query_object['meta']['columns']:
             columns.append(c['column'])
-
-        self.database.create_table(database_name=self.current_database,
-                                   table_name=parser.query_object['meta']['create']['table'],
-                                   columns=columns,
-                                   data_file=parser.query_object['meta']['file']['file'])
+        info("Columns to create",columns)
+        created=0
+        results=self.database.create_table( table_name=query_object['meta']['create']['table'],
+                                            columns=columns,
+                                            data_file=query_object['meta']['file']['file'])
+        if True == results:
+            created+=1
 
         temp_table.add_column('create table')
-        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        data= {'data':[created],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
         return temp_table
 
 
-    def drop_table(self,parser):
+    def drop_table(self,query_object):
         info("Drop Table")
         temp_table=self.database.temp_table()
-        self.database.drop_table(self.current_database,parser.query_object['meta']['table']['table'])
+        #print "dropping",parser.query_object['meta']['drop']['table']
+        dropped=0
+        results=self.database.drop_table(table_name=query_object['meta']['drop']['table'])
+        if True==results:
+            dropped+=1
         
         temp_table.add_column('dropped')
-        data= {'data':[1],'type':self.data_type.DATA,'error':None}
+        data= {'data':[dropped],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
+        return temp_table
   
                 
 

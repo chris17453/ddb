@@ -7,9 +7,9 @@ import yaml
 class database:
     tables=[]
     def __init__(self,directory=None,config_file=None,show_config=False):
+        self.curent_database=None
         self.tables=[]
         is_file=False
-
         if None !=config_file:
             self.config_file=config_file
             tables=self.get_tables()
@@ -41,14 +41,20 @@ class database:
                 raise Exception("No configuration files in this directory : {}".format(directory))
             for cf in files:
                 self.tables.append(table(cf,show_config))
-        
+    
+    def set_database(self,database_name):
+        # TODO validate database name
+        self.curent_database=database_name
 
-    def get(self,table_name):
+    def get(self,table_name,database_name=None):
         """Get a Table structure in the database."""
+        if None==database_name:
+            database_name=self.get_curent_database()
         for c in self.tables:
-            if c.data.name==table_name:
+            if c.data.name==table_name and database_name==c.data.database:
                 return c
-        raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
+        return None
+        #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
     
     def count(self):
         """Return a count ot tables in the database"""
@@ -67,7 +73,7 @@ class database:
         """Create a temporary table to preform operations in"""
         if None==name:
             name="#table_temp" #TODO make unique random name
-        return table(name=name,columns=columns)
+        return table(name=name,columns=columns,database=self.get_curent_database())
     
 
     def create_config(self,config_file):
@@ -90,60 +96,115 @@ class database:
         self.add_config(t.data.path)
 
 
-    def add_config(self,table_config):
+    def add_config(self,table_config=None,table=None):
         try:
             if None==self.config_file:
                 raise Exception ("Not using a config file")
             if not os.path.exists(self.config_file):
                 self.create_config(self.config_file)
-        
-            with open(self.config_file, 'r') as stream:
-                config=table(table_config)
-                yaml_data=yaml.load(stream)
-                db=config.data.database
-                if None == db:
-                    db='main'
-                
-                if db not in  yaml_data:
-                    yaml_data[db]={}
+            
+            #if we have a file name, lets add it
+            if None != table_config:
+                print "Adding table config"
+                with open(self.config_file, 'r') as stream:
+                    config=table(table_config)
+                    yaml_data=yaml.load(stream)
+                    db=config.data.database
+                    if None == db:
+                        db=self.get_default_database()
+                    
+                    if db not in  yaml_data:
+                        yaml_data[db]={}
 
-                yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}
-                
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+                    yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}
+                    
+                    f = open(self.config_file, "w")
+                    yaml.dump(yaml_data, f)
+                    f.close()
+
+
+
+            #if we have a table lets save it
+            if table !=None:
+                with open(self.config_file, 'r') as stream:
+                    yaml_data=yaml.load(stream)
+                    db=table.data.database
+                    if None == db:
+                        db=self.get_default_database()
+                    
+                    if db not in  yaml_data:
+                        yaml_data[db]={}
+                    
+                    yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}
+                    f = open(self.config_file, "w")
+                    yaml.dump(yaml_data, f)
+                    f.close()
+            return True
         except Exception as ex:
-                print ex    
+            print ex    
+            return False
 
-    def create_table(self,database_name,table_name,columns,data_file):
+
+    def get_default_database(self):
+        if self.curent_database==None:
+            return 'main'
+
+
+    def get_curent_database(self):
+        if self.curent_database==None:
+            return self.get_default_database()
+        return self.curent_database
+
+
+    def create_table(self,table_name,columns,data_file,database_name=None):
         if None==self.config_file:
             raise Exception ("Not using a config file")
+        if None ==database_name:
+            database_name=self.get_curent_database()
+        exists=self.get(table_name,database_name)
+        #it exists. so no dont create it
+        if None!=exists:
+            return False
+
         t=table(name=table_name,database=database_name,columns=columns)
         t.data.path=data_file
-        t.save()
-        self.add_config(t.data.path)
+        res=t.save()
+        if False==res:
+            return False
+        self.add_config(table=t)
+        return True
+
     
 
-    def drop_table(self,database_name,table_name):
+    def drop_table(self,table_name,database_name=None):
+        if None ==database_name:
+            database_name=self.get_curent_database()
+        #print table_name,database_name
         for index in range(0,len(self.tables)):
-            if self.tables[index].data.name==table_name and tables[index].data==database_name:
-                self.tables.remove(index)
-                self.remove_config(self.tables[index].data.path)
+            #print self.tables[index].data.name,self.tables[index].data.database
+            if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:
+                res=self.remove_config(table_object=self.tables[index])
+                if False==res:
+                    return False
+                self.tables.pop(index)
+                return True
                 break
+        return False
 
 
-
-    def remove_config(self,table_config):
+    def remove_config(self,table_config=None,table_object=None):
         try:
             if not os.path.exists(self.config_file):
                 self.create_config(self.config_file)
-
             with open(self.config_file, 'r') as stream:
-                config=table(table_config)
+                if table_object==None:
+                    config=table(table_config)
+                else:
+                    config=table_object
                 yaml_data=yaml.load(stream)
                 db=config.data.database
                 if None == db:
-                    db='Default'
+                    db=self.get_default_database()
                 
                 if db not in  yaml_data:
                     yaml_data[db]={}
@@ -157,8 +218,10 @@ class database:
                 f = open(self.config_file, "w")
                 yaml.dump(yaml_data, f)
                 f.close()
+                return True
         except Exception as ex:
-                print ex    
+                print ex   
+                return False 
             
     def get_tables(self):
         if not os.path.exists(self.config_file):

@@ -100,6 +100,7 @@ class ddbPrompt(Cmd):
 
 
     def default(self, inp):
+        print inp
         if inp == 'x' or inp == 'q':
             return self.do_exit("")
         
@@ -110,11 +111,13 @@ class ddbPrompt(Cmd):
             start = time.time()
             results=self.engine.query(sql_query=inp)
             end = time.time()
-            config=flextable.table_config()
-            config.columns=results.get_columns()
-            flextable.table(data=results.results,args=config)
+            if results!=None:
+                config=flextable.table_config()
+                config.columns=results.get_columns()
+                flextable.table(data=results.results,args=config)
             
             self.msg("info","executed in {} seconds".format(end - start))
+            inp=None
         except Exception as ex:
             self.msg("error",ex)
 

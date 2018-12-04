@@ -82,13 +82,25 @@ class sql_parser:
         global debug_on
         self.debug=debug
         self.debug_on=debug
-        tokens=tokenize(query,discard_whitespace=True,debug=debug)
-        self.query_object=self.parse(tokens)
-        if None == self.query_object:
+        self.query_objects=[]
+        querys=query.split(';')
+        #print querys
+        for q in querys:
+            tokens=tokenize(q,discard_whitespace=True,debug=debug)
+            #skip 0 lenght commands, such as single ';'
+            if len(tokens)==0:
+                continue
+
+            parsed=self.parse(tokens)
+            if False==parsed:
+                self.query_objects=None 
+                break
+            self.query_objects.append(parsed)
+
+        if None == self.query_objects:
             raise Exception("Object failed to decode")
 
     def parse(self,tokens):
-
 
         sql_object=[]
         # SOME TODO!
@@ -103,6 +115,8 @@ class sql_parser:
             keyword_found=False
             switch_index=0
             query_mode=None
+            curent_object={}
+            switch={}
             while switch_index<len(query['switch']) and token_index<len(tokens):
                 
                 info("token",token_index,tokens[token_index])
@@ -380,16 +394,16 @@ class sql_parser:
     
     #expand columns
     # TODO null trapping
-    def expand_columns(self,columns):
-        if self.query_object['mode']=="select":
+    def expand_columns(self,query_object,columns):
+        if query_object['mode']=="select":
             expanded_select=[]
-            for item in self.query_object['meta']['select']:
+            for item in query_object['meta']['select']:
                 if item['column']=='*':
                     for column in columns:
                         expanded_select.append({'column':column})    
                 else:
                     expanded_select.append(item)
-            self.query_object['meta']['select']=expanded_select
+            query_object['meta']['select']=expanded_select
         #?? needed
 
     

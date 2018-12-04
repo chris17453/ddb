@@ -5,8 +5,8 @@ def enum(**enums):
 
 data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
 
-def show_columns(database,parser):
-    table=database.get(parser.query_object['meta']['from']['table'])
+def show_columns(database,query_object):
+    table=database.get(query_object['meta']['from']['table'])
     temp_table=database.temp_table(columns=['table','column'])
     
     for c in table.columns:

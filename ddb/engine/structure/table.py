@@ -3,6 +3,13 @@ import yaml
 import os
 import os
 from column import *
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
+#use the c based parser, or you're going to get massive lag with the python based solution
 
 class table:
     def noop(self, *args, **kw):
@@ -19,15 +26,18 @@ class table:
         self.errors=[]
         self.results=[]
         
+        
         if None != columns:
             for column in columns:
                 self.add_column(column)
 
 
         if None != file:
+            self.data.config=file
             with open(file, 'r') as stream:
                 try:
-                    yaml_data=yaml.load(stream)
+                    yaml_data=yaml.load(stream, Loader=Loader)
+                    #print yaml_data
                     for key in yaml_data:
                         try:
                             if 'version' == key:
@@ -48,11 +58,11 @@ class table:
                             # one offs
                             if 'columns' == key:
                                 for c in yaml_data['columns']:
-                                    if self.version == 1:
-                                        cv1=column_v1( c )
-                                        cv2=cv1.to_v2()
-                                        self.columns.append( cv2 )
-                                    if self.version == 2:
+                                    #if self.version == 1:
+                                    #    cv1=column_v1( c )
+                                    #    cv2=cv1.to_v2()
+                                    #    self.columns.append( cv2 )
+                                    #if self.version == 2:
                                         self.columns.append( column_v2( c ) )
                                         
                                                 
@@ -70,6 +80,10 @@ class table:
             yaml.emitter.Emitter.process_tag = self.noop
             if True == show_config:
                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
+            if None !=self.data.path:
+                if False == os.path.exists(self.data.path):
+                    raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )
+                
 
 
     def append_data(self,data):
@@ -241,15 +255,16 @@ class table:
             os.makedirs(os.path.join(home, self.data.database))
 
         home=os.path.join(home, self.data.database)
-        if None == self.data.path:
-            self.data.path=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
+        if None == self.data.config:
+            self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
 
-        with open(self.data.path, 'w') as stream:
+        with open(self.data.config, 'w') as stream:
             yaml.emitter.Emitter.process_tag = self.noop
             yaml.dump(self,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True,stream=stream)
             stream.close()
 
-        
+
+
       
 
 class table_visible_attributes:
@@ -282,6 +297,7 @@ class table_data:
         self.path           = None
         self.key            = None
         self.ordinal        = -1
+        self.config         = None
         if None != name:
             self.name=name
         
