@@ -2,7 +2,7 @@ from cli import cli_main
 from .engine.sql_engine import sql_engine
 
 #main import
-def engine(config_file==None):
+def engine(config_file=None):
 
     if None==config_file:
         home = expanduser("~")
