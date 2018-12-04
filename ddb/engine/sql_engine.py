@@ -33,11 +33,12 @@ def enum(**enums):
 class sql_engine:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
 
-    def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='Array'):
+    def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):
         global debug_on
         debug_on=debug
         self.debug=debug
         self.results=None
+        self.mode=mode
         self.database=database(directory=database_dir,config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
@@ -108,25 +109,25 @@ class sql_engine:
         
         #only return last command
         if None != self.results:
-            if self.mode=='Array':
+            if self.mode=='array':
                 new_array=[]
                 for line in self.results:
                     new_array.append(line['data'])
                 return new_array
 
-            if self.mode=='full':"
+            if self.mode=='full':
                 return self.results #TODO Fix
 
-            if self.mode=='object':"
+            if self.mode=='object':
                 new_array=[]
-                columns=t.get_columns()
+                columns=query_object['table'].get_columns()
                 len_col=len(columns)
                 for line in self.results:
                     new_dict=[]
                     for i in range(0,len_col):
-                        if len(line'data'])<i:
+                        if len(line['data'])<i:
                             break
-                        new_dict[column[i]]=line['data'][i]
+                        new_dict[columns[i]]=line['data'][i]
                     new_array.append(new_dict)
                 return new_array 
 
