@@ -298,6 +298,7 @@ class table_data:
         self.key            = None
         self.ordinal        = -1
         self.config         = None
+        self.retults        = None
         if None != name:
             self.name=name
         
