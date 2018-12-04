@@ -1,4 +1,6 @@
 from cli import cli_main
+from os.path import expanduser
+
 from .engine.sql_engine import sql_engine
 
 #main import
