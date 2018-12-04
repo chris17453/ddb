@@ -8,8 +8,12 @@ def evaluate_single_match(test,row,table):
     compare2=None
     compare1_is_column=False
     compare2_is_column=False
-    if None !=test['c']:
-        test['c']=test['c'].lower()
+
+    comparitor=comparitor
+
+
+    if None !=comparitor:
+        comparitor=comparitor.lower()
     for column in table.columns:
         #print column.data.name
         if column.data.name==test['e1']:
@@ -29,11 +33,11 @@ def evaluate_single_match(test,row,table):
     if None == compare1 and None == compare2:
         raise Exception("Where invalid {}".format(test))
         
-    if test['c']=='=' or test['c']=='is' :
+    if comparitor=='=' or comparitor=='is' :
         if compare1==compare2:
             #print compare1,compare2
             return True
-    if test['c']=='like':  #paritial match
+    if comparitor=='like':  #paritial match
 
         if True == compare1_is_column and  True == compare2_is_column:
             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
@@ -84,19 +88,19 @@ def evaluate_single_match(test,row,table):
         
         
         return False
-    if test['c']=='<' :
+    if comparitor=='<' :
         if compare1<compare2:
             return True
-    if test['c']=='>' :
+    if comparitor=='>' :
         if compare1>compare2:
             return True
-    if test['c']=='>=' :
+    if comparitor=='>=' :
         if compare1>=compare2:
             return True
-    if test['c']=='<=' :
+    if comparitor=='<=' :
         if compare1<=compare2:
             return True
-    if test['c']=='!=' or test['c']=='<>' or test['c']=='not':
+    if comparitor=='!=' or comparitor=='<>' or comparitor=='not':
         if compare1!=compare2:
             return True
 
