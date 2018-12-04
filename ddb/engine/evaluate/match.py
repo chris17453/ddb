@@ -33,6 +33,7 @@ def evaluate_single_match(test,row,table):
             compare2_is_column=True
         if None !=compare1 and None != compare2:
             break
+
     if None == compare1:
         compare1=test['e1']
     if None == compare2:
@@ -118,6 +119,7 @@ def evaluate_match(where,row,table):
     #print where
     if None == row: 
         return False
+        
     if 0 == len(where):
         #print "0 len"
         return True

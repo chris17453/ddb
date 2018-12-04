@@ -170,7 +170,7 @@ class sql_engine:
             #print query_object['table'].data.starts_on_line,line_number
         else:
             line_type=self.data_type.DATA
-        if not line_cleaned.rstrip():
+        if not line_cleaned:
             if True == query_object['table'].visible.whitespace:
                 line_data=['']
             line_type=self.data_type.WHITESPACE
