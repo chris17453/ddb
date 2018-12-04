@@ -18,15 +18,18 @@ def evaluate_single_match(test,row,table):
     
      
     for column in table.columns:
-        index=table.ordinals[column.data.name]
         #print column.data.name
         if column.data.name==test['e1']:
+            #index=table.ordinals[column.data.name]
             #print "found1", column.data.name
-            compare1=row[index]#table.ordinals[].get_data_from_column(column,row)
+            #compare1=row[index]#table.ordinals[].get_data_from_column(column,row)
+            compare1=table.get_data_from_column(column,row)
             compare1_is_column=True
         if column.data.name==test['e2']:
+            #index=table.ordinals[column.data.name]            
             #print "found2", column.data.name
-            compare2=row[index] #table.get_data_from_column(column,row)
+            #compare2=row[index] #table.get_data_from_column(column,row)
+            compare2=table.get_data_from_column(column,row)
             compare2_is_column=True
         if None !=compare1 and None != compare2:
             break
