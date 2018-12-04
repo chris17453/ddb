@@ -125,11 +125,11 @@ class sql_engine:
                     columns=self.results.get_columns()
                     len_col=len(columns)
                     for line in self.results.results:
-                        new_dict=[]
+                        new_dict={}
                         for i in range(0,len_col):
                             if len(line['data'])<i:
                                 break
-                            new_dict[columns[i]]=line['data'][int(i)]
+                            new_dict[columns[i]]=line['data'][i]
                         new_array.append(new_dict)
                     return new_array 
 
