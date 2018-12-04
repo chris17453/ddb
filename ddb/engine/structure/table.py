@@ -22,7 +22,7 @@ class table:
         self.data                  = table_data(name=name,database=database) 
         self.columns               = []
         self.active                = True
-
+        self.ordinals={}
         self.errors=[]
         self.results=[]
         
@@ -203,11 +203,13 @@ class table:
         column_count=len(self.columns)
         has_ordinal=[i for i in range(column_count)]
 
-
+        self.ordinals={}
         for k,v in enumerate(self.columns):
             if None == v.data.ordinal or -1==v.data.ordinal:
+
                 #print (self.columns[k].data.ordinal)
                 self.columns[k].data.ordinal=self.get_lowest_available_ordinal()
+                self.ordinals[self.columns[k].data.name]=self.columns[k].data.ordinal
         
         ## create lookup hash
         #for i in range (0,column_count):
