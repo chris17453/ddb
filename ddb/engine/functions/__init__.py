@@ -19,7 +19,7 @@ def show_tables(database):
     for t in database.tables:
         columns=[t.data.name]
         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})
-    print temp_table
+    #print temp_table
     return temp_table
 
 
