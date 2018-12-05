@@ -15,9 +15,9 @@ def show_columns(database,query_object):
     return temp_table
 
 def show_tables(database):
-    temp_table=database.temp_table(columns=['table'])
+    temp_table=database.temp_table(columns=['database','table'])
     for t in database.tables:
-        columns=[t.data.name]
+        columns=[t.data.database,t.data.name]
         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})
     #print temp_table
     return temp_table

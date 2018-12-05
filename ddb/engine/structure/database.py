@@ -228,6 +228,7 @@ class database:
                 print ex   
                 return False 
     def reload_config(self):
+        self.tables=[]
         tables=self.get_tables()
         for table_file in tables:
             self.tables.append(table(table_file))
