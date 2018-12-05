@@ -54,9 +54,9 @@ class sql_engine:
         self.debug=debug
     
     
-    def define_table(self,table_name,database_name,columns):
+    def define_table(self,table_name,database_name,columns,data_file):
         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
-        t=table(database=database_name,columns=columns,name=table_name)
+        t=table(database=database_name,columns=columns,name=table_name,data_file=data_file)
         self.database.tables.append(t)
 
     def has_configuration(self):

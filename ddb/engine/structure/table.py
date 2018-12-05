@@ -14,7 +14,7 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
@@ -26,6 +26,8 @@ class table:
         self.errors=[]
         self.results=[]
         
+        if None !=data_file:
+            self.data.path=data_file
         
         if None != columns:
             for column in columns:
