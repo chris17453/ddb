@@ -79,14 +79,14 @@ class database:
 
     def create_config(self,config_file):
         try:
-            if not os.path.exists(config_file):
+            if False == os.path.exists(config_file):
                 yaml_data={}
                 f = open(config_file, "w")
                 yaml.dump(yaml_data, f)
                 f.close()
                 return
         except Exception as ex:
-            print ex    
+            print "Cant create configuration file: {}".format(ex)
 
 
     def create_table_config(self,name,db,columns):
@@ -227,7 +227,11 @@ class database:
     def get_tables(self):
         if False==os.path.exists(self.config_file):
                 self.create_config(self.config_file)
+        
         tables=[]
+        if False==os.path.exists(self.config_file):
+            return []
+
         with open(self.config_file, 'r') as stream:
             yaml_data=yaml.load(stream)
             
