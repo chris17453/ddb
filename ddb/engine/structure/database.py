@@ -17,30 +17,31 @@ class database:
                 self.tables.append(table(table_file,show_config))
             return
 
-        if isinstance(directory,list):
-            for table_file in directory:
-                if False == os.path.isdir(table_file):
-                    if False == os.path.isfile(table_file):
-                        raise Exception("Not a directory or a file: {}".format(table_file))
-                self.tables.append(table(table_file,show_config))
-            return
-        else:
-            self.config_file=None
-            if False == os.path.isdir(directory):
-                if False == os.path.isfile(directory):
-                    raise Exception("Not a directory or a file: {}".format(directory))
-                else:
-                    is_file=True
-
-            if True == is_file:
-                files=glob.glob(directory)
+        if None !=directory:
+            if isinstance(directory,list):
+                for table_file in directory:
+                    if False == os.path.isdir(table_file):
+                        if False == os.path.isfile(table_file):
+                            raise Exception("Not a directory or a file: {}".format(table_file))
+                    self.tables.append(table(table_file,show_config))
+                return
             else:
-                files=glob.glob(directory+'/'+'*.ddb.yaml')
+                self.config_file=None
+                if False == os.path.isdir(directory):
+                    if False == os.path.isfile(directory):
+                        raise Exception("Not a directory or a file: {}".format(directory))
+                    else:
+                        is_file=True
 
-            if 0 == len(files):
-                raise Exception("No configuration files in this directory : {}".format(directory))
-            for cf in files:
-                self.tables.append(table(cf,show_config))
+                if True == is_file:
+                    files=glob.glob(directory)
+                else:
+                    files=glob.glob(directory+'/'+'*.ddb.yaml')
+
+                if 0 == len(files):
+                    raise Exception("No configuration files in this directory : {}".format(directory))
+                for cf in files:
+                    self.tables.append(table(cf,show_config))
     
     def set_database(self,database_name):
         # TODO validate database name
