@@ -11,6 +11,8 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
     debug_on=debug
     tokens=[]
     
+    # clean leading and trailiong stuff
+    text=text.strip()
     # visual formatting characters
     whitespace={' ','\t','\n','\r'}
     # these are solid non depth related blocks
@@ -380,8 +382,8 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                         block_right=None
                         block_type=None
                     info(c,not_delimiter)
-                    if not not_delimiter:
-                        break
+                    #if not not_delimiter:
+                    #    break
 
                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})
                 
@@ -405,7 +407,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                         delimiter_type='whitespace'
 
      
-                info(c,fragment)
+                info("delemiter c/fragment- ",c,fragment)
                 tokens.append({'type':delimiter_type,'data':fragment.lower()})
                 break
         c+=delimter_len
