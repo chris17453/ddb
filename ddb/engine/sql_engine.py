@@ -42,6 +42,7 @@ class sql_engine:
         self.database=database(directory=database_dir,config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
+            self.database.get_tables()
             self.query(query)
     
     #def set_configuration(self,database_instance):
