@@ -52,7 +52,11 @@ class sql_engine:
 
     def debugging(self,debug=False):
         self.debug=debug
-
+    
+    
+    def define_table(self,table_name,database_name,columns):
+        t=new table(database=database_name,columns=columns,name=table_name)
+        self.database.tables.append()
 
     def has_configuration(self):
         if None==self.database:
