@@ -225,7 +225,7 @@ class database:
                 return False 
             
     def get_tables(self):
-        if not os.path.exists(self.config_file):
+        if False==os.path.exists(self.config_file):
                 self.create_config(self.config_file)
         tables=[]
         with open(self.config_file, 'r') as stream:
