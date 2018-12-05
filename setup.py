@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='ddb',
-    version='1.0.78',
+    version='1.0.79',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',

@@ -227,6 +227,10 @@ class database:
         except Exception as ex:
                 print ex   
                 return False 
+    def reload_config(self):
+        tables=self.get_tables()
+        for table_file in tables:
+            self.tables.append(table(table_file))
             
     def get_tables(self):
         if False==os.path.exists(self.config_file):

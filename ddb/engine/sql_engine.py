@@ -75,7 +75,8 @@ class sql_engine:
         
         # update table info...
         # it may have changed...
-        self.database.tables=self.database.get_tables()
+        self.database.reload_config()
+        
         parser=sql_parser(sql_query,self.debug)
         if False == parser.query_objects:
             raise Exception ("Invalid SQL")
