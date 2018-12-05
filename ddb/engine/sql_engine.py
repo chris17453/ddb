@@ -150,19 +150,22 @@ class sql_engine:
 
 
     def limit(self,data_stream,index,length):
-        if None == index:
-            index=0
-        if None == length:
-            length=len(data_stream)-index
-            
-        data_stream_lenght=len(data_stream)
-        if index>=data_stream_lenght:
-            #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
-            return []
-        if index+length>data_stream_lenght:
-            #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
-            length=data_stream_lenght-index
-        return data_stream[index:index+length]
+        try:
+            if None == index:
+                index=0
+            if None == length:
+                length=len(data_stream)-index
+                
+            data_stream_lenght=len(data_stream)
+            if index>=data_stream_lenght:
+                #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
+                return []
+            if index+length>data_stream_lenght:
+                #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
+                length=data_stream_lenght-index
+            return data_stream[index:index+length]
+        except Exception as ex:
+            info("Limit",ex)
 
     def process_line(self,query_object,line,line_number=0):
         err=None
@@ -209,15 +212,20 @@ class sql_engine:
                         line_data_cleaned.append(d[1:-1])
                     line_data=line_data_cleaned
 
+        #If no where. return everything
         if 'where' not in query_object['meta']:
             match_results=True
         else:
-            match_results=evaluate_match(query_object['meta']['where'],line_data,query_object['table'])
+            # if a where, only return data, comments/whites/space/errors are ignored
+            if line_type==self.data_type.DATA:
+                match_results=evaluate_match(query_object['meta']['where'],line_data,query_object['table'])
+            else:
+                match_results=False
         
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
     def select(self,query_object,parser):
-        try:
+        #try:
             temp_data=[]
             table_name=query_object['meta']['from']['table']
             query_object['table']=self.database.get(table_name)
@@ -289,9 +297,9 @@ class sql_engine:
             
             temp_table.results=self.limit(temp_data,limit_start,limit_length)
             return temp_table
-        except Exception as ex:
+        #except Exception as ex:
             
-            print ("Select",ex)
+        #    print ("Select",ex)
             #exit(1)
     
     
