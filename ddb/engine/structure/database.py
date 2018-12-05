@@ -10,7 +10,7 @@ class database:
         self.curent_database=None
         self.tables=[]
         is_file=False
-        if None !=config_file:
+        if None !=config_file and config_file!=False:
             self.config_file=config_file
             tables=self.get_tables()
             for table_file in tables:
