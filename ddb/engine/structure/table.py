@@ -14,7 +14,7 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
@@ -26,6 +26,9 @@ class table:
         self.errors=[]
         self.results=[]
         
+        if None != field_delimiter:
+            self.set_field_delimiter(field_delimiter)
+            
         if None !=data_file:
             self.data.path=data_file
         
@@ -87,6 +90,8 @@ class table:
                     raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )
                 
 
+    def set_field_delimiter(self,delimiter):
+        self.delimiters.field=delimiter
 
     def append_data(self,data):
         """Add a row to the resultset for this table"""
