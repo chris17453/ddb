@@ -80,11 +80,15 @@ class database:
     def create_config(self,config_file):
         try:
             if False == os.path.exists(config_file):
-                yaml_data={}
-                f = open(config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
-                return
+                dirname=os.path.dirname(config_file)
+                if False==os.path.exists(dirname):
+                    os.makedirs(dirname)
+                #print ("Successfully created the directory %s " % path)                
+            yaml_data={}
+            f = open(config_file, "w")
+            yaml.dump(yaml_data, f)
+            f.close()
+            return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
 
