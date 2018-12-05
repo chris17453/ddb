@@ -42,7 +42,6 @@ class sql_engine:
         self.database=database(directory=database_dir,config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
-            self.database.tables=self.database.get_tables()
             self.query(query)
     
     #def set_configuration(self,database_instance):
@@ -73,6 +72,10 @@ class sql_engine:
         if False==self.has_configuration():
             raise Exception("No table found")
         self.results=None
+        
+        # update table info...
+        # it may have changed...
+        self.database.tables=self.database.get_tables()
         parser=sql_parser(sql_query,self.debug)
         if False == parser.query_objects:
             raise Exception ("Invalid SQL")
