@@ -389,8 +389,8 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                     break
                 word_start=c+delimter_len
                 
-                if not fragment or fragment =='':
-                    break
+                #if not fragment or fragment =='':
+                #    break
                 if True == discard_whitespace and fragment in whitespace:
                     break
                 
