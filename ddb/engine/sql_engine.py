@@ -62,9 +62,10 @@ class sql_engine:
     def has_configuration(self):
         if None==self.database:
             return False
-        table_count=self.database.count()
-        if table_count==0:
-            return False
+        # table count invalid.. we may add some
+        #table_count=self.database.count()
+        #if table_count==0:
+        #    return False
         return True
 
     def query(self,sql_query):
