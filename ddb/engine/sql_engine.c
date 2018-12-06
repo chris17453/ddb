@@ -1562,17 +1562,13 @@ static const char __pyx_k_starts_on_line[] = "starts_on_line";
 static const char __pyx_k_temp_file_name[] = "temp_file_name";
 static const char __pyx_k_change_database[] = "change_database";
 static const char __pyx_k_field_delimiter[] = "field_delimiter";
-static const char __pyx_k_structure_table[] = "structure.table";
 static const char __pyx_k_current_database[] = "current_database";
-static const char __pyx_k_evaluate_match_2[] = "evaluate.match";
 static const char __pyx_k_get_data_by_name[] = "get_data_by_name";
 static const char __pyx_k_sql_engine_limit[] = "sql_engine.limit";
 static const char __pyx_k_sql_engine_query[] = "sql_engine.query";
-static const char __pyx_k_structure_column[] = "structure.column";
 static const char __pyx_k_Columns_to_create[] = "Columns to create";
 static const char __pyx_k_has_configuration[] = "has_configuration";
 static const char __pyx_k_line_data_cleaned[] = "line_data_cleaned";
-static const char __pyx_k_parser_sql_parser[] = "parser.sql_parser";
 static const char __pyx_k_requires_new_line[] = "requires_new_line";
 static const char __pyx_k_restructured_line[] = "restructured_line";
 static const char __pyx_k_sql_engine___init[] = "sql_engine.__init__";
@@ -1583,10 +1579,10 @@ static const char __pyx_k_sql_engine_update[] = "sql_engine.update";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_data_stream_lenght[] = "data_stream_lenght";
 static const char __pyx_k_get_column_by_name[] = "get_column_by_name";
-static const char __pyx_k_structure_database[] = "structure.database";
 static const char __pyx_k_get_candidate_names[] = "_get_candidate_names";
 static const char __pyx_k_get_ordinal_by_name[] = "get_ordinal_by_name";
 static const char __pyx_k_sql_engine_sort_cmp[] = "sql_engine.sort_cmp";
+static const char __pyx_k_ddb_engine_functions[] = "ddb.engine.functions";
 static const char __pyx_k_get_default_database[] = "get_default_database";
 static const char __pyx_k_sql_engine_debugging[] = "sql_engine.debugging";
 static const char __pyx_k_ddb_engine_sql_engine[] = "ddb.engine.sql_engine";
@@ -1597,9 +1593,14 @@ static const char __pyx_k_sql_engine_process_line[] = "sql_engine.process_line";
 static const char __pyx_k_ddb_engine_sql_engine_py[] = "ddb/engine/sql_engine.py";
 static const char __pyx_k_sql_engine_create_single[] = "sql_engine.create_single";
 static const char __pyx_k_sql_engine_update_single[] = "sql_engine.update_single";
+static const char __pyx_k_ddb_engine_evaluate_match[] = "ddb.engine.evaluate.match";
+static const char __pyx_k_ddb_engine_structure_table[] = "ddb.engine.structure.table";
 static const char __pyx_k_get_column_at_data_ordinal[] = "get_column_at_data_ordinal";
 static const char __pyx_k_sql_engine_change_database[] = "sql_engine.change_database";
+static const char __pyx_k_ddb_engine_structure_column[] = "ddb.engine.structure.column";
+static const char __pyx_k_ddb_engine_parser_sql_parser[] = "ddb.engine.parser.sql_parser";
 static const char __pyx_k_sql_engine_has_configuration[] = "sql_engine.has_configuration";
+static const char __pyx_k_ddb_engine_structure_database[] = "ddb.engine.structure.database";
 static const char __pyx_k_Cannot_insert_column_count_does[] = "Cannot insert, column count does not match table column count";
 static const char __pyx_k_Table_2_Line_0_1_extra_Column_s[] = "Table {2}: Line #{0}, {1} extra Column(s)";
 static const char __pyx_k_Table_2_Line_0_missing_1_Column[] = "Table {2}: Line #{0}, missing {1} Column(s)";
@@ -1670,8 +1671,14 @@ static PyObject *__pyx_n_s_data_type;
 static PyObject *__pyx_n_s_database;
 static PyObject *__pyx_n_s_database_dir;
 static PyObject *__pyx_n_s_database_name;
+static PyObject *__pyx_n_s_ddb_engine_evaluate_match;
+static PyObject *__pyx_n_s_ddb_engine_functions;
+static PyObject *__pyx_n_s_ddb_engine_parser_sql_parser;
 static PyObject *__pyx_n_s_ddb_engine_sql_engine;
 static PyObject *__pyx_kp_s_ddb_engine_sql_engine_py;
+static PyObject *__pyx_n_s_ddb_engine_structure_column;
+static PyObject *__pyx_n_s_ddb_engine_structure_database;
+static PyObject *__pyx_n_s_ddb_engine_structure_table;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_debug_on;
 static PyObject *__pyx_n_s_debugging;
@@ -1696,7 +1703,6 @@ static PyObject *__pyx_n_s_err;
 static PyObject *__pyx_n_s_error;
 static PyObject *__pyx_n_s_errors;
 static PyObject *__pyx_n_s_evaluate_match;
-static PyObject *__pyx_n_s_evaluate_match_2;
 static PyObject *__pyx_n_s_ex;
 static PyObject *__pyx_n_s_exit;
 static PyObject *__pyx_n_s_expand_columns;
@@ -1760,7 +1766,6 @@ static PyObject *__pyx_kp_s_order_by;
 static PyObject *__pyx_n_s_ordinal;
 static PyObject *__pyx_n_s_os;
 static PyObject *__pyx_n_s_parser;
-static PyObject *__pyx_n_s_parser_sql_parser;
 static PyObject *__pyx_n_s_path;
 static PyObject *__pyx_n_s_prepare;
 static PyObject *__pyx_n_s_print;
@@ -1815,9 +1820,6 @@ static PyObject *__pyx_n_s_sql_parser;
 static PyObject *__pyx_n_s_sql_query;
 static PyObject *__pyx_n_s_start;
 static PyObject *__pyx_n_s_starts_on_line;
-static PyObject *__pyx_n_s_structure_column;
-static PyObject *__pyx_n_s_structure_database;
-static PyObject *__pyx_n_s_structure_table;
 static PyObject *__pyx_n_s_t;
 static PyObject *__pyx_n_s_table;
 static PyObject *__pyx_n_s_table_columns;
@@ -14356,8 +14358,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_database, __pyx_k_database, sizeof(__pyx_k_database), 0, 0, 1, 1},
   {&__pyx_n_s_database_dir, __pyx_k_database_dir, sizeof(__pyx_k_database_dir), 0, 0, 1, 1},
   {&__pyx_n_s_database_name, __pyx_k_database_name, sizeof(__pyx_k_database_name), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_evaluate_match, __pyx_k_ddb_engine_evaluate_match, sizeof(__pyx_k_ddb_engine_evaluate_match), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_functions, __pyx_k_ddb_engine_functions, sizeof(__pyx_k_ddb_engine_functions), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_parser_sql_parser, __pyx_k_ddb_engine_parser_sql_parser, sizeof(__pyx_k_ddb_engine_parser_sql_parser), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_sql_engine, __pyx_k_ddb_engine_sql_engine, sizeof(__pyx_k_ddb_engine_sql_engine), 0, 0, 1, 1},
   {&__pyx_kp_s_ddb_engine_sql_engine_py, __pyx_k_ddb_engine_sql_engine_py, sizeof(__pyx_k_ddb_engine_sql_engine_py), 0, 0, 1, 0},
+  {&__pyx_n_s_ddb_engine_structure_column, __pyx_k_ddb_engine_structure_column, sizeof(__pyx_k_ddb_engine_structure_column), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_structure_database, __pyx_k_ddb_engine_structure_database, sizeof(__pyx_k_ddb_engine_structure_database), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_structure_table, __pyx_k_ddb_engine_structure_table, sizeof(__pyx_k_ddb_engine_structure_table), 0, 0, 1, 1},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_debug_on, __pyx_k_debug_on, sizeof(__pyx_k_debug_on), 0, 0, 1, 1},
   {&__pyx_n_s_debugging, __pyx_k_debugging, sizeof(__pyx_k_debugging), 0, 0, 1, 1},
@@ -14382,7 +14390,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_error, __pyx_k_error, sizeof(__pyx_k_error), 0, 0, 1, 1},
   {&__pyx_n_s_errors, __pyx_k_errors, sizeof(__pyx_k_errors), 0, 0, 1, 1},
   {&__pyx_n_s_evaluate_match, __pyx_k_evaluate_match, sizeof(__pyx_k_evaluate_match), 0, 0, 1, 1},
-  {&__pyx_n_s_evaluate_match_2, __pyx_k_evaluate_match_2, sizeof(__pyx_k_evaluate_match_2), 0, 0, 1, 1},
   {&__pyx_n_s_ex, __pyx_k_ex, sizeof(__pyx_k_ex), 0, 0, 1, 1},
   {&__pyx_n_s_exit, __pyx_k_exit, sizeof(__pyx_k_exit), 0, 0, 1, 1},
   {&__pyx_n_s_expand_columns, __pyx_k_expand_columns, sizeof(__pyx_k_expand_columns), 0, 0, 1, 1},
@@ -14446,7 +14453,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ordinal, __pyx_k_ordinal, sizeof(__pyx_k_ordinal), 0, 0, 1, 1},
   {&__pyx_n_s_os, __pyx_k_os, sizeof(__pyx_k_os), 0, 0, 1, 1},
   {&__pyx_n_s_parser, __pyx_k_parser, sizeof(__pyx_k_parser), 0, 0, 1, 1},
-  {&__pyx_n_s_parser_sql_parser, __pyx_k_parser_sql_parser, sizeof(__pyx_k_parser_sql_parser), 0, 0, 1, 1},
   {&__pyx_n_s_path, __pyx_k_path, sizeof(__pyx_k_path), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
@@ -14501,9 +14507,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_sql_query, __pyx_k_sql_query, sizeof(__pyx_k_sql_query), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
   {&__pyx_n_s_starts_on_line, __pyx_k_starts_on_line, sizeof(__pyx_k_starts_on_line), 0, 0, 1, 1},
-  {&__pyx_n_s_structure_column, __pyx_k_structure_column, sizeof(__pyx_k_structure_column), 0, 0, 1, 1},
-  {&__pyx_n_s_structure_database, __pyx_k_structure_database, sizeof(__pyx_k_structure_database), 0, 0, 1, 1},
-  {&__pyx_n_s_structure_table, __pyx_k_structure_table, sizeof(__pyx_k_structure_table), 0, 0, 1, 1},
   {&__pyx_n_s_t, __pyx_k_t, sizeof(__pyx_k_t), 0, 0, 1, 1},
   {&__pyx_n_s_table, __pyx_k_table, sizeof(__pyx_k_table), 0, 0, 1, 1},
   {&__pyx_n_s_table_columns, __pyx_k_table_columns, sizeof(__pyx_k_table_columns), 0, 0, 1, 1},
@@ -15220,7 +15223,7 @@ if (!__Pyx_RefNanny) {
  * import os
  * import json             # <<<<<<<<<<<<<<
  * import copy
- * from .parser.sql_parser  import sql_parser
+ * from ddb.engine.parser.sql_parser  import sql_parser
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_json, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -15231,8 +15234,8 @@ if (!__Pyx_RefNanny) {
  * import os
  * import json
  * import copy             # <<<<<<<<<<<<<<
- * from .parser.sql_parser  import sql_parser
- * from .structure.table import table
+ * from ddb.engine.parser.sql_parser  import sql_parser
+ * from ddb.engine.structure.table import table
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_copy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -15242,16 +15245,16 @@ if (!__Pyx_RefNanny) {
   /* "ddb/engine/sql_engine.py":4
  * import json
  * import copy
- * from .parser.sql_parser  import sql_parser             # <<<<<<<<<<<<<<
- * from .structure.table import table
- * from .structure.database import database
+ * from ddb.engine.parser.sql_parser  import sql_parser             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_sql_parser);
   __Pyx_GIVEREF(__pyx_n_s_sql_parser);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_sql_parser);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_parser_sql_parser, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ddb_engine_parser_sql_parser, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_sql_parser); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
@@ -15262,17 +15265,17 @@ if (!__Pyx_RefNanny) {
 
   /* "ddb/engine/sql_engine.py":5
  * import copy
- * from .parser.sql_parser  import sql_parser
- * from .structure.table import table             # <<<<<<<<<<<<<<
- * from .structure.database import database
- * from .structure.column import column_v2
+ * from ddb.engine.parser.sql_parser  import sql_parser
+ * from ddb.engine.structure.table import table             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.structure.column import column_v2
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_table);
   __Pyx_GIVEREF(__pyx_n_s_table);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_table);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_structure_table, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ddb_engine_structure_table, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
@@ -15282,18 +15285,18 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.py":6
- * from .parser.sql_parser  import sql_parser
- * from .structure.table import table
- * from .structure.database import database             # <<<<<<<<<<<<<<
- * from .structure.column import column_v2
- * from .evaluate.match import evaluate_match
+ * from ddb.engine.parser.sql_parser  import sql_parser
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.column import column_v2
+ * from ddb.engine.evaluate.match import evaluate_match
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_database);
   __Pyx_GIVEREF(__pyx_n_s_database);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_database);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_structure_database, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ddb_engine_structure_database, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_database); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -15303,18 +15306,18 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ddb/engine/sql_engine.py":7
- * from .structure.table import table
- * from .structure.database import database
- * from .structure.column import column_v2             # <<<<<<<<<<<<<<
- * from .evaluate.match import evaluate_match
- * from .functions import functions
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.structure.column import column_v2             # <<<<<<<<<<<<<<
+ * from ddb.engine.evaluate.match import evaluate_match
+ * from ddb.engine.functions import functions
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_column_v2);
   __Pyx_GIVEREF(__pyx_n_s_column_v2);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_column_v2);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_structure_column, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ddb_engine_structure_column, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_column_v2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
@@ -15324,10 +15327,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.py":8
- * from .structure.database import database
- * from .structure.column import column_v2
- * from .evaluate.match import evaluate_match             # <<<<<<<<<<<<<<
- * from .functions import functions
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.structure.column import column_v2
+ * from ddb.engine.evaluate.match import evaluate_match             # <<<<<<<<<<<<<<
+ * from ddb.engine.functions import functions
  * import operator
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
@@ -15335,7 +15338,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_evaluate_match);
   __Pyx_GIVEREF(__pyx_n_s_evaluate_match);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_evaluate_match);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_evaluate_match_2, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ddb_engine_evaluate_match, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_evaluate_match); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
@@ -15345,9 +15348,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ddb/engine/sql_engine.py":9
- * from .structure.column import column_v2
- * from .evaluate.match import evaluate_match
- * from .functions import functions             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.column import column_v2
+ * from ddb.engine.evaluate.match import evaluate_match
+ * from ddb.engine.functions import functions             # <<<<<<<<<<<<<<
  * import operator
  * import flextable
  */
@@ -15356,7 +15359,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_functions);
   __Pyx_GIVEREF(__pyx_n_s_functions);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_functions);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_functions, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ddb_engine_functions, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_functions); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
@@ -15366,8 +15369,8 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.py":10
- * from .evaluate.match import evaluate_match
- * from .functions import functions
+ * from ddb.engine.evaluate.match import evaluate_match
+ * from ddb.engine.functions import functions
  * import operator             # <<<<<<<<<<<<<<
  * import flextable
  * 
@@ -15378,7 +15381,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.py":11
- * from .functions import functions
+ * from ddb.engine.functions import functions
  * import operator
  * import flextable             # <<<<<<<<<<<<<<
  * 

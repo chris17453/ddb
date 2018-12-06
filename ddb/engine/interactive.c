@@ -1342,17 +1342,16 @@ static const char __pyx_k_ddbPrompt_msg[] = "ddbPrompt.msg";
 static const char __pyx_k_do_config_dir[] = "do_config_dir";
 static const char __pyx_k_sql_engin_gone[] = "sql engin gone";
 static const char __pyx_k_help_config_dir[] = "help_config_dir";
-static const char __pyx_k_structure_table[] = "structure.table";
 static const char __pyx_k_KeyboardInterrupt[] = "KeyboardInterrupt";
 static const char __pyx_k_ddbPrompt_default[] = "ddbPrompt.default";
 static const char __pyx_k_ddbPrompt_do_exit[] = "ddbPrompt.do_exit";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_ddbPrompt_do_debug[] = "ddbPrompt.do_debug";
 static const char __pyx_k_ddbPrompt_set_vars[] = "ddbPrompt.set_vars";
-static const char __pyx_k_structure_database[] = "structure.database";
 static const char __pyx_k_ddbPrompt_help_exit[] = "ddbPrompt.help_exit";
 static const char __pyx_k_executed_in_seconds[] = "executed in {} seconds";
 static const char __pyx_k_ddbPrompt_help_debug[] = "ddbPrompt.help_debug";
+static const char __pyx_k_ddb_engine_sql_engine[] = "ddb.engine.sql_engine";
 static const char __pyx_k_ddbPrompt_default_exit[] = "ddbPrompt.default_exit";
 static const char __pyx_k_ddb_engine_interactive[] = "ddb.engine.interactive";
 static const char __pyx_k_ddbPrompt_do_config_dir[] = "ddbPrompt.do_config_dir";
@@ -1360,7 +1359,9 @@ static const char __pyx_k_configuration_dir_set_to[] = "configuration_dir set to
 static const char __pyx_k_ddbPrompt_help_config_dir[] = "ddbPrompt.help_config_dir";
 static const char __pyx_k_ddb_engine_interactive_py[] = "ddb/engine/interactive.py";
 static const char __pyx_k_Toggle_debugging_on_or_off[] = "Toggle debugging on or off";
+static const char __pyx_k_ddb_engine_structure_table[] = "ddb.engine.structure.table";
 static const char __pyx_k_Welcome_Type_to_list_commands[] = "Welcome! Type ? to list commands";
+static const char __pyx_k_ddb_engine_structure_database[] = "ddb.engine.structure.database";
 static const char __pyx_k_cmdloop_with_keyboard_interrupt[] = "cmdloop_with_keyboard_interrupt";
 static const char __pyx_k_ddbPrompt_cmdloop_with_keyboard[] = "ddbPrompt.cmdloop_with_keyboard_interrupt";
 static const char __pyx_k_Set_configuration_Directory_File[] = "Set configuration Directory. Files end in ddb.yaml.";
@@ -1422,6 +1423,9 @@ static PyObject *__pyx_n_s_ddbPrompt_msg;
 static PyObject *__pyx_n_s_ddbPrompt_set_vars;
 static PyObject *__pyx_n_s_ddb_engine_interactive;
 static PyObject *__pyx_kp_s_ddb_engine_interactive_py;
+static PyObject *__pyx_n_s_ddb_engine_sql_engine;
+static PyObject *__pyx_n_s_ddb_engine_structure_database;
+static PyObject *__pyx_n_s_ddb_engine_structure_table;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_debugging;
 static PyObject *__pyx_n_s_default;
@@ -1473,8 +1477,6 @@ static PyObject *__pyx_kp_s_sql_engin_gone;
 static PyObject *__pyx_n_s_sql_engine;
 static PyObject *__pyx_n_s_sql_query;
 static PyObject *__pyx_n_s_start;
-static PyObject *__pyx_n_s_structure_database;
-static PyObject *__pyx_n_s_structure_table;
 static PyObject *__pyx_n_s_sys;
 static PyObject *__pyx_n_s_table;
 static PyObject *__pyx_n_s_table_config;
@@ -4159,6 +4161,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ddbPrompt_set_vars, __pyx_k_ddbPrompt_set_vars, sizeof(__pyx_k_ddbPrompt_set_vars), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_interactive, __pyx_k_ddb_engine_interactive, sizeof(__pyx_k_ddb_engine_interactive), 0, 0, 1, 1},
   {&__pyx_kp_s_ddb_engine_interactive_py, __pyx_k_ddb_engine_interactive_py, sizeof(__pyx_k_ddb_engine_interactive_py), 0, 0, 1, 0},
+  {&__pyx_n_s_ddb_engine_sql_engine, __pyx_k_ddb_engine_sql_engine, sizeof(__pyx_k_ddb_engine_sql_engine), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_structure_database, __pyx_k_ddb_engine_structure_database, sizeof(__pyx_k_ddb_engine_structure_database), 0, 0, 1, 1},
+  {&__pyx_n_s_ddb_engine_structure_table, __pyx_k_ddb_engine_structure_table, sizeof(__pyx_k_ddb_engine_structure_table), 0, 0, 1, 1},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_debugging, __pyx_k_debugging, sizeof(__pyx_k_debugging), 0, 0, 1, 1},
   {&__pyx_n_s_default, __pyx_k_default, sizeof(__pyx_k_default), 0, 0, 1, 1},
@@ -4210,8 +4215,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_sql_engine, __pyx_k_sql_engine, sizeof(__pyx_k_sql_engine), 0, 0, 1, 1},
   {&__pyx_n_s_sql_query, __pyx_k_sql_query, sizeof(__pyx_k_sql_query), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
-  {&__pyx_n_s_structure_database, __pyx_k_structure_database, sizeof(__pyx_k_structure_database), 0, 0, 1, 1},
-  {&__pyx_n_s_structure_table, __pyx_k_structure_table, sizeof(__pyx_k_structure_table), 0, 0, 1, 1},
   {&__pyx_n_s_sys, __pyx_k_sys, sizeof(__pyx_k_sys), 0, 0, 1, 1},
   {&__pyx_n_s_table, __pyx_k_table, sizeof(__pyx_k_table), 0, 0, 1, 1},
   {&__pyx_n_s_table_config, __pyx_k_table_config, sizeof(__pyx_k_table_config), 0, 0, 1, 1},
@@ -4742,7 +4745,7 @@ if (!__Pyx_RefNanny) {
  * import sys
  * import time             # <<<<<<<<<<<<<<
  * from cmd import Cmd
- * from .structure.table import table
+ * from ddb.engine.structure.table import table
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4753,8 +4756,8 @@ if (!__Pyx_RefNanny) {
  * import sys
  * import time
  * from cmd import Cmd             # <<<<<<<<<<<<<<
- * from .structure.table import table
- * from .structure.database import database
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -4773,16 +4776,16 @@ if (!__Pyx_RefNanny) {
   /* "ddb/engine/interactive.py":4
  * import time
  * from cmd import Cmd
- * from .structure.table import table             # <<<<<<<<<<<<<<
- * from .structure.database import database
- * from sql_engine  import sql_engine
+ * from ddb.engine.structure.table import table             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.sql_engine  import sql_engine
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_table);
   __Pyx_GIVEREF(__pyx_n_s_table);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_table);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_structure_table, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ddb_engine_structure_table, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_table); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 4, __pyx_L1_error)
@@ -4793,9 +4796,9 @@ if (!__Pyx_RefNanny) {
 
   /* "ddb/engine/interactive.py":5
  * from cmd import Cmd
- * from .structure.table import table
- * from .structure.database import database             # <<<<<<<<<<<<<<
- * from sql_engine  import sql_engine
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database             # <<<<<<<<<<<<<<
+ * from ddb.engine.sql_engine  import sql_engine
  * import flextable
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
@@ -4803,7 +4806,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_database);
   __Pyx_GIVEREF(__pyx_n_s_database);
   PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_database);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_structure_database, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_ddb_engine_structure_database, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_database); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
@@ -4813,9 +4816,9 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "ddb/engine/interactive.py":6
- * from .structure.table import table
- * from .structure.database import database
- * from sql_engine  import sql_engine             # <<<<<<<<<<<<<<
+ * from ddb.engine.structure.table import table
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.sql_engine  import sql_engine             # <<<<<<<<<<<<<<
  * import flextable
  * 
  */
@@ -4824,7 +4827,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_INCREF(__pyx_n_s_sql_engine);
   __Pyx_GIVEREF(__pyx_n_s_sql_engine);
   PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_sql_engine);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_sql_engine, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_ddb_engine_sql_engine, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_sql_engine); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 6, __pyx_L1_error)
@@ -4834,8 +4837,8 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/interactive.py":7
- * from .structure.database import database
- * from sql_engine  import sql_engine
+ * from ddb.engine.structure.database import database
+ * from ddb.engine.sql_engine  import sql_engine
  * import flextable             # <<<<<<<<<<<<<<
  * 
  * 
