@@ -1,7 +1,11 @@
 import os
 from distutils.core import setup
 from distutils.extension import Extension
-from Cython.Build import cythonize
+
+try:
+    from Cython.Build import cythonize
+except:
+    print ("Cython not found")
 
 
 USE_CYTHON = os.path.exists('ddb/sql_engine.py')
@@ -46,11 +50,12 @@ extensions = [
 ]     
   
 if USE_CYTHON:
+
     extensions = cythonize(extensions)
 
 setup(
     name='ddb',
-    version='1.0.103',
+    version='1.0.104',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
