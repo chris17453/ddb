@@ -1,3 +1,2 @@
 include README.md
-recursive-include ddb *.py
-recursive-include doc *
+recursive-include ddb *.c
