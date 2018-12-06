@@ -15,6 +15,7 @@ setup.py
 ddb/__init__.py
 ddb/cli.c
 ddb/cli.py
+ddb/engine/__init__.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
 ddb/engine/evaluate/__init__.py
