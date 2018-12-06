@@ -38,7 +38,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.130',
+    version='1.0.131',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -58,7 +58,6 @@ setup(
         ddb = ddb.cli:cli_main
         """ ,
     cmdclass=dict(
-        build_ext=MyBuildExt
     ),        
 
     
