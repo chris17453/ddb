@@ -236,7 +236,7 @@ class sql_engine:
             table_name=query_object['meta']['from']['table']
             query_object['table']=self.database.get(table_name)
             if None ==query_object['table']:
-                raise Exception("invalid table")
+                raise Exception("invalid table {}".format(table_name))
             table_columns=query_object['table'].get_columns()                      
             parser.expand_columns(query_object,table_columns)
             column_len=query_object['table'].column_count()
