@@ -17,17 +17,12 @@ ddb/cli.c
 ddb/cli.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
-ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
-ddb/engine/functions/__init__.py
 ddb/engine/functions/functions.c
-ddb/engine/parser/__init__.py
 ddb/engine/parser/language.c
 ddb/engine/parser/sql_parser.c
-ddb/engine/structure/__init__.py
 ddb/engine/structure/column.c
 ddb/engine/structure/database.c
 ddb/engine/structure/table.c
-ddb/engine/tokenizer/__init__.py
 ddb/engine/tokenizer/sql_tokenize.c
 test/test.py
