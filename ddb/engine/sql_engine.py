@@ -1,12 +1,12 @@
 import os
 import json
 import copy
-from .parser.sql_parser  import sql_parser
-from .structure.table import table
-from .structure.database import database
-from .structure.column import column_v2
-from .evaluate.match import evaluate_match
-from .functions import functions
+from ddb.engine.parser.sql_parser  import sql_parser
+from ddb.engine.structure.table import table
+from ddb.engine.structure.database import database
+from ddb.engine.structure.column import column_v2
+from ddb.engine.evaluate.match import evaluate_match
+from ddb.engine.functions import functions
 import operator
 import flextable
 

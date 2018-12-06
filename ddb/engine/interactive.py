@@ -1,9 +1,9 @@
 import sys
 import time
 from cmd import Cmd
-from .structure.table import table
-from .structure.database import database
-from sql_engine  import sql_engine
+from ddb.engine.structure.table import table
+from ddb.engine.structure.database import database
+from ddb.engine.sql_engine  import sql_engine
 import flextable
 
 

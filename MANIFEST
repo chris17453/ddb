@@ -20,6 +20,7 @@ ddb/engine/interactive.c
 ddb/engine/sql_engine.c
 ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
+ddb/engine/functions/__init__.py
 ddb/engine/functions/functions.c
 ddb/engine/parser/__init__.py
 ddb/engine/parser/language.c
