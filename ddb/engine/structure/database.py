@@ -228,11 +228,20 @@ class database:
         except Exception as ex:
                 print ex   
                 return False 
+
+
     def reload_config(self):
-        self.tables=[]
-        tables=self.get_tables()
-        for table_file in tables:
+        temp_tables=self.get_tables()
+        table_swap=[]
+        # add temp tables to list
+        for t in self.tables:
+            if t.data.type=='Temp':
+                table_swap.append(t)
+                
+        for t in temp_tables:
             self.tables.append(table(table_file))
+        
+        self.tables=table_swap
             
     def get_tables(self):
         if None==self.config_file: 

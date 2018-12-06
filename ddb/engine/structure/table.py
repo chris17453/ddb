@@ -39,6 +39,7 @@ class table:
 
         if None != file:
             self.data.config=file
+            self.data.type="File"
             with open(file, 'r') as stream:
                 try:
                     yaml_data=yaml.load(stream, Loader=Loader)
@@ -299,6 +300,7 @@ class table_data:
     def noop(self, *args, **kw):
         pass    
     def __init__(self,yaml=None,name=None,database=None):
+        self.type           = 'Temp'
         self.name           = None
         self.database       = 'main'
         self.display_name   = None
