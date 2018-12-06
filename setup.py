@@ -19,14 +19,17 @@ extensions = [
     Extension(
 
      "ddb.engine.structure.database",
-     [ "./ddb/engine/structure/database.pyx" ])
+     [ "./ddb/engine/structure/database.pyx" ]),
+    Extension(
+     "ddb.engine.sql_engine",
+     [ "./ddb/engine/sql_engine.pyx" ])
 ]     
   
 
 
 setup(
     name='ddb',
-    version='1.0.88',
+    version='1.0.89',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
