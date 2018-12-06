@@ -25,13 +25,10 @@ ddb/engine/interactive.so
 ddb/engine/sql_engine.c
 ddb/engine/sql_engine.pyx
 ddb/engine/sql_engine.so
-ddb/engine/evaluate/Pipfile
-ddb/engine/evaluate/Pipfile.lock
 ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
 ddb/engine/evaluate/match.pyx
 ddb/engine/evaluate/match.so
-ddb/engine/evaluate/setup.py
 ddb/engine/functions/__init__.py
 ddb/engine/parser/__init__.py
 ddb/engine/parser/language.c
@@ -41,7 +38,6 @@ ddb/engine/parser/sql_parser.c
 ddb/engine/parser/sql_parser.pyx
 ddb/engine/parser/sql_parser.so
 ddb/engine/structure/__init__.py
-ddb/engine/structure/__init__.pyc
 ddb/engine/structure/column.c
 ddb/engine/structure/column.pyx
 ddb/engine/structure/column.so
