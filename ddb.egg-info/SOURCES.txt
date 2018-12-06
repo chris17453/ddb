@@ -18,7 +18,7 @@ ddb.egg-info/dependency_links.txt
 ddb.egg-info/entry_points.txt
 ddb.egg-info/requires.txt
 ddb.egg-info/top_level.txt
-ddb/engine/__init__.py
+ddb/engine/__init__.pyc
 ddb/engine/interactive.c
 ddb/engine/interactive.pyx
 ddb/engine/interactive.so
@@ -38,6 +38,7 @@ ddb/engine/parser/sql_parser.c
 ddb/engine/parser/sql_parser.pyx
 ddb/engine/parser/sql_parser.so
 ddb/engine/structure/__init__.py
+ddb/engine/structure/__init__.pyc
 ddb/engine/structure/column.c
 ddb/engine/structure/column.pyx
 ddb/engine/structure/column.so
