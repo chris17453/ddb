@@ -6,7 +6,7 @@ from distutils.extension import Extension
 
 
 
-USE_CYTHON = os.path.exists('ddb//engine/sql_engine.py')
+USE_CYTHON = os.path.exists('ddb/engine/sql_engine.py')
 print("USE_CYTHON",USE_CYTHON)
 
 
@@ -36,7 +36,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.125',
+    version='1.0.126',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
