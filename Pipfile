@@ -9,7 +9,6 @@ name = "pypi"
 pip = "==18"
 pyyaml = "*"
 bumpversion = "*"
-ddb = {path = "."}
 flextable = {path = "./../flextable"}
 cython = "*"
 "e1839a8" = {path = "."}
