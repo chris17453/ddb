@@ -29,6 +29,21 @@ extensions = [
    Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
   
+
+   Extension("ddb.engine.parser.language",        [ "./ddb/engine/parser/language"+ext ]),
+   Extension("ddb.engine.tokenizer.sql_tokenize", [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]) ,
+   Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ]),
+   Extension("ddb.engine.evaluate.match",         [ "./ddb/engine/evaluate/match"+ext ] ),
+   Extension("ddb.engine.structure.column",       [ "./ddb/engine/structure/column"+ext ] ),
+   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ]),
+   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
+   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ]),
+   Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
+   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ]),
+   Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
+
+   
+
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
@@ -38,7 +53,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.134',
+    version='1.0.135',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -49,6 +64,18 @@ setup(
     description= '',
     install_requires=['pyyaml','flextable'],
     ext_modules = extensions,
+    packages = ['cli.ddb',
+   'interactive.engine.ddb',
+   'functions.functions.engine.ddb',
+   'sql_engine.engine.ddb',
+   'database.structure.engine.ddb',
+   'table.structure.engine.ddb',
+   'column.structure.engine.ddb',
+   'match.evaluate.engine.ddb',
+   'sql_parser.parserengine.ddb',
+   'sql_tokenize.tokenizer.engine.ddb',
+   'language.parser.engine.ddb',]
+
     #data_files=[
     #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
     #    ('share/applications', ['data/proxx.desktop'])
