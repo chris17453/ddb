@@ -13,6 +13,7 @@ setup.py
 ./ddb/engine/structure/table.c
 ./ddb/engine/tokenizer/sql_tokenize.c
 ddb/__init__.py
+ddb/cli.c
 ddb/cli.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c

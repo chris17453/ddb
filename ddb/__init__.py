@@ -1,8 +1,8 @@
-from cli import cli_main
+from ddb.cli import cli_main
 import os
 
 
-from .engine.sql_engine import sql_engine
+from ddb.engine.sql_engine import sql_engine
 
 #main import
 def engine(config_file=None,mode='array'):
