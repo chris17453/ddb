@@ -49,14 +49,14 @@ extensions = [
   
 if USE_CYTHON:
     try:
-        import Cython
+        from Cython.Build import cythonize
     except:
         print ("Cython not found")
-    extensions =  Cython.Build.cythonize(extensions)
+    extensions =  cythonize(extensions)
 
 setup(
     name='ddb',
-    version='1.0.109',
+    version='1.0.110',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -66,7 +66,7 @@ setup(
     author_email= 'charles@titandws.com',
     description= '',
     install_requires=['pyyaml','flextable'],
-    ext_modules = cythonize(extensions),
+    ext_modules = extensions,
     #data_files=[
     #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
     #    ('share/applications', ['data/proxx.desktop'])
