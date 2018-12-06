@@ -22,14 +22,26 @@ extensions = [
      [ "./ddb/engine/structure/database.pyx" ]),
     Extension(
      "ddb.engine.sql_engine",
-     [ "./ddb/engine/sql_engine.pyx" ])
+     [ "./ddb/engine/sql_engine.pyx" ]),
+    Extension(
+        "ddb.engine.interactive",
+         [ "./ddb/engine/interactive.pyx" ]),
+    Extension(
+        "ddb.engine.parser.language",
+         [ "./ddb/engine/parser/language.pyx" ]),
+    Extension(
+        "ddb.engine.parser.sql_parser",
+         [ "./ddb/engine/parser/sql_parser.pyx" ]),
+    Extension(
+        "ddb.engine.tokenizer.sql_tokenize",
+         [ "./ddb/engine/tokenizer/sql_tokenize.pyx" ]) ,
 ]     
   
 
 
 setup(
     name='ddb',
-    version='1.0.89',
+    version='1.0.90',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',

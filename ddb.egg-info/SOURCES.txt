@@ -1,6 +1,7 @@
 MANIFEST.in
 README.md
 setup.py
+./ddb/engine/sql_engine.c
 ./ddb/engine/evaluate/match.c
 ./ddb/engine/structure/column.c
 ./ddb/engine/structure/database.c
@@ -17,8 +18,9 @@ ddb/engine/__init__.py
 ddb/engine/__init__.pyc
 ddb/engine/interactive.py
 ddb/engine/interactive.pyc
-ddb/engine/sql_engine.py
-ddb/engine/sql_engine.pyc
+ddb/engine/sql_engine.c
+ddb/engine/sql_engine.pyx
+ddb/engine/sql_engine.so
 ddb/engine/evaluate/Pipfile
 ddb/engine/evaluate/Pipfile.lock
 ddb/engine/evaluate/__init__.py
@@ -36,6 +38,7 @@ ddb/engine/parser/language.pyc
 ddb/engine/parser/sql_parser.py
 ddb/engine/parser/sql_parser.pyc
 ddb/engine/structure/__init__.py
+ddb/engine/structure/__init__.pyc
 ddb/engine/structure/column.c
 ddb/engine/structure/column.pyx
 ddb/engine/structure/column.so
