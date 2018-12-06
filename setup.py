@@ -1,6 +1,9 @@
 import os
 from distutils.core import setup
 from distutils.extension import Extension
+from pathlib import Path
+import shutil
+
 #from setuptools import setup
 
 
@@ -11,6 +14,33 @@ print("USE_CYTHON",USE_CYTHON)
 
 
 ext = '.py' if USE_CYTHON else '.c'
+
+
+
+class MyBuildExt(build_ext):
+    def run(self):
+        build_ext.run(self)
+
+        build_dir = Path(self.build_lib)
+        root_dir = Path(__file__).parent
+
+        target_dir = build_dir if not self.inplace else root_dir
+
+
+        self.copy_file('ddb/__init__.py',                    root_dir, target_dir)
+        self.copy_file('ddb/engine/__init__.py',             root_dir, target_dir)
+        self.copy_file('ddb/engine/evaluate/__init__.py',    root_dir, target_dir)
+        self.copy_file('ddb/engine/functions/__init__.py',   root_dir, target_dir)
+        self.copy_file('ddb/engine/parser/__init__.py',      root_dir, target_dir)
+        self.copy_file('ddb/engine/structure/__init__.py',   root_dir, target_dir)
+        self.copy_file('ddb/engine/tokenizer/__init__.py',   root_dir, target_dir)
+
+    def copy_file(self, path, source_dir, destination_dir):
+        if not (source_dir / path).exists():
+            return
+
+        shutil.copyfile(str(source_dir / path), str(destination_dir / path))
+
 
 
 extensions = [
@@ -36,7 +66,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.127',
+    version='1.0.128',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -54,7 +84,11 @@ setup(
     entry_points="""
         [console_scripts]
         ddb = ddb.cli:cli_main
-        """    
+        """ ,
+    cmdclass=dict(
+        build_ext=MyBuildExt
+    ),        
+
     
 )
 
