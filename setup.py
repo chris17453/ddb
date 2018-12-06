@@ -41,8 +41,8 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.138',
-    #packages=['ddb',],
+    version='1.0.139',
+    packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
@@ -52,18 +52,7 @@ setup(
     description= '',
     install_requires=['pyyaml','flextable'],
     ext_modules = extensions,
-    packages = ['cli.ddb',
-   'interactive.engine.ddb',
-   'functions.functions.engine.ddb',
-   'sql_engine.engine.ddb',
-   'database.structure.engine.ddb',
-   'table.structure.engine.ddb',
-   'column.structure.engine.ddb',
-   'match.evaluate.engine.ddb',
-   'sql_parser.parserengine.ddb',
-   'sql_tokenize.tokenizer.engine.ddb',
-   'language.parser.engine.ddb',],
-
+    
     #data_files=[
     #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
     #    ('share/applications', ['data/proxx.desktop'])
@@ -79,3 +68,15 @@ setup(
 
 
 
+#packages = ['cli.ddb',
+#   'interactive.engine.ddb',
+#   'functions.functions.engine.ddb',
+#   'sql_engine.engine.ddb',
+#   'database.structure.engine.ddb',
+#   'table.structure.engine.ddb',
+#   'column.structure.engine.ddb',
+#   'match.evaluate.engine.ddb',
+#   'sql_parser.parserengine.ddb',
+#   'sql_tokenize.tokenizer.engine.ddb',
+#   'language.parser.engine.ddb',],
+#
