@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.evaluate.match", 
         "sources": [
-            "ddb/engine/evaluate/match.pyx"
+            "./ddb/engine/evaluate/match.pyx"
         ]
     }, 
     "module_name": "ddb.engine.evaluate.match"

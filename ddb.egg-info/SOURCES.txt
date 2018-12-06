@@ -28,7 +28,6 @@ ddb/engine/sql_engine.so
 ddb/engine/evaluate/Pipfile
 ddb/engine/evaluate/Pipfile.lock
 ddb/engine/evaluate/__init__.py
-ddb/engine/evaluate/__init__.pyc
 ddb/engine/evaluate/match.c
 ddb/engine/evaluate/match.pyx
 ddb/engine/evaluate/match.so
