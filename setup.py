@@ -1,14 +1,6 @@
+import os
 from distutils.core import setup
-from Cython.Build import cythonize
-#from setuptools import setup
-from setuptools.extension import Extension
-
-try:
-     from Cython.distutils import build_ext
-except ImportError:
-     from distutils.command import build_ext
-
-
+from distutils.extension import Extension
 
 
 USE_CYTHON = os.path.exists('ddb/sql_engine.py')
@@ -52,11 +44,13 @@ extensions = [
          [ "./ddb/engine/functions/functions"+ext ]) ,
 ]     
   
-
+if USE_CYTHON:
+    from Cython.Build import cythonize
+    extensions = cythonize(extensions)
 
 setup(
     name='ddb',
-    version='1.0.99',
+    version='1.0.100',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -65,8 +59,7 @@ setup(
     author= 'Charles Watkins',
     author_email= 'charles@titandws.com',
     description= '',
-    install_requires=['pyyaml','flextable','Cython'
-    ],
+    install_requires=['pyyaml','flextable'],
     ext_modules = cythonize(extensions),
     #data_files=[
     #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
