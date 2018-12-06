@@ -7,7 +7,7 @@ from setuptools import setup
 
 
 USE_CYTHON = os.path.exists('ddb/sql_engine.py')
-#print("USE_CYTHON",USE_CYTHON)
+print("USE_CYTHON",USE_CYTHON)
 
 
 ext = '.py' if USE_CYTHON else '.c'
@@ -36,7 +36,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.114',
+    version='1.0.115',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
