@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.sql_engine", 
         "sources": [
-            "./ddb/engine/sql_engine.pyx"
+            "./ddb/engine/sql_engine.py"
         ]
     }, 
     "module_name": "ddb.engine.sql_engine"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/sql_engine.pyx",
+  "ddb/engine/sql_engine.py",
 };
 
 /*--- Type declarations ---*/
@@ -1218,17 +1218,6 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 /* ImportFrom.proto */
 static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
-/* SetNameInClass.proto */
-#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
-#define __Pyx_SetNameInClass(ns, name, value)\
-    (likely(PyDict_CheckExact(ns)) ? _PyDict_SetItem_KnownHash(ns, name, value, ((PyASCIIObject *) name)->hash) : PyObject_SetItem(ns, name, value))
-#elif CYTHON_COMPILING_IN_CPYTHON
-#define __Pyx_SetNameInClass(ns, name, value)\
-    (likely(PyDict_CheckExact(ns)) ? PyDict_SetItem(ns, name, value) : PyObject_SetItem(ns, name, value))
-#else
-#define __Pyx_SetNameInClass(ns, name, value)  PyObject_SetItem(ns, name, value)
-#endif
-
 /* FetchCommonType.proto */
 static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
 
@@ -1285,6 +1274,17 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
 static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
                                                               PyObject *dict);
 static int __pyx_CyFunction_init(void);
+
+/* SetNameInClass.proto */
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+#define __Pyx_SetNameInClass(ns, name, value)\
+    (likely(PyDict_CheckExact(ns)) ? _PyDict_SetItem_KnownHash(ns, name, value, ((PyASCIIObject *) name)->hash) : PyObject_SetItem(ns, name, value))
+#elif CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_SetNameInClass(ns, name, value)\
+    (likely(PyDict_CheckExact(ns)) ? PyDict_SetItem(ns, name, value) : PyObject_SetItem(ns, name, value))
+#else
+#define __Pyx_SetNameInClass(ns, name, value)  PyObject_SetItem(ns, name, value)
+#endif
 
 /* CalculateMetaclass.proto */
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases);
@@ -1594,9 +1594,9 @@ static const char __pyx_k_sql_engine_drop_table[] = "sql_engine.drop_table";
 static const char __pyx_k_sql_engine_create_table[] = "sql_engine.create_table";
 static const char __pyx_k_sql_engine_define_table[] = "sql_engine.define_table";
 static const char __pyx_k_sql_engine_process_line[] = "sql_engine.process_line";
+static const char __pyx_k_ddb_engine_sql_engine_py[] = "ddb/engine/sql_engine.py";
 static const char __pyx_k_sql_engine_create_single[] = "sql_engine.create_single";
 static const char __pyx_k_sql_engine_update_single[] = "sql_engine.update_single";
-static const char __pyx_k_ddb_engine_sql_engine_pyx[] = "ddb/engine/sql_engine.pyx";
 static const char __pyx_k_get_column_at_data_ordinal[] = "get_column_at_data_ordinal";
 static const char __pyx_k_sql_engine_change_database[] = "sql_engine.change_database";
 static const char __pyx_k_sql_engine_has_configuration[] = "sql_engine.has_configuration";
@@ -1671,7 +1671,7 @@ static PyObject *__pyx_n_s_database;
 static PyObject *__pyx_n_s_database_dir;
 static PyObject *__pyx_n_s_database_name;
 static PyObject *__pyx_n_s_ddb_engine_sql_engine;
-static PyObject *__pyx_kp_s_ddb_engine_sql_engine_pyx;
+static PyObject *__pyx_kp_s_ddb_engine_sql_engine_py;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_debug_on;
 static PyObject *__pyx_n_s_debugging;
@@ -1878,51 +1878,52 @@ static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__12;
-static PyObject *__pyx_tuple__14;
+static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__15;
-static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_tuple__21;
-static PyObject *__pyx_tuple__23;
-static PyObject *__pyx_tuple__25;
-static PyObject *__pyx_tuple__27;
-static PyObject *__pyx_tuple__29;
-static PyObject *__pyx_tuple__31;
+static PyObject *__pyx_tuple__22;
+static PyObject *__pyx_tuple__24;
+static PyObject *__pyx_tuple__26;
+static PyObject *__pyx_tuple__28;
+static PyObject *__pyx_tuple__30;
 static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__40;
-static PyObject *__pyx_tuple__42;
-static PyObject *__pyx_tuple__44;
-static PyObject *__pyx_tuple__46;
-static PyObject *__pyx_tuple__48;
-static PyObject *__pyx_tuple__50;
+static PyObject *__pyx_tuple__33;
+static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__39;
+static PyObject *__pyx_tuple__41;
+static PyObject *__pyx_tuple__43;
+static PyObject *__pyx_tuple__45;
+static PyObject *__pyx_tuple__47;
+static PyObject *__pyx_tuple__49;
+static PyObject *__pyx_tuple__51;
 static PyObject *__pyx_codeobj__9;
-static PyObject *__pyx_codeobj__11;
-static PyObject *__pyx_codeobj__13;
-static PyObject *__pyx_codeobj__16;
-static PyObject *__pyx_codeobj__19;
-static PyObject *__pyx_codeobj__22;
-static PyObject *__pyx_codeobj__24;
-static PyObject *__pyx_codeobj__26;
-static PyObject *__pyx_codeobj__28;
-static PyObject *__pyx_codeobj__30;
-static PyObject *__pyx_codeobj__33;
-static PyObject *__pyx_codeobj__35;
-static PyObject *__pyx_codeobj__37;
-static PyObject *__pyx_codeobj__39;
-static PyObject *__pyx_codeobj__41;
-static PyObject *__pyx_codeobj__43;
-static PyObject *__pyx_codeobj__45;
-static PyObject *__pyx_codeobj__47;
-static PyObject *__pyx_codeobj__49;
-static PyObject *__pyx_codeobj__51;
+static PyObject *__pyx_codeobj__12;
+static PyObject *__pyx_codeobj__14;
+static PyObject *__pyx_codeobj__17;
+static PyObject *__pyx_codeobj__20;
+static PyObject *__pyx_codeobj__23;
+static PyObject *__pyx_codeobj__25;
+static PyObject *__pyx_codeobj__27;
+static PyObject *__pyx_codeobj__29;
+static PyObject *__pyx_codeobj__31;
+static PyObject *__pyx_codeobj__34;
+static PyObject *__pyx_codeobj__36;
+static PyObject *__pyx_codeobj__38;
+static PyObject *__pyx_codeobj__40;
+static PyObject *__pyx_codeobj__42;
+static PyObject *__pyx_codeobj__44;
+static PyObject *__pyx_codeobj__46;
+static PyObject *__pyx_codeobj__48;
+static PyObject *__pyx_codeobj__50;
+static PyObject *__pyx_codeobj__52;
 /* Late includes */
 
-/* "ddb/engine/sql_engine.pyx":20
+/* "ddb/engine/sql_engine.py":20
  * 
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
@@ -1944,9 +1945,9 @@ static PyObject *__pyx_pw_3ddb_6engine_10sql_engine_1info(PyObject *__pyx_self, 
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_msg,&__pyx_n_s_arg1,&__pyx_n_s_arg2,&__pyx_n_s_arg3,0};
     PyObject* values[4] = {0,0,0,0};
-    values[1] = ((PyObject *)Py_None);
-    values[2] = ((PyObject *)Py_None);
-    values[3] = ((PyObject *)Py_None);
+    values[1] = ((PyObject *)((PyObject *)Py_None));
+    values[2] = ((PyObject *)((PyObject *)Py_None));
+    values[3] = ((PyObject *)((PyObject *)Py_None));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -2030,7 +2031,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_info(CYTHON_UNUSED PyObject 
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("info", 0);
 
-  /* "ddb/engine/sql_engine.pyx":21
+  /* "ddb/engine/sql_engine.py":21
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -2045,7 +2046,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_info(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/sql_engine.pyx":22
+    /* "ddb/engine/sql_engine.py":22
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:
  *         print(msg,arg1,arg2,arg3)             # <<<<<<<<<<<<<<
@@ -2069,7 +2070,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_info(CYTHON_UNUSED PyObject 
     if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":21
+    /* "ddb/engine/sql_engine.py":21
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -2078,7 +2079,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_info(CYTHON_UNUSED PyObject 
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":20
+  /* "ddb/engine/sql_engine.py":20
  * 
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
@@ -2100,7 +2101,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_info(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":29
+/* "ddb/engine/sql_engine.py":29
  * # Add Update
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
@@ -2136,7 +2137,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_2enum(CYTHON_UNUSED PyObject
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("enum", 0);
 
-  /* "ddb/engine/sql_engine.pyx":30
+  /* "ddb/engine/sql_engine.py":30
  * 
  * def enum(**enums):
  *     return type('Enum', (), enums)             # <<<<<<<<<<<<<<
@@ -2162,7 +2163,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_2enum(CYTHON_UNUSED PyObject
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":29
+  /* "ddb/engine/sql_engine.py":29
  * # Add Update
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
@@ -2182,7 +2183,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_2enum(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":36
+/* "ddb/engine/sql_engine.py":36
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  *     def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):             # <<<<<<<<<<<<<<
@@ -2317,7 +2318,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/sql_engine.pyx":38
+  /* "ddb/engine/sql_engine.py":38
  *     def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):
  *         global debug_on
  *         debug_on=debug             # <<<<<<<<<<<<<<
@@ -2326,7 +2327,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_debug_on, __pyx_v_debug) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":39
+  /* "ddb/engine/sql_engine.py":39
  *         global debug_on
  *         debug_on=debug
  *         self.debug=debug             # <<<<<<<<<<<<<<
@@ -2335,7 +2336,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, __pyx_v_debug) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":40
+  /* "ddb/engine/sql_engine.py":40
  *         debug_on=debug
  *         self.debug=debug
  *         self.results=None             # <<<<<<<<<<<<<<
@@ -2344,7 +2345,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, Py_None) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":41
+  /* "ddb/engine/sql_engine.py":41
  *         self.debug=debug
  *         self.results=None
  *         self.mode=mode             # <<<<<<<<<<<<<<
@@ -2353,7 +2354,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_mode, __pyx_v_mode) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":42
+  /* "ddb/engine/sql_engine.py":42
  *         self.results=None
  *         self.mode=mode
  *         self.database=database(directory=database_dir,config_file=config_file)             # <<<<<<<<<<<<<<
@@ -2373,7 +2374,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_database, __pyx_t_3) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":43
+  /* "ddb/engine/sql_engine.py":43
  *         self.mode=mode
  *         self.database=database(directory=database_dir,config_file=config_file)
  *         self.current_database=self.database.get_default_database()             # <<<<<<<<<<<<<<
@@ -2403,7 +2404,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_current_database, __pyx_t_3) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":44
+  /* "ddb/engine/sql_engine.py":44
  *         self.database=database(directory=database_dir,config_file=config_file)
  *         self.current_database=self.database.get_default_database()
  *         if None !=query:             # <<<<<<<<<<<<<<
@@ -2415,7 +2416,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/sql_engine.pyx":45
+    /* "ddb/engine/sql_engine.py":45
  *         self.current_database=self.database.get_default_database()
  *         if None !=query:
  *             self.query(query)             # <<<<<<<<<<<<<<
@@ -2441,7 +2442,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":44
+    /* "ddb/engine/sql_engine.py":44
  *         self.database=database(directory=database_dir,config_file=config_file)
  *         self.current_database=self.database.get_default_database()
  *         if None !=query:             # <<<<<<<<<<<<<<
@@ -2450,7 +2451,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":36
+  /* "ddb/engine/sql_engine.py":36
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  *     def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):             # <<<<<<<<<<<<<<
@@ -2473,7 +2474,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine___init__(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":53
+/* "ddb/engine/sql_engine.py":53
  * 
  * 
  *     def debugging(self,debug=False):             # <<<<<<<<<<<<<<
@@ -2552,7 +2553,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_2debugging(CYTH
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("debugging", 0);
 
-  /* "ddb/engine/sql_engine.pyx":54
+  /* "ddb/engine/sql_engine.py":54
  * 
  *     def debugging(self,debug=False):
  *         self.debug=debug             # <<<<<<<<<<<<<<
@@ -2561,7 +2562,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_2debugging(CYTH
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, __pyx_v_debug) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":53
+  /* "ddb/engine/sql_engine.py":53
  * 
  * 
  *     def debugging(self,debug=False):             # <<<<<<<<<<<<<<
@@ -2581,7 +2582,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_2debugging(CYTH
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":57
+/* "ddb/engine/sql_engine.py":57
  * 
  * 
  *     def define_table(self,table_name,database_name,columns,data_file,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -2710,7 +2711,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("define_table", 0);
 
-  /* "ddb/engine/sql_engine.pyx":59
+  /* "ddb/engine/sql_engine.py":59
  *     def define_table(self,table_name,database_name,columns,data_file,field_delimiter=None):
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)             # <<<<<<<<<<<<<<
@@ -2733,7 +2734,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
   __pyx_v_t = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":60
+  /* "ddb/engine/sql_engine.py":60
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  *         self.database.tables.append(t)             # <<<<<<<<<<<<<<
@@ -2748,7 +2749,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
   __pyx_t_4 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_v_t); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":57
+  /* "ddb/engine/sql_engine.py":57
  * 
  * 
  *     def define_table(self,table_name,database_name,columns,data_file,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -2772,7 +2773,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":63
+/* "ddb/engine/sql_engine.py":63
  * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
@@ -2802,7 +2803,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("has_configuration", 0);
 
-  /* "ddb/engine/sql_engine.pyx":64
+  /* "ddb/engine/sql_engine.py":64
  * 
  *     def has_configuration(self):
  *         if None==self.database:             # <<<<<<<<<<<<<<
@@ -2817,7 +2818,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/sql_engine.pyx":65
+    /* "ddb/engine/sql_engine.py":65
  *     def has_configuration(self):
  *         if None==self.database:
  *             return False             # <<<<<<<<<<<<<<
@@ -2829,7 +2830,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/sql_engine.pyx":64
+    /* "ddb/engine/sql_engine.py":64
  * 
  *     def has_configuration(self):
  *         if None==self.database:             # <<<<<<<<<<<<<<
@@ -2838,7 +2839,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":70
+  /* "ddb/engine/sql_engine.py":70
  *         #if table_count==0:
  *         #    return False
  *         return True             # <<<<<<<<<<<<<<
@@ -2850,7 +2851,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":63
+  /* "ddb/engine/sql_engine.py":63
  * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
@@ -2870,7 +2871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":72
+/* "ddb/engine/sql_engine.py":72
  *         return True
  * 
  *     def query(self,sql_query):             # <<<<<<<<<<<<<<
@@ -2968,7 +2969,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   Py_ssize_t __pyx_t_15;
   __Pyx_RefNannySetupContext("query", 0);
 
-  /* "ddb/engine/sql_engine.pyx":73
+  /* "ddb/engine/sql_engine.py":73
  * 
  *     def query(self,sql_query):
  *         if False==self.has_configuration():             # <<<<<<<<<<<<<<
@@ -2998,7 +2999,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_t_4)) {
 
-    /* "ddb/engine/sql_engine.pyx":74
+    /* "ddb/engine/sql_engine.py":74
  *     def query(self,sql_query):
  *         if False==self.has_configuration():
  *             raise Exception("No table found")             # <<<<<<<<<<<<<<
@@ -3011,7 +3012,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 74, __pyx_L1_error)
 
-    /* "ddb/engine/sql_engine.pyx":73
+    /* "ddb/engine/sql_engine.py":73
  * 
  *     def query(self,sql_query):
  *         if False==self.has_configuration():             # <<<<<<<<<<<<<<
@@ -3020,7 +3021,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":75
+  /* "ddb/engine/sql_engine.py":75
  *         if False==self.has_configuration():
  *             raise Exception("No table found")
  *         self.results=None             # <<<<<<<<<<<<<<
@@ -3029,7 +3030,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, Py_None) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":79
+  /* "ddb/engine/sql_engine.py":79
  *         # update table info...
  *         # it may have changed...
  *         self.database.reload_config()             # <<<<<<<<<<<<<<
@@ -3058,7 +3059,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":81
+  /* "ddb/engine/sql_engine.py":81
  *         self.database.reload_config()
  * 
  *         parser=sql_parser(sql_query,self.debug)             # <<<<<<<<<<<<<<
@@ -3119,7 +3120,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __pyx_v_parser = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":82
+  /* "ddb/engine/sql_engine.py":82
  * 
  *         parser=sql_parser(sql_query,self.debug)
  *         if False == parser.query_objects:             # <<<<<<<<<<<<<<
@@ -3134,7 +3135,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (unlikely(__pyx_t_4)) {
 
-    /* "ddb/engine/sql_engine.pyx":83
+    /* "ddb/engine/sql_engine.py":83
  *         parser=sql_parser(sql_query,self.debug)
  *         if False == parser.query_objects:
  *             raise Exception ("Invalid SQL")             # <<<<<<<<<<<<<<
@@ -3147,7 +3148,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(0, 83, __pyx_L1_error)
 
-    /* "ddb/engine/sql_engine.pyx":82
+    /* "ddb/engine/sql_engine.py":82
  * 
  *         parser=sql_parser(sql_query,self.debug)
  *         if False == parser.query_objects:             # <<<<<<<<<<<<<<
@@ -3156,7 +3157,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":85
+  /* "ddb/engine/sql_engine.py":85
  *             raise Exception ("Invalid SQL")
  * 
  *         for query_object in parser.query_objects:             # <<<<<<<<<<<<<<
@@ -3208,7 +3209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_XDECREF_SET(__pyx_v_query_object, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":87
+    /* "ddb/engine/sql_engine.py":87
  *         for query_object in parser.query_objects:
  * 
  *             if True==self.debug:             # <<<<<<<<<<<<<<
@@ -3223,7 +3224,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":88
+      /* "ddb/engine/sql_engine.py":88
  * 
  *             if True==self.debug:
  *                 print(query_object)             # <<<<<<<<<<<<<<
@@ -3232,7 +3233,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
       if (__Pyx_PrintOne(0, __pyx_v_query_object) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
 
-      /* "ddb/engine/sql_engine.pyx":87
+      /* "ddb/engine/sql_engine.py":87
  *         for query_object in parser.query_objects:
  * 
  *             if True==self.debug:             # <<<<<<<<<<<<<<
@@ -3241,7 +3242,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":93
+    /* "ddb/engine/sql_engine.py":93
  *             #get columns, doesnt need a table
  *             #print query_object['mode']
  *             if query_object['mode']=="show tables":             # <<<<<<<<<<<<<<
@@ -3254,7 +3255,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":95
+      /* "ddb/engine/sql_engine.py":95
  *             if query_object['mode']=="show tables":
  * 
  *                 self.results=functions.show_tables(self.database)             # <<<<<<<<<<<<<<
@@ -3287,7 +3288,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":93
+      /* "ddb/engine/sql_engine.py":93
  *             #get columns, doesnt need a table
  *             #print query_object['mode']
  *             if query_object['mode']=="show tables":             # <<<<<<<<<<<<<<
@@ -3296,7 +3297,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":96
+    /* "ddb/engine/sql_engine.py":96
  * 
  *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":             # <<<<<<<<<<<<<<
@@ -3309,7 +3310,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":97
+      /* "ddb/engine/sql_engine.py":97
  *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":
  *                 self.results=functions.show_columns(self.database,query_object)             # <<<<<<<<<<<<<<
@@ -3373,7 +3374,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":96
+      /* "ddb/engine/sql_engine.py":96
  * 
  *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":             # <<<<<<<<<<<<<<
@@ -3382,7 +3383,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":101
+    /* "ddb/engine/sql_engine.py":101
  *             #    self.results=show_errors(self.database,self.table)
  *             #print query_object
  *             if query_object['mode']=='select':             # <<<<<<<<<<<<<<
@@ -3395,7 +3396,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":102
+      /* "ddb/engine/sql_engine.py":102
  *             #print query_object
  *             if query_object['mode']=='select':
  *                 self.results=self.select(query_object,parser)             # <<<<<<<<<<<<<<
@@ -3452,7 +3453,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":101
+      /* "ddb/engine/sql_engine.py":101
  *             #    self.results=show_errors(self.database,self.table)
  *             #print query_object
  *             if query_object['mode']=='select':             # <<<<<<<<<<<<<<
@@ -3461,7 +3462,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":104
+    /* "ddb/engine/sql_engine.py":104
  *                 self.results=self.select(query_object,parser)
  * 
  *             if query_object['mode']=='insert':             # <<<<<<<<<<<<<<
@@ -3474,7 +3475,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":105
+      /* "ddb/engine/sql_engine.py":105
  * 
  *             if query_object['mode']=='insert':
  *                 self.results=self.insert(query_object)             # <<<<<<<<<<<<<<
@@ -3501,7 +3502,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":104
+      /* "ddb/engine/sql_engine.py":104
  *                 self.results=self.select(query_object,parser)
  * 
  *             if query_object['mode']=='insert':             # <<<<<<<<<<<<<<
@@ -3510,7 +3511,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":107
+    /* "ddb/engine/sql_engine.py":107
  *                 self.results=self.insert(query_object)
  * 
  *             if query_object['mode']=='update':             # <<<<<<<<<<<<<<
@@ -3523,7 +3524,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":108
+      /* "ddb/engine/sql_engine.py":108
  * 
  *             if query_object['mode']=='update':
  *                 self.results=self.update(query_object)             # <<<<<<<<<<<<<<
@@ -3550,7 +3551,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":107
+      /* "ddb/engine/sql_engine.py":107
  *                 self.results=self.insert(query_object)
  * 
  *             if query_object['mode']=='update':             # <<<<<<<<<<<<<<
@@ -3559,7 +3560,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":110
+    /* "ddb/engine/sql_engine.py":110
  *                 self.results=self.update(query_object)
  * 
  *             if query_object['mode']=='delete':             # <<<<<<<<<<<<<<
@@ -3572,7 +3573,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":111
+      /* "ddb/engine/sql_engine.py":111
  * 
  *             if query_object['mode']=='delete':
  *                 self.results=self.delete(query_object)             # <<<<<<<<<<<<<<
@@ -3599,7 +3600,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":110
+      /* "ddb/engine/sql_engine.py":110
  *                 self.results=self.update(query_object)
  * 
  *             if query_object['mode']=='delete':             # <<<<<<<<<<<<<<
@@ -3608,7 +3609,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":113
+    /* "ddb/engine/sql_engine.py":113
  *                 self.results=self.delete(query_object)
  * 
  *             if query_object['mode']=='use':             # <<<<<<<<<<<<<<
@@ -3621,7 +3622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":114
+      /* "ddb/engine/sql_engine.py":114
  * 
  *             if query_object['mode']=='use':
  *                 self.results=self.use(query_object)             # <<<<<<<<<<<<<<
@@ -3648,7 +3649,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 114, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":113
+      /* "ddb/engine/sql_engine.py":113
  *                 self.results=self.delete(query_object)
  * 
  *             if query_object['mode']=='use':             # <<<<<<<<<<<<<<
@@ -3657,7 +3658,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":116
+    /* "ddb/engine/sql_engine.py":116
  *                 self.results=self.use(query_object)
  * 
  *             if query_object['mode']=='drop table':             # <<<<<<<<<<<<<<
@@ -3670,7 +3671,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":117
+      /* "ddb/engine/sql_engine.py":117
  * 
  *             if query_object['mode']=='drop table':
  *                 self.results=self.drop_table(query_object)             # <<<<<<<<<<<<<<
@@ -3697,7 +3698,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":116
+      /* "ddb/engine/sql_engine.py":116
  *                 self.results=self.use(query_object)
  * 
  *             if query_object['mode']=='drop table':             # <<<<<<<<<<<<<<
@@ -3706,7 +3707,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":119
+    /* "ddb/engine/sql_engine.py":119
  *                 self.results=self.drop_table(query_object)
  * 
  *             if query_object['mode']=='create table':             # <<<<<<<<<<<<<<
@@ -3719,7 +3720,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":120
+      /* "ddb/engine/sql_engine.py":120
  * 
  *             if query_object['mode']=='create table':
  *                 self.results=self.create_table(query_object)             # <<<<<<<<<<<<<<
@@ -3746,7 +3747,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":119
+      /* "ddb/engine/sql_engine.py":119
  *                 self.results=self.drop_table(query_object)
  * 
  *             if query_object['mode']=='create table':             # <<<<<<<<<<<<<<
@@ -3755,7 +3756,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":85
+    /* "ddb/engine/sql_engine.py":85
  *             raise Exception ("Invalid SQL")
  * 
  *         for query_object in parser.query_objects:             # <<<<<<<<<<<<<<
@@ -3765,7 +3766,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":123
+  /* "ddb/engine/sql_engine.py":123
  * 
  *         #only return last command
  *         if None != self.results:             # <<<<<<<<<<<<<<
@@ -3780,7 +3781,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/sql_engine.pyx":124
+    /* "ddb/engine/sql_engine.py":124
  *         #only return last command
  *         if None != self.results:
  *             if self.mode=='full':             # <<<<<<<<<<<<<<
@@ -3793,7 +3794,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":125
+      /* "ddb/engine/sql_engine.py":125
  *         if None != self.results:
  *             if self.mode=='full':
  *                 return self.results             # <<<<<<<<<<<<<<
@@ -3807,7 +3808,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       __pyx_t_7 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/sql_engine.pyx":124
+      /* "ddb/engine/sql_engine.py":124
  *         #only return last command
  *         if None != self.results:
  *             if self.mode=='full':             # <<<<<<<<<<<<<<
@@ -3816,7 +3817,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":128
+    /* "ddb/engine/sql_engine.py":128
  * 
  *             #if the result set it not empty
  *             if None !=self.results.results:             # <<<<<<<<<<<<<<
@@ -3834,7 +3835,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":129
+      /* "ddb/engine/sql_engine.py":129
  *             #if the result set it not empty
  *             if None !=self.results.results:
  *                 if self.mode=='array':             # <<<<<<<<<<<<<<
@@ -3847,7 +3848,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":130
+        /* "ddb/engine/sql_engine.py":130
  *             if None !=self.results.results:
  *                 if self.mode=='array':
  *                     new_array=[]             # <<<<<<<<<<<<<<
@@ -3859,7 +3860,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_v_new_array = ((PyObject*)__pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":131
+        /* "ddb/engine/sql_engine.py":131
  *                 if self.mode=='array':
  *                     new_array=[]
  *                     for line in self.results.results:             # <<<<<<<<<<<<<<
@@ -3914,7 +3915,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_2);
           __pyx_t_2 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":132
+          /* "ddb/engine/sql_engine.py":132
  *                     new_array=[]
  *                     for line in self.results.results:
  *                         new_array.append(line['data'])             # <<<<<<<<<<<<<<
@@ -3926,7 +3927,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_new_array, __pyx_t_2); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 132, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":131
+          /* "ddb/engine/sql_engine.py":131
  *                 if self.mode=='array':
  *                     new_array=[]
  *                     for line in self.results.results:             # <<<<<<<<<<<<<<
@@ -3936,7 +3937,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         }
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":133
+        /* "ddb/engine/sql_engine.py":133
  *                     for line in self.results.results:
  *                         new_array.append(line['data'])
  *                     return new_array             # <<<<<<<<<<<<<<
@@ -3948,7 +3949,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_r = __pyx_v_new_array;
         goto __pyx_L0;
 
-        /* "ddb/engine/sql_engine.pyx":129
+        /* "ddb/engine/sql_engine.py":129
  *             #if the result set it not empty
  *             if None !=self.results.results:
  *                 if self.mode=='array':             # <<<<<<<<<<<<<<
@@ -3957,7 +3958,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":135
+      /* "ddb/engine/sql_engine.py":135
  *                     return new_array
  * 
  *                 if self.mode=='object':             # <<<<<<<<<<<<<<
@@ -3970,7 +3971,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":136
+        /* "ddb/engine/sql_engine.py":136
  * 
  *                 if self.mode=='object':
  *                     new_array=[]             # <<<<<<<<<<<<<<
@@ -3982,7 +3983,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_v_new_array = ((PyObject*)__pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":137
+        /* "ddb/engine/sql_engine.py":137
  *                 if self.mode=='object':
  *                     new_array=[]
  *                     columns=self.results.get_columns()             # <<<<<<<<<<<<<<
@@ -4012,7 +4013,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_v_columns = __pyx_t_7;
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":138
+        /* "ddb/engine/sql_engine.py":138
  *                     new_array=[]
  *                     columns=self.results.get_columns()
  *                     len_col=len(columns)             # <<<<<<<<<<<<<<
@@ -4022,7 +4023,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_t_8 = PyObject_Length(__pyx_v_columns); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 138, __pyx_L1_error)
         __pyx_v_len_col = __pyx_t_8;
 
-        /* "ddb/engine/sql_engine.pyx":139
+        /* "ddb/engine/sql_engine.py":139
  *                     columns=self.results.get_columns()
  *                     len_col=len(columns)
  *                     for line in self.results.results:             # <<<<<<<<<<<<<<
@@ -4077,7 +4078,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":140
+          /* "ddb/engine/sql_engine.py":140
  *                     len_col=len(columns)
  *                     for line in self.results.results:
  *                         new_dict={}             # <<<<<<<<<<<<<<
@@ -4089,7 +4090,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           __Pyx_XDECREF_SET(__pyx_v_new_dict, ((PyObject*)__pyx_t_3));
           __pyx_t_3 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":141
+          /* "ddb/engine/sql_engine.py":141
  *                     for line in self.results.results:
  *                         new_dict={}
  *                         for i in range(0,len_col):             # <<<<<<<<<<<<<<
@@ -4101,7 +4102,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
             __pyx_v_i = __pyx_t_14;
 
-            /* "ddb/engine/sql_engine.pyx":142
+            /* "ddb/engine/sql_engine.py":142
  *                         new_dict={}
  *                         for i in range(0,len_col):
  *                             if len(line['data'])<i:             # <<<<<<<<<<<<<<
@@ -4115,7 +4116,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
             __pyx_t_4 = ((__pyx_t_15 < __pyx_v_i) != 0);
             if (__pyx_t_4) {
 
-              /* "ddb/engine/sql_engine.pyx":143
+              /* "ddb/engine/sql_engine.py":143
  *                         for i in range(0,len_col):
  *                             if len(line['data'])<i:
  *                                 break             # <<<<<<<<<<<<<<
@@ -4124,7 +4125,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
               goto __pyx_L27_break;
 
-              /* "ddb/engine/sql_engine.pyx":142
+              /* "ddb/engine/sql_engine.py":142
  *                         new_dict={}
  *                         for i in range(0,len_col):
  *                             if len(line['data'])<i:             # <<<<<<<<<<<<<<
@@ -4133,7 +4134,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
             }
 
-            /* "ddb/engine/sql_engine.pyx":144
+            /* "ddb/engine/sql_engine.py":144
  *                             if len(line['data'])<i:
  *                                 break
  *                             new_dict[columns[i]]=line['data'][i]             # <<<<<<<<<<<<<<
@@ -4153,7 +4154,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
           }
           __pyx_L27_break:;
 
-          /* "ddb/engine/sql_engine.pyx":145
+          /* "ddb/engine/sql_engine.py":145
  *                                 break
  *                             new_dict[columns[i]]=line['data'][i]
  *                         new_array.append(new_dict)             # <<<<<<<<<<<<<<
@@ -4162,7 +4163,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
           __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_new_array, __pyx_v_new_dict); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 145, __pyx_L1_error)
 
-          /* "ddb/engine/sql_engine.pyx":139
+          /* "ddb/engine/sql_engine.py":139
  *                     columns=self.results.get_columns()
  *                     len_col=len(columns)
  *                     for line in self.results.results:             # <<<<<<<<<<<<<<
@@ -4172,7 +4173,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         }
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":146
+        /* "ddb/engine/sql_engine.py":146
  *                             new_dict[columns[i]]=line['data'][i]
  *                         new_array.append(new_dict)
  *                     return new_array             # <<<<<<<<<<<<<<
@@ -4184,7 +4185,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
         __pyx_r = __pyx_v_new_array;
         goto __pyx_L0;
 
-        /* "ddb/engine/sql_engine.pyx":135
+        /* "ddb/engine/sql_engine.py":135
  *                     return new_array
  * 
  *                 if self.mode=='object':             # <<<<<<<<<<<<<<
@@ -4193,7 +4194,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":128
+      /* "ddb/engine/sql_engine.py":128
  * 
  *             #if the result set it not empty
  *             if None !=self.results.results:             # <<<<<<<<<<<<<<
@@ -4202,7 +4203,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":123
+    /* "ddb/engine/sql_engine.py":123
  * 
  *         #only return last command
  *         if None != self.results:             # <<<<<<<<<<<<<<
@@ -4211,7 +4212,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":148
+  /* "ddb/engine/sql_engine.py":148
  *                     return new_array
  * 
  *         return None             # <<<<<<<<<<<<<<
@@ -4222,7 +4223,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":72
+  /* "ddb/engine/sql_engine.py":72
  *         return True
  * 
  *     def query(self,sql_query):             # <<<<<<<<<<<<<<
@@ -4252,7 +4253,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":151
+/* "ddb/engine/sql_engine.py":151
  * 
  * 
  *     def change_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -4333,7 +4334,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("change_database", 0);
 
-  /* "ddb/engine/sql_engine.pyx":152
+  /* "ddb/engine/sql_engine.py":152
  * 
  *     def change_database(self,database_name):
  *         query="use {}".format(database_name)             # <<<<<<<<<<<<<<
@@ -4360,7 +4361,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   __pyx_v_query = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":153
+  /* "ddb/engine/sql_engine.py":153
  *     def change_database(self,database_name):
  *         query="use {}".format(database_name)
  *         results=self.query(query)             # <<<<<<<<<<<<<<
@@ -4387,7 +4388,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   __pyx_v_results = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":154
+  /* "ddb/engine/sql_engine.py":154
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  *         if None==results:             # <<<<<<<<<<<<<<
@@ -4399,7 +4400,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/sql_engine.pyx":155
+    /* "ddb/engine/sql_engine.py":155
  *         results=self.query(query)
  *         if None==results:
  *             return False             # <<<<<<<<<<<<<<
@@ -4411,7 +4412,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/sql_engine.pyx":154
+    /* "ddb/engine/sql_engine.py":154
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  *         if None==results:             # <<<<<<<<<<<<<<
@@ -4420,7 +4421,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":156
+  /* "ddb/engine/sql_engine.py":156
  *         if None==results:
  *             return False
  *         return True             # <<<<<<<<<<<<<<
@@ -4432,7 +4433,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":151
+  /* "ddb/engine/sql_engine.py":151
  * 
  * 
  *     def change_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -4455,7 +4456,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_10change_databa
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":159
+/* "ddb/engine/sql_engine.py":159
  * 
  * 
  *     def limit(self,data_stream,index,length):             # <<<<<<<<<<<<<<
@@ -4569,7 +4570,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
   __Pyx_INCREF(__pyx_v_index);
   __Pyx_INCREF(__pyx_v_length);
 
-  /* "ddb/engine/sql_engine.pyx":160
+  /* "ddb/engine/sql_engine.py":160
  * 
  *     def limit(self,data_stream,index,length):
  *         try:             # <<<<<<<<<<<<<<
@@ -4585,7 +4586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/sql_engine.pyx":161
+      /* "ddb/engine/sql_engine.py":161
  *     def limit(self,data_stream,index,length):
  *         try:
  *             if None == index:             # <<<<<<<<<<<<<<
@@ -4597,7 +4598,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_5) {
 
-        /* "ddb/engine/sql_engine.pyx":162
+        /* "ddb/engine/sql_engine.py":162
  *         try:
  *             if None == index:
  *                 index=0             # <<<<<<<<<<<<<<
@@ -4607,7 +4608,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
         __Pyx_INCREF(__pyx_int_0);
         __Pyx_DECREF_SET(__pyx_v_index, __pyx_int_0);
 
-        /* "ddb/engine/sql_engine.pyx":161
+        /* "ddb/engine/sql_engine.py":161
  *     def limit(self,data_stream,index,length):
  *         try:
  *             if None == index:             # <<<<<<<<<<<<<<
@@ -4616,7 +4617,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":163
+      /* "ddb/engine/sql_engine.py":163
  *             if None == index:
  *                 index=0
  *             if None == length:             # <<<<<<<<<<<<<<
@@ -4628,7 +4629,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_5) {
 
-        /* "ddb/engine/sql_engine.pyx":164
+        /* "ddb/engine/sql_engine.py":164
  *                 index=0
  *             if None == length:
  *                 length=len(data_stream)-index             # <<<<<<<<<<<<<<
@@ -4644,7 +4645,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
         __Pyx_DECREF_SET(__pyx_v_length, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":163
+        /* "ddb/engine/sql_engine.py":163
  *             if None == index:
  *                 index=0
  *             if None == length:             # <<<<<<<<<<<<<<
@@ -4653,7 +4654,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":166
+      /* "ddb/engine/sql_engine.py":166
  *                 length=len(data_stream)-index
  * 
  *             data_stream_lenght=len(data_stream)             # <<<<<<<<<<<<<<
@@ -4666,7 +4667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __pyx_v_data_stream_lenght = __pyx_t_7;
       __pyx_t_7 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":167
+      /* "ddb/engine/sql_engine.py":167
  * 
  *             data_stream_lenght=len(data_stream)
  *             if index>=data_stream_lenght:             # <<<<<<<<<<<<<<
@@ -4678,7 +4679,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_5) {
 
-        /* "ddb/engine/sql_engine.pyx":169
+        /* "ddb/engine/sql_engine.py":169
  *             if index>=data_stream_lenght:
  *                 #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
  *                 return []             # <<<<<<<<<<<<<<
@@ -4692,7 +4693,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
         __pyx_t_7 = 0;
         goto __pyx_L7_try_return;
 
-        /* "ddb/engine/sql_engine.pyx":167
+        /* "ddb/engine/sql_engine.py":167
  * 
  *             data_stream_lenght=len(data_stream)
  *             if index>=data_stream_lenght:             # <<<<<<<<<<<<<<
@@ -4701,7 +4702,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":170
+      /* "ddb/engine/sql_engine.py":170
  *                 #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
  *                 return []
  *             if index+length>data_stream_lenght:             # <<<<<<<<<<<<<<
@@ -4716,7 +4717,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_5) {
 
-        /* "ddb/engine/sql_engine.pyx":172
+        /* "ddb/engine/sql_engine.py":172
  *             if index+length>data_stream_lenght:
  *                 #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
  *                 length=data_stream_lenght-index             # <<<<<<<<<<<<<<
@@ -4728,7 +4729,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
         __Pyx_DECREF_SET(__pyx_v_length, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":170
+        /* "ddb/engine/sql_engine.py":170
  *                 #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
  *                 return []
  *             if index+length>data_stream_lenght:             # <<<<<<<<<<<<<<
@@ -4737,7 +4738,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":173
+      /* "ddb/engine/sql_engine.py":173
  *                 #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
  *                 length=data_stream_lenght-index
  *             return data_stream[index:index+length]             # <<<<<<<<<<<<<<
@@ -4754,7 +4755,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __pyx_t_7 = 0;
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/sql_engine.pyx":160
+      /* "ddb/engine/sql_engine.py":160
  * 
  *     def limit(self,data_stream,index,length):
  *         try:             # <<<<<<<<<<<<<<
@@ -4766,7 +4767,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":174
+    /* "ddb/engine/sql_engine.py":174
  *                 length=data_stream_lenght-index
  *             return data_stream[index:index+length]
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -4783,7 +4784,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
       __Pyx_INCREF(__pyx_t_4);
       __pyx_v_ex = __pyx_t_4;
 
-      /* "ddb/engine/sql_engine.pyx":175
+      /* "ddb/engine/sql_engine.py":175
  *             return data_stream[index:index+length]
  *         except Exception as ex:
  *             info("Limit",ex)             # <<<<<<<<<<<<<<
@@ -4846,7 +4847,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/sql_engine.pyx":160
+    /* "ddb/engine/sql_engine.py":160
  * 
  *     def limit(self,data_stream,index,length):
  *         try:             # <<<<<<<<<<<<<<
@@ -4871,7 +4872,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
     __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
   }
 
-  /* "ddb/engine/sql_engine.pyx":159
+  /* "ddb/engine/sql_engine.py":159
  * 
  * 
  *     def limit(self,data_stream,index,length):             # <<<<<<<<<<<<<<
@@ -4902,7 +4903,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_12limit(CYTHON_
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":177
+/* "ddb/engine/sql_engine.py":177
  *             info("Limit",ex)
  * 
  *     def process_line(self,query_object,line,line_number=0):             # <<<<<<<<<<<<<<
@@ -5024,7 +5025,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("process_line", 0);
 
-  /* "ddb/engine/sql_engine.pyx":178
+  /* "ddb/engine/sql_engine.py":178
  * 
  *     def process_line(self,query_object,line,line_number=0):
  *         err=None             # <<<<<<<<<<<<<<
@@ -5034,7 +5035,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __Pyx_INCREF(Py_None);
   __pyx_v_err = Py_None;
 
-  /* "ddb/engine/sql_engine.pyx":179
+  /* "ddb/engine/sql_engine.py":179
  *     def process_line(self,query_object,line,line_number=0):
  *         err=None
  *         column_len=query_object['table'].column_count()             # <<<<<<<<<<<<<<
@@ -5064,7 +5065,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __pyx_v_column_len = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":180
+  /* "ddb/engine/sql_engine.py":180
  *         err=None
  *         column_len=query_object['table'].column_count()
  *         line_cleaned=line.rstrip()             # <<<<<<<<<<<<<<
@@ -5091,7 +5092,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __pyx_v_line_cleaned = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":181
+  /* "ddb/engine/sql_engine.py":181
  *         column_len=query_object['table'].column_count()
  *         line_cleaned=line.rstrip()
  *         line_data=None             # <<<<<<<<<<<<<<
@@ -5101,7 +5102,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __Pyx_INCREF(Py_None);
   __pyx_v_line_data = Py_None;
 
-  /* "ddb/engine/sql_engine.pyx":182
+  /* "ddb/engine/sql_engine.py":182
  *         line_cleaned=line.rstrip()
  *         line_data=None
  *         if query_object['table'].data.starts_on_line>line_number:             # <<<<<<<<<<<<<<
@@ -5122,7 +5123,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/sql_engine.pyx":183
+    /* "ddb/engine/sql_engine.py":183
  *         line_data=None
  *         if query_object['table'].data.starts_on_line>line_number:
  *             line_type=self.data_type.COMMENT             # <<<<<<<<<<<<<<
@@ -5137,7 +5138,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __pyx_v_line_type = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":184
+    /* "ddb/engine/sql_engine.py":184
  *         if query_object['table'].data.starts_on_line>line_number:
  *             line_type=self.data_type.COMMENT
  *             line_data=line             # <<<<<<<<<<<<<<
@@ -5147,7 +5148,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __Pyx_INCREF(__pyx_v_line);
     __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_v_line);
 
-    /* "ddb/engine/sql_engine.pyx":182
+    /* "ddb/engine/sql_engine.py":182
  *         line_cleaned=line.rstrip()
  *         line_data=None
  *         if query_object['table'].data.starts_on_line>line_number:             # <<<<<<<<<<<<<<
@@ -5157,7 +5158,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     goto __pyx_L3;
   }
 
-  /* "ddb/engine/sql_engine.pyx":187
+  /* "ddb/engine/sql_engine.py":187
  *             #print query_object['table'].data.starts_on_line,line_number
  *         else:
  *             line_type=self.data_type.DATA             # <<<<<<<<<<<<<<
@@ -5175,7 +5176,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   }
   __pyx_L3:;
 
-  /* "ddb/engine/sql_engine.pyx":188
+  /* "ddb/engine/sql_engine.py":188
  *         else:
  *             line_type=self.data_type.DATA
  *         if not line_cleaned:             # <<<<<<<<<<<<<<
@@ -5186,7 +5187,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __pyx_t_5 = ((!__pyx_t_4) != 0);
   if (__pyx_t_5) {
 
-    /* "ddb/engine/sql_engine.pyx":189
+    /* "ddb/engine/sql_engine.py":189
  *             line_type=self.data_type.DATA
  *         if not line_cleaned:
  *             if True == query_object['table'].visible.whitespace:             # <<<<<<<<<<<<<<
@@ -5207,7 +5208,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_5) {
 
-      /* "ddb/engine/sql_engine.pyx":190
+      /* "ddb/engine/sql_engine.py":190
  *         if not line_cleaned:
  *             if True == query_object['table'].visible.whitespace:
  *                 line_data=['']             # <<<<<<<<<<<<<<
@@ -5222,7 +5223,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":189
+      /* "ddb/engine/sql_engine.py":189
  *             line_type=self.data_type.DATA
  *         if not line_cleaned:
  *             if True == query_object['table'].visible.whitespace:             # <<<<<<<<<<<<<<
@@ -5231,7 +5232,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":191
+    /* "ddb/engine/sql_engine.py":191
  *             if True == query_object['table'].visible.whitespace:
  *                 line_data=['']
  *             line_type=self.data_type.WHITESPACE             # <<<<<<<<<<<<<<
@@ -5246,7 +5247,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __Pyx_DECREF_SET(__pyx_v_line_type, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":188
+    /* "ddb/engine/sql_engine.py":188
  *         else:
  *             line_type=self.data_type.DATA
  *         if not line_cleaned:             # <<<<<<<<<<<<<<
@@ -5256,7 +5257,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     goto __pyx_L4;
   }
 
-  /* "ddb/engine/sql_engine.pyx":193
+  /* "ddb/engine/sql_engine.py":193
  *             line_type=self.data_type.WHITESPACE
  *         else:
  *             if line_cleaned[0] in query_object['table'].delimiters.comment:             # <<<<<<<<<<<<<<
@@ -5280,7 +5281,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __pyx_t_4 = (__pyx_t_5 != 0);
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":194
+      /* "ddb/engine/sql_engine.py":194
  *         else:
  *             if line_cleaned[0] in query_object['table'].delimiters.comment:
  *                 if True == query_object['table'].visible.comments:             # <<<<<<<<<<<<<<
@@ -5301,7 +5302,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":195
+        /* "ddb/engine/sql_engine.py":195
  *             if line_cleaned[0] in query_object['table'].delimiters.comment:
  *                 if True == query_object['table'].visible.comments:
  *                     line_data=[line_cleaned]             # <<<<<<<<<<<<<<
@@ -5316,7 +5317,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":194
+        /* "ddb/engine/sql_engine.py":194
  *         else:
  *             if line_cleaned[0] in query_object['table'].delimiters.comment:
  *                 if True == query_object['table'].visible.comments:             # <<<<<<<<<<<<<<
@@ -5325,7 +5326,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":196
+      /* "ddb/engine/sql_engine.py":196
  *                 if True == query_object['table'].visible.comments:
  *                     line_data=[line_cleaned]
  *                 line_type=self.data_type.COMMENT             # <<<<<<<<<<<<<<
@@ -5340,7 +5341,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF_SET(__pyx_v_line_type, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":193
+      /* "ddb/engine/sql_engine.py":193
  *             line_type=self.data_type.WHITESPACE
  *         else:
  *             if line_cleaned[0] in query_object['table'].delimiters.comment:             # <<<<<<<<<<<<<<
@@ -5350,7 +5351,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       goto __pyx_L6;
     }
 
-    /* "ddb/engine/sql_engine.pyx":198
+    /* "ddb/engine/sql_engine.py":198
  *                 line_type=self.data_type.COMMENT
  *             else:
  *                 line_data=line_cleaned.split(query_object['table'].delimiters.field)             # <<<<<<<<<<<<<<
@@ -5387,7 +5388,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":199
+      /* "ddb/engine/sql_engine.py":199
  *             else:
  *                 line_data=line_cleaned.split(query_object['table'].delimiters.field)
  *                 cur_column_len=len(line_data)             # <<<<<<<<<<<<<<
@@ -5400,7 +5401,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __pyx_v_cur_column_len = __pyx_t_1;
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":200
+      /* "ddb/engine/sql_engine.py":200
  *                 line_data=line_cleaned.split(query_object['table'].delimiters.field)
  *                 cur_column_len=len(line_data)
  *                 if cur_column_len!=column_len:             # <<<<<<<<<<<<<<
@@ -5412,7 +5413,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":201
+        /* "ddb/engine/sql_engine.py":201
  *                 cur_column_len=len(line_data)
  *                 if cur_column_len!=column_len:
  *                     if cur_column_len>column_len:             # <<<<<<<<<<<<<<
@@ -5424,7 +5425,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_4) {
 
-          /* "ddb/engine/sql_engine.pyx":202
+          /* "ddb/engine/sql_engine.py":202
  *                 if cur_column_len!=column_len:
  *                     if cur_column_len>column_len:
  *                         err="Table {2}: Line #{0}, {1} extra Column(s)".format(line_number,cur_column_len-column_len,query_object['table'].data.name)             # <<<<<<<<<<<<<<
@@ -5498,7 +5499,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           __Pyx_DECREF_SET(__pyx_v_err, __pyx_t_1);
           __pyx_t_1 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":201
+          /* "ddb/engine/sql_engine.py":201
  *                 cur_column_len=len(line_data)
  *                 if cur_column_len!=column_len:
  *                     if cur_column_len>column_len:             # <<<<<<<<<<<<<<
@@ -5508,7 +5509,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           goto __pyx_L9;
         }
 
-        /* "ddb/engine/sql_engine.pyx":204
+        /* "ddb/engine/sql_engine.py":204
  *                         err="Table {2}: Line #{0}, {1} extra Column(s)".format(line_number,cur_column_len-column_len,query_object['table'].data.name)
  *                     else:
  *                         err="Table {2}: Line #{0}, missing {1} Column(s)".format(line_number,column_len-cur_column_len,query_object['table'].data.name)             # <<<<<<<<<<<<<<
@@ -5585,7 +5586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         }
         __pyx_L9:;
 
-        /* "ddb/engine/sql_engine.pyx":206
+        /* "ddb/engine/sql_engine.py":206
  *                         err="Table {2}: Line #{0}, missing {1} Column(s)".format(line_number,column_len-cur_column_len,query_object['table'].data.name)
  *                     #query_object['table'].add_error(err)
  *                     line_type=self.data_type.ERROR             # <<<<<<<<<<<<<<
@@ -5600,7 +5601,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_DECREF_SET(__pyx_v_line_type, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":209
+        /* "ddb/engine/sql_engine.py":209
  * 
  *                     #turn error into coment
  *                     if True == query_object['table'].visible.errors:             # <<<<<<<<<<<<<<
@@ -5621,7 +5622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_4) {
 
-          /* "ddb/engine/sql_engine.pyx":210
+          /* "ddb/engine/sql_engine.py":210
  *                     #turn error into coment
  *                     if True == query_object['table'].visible.errors:
  *                         line_data=line_cleaned             # <<<<<<<<<<<<<<
@@ -5631,7 +5632,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           __Pyx_INCREF(__pyx_v_line_cleaned);
           __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_v_line_cleaned);
 
-          /* "ddb/engine/sql_engine.pyx":209
+          /* "ddb/engine/sql_engine.py":209
  * 
  *                     #turn error into coment
  *                     if True == query_object['table'].visible.errors:             # <<<<<<<<<<<<<<
@@ -5641,7 +5642,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           goto __pyx_L10;
         }
 
-        /* "ddb/engine/sql_engine.pyx":212
+        /* "ddb/engine/sql_engine.py":212
  *                         line_data=line_cleaned
  *                     else:
  *                         line_data=None             # <<<<<<<<<<<<<<
@@ -5654,7 +5655,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         }
         __pyx_L10:;
 
-        /* "ddb/engine/sql_engine.pyx":213
+        /* "ddb/engine/sql_engine.py":213
  *                     else:
  *                         line_data=None
  *                     line_type=self.data_type.ERROR             # <<<<<<<<<<<<<<
@@ -5669,7 +5670,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_DECREF_SET(__pyx_v_line_type, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":200
+        /* "ddb/engine/sql_engine.py":200
  *                 line_data=line_cleaned.split(query_object['table'].delimiters.field)
  *                 cur_column_len=len(line_data)
  *                 if cur_column_len!=column_len:             # <<<<<<<<<<<<<<
@@ -5678,7 +5679,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":216
+      /* "ddb/engine/sql_engine.py":216
  *                 # fields are surrounded by something... trim
  *                 #print self.table.delimiters.block_quote
  *                 if None != query_object['table'].delimiters.block_quote:             # <<<<<<<<<<<<<<
@@ -5699,7 +5700,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":217
+        /* "ddb/engine/sql_engine.py":217
  *                 #print self.table.delimiters.block_quote
  *                 if None != query_object['table'].delimiters.block_quote:
  *                     line_data_cleaned=[]             # <<<<<<<<<<<<<<
@@ -5711,7 +5712,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __pyx_v_line_data_cleaned = ((PyObject*)__pyx_t_1);
         __pyx_t_1 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":218
+        /* "ddb/engine/sql_engine.py":218
  *                 if None != query_object['table'].delimiters.block_quote:
  *                     line_data_cleaned=[]
  *                     for d in line_data:             # <<<<<<<<<<<<<<
@@ -5760,7 +5761,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_3);
           __pyx_t_3 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":219
+          /* "ddb/engine/sql_engine.py":219
  *                     line_data_cleaned=[]
  *                     for d in line_data:
  *                         line_data_cleaned.append(d[1:-1])             # <<<<<<<<<<<<<<
@@ -5772,7 +5773,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
           __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_line_data_cleaned, __pyx_t_3); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":218
+          /* "ddb/engine/sql_engine.py":218
  *                 if None != query_object['table'].delimiters.block_quote:
  *                     line_data_cleaned=[]
  *                     for d in line_data:             # <<<<<<<<<<<<<<
@@ -5782,7 +5783,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         }
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":220
+        /* "ddb/engine/sql_engine.py":220
  *                     for d in line_data:
  *                         line_data_cleaned.append(d[1:-1])
  *                     line_data=line_data_cleaned             # <<<<<<<<<<<<<<
@@ -5792,7 +5793,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
         __Pyx_INCREF(__pyx_v_line_data_cleaned);
         __Pyx_DECREF_SET(__pyx_v_line_data, __pyx_v_line_data_cleaned);
 
-        /* "ddb/engine/sql_engine.pyx":216
+        /* "ddb/engine/sql_engine.py":216
  *                 # fields are surrounded by something... trim
  *                 #print self.table.delimiters.block_quote
  *                 if None != query_object['table'].delimiters.block_quote:             # <<<<<<<<<<<<<<
@@ -5805,7 +5806,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   }
   __pyx_L4:;
 
-  /* "ddb/engine/sql_engine.pyx":223
+  /* "ddb/engine/sql_engine.py":223
  * 
  *         #If no where. return everything
  *         if 'where' not in query_object['meta']:             # <<<<<<<<<<<<<<
@@ -5819,7 +5820,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "ddb/engine/sql_engine.pyx":224
+    /* "ddb/engine/sql_engine.py":224
  *         #If no where. return everything
  *         if 'where' not in query_object['meta']:
  *             match_results=True             # <<<<<<<<<<<<<<
@@ -5829,7 +5830,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __Pyx_INCREF(Py_True);
     __pyx_v_match_results = Py_True;
 
-    /* "ddb/engine/sql_engine.pyx":223
+    /* "ddb/engine/sql_engine.py":223
  * 
  *         #If no where. return everything
  *         if 'where' not in query_object['meta']:             # <<<<<<<<<<<<<<
@@ -5839,7 +5840,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     goto __pyx_L14;
   }
 
-  /* "ddb/engine/sql_engine.pyx":227
+  /* "ddb/engine/sql_engine.py":227
  *         else:
  *             # if a where, only return data, comments/whites/space/errors are ignored
  *             if line_type==self.data_type.DATA:             # <<<<<<<<<<<<<<
@@ -5858,7 +5859,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_5) {
 
-      /* "ddb/engine/sql_engine.pyx":228
+      /* "ddb/engine/sql_engine.py":228
  *             # if a where, only return data, comments/whites/space/errors are ignored
  *             if line_type==self.data_type.DATA:
  *                 match_results=evaluate_match(query_object['meta']['where'],line_data,query_object['table'])             # <<<<<<<<<<<<<<
@@ -5929,7 +5930,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       __pyx_v_match_results = __pyx_t_1;
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":227
+      /* "ddb/engine/sql_engine.py":227
  *         else:
  *             # if a where, only return data, comments/whites/space/errors are ignored
  *             if line_type==self.data_type.DATA:             # <<<<<<<<<<<<<<
@@ -5939,7 +5940,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
       goto __pyx_L15;
     }
 
-    /* "ddb/engine/sql_engine.pyx":230
+    /* "ddb/engine/sql_engine.py":230
  *                 match_results=evaluate_match(query_object['meta']['where'],line_data,query_object['table'])
  *             else:
  *                 match_results=False             # <<<<<<<<<<<<<<
@@ -5954,7 +5955,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   }
   __pyx_L14:;
 
-  /* "ddb/engine/sql_engine.pyx":232
+  /* "ddb/engine/sql_engine.py":232
  *                 match_results=False
  * 
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}             # <<<<<<<<<<<<<<
@@ -5974,7 +5975,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":177
+  /* "ddb/engine/sql_engine.py":177
  *             info("Limit",ex)
  * 
  *     def process_line(self,query_object,line,line_number=0):             # <<<<<<<<<<<<<<
@@ -6007,7 +6008,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_14process_line(
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":234
+/* "ddb/engine/sql_engine.py":234
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
  * 
  *     def select(self,query_object,parser):             # <<<<<<<<<<<<<<
@@ -6131,7 +6132,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   PyObject *__pyx_t_21 = NULL;
   __Pyx_RefNannySetupContext("select", 0);
 
-  /* "ddb/engine/sql_engine.pyx":236
+  /* "ddb/engine/sql_engine.py":236
  *     def select(self,query_object,parser):
  *         #try:
  *             temp_data=[]             # <<<<<<<<<<<<<<
@@ -6143,7 +6144,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_v_temp_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":237
+  /* "ddb/engine/sql_engine.py":237
  *         #try:
  *             temp_data=[]
  *             table_name=query_object['meta']['from']['table']             # <<<<<<<<<<<<<<
@@ -6161,7 +6162,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_v_table_name = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":238
+  /* "ddb/engine/sql_engine.py":238
  *             temp_data=[]
  *             table_name=query_object['meta']['from']['table']
  *             query_object['table']=self.database.get(table_name)             # <<<<<<<<<<<<<<
@@ -6191,7 +6192,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   if (unlikely(PyObject_SetItem(__pyx_v_query_object, __pyx_n_s_table, __pyx_t_1) < 0)) __PYX_ERR(0, 238, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":239
+  /* "ddb/engine/sql_engine.py":239
  *             table_name=query_object['meta']['from']['table']
  *             query_object['table']=self.database.get(table_name)
  *             if None ==query_object['table']:             # <<<<<<<<<<<<<<
@@ -6206,7 +6207,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (unlikely(__pyx_t_4)) {
 
-    /* "ddb/engine/sql_engine.pyx":240
+    /* "ddb/engine/sql_engine.py":240
  *             query_object['table']=self.database.get(table_name)
  *             if None ==query_object['table']:
  *                 raise Exception("invalid table {}".format(table_name))             # <<<<<<<<<<<<<<
@@ -6237,7 +6238,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 240, __pyx_L1_error)
 
-    /* "ddb/engine/sql_engine.pyx":239
+    /* "ddb/engine/sql_engine.py":239
  *             table_name=query_object['meta']['from']['table']
  *             query_object['table']=self.database.get(table_name)
  *             if None ==query_object['table']:             # <<<<<<<<<<<<<<
@@ -6246,7 +6247,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":241
+  /* "ddb/engine/sql_engine.py":241
  *             if None ==query_object['table']:
  *                 raise Exception("invalid table {}".format(table_name))
  *             table_columns=query_object['table'].get_columns()             # <<<<<<<<<<<<<<
@@ -6276,7 +6277,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_v_table_columns = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":242
+  /* "ddb/engine/sql_engine.py":242
  *                 raise Exception("invalid table {}".format(table_name))
  *             table_columns=query_object['table'].get_columns()
  *             parser.expand_columns(query_object,table_columns)             # <<<<<<<<<<<<<<
@@ -6332,7 +6333,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":243
+  /* "ddb/engine/sql_engine.py":243
  *             table_columns=query_object['table'].get_columns()
  *             parser.expand_columns(query_object,table_columns)
  *             column_len=query_object['table'].column_count()             # <<<<<<<<<<<<<<
@@ -6362,7 +6363,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_v_column_len = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":244
+  /* "ddb/engine/sql_engine.py":244
  *             parser.expand_columns(query_object,table_columns)
  *             column_len=query_object['table'].column_count()
  *             if column_len==0:             # <<<<<<<<<<<<<<
@@ -6375,7 +6376,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_4)) {
 
-    /* "ddb/engine/sql_engine.pyx":245
+    /* "ddb/engine/sql_engine.py":245
  *             column_len=query_object['table'].column_count()
  *             if column_len==0:
  *                 raise Exception("No defined columns in configuration")             # <<<<<<<<<<<<<<
@@ -6388,7 +6389,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 245, __pyx_L1_error)
 
-    /* "ddb/engine/sql_engine.pyx":244
+    /* "ddb/engine/sql_engine.py":244
  *             parser.expand_columns(query_object,table_columns)
  *             column_len=query_object['table'].column_count()
  *             if column_len==0:             # <<<<<<<<<<<<<<
@@ -6397,7 +6398,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":247
+  /* "ddb/engine/sql_engine.py":247
  *                 raise Exception("No defined columns in configuration")
  * 
  *             temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -6427,7 +6428,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_v_temp_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":248
+  /* "ddb/engine/sql_engine.py":248
  * 
  *             temp_table=self.database.temp_table()
  *             for column in  query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -6482,7 +6483,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":249
+    /* "ddb/engine/sql_engine.py":249
  *             temp_table=self.database.temp_table()
  *             for column in  query_object['meta']['select']:
  *                 display=None             # <<<<<<<<<<<<<<
@@ -6492,7 +6493,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_INCREF(Py_None);
     __Pyx_XDECREF_SET(__pyx_v_display, Py_None);
 
-    /* "ddb/engine/sql_engine.pyx":250
+    /* "ddb/engine/sql_engine.py":250
  *             for column in  query_object['meta']['select']:
  *                 display=None
  *                 if 'display' in column:             # <<<<<<<<<<<<<<
@@ -6503,7 +6504,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __pyx_t_9 = (__pyx_t_4 != 0);
     if (__pyx_t_9) {
 
-      /* "ddb/engine/sql_engine.pyx":251
+      /* "ddb/engine/sql_engine.py":251
  *                 display=None
  *                 if 'display' in column:
  *                     display=column['display']             # <<<<<<<<<<<<<<
@@ -6515,7 +6516,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_DECREF_SET(__pyx_v_display, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":250
+      /* "ddb/engine/sql_engine.py":250
  *             for column in  query_object['meta']['select']:
  *                 display=None
  *                 if 'display' in column:             # <<<<<<<<<<<<<<
@@ -6524,7 +6525,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":252
+    /* "ddb/engine/sql_engine.py":252
  *                 if 'display' in column:
  *                     display=column['display']
  *                 temp_table.add_column(column['column'],display)             # <<<<<<<<<<<<<<
@@ -6584,7 +6585,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":248
+    /* "ddb/engine/sql_engine.py":248
  * 
  *             temp_table=self.database.temp_table()
  *             for column in  query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -6594,7 +6595,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":255
+  /* "ddb/engine/sql_engine.py":255
  * 
  * 
  *             line_number=1             # <<<<<<<<<<<<<<
@@ -6604,7 +6605,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_INCREF(__pyx_int_1);
   __pyx_v_line_number = __pyx_int_1;
 
-  /* "ddb/engine/sql_engine.pyx":259
+  /* "ddb/engine/sql_engine.py":259
  *             # create temp table structure
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -6665,7 +6666,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
           __pyx_v_content_file = __pyx_t_6;
           __pyx_t_6 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":260
+          /* "ddb/engine/sql_engine.py":260
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 for line in content_file:             # <<<<<<<<<<<<<<
@@ -6714,7 +6715,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/sql_engine.pyx":261
+            /* "ddb/engine/sql_engine.py":261
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 for line in content_file:
  *                     processed_line=self.process_line(query_object,line,line_number)             # <<<<<<<<<<<<<<
@@ -6774,7 +6775,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_XDECREF_SET(__pyx_v_processed_line, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/sql_engine.pyx":262
+            /* "ddb/engine/sql_engine.py":262
  *                 for line in content_file:
  *                     processed_line=self.process_line(query_object,line,line_number)
  *                     if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -6789,7 +6790,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             if (__pyx_t_9) {
 
-              /* "ddb/engine/sql_engine.pyx":263
+              /* "ddb/engine/sql_engine.py":263
  *                     processed_line=self.process_line(query_object,line,line_number)
  *                     if None != processed_line['error']:
  *                         temp_table.add_error(processed_line['error'])             # <<<<<<<<<<<<<<
@@ -6818,7 +6819,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":262
+              /* "ddb/engine/sql_engine.py":262
  *                 for line in content_file:
  *                     processed_line=self.process_line(query_object,line,line_number)
  *                     if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -6827,7 +6828,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
             }
 
-            /* "ddb/engine/sql_engine.pyx":264
+            /* "ddb/engine/sql_engine.py":264
  *                     if None != processed_line['error']:
  *                         temp_table.add_error(processed_line['error'])
  *                     line_number+=1             # <<<<<<<<<<<<<<
@@ -6839,7 +6840,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_DECREF_SET(__pyx_v_line_number, __pyx_t_2);
             __pyx_t_2 = 0;
 
-            /* "ddb/engine/sql_engine.pyx":267
+            /* "ddb/engine/sql_engine.py":267
  * 
  *                     #print processed_line
  *                     if False == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -6854,7 +6855,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             if (__pyx_t_9) {
 
-              /* "ddb/engine/sql_engine.pyx":268
+              /* "ddb/engine/sql_engine.py":268
  *                     #print processed_line
  *                     if False == processed_line['match']:
  *                         continue             # <<<<<<<<<<<<<<
@@ -6863,7 +6864,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
               goto __pyx_L18_continue;
 
-              /* "ddb/engine/sql_engine.pyx":267
+              /* "ddb/engine/sql_engine.py":267
  * 
  *                     #print processed_line
  *                     if False == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -6872,7 +6873,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
             }
 
-            /* "ddb/engine/sql_engine.pyx":271
+            /* "ddb/engine/sql_engine.py":271
  * 
  *                     # add to temp table
  *                     if None != processed_line['data']:             # <<<<<<<<<<<<<<
@@ -6887,7 +6888,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             if (__pyx_t_9) {
 
-              /* "ddb/engine/sql_engine.pyx":272
+              /* "ddb/engine/sql_engine.py":272
  *                     # add to temp table
  *                     if None != processed_line['data']:
  *                         restructured_line=[]             # <<<<<<<<<<<<<<
@@ -6899,7 +6900,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
               __Pyx_XDECREF_SET(__pyx_v_restructured_line, ((PyObject*)__pyx_t_2));
               __pyx_t_2 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":273
+              /* "ddb/engine/sql_engine.py":273
  *                     if None != processed_line['data']:
  *                         restructured_line=[]
  *                         for c in query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -6954,7 +6955,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
                 __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
                 __pyx_t_1 = 0;
 
-                /* "ddb/engine/sql_engine.pyx":274
+                /* "ddb/engine/sql_engine.py":274
  *                         restructured_line=[]
  *                         for c in query_object['meta']['select']:
  *                             restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))             # <<<<<<<<<<<<<<
@@ -7022,7 +7023,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
                 __pyx_t_20 = __Pyx_PyList_Append(__pyx_v_restructured_line, __pyx_t_1); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 274, __pyx_L12_error)
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                /* "ddb/engine/sql_engine.pyx":273
+                /* "ddb/engine/sql_engine.py":273
  *                     if None != processed_line['data']:
  *                         restructured_line=[]
  *                         for c in query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -7032,7 +7033,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
               }
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":275
+              /* "ddb/engine/sql_engine.py":275
  *                         for c in query_object['meta']['select']:
  *                             restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
  *                         temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})             # <<<<<<<<<<<<<<
@@ -7057,7 +7058,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
               __pyx_t_20 = __Pyx_PyObject_Append(__pyx_v_temp_data, __pyx_t_2); if (unlikely(__pyx_t_20 == ((int)-1))) __PYX_ERR(0, 275, __pyx_L12_error)
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":271
+              /* "ddb/engine/sql_engine.py":271
  * 
  *                     # add to temp table
  *                     if None != processed_line['data']:             # <<<<<<<<<<<<<<
@@ -7066,7 +7067,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
             }
 
-            /* "ddb/engine/sql_engine.pyx":260
+            /* "ddb/engine/sql_engine.py":260
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 for line in content_file:             # <<<<<<<<<<<<<<
@@ -7077,7 +7078,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
           }
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":259
+          /* "ddb/engine/sql_engine.py":259
  *             # create temp table structure
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -7162,7 +7163,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __pyx_L28:;
   }
 
-  /* "ddb/engine/sql_engine.pyx":281
+  /* "ddb/engine/sql_engine.py":281
  * 
  * 
  *             if 'order by' in  query_object['meta']:             # <<<<<<<<<<<<<<
@@ -7176,7 +7177,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_t_9 = (__pyx_t_4 != 0);
   if (__pyx_t_9) {
 
-    /* "ddb/engine/sql_engine.pyx":282
+    /* "ddb/engine/sql_engine.py":282
  * 
  *             if 'order by' in  query_object['meta']:
  *                 self.sort=[]             # <<<<<<<<<<<<<<
@@ -7188,7 +7189,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sort, __pyx_t_1) < 0) __PYX_ERR(0, 282, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":283
+    /* "ddb/engine/sql_engine.py":283
  *             if 'order by' in  query_object['meta']:
  *                 self.sort=[]
  *                 for c in  query_object['meta']['order by']:             # <<<<<<<<<<<<<<
@@ -7243,7 +7244,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":284
+      /* "ddb/engine/sql_engine.py":284
  *                 self.sort=[]
  *                 for c in  query_object['meta']['order by']:
  *                     ordinal=query_object['table'].get_ordinal_by_name(c['column'])             # <<<<<<<<<<<<<<
@@ -7276,7 +7277,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_XDECREF_SET(__pyx_v_ordinal, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":285
+      /* "ddb/engine/sql_engine.py":285
  *                 for c in  query_object['meta']['order by']:
  *                     ordinal=query_object['table'].get_ordinal_by_name(c['column'])
  *                     direction=1             # <<<<<<<<<<<<<<
@@ -7285,7 +7286,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
       __pyx_v_direction = 1;
 
-      /* "ddb/engine/sql_engine.pyx":286
+      /* "ddb/engine/sql_engine.py":286
  *                     ordinal=query_object['table'].get_ordinal_by_name(c['column'])
  *                     direction=1
  *                     if 'asc' in c:             # <<<<<<<<<<<<<<
@@ -7296,7 +7297,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __pyx_t_4 = (__pyx_t_9 != 0);
       if (__pyx_t_4) {
 
-        /* "ddb/engine/sql_engine.pyx":287
+        /* "ddb/engine/sql_engine.py":287
  *                     direction=1
  *                     if 'asc' in c:
  *                         direction=1             # <<<<<<<<<<<<<<
@@ -7305,7 +7306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
         __pyx_v_direction = 1;
 
-        /* "ddb/engine/sql_engine.pyx":286
+        /* "ddb/engine/sql_engine.py":286
  *                     ordinal=query_object['table'].get_ordinal_by_name(c['column'])
  *                     direction=1
  *                     if 'asc' in c:             # <<<<<<<<<<<<<<
@@ -7314,7 +7315,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":288
+      /* "ddb/engine/sql_engine.py":288
  *                     if 'asc' in c:
  *                         direction=1
  *                     if 'desc' in c:             # <<<<<<<<<<<<<<
@@ -7325,7 +7326,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __pyx_t_9 = (__pyx_t_4 != 0);
       if (__pyx_t_9) {
 
-        /* "ddb/engine/sql_engine.pyx":289
+        /* "ddb/engine/sql_engine.py":289
  *                         direction=1
  *                     if 'desc' in c:
  *                         direction=-1             # <<<<<<<<<<<<<<
@@ -7334,7 +7335,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
         __pyx_v_direction = -1L;
 
-        /* "ddb/engine/sql_engine.pyx":288
+        /* "ddb/engine/sql_engine.py":288
  *                     if 'asc' in c:
  *                         direction=1
  *                     if 'desc' in c:             # <<<<<<<<<<<<<<
@@ -7343,7 +7344,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":290
+      /* "ddb/engine/sql_engine.py":290
  *                     if 'desc' in c:
  *                         direction=-1
  *                     self.sort.append([ordinal,direction])             # <<<<<<<<<<<<<<
@@ -7366,7 +7367,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":283
+      /* "ddb/engine/sql_engine.py":283
  *             if 'order by' in  query_object['meta']:
  *                 self.sort=[]
  *                 for c in  query_object['meta']['order by']:             # <<<<<<<<<<<<<<
@@ -7376,7 +7377,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":291
+    /* "ddb/engine/sql_engine.py":291
  *                         direction=-1
  *                     self.sort.append([ordinal,direction])
  *                 temp_data=sorted(temp_data,self.sort_cmp)             # <<<<<<<<<<<<<<
@@ -7399,7 +7400,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __Pyx_DECREF_SET(__pyx_v_temp_data, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":281
+    /* "ddb/engine/sql_engine.py":281
  * 
  * 
  *             if 'order by' in  query_object['meta']:             # <<<<<<<<<<<<<<
@@ -7408,7 +7409,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":294
+  /* "ddb/engine/sql_engine.py":294
  *                 #print temp_data
  * 
  *             limit_start=0             # <<<<<<<<<<<<<<
@@ -7418,7 +7419,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_limit_start = __pyx_int_0;
 
-  /* "ddb/engine/sql_engine.pyx":295
+  /* "ddb/engine/sql_engine.py":295
  * 
  *             limit_start=0
  *             limit_length=None             # <<<<<<<<<<<<<<
@@ -7428,7 +7429,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __Pyx_INCREF(Py_None);
   __pyx_v_limit_length = Py_None;
 
-  /* "ddb/engine/sql_engine.pyx":299
+  /* "ddb/engine/sql_engine.py":299
  *             #exit(1)
  * 
  *             if 'limit' in query_object['meta']:             # <<<<<<<<<<<<<<
@@ -7442,7 +7443,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_t_4 = (__pyx_t_9 != 0);
   if (__pyx_t_4) {
 
-    /* "ddb/engine/sql_engine.pyx":300
+    /* "ddb/engine/sql_engine.py":300
  * 
  *             if 'limit' in query_object['meta']:
  *                 if 'start' in query_object['meta']['limit']:             # <<<<<<<<<<<<<<
@@ -7459,7 +7460,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __pyx_t_9 = (__pyx_t_4 != 0);
     if (__pyx_t_9) {
 
-      /* "ddb/engine/sql_engine.pyx":301
+      /* "ddb/engine/sql_engine.py":301
  *             if 'limit' in query_object['meta']:
  *                 if 'start' in query_object['meta']['limit']:
  *                     limit_start=query_object['meta']['limit']['start']             # <<<<<<<<<<<<<<
@@ -7477,7 +7478,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_DECREF_SET(__pyx_v_limit_start, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":300
+      /* "ddb/engine/sql_engine.py":300
  * 
  *             if 'limit' in query_object['meta']:
  *                 if 'start' in query_object['meta']['limit']:             # <<<<<<<<<<<<<<
@@ -7486,7 +7487,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":302
+    /* "ddb/engine/sql_engine.py":302
  *                 if 'start' in query_object['meta']['limit']:
  *                     limit_start=query_object['meta']['limit']['start']
  *                 if 'length' in query_object['meta']['limit']:             # <<<<<<<<<<<<<<
@@ -7503,7 +7504,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
     __pyx_t_4 = (__pyx_t_9 != 0);
     if (__pyx_t_4) {
 
-      /* "ddb/engine/sql_engine.pyx":303
+      /* "ddb/engine/sql_engine.py":303
  *                     limit_start=query_object['meta']['limit']['start']
  *                 if 'length' in query_object['meta']['limit']:
  *                     limit_length=query_object['meta']['limit']['length']             # <<<<<<<<<<<<<<
@@ -7521,7 +7522,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
       __Pyx_DECREF_SET(__pyx_v_limit_length, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":302
+      /* "ddb/engine/sql_engine.py":302
  *                 if 'start' in query_object['meta']['limit']:
  *                     limit_start=query_object['meta']['limit']['start']
  *                 if 'length' in query_object['meta']['limit']:             # <<<<<<<<<<<<<<
@@ -7530,7 +7531,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":299
+    /* "ddb/engine/sql_engine.py":299
  *             #exit(1)
  * 
  *             if 'limit' in query_object['meta']:             # <<<<<<<<<<<<<<
@@ -7539,7 +7540,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":307
+  /* "ddb/engine/sql_engine.py":307
  * 
  * 
  *             temp_table.results=self.limit(temp_data,limit_start,limit_length)             # <<<<<<<<<<<<<<
@@ -7599,7 +7600,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_temp_table, __pyx_n_s_results, __pyx_t_1) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":308
+  /* "ddb/engine/sql_engine.py":308
  * 
  *             temp_table.results=self.limit(temp_data,limit_start,limit_length)
  *             return temp_table             # <<<<<<<<<<<<<<
@@ -7611,7 +7612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":234
+  /* "ddb/engine/sql_engine.py":234
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
  * 
  *     def select(self,query_object,parser):             # <<<<<<<<<<<<<<
@@ -7653,7 +7654,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_16select(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":315
+/* "ddb/engine/sql_engine.py":315
  * 
  * 
  *     def sort_cmp(self,x,y):             # <<<<<<<<<<<<<<
@@ -7749,7 +7750,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("sort_cmp", 0);
 
-  /* "ddb/engine/sql_engine.pyx":317
+  /* "ddb/engine/sql_engine.py":317
  *     def sort_cmp(self,x,y):
  * 
  *         for c in self.sort:             # <<<<<<<<<<<<<<
@@ -7801,7 +7802,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":318
+    /* "ddb/engine/sql_engine.py":318
  * 
  *         for c in self.sort:
  *             ordinal=c[0]             # <<<<<<<<<<<<<<
@@ -7813,7 +7814,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
     __Pyx_XDECREF_SET(__pyx_v_ordinal, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":319
+    /* "ddb/engine/sql_engine.py":319
  *         for c in self.sort:
  *             ordinal=c[0]
  *             direction=c[1]             # <<<<<<<<<<<<<<
@@ -7825,7 +7826,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
     __Pyx_XDECREF_SET(__pyx_v_direction, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":326
+    /* "ddb/engine/sql_engine.py":326
  * 
  *             #%print x[ordinal],y[ordinal],-1
  *             if x['data'][ordinal]==y['data'][ordinal]:             # <<<<<<<<<<<<<<
@@ -7849,7 +7850,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/sql_engine.pyx":327
+      /* "ddb/engine/sql_engine.py":327
  *             #%print x[ordinal],y[ordinal],-1
  *             if x['data'][ordinal]==y['data'][ordinal]:
  *                 continue             # <<<<<<<<<<<<<<
@@ -7858,7 +7859,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
  */
       goto __pyx_L3_continue;
 
-      /* "ddb/engine/sql_engine.pyx":326
+      /* "ddb/engine/sql_engine.py":326
  * 
  *             #%print x[ordinal],y[ordinal],-1
  *             if x['data'][ordinal]==y['data'][ordinal]:             # <<<<<<<<<<<<<<
@@ -7867,7 +7868,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":329
+    /* "ddb/engine/sql_engine.py":329
  *                 continue
  * 
  *             if x['data'][ordinal]<y['data'][ordinal]:             # <<<<<<<<<<<<<<
@@ -7891,7 +7892,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/sql_engine.pyx":330
+      /* "ddb/engine/sql_engine.py":330
  * 
  *             if x['data'][ordinal]<y['data'][ordinal]:
  *                 return -1*direction             # <<<<<<<<<<<<<<
@@ -7906,7 +7907,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/sql_engine.pyx":329
+      /* "ddb/engine/sql_engine.py":329
  *                 continue
  * 
  *             if x['data'][ordinal]<y['data'][ordinal]:             # <<<<<<<<<<<<<<
@@ -7915,7 +7916,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":332
+    /* "ddb/engine/sql_engine.py":332
  *                 return -1*direction
  *             else:
  *                 return 1*direction             # <<<<<<<<<<<<<<
@@ -7932,7 +7933,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
       goto __pyx_L0;
     }
 
-    /* "ddb/engine/sql_engine.pyx":317
+    /* "ddb/engine/sql_engine.py":317
  *     def sort_cmp(self,x,y):
  * 
  *         for c in self.sort:             # <<<<<<<<<<<<<<
@@ -7943,7 +7944,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":333
+  /* "ddb/engine/sql_engine.py":333
  *             else:
  *                 return 1*direction
  *         return 0             # <<<<<<<<<<<<<<
@@ -7955,7 +7956,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
   __pyx_r = __pyx_int_0;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":315
+  /* "ddb/engine/sql_engine.py":315
  * 
  * 
  *     def sort_cmp(self,x,y):             # <<<<<<<<<<<<<<
@@ -7980,7 +7981,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_18sort_cmp(CYTH
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":342
+/* "ddb/engine/sql_engine.py":342
  *     # ignores matches
  *     # File is as untouched as possible
  *     def delete(self,query_object):             # <<<<<<<<<<<<<<
@@ -8088,7 +8089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
   int __pyx_t_22;
   __Pyx_RefNannySetupContext("delete", 0);
 
-  /* "ddb/engine/sql_engine.pyx":343
+  /* "ddb/engine/sql_engine.py":343
  *     # File is as untouched as possible
  *     def delete(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -8104,7 +8105,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/sql_engine.pyx":344
+      /* "ddb/engine/sql_engine.py":344
  *     def delete(self,query_object):
  *         try:
  *             table_name=query_object['meta']['from']['table']             # <<<<<<<<<<<<<<
@@ -8122,7 +8123,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __pyx_v_table_name = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":345
+      /* "ddb/engine/sql_engine.py":345
  *         try:
  *             table_name=query_object['meta']['from']['table']
  *             query_object['table']=self.database.get(table_name)             # <<<<<<<<<<<<<<
@@ -8152,7 +8153,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       if (unlikely(PyObject_SetItem(__pyx_v_query_object, __pyx_n_s_table, __pyx_t_4) < 0)) __PYX_ERR(0, 345, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":347
+      /* "ddb/engine/sql_engine.py":347
  *             query_object['table']=self.database.get(table_name)
  * 
  *             temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -8182,7 +8183,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __pyx_v_temp_table = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":348
+      /* "ddb/engine/sql_engine.py":348
  * 
  *             temp_table=self.database.temp_table()
  *             temp_table.add_column('deleted')             # <<<<<<<<<<<<<<
@@ -8208,7 +8209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":350
+      /* "ddb/engine/sql_engine.py":350
  *             temp_table.add_column('deleted')
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())             # <<<<<<<<<<<<<<
@@ -8241,7 +8242,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __pyx_v_temp_file_name = __pyx_t_6;
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":351
+      /* "ddb/engine/sql_engine.py":351
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1             # <<<<<<<<<<<<<<
@@ -8251,7 +8252,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_INCREF(__pyx_int_1);
       __pyx_v_line_number = __pyx_int_1;
 
-      /* "ddb/engine/sql_engine.pyx":352
+      /* "ddb/engine/sql_engine.py":352
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1
  *             deleted=0             # <<<<<<<<<<<<<<
@@ -8261,7 +8262,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_INCREF(__pyx_int_0);
       __pyx_v_deleted = __pyx_int_0;
 
-      /* "ddb/engine/sql_engine.pyx":354
+      /* "ddb/engine/sql_engine.py":354
  *             deleted=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -8322,7 +8323,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
               __pyx_v_content_file = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":355
+              /* "ddb/engine/sql_engine.py":355
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -8375,7 +8376,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                       __pyx_v_temp_file = __pyx_t_4;
                       __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":356
+                      /* "ddb/engine/sql_engine.py":356
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -8424,7 +8425,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":357
+                        /* "ddb/engine/sql_engine.py":357
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)             # <<<<<<<<<<<<<<
@@ -8484,7 +8485,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_processed_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":358
+                        /* "ddb/engine/sql_engine.py":358
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -8499,7 +8500,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":359
+                          /* "ddb/engine/sql_engine.py":359
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])             # <<<<<<<<<<<<<<
@@ -8528,7 +8529,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":358
+                          /* "ddb/engine/sql_engine.py":358
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -8537,7 +8538,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
  */
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":360
+                        /* "ddb/engine/sql_engine.py":360
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])
  *                         line_number+=1             # <<<<<<<<<<<<<<
@@ -8549,7 +8550,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_DECREF_SET(__pyx_v_line_number, __pyx_t_5);
                         __pyx_t_5 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":362
+                        /* "ddb/engine/sql_engine.py":362
  *                         line_number+=1
  *                         #skip matches
  *                         if True  == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -8564,7 +8565,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":363
+                          /* "ddb/engine/sql_engine.py":363
  *                         #skip matches
  *                         if True  == processed_line['match']:
  *                             deleted+=1             # <<<<<<<<<<<<<<
@@ -8576,7 +8577,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                           __Pyx_DECREF_SET(__pyx_v_deleted, __pyx_t_6);
                           __pyx_t_6 = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":364
+                          /* "ddb/engine/sql_engine.py":364
  *                         if True  == processed_line['match']:
  *                             deleted+=1
  *                             continue             # <<<<<<<<<<<<<<
@@ -8585,7 +8586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
  */
                           goto __pyx_L29_continue;
 
-                          /* "ddb/engine/sql_engine.pyx":362
+                          /* "ddb/engine/sql_engine.py":362
  *                         line_number+=1
  *                         #skip matches
  *                         if True  == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -8594,7 +8595,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
  */
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":365
+                        /* "ddb/engine/sql_engine.py":365
  *                             deleted+=1
  *                             continue
  *                         temp_file.write(processed_line['raw'])             # <<<<<<<<<<<<<<
@@ -8623,7 +8624,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":356
+                        /* "ddb/engine/sql_engine.py":356
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -8634,7 +8635,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                       }
                       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":355
+                      /* "ddb/engine/sql_engine.py":355
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -8716,7 +8717,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
                 __pyx_L36:;
               }
 
-              /* "ddb/engine/sql_engine.pyx":354
+              /* "ddb/engine/sql_engine.py":354
  *             deleted=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -8798,7 +8799,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
         __pyx_L40:;
       }
 
-      /* "ddb/engine/sql_engine.pyx":367
+      /* "ddb/engine/sql_engine.py":367
  *                         temp_file.write(processed_line['raw'])
  * 
  *             data= {'data':[deleted],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -8825,7 +8826,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __pyx_v_data = ((PyObject*)__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":368
+      /* "ddb/engine/sql_engine.py":368
  * 
  *             data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
  *             temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -8851,7 +8852,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":369
+      /* "ddb/engine/sql_engine.py":369
  *             data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -8889,7 +8890,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":370
+      /* "ddb/engine/sql_engine.py":370
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)
  *             os.rename(temp_file_name,query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -8958,7 +8959,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":371
+      /* "ddb/engine/sql_engine.py":371
  *             os.remove(query_object['table'].data.path)
  *             os.rename(temp_file_name,query_object['table'].data.path)
  *             return temp_table             # <<<<<<<<<<<<<<
@@ -8970,7 +8971,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __pyx_r = __pyx_v_temp_table;
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/sql_engine.pyx":343
+      /* "ddb/engine/sql_engine.py":343
  *     # File is as untouched as possible
  *     def delete(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -8985,7 +8986,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":373
+    /* "ddb/engine/sql_engine.py":373
  *             return temp_table
  * 
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -9002,7 +9003,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
       __Pyx_INCREF(__pyx_t_5);
       __pyx_v_ex = __pyx_t_5;
 
-      /* "ddb/engine/sql_engine.pyx":375
+      /* "ddb/engine/sql_engine.py":375
  *         except Exception as ex:
  * 
  *             print (ex)             # <<<<<<<<<<<<<<
@@ -9018,7 +9019,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/sql_engine.pyx":343
+    /* "ddb/engine/sql_engine.py":343
  *     # File is as untouched as possible
  *     def delete(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -9043,7 +9044,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
     __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
   }
 
-  /* "ddb/engine/sql_engine.pyx":342
+  /* "ddb/engine/sql_engine.py":342
  *     # ignores matches
  *     # File is as untouched as possible
  *     def delete(self,query_object):             # <<<<<<<<<<<<<<
@@ -9079,7 +9080,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_20delete(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":382
+/* "ddb/engine/sql_engine.py":382
  *     # File is as untouched as possible
  *     # new lines are joined at the end
  *     def insert(self,query_object):             # <<<<<<<<<<<<<<
@@ -9189,7 +9190,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
   int __pyx_t_22;
   __Pyx_RefNannySetupContext("insert", 0);
 
-  /* "ddb/engine/sql_engine.pyx":383
+  /* "ddb/engine/sql_engine.py":383
  *     # new lines are joined at the end
  *     def insert(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -9205,7 +9206,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/sql_engine.pyx":384
+      /* "ddb/engine/sql_engine.py":384
  *     def insert(self,query_object):
  *         try:
  *             table_name=query_object['meta']['into']['table']             # <<<<<<<<<<<<<<
@@ -9223,7 +9224,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __pyx_v_table_name = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":385
+      /* "ddb/engine/sql_engine.py":385
  *         try:
  *             table_name=query_object['meta']['into']['table']
  *             query_object['table']=self.database.get(table_name)             # <<<<<<<<<<<<<<
@@ -9253,7 +9254,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       if (unlikely(PyObject_SetItem(__pyx_v_query_object, __pyx_n_s_table, __pyx_t_4) < 0)) __PYX_ERR(0, 385, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":387
+      /* "ddb/engine/sql_engine.py":387
  *             query_object['table']=self.database.get(table_name)
  * 
  *             temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -9283,7 +9284,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __pyx_v_temp_table = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":388
+      /* "ddb/engine/sql_engine.py":388
  * 
  *             temp_table=self.database.temp_table()
  *             temp_table.add_column('inserted')             # <<<<<<<<<<<<<<
@@ -9309,7 +9310,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":390
+      /* "ddb/engine/sql_engine.py":390
  *             temp_table.add_column('inserted')
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())             # <<<<<<<<<<<<<<
@@ -9342,7 +9343,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __pyx_v_temp_file_name = __pyx_t_6;
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":391
+      /* "ddb/engine/sql_engine.py":391
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1             # <<<<<<<<<<<<<<
@@ -9352,7 +9353,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_INCREF(__pyx_int_1);
       __pyx_v_line_number = __pyx_int_1;
 
-      /* "ddb/engine/sql_engine.pyx":392
+      /* "ddb/engine/sql_engine.py":392
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1
  *             inserted=0             # <<<<<<<<<<<<<<
@@ -9362,7 +9363,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_INCREF(__pyx_int_0);
       __pyx_v_inserted = __pyx_int_0;
 
-      /* "ddb/engine/sql_engine.pyx":394
+      /* "ddb/engine/sql_engine.py":394
  *             inserted=0
  *             # process file
  *             requires_new_line=False             # <<<<<<<<<<<<<<
@@ -9371,7 +9372,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
  */
       __pyx_v_requires_new_line = 0;
 
-      /* "ddb/engine/sql_engine.pyx":395
+      /* "ddb/engine/sql_engine.py":395
  *             # process file
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -9432,7 +9433,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
               __pyx_v_content_file = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":396
+              /* "ddb/engine/sql_engine.py":396
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -9485,7 +9486,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                       __pyx_v_temp_file = __pyx_t_4;
                       __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":397
+                      /* "ddb/engine/sql_engine.py":397
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -9534,7 +9535,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":398
+                        /* "ddb/engine/sql_engine.py":398
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)             # <<<<<<<<<<<<<<
@@ -9594,7 +9595,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_processed_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":399
+                        /* "ddb/engine/sql_engine.py":399
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -9609,7 +9610,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":400
+                          /* "ddb/engine/sql_engine.py":400
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])             # <<<<<<<<<<<<<<
@@ -9638,7 +9639,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":399
+                          /* "ddb/engine/sql_engine.py":399
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -9647,7 +9648,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
  */
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":401
+                        /* "ddb/engine/sql_engine.py":401
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])
  *                         line_number+=1             # <<<<<<<<<<<<<<
@@ -9659,7 +9660,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_DECREF_SET(__pyx_v_line_number, __pyx_t_5);
                         __pyx_t_5 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":402
+                        /* "ddb/engine/sql_engine.py":402
  *                             temp_table.add_error(processed_line['error'])
  *                         line_number+=1
  *                         temp_file.write(processed_line['raw'])             # <<<<<<<<<<<<<<
@@ -9688,7 +9689,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":403
+                        /* "ddb/engine/sql_engine.py":403
  *                         line_number+=1
  *                         temp_file.write(processed_line['raw'])
  *                         if processed_line['raw'][-1]==query_object['table'].delimiters.new_line:             # <<<<<<<<<<<<<<
@@ -9715,7 +9716,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":404
+                          /* "ddb/engine/sql_engine.py":404
  *                         temp_file.write(processed_line['raw'])
  *                         if processed_line['raw'][-1]==query_object['table'].delimiters.new_line:
  *                             requires_new_line=False             # <<<<<<<<<<<<<<
@@ -9724,7 +9725,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
  */
                           __pyx_v_requires_new_line = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":403
+                          /* "ddb/engine/sql_engine.py":403
  *                         line_number+=1
  *                         temp_file.write(processed_line['raw'])
  *                         if processed_line['raw'][-1]==query_object['table'].delimiters.new_line:             # <<<<<<<<<<<<<<
@@ -9734,7 +9735,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                           goto __pyx_L32;
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":406
+                        /* "ddb/engine/sql_engine.py":406
  *                             requires_new_line=False
  *                         else:
  *                             requires_new_line=True             # <<<<<<<<<<<<<<
@@ -9746,7 +9747,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         }
                         __pyx_L32:;
 
-                        /* "ddb/engine/sql_engine.pyx":397
+                        /* "ddb/engine/sql_engine.py":397
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -9756,7 +9757,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                       }
                       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":408
+                      /* "ddb/engine/sql_engine.py":408
  *                             requires_new_line=True
  * 
  *                     results=self.create_single(query_object,temp_file,temp_table,requires_new_line)             # <<<<<<<<<<<<<<
@@ -9823,7 +9824,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                       __pyx_v_results = __pyx_t_4;
                       __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":409
+                      /* "ddb/engine/sql_engine.py":409
  * 
  *                     results=self.create_single(query_object,temp_file,temp_table,requires_new_line)
  *                     if True==results:             # <<<<<<<<<<<<<<
@@ -9835,7 +9836,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                       if (__pyx_t_20) {
 
-                        /* "ddb/engine/sql_engine.pyx":410
+                        /* "ddb/engine/sql_engine.py":410
  *                     results=self.create_single(query_object,temp_file,temp_table,requires_new_line)
  *                     if True==results:
  *                         inserted+=1             # <<<<<<<<<<<<<<
@@ -9847,7 +9848,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                         __Pyx_DECREF_SET(__pyx_v_inserted, __pyx_t_4);
                         __pyx_t_4 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":409
+                        /* "ddb/engine/sql_engine.py":409
  * 
  *                     results=self.create_single(query_object,temp_file,temp_table,requires_new_line)
  *                     if True==results:             # <<<<<<<<<<<<<<
@@ -9856,7 +9857,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
  */
                       }
 
-                      /* "ddb/engine/sql_engine.pyx":396
+                      /* "ddb/engine/sql_engine.py":396
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -9938,7 +9939,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
                 __pyx_L37:;
               }
 
-              /* "ddb/engine/sql_engine.pyx":395
+              /* "ddb/engine/sql_engine.py":395
  *             # process file
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -10020,7 +10021,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
         __pyx_L41:;
       }
 
-      /* "ddb/engine/sql_engine.pyx":413
+      /* "ddb/engine/sql_engine.py":413
  * 
  * 
  *             data= {'data':[inserted],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -10047,7 +10048,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __pyx_v_data = ((PyObject*)__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":414
+      /* "ddb/engine/sql_engine.py":414
  * 
  *             data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
  *             temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -10073,7 +10074,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":415
+      /* "ddb/engine/sql_engine.py":415
  *             data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -10111,7 +10112,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":416
+      /* "ddb/engine/sql_engine.py":416
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)
  *             os.rename(temp_file_name,query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -10180,7 +10181,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":418
+      /* "ddb/engine/sql_engine.py":418
  *             os.rename(temp_file_name,query_object['table'].data.path)
  *             #print temp_table.errors
  *             return temp_table             # <<<<<<<<<<<<<<
@@ -10192,7 +10193,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __pyx_r = __pyx_v_temp_table;
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/sql_engine.pyx":383
+      /* "ddb/engine/sql_engine.py":383
  *     # new lines are joined at the end
  *     def insert(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -10207,7 +10208,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":420
+    /* "ddb/engine/sql_engine.py":420
  *             return temp_table
  * 
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -10224,7 +10225,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
       __Pyx_INCREF(__pyx_t_8);
       __pyx_v_ex = __pyx_t_8;
 
-      /* "ddb/engine/sql_engine.pyx":422
+      /* "ddb/engine/sql_engine.py":422
  *         except Exception as ex:
  * 
  *             print (ex)             # <<<<<<<<<<<<<<
@@ -10240,7 +10241,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/sql_engine.pyx":383
+    /* "ddb/engine/sql_engine.py":383
  *     # new lines are joined at the end
  *     def insert(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -10265,7 +10266,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
     __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
   }
 
-  /* "ddb/engine/sql_engine.pyx":382
+  /* "ddb/engine/sql_engine.py":382
  *     # File is as untouched as possible
  *     # new lines are joined at the end
  *     def insert(self,query_object):             # <<<<<<<<<<<<<<
@@ -10302,7 +10303,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_22insert(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":425
+/* "ddb/engine/sql_engine.py":425
  * 
  * 
  *     def create_single(self,query_object,temp_file,temp_table,requires_new_line):             # <<<<<<<<<<<<<<
@@ -10428,7 +10429,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
   PyObject *__pyx_t_12 = NULL;
   __Pyx_RefNannySetupContext("create_single", 0);
 
-  /* "ddb/engine/sql_engine.pyx":426
+  /* "ddb/engine/sql_engine.py":426
  * 
  *     def create_single(self,query_object,temp_file,temp_table,requires_new_line):
  *         err=False             # <<<<<<<<<<<<<<
@@ -10437,7 +10438,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
   __pyx_v_err = 0;
 
-  /* "ddb/engine/sql_engine.pyx":429
+  /* "ddb/engine/sql_engine.py":429
  *         ###
  *         # insert new data at end of file
  *         if len(query_object['meta']['columns']) != query_object['table'].column_count():             # <<<<<<<<<<<<<<
@@ -10480,7 +10481,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_6) {
 
-    /* "ddb/engine/sql_engine.pyx":430
+    /* "ddb/engine/sql_engine.py":430
  *         # insert new data at end of file
  *         if len(query_object['meta']['columns']) != query_object['table'].column_count():
  *             temp_table.add_error("Cannot insert, column count does not match table column count")             # <<<<<<<<<<<<<<
@@ -10506,7 +10507,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":429
+    /* "ddb/engine/sql_engine.py":429
  *         ###
  *         # insert new data at end of file
  *         if len(query_object['meta']['columns']) != query_object['table'].column_count():             # <<<<<<<<<<<<<<
@@ -10516,7 +10517,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
     goto __pyx_L3;
   }
 
-  /* "ddb/engine/sql_engine.pyx":432
+  /* "ddb/engine/sql_engine.py":432
  *             temp_table.add_error("Cannot insert, column count does not match table column count")
  *         else:
  *             if len(query_object['meta']['values']) != query_object['table'].column_count():             # <<<<<<<<<<<<<<
@@ -10560,7 +10561,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/sql_engine.pyx":433
+      /* "ddb/engine/sql_engine.py":433
  *         else:
  *             if len(query_object['meta']['values']) != query_object['table'].column_count():
  *                 temp_table.add_error("Cannot insert, column value count does not match table column count")             # <<<<<<<<<<<<<<
@@ -10586,7 +10587,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":432
+      /* "ddb/engine/sql_engine.py":432
  *             temp_table.add_error("Cannot insert, column count does not match table column count")
  *         else:
  *             if len(query_object['meta']['values']) != query_object['table'].column_count():             # <<<<<<<<<<<<<<
@@ -10596,7 +10597,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       goto __pyx_L4;
     }
 
-    /* "ddb/engine/sql_engine.pyx":435
+    /* "ddb/engine/sql_engine.py":435
  *                 temp_table.add_error("Cannot insert, column value count does not match table column count")
  *             else:
  *                 new_line=''             # <<<<<<<<<<<<<<
@@ -10607,7 +10608,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       __Pyx_INCREF(__pyx_kp_s__3);
       __pyx_v_new_line = __pyx_kp_s__3;
 
-      /* "ddb/engine/sql_engine.pyx":436
+      /* "ddb/engine/sql_engine.py":436
  *             else:
  *                 new_line=''
  *                 err=False             # <<<<<<<<<<<<<<
@@ -10616,7 +10617,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
       __pyx_v_err = 0;
 
-      /* "ddb/engine/sql_engine.pyx":438
+      /* "ddb/engine/sql_engine.py":438
  *                 err=False
  *                 #print query_object['meta']['columns']
  *                 for c in range(0,len(query_object['meta']['columns'])):             # <<<<<<<<<<<<<<
@@ -10634,7 +10635,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
         __pyx_v_c = __pyx_t_8;
 
-        /* "ddb/engine/sql_engine.pyx":439
+        /* "ddb/engine/sql_engine.py":439
  *                 #print query_object['meta']['columns']
  *                 for c in range(0,len(query_object['meta']['columns'])):
  *                     column_name=query_object['table'].get_column_at_data_ordinal(c)             # <<<<<<<<<<<<<<
@@ -10667,7 +10668,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
         __Pyx_XDECREF_SET(__pyx_v_column_name, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":440
+        /* "ddb/engine/sql_engine.py":440
  *                 for c in range(0,len(query_object['meta']['columns'])):
  *                     column_name=query_object['table'].get_column_at_data_ordinal(c)
  *                     found=False             # <<<<<<<<<<<<<<
@@ -10676,7 +10677,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
         __pyx_v_found = 0;
 
-        /* "ddb/engine/sql_engine.pyx":441
+        /* "ddb/engine/sql_engine.py":441
  *                     column_name=query_object['table'].get_column_at_data_ordinal(c)
  *                     found=False
  *                     for c2 in range(0,len(query_object['meta']['columns'])):             # <<<<<<<<<<<<<<
@@ -10694,7 +10695,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
         for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_10; __pyx_t_11+=1) {
           __pyx_v_c2 = __pyx_t_11;
 
-          /* "ddb/engine/sql_engine.pyx":442
+          /* "ddb/engine/sql_engine.py":442
  *                     found=False
  *                     for c2 in range(0,len(query_object['meta']['columns'])):
  *                         if query_object['meta']['columns'][c2]['column']==column_name:             # <<<<<<<<<<<<<<
@@ -10718,7 +10719,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           if (__pyx_t_6) {
 
-            /* "ddb/engine/sql_engine.pyx":444
+            /* "ddb/engine/sql_engine.py":444
  *                         if query_object['meta']['columns'][c2]['column']==column_name:
  *                             #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                             found=True             # <<<<<<<<<<<<<<
@@ -10727,7 +10728,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
             __pyx_v_found = 1;
 
-            /* "ddb/engine/sql_engine.pyx":445
+            /* "ddb/engine/sql_engine.py":445
  *                             #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                             found=True
  *                             if c>0:             # <<<<<<<<<<<<<<
@@ -10737,7 +10738,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
             __pyx_t_6 = ((__pyx_v_c > 0) != 0);
             if (__pyx_t_6) {
 
-              /* "ddb/engine/sql_engine.pyx":446
+              /* "ddb/engine/sql_engine.py":446
  *                             found=True
  *                             if c>0:
  *                                 new_line+='{}'.format(query_object['table'].delimiters.field)             # <<<<<<<<<<<<<<
@@ -10776,7 +10777,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
               __Pyx_DECREF_SET(__pyx_v_new_line, __pyx_t_5);
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":445
+              /* "ddb/engine/sql_engine.py":445
  *                             #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                             found=True
  *                             if c>0:             # <<<<<<<<<<<<<<
@@ -10785,7 +10786,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
             }
 
-            /* "ddb/engine/sql_engine.pyx":447
+            /* "ddb/engine/sql_engine.py":447
  *                             if c>0:
  *                                 new_line+='{}'.format(query_object['table'].delimiters.field)
  *                             new_line+='{}'.format(query_object['meta']['values'][c2]['value'])             # <<<<<<<<<<<<<<
@@ -10827,7 +10828,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
             __Pyx_DECREF_SET(__pyx_v_new_line, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/sql_engine.pyx":442
+            /* "ddb/engine/sql_engine.py":442
  *                     found=False
  *                     for c2 in range(0,len(query_object['meta']['columns'])):
  *                         if query_object['meta']['columns'][c2]['column']==column_name:             # <<<<<<<<<<<<<<
@@ -10837,7 +10838,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
           }
         }
 
-        /* "ddb/engine/sql_engine.pyx":448
+        /* "ddb/engine/sql_engine.py":448
  *                                 new_line+='{}'.format(query_object['table'].delimiters.field)
  *                             new_line+='{}'.format(query_object['meta']['values'][c2]['value'])
  *                     if False==found:             # <<<<<<<<<<<<<<
@@ -10847,7 +10848,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
         __pyx_t_6 = ((0 == __pyx_v_found) != 0);
         if (__pyx_t_6) {
 
-          /* "ddb/engine/sql_engine.pyx":449
+          /* "ddb/engine/sql_engine.py":449
  *                             new_line+='{}'.format(query_object['meta']['values'][c2]['value'])
  *                     if False==found:
  *                         temp_table.add_error("Cannot insert, column in query not found in table: {}".format(column_name))             # <<<<<<<<<<<<<<
@@ -10891,7 +10892,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":450
+          /* "ddb/engine/sql_engine.py":450
  *                     if False==found:
  *                         temp_table.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
  *                         err=True             # <<<<<<<<<<<<<<
@@ -10900,7 +10901,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
           __pyx_v_err = 1;
 
-          /* "ddb/engine/sql_engine.pyx":451
+          /* "ddb/engine/sql_engine.py":451
  *                         temp_table.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
  *                         err=True
  *                         break             # <<<<<<<<<<<<<<
@@ -10909,7 +10910,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
           goto __pyx_L6_break;
 
-          /* "ddb/engine/sql_engine.pyx":448
+          /* "ddb/engine/sql_engine.py":448
  *                                 new_line+='{}'.format(query_object['table'].delimiters.field)
  *                             new_line+='{}'.format(query_object['meta']['values'][c2]['value'])
  *                     if False==found:             # <<<<<<<<<<<<<<
@@ -10920,7 +10921,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       }
       __pyx_L6_break:;
 
-      /* "ddb/engine/sql_engine.pyx":452
+      /* "ddb/engine/sql_engine.py":452
  *                         err=True
  *                         break
  *                 if False == err:             # <<<<<<<<<<<<<<
@@ -10930,7 +10931,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
       __pyx_t_6 = ((0 == __pyx_v_err) != 0);
       if (__pyx_t_6) {
 
-        /* "ddb/engine/sql_engine.pyx":454
+        /* "ddb/engine/sql_engine.py":454
  *                 if False == err:
  *                     #print new_line
  *                     if True == requires_new_line:             # <<<<<<<<<<<<<<
@@ -10942,7 +10943,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_6) {
 
-          /* "ddb/engine/sql_engine.pyx":455
+          /* "ddb/engine/sql_engine.py":455
  *                     #print new_line
  *                     if True == requires_new_line:
  *                         temp_file.write(query_object['table'].delimiters.new_line)             # <<<<<<<<<<<<<<
@@ -10977,7 +10978,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":454
+          /* "ddb/engine/sql_engine.py":454
  *                 if False == err:
  *                     #print new_line
  *                     if True == requires_new_line:             # <<<<<<<<<<<<<<
@@ -10986,7 +10987,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
         }
 
-        /* "ddb/engine/sql_engine.pyx":456
+        /* "ddb/engine/sql_engine.py":456
  *                     if True == requires_new_line:
  *                         temp_file.write(query_object['table'].delimiters.new_line)
  *                     temp_file.write(new_line+query_object['table'].delimiters.new_line)             # <<<<<<<<<<<<<<
@@ -11024,7 +11025,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":452
+        /* "ddb/engine/sql_engine.py":452
  *                         err=True
  *                         break
  *                 if False == err:             # <<<<<<<<<<<<<<
@@ -11037,7 +11038,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
   }
   __pyx_L3:;
 
-  /* "ddb/engine/sql_engine.pyx":457
+  /* "ddb/engine/sql_engine.py":457
  *                         temp_file.write(query_object['table'].delimiters.new_line)
  *                     temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11047,7 +11048,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
   __pyx_t_6 = ((0 == __pyx_v_err) != 0);
   if (__pyx_t_6) {
 
-    /* "ddb/engine/sql_engine.pyx":458
+    /* "ddb/engine/sql_engine.py":458
  *                     temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:
  *             return True             # <<<<<<<<<<<<<<
@@ -11059,7 +11060,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "ddb/engine/sql_engine.pyx":457
+    /* "ddb/engine/sql_engine.py":457
  *                         temp_file.write(query_object['table'].delimiters.new_line)
  *                     temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11068,7 +11069,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":460
+  /* "ddb/engine/sql_engine.py":460
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -11082,7 +11083,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
     goto __pyx_L0;
   }
 
-  /* "ddb/engine/sql_engine.pyx":425
+  /* "ddb/engine/sql_engine.py":425
  * 
  * 
  *     def create_single(self,query_object,temp_file,temp_table,requires_new_line):             # <<<<<<<<<<<<<<
@@ -11107,7 +11108,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_24create_single
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":463
+/* "ddb/engine/sql_engine.py":463
  * 
  * 
  *     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):             # <<<<<<<<<<<<<<
@@ -11243,7 +11244,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   Py_ssize_t __pyx_t_11;
   __Pyx_RefNannySetupContext("update_single", 0);
 
-  /* "ddb/engine/sql_engine.pyx":464
+  /* "ddb/engine/sql_engine.py":464
  * 
  *     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):
  *         err=False             # <<<<<<<<<<<<<<
@@ -11252,7 +11253,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
   __pyx_v_err = 0;
 
-  /* "ddb/engine/sql_engine.pyx":467
+  /* "ddb/engine/sql_engine.py":467
  *         ###
  *         # insert new data at end of file
  *         new_line=''             # <<<<<<<<<<<<<<
@@ -11262,7 +11263,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   __Pyx_INCREF(__pyx_kp_s__3);
   __pyx_v_new_line = __pyx_kp_s__3;
 
-  /* "ddb/engine/sql_engine.pyx":468
+  /* "ddb/engine/sql_engine.py":468
  *         # insert new data at end of file
  *         new_line=''
  *         err=False             # <<<<<<<<<<<<<<
@@ -11271,7 +11272,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
   __pyx_v_err = 0;
 
-  /* "ddb/engine/sql_engine.pyx":472
+  /* "ddb/engine/sql_engine.py":472
  * 
  *         # make sure the inserted columns exist
  *         for c2 in range(0,len(query_object['meta']['set'])):             # <<<<<<<<<<<<<<
@@ -11289,7 +11290,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_c2 = __pyx_t_5;
 
-    /* "ddb/engine/sql_engine.pyx":473
+    /* "ddb/engine/sql_engine.py":473
  *         # make sure the inserted columns exist
  *         for c2 in range(0,len(query_object['meta']['set'])):
  *             column_name=query_object['meta']['set'][c2]['column']             # <<<<<<<<<<<<<<
@@ -11310,7 +11311,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     __Pyx_XDECREF_SET(__pyx_v_column_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":474
+    /* "ddb/engine/sql_engine.py":474
  *         for c2 in range(0,len(query_object['meta']['set'])):
  *             column_name=query_object['meta']['set'][c2]['column']
  *             if None == query_object['table'].get_column_by_name(column_name):             # <<<<<<<<<<<<<<
@@ -11343,7 +11344,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/sql_engine.pyx":475
+      /* "ddb/engine/sql_engine.py":475
  *             column_name=query_object['meta']['set'][c2]['column']
  *             if None == query_object['table'].get_column_by_name(column_name):
  *                 temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))             # <<<<<<<<<<<<<<
@@ -11387,7 +11388,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":477
+      /* "ddb/engine/sql_engine.py":477
  *                 temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
  *                 #print "no column"
  *                 err=True             # <<<<<<<<<<<<<<
@@ -11396,7 +11397,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
       __pyx_v_err = 1;
 
-      /* "ddb/engine/sql_engine.pyx":474
+      /* "ddb/engine/sql_engine.py":474
  *         for c2 in range(0,len(query_object['meta']['set'])):
  *             column_name=query_object['meta']['set'][c2]['column']
  *             if None == query_object['table'].get_column_by_name(column_name):             # <<<<<<<<<<<<<<
@@ -11406,7 +11407,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     }
   }
 
-  /* "ddb/engine/sql_engine.pyx":479
+  /* "ddb/engine/sql_engine.py":479
  *                 err=True
  * 
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11416,7 +11417,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   __pyx_t_7 = ((0 == __pyx_v_err) != 0);
   if (__pyx_t_7) {
 
-    /* "ddb/engine/sql_engine.pyx":480
+    /* "ddb/engine/sql_engine.py":480
  * 
  *         if False==err:
  *             for c in range(0,query_object['table'].column_count()):             # <<<<<<<<<<<<<<
@@ -11497,7 +11498,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":481
+      /* "ddb/engine/sql_engine.py":481
  *         if False==err:
  *             for c in range(0,query_object['table'].column_count()):
  *                 column_name=query_object['table'].get_column_at_data_ordinal(c)             # <<<<<<<<<<<<<<
@@ -11527,7 +11528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_XDECREF_SET(__pyx_v_column_name, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":482
+      /* "ddb/engine/sql_engine.py":482
  *             for c in range(0,query_object['table'].column_count()):
  *                 column_name=query_object['table'].get_column_at_data_ordinal(c)
  *                 value=processed_line['data'][c]             # <<<<<<<<<<<<<<
@@ -11542,7 +11543,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":483
+      /* "ddb/engine/sql_engine.py":483
  *                 column_name=query_object['table'].get_column_at_data_ordinal(c)
  *                 value=processed_line['data'][c]
  *                 for c2 in range(0,len(query_object['meta']['set'])):             # <<<<<<<<<<<<<<
@@ -11560,7 +11561,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_5; __pyx_t_11+=1) {
         __pyx_v_c2 = __pyx_t_11;
 
-        /* "ddb/engine/sql_engine.pyx":485
+        /* "ddb/engine/sql_engine.py":485
  *                 for c2 in range(0,len(query_object['meta']['set'])):
  *                     #print column_name,query_object['meta']['set']
  *                     if query_object['meta']['set'][c2]['column']==column_name:             # <<<<<<<<<<<<<<
@@ -11584,7 +11585,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         if (__pyx_t_7) {
 
-          /* "ddb/engine/sql_engine.pyx":487
+          /* "ddb/engine/sql_engine.py":487
  *                     if query_object['meta']['set'][c2]['column']==column_name:
  *                         #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                         value=query_object['meta']['set'][c2]['expression']             # <<<<<<<<<<<<<<
@@ -11605,7 +11606,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
           __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
           __pyx_t_8 = 0;
 
-          /* "ddb/engine/sql_engine.pyx":485
+          /* "ddb/engine/sql_engine.py":485
  *                 for c2 in range(0,len(query_object['meta']['set'])):
  *                     #print column_name,query_object['meta']['set']
  *                     if query_object['meta']['set'][c2]['column']==column_name:             # <<<<<<<<<<<<<<
@@ -11615,7 +11616,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
         }
       }
 
-      /* "ddb/engine/sql_engine.pyx":488
+      /* "ddb/engine/sql_engine.py":488
  *                         #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                         value=query_object['meta']['set'][c2]['expression']
  *                 if c>0:             # <<<<<<<<<<<<<<
@@ -11627,7 +11628,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/sql_engine.pyx":489
+        /* "ddb/engine/sql_engine.py":489
  *                         value=query_object['meta']['set'][c2]['expression']
  *                 if c>0:
  *                     new_line+='{}'.format(query_object['table'].delimiters.field)             # <<<<<<<<<<<<<<
@@ -11666,7 +11667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
         __Pyx_DECREF_SET(__pyx_v_new_line, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "ddb/engine/sql_engine.pyx":488
+        /* "ddb/engine/sql_engine.py":488
  *                         #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
  *                         value=query_object['meta']['set'][c2]['expression']
  *                 if c>0:             # <<<<<<<<<<<<<<
@@ -11675,7 +11676,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
       }
 
-      /* "ddb/engine/sql_engine.pyx":490
+      /* "ddb/engine/sql_engine.py":490
  *                 if c>0:
  *                     new_line+='{}'.format(query_object['table'].delimiters.field)
  *                 new_line+='{}'.format(value)             # <<<<<<<<<<<<<<
@@ -11705,7 +11706,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_DECREF_SET(__pyx_v_new_line, __pyx_t_8);
       __pyx_t_8 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":480
+      /* "ddb/engine/sql_engine.py":480
  * 
  *         if False==err:
  *             for c in range(0,query_object['table'].column_count()):             # <<<<<<<<<<<<<<
@@ -11715,7 +11716,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":479
+    /* "ddb/engine/sql_engine.py":479
  *                 err=True
  * 
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11724,7 +11725,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":494
+  /* "ddb/engine/sql_engine.py":494
  * 
  * 
  *         if False == err:             # <<<<<<<<<<<<<<
@@ -11734,7 +11735,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   __pyx_t_7 = ((0 == __pyx_v_err) != 0);
   if (__pyx_t_7) {
 
-    /* "ddb/engine/sql_engine.pyx":496
+    /* "ddb/engine/sql_engine.py":496
  *         if False == err:
  *             #print new_line
  *             if True == requires_new_line:             # <<<<<<<<<<<<<<
@@ -11746,7 +11747,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/sql_engine.pyx":497
+      /* "ddb/engine/sql_engine.py":497
  *             #print new_line
  *             if True == requires_new_line:
  *                 temp_file.write(query_object['table'].delimiters.new_line)             # <<<<<<<<<<<<<<
@@ -11781,7 +11782,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":496
+      /* "ddb/engine/sql_engine.py":496
  *         if False == err:
  *             #print new_line
  *             if True == requires_new_line:             # <<<<<<<<<<<<<<
@@ -11790,7 +11791,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
     }
 
-    /* "ddb/engine/sql_engine.pyx":498
+    /* "ddb/engine/sql_engine.py":498
  *             if True == requires_new_line:
  *                 temp_file.write(query_object['table'].delimiters.new_line)
  *             temp_file.write(new_line+query_object['table'].delimiters.new_line)             # <<<<<<<<<<<<<<
@@ -11828,7 +11829,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":494
+    /* "ddb/engine/sql_engine.py":494
  * 
  * 
  *         if False == err:             # <<<<<<<<<<<<<<
@@ -11837,7 +11838,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":499
+  /* "ddb/engine/sql_engine.py":499
  *                 temp_file.write(query_object['table'].delimiters.new_line)
  *             temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11847,7 +11848,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   __pyx_t_7 = ((0 == __pyx_v_err) != 0);
   if (__pyx_t_7) {
 
-    /* "ddb/engine/sql_engine.pyx":500
+    /* "ddb/engine/sql_engine.py":500
  *             temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:
  *             return True             # <<<<<<<<<<<<<<
@@ -11859,7 +11860,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "ddb/engine/sql_engine.pyx":499
+    /* "ddb/engine/sql_engine.py":499
  *                 temp_file.write(query_object['table'].delimiters.new_line)
  *             temp_file.write(new_line+query_object['table'].delimiters.new_line)
  *         if False==err:             # <<<<<<<<<<<<<<
@@ -11868,7 +11869,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":502
+  /* "ddb/engine/sql_engine.py":502
  *             return True
  *         else:
  *             return False             # <<<<<<<<<<<<<<
@@ -11882,7 +11883,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
     goto __pyx_L0;
   }
 
-  /* "ddb/engine/sql_engine.pyx":463
+  /* "ddb/engine/sql_engine.py":463
  * 
  * 
  *     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):             # <<<<<<<<<<<<<<
@@ -11909,7 +11910,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_26update_single
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":511
+/* "ddb/engine/sql_engine.py":511
  *     # ignores matches
  *     # File is as untouched as possible
  *     def update(self,query_object):             # <<<<<<<<<<<<<<
@@ -12018,7 +12019,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
   int __pyx_t_22;
   __Pyx_RefNannySetupContext("update", 0);
 
-  /* "ddb/engine/sql_engine.pyx":512
+  /* "ddb/engine/sql_engine.py":512
  *     # File is as untouched as possible
  *     def update(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -12034,7 +12035,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/sql_engine.pyx":513
+      /* "ddb/engine/sql_engine.py":513
  *     def update(self,query_object):
  *         try:
  *             table_name=query_object['meta']['update']['table']             # <<<<<<<<<<<<<<
@@ -12052,7 +12053,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __pyx_v_table_name = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":514
+      /* "ddb/engine/sql_engine.py":514
  *         try:
  *             table_name=query_object['meta']['update']['table']
  *             query_object['table']=self.database.get(table_name)             # <<<<<<<<<<<<<<
@@ -12082,7 +12083,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       if (unlikely(PyObject_SetItem(__pyx_v_query_object, __pyx_n_s_table, __pyx_t_4) < 0)) __PYX_ERR(0, 514, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":516
+      /* "ddb/engine/sql_engine.py":516
  *             query_object['table']=self.database.get(table_name)
  * 
  *             temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -12112,7 +12113,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __pyx_v_temp_table = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":517
+      /* "ddb/engine/sql_engine.py":517
  * 
  *             temp_table=self.database.temp_table()
  *             temp_table.add_column('updated')             # <<<<<<<<<<<<<<
@@ -12138,7 +12139,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":519
+      /* "ddb/engine/sql_engine.py":519
  *             temp_table.add_column('updated')
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())             # <<<<<<<<<<<<<<
@@ -12171,7 +12172,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __pyx_v_temp_file_name = __pyx_t_6;
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":520
+      /* "ddb/engine/sql_engine.py":520
  * 
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1             # <<<<<<<<<<<<<<
@@ -12181,7 +12182,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_INCREF(__pyx_int_1);
       __pyx_v_line_number = __pyx_int_1;
 
-      /* "ddb/engine/sql_engine.pyx":521
+      /* "ddb/engine/sql_engine.py":521
  *             temp_file_name = next(tempfile._get_candidate_names())
  *             line_number=1
  *             updated=0             # <<<<<<<<<<<<<<
@@ -12191,7 +12192,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_INCREF(__pyx_int_0);
       __pyx_v_updated = __pyx_int_0;
 
-      /* "ddb/engine/sql_engine.pyx":523
+      /* "ddb/engine/sql_engine.py":523
  *             updated=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -12252,7 +12253,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
               __pyx_v_content_file = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/sql_engine.pyx":524
+              /* "ddb/engine/sql_engine.py":524
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -12305,7 +12306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                       __pyx_v_temp_file = __pyx_t_4;
                       __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":525
+                      /* "ddb/engine/sql_engine.py":525
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -12354,7 +12355,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":526
+                        /* "ddb/engine/sql_engine.py":526
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)             # <<<<<<<<<<<<<<
@@ -12414,7 +12415,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_XDECREF_SET(__pyx_v_processed_line, __pyx_t_6);
                         __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":527
+                        /* "ddb/engine/sql_engine.py":527
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -12429,7 +12430,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":528
+                          /* "ddb/engine/sql_engine.py":528
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])             # <<<<<<<<<<<<<<
@@ -12458,7 +12459,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":527
+                          /* "ddb/engine/sql_engine.py":527
  *                     for line in content_file:
  *                         processed_line=self.process_line(query_object,line,line_number)
  *                         if None != processed_line['error']:             # <<<<<<<<<<<<<<
@@ -12467,7 +12468,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
  */
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":529
+                        /* "ddb/engine/sql_engine.py":529
  *                         if None != processed_line['error']:
  *                             temp_table.add_error(processed_line['error'])
  *                         line_number+=1             # <<<<<<<<<<<<<<
@@ -12479,7 +12480,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_DECREF_SET(__pyx_v_line_number, __pyx_t_5);
                         __pyx_t_5 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":531
+                        /* "ddb/engine/sql_engine.py":531
  *                         line_number+=1
  *                         #skip matches
  *                         if True  == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -12494,7 +12495,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                         if (__pyx_t_20) {
 
-                          /* "ddb/engine/sql_engine.pyx":532
+                          /* "ddb/engine/sql_engine.py":532
  *                         #skip matches
  *                         if True  == processed_line['match']:
  *                             results=self.update_single(query_object,temp_file,temp_table,False,processed_line)             # <<<<<<<<<<<<<<
@@ -12560,7 +12561,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                           __Pyx_XDECREF_SET(__pyx_v_results, __pyx_t_6);
                           __pyx_t_6 = 0;
 
-                          /* "ddb/engine/sql_engine.pyx":533
+                          /* "ddb/engine/sql_engine.py":533
  *                         if True  == processed_line['match']:
  *                             results=self.update_single(query_object,temp_file,temp_table,False,processed_line)
  *                             if True==results:             # <<<<<<<<<<<<<<
@@ -12572,7 +12573,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                           if (__pyx_t_20) {
 
-                            /* "ddb/engine/sql_engine.pyx":534
+                            /* "ddb/engine/sql_engine.py":534
  *                             results=self.update_single(query_object,temp_file,temp_table,False,processed_line)
  *                             if True==results:
  *                                 updated+=1             # <<<<<<<<<<<<<<
@@ -12584,7 +12585,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                             __Pyx_DECREF_SET(__pyx_v_updated, __pyx_t_6);
                             __pyx_t_6 = 0;
 
-                            /* "ddb/engine/sql_engine.pyx":533
+                            /* "ddb/engine/sql_engine.py":533
  *                         if True  == processed_line['match']:
  *                             results=self.update_single(query_object,temp_file,temp_table,False,processed_line)
  *                             if True==results:             # <<<<<<<<<<<<<<
@@ -12593,7 +12594,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
  */
                           }
 
-                          /* "ddb/engine/sql_engine.pyx":535
+                          /* "ddb/engine/sql_engine.py":535
  *                             if True==results:
  *                                 updated+=1
  *                             continue             # <<<<<<<<<<<<<<
@@ -12602,7 +12603,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
  */
                           goto __pyx_L29_continue;
 
-                          /* "ddb/engine/sql_engine.pyx":531
+                          /* "ddb/engine/sql_engine.py":531
  *                         line_number+=1
  *                         #skip matches
  *                         if True  == processed_line['match']:             # <<<<<<<<<<<<<<
@@ -12611,7 +12612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
  */
                         }
 
-                        /* "ddb/engine/sql_engine.pyx":536
+                        /* "ddb/engine/sql_engine.py":536
  *                                 updated+=1
  *                             continue
  *                         temp_file.write(processed_line['raw'])             # <<<<<<<<<<<<<<
@@ -12640,7 +12641,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                        /* "ddb/engine/sql_engine.pyx":525
+                        /* "ddb/engine/sql_engine.py":525
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:
  *                     for line in content_file:             # <<<<<<<<<<<<<<
@@ -12651,7 +12652,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                       }
                       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                      /* "ddb/engine/sql_engine.pyx":524
+                      /* "ddb/engine/sql_engine.py":524
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -12733,7 +12734,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
                 __pyx_L37:;
               }
 
-              /* "ddb/engine/sql_engine.pyx":523
+              /* "ddb/engine/sql_engine.py":523
  *             updated=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -12815,7 +12816,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
         __pyx_L41:;
       }
 
-      /* "ddb/engine/sql_engine.pyx":537
+      /* "ddb/engine/sql_engine.py":537
  *                             continue
  *                         temp_file.write(processed_line['raw'])
  *             data= {'data':[updated],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -12842,7 +12843,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __pyx_v_data = ((PyObject*)__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":539
+      /* "ddb/engine/sql_engine.py":539
  *             data= {'data':[updated],'type':self.data_type.DATA,'error':None}
  * 
  *             temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -12868,7 +12869,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":540
+      /* "ddb/engine/sql_engine.py":540
  * 
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -12906,7 +12907,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":541
+      /* "ddb/engine/sql_engine.py":541
  *             temp_table.append_data(data)
  *             os.remove(query_object['table'].data.path)
  *             os.rename(temp_file_name,query_object['table'].data.path)             # <<<<<<<<<<<<<<
@@ -12975,7 +12976,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/sql_engine.pyx":542
+      /* "ddb/engine/sql_engine.py":542
  *             os.remove(query_object['table'].data.path)
  *             os.rename(temp_file_name,query_object['table'].data.path)
  *             return temp_table             # <<<<<<<<<<<<<<
@@ -12987,7 +12988,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __pyx_r = __pyx_v_temp_table;
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/sql_engine.pyx":512
+      /* "ddb/engine/sql_engine.py":512
  *     # File is as untouched as possible
  *     def update(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -13002,7 +13003,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":544
+    /* "ddb/engine/sql_engine.py":544
  *             return temp_table
  * 
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -13019,7 +13020,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
       __Pyx_INCREF(__pyx_t_5);
       __pyx_v_ex = __pyx_t_5;
 
-      /* "ddb/engine/sql_engine.pyx":546
+      /* "ddb/engine/sql_engine.py":546
  *         except Exception as ex:
  * 
  *             print (ex)             # <<<<<<<<<<<<<<
@@ -13035,7 +13036,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/sql_engine.pyx":512
+    /* "ddb/engine/sql_engine.py":512
  *     # File is as untouched as possible
  *     def update(self,query_object):
  *         try:             # <<<<<<<<<<<<<<
@@ -13060,7 +13061,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
     __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
   }
 
-  /* "ddb/engine/sql_engine.pyx":511
+  /* "ddb/engine/sql_engine.py":511
  *     # ignores matches
  *     # File is as untouched as possible
  *     def update(self,query_object):             # <<<<<<<<<<<<<<
@@ -13097,7 +13098,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_28update(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":549
+/* "ddb/engine/sql_engine.py":549
  * 
  * 
  *     def use(self,query_object):             # <<<<<<<<<<<<<<
@@ -13178,7 +13179,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("use", 0);
 
-  /* "ddb/engine/sql_engine.pyx":550
+  /* "ddb/engine/sql_engine.py":550
  * 
  *     def use(self,query_object):
  *         info("Use")             # <<<<<<<<<<<<<<
@@ -13204,7 +13205,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":551
+  /* "ddb/engine/sql_engine.py":551
  *     def use(self,query_object):
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']             # <<<<<<<<<<<<<<
@@ -13222,7 +13223,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __pyx_v_target_db = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":552
+  /* "ddb/engine/sql_engine.py":552
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']
  *         self.database.set_database(target_db)             # <<<<<<<<<<<<<<
@@ -13251,7 +13252,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":553
+  /* "ddb/engine/sql_engine.py":553
  *         target_db=query_object['meta']['use']['table']
  *         self.database.set_database(target_db)
  *         temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -13281,7 +13282,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __pyx_v_temp_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":554
+  /* "ddb/engine/sql_engine.py":554
  *         self.database.set_database(target_db)
  *         temp_table=self.database.temp_table()
  *         temp_table.add_column('changed_db')             # <<<<<<<<<<<<<<
@@ -13307,7 +13308,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":555
+  /* "ddb/engine/sql_engine.py":555
  *         temp_table=self.database.temp_table()
  *         temp_table.add_column('changed_db')
  *         data= {'data':[target_db],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -13334,7 +13335,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __pyx_v_data = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":556
+  /* "ddb/engine/sql_engine.py":556
  *         temp_table.add_column('changed_db')
  *         data= {'data':[target_db],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -13360,7 +13361,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":557
+  /* "ddb/engine/sql_engine.py":557
  *         data= {'data':[target_db],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)
  *         return temp_table             # <<<<<<<<<<<<<<
@@ -13372,7 +13373,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":549
+  /* "ddb/engine/sql_engine.py":549
  * 
  * 
  *     def use(self,query_object):             # <<<<<<<<<<<<<<
@@ -13396,7 +13397,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_30use(CYTHON_UN
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":560
+/* "ddb/engine/sql_engine.py":560
  * 
  * 
  *     def create_table(self,query_object):             # <<<<<<<<<<<<<<
@@ -13486,7 +13487,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("create_table", 0);
 
-  /* "ddb/engine/sql_engine.pyx":561
+  /* "ddb/engine/sql_engine.py":561
  * 
  *     def create_table(self,query_object):
  *         info("Create Table")             # <<<<<<<<<<<<<<
@@ -13512,7 +13513,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":562
+  /* "ddb/engine/sql_engine.py":562
  *     def create_table(self,query_object):
  *         info("Create Table")
  *         temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -13542,7 +13543,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __pyx_v_temp_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":564
+  /* "ddb/engine/sql_engine.py":564
  *         temp_table=self.database.temp_table()
  * 
  *         columns=[]             # <<<<<<<<<<<<<<
@@ -13554,7 +13555,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __pyx_v_columns = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":565
+  /* "ddb/engine/sql_engine.py":565
  * 
  *         columns=[]
  *         for c in query_object['meta']['columns']:             # <<<<<<<<<<<<<<
@@ -13609,7 +13610,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":566
+    /* "ddb/engine/sql_engine.py":566
  *         columns=[]
  *         for c in query_object['meta']['columns']:
  *             columns.append(c['column'])             # <<<<<<<<<<<<<<
@@ -13621,7 +13622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
     __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_columns, __pyx_t_3); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 566, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":565
+    /* "ddb/engine/sql_engine.py":565
  * 
  *         columns=[]
  *         for c in query_object['meta']['columns']:             # <<<<<<<<<<<<<<
@@ -13631,7 +13632,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":567
+  /* "ddb/engine/sql_engine.py":567
  *         for c in query_object['meta']['columns']:
  *             columns.append(c['column'])
  *         info("Columns to create",columns)             # <<<<<<<<<<<<<<
@@ -13687,7 +13688,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":568
+  /* "ddb/engine/sql_engine.py":568
  *             columns.append(c['column'])
  *         info("Columns to create",columns)
  *         created=0             # <<<<<<<<<<<<<<
@@ -13697,7 +13698,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_created = __pyx_int_0;
 
-  /* "ddb/engine/sql_engine.pyx":569
+  /* "ddb/engine/sql_engine.py":569
  *         info("Columns to create",columns)
  *         created=0
  *         results=self.database.create_table( table_name=query_object['meta']['create']['table'],             # <<<<<<<<<<<<<<
@@ -13722,7 +13723,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_table_name, __pyx_t_8) < 0) __PYX_ERR(0, 569, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":570
+  /* "ddb/engine/sql_engine.py":570
  *         created=0
  *         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
  *                                             columns=columns,             # <<<<<<<<<<<<<<
@@ -13731,7 +13732,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_columns, __pyx_v_columns) < 0) __PYX_ERR(0, 569, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":571
+  /* "ddb/engine/sql_engine.py":571
  *         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
  *                                             columns=columns,
  *                                             data_file=query_object['meta']['file']['file'])             # <<<<<<<<<<<<<<
@@ -13749,7 +13750,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_data_file, __pyx_t_8) < 0) __PYX_ERR(0, 569, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":569
+  /* "ddb/engine/sql_engine.py":569
  *         info("Columns to create",columns)
  *         created=0
  *         results=self.database.create_table( table_name=query_object['meta']['create']['table'],             # <<<<<<<<<<<<<<
@@ -13763,7 +13764,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __pyx_v_results = __pyx_t_8;
   __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":572
+  /* "ddb/engine/sql_engine.py":572
  *                                             columns=columns,
  *                                             data_file=query_object['meta']['file']['file'])
  *         if True == results:             # <<<<<<<<<<<<<<
@@ -13775,7 +13776,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (__pyx_t_9) {
 
-    /* "ddb/engine/sql_engine.pyx":573
+    /* "ddb/engine/sql_engine.py":573
  *                                             data_file=query_object['meta']['file']['file'])
  *         if True == results:
  *             created+=1             # <<<<<<<<<<<<<<
@@ -13787,7 +13788,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
     __Pyx_DECREF_SET(__pyx_v_created, __pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":572
+    /* "ddb/engine/sql_engine.py":572
  *                                             columns=columns,
  *                                             data_file=query_object['meta']['file']['file'])
  *         if True == results:             # <<<<<<<<<<<<<<
@@ -13796,7 +13797,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":575
+  /* "ddb/engine/sql_engine.py":575
  *             created+=1
  * 
  *         temp_table.add_column('create table')             # <<<<<<<<<<<<<<
@@ -13822,7 +13823,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":576
+  /* "ddb/engine/sql_engine.py":576
  * 
  *         temp_table.add_column('create table')
  *         data= {'data':[created],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -13849,7 +13850,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __pyx_v_data = ((PyObject*)__pyx_t_8);
   __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":577
+  /* "ddb/engine/sql_engine.py":577
  *         temp_table.add_column('create table')
  *         data= {'data':[created],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -13875,7 +13876,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":578
+  /* "ddb/engine/sql_engine.py":578
  *         data= {'data':[created],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)
  *         return temp_table             # <<<<<<<<<<<<<<
@@ -13887,7 +13888,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":560
+  /* "ddb/engine/sql_engine.py":560
  * 
  * 
  *     def create_table(self,query_object):             # <<<<<<<<<<<<<<
@@ -13915,7 +13916,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_32create_table(
   return __pyx_r;
 }
 
-/* "ddb/engine/sql_engine.pyx":581
+/* "ddb/engine/sql_engine.py":581
  * 
  * 
  *     def drop_table(self,query_object):             # <<<<<<<<<<<<<<
@@ -13999,7 +14000,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   int __pyx_t_5;
   __Pyx_RefNannySetupContext("drop_table", 0);
 
-  /* "ddb/engine/sql_engine.pyx":582
+  /* "ddb/engine/sql_engine.py":582
  * 
  *     def drop_table(self,query_object):
  *         info("Drop Table")             # <<<<<<<<<<<<<<
@@ -14025,7 +14026,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":583
+  /* "ddb/engine/sql_engine.py":583
  *     def drop_table(self,query_object):
  *         info("Drop Table")
  *         temp_table=self.database.temp_table()             # <<<<<<<<<<<<<<
@@ -14055,7 +14056,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __pyx_v_temp_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":585
+  /* "ddb/engine/sql_engine.py":585
  *         temp_table=self.database.temp_table()
  *         #print "dropping",parser.query_object['meta']['drop']['table']
  *         dropped=0             # <<<<<<<<<<<<<<
@@ -14065,7 +14066,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_dropped = __pyx_int_0;
 
-  /* "ddb/engine/sql_engine.pyx":586
+  /* "ddb/engine/sql_engine.py":586
  *         #print "dropping",parser.query_object['meta']['drop']['table']
  *         dropped=0
  *         results=self.database.drop_table(table_name=query_object['meta']['drop']['table'])             # <<<<<<<<<<<<<<
@@ -14096,7 +14097,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __pyx_v_results = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":587
+  /* "ddb/engine/sql_engine.py":587
  *         dropped=0
  *         results=self.database.drop_table(table_name=query_object['meta']['drop']['table'])
  *         if True==results:             # <<<<<<<<<<<<<<
@@ -14108,7 +14109,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_5) {
 
-    /* "ddb/engine/sql_engine.pyx":588
+    /* "ddb/engine/sql_engine.py":588
  *         results=self.database.drop_table(table_name=query_object['meta']['drop']['table'])
  *         if True==results:
  *             dropped+=1             # <<<<<<<<<<<<<<
@@ -14120,7 +14121,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
     __Pyx_DECREF_SET(__pyx_v_dropped, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/sql_engine.pyx":587
+    /* "ddb/engine/sql_engine.py":587
  *         dropped=0
  *         results=self.database.drop_table(table_name=query_object['meta']['drop']['table'])
  *         if True==results:             # <<<<<<<<<<<<<<
@@ -14129,7 +14130,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
  */
   }
 
-  /* "ddb/engine/sql_engine.pyx":590
+  /* "ddb/engine/sql_engine.py":590
  *             dropped+=1
  * 
  *         temp_table.add_column('dropped')             # <<<<<<<<<<<<<<
@@ -14155,7 +14156,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":591
+  /* "ddb/engine/sql_engine.py":591
  * 
  *         temp_table.add_column('dropped')
  *         data= {'data':[dropped],'type':self.data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -14182,7 +14183,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __pyx_v_data = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":592
+  /* "ddb/engine/sql_engine.py":592
  *         temp_table.add_column('dropped')
  *         data= {'data':[dropped],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)             # <<<<<<<<<<<<<<
@@ -14208,7 +14209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":593
+  /* "ddb/engine/sql_engine.py":593
  *         data= {'data':[dropped],'type':self.data_type.DATA,'error':None}
  *         temp_table.append_data(data)
  *         return temp_table             # <<<<<<<<<<<<<<
@@ -14220,7 +14221,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_34drop_table(CY
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/sql_engine.pyx":581
+  /* "ddb/engine/sql_engine.py":581
  * 
  * 
  *     def drop_table(self,query_object):             # <<<<<<<<<<<<<<
@@ -14356,7 +14357,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_database_dir, __pyx_k_database_dir, sizeof(__pyx_k_database_dir), 0, 0, 1, 1},
   {&__pyx_n_s_database_name, __pyx_k_database_name, sizeof(__pyx_k_database_name), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_sql_engine, __pyx_k_ddb_engine_sql_engine, sizeof(__pyx_k_ddb_engine_sql_engine), 0, 0, 1, 1},
-  {&__pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_k_ddb_engine_sql_engine_pyx, sizeof(__pyx_k_ddb_engine_sql_engine_pyx), 0, 0, 1, 0},
+  {&__pyx_kp_s_ddb_engine_sql_engine_py, __pyx_k_ddb_engine_sql_engine_py, sizeof(__pyx_k_ddb_engine_sql_engine_py), 0, 0, 1, 0},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_debug_on, __pyx_k_debug_on, sizeof(__pyx_k_debug_on), 0, 0, 1, 1},
   {&__pyx_n_s_debugging, __pyx_k_debugging, sizeof(__pyx_k_debugging), 0, 0, 1, 1},
@@ -14545,7 +14546,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/sql_engine.pyx":74
+  /* "ddb/engine/sql_engine.py":74
  *     def query(self,sql_query):
  *         if False==self.has_configuration():
  *             raise Exception("No table found")             # <<<<<<<<<<<<<<
@@ -14556,7 +14557,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "ddb/engine/sql_engine.pyx":83
+  /* "ddb/engine/sql_engine.py":83
  *         parser=sql_parser(sql_query,self.debug)
  *         if False == parser.query_objects:
  *             raise Exception ("Invalid SQL")             # <<<<<<<<<<<<<<
@@ -14567,7 +14568,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/sql_engine.pyx":219
+  /* "ddb/engine/sql_engine.py":219
  *                     line_data_cleaned=[]
  *                     for d in line_data:
  *                         line_data_cleaned.append(d[1:-1])             # <<<<<<<<<<<<<<
@@ -14578,7 +14579,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
 
-  /* "ddb/engine/sql_engine.pyx":245
+  /* "ddb/engine/sql_engine.py":245
  *             column_len=query_object['table'].column_count()
  *             if column_len==0:
  *                 raise Exception("No defined columns in configuration")             # <<<<<<<<<<<<<<
@@ -14589,7 +14590,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "ddb/engine/sql_engine.pyx":259
+  /* "ddb/engine/sql_engine.py":259
  *             # create temp table structure
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -14600,7 +14601,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":355
+  /* "ddb/engine/sql_engine.py":355
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -14611,7 +14612,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":354
+  /* "ddb/engine/sql_engine.py":354
  *             deleted=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -14622,7 +14623,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":396
+  /* "ddb/engine/sql_engine.py":396
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -14633,7 +14634,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":395
+  /* "ddb/engine/sql_engine.py":395
  *             # process file
  *             requires_new_line=False
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -14644,7 +14645,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":524
+  /* "ddb/engine/sql_engine.py":524
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:
  *                 with open(temp_file_name, 'w') as temp_file:             # <<<<<<<<<<<<<<
@@ -14655,7 +14656,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":523
+  /* "ddb/engine/sql_engine.py":523
  *             updated=0
  *             # process file
  *             with open(query_object['table'].data.path, 'r') as content_file:             # <<<<<<<<<<<<<<
@@ -14666,7 +14667,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/sql_engine.pyx":20
+  /* "ddb/engine/sql_engine.py":20
  * 
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
@@ -14676,247 +14677,250 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(4, __pyx_n_s_msg, __pyx_n_s_arg1, __pyx_n_s_arg2, __pyx_n_s_arg3); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_info, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_info, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(3, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "ddb/engine/sql_engine.pyx":29
+  /* "ddb/engine/sql_engine.py":29
  * # Add Update
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
  * 
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_enums); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 29, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_enum, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_n_s_enums); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_enum, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 29, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":36
+  /* "ddb/engine/sql_engine.py":36
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  *     def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):             # <<<<<<<<<<<<<<
  *         global debug_on
  *         debug_on=debug
  */
-  __pyx_tuple__12 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_database_dir, __pyx_n_s_config_file, __pyx_n_s_query, __pyx_n_s_debug, __pyx_n_s_mode); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_init, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __pyx_tuple__14 = PyTuple_Pack(5, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject*)__pyx_n_s_array)); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_tuple__13 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_database_dir, __pyx_n_s_config_file, __pyx_n_s_query, __pyx_n_s_debug, __pyx_n_s_mode); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_init, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(5, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject*)__pyx_n_s_array)); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "ddb/engine/sql_engine.pyx":53
+  /* "ddb/engine/sql_engine.py":53
  * 
  * 
  *     def debugging(self,debug=False):             # <<<<<<<<<<<<<<
  *         self.debug=debug
  * 
  */
-  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_debugging, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __pyx_tuple__17 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
+  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_debugging, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "ddb/engine/sql_engine.pyx":57
+  /* "ddb/engine/sql_engine.py":57
  * 
  * 
  *     def define_table(self,table_name,database_name,columns,data_file,field_delimiter=None):             # <<<<<<<<<<<<<<
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  */
-  __pyx_tuple__18 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_table_name, __pyx_n_s_database_name, __pyx_n_s_columns, __pyx_n_s_data_file, __pyx_n_s_field_delimiter, __pyx_n_s_t); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_define_table, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __pyx_tuple__20 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_tuple__19 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_table_name, __pyx_n_s_database_name, __pyx_n_s_columns, __pyx_n_s_data_file, __pyx_n_s_field_delimiter, __pyx_n_s_t); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_define_table, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "ddb/engine/sql_engine.pyx":63
+  /* "ddb/engine/sql_engine.py":63
  * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
  *             return False
  */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_has_configuration, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_has_configuration, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 63, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":72
+  /* "ddb/engine/sql_engine.py":72
  *         return True
  * 
  *     def query(self,sql_query):             # <<<<<<<<<<<<<<
  *         if False==self.has_configuration():
  *             raise Exception("No table found")
  */
-  __pyx_tuple__23 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_sql_query, __pyx_n_s_parser, __pyx_n_s_query_object, __pyx_n_s_new_array, __pyx_n_s_line, __pyx_n_s_columns, __pyx_n_s_len_col, __pyx_n_s_new_dict, __pyx_n_s_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_query, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_sql_query, __pyx_n_s_parser, __pyx_n_s_query_object, __pyx_n_s_new_array, __pyx_n_s_line, __pyx_n_s_columns, __pyx_n_s_len_col, __pyx_n_s_new_dict, __pyx_n_s_i); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_query, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 72, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":151
+  /* "ddb/engine/sql_engine.py":151
  * 
  * 
  *     def change_database(self,database_name):             # <<<<<<<<<<<<<<
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  */
-  __pyx_tuple__25 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_database_name, __pyx_n_s_query, __pyx_n_s_results); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 151, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_change_database, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_database_name, __pyx_n_s_query, __pyx_n_s_results); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_change_database, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":159
+  /* "ddb/engine/sql_engine.py":159
  * 
  * 
  *     def limit(self,data_stream,index,length):             # <<<<<<<<<<<<<<
  *         try:
  *             if None == index:
  */
-  __pyx_tuple__27 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_data_stream, __pyx_n_s_index, __pyx_n_s_length, __pyx_n_s_data_stream_lenght, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 159, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_limit, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_data_stream, __pyx_n_s_index, __pyx_n_s_length, __pyx_n_s_data_stream_lenght, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__28);
+  __Pyx_GIVEREF(__pyx_tuple__28);
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_limit, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":177
+  /* "ddb/engine/sql_engine.py":177
  *             info("Limit",ex)
  * 
  *     def process_line(self,query_object,line,line_number=0):             # <<<<<<<<<<<<<<
  *         err=None
  *         column_len=query_object['table'].column_count()
  */
-  __pyx_tuple__29 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_line, __pyx_n_s_line_number, __pyx_n_s_err, __pyx_n_s_column_len, __pyx_n_s_line_cleaned, __pyx_n_s_line_data, __pyx_n_s_line_type, __pyx_n_s_cur_column_len, __pyx_n_s_line_data_cleaned, __pyx_n_s_d, __pyx_n_s_match_results); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_process_line, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __pyx_tuple__31 = PyTuple_Pack(1, ((PyObject *)__pyx_int_0)); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
+  __pyx_tuple__30 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_line, __pyx_n_s_line_number, __pyx_n_s_err, __pyx_n_s_column_len, __pyx_n_s_line_cleaned, __pyx_n_s_line_data, __pyx_n_s_line_type, __pyx_n_s_cur_column_len, __pyx_n_s_line_data_cleaned, __pyx_n_s_d, __pyx_n_s_match_results); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__30);
+  __Pyx_GIVEREF(__pyx_tuple__30);
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_process_line, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(1, ((PyObject *)__pyx_int_0)); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
 
-  /* "ddb/engine/sql_engine.pyx":234
+  /* "ddb/engine/sql_engine.py":234
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
  * 
  *     def select(self,query_object,parser):             # <<<<<<<<<<<<<<
  *         #try:
  *             temp_data=[]
  */
-  __pyx_tuple__32 = PyTuple_Pack(20, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_parser, __pyx_n_s_temp_data, __pyx_n_s_table_name, __pyx_n_s_table_columns, __pyx_n_s_column_len, __pyx_n_s_temp_table, __pyx_n_s_column, __pyx_n_s_display, __pyx_n_s_line_number, __pyx_n_s_content_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_restructured_line, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction, __pyx_n_s_limit_start, __pyx_n_s_limit_length); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 234, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_select, 234, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(20, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_parser, __pyx_n_s_temp_data, __pyx_n_s_table_name, __pyx_n_s_table_columns, __pyx_n_s_column_len, __pyx_n_s_temp_table, __pyx_n_s_column, __pyx_n_s_display, __pyx_n_s_line_number, __pyx_n_s_content_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_restructured_line, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction, __pyx_n_s_limit_start, __pyx_n_s_limit_length); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
+  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_select, 234, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 234, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":315
+  /* "ddb/engine/sql_engine.py":315
  * 
  * 
  *     def sort_cmp(self,x,y):             # <<<<<<<<<<<<<<
  * 
  *         for c in self.sort:
  */
-  __pyx_tuple__34 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_sort_cmp, 315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_tuple__35 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__35);
+  __Pyx_GIVEREF(__pyx_tuple__35);
+  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_sort_cmp, 315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 315, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":342
+  /* "ddb/engine/sql_engine.py":342
  *     # ignores matches
  *     # File is as untouched as possible
  *     def delete(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['from']['table']
  */
-  __pyx_tuple__36 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_deleted, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 342, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_delete, 342, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_deleted, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_delete, 342, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 342, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":382
+  /* "ddb/engine/sql_engine.py":382
  *     # File is as untouched as possible
  *     # new lines are joined at the end
  *     def insert(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['into']['table']
  */
-  __pyx_tuple__38 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_inserted, __pyx_n_s_requires_new_line, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 382, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_insert, 382, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_inserted, __pyx_n_s_requires_new_line, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_insert, 382, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 382, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":425
+  /* "ddb/engine/sql_engine.py":425
  * 
  * 
  *     def create_single(self,query_object,temp_file,temp_table,requires_new_line):             # <<<<<<<<<<<<<<
  *         err=False
  *         ###
  */
-  __pyx_tuple__40 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c, __pyx_n_s_column_name, __pyx_n_s_found, __pyx_n_s_c2); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 425, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(5, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_single, 425, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_tuple__41 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c, __pyx_n_s_column_name, __pyx_n_s_found, __pyx_n_s_c2); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__41);
+  __Pyx_GIVEREF(__pyx_tuple__41);
+  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(5, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_create_single, 425, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 425, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":463
+  /* "ddb/engine/sql_engine.py":463
  * 
  * 
  *     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):             # <<<<<<<<<<<<<<
  *         err=False
  *         ###
  */
-  __pyx_tuple__42 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_processed_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c2, __pyx_n_s_column_name, __pyx_n_s_c, __pyx_n_s_value); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 463, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__42);
-  __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update_single, 463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_tuple__43 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_processed_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c2, __pyx_n_s_column_name, __pyx_n_s_c, __pyx_n_s_value); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__43);
+  __Pyx_GIVEREF(__pyx_tuple__43);
+  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_update_single, 463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 463, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":511
+  /* "ddb/engine/sql_engine.py":511
  *     # ignores matches
  *     # File is as untouched as possible
  *     def update(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['update']['table']
  */
-  __pyx_tuple__44 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_updated, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 511, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__44);
-  __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update, 511, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_tuple__45 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_updated, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__45);
+  __Pyx_GIVEREF(__pyx_tuple__45);
+  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(2, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_update, 511, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 511, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":549
+  /* "ddb/engine/sql_engine.py":549
  * 
  * 
  *     def use(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']
  */
-  __pyx_tuple__46 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_target_db, __pyx_n_s_temp_table, __pyx_n_s_data); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 549, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__46);
-  __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_use, 549, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_target_db, __pyx_n_s_temp_table, __pyx_n_s_data); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__47);
+  __Pyx_GIVEREF(__pyx_tuple__47);
+  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_use, 549, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 549, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":560
+  /* "ddb/engine/sql_engine.py":560
  * 
  * 
  *     def create_table(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Create Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_tuple__48 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_columns, __pyx_n_s_c, __pyx_n_s_created, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 560, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__48);
-  __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_table_2, 560, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_columns, __pyx_n_s_c, __pyx_n_s_created, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__49);
+  __Pyx_GIVEREF(__pyx_tuple__49);
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_create_table_2, 560, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 560, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":581
+  /* "ddb/engine/sql_engine.py":581
  * 
  * 
  *     def drop_table(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Drop Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_tuple__50 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_dropped, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 581, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__50);
-  __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_drop_table_2, 581, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_dropped, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__51);
+  __Pyx_GIVEREF(__pyx_tuple__51);
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_py, __pyx_n_s_drop_table_2, 581, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -15202,7 +15206,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/sql_engine.pyx":1
+  /* "ddb/engine/sql_engine.py":1
  * import os             # <<<<<<<<<<<<<<
  * import json
  * import copy
@@ -15212,7 +15216,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":2
+  /* "ddb/engine/sql_engine.py":2
  * import os
  * import json             # <<<<<<<<<<<<<<
  * import copy
@@ -15223,7 +15227,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_json, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":3
+  /* "ddb/engine/sql_engine.py":3
  * import os
  * import json
  * import copy             # <<<<<<<<<<<<<<
@@ -15235,7 +15239,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_copy, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":4
+  /* "ddb/engine/sql_engine.py":4
  * import json
  * import copy
  * from .parser.sql_parser  import sql_parser             # <<<<<<<<<<<<<<
@@ -15256,7 +15260,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":5
+  /* "ddb/engine/sql_engine.py":5
  * import copy
  * from .parser.sql_parser  import sql_parser
  * from .structure.table import table             # <<<<<<<<<<<<<<
@@ -15277,7 +15281,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":6
+  /* "ddb/engine/sql_engine.py":6
  * from .parser.sql_parser  import sql_parser
  * from .structure.table import table
  * from .structure.database import database             # <<<<<<<<<<<<<<
@@ -15298,7 +15302,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":7
+  /* "ddb/engine/sql_engine.py":7
  * from .structure.table import table
  * from .structure.database import database
  * from .structure.column import column_v2             # <<<<<<<<<<<<<<
@@ -15319,7 +15323,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":8
+  /* "ddb/engine/sql_engine.py":8
  * from .structure.database import database
  * from .structure.column import column_v2
  * from .evaluate.match import evaluate_match             # <<<<<<<<<<<<<<
@@ -15340,7 +15344,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":9
+  /* "ddb/engine/sql_engine.py":9
  * from .structure.column import column_v2
  * from .evaluate.match import evaluate_match
  * from .functions import functions             # <<<<<<<<<<<<<<
@@ -15361,7 +15365,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":10
+  /* "ddb/engine/sql_engine.py":10
  * from .evaluate.match import evaluate_match
  * from .functions import functions
  * import operator             # <<<<<<<<<<<<<<
@@ -15373,7 +15377,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_operator, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":11
+  /* "ddb/engine/sql_engine.py":11
  * from .functions import functions
  * import operator
  * import flextable             # <<<<<<<<<<<<<<
@@ -15385,7 +15389,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_flextable, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":14
+  /* "ddb/engine/sql_engine.py":14
  * 
  * #from table import table
  * import tempfile             # <<<<<<<<<<<<<<
@@ -15397,7 +15401,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_tempfile, __pyx_t_1) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":19
+  /* "ddb/engine/sql_engine.py":19
  * #
  * 
  * debug_on=False             # <<<<<<<<<<<<<<
@@ -15406,31 +15410,32 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_debug_on, Py_False) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "ddb/engine/sql_engine.pyx":20
+  /* "ddb/engine/sql_engine.py":20
  * 
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
  *     if True == debug_on:
  *         print(msg,arg1,arg2,arg3)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_1info, NULL, __pyx_n_s_ddb_engine_sql_engine); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_1info, 0, __pyx_n_s_info, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__10);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_info, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":29
+  /* "ddb/engine/sql_engine.py":29
  * # Add Update
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_3enum, NULL, __pyx_n_s_ddb_engine_sql_engine); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_3enum, 0, __pyx_n_s_enum, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_enum, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":33
+  /* "ddb/engine/sql_engine.py":33
  * 
  * 
  * class sql_engine:             # <<<<<<<<<<<<<<
@@ -15440,7 +15445,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_1 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_sql_engine, __pyx_n_s_sql_engine, (PyObject *) NULL, __pyx_n_s_ddb_engine_sql_engine, (PyObject *) NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "ddb/engine/sql_engine.pyx":34
+  /* "ddb/engine/sql_engine.py":34
  * 
  * class sql_engine:
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)             # <<<<<<<<<<<<<<
@@ -15462,227 +15467,227 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_data_type, __pyx_t_4) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":36
+  /* "ddb/engine/sql_engine.py":36
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  *     def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):             # <<<<<<<<<<<<<<
  *         global debug_on
  *         debug_on=debug
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_1__init__, 0, __pyx_n_s_sql_engine___init, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_1__init__, 0, __pyx_n_s_sql_engine___init, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__14);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__15);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":53
+  /* "ddb/engine/sql_engine.py":53
  * 
  * 
  *     def debugging(self,debug=False):             # <<<<<<<<<<<<<<
  *         self.debug=debug
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_3debugging, 0, __pyx_n_s_sql_engine_debugging, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_3debugging, 0, __pyx_n_s_sql_engine_debugging, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__17);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__18);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_debugging, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":57
+  /* "ddb/engine/sql_engine.py":57
  * 
  * 
  *     def define_table(self,table_name,database_name,columns,data_file,field_delimiter=None):             # <<<<<<<<<<<<<<
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_5define_table, 0, __pyx_n_s_sql_engine_define_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_5define_table, 0, __pyx_n_s_sql_engine_define_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__20);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__21);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_define_table, __pyx_t_4) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":63
+  /* "ddb/engine/sql_engine.py":63
  * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
  *             return False
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_7has_configuration, 0, __pyx_n_s_sql_engine_has_configuration, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_7has_configuration, 0, __pyx_n_s_sql_engine_has_configuration, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_has_configuration, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":72
+  /* "ddb/engine/sql_engine.py":72
  *         return True
  * 
  *     def query(self,sql_query):             # <<<<<<<<<<<<<<
  *         if False==self.has_configuration():
  *             raise Exception("No table found")
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_9query, 0, __pyx_n_s_sql_engine_query, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_9query, 0, __pyx_n_s_sql_engine_query, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_query, __pyx_t_4) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":151
+  /* "ddb/engine/sql_engine.py":151
  * 
  * 
  *     def change_database(self,database_name):             # <<<<<<<<<<<<<<
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_11change_database, 0, __pyx_n_s_sql_engine_change_database, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_11change_database, 0, __pyx_n_s_sql_engine_change_database, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_change_database, __pyx_t_4) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":159
+  /* "ddb/engine/sql_engine.py":159
  * 
  * 
  *     def limit(self,data_stream,index,length):             # <<<<<<<<<<<<<<
  *         try:
  *             if None == index:
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_13limit, 0, __pyx_n_s_sql_engine_limit, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_13limit, 0, __pyx_n_s_sql_engine_limit, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_limit, __pyx_t_4) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":177
+  /* "ddb/engine/sql_engine.py":177
  *             info("Limit",ex)
  * 
  *     def process_line(self,query_object,line,line_number=0):             # <<<<<<<<<<<<<<
  *         err=None
  *         column_len=query_object['table'].column_count()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_15process_line, 0, __pyx_n_s_sql_engine_process_line, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_15process_line, 0, __pyx_n_s_sql_engine_process_line, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__31);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__32);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_process_line, __pyx_t_4) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":234
+  /* "ddb/engine/sql_engine.py":234
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
  * 
  *     def select(self,query_object,parser):             # <<<<<<<<<<<<<<
  *         #try:
  *             temp_data=[]
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_17select, 0, __pyx_n_s_sql_engine_select, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_17select, 0, __pyx_n_s_sql_engine_select, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_select, __pyx_t_4) < 0) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":315
+  /* "ddb/engine/sql_engine.py":315
  * 
  * 
  *     def sort_cmp(self,x,y):             # <<<<<<<<<<<<<<
  * 
  *         for c in self.sort:
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_19sort_cmp, 0, __pyx_n_s_sql_engine_sort_cmp, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_19sort_cmp, 0, __pyx_n_s_sql_engine_sort_cmp, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_sort_cmp, __pyx_t_4) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":342
+  /* "ddb/engine/sql_engine.py":342
  *     # ignores matches
  *     # File is as untouched as possible
  *     def delete(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['from']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_21delete, 0, __pyx_n_s_sql_engine_delete, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_21delete, 0, __pyx_n_s_sql_engine_delete, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_delete, __pyx_t_4) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":382
+  /* "ddb/engine/sql_engine.py":382
  *     # File is as untouched as possible
  *     # new lines are joined at the end
  *     def insert(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['into']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_23insert, 0, __pyx_n_s_sql_engine_insert, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_23insert, 0, __pyx_n_s_sql_engine_insert, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_insert, __pyx_t_4) < 0) __PYX_ERR(0, 382, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":425
+  /* "ddb/engine/sql_engine.py":425
  * 
  * 
  *     def create_single(self,query_object,temp_file,temp_table,requires_new_line):             # <<<<<<<<<<<<<<
  *         err=False
  *         ###
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_25create_single, 0, __pyx_n_s_sql_engine_create_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_25create_single, 0, __pyx_n_s_sql_engine_create_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_create_single, __pyx_t_4) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":463
+  /* "ddb/engine/sql_engine.py":463
  * 
  * 
  *     def update_single(self,query_object,temp_file,temp_table,requires_new_line,processed_line):             # <<<<<<<<<<<<<<
  *         err=False
  *         ###
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_27update_single, 0, __pyx_n_s_sql_engine_update_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_27update_single, 0, __pyx_n_s_sql_engine_update_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_update_single, __pyx_t_4) < 0) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":511
+  /* "ddb/engine/sql_engine.py":511
  *     # ignores matches
  *     # File is as untouched as possible
  *     def update(self,query_object):             # <<<<<<<<<<<<<<
  *         try:
  *             table_name=query_object['meta']['update']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_29update, 0, __pyx_n_s_sql_engine_update, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_29update, 0, __pyx_n_s_sql_engine_update, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_update, __pyx_t_4) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":549
+  /* "ddb/engine/sql_engine.py":549
  * 
  * 
  *     def use(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_31use, 0, __pyx_n_s_sql_engine_use, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_31use, 0, __pyx_n_s_sql_engine_use, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_use, __pyx_t_4) < 0) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":560
+  /* "ddb/engine/sql_engine.py":560
  * 
  * 
  *     def create_table(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Create Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_33create_table, 0, __pyx_n_s_sql_engine_create_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_33create_table, 0, __pyx_n_s_sql_engine_create_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_create_table_2, __pyx_t_4) < 0) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":581
+  /* "ddb/engine/sql_engine.py":581
  * 
  * 
  *     def drop_table(self,query_object):             # <<<<<<<<<<<<<<
  *         info("Drop Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_35drop_table, 0, __pyx_n_s_sql_engine_drop_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_35drop_table, 0, __pyx_n_s_sql_engine_drop_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_drop_table_2, __pyx_t_4) < 0) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":33
+  /* "ddb/engine/sql_engine.py":33
  * 
  * 
  * class sql_engine:             # <<<<<<<<<<<<<<
@@ -15695,7 +15700,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/sql_engine.pyx":1
+  /* "ddb/engine/sql_engine.py":1
  * import os             # <<<<<<<<<<<<<<
  * import json
  * import copy

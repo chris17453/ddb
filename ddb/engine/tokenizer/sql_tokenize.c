@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.tokenizer.sql_tokenize", 
         "sources": [
-            "./ddb/engine/tokenizer/sql_tokenize.pyx"
+            "./ddb/engine/tokenizer/sql_tokenize.py"
         ]
     }, 
     "module_name": "ddb.engine.tokenizer.sql_tokenize"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/tokenizer/sql_tokenize.pyx",
+  "ddb/engine/tokenizer/sql_tokenize.py",
 };
 
 /*--- Type declarations ---*/
@@ -1077,6 +1077,63 @@ static CYTHON_INLINE PyObject* __Pyx_PyFrozenSet_New(PyObject* it);
 
 /* PySetContains.proto */
 static CYTHON_INLINE int __Pyx_PySet_ContainsTF(PyObject* key, PyObject* set, int eq);
+
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_Check(obj)  (__Pyx_TypeCheck(obj, __pyx_CyFunctionType))
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
 
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1528,7 +1585,7 @@ static const char __pyx_k_sort_array_by_length[] = "sort_array_by_length";
 static const char __pyx_k_compare_text_fragment[] = "compare_text_fragment";
 static const char __pyx_k_MASTER_HEARTBEAT_PERIOD[] = "MASTER_HEARTBEAT_PERIOD";
 static const char __pyx_k_MASTER_SSL_VERIFY_SERVER_CERT[] = "MASTER_SSL_VERIFY_SERVER_CERT";
-static const char __pyx_k_ddb_engine_tokenizer_sql_tokeniz[] = "ddb/engine/tokenizer/sql_tokenize.pyx";
+static const char __pyx_k_ddb_engine_tokenizer_sql_tokeniz[] = "ddb/engine/tokenizer/sql_tokenize.py";
 static const char __pyx_k_ddb_engine_tokenizer_sql_tokeniz_2[] = "ddb.engine.tokenizer.sql_tokenize";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_ACCESSIBLE;
@@ -1882,15 +1939,17 @@ static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple__31;
 static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__35;
+static PyObject *__pyx_tuple__34;
+static PyObject *__pyx_tuple__36;
 static PyObject *__pyx_tuple__37;
+static PyObject *__pyx_tuple__39;
 static PyObject *__pyx_codeobj__32;
-static PyObject *__pyx_codeobj__34;
-static PyObject *__pyx_codeobj__36;
+static PyObject *__pyx_codeobj__35;
 static PyObject *__pyx_codeobj__38;
+static PyObject *__pyx_codeobj__40;
 /* Late includes */
 
-/* "ddb/engine/tokenizer/sql_tokenize.pyx":2
+/* "ddb/engine/tokenizer/sql_tokenize.py":2
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
  *     if True == debug_on:
@@ -1911,9 +1970,9 @@ static PyObject *__pyx_pw_3ddb_6engine_9tokenizer_12sql_tokenize_1info(PyObject 
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_msg,&__pyx_n_s_arg1,&__pyx_n_s_arg2,&__pyx_n_s_arg3,0};
     PyObject* values[4] = {0,0,0,0};
-    values[1] = ((PyObject *)Py_None);
-    values[2] = ((PyObject *)Py_None);
-    values[3] = ((PyObject *)Py_None);
+    values[1] = ((PyObject *)((PyObject *)Py_None));
+    values[2] = ((PyObject *)((PyObject *)Py_None));
+    values[3] = ((PyObject *)((PyObject *)Py_None));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -1997,7 +2056,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_info(CYTHON_UNU
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("info", 0);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":3
+  /* "ddb/engine/tokenizer/sql_tokenize.py":3
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -2012,7 +2071,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_info(CYTHON_UNU
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":4
+    /* "ddb/engine/tokenizer/sql_tokenize.py":4
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:
  *         print(msg,arg1,arg2,arg3)             # <<<<<<<<<<<<<<
@@ -2036,7 +2095,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_info(CYTHON_UNU
     if (__Pyx_PrintOne(0, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":3
+    /* "ddb/engine/tokenizer/sql_tokenize.py":3
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -2045,7 +2104,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_info(CYTHON_UNU
  */
   }
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":2
+  /* "ddb/engine/tokenizer/sql_tokenize.py":2
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
  *     if True == debug_on:
@@ -2066,7 +2125,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_info(CYTHON_UNU
   return __pyx_r;
 }
 
-/* "ddb/engine/tokenizer/sql_tokenize.pyx":9
+/* "ddb/engine/tokenizer/sql_tokenize.py":9
  * # TODO: memory optimization.. maybe not sure how wastefull this is
  * 
  * def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):             # <<<<<<<<<<<<<<
@@ -2088,9 +2147,9 @@ static PyObject *__pyx_pw_3ddb_6engine_9tokenizer_12sql_tokenize_3tokenize(PyObj
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_text,&__pyx_n_s_discard_delimiters,&__pyx_n_s_discard_whitespace,&__pyx_n_s_debug,0};
     PyObject* values[4] = {0,0,0,0};
-    values[1] = ((PyObject *)Py_False);
-    values[2] = ((PyObject *)Py_True);
-    values[3] = ((PyObject *)Py_False);
+    values[1] = ((PyObject *)((PyObject *)Py_False));
+    values[2] = ((PyObject *)((PyObject *)Py_True));
+    values[3] = ((PyObject *)((PyObject *)Py_False));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -2214,7 +2273,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_RefNannySetupContext("tokenize", 0);
   __Pyx_INCREF(__pyx_v_text);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":11
+  /* "ddb/engine/tokenizer/sql_tokenize.py":11
  * def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
  *     global debug_on
  *     debug_on=debug             # <<<<<<<<<<<<<<
@@ -2223,7 +2282,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_debug_on, __pyx_v_debug) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":12
+  /* "ddb/engine/tokenizer/sql_tokenize.py":12
  *     global debug_on
  *     debug_on=debug
  *     tokens=[]             # <<<<<<<<<<<<<<
@@ -2235,7 +2294,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_tokens = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":15
+  /* "ddb/engine/tokenizer/sql_tokenize.py":15
  * 
  *     # clean leading and trailiong stuff
  *     text=text.strip()             # <<<<<<<<<<<<<<
@@ -2262,7 +2321,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_DECREF_SET(__pyx_v_text, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":17
+  /* "ddb/engine/tokenizer/sql_tokenize.py":17
  *     text=text.strip()
  *     # visual formatting characters
  *     whitespace={' ','\t','\n','\r'}             # <<<<<<<<<<<<<<
@@ -2278,7 +2337,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_whitespace = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":20
+  /* "ddb/engine/tokenizer/sql_tokenize.py":20
  *     # these are solid non depth related blocks
  *     blocks=[
  *             ['\'','\'','quote'] ,   # string block             # <<<<<<<<<<<<<<
@@ -2297,7 +2356,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_GIVEREF(__pyx_n_s_quote);
   PyList_SET_ITEM(__pyx_t_1, 2, __pyx_n_s_quote);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":21
+  /* "ddb/engine/tokenizer/sql_tokenize.py":21
  *     blocks=[
  *             ['\'','\'','quote'] ,   # string block
  *             ['"' ,'"' ,'quote'] ,   # string block             # <<<<<<<<<<<<<<
@@ -2316,7 +2375,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_GIVEREF(__pyx_n_s_quote);
   PyList_SET_ITEM(__pyx_t_2, 2, __pyx_n_s_quote);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":22
+  /* "ddb/engine/tokenizer/sql_tokenize.py":22
  *             ['\'','\'','quote'] ,   # string block
  *             ['"' ,'"' ,'quote'] ,   # string block
  *             ['['  ,']','db'   ] ,   # mssql column             # <<<<<<<<<<<<<<
@@ -2335,7 +2394,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_GIVEREF(__pyx_n_s_db);
   PyList_SET_ITEM(__pyx_t_3, 2, __pyx_n_s_db);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":23
+  /* "ddb/engine/tokenizer/sql_tokenize.py":23
  *             ['"' ,'"' ,'quote'] ,   # string block
  *             ['['  ,']','db'   ] ,   # mssql column
  *             ['`'  ,'`','db'   ] ,   # mysql column             # <<<<<<<<<<<<<<
@@ -2354,7 +2413,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_GIVEREF(__pyx_n_s_db);
   PyList_SET_ITEM(__pyx_t_4, 2, __pyx_n_s_db);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":19
+  /* "ddb/engine/tokenizer/sql_tokenize.py":19
  *     whitespace={' ','\t','\n','\r'}
  *     # these are solid non depth related blocks
  *     blocks=[             # <<<<<<<<<<<<<<
@@ -2378,7 +2437,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_blocks = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":26
+  /* "ddb/engine/tokenizer/sql_tokenize.py":26
  *         ]
  * 
  *     keywords=[  'ACCESSIBLE',             # <<<<<<<<<<<<<<
@@ -3101,7 +3160,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_keywords = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":272
+  /* "ddb/engine/tokenizer/sql_tokenize.py":272
  * 
  *     # operators # comparitors
  *     operators = [             # <<<<<<<<<<<<<<
@@ -3176,7 +3235,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_operators = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":301
+  /* "ddb/engine/tokenizer/sql_tokenize.py":301
  * 
  *     # standard delimiters
  *     delimiters=[',','.',';']             # <<<<<<<<<<<<<<
@@ -3197,7 +3256,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_delimiters = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":303
+  /* "ddb/engine/tokenizer/sql_tokenize.py":303
  *     delimiters=[',','.',';']
  * 
  *     for token in whitespace:             # <<<<<<<<<<<<<<
@@ -3218,7 +3277,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_token, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":304
+    /* "ddb/engine/tokenizer/sql_tokenize.py":304
  * 
  *     for token in whitespace:
  *         delimiters.append(token)             # <<<<<<<<<<<<<<
@@ -3229,7 +3288,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":306
+  /* "ddb/engine/tokenizer/sql_tokenize.py":306
  *         delimiters.append(token)
  * 
  *     for token in operators:             # <<<<<<<<<<<<<<
@@ -3248,7 +3307,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_token, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":307
+    /* "ddb/engine/tokenizer/sql_tokenize.py":307
  * 
  *     for token in operators:
  *         delimiters.append(token)             # <<<<<<<<<<<<<<
@@ -3257,7 +3316,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
     __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_delimiters, __pyx_v_token); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 307, __pyx_L1_error)
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":306
+    /* "ddb/engine/tokenizer/sql_tokenize.py":306
  *         delimiters.append(token)
  * 
  *     for token in operators:             # <<<<<<<<<<<<<<
@@ -3267,7 +3326,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":311
+  /* "ddb/engine/tokenizer/sql_tokenize.py":311
  * 
  *     #add block identifiers to delimiters
  *     for b in blocks:             # <<<<<<<<<<<<<<
@@ -3286,7 +3345,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":312
+    /* "ddb/engine/tokenizer/sql_tokenize.py":312
  *     #add block identifiers to delimiters
  *     for b in blocks:
  *         if b[0] not in delimiters:             # <<<<<<<<<<<<<<
@@ -3300,7 +3359,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __pyx_t_12 = (__pyx_t_11 != 0);
     if (__pyx_t_12) {
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":313
+      /* "ddb/engine/tokenizer/sql_tokenize.py":313
  *     for b in blocks:
  *         if b[0] not in delimiters:
  *             delimiters.append(b[0])             # <<<<<<<<<<<<<<
@@ -3312,7 +3371,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_delimiters, __pyx_t_4); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 313, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":312
+      /* "ddb/engine/tokenizer/sql_tokenize.py":312
  *     #add block identifiers to delimiters
  *     for b in blocks:
  *         if b[0] not in delimiters:             # <<<<<<<<<<<<<<
@@ -3321,7 +3380,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
     }
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":314
+    /* "ddb/engine/tokenizer/sql_tokenize.py":314
  *         if b[0] not in delimiters:
  *             delimiters.append(b[0])
  *         if b[1] not in delimiters:             # <<<<<<<<<<<<<<
@@ -3335,7 +3394,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __pyx_t_11 = (__pyx_t_12 != 0);
     if (__pyx_t_11) {
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":315
+      /* "ddb/engine/tokenizer/sql_tokenize.py":315
  *             delimiters.append(b[0])
  *         if b[1] not in delimiters:
  *             delimiters.append(b[1])             # <<<<<<<<<<<<<<
@@ -3347,7 +3406,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_delimiters, __pyx_t_4); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 315, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":314
+      /* "ddb/engine/tokenizer/sql_tokenize.py":314
  *         if b[0] not in delimiters:
  *             delimiters.append(b[0])
  *         if b[1] not in delimiters:             # <<<<<<<<<<<<<<
@@ -3356,7 +3415,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
     }
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":311
+    /* "ddb/engine/tokenizer/sql_tokenize.py":311
  * 
  *     #add block identifiers to delimiters
  *     for b in blocks:             # <<<<<<<<<<<<<<
@@ -3366,7 +3425,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":317
+  /* "ddb/engine/tokenizer/sql_tokenize.py":317
  *             delimiters.append(b[1])
  * 
  *     delimiters_sorted=sort_array_by_length(delimiters)             # <<<<<<<<<<<<<<
@@ -3393,7 +3452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_delimiters_sorted = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":320
+  /* "ddb/engine/tokenizer/sql_tokenize.py":320
  * 
  *     # padding prevents fencpost error
  *     text+=" "             # <<<<<<<<<<<<<<
@@ -3405,7 +3464,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_DECREF_SET(__pyx_v_text, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":321
+  /* "ddb/engine/tokenizer/sql_tokenize.py":321
  *     # padding prevents fencpost error
  *     text+=" "
  *     text_length=len(text)             # <<<<<<<<<<<<<<
@@ -3418,7 +3477,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_v_text_length = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":323
+  /* "ddb/engine/tokenizer/sql_tokenize.py":323
  *     text_length=len(text)
  *     # c is the incremental pointer to the string
  *     word_start=0             # <<<<<<<<<<<<<<
@@ -3428,7 +3487,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_word_start = __pyx_int_0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":324
+  /* "ddb/engine/tokenizer/sql_tokenize.py":324
  *     # c is the incremental pointer to the string
  *     word_start=0
  *     tokens=[]             # <<<<<<<<<<<<<<
@@ -3440,7 +3499,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_DECREF_SET(__pyx_v_tokens, ((PyObject*)__pyx_t_5));
   __pyx_t_5 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":325
+  /* "ddb/engine/tokenizer/sql_tokenize.py":325
  *     word_start=0
  *     tokens=[]
  *     c=0             # <<<<<<<<<<<<<<
@@ -3450,7 +3509,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_c = __pyx_int_0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":327
+  /* "ddb/engine/tokenizer/sql_tokenize.py":327
  *     c=0
  *     #print delimiters_sorted
  *     delimter_len=1             # <<<<<<<<<<<<<<
@@ -3460,7 +3519,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_INCREF(__pyx_int_1);
   __pyx_v_delimter_len = __pyx_int_1;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":328
+  /* "ddb/engine/tokenizer/sql_tokenize.py":328
  *     #print delimiters_sorted
  *     delimter_len=1
  *     in_block=None             # <<<<<<<<<<<<<<
@@ -3470,7 +3529,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_INCREF(Py_None);
   __pyx_v_in_block = Py_None;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":329
+  /* "ddb/engine/tokenizer/sql_tokenize.py":329
  *     delimter_len=1
  *     in_block=None
  *     block=None             # <<<<<<<<<<<<<<
@@ -3480,7 +3539,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_INCREF(Py_None);
   __pyx_v_block = Py_None;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":330
+  /* "ddb/engine/tokenizer/sql_tokenize.py":330
  *     in_block=None
  *     block=None
  *     while c < text_length:             # <<<<<<<<<<<<<<
@@ -3493,7 +3552,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (!__pyx_t_11) break;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":332
+    /* "ddb/engine/tokenizer/sql_tokenize.py":332
  *     while c < text_length:
  * 
  *         info("-",c)             # <<<<<<<<<<<<<<
@@ -3549,7 +3608,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":333
+    /* "ddb/engine/tokenizer/sql_tokenize.py":333
  * 
  *         info("-",c)
  *         just_crossed_block=False             # <<<<<<<<<<<<<<
@@ -3558,7 +3617,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
     __pyx_v_just_crossed_block = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":334
+    /* "ddb/engine/tokenizer/sql_tokenize.py":334
  *         info("-",c)
  *         just_crossed_block=False
  *         for b in blocks:             # <<<<<<<<<<<<<<
@@ -3577,7 +3636,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_XDECREF_SET(__pyx_v_b, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":335
+      /* "ddb/engine/tokenizer/sql_tokenize.py":335
  *         just_crossed_block=False
  *         for b in blocks:
  *             delimter_len=len(b[0])             # <<<<<<<<<<<<<<
@@ -3593,7 +3652,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_DECREF_SET(__pyx_v_delimter_len, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":337
+      /* "ddb/engine/tokenizer/sql_tokenize.py":337
  *             delimter_len=len(b[0])
  *             #info(b[0],b[1],c,delimter_len)
  *             fragment=text[c:c+delimter_len]             # <<<<<<<<<<<<<<
@@ -3608,7 +3667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_XDECREF_SET(__pyx_v_fragment, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":339
+      /* "ddb/engine/tokenizer/sql_tokenize.py":339
  *             fragment=text[c:c+delimter_len]
  *             # only check for block start if not in one
  *             if None == in_block:             # <<<<<<<<<<<<<<
@@ -3620,7 +3679,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_11) {
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":340
+        /* "ddb/engine/tokenizer/sql_tokenize.py":340
  *             # only check for block start if not in one
  *             if None == in_block:
  *                 if True == compare_text_fragment(fragment,b[0]):             # <<<<<<<<<<<<<<
@@ -3684,7 +3743,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_11) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":341
+          /* "ddb/engine/tokenizer/sql_tokenize.py":341
  *             if None == in_block:
  *                 if True == compare_text_fragment(fragment,b[0]):
  *                     just_crossed_block=True             # <<<<<<<<<<<<<<
@@ -3693,7 +3752,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           __pyx_v_just_crossed_block = 1;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":342
+          /* "ddb/engine/tokenizer/sql_tokenize.py":342
  *                 if True == compare_text_fragment(fragment,b[0]):
  *                     just_crossed_block=True
  *                     info("IN BLOCK",c)             # <<<<<<<<<<<<<<
@@ -3749,7 +3808,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":343
+          /* "ddb/engine/tokenizer/sql_tokenize.py":343
  *                     just_crossed_block=True
  *                     info("IN BLOCK",c)
  *                     in_block=b             # <<<<<<<<<<<<<<
@@ -3759,7 +3818,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_INCREF(__pyx_v_b);
           __Pyx_DECREF_SET(__pyx_v_in_block, __pyx_v_b);
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":344
+          /* "ddb/engine/tokenizer/sql_tokenize.py":344
  *                     info("IN BLOCK",c)
  *                     in_block=b
  *                     block=b             # <<<<<<<<<<<<<<
@@ -3769,7 +3828,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_INCREF(__pyx_v_b);
           __Pyx_DECREF_SET(__pyx_v_block, __pyx_v_b);
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":345
+          /* "ddb/engine/tokenizer/sql_tokenize.py":345
  *                     in_block=b
  *                     block=b
  *                     c+=delimter_len             # <<<<<<<<<<<<<<
@@ -3781,7 +3840,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF_SET(__pyx_v_c, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":346
+          /* "ddb/engine/tokenizer/sql_tokenize.py":346
  *                     block=b
  *                     c+=delimter_len
  *                     info("IN BLOCK",c)             # <<<<<<<<<<<<<<
@@ -3837,7 +3896,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":347
+          /* "ddb/engine/tokenizer/sql_tokenize.py":347
  *                     c+=delimter_len
  *                     info("IN BLOCK",c)
  *                     break             # <<<<<<<<<<<<<<
@@ -3846,7 +3905,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           goto __pyx_L14_break;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":340
+          /* "ddb/engine/tokenizer/sql_tokenize.py":340
  *             # only check for block start if not in one
  *             if None == in_block:
  *                 if True == compare_text_fragment(fragment,b[0]):             # <<<<<<<<<<<<<<
@@ -3855,7 +3914,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":339
+        /* "ddb/engine/tokenizer/sql_tokenize.py":339
  *             fragment=text[c:c+delimter_len]
  *             # only check for block start if not in one
  *             if None == in_block:             # <<<<<<<<<<<<<<
@@ -3864,7 +3923,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
       }
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":349
+      /* "ddb/engine/tokenizer/sql_tokenize.py":349
  *                     break
  *             # check for block end
  *             if True == compare_text_fragment(fragment,b[1]) or c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -3941,7 +4000,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __pyx_L18_bool_binop_done:;
       if (__pyx_t_11) {
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":350
+        /* "ddb/engine/tokenizer/sql_tokenize.py":350
  *             # check for block end
  *             if True == compare_text_fragment(fragment,b[1]) or c>=text_length-1:
  *                 just_crossed_block=True             # <<<<<<<<<<<<<<
@@ -3950,7 +4009,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         __pyx_v_just_crossed_block = 1;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":351
+        /* "ddb/engine/tokenizer/sql_tokenize.py":351
  *             if True == compare_text_fragment(fragment,b[1]) or c>=text_length-1:
  *                 just_crossed_block=True
  *                 info("NOT IN BLOCK",c)             # <<<<<<<<<<<<<<
@@ -4006,7 +4065,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":352
+        /* "ddb/engine/tokenizer/sql_tokenize.py":352
  *                 just_crossed_block=True
  *                 info("NOT IN BLOCK",c)
  *                 in_block=None             # <<<<<<<<<<<<<<
@@ -4016,7 +4075,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_INCREF(Py_None);
         __Pyx_DECREF_SET(__pyx_v_in_block, Py_None);
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":353
+        /* "ddb/engine/tokenizer/sql_tokenize.py":353
  *                 info("NOT IN BLOCK",c)
  *                 in_block=None
  *                 c+=delimter_len             # <<<<<<<<<<<<<<
@@ -4028,7 +4087,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF_SET(__pyx_v_c, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":354
+        /* "ddb/engine/tokenizer/sql_tokenize.py":354
  *                 in_block=None
  *                 c+=delimter_len
  *                 break             # <<<<<<<<<<<<<<
@@ -4037,7 +4096,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         goto __pyx_L14_break;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":349
+        /* "ddb/engine/tokenizer/sql_tokenize.py":349
  *                     break
  *             # check for block end
  *             if True == compare_text_fragment(fragment,b[1]) or c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -4046,7 +4105,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
       }
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":334
+      /* "ddb/engine/tokenizer/sql_tokenize.py":334
  *         info("-",c)
  *         just_crossed_block=False
  *         for b in blocks:             # <<<<<<<<<<<<<<
@@ -4057,7 +4116,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __pyx_L14_break:;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":356
+    /* "ddb/engine/tokenizer/sql_tokenize.py":356
  *                 break
  *         # skip stuff in block
  *         if None != in_block :             # <<<<<<<<<<<<<<
@@ -4069,7 +4128,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_11) {
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":357
+      /* "ddb/engine/tokenizer/sql_tokenize.py":357
  *         # skip stuff in block
  *         if None != in_block :
  *             info("in block skipp")             # <<<<<<<<<<<<<<
@@ -4095,7 +4154,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":358
+      /* "ddb/engine/tokenizer/sql_tokenize.py":358
  *         if None != in_block :
  *             info("in block skipp")
  *             if just_crossed_block==False:             # <<<<<<<<<<<<<<
@@ -4105,7 +4164,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __pyx_t_11 = ((__pyx_v_just_crossed_block == 0) != 0);
       if (__pyx_t_11) {
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":359
+        /* "ddb/engine/tokenizer/sql_tokenize.py":359
  *             info("in block skipp")
  *             if just_crossed_block==False:
  *                 c+=1             # <<<<<<<<<<<<<<
@@ -4117,7 +4176,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF_SET(__pyx_v_c, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":358
+        /* "ddb/engine/tokenizer/sql_tokenize.py":358
  *         if None != in_block :
  *             info("in block skipp")
  *             if just_crossed_block==False:             # <<<<<<<<<<<<<<
@@ -4126,7 +4185,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
       }
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":360
+      /* "ddb/engine/tokenizer/sql_tokenize.py":360
  *             if just_crossed_block==False:
  *                 c+=1
  *             continue             # <<<<<<<<<<<<<<
@@ -4135,7 +4194,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
       goto __pyx_L11_continue;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":356
+      /* "ddb/engine/tokenizer/sql_tokenize.py":356
  *                 break
  *         # skip stuff in block
  *         if None != in_block :             # <<<<<<<<<<<<<<
@@ -4144,7 +4203,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
     }
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":361
+    /* "ddb/engine/tokenizer/sql_tokenize.py":361
  *                 c+=1
  *             continue
  *         for d in delimiters_sorted:             # <<<<<<<<<<<<<<
@@ -4193,7 +4252,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":362
+      /* "ddb/engine/tokenizer/sql_tokenize.py":362
  *             continue
  *         for d in delimiters_sorted:
  *             delimter_len=len(d)             # <<<<<<<<<<<<<<
@@ -4206,7 +4265,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_DECREF_SET(__pyx_v_delimter_len, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":363
+      /* "ddb/engine/tokenizer/sql_tokenize.py":363
  *         for d in delimiters_sorted:
  *             delimter_len=len(d)
  *             fragment=text[c:c+delimter_len]             # <<<<<<<<<<<<<<
@@ -4221,7 +4280,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_XDECREF_SET(__pyx_v_fragment, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":364
+      /* "ddb/engine/tokenizer/sql_tokenize.py":364
  *             delimter_len=len(d)
  *             fragment=text[c:c+delimter_len]
  *             if True == compare_text_fragment(fragment,d) or c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -4294,7 +4353,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __pyx_L25_bool_binop_done:;
       if (__pyx_t_11) {
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":365
+        /* "ddb/engine/tokenizer/sql_tokenize.py":365
  *             fragment=text[c:c+delimter_len]
  *             if True == compare_text_fragment(fragment,d) or c>=text_length-1:
  *                 info("Delemiter found",c,fragment)             # <<<<<<<<<<<<<<
@@ -4353,7 +4412,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":366
+        /* "ddb/engine/tokenizer/sql_tokenize.py":366
  *             if True == compare_text_fragment(fragment,d) or c>=text_length-1:
  *                 info("Delemiter found",c,fragment)
  *                 if c-word_start>0:             # <<<<<<<<<<<<<<
@@ -4368,7 +4427,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_11) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":367
+          /* "ddb/engine/tokenizer/sql_tokenize.py":367
  *                 info("Delemiter found",c,fragment)
  *                 if c-word_start>0:
  *                     word_end=c             # <<<<<<<<<<<<<<
@@ -4378,7 +4437,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_INCREF(__pyx_v_c);
           __Pyx_XDECREF_SET(__pyx_v_word_end, __pyx_v_c);
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":368
+          /* "ddb/engine/tokenizer/sql_tokenize.py":368
  *                 if c-word_start>0:
  *                     word_end=c
  *                     if word_end>=text_length:             # <<<<<<<<<<<<<<
@@ -4390,7 +4449,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           if (__pyx_t_11) {
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":369
+            /* "ddb/engine/tokenizer/sql_tokenize.py":369
  *                     word_end=c
  *                     if word_end>=text_length:
  *                         word_end=text_length-1             # <<<<<<<<<<<<<<
@@ -4402,7 +4461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_DECREF_SET(__pyx_v_word_end, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":368
+            /* "ddb/engine/tokenizer/sql_tokenize.py":368
  *                 if c-word_start>0:
  *                     word_end=c
  *                     if word_end>=text_length:             # <<<<<<<<<<<<<<
@@ -4411,7 +4470,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           }
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":370
+          /* "ddb/engine/tokenizer/sql_tokenize.py":370
  *                     if word_end>=text_length:
  *                         word_end=text_length-1
  *                     not_delimiter=text[word_start:word_end]             # <<<<<<<<<<<<<<
@@ -4423,7 +4482,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_XDECREF_SET(__pyx_v_not_delimiter, __pyx_t_4);
           __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":371
+          /* "ddb/engine/tokenizer/sql_tokenize.py":371
  *                         word_end=text_length-1
  *                     not_delimiter=text[word_start:word_end]
  *                     token_type='data'             # <<<<<<<<<<<<<<
@@ -4433,7 +4492,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_INCREF(__pyx_n_s_data);
           __Pyx_XDECREF_SET(__pyx_v_token_type, __pyx_n_s_data);
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":372
+          /* "ddb/engine/tokenizer/sql_tokenize.py":372
  *                     not_delimiter=text[word_start:word_end]
  *                     token_type='data'
  *                     if not_delimiter.upper() in keywords:             # <<<<<<<<<<<<<<
@@ -4462,7 +4521,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __pyx_t_12 = (__pyx_t_11 != 0);
           if (__pyx_t_12) {
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":373
+            /* "ddb/engine/tokenizer/sql_tokenize.py":373
  *                     token_type='data'
  *                     if not_delimiter.upper() in keywords:
  *                         token_type='keyword'             # <<<<<<<<<<<<<<
@@ -4472,7 +4531,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_INCREF(__pyx_n_s_keyword);
             __Pyx_DECREF_SET(__pyx_v_token_type, __pyx_n_s_keyword);
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":372
+            /* "ddb/engine/tokenizer/sql_tokenize.py":372
  *                     not_delimiter=text[word_start:word_end]
  *                     token_type='data'
  *                     if not_delimiter.upper() in keywords:             # <<<<<<<<<<<<<<
@@ -4481,7 +4540,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           }
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":374
+          /* "ddb/engine/tokenizer/sql_tokenize.py":374
  *                     if not_delimiter.upper() in keywords:
  *                         token_type='keyword'
  *                     if None != block:             # <<<<<<<<<<<<<<
@@ -4493,7 +4552,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           if (__pyx_t_12) {
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":375
+            /* "ddb/engine/tokenizer/sql_tokenize.py":375
  *                         token_type='keyword'
  *                     if None != block:
  *                         block_left=block[0]             # <<<<<<<<<<<<<<
@@ -4505,7 +4564,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_XDECREF_SET(__pyx_v_block_left, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":376
+            /* "ddb/engine/tokenizer/sql_tokenize.py":376
  *                     if None != block:
  *                         block_left=block[0]
  *                         block_right=block[1]             # <<<<<<<<<<<<<<
@@ -4517,7 +4576,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_XDECREF_SET(__pyx_v_block_right, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":377
+            /* "ddb/engine/tokenizer/sql_tokenize.py":377
  *                         block_left=block[0]
  *                         block_right=block[1]
  *                         block_type=block[2]             # <<<<<<<<<<<<<<
@@ -4529,7 +4588,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_XDECREF_SET(__pyx_v_block_type, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":378
+            /* "ddb/engine/tokenizer/sql_tokenize.py":378
  *                         block_right=block[1]
  *                         block_type=block[2]
  *                         block=None             # <<<<<<<<<<<<<<
@@ -4539,7 +4598,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_INCREF(Py_None);
             __Pyx_DECREF_SET(__pyx_v_block, Py_None);
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":379
+            /* "ddb/engine/tokenizer/sql_tokenize.py":379
  *                         block_type=block[2]
  *                         block=None
  *                         not_delimiter=not_delimiter[len(block_left):-len(block_right)]             # <<<<<<<<<<<<<<
@@ -4553,7 +4612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_DECREF_SET(__pyx_v_not_delimiter, __pyx_t_4);
             __pyx_t_4 = 0;
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":374
+            /* "ddb/engine/tokenizer/sql_tokenize.py":374
  *                     if not_delimiter.upper() in keywords:
  *                         token_type='keyword'
  *                     if None != block:             # <<<<<<<<<<<<<<
@@ -4563,7 +4622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             goto __pyx_L30;
           }
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":381
+          /* "ddb/engine/tokenizer/sql_tokenize.py":381
  *                         not_delimiter=not_delimiter[len(block_left):-len(block_right)]
  *                     else:
  *                         block_left=None             # <<<<<<<<<<<<<<
@@ -4574,7 +4633,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_INCREF(Py_None);
             __Pyx_XDECREF_SET(__pyx_v_block_left, Py_None);
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":382
+            /* "ddb/engine/tokenizer/sql_tokenize.py":382
  *                     else:
  *                         block_left=None
  *                         block_right=None             # <<<<<<<<<<<<<<
@@ -4584,7 +4643,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_INCREF(Py_None);
             __Pyx_XDECREF_SET(__pyx_v_block_right, Py_None);
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":383
+            /* "ddb/engine/tokenizer/sql_tokenize.py":383
  *                         block_left=None
  *                         block_right=None
  *                         block_type=None             # <<<<<<<<<<<<<<
@@ -4596,7 +4655,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           }
           __pyx_L30:;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":384
+          /* "ddb/engine/tokenizer/sql_tokenize.py":384
  *                         block_right=None
  *                         block_type=None
  *                     info(c,not_delimiter)             # <<<<<<<<<<<<<<
@@ -4652,7 +4711,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":388
+          /* "ddb/engine/tokenizer/sql_tokenize.py":388
  *                     #    break
  * 
  *                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})             # <<<<<<<<<<<<<<
@@ -4669,7 +4728,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_tokens, __pyx_t_4); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 388, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":366
+          /* "ddb/engine/tokenizer/sql_tokenize.py":366
  *             if True == compare_text_fragment(fragment,d) or c>=text_length-1:
  *                 info("Delemiter found",c,fragment)
  *                 if c-word_start>0:             # <<<<<<<<<<<<<<
@@ -4678,7 +4737,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":390
+        /* "ddb/engine/tokenizer/sql_tokenize.py":390
  *                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})
  * 
  *                 if  c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -4693,7 +4752,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_12) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":391
+          /* "ddb/engine/tokenizer/sql_tokenize.py":391
  * 
  *                 if  c>=text_length-1:
  *                     break             # <<<<<<<<<<<<<<
@@ -4702,7 +4761,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           goto __pyx_L23_break;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":390
+          /* "ddb/engine/tokenizer/sql_tokenize.py":390
  *                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})
  * 
  *                 if  c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -4711,7 +4770,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":392
+        /* "ddb/engine/tokenizer/sql_tokenize.py":392
  *                 if  c>=text_length-1:
  *                     break
  *                 word_start=c+delimter_len             # <<<<<<<<<<<<<<
@@ -4723,7 +4782,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF_SET(__pyx_v_word_start, __pyx_t_2);
         __pyx_t_2 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":396
+        /* "ddb/engine/tokenizer/sql_tokenize.py":396
  *                 #if not fragment or fragment =='':
  *                 #    break
  *                 if True == discard_whitespace and fragment in whitespace:             # <<<<<<<<<<<<<<
@@ -4744,7 +4803,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __pyx_L33_bool_binop_done:;
         if (__pyx_t_12) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":397
+          /* "ddb/engine/tokenizer/sql_tokenize.py":397
  *                 #    break
  *                 if True == discard_whitespace and fragment in whitespace:
  *                     break             # <<<<<<<<<<<<<<
@@ -4753,7 +4812,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
           goto __pyx_L23_break;
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":396
+          /* "ddb/engine/tokenizer/sql_tokenize.py":396
  *                 #if not fragment or fragment =='':
  *                 #    break
  *                 if True == discard_whitespace and fragment in whitespace:             # <<<<<<<<<<<<<<
@@ -4762,7 +4821,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":402
+        /* "ddb/engine/tokenizer/sql_tokenize.py":402
  *                 #     continue
  * 
  *                 delimiter_type="delimiter"             # <<<<<<<<<<<<<<
@@ -4772,7 +4831,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_INCREF(__pyx_n_s_delimiter);
         __Pyx_XDECREF_SET(__pyx_v_delimiter_type, __pyx_n_s_delimiter);
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":403
+        /* "ddb/engine/tokenizer/sql_tokenize.py":403
  * 
  *                 delimiter_type="delimiter"
  *                 if fragment in operators:             # <<<<<<<<<<<<<<
@@ -4783,7 +4842,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __pyx_t_16 = (__pyx_t_12 != 0);
         if (__pyx_t_16) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":404
+          /* "ddb/engine/tokenizer/sql_tokenize.py":404
  *                 delimiter_type="delimiter"
  *                 if fragment in operators:
  *                     delimiter_type='operator'             # <<<<<<<<<<<<<<
@@ -4793,7 +4852,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __Pyx_INCREF(__pyx_n_s_operator);
           __Pyx_DECREF_SET(__pyx_v_delimiter_type, __pyx_n_s_operator);
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":403
+          /* "ddb/engine/tokenizer/sql_tokenize.py":403
  * 
  *                 delimiter_type="delimiter"
  *                 if fragment in operators:             # <<<<<<<<<<<<<<
@@ -4803,7 +4862,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           goto __pyx_L35;
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":406
+        /* "ddb/engine/tokenizer/sql_tokenize.py":406
  *                     delimiter_type='operator'
  *                 else:
  *                     if fragment in whitespace:             # <<<<<<<<<<<<<<
@@ -4815,7 +4874,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
           __pyx_t_12 = (__pyx_t_16 != 0);
           if (__pyx_t_12) {
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":407
+            /* "ddb/engine/tokenizer/sql_tokenize.py":407
  *                 else:
  *                     if fragment in whitespace:
  *                         delimiter_type='whitespace'             # <<<<<<<<<<<<<<
@@ -4825,7 +4884,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
             __Pyx_INCREF(__pyx_n_s_whitespace);
             __Pyx_DECREF_SET(__pyx_v_delimiter_type, __pyx_n_s_whitespace);
 
-            /* "ddb/engine/tokenizer/sql_tokenize.pyx":406
+            /* "ddb/engine/tokenizer/sql_tokenize.py":406
  *                     delimiter_type='operator'
  *                 else:
  *                     if fragment in whitespace:             # <<<<<<<<<<<<<<
@@ -4836,7 +4895,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         }
         __pyx_L35:;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":410
+        /* "ddb/engine/tokenizer/sql_tokenize.py":410
  * 
  * 
  *                 info("delemiter c/fragment- ",c,fragment)             # <<<<<<<<<<<<<<
@@ -4895,7 +4954,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":411
+        /* "ddb/engine/tokenizer/sql_tokenize.py":411
  * 
  *                 info("delemiter c/fragment- ",c,fragment)
  *                 tokens.append({'type':delimiter_type,'data':fragment.lower()})             # <<<<<<<<<<<<<<
@@ -4927,7 +4986,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
         __pyx_t_10 = __Pyx_PyList_Append(__pyx_v_tokens, __pyx_t_2); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 411, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":412
+        /* "ddb/engine/tokenizer/sql_tokenize.py":412
  *                 info("delemiter c/fragment- ",c,fragment)
  *                 tokens.append({'type':delimiter_type,'data':fragment.lower()})
  *                 break             # <<<<<<<<<<<<<<
@@ -4936,7 +4995,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
         goto __pyx_L23_break;
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":364
+        /* "ddb/engine/tokenizer/sql_tokenize.py":364
  *             delimter_len=len(d)
  *             fragment=text[c:c+delimter_len]
  *             if True == compare_text_fragment(fragment,d) or c>=text_length-1:             # <<<<<<<<<<<<<<
@@ -4945,7 +5004,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
       }
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":361
+      /* "ddb/engine/tokenizer/sql_tokenize.py":361
  *                 c+=1
  *             continue
  *         for d in delimiters_sorted:             # <<<<<<<<<<<<<<
@@ -4956,7 +5015,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __pyx_L23_break:;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":413
+    /* "ddb/engine/tokenizer/sql_tokenize.py":413
  *                 tokens.append({'type':delimiter_type,'data':fragment.lower()})
  *                 break
  *         c+=delimter_len             # <<<<<<<<<<<<<<
@@ -4970,7 +5029,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __pyx_L11_continue:;
   }
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":415
+  /* "ddb/engine/tokenizer/sql_tokenize.py":415
  *         c+=delimter_len
  * 
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -4985,7 +5044,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_12) {
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":416
+    /* "ddb/engine/tokenizer/sql_tokenize.py":416
  * 
  *     if True == debug_on:
  *         info("-[Tokens]----------------")             # <<<<<<<<<<<<<<
@@ -5011,7 +5070,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":417
+    /* "ddb/engine/tokenizer/sql_tokenize.py":417
  *     if True == debug_on:
  *         info("-[Tokens]----------------")
  *         for t in tokens:             # <<<<<<<<<<<<<<
@@ -5030,7 +5089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":418
+      /* "ddb/engine/tokenizer/sql_tokenize.py":418
  *         info("-[Tokens]----------------")
  *         for t in tokens:
  *             info( t)             # <<<<<<<<<<<<<<
@@ -5056,7 +5115,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":417
+      /* "ddb/engine/tokenizer/sql_tokenize.py":417
  *     if True == debug_on:
  *         info("-[Tokens]----------------")
  *         for t in tokens:             # <<<<<<<<<<<<<<
@@ -5066,7 +5125,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":419
+    /* "ddb/engine/tokenizer/sql_tokenize.py":419
  *         for t in tokens:
  *             info( t)
  *         info("-[End-Tokens]------------")             # <<<<<<<<<<<<<<
@@ -5092,7 +5151,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":415
+    /* "ddb/engine/tokenizer/sql_tokenize.py":415
  *         c+=delimter_len
  * 
  *     if True == debug_on:             # <<<<<<<<<<<<<<
@@ -5101,7 +5160,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
  */
   }
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":420
+  /* "ddb/engine/tokenizer/sql_tokenize.py":420
  *             info( t)
  *         info("-[End-Tokens]------------")
  *     return tokens             # <<<<<<<<<<<<<<
@@ -5113,7 +5172,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   __pyx_r = __pyx_v_tokens;
   goto __pyx_L0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":9
+  /* "ddb/engine/tokenizer/sql_tokenize.py":9
  * # TODO: memory optimization.. maybe not sure how wastefull this is
  * 
  * def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):             # <<<<<<<<<<<<<<
@@ -5163,7 +5222,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_2tokenize(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/tokenizer/sql_tokenize.pyx":423
+/* "ddb/engine/tokenizer/sql_tokenize.py":423
  * 
  * 
  * def compare_text_fragment(x,y):             # <<<<<<<<<<<<<<
@@ -5241,7 +5300,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("compare_text_fragment", 0);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":424
+  /* "ddb/engine/tokenizer/sql_tokenize.py":424
  * 
  * def compare_text_fragment(x,y):
  *     if None ==x or None ==y :             # <<<<<<<<<<<<<<
@@ -5263,7 +5322,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":425
+    /* "ddb/engine/tokenizer/sql_tokenize.py":425
  * def compare_text_fragment(x,y):
  *     if None ==x or None ==y :
  *         return False             # <<<<<<<<<<<<<<
@@ -5275,7 +5334,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":424
+    /* "ddb/engine/tokenizer/sql_tokenize.py":424
  * 
  * def compare_text_fragment(x,y):
  *     if None ==x or None ==y :             # <<<<<<<<<<<<<<
@@ -5284,7 +5343,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
  */
   }
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":426
+  /* "ddb/engine/tokenizer/sql_tokenize.py":426
  *     if None ==x or None ==y :
  *         return False
  *     if x==y:             # <<<<<<<<<<<<<<
@@ -5296,7 +5355,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_1) {
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":427
+    /* "ddb/engine/tokenizer/sql_tokenize.py":427
  *         return False
  *     if x==y:
  *         return True             # <<<<<<<<<<<<<<
@@ -5308,7 +5367,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":426
+    /* "ddb/engine/tokenizer/sql_tokenize.py":426
  *     if None ==x or None ==y :
  *         return False
  *     if x==y:             # <<<<<<<<<<<<<<
@@ -5317,7 +5376,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
  */
   }
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":428
+  /* "ddb/engine/tokenizer/sql_tokenize.py":428
  *     if x==y:
  *         return True
  *     return False             # <<<<<<<<<<<<<<
@@ -5329,7 +5388,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":423
+  /* "ddb/engine/tokenizer/sql_tokenize.py":423
  * 
  * 
  * def compare_text_fragment(x,y):             # <<<<<<<<<<<<<<
@@ -5348,7 +5407,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_4compare_text_f
   return __pyx_r;
 }
 
-/* "ddb/engine/tokenizer/sql_tokenize.pyx":431
+/* "ddb/engine/tokenizer/sql_tokenize.py":431
  * 
  * 
  * def sort_array_by_length(data):             # <<<<<<<<<<<<<<
@@ -5392,7 +5451,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("sort_array_by_length", 0);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":432
+  /* "ddb/engine/tokenizer/sql_tokenize.py":432
  * 
  * def sort_array_by_length(data):
  *     max_len=-1             # <<<<<<<<<<<<<<
@@ -5402,7 +5461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   __Pyx_INCREF(__pyx_int_neg_1);
   __pyx_v_max_len = __pyx_int_neg_1;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":433
+  /* "ddb/engine/tokenizer/sql_tokenize.py":433
  * def sort_array_by_length(data):
  *     max_len=-1
  *     for d in data:             # <<<<<<<<<<<<<<
@@ -5451,7 +5510,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
     __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":434
+    /* "ddb/engine/tokenizer/sql_tokenize.py":434
  *     max_len=-1
  *     for d in data:
  *         del_len=len(d)             # <<<<<<<<<<<<<<
@@ -5461,7 +5520,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
     __pyx_t_5 = PyObject_Length(__pyx_v_d); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 434, __pyx_L1_error)
     __pyx_v_del_len = __pyx_t_5;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":435
+    /* "ddb/engine/tokenizer/sql_tokenize.py":435
  *     for d in data:
  *         del_len=len(d)
  *         if del_len>max_len:             # <<<<<<<<<<<<<<
@@ -5476,7 +5535,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":436
+      /* "ddb/engine/tokenizer/sql_tokenize.py":436
  *         del_len=len(d)
  *         if del_len>max_len:
  *             max_len=del_len             # <<<<<<<<<<<<<<
@@ -5488,7 +5547,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
       __Pyx_DECREF_SET(__pyx_v_max_len, __pyx_t_6);
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":435
+      /* "ddb/engine/tokenizer/sql_tokenize.py":435
  *     for d in data:
  *         del_len=len(d)
  *         if del_len>max_len:             # <<<<<<<<<<<<<<
@@ -5497,7 +5556,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
  */
     }
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":433
+    /* "ddb/engine/tokenizer/sql_tokenize.py":433
  * def sort_array_by_length(data):
  *     max_len=-1
  *     for d in data:             # <<<<<<<<<<<<<<
@@ -5507,7 +5566,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":439
+  /* "ddb/engine/tokenizer/sql_tokenize.py":439
  * 
  *     # make a new array, put them in from longest to shortest, remove dupes
  *     data_sorted=[]             # <<<<<<<<<<<<<<
@@ -5519,7 +5578,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   __pyx_v_data_sorted = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":440
+  /* "ddb/engine/tokenizer/sql_tokenize.py":440
  *     # make a new array, put them in from longest to shortest, remove dupes
  *     data_sorted=[]
  *     for i in reversed(range(1,max_len+1)):             # <<<<<<<<<<<<<<
@@ -5585,7 +5644,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":441
+    /* "ddb/engine/tokenizer/sql_tokenize.py":441
  *     data_sorted=[]
  *     for i in reversed(range(1,max_len+1)):
  *         for d in data:             # <<<<<<<<<<<<<<
@@ -5634,7 +5693,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
       __Pyx_XDECREF_SET(__pyx_v_d, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":442
+      /* "ddb/engine/tokenizer/sql_tokenize.py":442
  *     for i in reversed(range(1,max_len+1)):
  *         for d in data:
  *             if d not in data_sorted:             # <<<<<<<<<<<<<<
@@ -5645,7 +5704,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
       __pyx_t_9 = (__pyx_t_7 != 0);
       if (__pyx_t_9) {
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":443
+        /* "ddb/engine/tokenizer/sql_tokenize.py":443
  *         for d in data:
  *             if d not in data_sorted:
  *                 if len(d)==i:             # <<<<<<<<<<<<<<
@@ -5661,7 +5720,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         if (__pyx_t_9) {
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":444
+          /* "ddb/engine/tokenizer/sql_tokenize.py":444
  *             if d not in data_sorted:
  *                 if len(d)==i:
  *                     data_sorted.append(d)             # <<<<<<<<<<<<<<
@@ -5670,7 +5729,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
  */
           __pyx_t_12 = __Pyx_PyList_Append(__pyx_v_data_sorted, __pyx_v_d); if (unlikely(__pyx_t_12 == ((int)-1))) __PYX_ERR(0, 444, __pyx_L1_error)
 
-          /* "ddb/engine/tokenizer/sql_tokenize.pyx":443
+          /* "ddb/engine/tokenizer/sql_tokenize.py":443
  *         for d in data:
  *             if d not in data_sorted:
  *                 if len(d)==i:             # <<<<<<<<<<<<<<
@@ -5679,7 +5738,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
  */
         }
 
-        /* "ddb/engine/tokenizer/sql_tokenize.pyx":442
+        /* "ddb/engine/tokenizer/sql_tokenize.py":442
  *     for i in reversed(range(1,max_len+1)):
  *         for d in data:
  *             if d not in data_sorted:             # <<<<<<<<<<<<<<
@@ -5688,7 +5747,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
  */
       }
 
-      /* "ddb/engine/tokenizer/sql_tokenize.pyx":441
+      /* "ddb/engine/tokenizer/sql_tokenize.py":441
  *     data_sorted=[]
  *     for i in reversed(range(1,max_len+1)):
  *         for d in data:             # <<<<<<<<<<<<<<
@@ -5698,7 +5757,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "ddb/engine/tokenizer/sql_tokenize.pyx":440
+    /* "ddb/engine/tokenizer/sql_tokenize.py":440
  *     # make a new array, put them in from longest to shortest, remove dupes
  *     data_sorted=[]
  *     for i in reversed(range(1,max_len+1)):             # <<<<<<<<<<<<<<
@@ -5708,7 +5767,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":445
+  /* "ddb/engine/tokenizer/sql_tokenize.py":445
  *                 if len(d)==i:
  *                     data_sorted.append(d)
  *     return data             # <<<<<<<<<<<<<<
@@ -5720,7 +5779,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9tokenizer_12sql_tokenize_6sort_array_by_
   __pyx_r = __pyx_v_data;
   goto __pyx_L0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":431
+  /* "ddb/engine/tokenizer/sql_tokenize.py":431
  * 
  * 
  * def sort_array_by_length(data):             # <<<<<<<<<<<<<<
@@ -6149,7 +6208,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":2
+  /* "ddb/engine/tokenizer/sql_tokenize.py":2
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
  *     if True == debug_on:
@@ -6159,42 +6218,48 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
   __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_info, 2, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_tuple__33 = PyTuple_Pack(3, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__33);
+  __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":9
+  /* "ddb/engine/tokenizer/sql_tokenize.py":9
  * # TODO: memory optimization.. maybe not sure how wastefull this is
  * 
  * def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):             # <<<<<<<<<<<<<<
  *     global debug_on
  *     debug_on=debug
  */
-  __pyx_tuple__33 = PyTuple_Pack(30, __pyx_n_s_text, __pyx_n_s_discard_delimiters, __pyx_n_s_discard_whitespace, __pyx_n_s_debug, __pyx_n_s_tokens, __pyx_n_s_whitespace, __pyx_n_s_blocks, __pyx_n_s_keywords, __pyx_n_s_operators, __pyx_n_s_delimiters, __pyx_n_s_token, __pyx_n_s_b, __pyx_n_s_delimiters_sorted, __pyx_n_s_text_length, __pyx_n_s_word_start, __pyx_n_s_c, __pyx_n_s_delimter_len, __pyx_n_s_in_block, __pyx_n_s_block, __pyx_n_s_just_crossed_block, __pyx_n_s_fragment, __pyx_n_s_d, __pyx_n_s_word_end, __pyx_n_s_not_delimiter, __pyx_n_s_token_type, __pyx_n_s_block_left, __pyx_n_s_block_right, __pyx_n_s_block_type, __pyx_n_s_delimiter_type, __pyx_n_s_t); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 9, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(4, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_tokenize, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(30, __pyx_n_s_text, __pyx_n_s_discard_delimiters, __pyx_n_s_discard_whitespace, __pyx_n_s_debug, __pyx_n_s_tokens, __pyx_n_s_whitespace, __pyx_n_s_blocks, __pyx_n_s_keywords, __pyx_n_s_operators, __pyx_n_s_delimiters, __pyx_n_s_token, __pyx_n_s_b, __pyx_n_s_delimiters_sorted, __pyx_n_s_text_length, __pyx_n_s_word_start, __pyx_n_s_c, __pyx_n_s_delimter_len, __pyx_n_s_in_block, __pyx_n_s_block, __pyx_n_s_just_crossed_block, __pyx_n_s_fragment, __pyx_n_s_d, __pyx_n_s_word_end, __pyx_n_s_not_delimiter, __pyx_n_s_token_type, __pyx_n_s_block_left, __pyx_n_s_block_right, __pyx_n_s_block_type, __pyx_n_s_delimiter_type, __pyx_n_s_t); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__34);
+  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(4, 0, 30, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_tokenize, 9, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_tuple__36 = PyTuple_Pack(3, ((PyObject *)Py_False), ((PyObject *)Py_True), ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":423
+  /* "ddb/engine/tokenizer/sql_tokenize.py":423
  * 
  * 
  * def compare_text_fragment(x,y):             # <<<<<<<<<<<<<<
  *     if None ==x or None ==y :
  *         return False
  */
-  __pyx_tuple__35 = PyTuple_Pack(2, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 423, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__35);
-  __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_compare_text_fragment, 423, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(2, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__37);
+  __Pyx_GIVEREF(__pyx_tuple__37);
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_compare_text_fragment, 423, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 423, __pyx_L1_error)
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":431
+  /* "ddb/engine/tokenizer/sql_tokenize.py":431
  * 
  * 
  * def sort_array_by_length(data):             # <<<<<<<<<<<<<<
  *     max_len=-1
  *     for d in data:
  */
-  __pyx_tuple__37 = PyTuple_Pack(6, __pyx_n_s_data, __pyx_n_s_max_len, __pyx_n_s_d, __pyx_n_s_del_len, __pyx_n_s_data_sorted, __pyx_n_s_i); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 431, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__37);
-  __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_sort_array_by_length, 431, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(6, __pyx_n_s_data, __pyx_n_s_max_len, __pyx_n_s_d, __pyx_n_s_del_len, __pyx_n_s_data_sorted, __pyx_n_s_i); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__39);
+  __Pyx_GIVEREF(__pyx_tuple__39);
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_tokenizer_sql_tokeniz, __pyx_n_s_sort_array_by_length, 431, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6474,61 +6539,63 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":1
+  /* "ddb/engine/tokenizer/sql_tokenize.py":1
  * debug_on=False             # <<<<<<<<<<<<<<
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_debug_on, Py_False) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":2
+  /* "ddb/engine/tokenizer/sql_tokenize.py":2
  * debug_on=False
  * def info(msg,arg1=None,arg2=None,arg3=None):             # <<<<<<<<<<<<<<
  *     if True == debug_on:
  *         print(msg,arg1,arg2,arg3)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_1info, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_1info, 0, __pyx_n_s_info, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__33);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_info, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":9
+  /* "ddb/engine/tokenizer/sql_tokenize.py":9
  * # TODO: memory optimization.. maybe not sure how wastefull this is
  * 
  * def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):             # <<<<<<<<<<<<<<
  *     global debug_on
  *     debug_on=debug
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_3tokenize, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_3tokenize, 0, __pyx_n_s_tokenize, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__36);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_tokenize, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":423
+  /* "ddb/engine/tokenizer/sql_tokenize.py":423
  * 
  * 
  * def compare_text_fragment(x,y):             # <<<<<<<<<<<<<<
  *     if None ==x or None ==y :
  *         return False
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_5compare_text_fragment, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_5compare_text_fragment, 0, __pyx_n_s_compare_text_fragment, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_compare_text_fragment, __pyx_t_1) < 0) __PYX_ERR(0, 423, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":431
+  /* "ddb/engine/tokenizer/sql_tokenize.py":431
  * 
  * 
  * def sort_array_by_length(data):             # <<<<<<<<<<<<<<
  *     max_len=-1
  *     for d in data:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_7sort_array_by_length, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9tokenizer_12sql_tokenize_7sort_array_by_length, 0, __pyx_n_s_sort_array_by_length, NULL, __pyx_n_s_ddb_engine_tokenizer_sql_tokeniz_2, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sort_array_by_length, __pyx_t_1) < 0) __PYX_ERR(0, 431, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/tokenizer/sql_tokenize.pyx":1
+  /* "ddb/engine/tokenizer/sql_tokenize.py":1
  * debug_on=False             # <<<<<<<<<<<<<<
  * def info(msg,arg1=None,arg2=None,arg3=None):
  *     if True == debug_on:
@@ -7624,6 +7691,641 @@ static CYTHON_INLINE int __Pyx_PySet_ContainsTF(PyObject* key, PyObject* set, in
         result = __Pyx_PySet_ContainsUnhashable(set, key);
     }
     return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
+}
+
+/* FetchCommonType */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+    PyObject* fake_module;
+    PyTypeObject* cached_type = NULL;
+    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
+    if (!fake_module) return NULL;
+    Py_INCREF(fake_module);
+    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
+    if (cached_type) {
+        if (!PyType_Check((PyObject*)cached_type)) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s is not a type object",
+                type->tp_name);
+            goto bad;
+        }
+        if (cached_type->tp_basicsize != type->tp_basicsize) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s has the wrong size, try recompiling",
+                type->tp_name);
+            goto bad;
+        }
+    } else {
+        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
+        PyErr_Clear();
+        if (PyType_Ready(type) < 0) goto bad;
+        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
+            goto bad;
+        Py_INCREF(type);
+        cached_type = type;
+    }
+done:
+    Py_DECREF(fake_module);
+    return cached_type;
+bad:
+    Py_XDECREF(cached_type);
+    cached_type = NULL;
+    goto done;
+}
+
+/* CythonFunction */
+#include <structmember.h>
+static PyObject *
+__Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
+{
+    if (unlikely(op->func_doc == NULL)) {
+        if (op->func.m_ml->ml_doc) {
+#if PY_MAJOR_VERSION >= 3
+            op->func_doc = PyUnicode_FromString(op->func.m_ml->ml_doc);
+#else
+            op->func_doc = PyString_FromString(op->func.m_ml->ml_doc);
+#endif
+            if (unlikely(op->func_doc == NULL))
+                return NULL;
+        } else {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+    }
+    Py_INCREF(op->func_doc);
+    return op->func_doc;
+}
+static int
+__Pyx_CyFunction_set_doc(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp = op->func_doc;
+    if (value == NULL) {
+        value = Py_None;
+    }
+    Py_INCREF(value);
+    op->func_doc = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_name(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_name == NULL)) {
+#if PY_MAJOR_VERSION >= 3
+        op->func_name = PyUnicode_InternFromString(op->func.m_ml->ml_name);
+#else
+        op->func_name = PyString_InternFromString(op->func.m_ml->ml_name);
+#endif
+        if (unlikely(op->func_name == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_name);
+    return op->func_name;
+}
+static int
+__Pyx_CyFunction_set_name(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__name__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_name;
+    Py_INCREF(value);
+    op->func_name = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_qualname(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_qualname);
+    return op->func_qualname;
+}
+static int
+__Pyx_CyFunction_set_qualname(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__qualname__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_qualname;
+    Py_INCREF(value);
+    op->func_qualname = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_self(__pyx_CyFunctionObject *m, CYTHON_UNUSED void *closure)
+{
+    PyObject *self;
+    self = m->func_closure;
+    if (self == NULL)
+        self = Py_None;
+    Py_INCREF(self);
+    return self;
+}
+static PyObject *
+__Pyx_CyFunction_get_dict(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_dict == NULL)) {
+        op->func_dict = PyDict_New();
+        if (unlikely(op->func_dict == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_dict);
+    return op->func_dict;
+}
+static int
+__Pyx_CyFunction_set_dict(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+    if (unlikely(value == NULL)) {
+        PyErr_SetString(PyExc_TypeError,
+               "function's dictionary may not be deleted");
+        return -1;
+    }
+    if (unlikely(!PyDict_Check(value))) {
+        PyErr_SetString(PyExc_TypeError,
+               "setting function's dictionary to a non-dict");
+        return -1;
+    }
+    tmp = op->func_dict;
+    Py_INCREF(value);
+    op->func_dict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_globals(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_globals);
+    return op->func_globals;
+}
+static PyObject *
+__Pyx_CyFunction_get_closure(CYTHON_UNUSED __pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+static PyObject *
+__Pyx_CyFunction_get_code(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    PyObject* result = (op->func_code) ? op->func_code : Py_None;
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_init_defaults(__pyx_CyFunctionObject *op) {
+    int result = 0;
+    PyObject *res = op->defaults_getter((PyObject *) op);
+    if (unlikely(!res))
+        return -1;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    op->defaults_tuple = PyTuple_GET_ITEM(res, 0);
+    Py_INCREF(op->defaults_tuple);
+    op->defaults_kwdict = PyTuple_GET_ITEM(res, 1);
+    Py_INCREF(op->defaults_kwdict);
+    #else
+    op->defaults_tuple = PySequence_ITEM(res, 0);
+    if (unlikely(!op->defaults_tuple)) result = -1;
+    else {
+        op->defaults_kwdict = PySequence_ITEM(res, 1);
+        if (unlikely(!op->defaults_kwdict)) result = -1;
+    }
+    #endif
+    Py_DECREF(res);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_defaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyTuple_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__defaults__ must be set to a tuple object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_tuple;
+    op->defaults_tuple = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_defaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_tuple;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_tuple;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_kwdefaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__kwdefaults__ must be set to a dict object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_kwdict;
+    op->defaults_kwdict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_kwdefaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_kwdict;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_kwdict;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_annotations(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value || value == Py_None) {
+        value = NULL;
+    } else if (!PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__annotations__ must be set to a dict object");
+        return -1;
+    }
+    Py_XINCREF(value);
+    tmp = op->func_annotations;
+    op->func_annotations = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_annotations(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->func_annotations;
+    if (unlikely(!result)) {
+        result = PyDict_New();
+        if (unlikely(!result)) return NULL;
+        op->func_annotations = result;
+    }
+    Py_INCREF(result);
+    return result;
+}
+static PyGetSetDef __pyx_CyFunction_getsets[] = {
+    {(char *) "func_doc", (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "__doc__",  (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "func_name", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__name__", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__qualname__", (getter)__Pyx_CyFunction_get_qualname, (setter)__Pyx_CyFunction_set_qualname, 0, 0},
+    {(char *) "__self__", (getter)__Pyx_CyFunction_get_self, 0, 0, 0},
+    {(char *) "func_dict", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "__dict__", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "func_globals", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "__globals__", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "func_closure", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "__closure__", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "func_code", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "__code__", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "func_defaults", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__defaults__", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__kwdefaults__", (getter)__Pyx_CyFunction_get_kwdefaults, (setter)__Pyx_CyFunction_set_kwdefaults, 0, 0},
+    {(char *) "__annotations__", (getter)__Pyx_CyFunction_get_annotations, (setter)__Pyx_CyFunction_set_annotations, 0, 0},
+    {0, 0, 0, 0, 0}
+};
+static PyMemberDef __pyx_CyFunction_members[] = {
+    {(char *) "__module__", T_OBJECT, offsetof(PyCFunctionObject, m_module), PY_WRITE_RESTRICTED, 0},
+    {0, 0, 0,  0, 0}
+};
+static PyObject *
+__Pyx_CyFunction_reduce(__pyx_CyFunctionObject *m, CYTHON_UNUSED PyObject *args)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromString(m->func.m_ml->ml_name);
+#else
+    return PyString_FromString(m->func.m_ml->ml_name);
+#endif
+}
+static PyMethodDef __pyx_CyFunction_methods[] = {
+    {"__reduce__", (PyCFunction)__Pyx_CyFunction_reduce, METH_VARARGS, 0},
+    {0, 0, 0, 0}
+};
+#if PY_VERSION_HEX < 0x030500A0
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func_weakreflist)
+#else
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func.m_weakreflist)
+#endif
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *type, PyMethodDef *ml, int flags, PyObject* qualname,
+                                      PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
+    __pyx_CyFunctionObject *op = PyObject_GC_New(__pyx_CyFunctionObject, type);
+    if (op == NULL)
+        return NULL;
+    op->flags = flags;
+    __Pyx_CyFunction_weakreflist(op) = NULL;
+    op->func.m_ml = ml;
+    op->func.m_self = (PyObject *) op;
+    Py_XINCREF(closure);
+    op->func_closure = closure;
+    Py_XINCREF(module);
+    op->func.m_module = module;
+    op->func_dict = NULL;
+    op->func_name = NULL;
+    Py_INCREF(qualname);
+    op->func_qualname = qualname;
+    op->func_doc = NULL;
+    op->func_classobj = NULL;
+    op->func_globals = globals;
+    Py_INCREF(op->func_globals);
+    Py_XINCREF(code);
+    op->func_code = code;
+    op->defaults_pyobjects = 0;
+    op->defaults = NULL;
+    op->defaults_tuple = NULL;
+    op->defaults_kwdict = NULL;
+    op->defaults_getter = NULL;
+    op->func_annotations = NULL;
+    PyObject_GC_Track(op);
+    return (PyObject *) op;
+}
+static int
+__Pyx_CyFunction_clear(__pyx_CyFunctionObject *m)
+{
+    Py_CLEAR(m->func_closure);
+    Py_CLEAR(m->func.m_module);
+    Py_CLEAR(m->func_dict);
+    Py_CLEAR(m->func_name);
+    Py_CLEAR(m->func_qualname);
+    Py_CLEAR(m->func_doc);
+    Py_CLEAR(m->func_globals);
+    Py_CLEAR(m->func_code);
+    Py_CLEAR(m->func_classobj);
+    Py_CLEAR(m->defaults_tuple);
+    Py_CLEAR(m->defaults_kwdict);
+    Py_CLEAR(m->func_annotations);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_XDECREF(pydefaults[i]);
+        PyObject_Free(m->defaults);
+        m->defaults = NULL;
+    }
+    return 0;
+}
+static void __Pyx__CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    if (__Pyx_CyFunction_weakreflist(m) != NULL)
+        PyObject_ClearWeakRefs((PyObject *) m);
+    __Pyx_CyFunction_clear(m);
+    PyObject_GC_Del(m);
+}
+static void __Pyx_CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    PyObject_GC_UnTrack(m);
+    __Pyx__CyFunction_dealloc(m);
+}
+static int __Pyx_CyFunction_traverse(__pyx_CyFunctionObject *m, visitproc visit, void *arg)
+{
+    Py_VISIT(m->func_closure);
+    Py_VISIT(m->func.m_module);
+    Py_VISIT(m->func_dict);
+    Py_VISIT(m->func_name);
+    Py_VISIT(m->func_qualname);
+    Py_VISIT(m->func_doc);
+    Py_VISIT(m->func_globals);
+    Py_VISIT(m->func_code);
+    Py_VISIT(m->func_classobj);
+    Py_VISIT(m->defaults_tuple);
+    Py_VISIT(m->defaults_kwdict);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_VISIT(pydefaults[i]);
+    }
+    return 0;
+}
+static PyObject *__Pyx_CyFunction_descr_get(PyObject *func, PyObject *obj, PyObject *type)
+{
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    if (m->flags & __Pyx_CYFUNCTION_STATICMETHOD) {
+        Py_INCREF(func);
+        return func;
+    }
+    if (m->flags & __Pyx_CYFUNCTION_CLASSMETHOD) {
+        if (type == NULL)
+            type = (PyObject *)(Py_TYPE(obj));
+        return __Pyx_PyMethod_New(func, type, (PyObject *)(Py_TYPE(type)));
+    }
+    if (obj == Py_None)
+        obj = NULL;
+    return __Pyx_PyMethod_New(func, obj, type);
+}
+static PyObject*
+__Pyx_CyFunction_repr(__pyx_CyFunctionObject *op)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromFormat("<cyfunction %U at %p>",
+                                op->func_qualname, (void *)op);
+#else
+    return PyString_FromFormat("<cyfunction %s at %p>",
+                               PyString_AsString(op->func_qualname), (void *)op);
+#endif
+}
+static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
+    PyCFunctionObject* f = (PyCFunctionObject*)func;
+    PyCFunction meth = f->m_ml->ml_meth;
+    Py_ssize_t size;
+    switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
+    case METH_VARARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0))
+            return (*meth)(self, arg);
+        break;
+    case METH_VARARGS | METH_KEYWORDS:
+        return (*(PyCFunctionWithKeywords)(void*)meth)(self, arg, kw);
+    case METH_NOARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 0))
+                return (*meth)(self, NULL);
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    case METH_O:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 1)) {
+                PyObject *result, *arg0;
+                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                arg0 = PyTuple_GET_ITEM(arg, 0);
+                #else
+                arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
+                #endif
+                result = (*meth)(self, arg0);
+                #if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
+                Py_DECREF(arg0);
+                #endif
+                return result;
+            }
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    default:
+        PyErr_SetString(PyExc_SystemError, "Bad call flags in "
+                        "__Pyx_CyFunction_Call. METH_OLDARGS is no "
+                        "longer supported!");
+        return NULL;
+    }
+    PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
+                 f->m_ml->ml_name);
+    return NULL;
+}
+static CYTHON_INLINE PyObject *__Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    return __Pyx_CyFunction_CallMethod(func, ((PyCFunctionObject*)func)->m_self, arg, kw);
+}
+static PyObject *__Pyx_CyFunction_CallAsMethod(PyObject *func, PyObject *args, PyObject *kw) {
+    PyObject *result;
+    __pyx_CyFunctionObject *cyfunc = (__pyx_CyFunctionObject *) func;
+    if ((cyfunc->flags & __Pyx_CYFUNCTION_CCLASS) && !(cyfunc->flags & __Pyx_CYFUNCTION_STATICMETHOD)) {
+        Py_ssize_t argc;
+        PyObject *new_args;
+        PyObject *self;
+        argc = PyTuple_GET_SIZE(args);
+        new_args = PyTuple_GetSlice(args, 1, argc);
+        if (unlikely(!new_args))
+            return NULL;
+        self = PyTuple_GetItem(args, 0);
+        if (unlikely(!self)) {
+            Py_DECREF(new_args);
+            return NULL;
+        }
+        result = __Pyx_CyFunction_CallMethod(func, self, new_args, kw);
+        Py_DECREF(new_args);
+    } else {
+        result = __Pyx_CyFunction_Call(func, args, kw);
+    }
+    return result;
+}
+static PyTypeObject __pyx_CyFunctionType_type = {
+    PyVarObject_HEAD_INIT(0, 0)
+    "cython_function_or_method",
+    sizeof(__pyx_CyFunctionObject),
+    0,
+    (destructor) __Pyx_CyFunction_dealloc,
+    0,
+    0,
+    0,
+#if PY_MAJOR_VERSION < 3
+    0,
+#else
+    0,
+#endif
+    (reprfunc) __Pyx_CyFunction_repr,
+    0,
+    0,
+    0,
+    0,
+    __Pyx_CyFunction_CallAsMethod,
+    0,
+    0,
+    0,
+    0,
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,
+    0,
+    (traverseproc) __Pyx_CyFunction_traverse,
+    (inquiry) __Pyx_CyFunction_clear,
+    0,
+#if PY_VERSION_HEX < 0x030500A0
+    offsetof(__pyx_CyFunctionObject, func_weakreflist),
+#else
+    offsetof(PyCFunctionObject, m_weakreflist),
+#endif
+    0,
+    0,
+    __pyx_CyFunction_methods,
+    __pyx_CyFunction_members,
+    __pyx_CyFunction_getsets,
+    0,
+    0,
+    __Pyx_CyFunction_descr_get,
+    0,
+    offsetof(__pyx_CyFunctionObject, func_dict),
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+#if PY_VERSION_HEX >= 0x030400a1
+    0,
+#endif
+};
+static int __pyx_CyFunction_init(void) {
+    __pyx_CyFunctionType = __Pyx_FetchCommonType(&__pyx_CyFunctionType_type);
+    if (unlikely(__pyx_CyFunctionType == NULL)) {
+        return -1;
+    }
+    return 0;
+}
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *func, size_t size, int pyobjects) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults = PyObject_Malloc(size);
+    if (unlikely(!m->defaults))
+        return PyErr_NoMemory();
+    memset(m->defaults, 0, size);
+    m->defaults_pyobjects = pyobjects;
+    return m->defaults;
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *func, PyObject *tuple) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_tuple = tuple;
+    Py_INCREF(tuple);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_kwdict = dict;
+    Py_INCREF(dict);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->func_annotations = dict;
+    Py_INCREF(dict);
 }
 
 /* PyErrFetchRestore */

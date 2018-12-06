@@ -8,43 +8,43 @@ from setuptools.extension import Extension
 extensions = [
   Extension(
      "ddb.engine.evaluate.match",
-     [ "./ddb/engine/evaluate/match.pyx" ] ),
+     [ "./ddb/engine/evaluate/match.py" ] ),
     Extension(
      "ddb.engine.structure.column",
-     [ "./ddb/engine/structure/column.pyx" ] ),
+     [ "./ddb/engine/structure/column.py" ] ),
     Extension(
 
      "ddb.engine.structure.table",
-     [ "./ddb/engine/structure/table.pyx" ]),
+     [ "./ddb/engine/structure/table.py" ]),
     Extension(
 
      "ddb.engine.structure.database",
-     [ "./ddb/engine/structure/database.pyx" ]),
+     [ "./ddb/engine/structure/database.py" ]),
     Extension(
      "ddb.engine.sql_engine",
-     [ "./ddb/engine/sql_engine.pyx" ]),
+     [ "./ddb/engine/sql_engine.py" ]),
     Extension(
         "ddb.engine.interactive",
-         [ "./ddb/engine/interactive.pyx" ]),
+         [ "./ddb/engine/interactive.py" ]),
     Extension(
         "ddb.engine.parser.language",
-         [ "./ddb/engine/parser/language.pyx" ]),
+         [ "./ddb/engine/parser/language.py" ]),
     Extension(
         "ddb.engine.parser.sql_parser",
-         [ "./ddb/engine/parser/sql_parser.pyx" ]),
+         [ "./ddb/engine/parser/sql_parser.py" ]),
     Extension(
         "ddb.engine.tokenizer.sql_tokenize",
-         [ "./ddb/engine/tokenizer/sql_tokenize.pyx" ]) ,
+         [ "./ddb/engine/tokenizer/sql_tokenize.py" ]) ,
     Extension(
         "ddb.engine.functions.functions",
-         [ "./ddb/engine/functions/functions.pyx" ]) ,
+         [ "./ddb/engine/functions/functions.py" ]) ,
 ]     
   
 
 
 setup(
     name='ddb',
-    version='1.0.97',
+    version='1.0.98',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',

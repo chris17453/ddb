@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.interactive", 
         "sources": [
-            "./ddb/engine/interactive.pyx"
+            "./ddb/engine/interactive.py"
         ]
     }, 
     "module_name": "ddb.engine.interactive"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/interactive.pyx",
+  "ddb/engine/interactive.py",
 };
 
 /*--- Type declarations ---*/
@@ -1358,8 +1358,8 @@ static const char __pyx_k_ddb_engine_interactive[] = "ddb.engine.interactive";
 static const char __pyx_k_ddbPrompt_do_config_dir[] = "ddbPrompt.do_config_dir";
 static const char __pyx_k_configuration_dir_set_to[] = "configuration_dir set to'{}'";
 static const char __pyx_k_ddbPrompt_help_config_dir[] = "ddbPrompt.help_config_dir";
+static const char __pyx_k_ddb_engine_interactive_py[] = "ddb/engine/interactive.py";
 static const char __pyx_k_Toggle_debugging_on_or_off[] = "Toggle debugging on or off";
-static const char __pyx_k_ddb_engine_interactive_pyx[] = "ddb/engine/interactive.pyx";
 static const char __pyx_k_Welcome_Type_to_list_commands[] = "Welcome! Type ? to list commands";
 static const char __pyx_k_cmdloop_with_keyboard_interrupt[] = "cmdloop_with_keyboard_interrupt";
 static const char __pyx_k_ddbPrompt_cmdloop_with_keyboard[] = "ddbPrompt.cmdloop_with_keyboard_interrupt";
@@ -1421,7 +1421,7 @@ static PyObject *__pyx_n_s_ddbPrompt_help_exit;
 static PyObject *__pyx_n_s_ddbPrompt_msg;
 static PyObject *__pyx_n_s_ddbPrompt_set_vars;
 static PyObject *__pyx_n_s_ddb_engine_interactive;
-static PyObject *__pyx_kp_s_ddb_engine_interactive_pyx;
+static PyObject *__pyx_kp_s_ddb_engine_interactive_py;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_debugging;
 static PyObject *__pyx_n_s_default;
@@ -1528,7 +1528,7 @@ static PyObject *__pyx_codeobj__29;
 static PyObject *__pyx_codeobj__31;
 /* Late includes */
 
-/* "ddb/engine/interactive.pyx":25
+/* "ddb/engine/interactive.py":25
  *     intro = "Welcome! Type ? to list commands"
  * 
  *     def cmdloop_with_keyboard_interrupt(self):             # <<<<<<<<<<<<<<
@@ -1567,7 +1567,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("cmdloop_with_keyboard_interrupt", 0);
 
-  /* "ddb/engine/interactive.pyx":26
+  /* "ddb/engine/interactive.py":26
  * 
  *     def cmdloop_with_keyboard_interrupt(self):
  *         doQuit = False             # <<<<<<<<<<<<<<
@@ -1576,7 +1576,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
  */
   __pyx_v_doQuit = 0;
 
-  /* "ddb/engine/interactive.pyx":27
+  /* "ddb/engine/interactive.py":27
  *     def cmdloop_with_keyboard_interrupt(self):
  *         doQuit = False
  *         while doQuit != True:             # <<<<<<<<<<<<<<
@@ -1587,7 +1587,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
     __pyx_t_1 = ((__pyx_v_doQuit != 1) != 0);
     if (!__pyx_t_1) break;
 
-    /* "ddb/engine/interactive.pyx":28
+    /* "ddb/engine/interactive.py":28
  *         doQuit = False
  *         while doQuit != True:
  *             try:             # <<<<<<<<<<<<<<
@@ -1603,7 +1603,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
       __Pyx_XGOTREF(__pyx_t_4);
       /*try:*/ {
 
-        /* "ddb/engine/interactive.pyx":29
+        /* "ddb/engine/interactive.py":29
  *         while doQuit != True:
  *             try:
  *                 self.cmdloop()             # <<<<<<<<<<<<<<
@@ -1629,7 +1629,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "ddb/engine/interactive.pyx":30
+        /* "ddb/engine/interactive.py":30
  *             try:
  *                 self.cmdloop()
  *                 doQuit = True             # <<<<<<<<<<<<<<
@@ -1638,7 +1638,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
  */
         __pyx_v_doQuit = 1;
 
-        /* "ddb/engine/interactive.pyx":28
+        /* "ddb/engine/interactive.py":28
  *         doQuit = False
  *         while doQuit != True:
  *             try:             # <<<<<<<<<<<<<<
@@ -1655,7 +1655,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "ddb/engine/interactive.pyx":31
+      /* "ddb/engine/interactive.py":31
  *                 self.cmdloop()
  *                 doQuit = True
  *             except KeyboardInterrupt:             # <<<<<<<<<<<<<<
@@ -1670,7 +1670,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_GOTREF(__pyx_t_7);
 
-        /* "ddb/engine/interactive.pyx":32
+        /* "ddb/engine/interactive.py":32
  *                 doQuit = True
  *             except KeyboardInterrupt:
  *                 self.help_exit("")             # <<<<<<<<<<<<<<
@@ -1703,7 +1703,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
       goto __pyx_L7_except_error;
       __pyx_L7_except_error:;
 
-      /* "ddb/engine/interactive.pyx":28
+      /* "ddb/engine/interactive.py":28
  *         doQuit = False
  *         while doQuit != True:
  *             try:             # <<<<<<<<<<<<<<
@@ -1724,7 +1724,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
     }
   }
 
-  /* "ddb/engine/interactive.pyx":25
+  /* "ddb/engine/interactive.py":25
  *     intro = "Welcome! Type ? to list commands"
  * 
  *     def cmdloop_with_keyboard_interrupt(self):             # <<<<<<<<<<<<<<
@@ -1750,7 +1750,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_cmdloop_with_key
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":34
+/* "ddb/engine/interactive.py":34
  *                 self.help_exit("")
  * 
  *     def set_vars(self,             # <<<<<<<<<<<<<<
@@ -1776,7 +1776,7 @@ static PyObject *__pyx_pw_3ddb_6engine_11interactive_9ddbPrompt_3set_vars(PyObje
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_database,&__pyx_n_s_config_file,&__pyx_n_s_debug,&__pyx_n_s_no_clip,&__pyx_n_s_width,&__pyx_n_s_format,0};
     PyObject* values[7] = {0,0,0,0,0,0,0};
 
-    /* "ddb/engine/interactive.pyx":35
+    /* "ddb/engine/interactive.py":35
  * 
  *     def set_vars(self,
  *                  database=None,             # <<<<<<<<<<<<<<
@@ -1785,7 +1785,7 @@ static PyObject *__pyx_pw_3ddb_6engine_11interactive_9ddbPrompt_3set_vars(PyObje
  */
     values[1] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "ddb/engine/interactive.pyx":36
+    /* "ddb/engine/interactive.py":36
  *     def set_vars(self,
  *                  database=None,
  *                  config_file=None,             # <<<<<<<<<<<<<<
@@ -1794,7 +1794,7 @@ static PyObject *__pyx_pw_3ddb_6engine_11interactive_9ddbPrompt_3set_vars(PyObje
  */
     values[2] = ((PyObject *)((PyObject *)Py_None));
 
-    /* "ddb/engine/interactive.pyx":37
+    /* "ddb/engine/interactive.py":37
  *                  database=None,
  *                  config_file=None,
  *                  debug=False,             # <<<<<<<<<<<<<<
@@ -1803,7 +1803,7 @@ static PyObject *__pyx_pw_3ddb_6engine_11interactive_9ddbPrompt_3set_vars(PyObje
  */
     values[3] = ((PyObject *)((PyObject *)Py_False));
 
-    /* "ddb/engine/interactive.pyx":38
+    /* "ddb/engine/interactive.py":38
  *                  config_file=None,
  *                  debug=False,
  *                  no_clip=False,             # <<<<<<<<<<<<<<
@@ -1916,7 +1916,7 @@ static PyObject *__pyx_pw_3ddb_6engine_11interactive_9ddbPrompt_3set_vars(PyObje
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(__pyx_self, __pyx_v_self, __pyx_v_database, __pyx_v_config_file, __pyx_v_debug, __pyx_v_no_clip, __pyx_v_width, __pyx_v_format);
 
-  /* "ddb/engine/interactive.pyx":34
+  /* "ddb/engine/interactive.py":34
  *                 self.help_exit("")
  * 
  *     def set_vars(self,             # <<<<<<<<<<<<<<
@@ -1939,7 +1939,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
   __Pyx_RefNannySetupContext("set_vars", 0);
   __Pyx_INCREF(__pyx_v_debug);
 
-  /* "ddb/engine/interactive.pyx":41
+  /* "ddb/engine/interactive.py":41
  *                  width ='auto',
  *                  format='term'):
  *         if debug==None:             # <<<<<<<<<<<<<<
@@ -1951,7 +1951,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/interactive.pyx":42
+    /* "ddb/engine/interactive.py":42
  *                  format='term'):
  *         if debug==None:
  *             debug=False             # <<<<<<<<<<<<<<
@@ -1961,7 +1961,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
     __Pyx_INCREF(Py_False);
     __Pyx_DECREF_SET(__pyx_v_debug, Py_False);
 
-    /* "ddb/engine/interactive.pyx":41
+    /* "ddb/engine/interactive.py":41
  *                  width ='auto',
  *                  format='term'):
  *         if debug==None:             # <<<<<<<<<<<<<<
@@ -1970,7 +1970,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
  */
   }
 
-  /* "ddb/engine/interactive.pyx":43
+  /* "ddb/engine/interactive.py":43
  *         if debug==None:
  *             debug=False
  *         self.debug=debug             # <<<<<<<<<<<<<<
@@ -1979,7 +1979,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, __pyx_v_debug) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":44
+  /* "ddb/engine/interactive.py":44
  *             debug=False
  *         self.debug=debug
  *         self.no_clip=no_clip             # <<<<<<<<<<<<<<
@@ -1988,7 +1988,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_no_clip, __pyx_v_no_clip) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":45
+  /* "ddb/engine/interactive.py":45
  *         self.debug=debug
  *         self.no_clip=no_clip
  *         self.width=width             # <<<<<<<<<<<<<<
@@ -1997,7 +1997,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_width, __pyx_v_width) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":46
+  /* "ddb/engine/interactive.py":46
  *         self.no_clip=no_clip
  *         self.width=width
  *         self.format=format             # <<<<<<<<<<<<<<
@@ -2006,7 +2006,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_format, __pyx_v_format) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":47
+  /* "ddb/engine/interactive.py":47
  *         self.width=width
  *         self.format=format
  *         self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")             # <<<<<<<<<<<<<<
@@ -2031,7 +2031,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_engine, __pyx_t_4) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":34
+  /* "ddb/engine/interactive.py":34
  *                 self.help_exit("")
  * 
  *     def set_vars(self,             # <<<<<<<<<<<<<<
@@ -2055,7 +2055,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_2set_vars(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":49
+/* "ddb/engine/interactive.py":49
  *         self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
  * 
  *     def msg(self,type,name,message=''):             # <<<<<<<<<<<<<<
@@ -2165,7 +2165,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("msg", 0);
 
-  /* "ddb/engine/interactive.pyx":50
+  /* "ddb/engine/interactive.py":50
  * 
  *     def msg(self,type,name,message=''):
  *         if type=='info':             # <<<<<<<<<<<<<<
@@ -2175,7 +2175,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_type, __pyx_n_s_info, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 50, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "ddb/engine/interactive.pyx":51
+    /* "ddb/engine/interactive.py":51
  *     def msg(self,type,name,message=''):
  *         if type=='info':
  *             color=bcolors.OKGREEN             # <<<<<<<<<<<<<<
@@ -2190,7 +2190,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
     __pyx_v_color = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/interactive.pyx":50
+    /* "ddb/engine/interactive.py":50
  * 
  *     def msg(self,type,name,message=''):
  *         if type=='info':             # <<<<<<<<<<<<<<
@@ -2199,7 +2199,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
  */
   }
 
-  /* "ddb/engine/interactive.pyx":52
+  /* "ddb/engine/interactive.py":52
  *         if type=='info':
  *             color=bcolors.OKGREEN
  *         if type=='warn':             # <<<<<<<<<<<<<<
@@ -2209,7 +2209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_type, __pyx_n_s_warn, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 52, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "ddb/engine/interactive.pyx":53
+    /* "ddb/engine/interactive.py":53
  *             color=bcolors.OKGREEN
  *         if type=='warn':
  *             color=bcolors.WARNING             # <<<<<<<<<<<<<<
@@ -2224,7 +2224,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_color, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/interactive.pyx":52
+    /* "ddb/engine/interactive.py":52
  *         if type=='info':
  *             color=bcolors.OKGREEN
  *         if type=='warn':             # <<<<<<<<<<<<<<
@@ -2233,7 +2233,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
  */
   }
 
-  /* "ddb/engine/interactive.pyx":54
+  /* "ddb/engine/interactive.py":54
  *         if type=='warn':
  *             color=bcolors.WARNING
  *         if type=='error':             # <<<<<<<<<<<<<<
@@ -2243,7 +2243,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_type, __pyx_n_s_error, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "ddb/engine/interactive.pyx":55
+    /* "ddb/engine/interactive.py":55
  *             color=bcolors.WARNING
  *         if type=='error':
  *             color=bcolors.FAIL             # <<<<<<<<<<<<<<
@@ -2258,7 +2258,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
     __Pyx_XDECREF_SET(__pyx_v_color, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/interactive.pyx":54
+    /* "ddb/engine/interactive.py":54
  *         if type=='warn':
  *             color=bcolors.WARNING
  *         if type=='error':             # <<<<<<<<<<<<<<
@@ -2267,7 +2267,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
  */
   }
 
-  /* "ddb/engine/interactive.pyx":57
+  /* "ddb/engine/interactive.py":57
  *             color=bcolors.FAIL
  * 
  *         print("{2}>>>{3} {4}{0}{3} {1}".format(name,message,bcolors.OKBLUE,bcolors.ENDC,color))             # <<<<<<<<<<<<<<
@@ -2348,7 +2348,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   if (__Pyx_PrintOne(0, __pyx_t_3) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/interactive.pyx":49
+  /* "ddb/engine/interactive.py":49
  *         self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
  * 
  *     def msg(self,type,name,message=''):             # <<<<<<<<<<<<<<
@@ -2375,7 +2375,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_4msg(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":60
+/* "ddb/engine/interactive.py":60
  * 
  *     ##
  *     def do_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -2452,7 +2452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_6do_exit(CYTHON_
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("do_exit", 0);
 
-  /* "ddb/engine/interactive.pyx":61
+  /* "ddb/engine/interactive.py":61
  *     ##
  *     def do_exit(self,inp):
  *         self.msg("info","Bye")             # <<<<<<<<<<<<<<
@@ -2466,7 +2466,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_6do_exit(CYTHON_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":62
+  /* "ddb/engine/interactive.py":62
  *     def do_exit(self,inp):
  *         self.msg("info","Bye")
  *         return True             # <<<<<<<<<<<<<<
@@ -2478,7 +2478,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_6do_exit(CYTHON_
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "ddb/engine/interactive.pyx":60
+  /* "ddb/engine/interactive.py":60
  * 
  *     ##
  *     def do_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -2498,7 +2498,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_6do_exit(CYTHON_
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":64
+/* "ddb/engine/interactive.py":64
  *         return True
  * 
  *     def help_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -2575,7 +2575,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_8help_exit(CYTHO
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("help_exit", 0);
 
-  /* "ddb/engine/interactive.pyx":65
+  /* "ddb/engine/interactive.py":65
  * 
  *     def help_exit(self,inp):
  *         self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')             # <<<<<<<<<<<<<<
@@ -2589,7 +2589,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_8help_exit(CYTHO
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":64
+  /* "ddb/engine/interactive.py":64
  *         return True
  * 
  *     def help_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -2611,7 +2611,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_8help_exit(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":68
+/* "ddb/engine/interactive.py":68
  * 
  *     ##
  *     def do_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -2690,7 +2690,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("do_debug", 0);
 
-  /* "ddb/engine/interactive.pyx":69
+  /* "ddb/engine/interactive.py":69
  *     ##
  *     def do_debug(self,inp):
  *         if self.debug==False:             # <<<<<<<<<<<<<<
@@ -2705,7 +2705,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/interactive.pyx":70
+    /* "ddb/engine/interactive.py":70
  *     def do_debug(self,inp):
  *         if self.debug==False:
  *             self.debug=True             # <<<<<<<<<<<<<<
@@ -2714,7 +2714,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, Py_True) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
 
-    /* "ddb/engine/interactive.pyx":71
+    /* "ddb/engine/interactive.py":71
  *         if self.debug==False:
  *             self.debug=True
  *             self.msg("info","Debugging ON")             # <<<<<<<<<<<<<<
@@ -2728,7 +2728,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/interactive.pyx":69
+    /* "ddb/engine/interactive.py":69
  *     ##
  *     def do_debug(self,inp):
  *         if self.debug==False:             # <<<<<<<<<<<<<<
@@ -2738,7 +2738,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
     goto __pyx_L3;
   }
 
-  /* "ddb/engine/interactive.pyx":73
+  /* "ddb/engine/interactive.py":73
  *             self.msg("info","Debugging ON")
  *         else:
  *             self.debug=False             # <<<<<<<<<<<<<<
@@ -2748,7 +2748,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   /*else*/ {
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, Py_False) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
 
-    /* "ddb/engine/interactive.pyx":74
+    /* "ddb/engine/interactive.py":74
  *         else:
  *             self.debug=False
  *             self.msg("info","Debugging Off")             # <<<<<<<<<<<<<<
@@ -2764,7 +2764,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   }
   __pyx_L3:;
 
-  /* "ddb/engine/interactive.pyx":75
+  /* "ddb/engine/interactive.py":75
  *             self.debug=False
  *             self.msg("info","Debugging Off")
  *         self.engine.debugging(debug=self.debug)             # <<<<<<<<<<<<<<
@@ -2788,7 +2788,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":68
+  /* "ddb/engine/interactive.py":68
  * 
  *     ##
  *     def do_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -2811,7 +2811,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_10do_debug(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":77
+/* "ddb/engine/interactive.py":77
  *         self.engine.debugging(debug=self.debug)
  * 
  *     def help_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -2888,7 +2888,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_12help_debug(CYT
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("help_debug", 0);
 
-  /* "ddb/engine/interactive.pyx":78
+  /* "ddb/engine/interactive.py":78
  * 
  *     def help_debug(self,inp):
  *         self.msg("info",'Toggle debugging on or off')             # <<<<<<<<<<<<<<
@@ -2902,7 +2902,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_12help_debug(CYT
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":77
+  /* "ddb/engine/interactive.py":77
  *         self.engine.debugging(debug=self.debug)
  * 
  *     def help_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -2924,7 +2924,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_12help_debug(CYT
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":82
+/* "ddb/engine/interactive.py":82
  * 
  *     ##
  *     def do_config_dir(self, inp):             # <<<<<<<<<<<<<<
@@ -3011,7 +3011,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("do_config_dir", 0);
 
-  /* "ddb/engine/interactive.pyx":83
+  /* "ddb/engine/interactive.py":83
  *     ##
  *     def do_config_dir(self, inp):
  *         try:             # <<<<<<<<<<<<<<
@@ -3027,7 +3027,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/interactive.pyx":84
+      /* "ddb/engine/interactive.py":84
  *     def do_config_dir(self, inp):
  *         try:
  *             self.msg("info","configuration_dir set to'{}'".format(inp))             # <<<<<<<<<<<<<<
@@ -3102,7 +3102,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/interactive.pyx":85
+      /* "ddb/engine/interactive.py":85
  *         try:
  *             self.msg("info","configuration_dir set to'{}'".format(inp))
  *             self.engine=sql_engine(database_dir=inp,debug=self.debug)             # <<<<<<<<<<<<<<
@@ -3125,7 +3125,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_engine, __pyx_t_8) < 0) __PYX_ERR(0, 85, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-      /* "ddb/engine/interactive.pyx":83
+      /* "ddb/engine/interactive.py":83
  *     ##
  *     def do_config_dir(self, inp):
  *         try:             # <<<<<<<<<<<<<<
@@ -3144,7 +3144,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-    /* "ddb/engine/interactive.pyx":86
+    /* "ddb/engine/interactive.py":86
  *             self.msg("info","configuration_dir set to'{}'".format(inp))
  *             self.engine=sql_engine(database_dir=inp,debug=self.debug)
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -3161,7 +3161,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
       __Pyx_INCREF(__pyx_t_5);
       __pyx_v_ex = __pyx_t_5;
 
-      /* "ddb/engine/interactive.pyx":87
+      /* "ddb/engine/interactive.py":87
  *             self.engine=sql_engine(database_dir=inp,debug=self.debug)
  *         except Exception as ex:
  *             self.msg("error","config_dir",ex)             # <<<<<<<<<<<<<<
@@ -3227,7 +3227,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/interactive.pyx":83
+    /* "ddb/engine/interactive.py":83
  *     ##
  *     def do_config_dir(self, inp):
  *         try:             # <<<<<<<<<<<<<<
@@ -3247,7 +3247,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
     __pyx_L8_try_end:;
   }
 
-  /* "ddb/engine/interactive.pyx":82
+  /* "ddb/engine/interactive.py":82
  * 
  *     ##
  *     def do_config_dir(self, inp):             # <<<<<<<<<<<<<<
@@ -3275,7 +3275,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_14do_config_dir(
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":89
+/* "ddb/engine/interactive.py":89
  *             self.msg("error","config_dir",ex)
  * 
  *     def help_config_dir(self):             # <<<<<<<<<<<<<<
@@ -3304,7 +3304,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_16help_config_di
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("help_config_dir", 0);
 
-  /* "ddb/engine/interactive.pyx":90
+  /* "ddb/engine/interactive.py":90
  * 
  *     def help_config_dir(self):
  *         self.msg("info","Set configuration Directory. Files end in ddb.yaml.")             # <<<<<<<<<<<<<<
@@ -3318,7 +3318,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_16help_config_di
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":89
+  /* "ddb/engine/interactive.py":89
  *             self.msg("error","config_dir",ex)
  * 
  *     def help_config_dir(self):             # <<<<<<<<<<<<<<
@@ -3340,7 +3340,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_16help_config_di
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":102
+/* "ddb/engine/interactive.py":102
  * 
  * 
  *     def default(self, inp):             # <<<<<<<<<<<<<<
@@ -3434,7 +3434,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
   __Pyx_RefNannySetupContext("default", 0);
   __Pyx_INCREF(__pyx_v_inp);
 
-  /* "ddb/engine/interactive.pyx":103
+  /* "ddb/engine/interactive.py":103
  * 
  *     def default(self, inp):
  *         print inp             # <<<<<<<<<<<<<<
@@ -3443,7 +3443,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
  */
   if (__Pyx_PrintOne(0, __pyx_v_inp) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":104
+  /* "ddb/engine/interactive.py":104
  *     def default(self, inp):
  *         print inp
  *         if inp == 'x' or inp == 'q':             # <<<<<<<<<<<<<<
@@ -3461,7 +3461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "ddb/engine/interactive.pyx":105
+    /* "ddb/engine/interactive.py":105
  *         print inp
  *         if inp == 'x' or inp == 'q':
  *             return self.do_exit("")             # <<<<<<<<<<<<<<
@@ -3490,7 +3490,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "ddb/engine/interactive.pyx":104
+    /* "ddb/engine/interactive.py":104
  *     def default(self, inp):
  *         print inp
  *         if inp == 'x' or inp == 'q':             # <<<<<<<<<<<<<<
@@ -3499,7 +3499,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
  */
   }
 
-  /* "ddb/engine/interactive.pyx":107
+  /* "ddb/engine/interactive.py":107
  *             return self.do_exit("")
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -3515,7 +3515,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
     __Pyx_XGOTREF(__pyx_t_8);
     /*try:*/ {
 
-      /* "ddb/engine/interactive.pyx":108
+      /* "ddb/engine/interactive.py":108
  * 
  *         try:
  *             if None == self.engine:             # <<<<<<<<<<<<<<
@@ -3530,7 +3530,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_1) {
 
-        /* "ddb/engine/interactive.pyx":109
+        /* "ddb/engine/interactive.py":109
  *         try:
  *             if None == self.engine:
  *                 print ("sql engin gone")             # <<<<<<<<<<<<<<
@@ -3539,7 +3539,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
  */
         if (__Pyx_PrintOne(0, __pyx_kp_s_sql_engin_gone) < 0) __PYX_ERR(0, 109, __pyx_L6_error)
 
-        /* "ddb/engine/interactive.pyx":110
+        /* "ddb/engine/interactive.py":110
  *             if None == self.engine:
  *                 print ("sql engin gone")
  *                 return             # <<<<<<<<<<<<<<
@@ -3550,7 +3550,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
         __pyx_r = Py_None; __Pyx_INCREF(Py_None);
         goto __pyx_L10_try_return;
 
-        /* "ddb/engine/interactive.pyx":108
+        /* "ddb/engine/interactive.py":108
  * 
  *         try:
  *             if None == self.engine:             # <<<<<<<<<<<<<<
@@ -3559,7 +3559,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
  */
       }
 
-      /* "ddb/engine/interactive.pyx":111
+      /* "ddb/engine/interactive.py":111
  *                 print ("sql engin gone")
  *                 return
  *             start = time.time()             # <<<<<<<<<<<<<<
@@ -3589,7 +3589,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __pyx_v_start = __pyx_t_4;
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/interactive.pyx":112
+      /* "ddb/engine/interactive.py":112
  *                 return
  *             start = time.time()
  *             results=self.engine.query(sql_query=inp)             # <<<<<<<<<<<<<<
@@ -3611,7 +3611,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __pyx_v_results = __pyx_t_3;
       __pyx_t_3 = 0;
 
-      /* "ddb/engine/interactive.pyx":113
+      /* "ddb/engine/interactive.py":113
  *             start = time.time()
  *             results=self.engine.query(sql_query=inp)
  *             end = time.time()             # <<<<<<<<<<<<<<
@@ -3641,7 +3641,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __pyx_v_end = __pyx_t_3;
       __pyx_t_3 = 0;
 
-      /* "ddb/engine/interactive.pyx":114
+      /* "ddb/engine/interactive.py":114
  *             results=self.engine.query(sql_query=inp)
  *             end = time.time()
  *             if results!=None:             # <<<<<<<<<<<<<<
@@ -3653,7 +3653,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_1) {
 
-        /* "ddb/engine/interactive.pyx":115
+        /* "ddb/engine/interactive.py":115
  *             end = time.time()
  *             if results!=None:
  *                 config=flextable.table_config()             # <<<<<<<<<<<<<<
@@ -3683,7 +3683,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
         __pyx_v_config = __pyx_t_3;
         __pyx_t_3 = 0;
 
-        /* "ddb/engine/interactive.pyx":116
+        /* "ddb/engine/interactive.py":116
  *             if results!=None:
  *                 config=flextable.table_config()
  *                 config.columns=results.get_columns()             # <<<<<<<<<<<<<<
@@ -3710,7 +3710,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
         if (__Pyx_PyObject_SetAttrStr(__pyx_v_config, __pyx_n_s_columns, __pyx_t_3) < 0) __PYX_ERR(0, 116, __pyx_L6_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "ddb/engine/interactive.pyx":117
+        /* "ddb/engine/interactive.py":117
  *                 config=flextable.table_config()
  *                 config.columns=results.get_columns()
  *                 flextable.table(data=results.results,args=config)             # <<<<<<<<<<<<<<
@@ -3735,7 +3735,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "ddb/engine/interactive.pyx":114
+        /* "ddb/engine/interactive.py":114
  *             results=self.engine.query(sql_query=inp)
  *             end = time.time()
  *             if results!=None:             # <<<<<<<<<<<<<<
@@ -3744,7 +3744,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
  */
       }
 
-      /* "ddb/engine/interactive.pyx":119
+      /* "ddb/engine/interactive.py":119
  *                 flextable.table(data=results.results,args=config)
  * 
  *             self.msg("info","executed in {} seconds".format(end - start))             # <<<<<<<<<<<<<<
@@ -3822,7 +3822,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "ddb/engine/interactive.pyx":120
+      /* "ddb/engine/interactive.py":120
  * 
  *             self.msg("info","executed in {} seconds".format(end - start))
  *             inp=None             # <<<<<<<<<<<<<<
@@ -3832,7 +3832,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __Pyx_INCREF(Py_None);
       __Pyx_DECREF_SET(__pyx_v_inp, Py_None);
 
-      /* "ddb/engine/interactive.pyx":107
+      /* "ddb/engine/interactive.py":107
  *             return self.do_exit("")
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -3852,7 +3852,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/interactive.pyx":121
+    /* "ddb/engine/interactive.py":121
  *             self.msg("info","executed in {} seconds".format(end - start))
  *             inp=None
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -3869,7 +3869,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
       __Pyx_INCREF(__pyx_t_3);
       __pyx_v_ex = __pyx_t_3;
 
-      /* "ddb/engine/interactive.pyx":122
+      /* "ddb/engine/interactive.py":122
  *             inp=None
  *         except Exception as ex:
  *             self.msg("error",ex)             # <<<<<<<<<<<<<<
@@ -3932,7 +3932,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
     goto __pyx_L8_except_error;
     __pyx_L8_except_error:;
 
-    /* "ddb/engine/interactive.pyx":107
+    /* "ddb/engine/interactive.py":107
  *             return self.do_exit("")
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -3958,7 +3958,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
     __pyx_L11_try_end:;
   }
 
-  /* "ddb/engine/interactive.pyx":102
+  /* "ddb/engine/interactive.py":102
  * 
  * 
  *     def default(self, inp):             # <<<<<<<<<<<<<<
@@ -3991,7 +3991,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_18default(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/interactive.pyx":124
+/* "ddb/engine/interactive.py":124
  *             self.msg("error",ex)
  * 
  *     def default_exit(self):             # <<<<<<<<<<<<<<
@@ -4020,7 +4020,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_20default_exit(C
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("default_exit", 0);
 
-  /* "ddb/engine/interactive.pyx":125
+  /* "ddb/engine/interactive.py":125
  * 
  *     def default_exit(self):
  *         self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')             # <<<<<<<<<<<<<<
@@ -4034,7 +4034,7 @@ static PyObject *__pyx_pf_3ddb_6engine_11interactive_9ddbPrompt_20default_exit(C
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":124
+  /* "ddb/engine/interactive.py":124
  *             self.msg("error",ex)
  * 
  *     def default_exit(self):             # <<<<<<<<<<<<<<
@@ -4158,7 +4158,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ddbPrompt_msg, __pyx_k_ddbPrompt_msg, sizeof(__pyx_k_ddbPrompt_msg), 0, 0, 1, 1},
   {&__pyx_n_s_ddbPrompt_set_vars, __pyx_k_ddbPrompt_set_vars, sizeof(__pyx_k_ddbPrompt_set_vars), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_interactive, __pyx_k_ddb_engine_interactive, sizeof(__pyx_k_ddb_engine_interactive), 0, 0, 1, 1},
-  {&__pyx_kp_s_ddb_engine_interactive_pyx, __pyx_k_ddb_engine_interactive_pyx, sizeof(__pyx_k_ddb_engine_interactive_pyx), 0, 0, 1, 0},
+  {&__pyx_kp_s_ddb_engine_interactive_py, __pyx_k_ddb_engine_interactive_py, sizeof(__pyx_k_ddb_engine_interactive_py), 0, 0, 1, 0},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_debugging, __pyx_k_debugging, sizeof(__pyx_k_debugging), 0, 0, 1, 1},
   {&__pyx_n_s_default, __pyx_k_default, sizeof(__pyx_k_default), 0, 0, 1, 1},
@@ -4235,7 +4235,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/interactive.pyx":61
+  /* "ddb/engine/interactive.py":61
  *     ##
  *     def do_exit(self,inp):
  *         self.msg("info","Bye")             # <<<<<<<<<<<<<<
@@ -4246,7 +4246,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/interactive.pyx":65
+  /* "ddb/engine/interactive.py":65
  * 
  *     def help_exit(self,inp):
  *         self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')             # <<<<<<<<<<<<<<
@@ -4257,7 +4257,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/interactive.pyx":71
+  /* "ddb/engine/interactive.py":71
  *         if self.debug==False:
  *             self.debug=True
  *             self.msg("info","Debugging ON")             # <<<<<<<<<<<<<<
@@ -4268,7 +4268,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "ddb/engine/interactive.pyx":74
+  /* "ddb/engine/interactive.py":74
  *         else:
  *             self.debug=False
  *             self.msg("info","Debugging Off")             # <<<<<<<<<<<<<<
@@ -4279,7 +4279,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "ddb/engine/interactive.pyx":78
+  /* "ddb/engine/interactive.py":78
  * 
  *     def help_debug(self,inp):
  *         self.msg("info",'Toggle debugging on or off')             # <<<<<<<<<<<<<<
@@ -4290,7 +4290,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/interactive.pyx":90
+  /* "ddb/engine/interactive.py":90
  * 
  *     def help_config_dir(self):
  *         self.msg("info","Set configuration Directory. Files end in ddb.yaml.")             # <<<<<<<<<<<<<<
@@ -4301,7 +4301,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "ddb/engine/interactive.pyx":125
+  /* "ddb/engine/interactive.py":125
  * 
  *     def default_exit(self):
  *         self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')             # <<<<<<<<<<<<<<
@@ -4312,7 +4312,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/interactive.pyx":25
+  /* "ddb/engine/interactive.py":25
  *     intro = "Welcome! Type ? to list commands"
  * 
  *     def cmdloop_with_keyboard_interrupt(self):             # <<<<<<<<<<<<<<
@@ -4322,9 +4322,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_doQuit); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_cmdloop_with_keyboard_interrupt, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_cmdloop_with_keyboard_interrupt, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 25, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":34
+  /* "ddb/engine/interactive.py":34
  *                 self.help_exit("")
  * 
  *     def set_vars(self,             # <<<<<<<<<<<<<<
@@ -4334,12 +4334,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__10 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_database, __pyx_n_s_config_file, __pyx_n_s_debug, __pyx_n_s_no_clip, __pyx_n_s_width, __pyx_n_s_format); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_set_vars, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 34, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(7, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_set_vars, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 34, __pyx_L1_error)
   __pyx_tuple__12 = PyTuple_Pack(6, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject *)Py_False), ((PyObject*)__pyx_n_s_auto), ((PyObject*)__pyx_n_s_term)); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "ddb/engine/interactive.pyx":49
+  /* "ddb/engine/interactive.py":49
  *         self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
  * 
  *     def msg(self,type,name,message=''):             # <<<<<<<<<<<<<<
@@ -4349,12 +4349,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__13 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_type, __pyx_n_s_name, __pyx_n_s_message, __pyx_n_s_color); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_msg, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_msg, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 49, __pyx_L1_error)
   __pyx_tuple__15 = PyTuple_Pack(1, ((PyObject*)__pyx_kp_s_)); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "ddb/engine/interactive.pyx":60
+  /* "ddb/engine/interactive.py":60
  * 
  *     ##
  *     def do_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -4364,9 +4364,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inp); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_do_exit, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_do_exit, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":64
+  /* "ddb/engine/interactive.py":64
  *         return True
  * 
  *     def help_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -4376,9 +4376,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__18 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inp); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_help_exit, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_help_exit, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 64, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":68
+  /* "ddb/engine/interactive.py":68
  * 
  *     ##
  *     def do_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -4388,9 +4388,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__20 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inp); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_do_debug, 68, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_do_debug, 68, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 68, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":77
+  /* "ddb/engine/interactive.py":77
  *         self.engine.debugging(debug=self.debug)
  * 
  *     def help_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -4400,9 +4400,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__22 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_inp); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_help_debug, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_help_debug, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 77, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":82
+  /* "ddb/engine/interactive.py":82
  * 
  *     ##
  *     def do_config_dir(self, inp):             # <<<<<<<<<<<<<<
@@ -4412,9 +4412,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__24 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_inp, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_do_config_dir, 82, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_do_config_dir, 82, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 82, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":89
+  /* "ddb/engine/interactive.py":89
  *             self.msg("error","config_dir",ex)
  * 
  *     def help_config_dir(self):             # <<<<<<<<<<<<<<
@@ -4424,9 +4424,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__26 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_help_config_dir, 89, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_help_config_dir, 89, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":102
+  /* "ddb/engine/interactive.py":102
  * 
  * 
  *     def default(self, inp):             # <<<<<<<<<<<<<<
@@ -4436,9 +4436,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__28 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_inp, __pyx_n_s_start, __pyx_n_s_results, __pyx_n_s_end, __pyx_n_s_config, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_default, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(2, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_default, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 102, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":124
+  /* "ddb/engine/interactive.py":124
  *             self.msg("error",ex)
  * 
  *     def default_exit(self):             # <<<<<<<<<<<<<<
@@ -4448,7 +4448,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__30 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_pyx, __pyx_n_s_default_exit, 124, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_interactive_py, __pyx_n_s_default_exit, 124, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4728,7 +4728,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/interactive.pyx":1
+  /* "ddb/engine/interactive.py":1
  * import sys             # <<<<<<<<<<<<<<
  * import time
  * from cmd import Cmd
@@ -4738,7 +4738,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":2
+  /* "ddb/engine/interactive.py":2
  * import sys
  * import time             # <<<<<<<<<<<<<<
  * from cmd import Cmd
@@ -4749,7 +4749,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":3
+  /* "ddb/engine/interactive.py":3
  * import sys
  * import time
  * from cmd import Cmd             # <<<<<<<<<<<<<<
@@ -4770,7 +4770,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":4
+  /* "ddb/engine/interactive.py":4
  * import time
  * from cmd import Cmd
  * from .structure.table import table             # <<<<<<<<<<<<<<
@@ -4791,7 +4791,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":5
+  /* "ddb/engine/interactive.py":5
  * from cmd import Cmd
  * from .structure.table import table
  * from .structure.database import database             # <<<<<<<<<<<<<<
@@ -4812,7 +4812,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":6
+  /* "ddb/engine/interactive.py":6
  * from .structure.table import table
  * from .structure.database import database
  * from sql_engine  import sql_engine             # <<<<<<<<<<<<<<
@@ -4833,7 +4833,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":7
+  /* "ddb/engine/interactive.py":7
  * from .structure.database import database
  * from sql_engine  import sql_engine
  * import flextable             # <<<<<<<<<<<<<<
@@ -4845,7 +4845,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_flextable, __pyx_t_1) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":10
+  /* "ddb/engine/interactive.py":10
  * 
  * 
  * class bcolors:             # <<<<<<<<<<<<<<
@@ -4855,7 +4855,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_1 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_bcolors, __pyx_n_s_bcolors, (PyObject *) NULL, __pyx_n_s_ddb_engine_interactive, (PyObject *) NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "ddb/engine/interactive.pyx":11
+  /* "ddb/engine/interactive.py":11
  * 
  * class bcolors:
  *     HEADER = '\033[95m'             # <<<<<<<<<<<<<<
@@ -4864,7 +4864,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_HEADER, __pyx_kp_s_95m) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":12
+  /* "ddb/engine/interactive.py":12
  * class bcolors:
  *     HEADER = '\033[95m'
  *     OKBLUE = '\033[94m'             # <<<<<<<<<<<<<<
@@ -4873,7 +4873,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_OKBLUE, __pyx_kp_s_94m) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":13
+  /* "ddb/engine/interactive.py":13
  *     HEADER = '\033[95m'
  *     OKBLUE = '\033[94m'
  *     OKGREEN = '\033[92m'             # <<<<<<<<<<<<<<
@@ -4882,7 +4882,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_OKGREEN, __pyx_kp_s_92m) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":14
+  /* "ddb/engine/interactive.py":14
  *     OKBLUE = '\033[94m'
  *     OKGREEN = '\033[92m'
  *     WARNING = '\033[93m'             # <<<<<<<<<<<<<<
@@ -4891,7 +4891,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_WARNING, __pyx_kp_s_93m) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":15
+  /* "ddb/engine/interactive.py":15
  *     OKGREEN = '\033[92m'
  *     WARNING = '\033[93m'
  *     FAIL = '\033[91m'             # <<<<<<<<<<<<<<
@@ -4900,7 +4900,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_FAIL, __pyx_kp_s_91m) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":16
+  /* "ddb/engine/interactive.py":16
  *     WARNING = '\033[93m'
  *     FAIL = '\033[91m'
  *     ENDC = '\033[0m'             # <<<<<<<<<<<<<<
@@ -4909,7 +4909,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_ENDC, __pyx_kp_s_0m) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":17
+  /* "ddb/engine/interactive.py":17
  *     FAIL = '\033[91m'
  *     ENDC = '\033[0m'
  *     BOLD = '\033[1m'             # <<<<<<<<<<<<<<
@@ -4918,7 +4918,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_BOLD, __pyx_kp_s_1m) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":18
+  /* "ddb/engine/interactive.py":18
  *     ENDC = '\033[0m'
  *     BOLD = '\033[1m'
  *     UNDERLINE = '\033[4m'             # <<<<<<<<<<<<<<
@@ -4927,7 +4927,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_UNDERLINE, __pyx_kp_s_4m) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":10
+  /* "ddb/engine/interactive.py":10
  * 
  * 
  * class bcolors:             # <<<<<<<<<<<<<<
@@ -4940,7 +4940,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/interactive.pyx":21
+  /* "ddb/engine/interactive.py":21
  * 
  * 
  * class ddbPrompt(Cmd):             # <<<<<<<<<<<<<<
@@ -4959,7 +4959,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_1, __pyx_t_2, __pyx_n_s_ddbPrompt, __pyx_n_s_ddbPrompt, (PyObject *) NULL, __pyx_n_s_ddb_engine_interactive, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "ddb/engine/interactive.pyx":22
+  /* "ddb/engine/interactive.py":22
  * 
  * class ddbPrompt(Cmd):
  *     prompt = 'ddb> '             # <<<<<<<<<<<<<<
@@ -4968,7 +4968,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_prompt, __pyx_kp_s_ddb) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":23
+  /* "ddb/engine/interactive.py":23
  * class ddbPrompt(Cmd):
  *     prompt = 'ddb> '
  *     intro = "Welcome! Type ? to list commands"             # <<<<<<<<<<<<<<
@@ -4977,7 +4977,7 @@ if (!__Pyx_RefNanny) {
  */
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_intro, __pyx_kp_s_Welcome_Type_to_list_commands) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
 
-  /* "ddb/engine/interactive.pyx":25
+  /* "ddb/engine/interactive.py":25
  *     intro = "Welcome! Type ? to list commands"
  * 
  *     def cmdloop_with_keyboard_interrupt(self):             # <<<<<<<<<<<<<<
@@ -4989,7 +4989,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_cmdloop_with_keyboard_interrupt, __pyx_t_4) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":34
+  /* "ddb/engine/interactive.py":34
  *                 self.help_exit("")
  * 
  *     def set_vars(self,             # <<<<<<<<<<<<<<
@@ -5002,7 +5002,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_set_vars, __pyx_t_4) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":49
+  /* "ddb/engine/interactive.py":49
  *         self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
  * 
  *     def msg(self,type,name,message=''):             # <<<<<<<<<<<<<<
@@ -5015,7 +5015,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_msg, __pyx_t_4) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":60
+  /* "ddb/engine/interactive.py":60
  * 
  *     ##
  *     def do_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -5027,7 +5027,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_do_exit, __pyx_t_4) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":64
+  /* "ddb/engine/interactive.py":64
  *         return True
  * 
  *     def help_exit(self,inp):             # <<<<<<<<<<<<<<
@@ -5039,7 +5039,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_help_exit, __pyx_t_4) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":68
+  /* "ddb/engine/interactive.py":68
  * 
  *     ##
  *     def do_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -5051,7 +5051,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_do_debug, __pyx_t_4) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":77
+  /* "ddb/engine/interactive.py":77
  *         self.engine.debugging(debug=self.debug)
  * 
  *     def help_debug(self,inp):             # <<<<<<<<<<<<<<
@@ -5063,7 +5063,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_help_debug, __pyx_t_4) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":82
+  /* "ddb/engine/interactive.py":82
  * 
  *     ##
  *     def do_config_dir(self, inp):             # <<<<<<<<<<<<<<
@@ -5075,7 +5075,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_do_config_dir, __pyx_t_4) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":89
+  /* "ddb/engine/interactive.py":89
  *             self.msg("error","config_dir",ex)
  * 
  *     def help_config_dir(self):             # <<<<<<<<<<<<<<
@@ -5087,7 +5087,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_help_config_dir, __pyx_t_4) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":102
+  /* "ddb/engine/interactive.py":102
  * 
  * 
  *     def default(self, inp):             # <<<<<<<<<<<<<<
@@ -5099,7 +5099,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_default, __pyx_t_4) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":124
+  /* "ddb/engine/interactive.py":124
  *             self.msg("error",ex)
  * 
  *     def default_exit(self):             # <<<<<<<<<<<<<<
@@ -5111,7 +5111,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_default_exit, __pyx_t_4) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":127
+  /* "ddb/engine/interactive.py":127
  *         self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')
  * 
  *     do_EOF = help_exit             # <<<<<<<<<<<<<<
@@ -5128,7 +5128,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_do_EOF, __pyx_t_4) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":128
+  /* "ddb/engine/interactive.py":128
  * 
  *     do_EOF = help_exit
  *     help_EOF = help_exit             # <<<<<<<<<<<<<<
@@ -5145,7 +5145,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_help_EOF, __pyx_t_4) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/interactive.pyx":21
+  /* "ddb/engine/interactive.py":21
  * 
  * 
  * class ddbPrompt(Cmd):             # <<<<<<<<<<<<<<
@@ -5160,7 +5160,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/interactive.pyx":1
+  /* "ddb/engine/interactive.py":1
  * import sys             # <<<<<<<<<<<<<<
  * import time
  * from cmd import Cmd

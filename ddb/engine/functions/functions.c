@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.functions.functions", 
         "sources": [
-            "./ddb/engine/functions/functions.pyx"
+            "./ddb/engine/functions/functions.py"
         ]
     }, 
     "module_name": "ddb.engine.functions.functions"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/functions/functions.pyx",
+  "ddb/engine/functions/functions.py",
 };
 
 /*--- Type declarations ---*/
@@ -1001,6 +1001,63 @@ static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_ve
 static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
 #endif
 
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_Check(obj)  (__Pyx_TypeCheck(obj, __pyx_CyFunctionType))
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
+
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1133,7 +1190,7 @@ static const char __pyx_k_query_object[] = "query_object";
 static const char __pyx_k_show_columns[] = "show_columns";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_ddb_engine_functions_functions[] = "ddb.engine.functions.functions";
-static const char __pyx_k_ddb_engine_functions_functions_p[] = "ddb/engine/functions/functions.pyx";
+static const char __pyx_k_ddb_engine_functions_functions_p[] = "ddb/engine/functions/functions.py";
 static PyObject *__pyx_n_s_COMMENT;
 static PyObject *__pyx_n_s_DATA;
 static PyObject *__pyx_n_s_ERROR;
@@ -1188,7 +1245,7 @@ static PyObject *__pyx_codeobj__6;
 static PyObject *__pyx_codeobj__8;
 /* Late includes */
 
-/* "ddb/engine/functions/functions.pyx":2
+/* "ddb/engine/functions/functions.py":2
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
@@ -1223,7 +1280,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_enum(CYTHON_UNUSED 
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("enum", 0);
 
-  /* "ddb/engine/functions/functions.pyx":3
+  /* "ddb/engine/functions/functions.py":3
  * 
  * def enum(**enums):
  *     return type('Enum', (), enums)             # <<<<<<<<<<<<<<
@@ -1249,7 +1306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_enum(CYTHON_UNUSED 
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/functions/functions.pyx":2
+  /* "ddb/engine/functions/functions.py":2
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
@@ -1268,7 +1325,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_enum(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "ddb/engine/functions/functions.pyx":8
+/* "ddb/engine/functions/functions.py":8
  * data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  * def show_columns(database,query_object):             # <<<<<<<<<<<<<<
@@ -1354,7 +1411,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("show_columns", 0);
 
-  /* "ddb/engine/functions/functions.pyx":9
+  /* "ddb/engine/functions/functions.py":9
  * 
  * def show_columns(database,query_object):
  *     table=database.get(query_object['meta']['from']['table'])             # <<<<<<<<<<<<<<
@@ -1390,7 +1447,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   __pyx_v_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":10
+  /* "ddb/engine/functions/functions.py":10
  * def show_columns(database,query_object):
  *     table=database.get(query_object['meta']['from']['table'])
  *     temp_table=database.temp_table(columns=['table','column'])             # <<<<<<<<<<<<<<
@@ -1418,7 +1475,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   __pyx_v_temp_table = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":12
+  /* "ddb/engine/functions/functions.py":12
  *     temp_table=database.temp_table(columns=['table','column'])
  * 
  *     for c in table.columns:             # <<<<<<<<<<<<<<
@@ -1470,7 +1527,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":13
+    /* "ddb/engine/functions/functions.py":13
  * 
  *     for c in table.columns:
  *         columns={'data':[table.data.name,c.data.name],'type':data_type.DATA,'error':None}             # <<<<<<<<<<<<<<
@@ -1510,7 +1567,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_columns, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":14
+    /* "ddb/engine/functions/functions.py":14
  *     for c in table.columns:
  *         columns={'data':[table.data.name,c.data.name],'type':data_type.DATA,'error':None}
  *         temp_table.append_data(columns)             # <<<<<<<<<<<<<<
@@ -1536,7 +1593,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":12
+    /* "ddb/engine/functions/functions.py":12
  *     temp_table=database.temp_table(columns=['table','column'])
  * 
  *     for c in table.columns:             # <<<<<<<<<<<<<<
@@ -1546,7 +1603,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":15
+  /* "ddb/engine/functions/functions.py":15
  *         columns={'data':[table.data.name,c.data.name],'type':data_type.DATA,'error':None}
  *         temp_table.append_data(columns)
  *     return temp_table             # <<<<<<<<<<<<<<
@@ -1558,7 +1615,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/functions/functions.pyx":8
+  /* "ddb/engine/functions/functions.py":8
  * data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  * def show_columns(database,query_object):             # <<<<<<<<<<<<<<
@@ -1585,7 +1642,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_2show_columns(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/functions/functions.pyx":17
+/* "ddb/engine/functions/functions.py":17
  *     return temp_table
  * 
  * def show_tables(database):             # <<<<<<<<<<<<<<
@@ -1623,7 +1680,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("show_tables", 0);
 
-  /* "ddb/engine/functions/functions.pyx":18
+  /* "ddb/engine/functions/functions.py":18
  * 
  * def show_tables(database):
  *     temp_table=database.temp_table(columns=['database','table'])             # <<<<<<<<<<<<<<
@@ -1651,7 +1708,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
   __pyx_v_temp_table = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":19
+  /* "ddb/engine/functions/functions.py":19
  * def show_tables(database):
  *     temp_table=database.temp_table(columns=['database','table'])
  *     for t in database.tables:             # <<<<<<<<<<<<<<
@@ -1703,7 +1760,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
     __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":20
+    /* "ddb/engine/functions/functions.py":20
  *     temp_table=database.temp_table(columns=['database','table'])
  *     for t in database.tables:
  *         columns=[t.data.database,t.data.name]             # <<<<<<<<<<<<<<
@@ -1731,7 +1788,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
     __Pyx_XDECREF_SET(__pyx_v_columns, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":21
+    /* "ddb/engine/functions/functions.py":21
  *     for t in database.tables:
  *         columns=[t.data.database,t.data.name]
  *         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})             # <<<<<<<<<<<<<<
@@ -1769,7 +1826,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":19
+    /* "ddb/engine/functions/functions.py":19
  * def show_tables(database):
  *     temp_table=database.temp_table(columns=['database','table'])
  *     for t in database.tables:             # <<<<<<<<<<<<<<
@@ -1779,7 +1836,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":23
+  /* "ddb/engine/functions/functions.py":23
  *         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})
  *     #print temp_table
  *     return temp_table             # <<<<<<<<<<<<<<
@@ -1791,7 +1848,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/functions/functions.pyx":17
+  /* "ddb/engine/functions/functions.py":17
  *     return temp_table
  * 
  * def show_tables(database):             # <<<<<<<<<<<<<<
@@ -1818,7 +1875,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_4show_tables(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/functions/functions.pyx":26
+/* "ddb/engine/functions/functions.py":26
  * 
  * 
  * def show_errors(database,table):             # <<<<<<<<<<<<<<
@@ -1904,7 +1961,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("show_errors", 0);
 
-  /* "ddb/engine/functions/functions.pyx":27
+  /* "ddb/engine/functions/functions.py":27
  * 
  * def show_errors(database,table):
  *     temp_table=database.temp_table(columns=['error'])             # <<<<<<<<<<<<<<
@@ -1929,7 +1986,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
   __pyx_v_temp_table = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":28
+  /* "ddb/engine/functions/functions.py":28
  * def show_errors(database,table):
  *     temp_table=database.temp_table(columns=['error'])
  *     for e in table.errors:             # <<<<<<<<<<<<<<
@@ -1981,7 +2038,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
     __Pyx_XDECREF_SET(__pyx_v_e, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":29
+    /* "ddb/engine/functions/functions.py":29
  *     temp_table=database.temp_table(columns=['error'])
  *     for e in table.errors:
  *         columns=[e]             # <<<<<<<<<<<<<<
@@ -1996,7 +2053,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
     __Pyx_XDECREF_SET(__pyx_v_columns, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":30
+    /* "ddb/engine/functions/functions.py":30
  *     for e in table.errors:
  *         columns=[e]
  *         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})             # <<<<<<<<<<<<<<
@@ -2033,7 +2090,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/functions/functions.pyx":28
+    /* "ddb/engine/functions/functions.py":28
  * def show_errors(database,table):
  *     temp_table=database.temp_table(columns=['error'])
  *     for e in table.errors:             # <<<<<<<<<<<<<<
@@ -2043,7 +2100,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":31
+  /* "ddb/engine/functions/functions.py":31
  *         columns=[e]
  *         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})
  *     return temp_table             # <<<<<<<<<<<<<<
@@ -2053,7 +2110,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9functions_9functions_6show_errors(CYTHON
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/functions/functions.pyx":26
+  /* "ddb/engine/functions/functions.py":26
  * 
  * 
  * def show_errors(database,table):             # <<<<<<<<<<<<<<
@@ -2172,7 +2229,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/functions/functions.pyx":2
+  /* "ddb/engine/functions/functions.py":2
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
@@ -2183,7 +2240,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple_);
   __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_functions_functions_p, __pyx_n_s_enum, 2, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 2, __pyx_L1_error)
 
-  /* "ddb/engine/functions/functions.pyx":8
+  /* "ddb/engine/functions/functions.py":8
  * data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  * def show_columns(database,query_object):             # <<<<<<<<<<<<<<
@@ -2195,7 +2252,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__3);
   __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_functions_functions_p, __pyx_n_s_show_columns, 8, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 8, __pyx_L1_error)
 
-  /* "ddb/engine/functions/functions.pyx":17
+  /* "ddb/engine/functions/functions.py":17
  *     return temp_table
  * 
  * def show_tables(database):             # <<<<<<<<<<<<<<
@@ -2207,7 +2264,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__5);
   __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_functions_functions_p, __pyx_n_s_show_tables, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 17, __pyx_L1_error)
 
-  /* "ddb/engine/functions/functions.pyx":26
+  /* "ddb/engine/functions/functions.py":26
  * 
  * 
  * def show_errors(database,table):             # <<<<<<<<<<<<<<
@@ -2500,18 +2557,18 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/functions/functions.pyx":2
+  /* "ddb/engine/functions/functions.py":2
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_1enum, NULL, __pyx_n_s_ddb_engine_functions_functions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_1enum, 0, __pyx_n_s_enum, NULL, __pyx_n_s_ddb_engine_functions_functions, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_enum, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":6
+  /* "ddb/engine/functions/functions.py":6
  * 
  * 
  * data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)             # <<<<<<<<<<<<<<
@@ -2533,43 +2590,43 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_data_type, __pyx_t_3) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":8
+  /* "ddb/engine/functions/functions.py":8
  * data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
  * 
  * def show_columns(database,query_object):             # <<<<<<<<<<<<<<
  *     table=database.get(query_object['meta']['from']['table'])
  *     temp_table=database.temp_table(columns=['table','column'])
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_3show_columns, NULL, __pyx_n_s_ddb_engine_functions_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_3show_columns, 0, __pyx_n_s_show_columns, NULL, __pyx_n_s_ddb_engine_functions_functions, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_show_columns, __pyx_t_3) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":17
+  /* "ddb/engine/functions/functions.py":17
  *     return temp_table
  * 
  * def show_tables(database):             # <<<<<<<<<<<<<<
  *     temp_table=database.temp_table(columns=['database','table'])
  *     for t in database.tables:
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_5show_tables, NULL, __pyx_n_s_ddb_engine_functions_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_5show_tables, 0, __pyx_n_s_show_tables, NULL, __pyx_n_s_ddb_engine_functions_functions, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_show_tables, __pyx_t_3) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":26
+  /* "ddb/engine/functions/functions.py":26
  * 
  * 
  * def show_errors(database,table):             # <<<<<<<<<<<<<<
  *     temp_table=database.temp_table(columns=['error'])
  *     for e in table.errors:
  */
-  __pyx_t_3 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_7show_errors, NULL, __pyx_n_s_ddb_engine_functions_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_9functions_9functions_7show_errors, 0, __pyx_n_s_show_errors, NULL, __pyx_n_s_ddb_engine_functions_functions, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_show_errors, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/functions/functions.pyx":2
+  /* "ddb/engine/functions/functions.py":2
  * 
  * def enum(**enums):             # <<<<<<<<<<<<<<
  *     return type('Enum', (), enums)
@@ -3142,6 +3199,641 @@ static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
     PyErr_Clear();
 #endif
     return __Pyx_GetBuiltinName(name);
+}
+
+/* FetchCommonType */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+    PyObject* fake_module;
+    PyTypeObject* cached_type = NULL;
+    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
+    if (!fake_module) return NULL;
+    Py_INCREF(fake_module);
+    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
+    if (cached_type) {
+        if (!PyType_Check((PyObject*)cached_type)) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s is not a type object",
+                type->tp_name);
+            goto bad;
+        }
+        if (cached_type->tp_basicsize != type->tp_basicsize) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s has the wrong size, try recompiling",
+                type->tp_name);
+            goto bad;
+        }
+    } else {
+        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
+        PyErr_Clear();
+        if (PyType_Ready(type) < 0) goto bad;
+        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
+            goto bad;
+        Py_INCREF(type);
+        cached_type = type;
+    }
+done:
+    Py_DECREF(fake_module);
+    return cached_type;
+bad:
+    Py_XDECREF(cached_type);
+    cached_type = NULL;
+    goto done;
+}
+
+/* CythonFunction */
+#include <structmember.h>
+static PyObject *
+__Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
+{
+    if (unlikely(op->func_doc == NULL)) {
+        if (op->func.m_ml->ml_doc) {
+#if PY_MAJOR_VERSION >= 3
+            op->func_doc = PyUnicode_FromString(op->func.m_ml->ml_doc);
+#else
+            op->func_doc = PyString_FromString(op->func.m_ml->ml_doc);
+#endif
+            if (unlikely(op->func_doc == NULL))
+                return NULL;
+        } else {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+    }
+    Py_INCREF(op->func_doc);
+    return op->func_doc;
+}
+static int
+__Pyx_CyFunction_set_doc(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp = op->func_doc;
+    if (value == NULL) {
+        value = Py_None;
+    }
+    Py_INCREF(value);
+    op->func_doc = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_name(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_name == NULL)) {
+#if PY_MAJOR_VERSION >= 3
+        op->func_name = PyUnicode_InternFromString(op->func.m_ml->ml_name);
+#else
+        op->func_name = PyString_InternFromString(op->func.m_ml->ml_name);
+#endif
+        if (unlikely(op->func_name == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_name);
+    return op->func_name;
+}
+static int
+__Pyx_CyFunction_set_name(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__name__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_name;
+    Py_INCREF(value);
+    op->func_name = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_qualname(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_qualname);
+    return op->func_qualname;
+}
+static int
+__Pyx_CyFunction_set_qualname(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__qualname__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_qualname;
+    Py_INCREF(value);
+    op->func_qualname = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_self(__pyx_CyFunctionObject *m, CYTHON_UNUSED void *closure)
+{
+    PyObject *self;
+    self = m->func_closure;
+    if (self == NULL)
+        self = Py_None;
+    Py_INCREF(self);
+    return self;
+}
+static PyObject *
+__Pyx_CyFunction_get_dict(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_dict == NULL)) {
+        op->func_dict = PyDict_New();
+        if (unlikely(op->func_dict == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_dict);
+    return op->func_dict;
+}
+static int
+__Pyx_CyFunction_set_dict(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+    if (unlikely(value == NULL)) {
+        PyErr_SetString(PyExc_TypeError,
+               "function's dictionary may not be deleted");
+        return -1;
+    }
+    if (unlikely(!PyDict_Check(value))) {
+        PyErr_SetString(PyExc_TypeError,
+               "setting function's dictionary to a non-dict");
+        return -1;
+    }
+    tmp = op->func_dict;
+    Py_INCREF(value);
+    op->func_dict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_globals(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_globals);
+    return op->func_globals;
+}
+static PyObject *
+__Pyx_CyFunction_get_closure(CYTHON_UNUSED __pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+static PyObject *
+__Pyx_CyFunction_get_code(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    PyObject* result = (op->func_code) ? op->func_code : Py_None;
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_init_defaults(__pyx_CyFunctionObject *op) {
+    int result = 0;
+    PyObject *res = op->defaults_getter((PyObject *) op);
+    if (unlikely(!res))
+        return -1;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    op->defaults_tuple = PyTuple_GET_ITEM(res, 0);
+    Py_INCREF(op->defaults_tuple);
+    op->defaults_kwdict = PyTuple_GET_ITEM(res, 1);
+    Py_INCREF(op->defaults_kwdict);
+    #else
+    op->defaults_tuple = PySequence_ITEM(res, 0);
+    if (unlikely(!op->defaults_tuple)) result = -1;
+    else {
+        op->defaults_kwdict = PySequence_ITEM(res, 1);
+        if (unlikely(!op->defaults_kwdict)) result = -1;
+    }
+    #endif
+    Py_DECREF(res);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_defaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyTuple_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__defaults__ must be set to a tuple object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_tuple;
+    op->defaults_tuple = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_defaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_tuple;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_tuple;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_kwdefaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__kwdefaults__ must be set to a dict object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_kwdict;
+    op->defaults_kwdict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_kwdefaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_kwdict;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_kwdict;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_annotations(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value || value == Py_None) {
+        value = NULL;
+    } else if (!PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__annotations__ must be set to a dict object");
+        return -1;
+    }
+    Py_XINCREF(value);
+    tmp = op->func_annotations;
+    op->func_annotations = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_annotations(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->func_annotations;
+    if (unlikely(!result)) {
+        result = PyDict_New();
+        if (unlikely(!result)) return NULL;
+        op->func_annotations = result;
+    }
+    Py_INCREF(result);
+    return result;
+}
+static PyGetSetDef __pyx_CyFunction_getsets[] = {
+    {(char *) "func_doc", (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "__doc__",  (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "func_name", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__name__", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__qualname__", (getter)__Pyx_CyFunction_get_qualname, (setter)__Pyx_CyFunction_set_qualname, 0, 0},
+    {(char *) "__self__", (getter)__Pyx_CyFunction_get_self, 0, 0, 0},
+    {(char *) "func_dict", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "__dict__", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "func_globals", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "__globals__", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "func_closure", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "__closure__", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "func_code", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "__code__", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "func_defaults", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__defaults__", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__kwdefaults__", (getter)__Pyx_CyFunction_get_kwdefaults, (setter)__Pyx_CyFunction_set_kwdefaults, 0, 0},
+    {(char *) "__annotations__", (getter)__Pyx_CyFunction_get_annotations, (setter)__Pyx_CyFunction_set_annotations, 0, 0},
+    {0, 0, 0, 0, 0}
+};
+static PyMemberDef __pyx_CyFunction_members[] = {
+    {(char *) "__module__", T_OBJECT, offsetof(PyCFunctionObject, m_module), PY_WRITE_RESTRICTED, 0},
+    {0, 0, 0,  0, 0}
+};
+static PyObject *
+__Pyx_CyFunction_reduce(__pyx_CyFunctionObject *m, CYTHON_UNUSED PyObject *args)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromString(m->func.m_ml->ml_name);
+#else
+    return PyString_FromString(m->func.m_ml->ml_name);
+#endif
+}
+static PyMethodDef __pyx_CyFunction_methods[] = {
+    {"__reduce__", (PyCFunction)__Pyx_CyFunction_reduce, METH_VARARGS, 0},
+    {0, 0, 0, 0}
+};
+#if PY_VERSION_HEX < 0x030500A0
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func_weakreflist)
+#else
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func.m_weakreflist)
+#endif
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *type, PyMethodDef *ml, int flags, PyObject* qualname,
+                                      PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
+    __pyx_CyFunctionObject *op = PyObject_GC_New(__pyx_CyFunctionObject, type);
+    if (op == NULL)
+        return NULL;
+    op->flags = flags;
+    __Pyx_CyFunction_weakreflist(op) = NULL;
+    op->func.m_ml = ml;
+    op->func.m_self = (PyObject *) op;
+    Py_XINCREF(closure);
+    op->func_closure = closure;
+    Py_XINCREF(module);
+    op->func.m_module = module;
+    op->func_dict = NULL;
+    op->func_name = NULL;
+    Py_INCREF(qualname);
+    op->func_qualname = qualname;
+    op->func_doc = NULL;
+    op->func_classobj = NULL;
+    op->func_globals = globals;
+    Py_INCREF(op->func_globals);
+    Py_XINCREF(code);
+    op->func_code = code;
+    op->defaults_pyobjects = 0;
+    op->defaults = NULL;
+    op->defaults_tuple = NULL;
+    op->defaults_kwdict = NULL;
+    op->defaults_getter = NULL;
+    op->func_annotations = NULL;
+    PyObject_GC_Track(op);
+    return (PyObject *) op;
+}
+static int
+__Pyx_CyFunction_clear(__pyx_CyFunctionObject *m)
+{
+    Py_CLEAR(m->func_closure);
+    Py_CLEAR(m->func.m_module);
+    Py_CLEAR(m->func_dict);
+    Py_CLEAR(m->func_name);
+    Py_CLEAR(m->func_qualname);
+    Py_CLEAR(m->func_doc);
+    Py_CLEAR(m->func_globals);
+    Py_CLEAR(m->func_code);
+    Py_CLEAR(m->func_classobj);
+    Py_CLEAR(m->defaults_tuple);
+    Py_CLEAR(m->defaults_kwdict);
+    Py_CLEAR(m->func_annotations);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_XDECREF(pydefaults[i]);
+        PyObject_Free(m->defaults);
+        m->defaults = NULL;
+    }
+    return 0;
+}
+static void __Pyx__CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    if (__Pyx_CyFunction_weakreflist(m) != NULL)
+        PyObject_ClearWeakRefs((PyObject *) m);
+    __Pyx_CyFunction_clear(m);
+    PyObject_GC_Del(m);
+}
+static void __Pyx_CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    PyObject_GC_UnTrack(m);
+    __Pyx__CyFunction_dealloc(m);
+}
+static int __Pyx_CyFunction_traverse(__pyx_CyFunctionObject *m, visitproc visit, void *arg)
+{
+    Py_VISIT(m->func_closure);
+    Py_VISIT(m->func.m_module);
+    Py_VISIT(m->func_dict);
+    Py_VISIT(m->func_name);
+    Py_VISIT(m->func_qualname);
+    Py_VISIT(m->func_doc);
+    Py_VISIT(m->func_globals);
+    Py_VISIT(m->func_code);
+    Py_VISIT(m->func_classobj);
+    Py_VISIT(m->defaults_tuple);
+    Py_VISIT(m->defaults_kwdict);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_VISIT(pydefaults[i]);
+    }
+    return 0;
+}
+static PyObject *__Pyx_CyFunction_descr_get(PyObject *func, PyObject *obj, PyObject *type)
+{
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    if (m->flags & __Pyx_CYFUNCTION_STATICMETHOD) {
+        Py_INCREF(func);
+        return func;
+    }
+    if (m->flags & __Pyx_CYFUNCTION_CLASSMETHOD) {
+        if (type == NULL)
+            type = (PyObject *)(Py_TYPE(obj));
+        return __Pyx_PyMethod_New(func, type, (PyObject *)(Py_TYPE(type)));
+    }
+    if (obj == Py_None)
+        obj = NULL;
+    return __Pyx_PyMethod_New(func, obj, type);
+}
+static PyObject*
+__Pyx_CyFunction_repr(__pyx_CyFunctionObject *op)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromFormat("<cyfunction %U at %p>",
+                                op->func_qualname, (void *)op);
+#else
+    return PyString_FromFormat("<cyfunction %s at %p>",
+                               PyString_AsString(op->func_qualname), (void *)op);
+#endif
+}
+static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
+    PyCFunctionObject* f = (PyCFunctionObject*)func;
+    PyCFunction meth = f->m_ml->ml_meth;
+    Py_ssize_t size;
+    switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
+    case METH_VARARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0))
+            return (*meth)(self, arg);
+        break;
+    case METH_VARARGS | METH_KEYWORDS:
+        return (*(PyCFunctionWithKeywords)(void*)meth)(self, arg, kw);
+    case METH_NOARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 0))
+                return (*meth)(self, NULL);
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    case METH_O:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 1)) {
+                PyObject *result, *arg0;
+                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                arg0 = PyTuple_GET_ITEM(arg, 0);
+                #else
+                arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
+                #endif
+                result = (*meth)(self, arg0);
+                #if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
+                Py_DECREF(arg0);
+                #endif
+                return result;
+            }
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    default:
+        PyErr_SetString(PyExc_SystemError, "Bad call flags in "
+                        "__Pyx_CyFunction_Call. METH_OLDARGS is no "
+                        "longer supported!");
+        return NULL;
+    }
+    PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
+                 f->m_ml->ml_name);
+    return NULL;
+}
+static CYTHON_INLINE PyObject *__Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    return __Pyx_CyFunction_CallMethod(func, ((PyCFunctionObject*)func)->m_self, arg, kw);
+}
+static PyObject *__Pyx_CyFunction_CallAsMethod(PyObject *func, PyObject *args, PyObject *kw) {
+    PyObject *result;
+    __pyx_CyFunctionObject *cyfunc = (__pyx_CyFunctionObject *) func;
+    if ((cyfunc->flags & __Pyx_CYFUNCTION_CCLASS) && !(cyfunc->flags & __Pyx_CYFUNCTION_STATICMETHOD)) {
+        Py_ssize_t argc;
+        PyObject *new_args;
+        PyObject *self;
+        argc = PyTuple_GET_SIZE(args);
+        new_args = PyTuple_GetSlice(args, 1, argc);
+        if (unlikely(!new_args))
+            return NULL;
+        self = PyTuple_GetItem(args, 0);
+        if (unlikely(!self)) {
+            Py_DECREF(new_args);
+            return NULL;
+        }
+        result = __Pyx_CyFunction_CallMethod(func, self, new_args, kw);
+        Py_DECREF(new_args);
+    } else {
+        result = __Pyx_CyFunction_Call(func, args, kw);
+    }
+    return result;
+}
+static PyTypeObject __pyx_CyFunctionType_type = {
+    PyVarObject_HEAD_INIT(0, 0)
+    "cython_function_or_method",
+    sizeof(__pyx_CyFunctionObject),
+    0,
+    (destructor) __Pyx_CyFunction_dealloc,
+    0,
+    0,
+    0,
+#if PY_MAJOR_VERSION < 3
+    0,
+#else
+    0,
+#endif
+    (reprfunc) __Pyx_CyFunction_repr,
+    0,
+    0,
+    0,
+    0,
+    __Pyx_CyFunction_CallAsMethod,
+    0,
+    0,
+    0,
+    0,
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,
+    0,
+    (traverseproc) __Pyx_CyFunction_traverse,
+    (inquiry) __Pyx_CyFunction_clear,
+    0,
+#if PY_VERSION_HEX < 0x030500A0
+    offsetof(__pyx_CyFunctionObject, func_weakreflist),
+#else
+    offsetof(PyCFunctionObject, m_weakreflist),
+#endif
+    0,
+    0,
+    __pyx_CyFunction_methods,
+    __pyx_CyFunction_members,
+    __pyx_CyFunction_getsets,
+    0,
+    0,
+    __Pyx_CyFunction_descr_get,
+    0,
+    offsetof(__pyx_CyFunctionObject, func_dict),
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+#if PY_VERSION_HEX >= 0x030400a1
+    0,
+#endif
+};
+static int __pyx_CyFunction_init(void) {
+    __pyx_CyFunctionType = __Pyx_FetchCommonType(&__pyx_CyFunctionType_type);
+    if (unlikely(__pyx_CyFunctionType == NULL)) {
+        return -1;
+    }
+    return 0;
+}
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *func, size_t size, int pyobjects) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults = PyObject_Malloc(size);
+    if (unlikely(!m->defaults))
+        return PyErr_NoMemory();
+    memset(m->defaults, 0, size);
+    m->defaults_pyobjects = pyobjects;
+    return m->defaults;
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *func, PyObject *tuple) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_tuple = tuple;
+    Py_INCREF(tuple);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_kwdict = dict;
+    Py_INCREF(dict);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->func_annotations = dict;
+    Py_INCREF(dict);
 }
 
 /* PyErrFetchRestore */

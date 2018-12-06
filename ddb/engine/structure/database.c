@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.structure.database", 
         "sources": [
-            "./ddb/engine/structure/database.pyx"
+            "./ddb/engine/structure/database.py"
         ]
     }, 
     "module_name": "ddb.engine.structure.database"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/structure/database.pyx",
+  "ddb/engine/structure/database.py",
 };
 
 /*--- Type declarations ---*/
@@ -1486,7 +1486,7 @@ static const char __pyx_k_database_get_default_database[] = "database.get_defaul
 static const char __pyx_k_ddb_engine_structure_database[] = "ddb.engine.structure.database";
 static const char __pyx_k_Cant_create_configuration_file[] = "Cant create configuration file: {}";
 static const char __pyx_k_No_configuration_files_in_this_d[] = "No configuration files in this directory : {}";
-static const char __pyx_k_ddb_engine_structure_database_py[] = "ddb/engine/structure/database.pyx";
+static const char __pyx_k_ddb_engine_structure_database_py[] = "ddb/engine/structure/database.py";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_kp_s_Adding_table_config;
 static PyObject *__pyx_kp_s_Cant_create_configuration_file;
@@ -1661,7 +1661,7 @@ static PyObject *__pyx_codeobj__39;
 static PyObject *__pyx_codeobj__41;
 /* Late includes */
 
-/* "ddb/engine/structure/database.pyx":9
+/* "ddb/engine/structure/database.py":9
  * class database:
  *     tables=[]
  *     def __init__(self,directory=None,config_file=None,show_config=False):             # <<<<<<<<<<<<<<
@@ -1783,7 +1783,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
   int __pyx_t_12;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/database.pyx":10
+  /* "ddb/engine/structure/database.py":10
  *     tables=[]
  *     def __init__(self,directory=None,config_file=None,show_config=False):
  *         self.curent_database=None             # <<<<<<<<<<<<<<
@@ -1792,7 +1792,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_curent_database, Py_None) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":11
+  /* "ddb/engine/structure/database.py":11
  *     def __init__(self,directory=None,config_file=None,show_config=False):
  *         self.curent_database=None
  *         self.tables=[]             # <<<<<<<<<<<<<<
@@ -1804,7 +1804,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tables, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":12
+  /* "ddb/engine/structure/database.py":12
  *         self.curent_database=None
  *         self.tables=[]
  *         is_file=False             # <<<<<<<<<<<<<<
@@ -1813,7 +1813,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
   __pyx_v_is_file = 0;
 
-  /* "ddb/engine/structure/database.pyx":13
+  /* "ddb/engine/structure/database.py":13
  *         self.tables=[]
  *         is_file=False
  *         self.config_file=None             # <<<<<<<<<<<<<<
@@ -1822,7 +1822,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_config_file, Py_None) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":14
+  /* "ddb/engine/structure/database.py":14
  *         is_file=False
  *         self.config_file=None
  *         if None !=config_file and config_file!=False:             # <<<<<<<<<<<<<<
@@ -1844,7 +1844,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/database.pyx":15
+    /* "ddb/engine/structure/database.py":15
  *         self.config_file=None
  *         if None !=config_file and config_file!=False:
  *             self.config_file=config_file             # <<<<<<<<<<<<<<
@@ -1853,7 +1853,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_config_file, __pyx_v_config_file) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
 
-    /* "ddb/engine/structure/database.pyx":16
+    /* "ddb/engine/structure/database.py":16
  *         if None !=config_file and config_file!=False:
  *             self.config_file=config_file
  *             tables=self.get_tables()             # <<<<<<<<<<<<<<
@@ -1880,7 +1880,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
     __pyx_v_tables = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":17
+    /* "ddb/engine/structure/database.py":17
  *             self.config_file=config_file
  *             tables=self.get_tables()
  *             for table_file in tables:             # <<<<<<<<<<<<<<
@@ -1929,7 +1929,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __Pyx_XDECREF_SET(__pyx_v_table_file, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/database.pyx":18
+      /* "ddb/engine/structure/database.py":18
  *             tables=self.get_tables()
  *             for table_file in tables:
  *                 self.tables.append(table(table_file,show_config))             # <<<<<<<<<<<<<<
@@ -1989,7 +1989,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "ddb/engine/structure/database.pyx":17
+      /* "ddb/engine/structure/database.py":17
  *             self.config_file=config_file
  *             tables=self.get_tables()
  *             for table_file in tables:             # <<<<<<<<<<<<<<
@@ -1999,7 +1999,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":19
+    /* "ddb/engine/structure/database.py":19
  *             for table_file in tables:
  *                 self.tables.append(table(table_file,show_config))
  *             return             # <<<<<<<<<<<<<<
@@ -2010,7 +2010,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":14
+    /* "ddb/engine/structure/database.py":14
  *         is_file=False
  *         self.config_file=None
  *         if None !=config_file and config_file!=False:             # <<<<<<<<<<<<<<
@@ -2019,7 +2019,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":21
+  /* "ddb/engine/structure/database.py":21
  *             return
  * 
  *         if None !=directory:             # <<<<<<<<<<<<<<
@@ -2031,7 +2031,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/database.pyx":22
+    /* "ddb/engine/structure/database.py":22
  * 
  *         if None !=directory:
  *             if isinstance(directory,list):             # <<<<<<<<<<<<<<
@@ -2042,7 +2042,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/database.pyx":23
+      /* "ddb/engine/structure/database.py":23
  *         if None !=directory:
  *             if isinstance(directory,list):
  *                 for table_file in directory:             # <<<<<<<<<<<<<<
@@ -2091,7 +2091,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_XDECREF_SET(__pyx_v_table_file, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":24
+        /* "ddb/engine/structure/database.py":24
  *             if isinstance(directory,list):
  *                 for table_file in directory:
  *                     if False == os.path.isdir(table_file):             # <<<<<<<<<<<<<<
@@ -2127,7 +2127,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_3) {
 
-          /* "ddb/engine/structure/database.pyx":25
+          /* "ddb/engine/structure/database.py":25
  *                 for table_file in directory:
  *                     if False == os.path.isdir(table_file):
  *                         if False == os.path.isfile(table_file):             # <<<<<<<<<<<<<<
@@ -2163,7 +2163,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           if (unlikely(__pyx_t_3)) {
 
-            /* "ddb/engine/structure/database.pyx":26
+            /* "ddb/engine/structure/database.py":26
  *                     if False == os.path.isdir(table_file):
  *                         if False == os.path.isfile(table_file):
  *                             raise Exception("Not a directory or a file: {}".format(table_file))             # <<<<<<<<<<<<<<
@@ -2194,7 +2194,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __PYX_ERR(0, 26, __pyx_L1_error)
 
-            /* "ddb/engine/structure/database.pyx":25
+            /* "ddb/engine/structure/database.py":25
  *                 for table_file in directory:
  *                     if False == os.path.isdir(table_file):
  *                         if False == os.path.isfile(table_file):             # <<<<<<<<<<<<<<
@@ -2203,7 +2203,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
           }
 
-          /* "ddb/engine/structure/database.pyx":24
+          /* "ddb/engine/structure/database.py":24
  *             if isinstance(directory,list):
  *                 for table_file in directory:
  *                     if False == os.path.isdir(table_file):             # <<<<<<<<<<<<<<
@@ -2212,7 +2212,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
         }
 
-        /* "ddb/engine/structure/database.pyx":27
+        /* "ddb/engine/structure/database.py":27
  *                         if False == os.path.isfile(table_file):
  *                             raise Exception("Not a directory or a file: {}".format(table_file))
  *                     self.tables.append(table(table_file,show_config))             # <<<<<<<<<<<<<<
@@ -2272,7 +2272,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":23
+        /* "ddb/engine/structure/database.py":23
  *         if None !=directory:
  *             if isinstance(directory,list):
  *                 for table_file in directory:             # <<<<<<<<<<<<<<
@@ -2282,7 +2282,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/database.pyx":28
+      /* "ddb/engine/structure/database.py":28
  *                             raise Exception("Not a directory or a file: {}".format(table_file))
  *                     self.tables.append(table(table_file,show_config))
  *                 return             # <<<<<<<<<<<<<<
@@ -2293,7 +2293,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __pyx_r = Py_None; __Pyx_INCREF(Py_None);
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/database.pyx":22
+      /* "ddb/engine/structure/database.py":22
  * 
  *         if None !=directory:
  *             if isinstance(directory,list):             # <<<<<<<<<<<<<<
@@ -2302,7 +2302,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
     }
 
-    /* "ddb/engine/structure/database.pyx":30
+    /* "ddb/engine/structure/database.py":30
  *                 return
  *             else:
  *                 self.config_file=None             # <<<<<<<<<<<<<<
@@ -2312,7 +2312,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
     /*else*/ {
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_config_file, Py_None) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
 
-      /* "ddb/engine/structure/database.pyx":31
+      /* "ddb/engine/structure/database.py":31
  *             else:
  *                 self.config_file=None
  *                 if False == os.path.isdir(directory):             # <<<<<<<<<<<<<<
@@ -2348,7 +2348,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_3) {
 
-        /* "ddb/engine/structure/database.pyx":32
+        /* "ddb/engine/structure/database.py":32
  *                 self.config_file=None
  *                 if False == os.path.isdir(directory):
  *                     if False == os.path.isfile(directory):             # <<<<<<<<<<<<<<
@@ -2384,7 +2384,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (unlikely(__pyx_t_3)) {
 
-          /* "ddb/engine/structure/database.pyx":33
+          /* "ddb/engine/structure/database.py":33
  *                 if False == os.path.isdir(directory):
  *                     if False == os.path.isfile(directory):
  *                         raise Exception("Not a directory or a file: {}".format(directory))             # <<<<<<<<<<<<<<
@@ -2415,7 +2415,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __PYX_ERR(0, 33, __pyx_L1_error)
 
-          /* "ddb/engine/structure/database.pyx":32
+          /* "ddb/engine/structure/database.py":32
  *                 self.config_file=None
  *                 if False == os.path.isdir(directory):
  *                     if False == os.path.isfile(directory):             # <<<<<<<<<<<<<<
@@ -2424,7 +2424,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
         }
 
-        /* "ddb/engine/structure/database.pyx":35
+        /* "ddb/engine/structure/database.py":35
  *                         raise Exception("Not a directory or a file: {}".format(directory))
  *                     else:
  *                         is_file=True             # <<<<<<<<<<<<<<
@@ -2435,7 +2435,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
           __pyx_v_is_file = 1;
         }
 
-        /* "ddb/engine/structure/database.pyx":31
+        /* "ddb/engine/structure/database.py":31
  *             else:
  *                 self.config_file=None
  *                 if False == os.path.isdir(directory):             # <<<<<<<<<<<<<<
@@ -2444,7 +2444,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":37
+      /* "ddb/engine/structure/database.py":37
  *                         is_file=True
  * 
  *                 if True == is_file:             # <<<<<<<<<<<<<<
@@ -2454,7 +2454,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __pyx_t_3 = ((1 == __pyx_v_is_file) != 0);
       if (__pyx_t_3) {
 
-        /* "ddb/engine/structure/database.pyx":38
+        /* "ddb/engine/structure/database.py":38
  * 
  *                 if True == is_file:
  *                     files=glob.glob(directory)             # <<<<<<<<<<<<<<
@@ -2484,7 +2484,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __pyx_v_files = __pyx_t_5;
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":37
+        /* "ddb/engine/structure/database.py":37
  *                         is_file=True
  * 
  *                 if True == is_file:             # <<<<<<<<<<<<<<
@@ -2494,7 +2494,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         goto __pyx_L16;
       }
 
-      /* "ddb/engine/structure/database.pyx":40
+      /* "ddb/engine/structure/database.py":40
  *                     files=glob.glob(directory)
  *                 else:
  *                     files=glob.glob(directory+'/'+'*.ddb.yaml')             # <<<<<<<<<<<<<<
@@ -2533,7 +2533,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       }
       __pyx_L16:;
 
-      /* "ddb/engine/structure/database.pyx":42
+      /* "ddb/engine/structure/database.py":42
  *                     files=glob.glob(directory+'/'+'*.ddb.yaml')
  * 
  *                 if 0 == len(files):             # <<<<<<<<<<<<<<
@@ -2544,7 +2544,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __pyx_t_3 = ((0 == __pyx_t_6) != 0);
       if (unlikely(__pyx_t_3)) {
 
-        /* "ddb/engine/structure/database.pyx":43
+        /* "ddb/engine/structure/database.py":43
  * 
  *                 if 0 == len(files):
  *                     raise Exception("No configuration files in this directory : {}".format(directory))             # <<<<<<<<<<<<<<
@@ -2575,7 +2575,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __PYX_ERR(0, 43, __pyx_L1_error)
 
-        /* "ddb/engine/structure/database.pyx":42
+        /* "ddb/engine/structure/database.py":42
  *                     files=glob.glob(directory+'/'+'*.ddb.yaml')
  * 
  *                 if 0 == len(files):             # <<<<<<<<<<<<<<
@@ -2584,7 +2584,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":44
+      /* "ddb/engine/structure/database.py":44
  *                 if 0 == len(files):
  *                     raise Exception("No configuration files in this directory : {}".format(directory))
  *                 for cf in files:             # <<<<<<<<<<<<<<
@@ -2633,7 +2633,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_XDECREF_SET(__pyx_v_cf, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":45
+        /* "ddb/engine/structure/database.py":45
  *                     raise Exception("No configuration files in this directory : {}".format(directory))
  *                 for cf in files:
  *                     self.tables.append(table(cf,show_config))             # <<<<<<<<<<<<<<
@@ -2693,7 +2693,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-        /* "ddb/engine/structure/database.pyx":44
+        /* "ddb/engine/structure/database.py":44
  *                 if 0 == len(files):
  *                     raise Exception("No configuration files in this directory : {}".format(directory))
  *                 for cf in files:             # <<<<<<<<<<<<<<
@@ -2704,7 +2704,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
 
-    /* "ddb/engine/structure/database.pyx":21
+    /* "ddb/engine/structure/database.py":21
  *             return
  * 
  *         if None !=directory:             # <<<<<<<<<<<<<<
@@ -2713,7 +2713,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":9
+  /* "ddb/engine/structure/database.py":9
  * class database:
  *     tables=[]
  *     def __init__(self,directory=None,config_file=None,show_config=False):             # <<<<<<<<<<<<<<
@@ -2743,7 +2743,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database___init__(C
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":47
+/* "ddb/engine/structure/database.py":47
  *                     self.tables.append(table(cf,show_config))
  * 
  *     def set_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -2818,7 +2818,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_2set_datab
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_database", 0);
 
-  /* "ddb/engine/structure/database.pyx":49
+  /* "ddb/engine/structure/database.py":49
  *     def set_database(self,database_name):
  *         # TODO validate database name
  *         self.curent_database=database_name             # <<<<<<<<<<<<<<
@@ -2827,7 +2827,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_2set_datab
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_curent_database, __pyx_v_database_name) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":47
+  /* "ddb/engine/structure/database.py":47
  *                     self.tables.append(table(cf,show_config))
  * 
  *     def set_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -2847,7 +2847,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_2set_datab
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":51
+/* "ddb/engine/structure/database.py":51
  *         self.curent_database=database_name
  * 
  *     def get(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -2947,7 +2947,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
   __Pyx_RefNannySetupContext("get", 0);
   __Pyx_INCREF(__pyx_v_database_name);
 
-  /* "ddb/engine/structure/database.pyx":53
+  /* "ddb/engine/structure/database.py":53
  *     def get(self,table_name,database_name=None):
  *         """Get a Table structure in the database."""
  *         if None==database_name:             # <<<<<<<<<<<<<<
@@ -2959,7 +2959,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/database.pyx":54
+    /* "ddb/engine/structure/database.py":54
  *         """Get a Table structure in the database."""
  *         if None==database_name:
  *             database_name=self.get_curent_database()             # <<<<<<<<<<<<<<
@@ -2986,7 +2986,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
     __Pyx_DECREF_SET(__pyx_v_database_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":53
+    /* "ddb/engine/structure/database.py":53
  *     def get(self,table_name,database_name=None):
  *         """Get a Table structure in the database."""
  *         if None==database_name:             # <<<<<<<<<<<<<<
@@ -2995,7 +2995,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":55
+  /* "ddb/engine/structure/database.py":55
  *         if None==database_name:
  *             database_name=self.get_curent_database()
  *         for c in self.tables:             # <<<<<<<<<<<<<<
@@ -3047,7 +3047,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":56
+    /* "ddb/engine/structure/database.py":56
  *             database_name=self.get_curent_database()
  *         for c in self.tables:
  *             if c.data.name==table_name and database_name==c.data.database:             # <<<<<<<<<<<<<<
@@ -3081,7 +3081,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
     __pyx_L7_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/database.pyx":57
+      /* "ddb/engine/structure/database.py":57
  *         for c in self.tables:
  *             if c.data.name==table_name and database_name==c.data.database:
  *                 return c             # <<<<<<<<<<<<<<
@@ -3094,7 +3094,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/database.pyx":56
+      /* "ddb/engine/structure/database.py":56
  *             database_name=self.get_curent_database()
  *         for c in self.tables:
  *             if c.data.name==table_name and database_name==c.data.database:             # <<<<<<<<<<<<<<
@@ -3103,7 +3103,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
  */
     }
 
-    /* "ddb/engine/structure/database.pyx":55
+    /* "ddb/engine/structure/database.py":55
  *         if None==database_name:
  *             database_name=self.get_curent_database()
  *         for c in self.tables:             # <<<<<<<<<<<<<<
@@ -3113,7 +3113,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/database.pyx":58
+  /* "ddb/engine/structure/database.py":58
  *             if c.data.name==table_name and database_name==c.data.database:
  *                 return c
  *         return None             # <<<<<<<<<<<<<<
@@ -3124,7 +3124,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":51
+  /* "ddb/engine/structure/database.py":51
  *         self.curent_database=database_name
  * 
  *     def get(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -3147,7 +3147,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_4get(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":61
+/* "ddb/engine/structure/database.py":61
  *         #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
  * 
  *     def count(self):             # <<<<<<<<<<<<<<
@@ -3177,7 +3177,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_6count(CYT
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("count", 0);
 
-  /* "ddb/engine/structure/database.pyx":63
+  /* "ddb/engine/structure/database.py":63
  *     def count(self):
  *         """Return a count ot tables in the database"""
  *         return len(self.tables)             # <<<<<<<<<<<<<<
@@ -3195,7 +3195,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_6count(CYT
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":61
+  /* "ddb/engine/structure/database.py":61
  *         #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
  * 
  *     def count(self):             # <<<<<<<<<<<<<<
@@ -3214,7 +3214,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_6count(CYT
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":65
+/* "ddb/engine/structure/database.py":65
  *         return len(self.tables)
  * 
  *     def get_clone(self,table_name):             # <<<<<<<<<<<<<<
@@ -3296,7 +3296,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("get_clone", 0);
 
-  /* "ddb/engine/structure/database.pyx":67
+  /* "ddb/engine/structure/database.py":67
  *     def get_clone(self,table_name):
  *         """Clone a Table structure in the database."""
  *         table=self.get(table_name)             # <<<<<<<<<<<<<<
@@ -3323,7 +3323,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   __pyx_v_table = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":68
+  /* "ddb/engine/structure/database.py":68
  *         """Clone a Table structure in the database."""
  *         table=self.get(table_name)
  *         if None == table:             # <<<<<<<<<<<<<<
@@ -3335,7 +3335,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_4)) {
 
-    /* "ddb/engine/structure/database.pyx":69
+    /* "ddb/engine/structure/database.py":69
  *         table=self.get(table_name)
  *         if None == table:
  *             raise Exception("Table does not exist.{}".format(table_name))             # <<<<<<<<<<<<<<
@@ -3366,7 +3366,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 69, __pyx_L1_error)
 
-    /* "ddb/engine/structure/database.pyx":68
+    /* "ddb/engine/structure/database.py":68
  *         """Clone a Table structure in the database."""
  *         table=self.get(table_name)
  *         if None == table:             # <<<<<<<<<<<<<<
@@ -3375,7 +3375,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":70
+  /* "ddb/engine/structure/database.py":70
  *         if None == table:
  *             raise Exception("Table does not exist.{}".format(table_name))
  *         temp_table=copy.deepcopy(table)             # <<<<<<<<<<<<<<
@@ -3405,7 +3405,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   __pyx_v_temp_table = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":71
+  /* "ddb/engine/structure/database.py":71
  *             raise Exception("Table does not exist.{}".format(table_name))
  *         temp_table=copy.deepcopy(table)
  *         temp_table.columns=[]             # <<<<<<<<<<<<<<
@@ -3417,7 +3417,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_temp_table, __pyx_n_s_columns, __pyx_t_2) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":72
+  /* "ddb/engine/structure/database.py":72
  *         temp_table=copy.deepcopy(table)
  *         temp_table.columns=[]
  *         return temp_table             # <<<<<<<<<<<<<<
@@ -3429,7 +3429,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   __pyx_r = __pyx_v_temp_table;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":65
+  /* "ddb/engine/structure/database.py":65
  *         return len(self.tables)
  * 
  *     def get_clone(self,table_name):             # <<<<<<<<<<<<<<
@@ -3452,7 +3452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_8get_clone
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":74
+/* "ddb/engine/structure/database.py":74
  *         return temp_table
  * 
  *     def temp_table(self,name=None,columns=[]):             # <<<<<<<<<<<<<<
@@ -3592,7 +3592,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
   __Pyx_RefNannySetupContext("temp_table", 0);
   __Pyx_INCREF(__pyx_v_name);
 
-  /* "ddb/engine/structure/database.pyx":76
+  /* "ddb/engine/structure/database.py":76
  *     def temp_table(self,name=None,columns=[]):
  *         """Create a temporary table to preform operations in"""
  *         if None==name:             # <<<<<<<<<<<<<<
@@ -3604,7 +3604,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/database.pyx":77
+    /* "ddb/engine/structure/database.py":77
  *         """Create a temporary table to preform operations in"""
  *         if None==name:
  *             name="#table_temp" #TODO make unique random name             # <<<<<<<<<<<<<<
@@ -3614,7 +3614,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
     __Pyx_INCREF(__pyx_kp_s_table_temp);
     __Pyx_DECREF_SET(__pyx_v_name, __pyx_kp_s_table_temp);
 
-    /* "ddb/engine/structure/database.pyx":76
+    /* "ddb/engine/structure/database.py":76
  *     def temp_table(self,name=None,columns=[]):
  *         """Create a temporary table to preform operations in"""
  *         if None==name:             # <<<<<<<<<<<<<<
@@ -3623,7 +3623,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":78
+  /* "ddb/engine/structure/database.py":78
  *         if None==name:
  *             name="#table_temp" #TODO make unique random name
  *         return table(name=name,columns=columns,database=self.get_curent_database())             # <<<<<<<<<<<<<<
@@ -3664,7 +3664,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":74
+  /* "ddb/engine/structure/database.py":74
  *         return temp_table
  * 
  *     def temp_table(self,name=None,columns=[]):             # <<<<<<<<<<<<<<
@@ -3688,7 +3688,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_10temp_tab
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":81
+/* "ddb/engine/structure/database.py":81
  * 
  * 
  *     def create_config(self,config_file):             # <<<<<<<<<<<<<<
@@ -3778,7 +3778,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("create_config", 0);
 
-  /* "ddb/engine/structure/database.pyx":82
+  /* "ddb/engine/structure/database.py":82
  * 
  *     def create_config(self,config_file):
  *         try:             # <<<<<<<<<<<<<<
@@ -3794,7 +3794,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/structure/database.pyx":83
+      /* "ddb/engine/structure/database.py":83
  *     def create_config(self,config_file):
  *         try:
  *             if False == os.path.exists(config_file):             # <<<<<<<<<<<<<<
@@ -3830,7 +3830,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/structure/database.pyx":84
+        /* "ddb/engine/structure/database.py":84
  *         try:
  *             if False == os.path.exists(config_file):
  *                 dirname=os.path.dirname(config_file)             # <<<<<<<<<<<<<<
@@ -3863,7 +3863,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
         __pyx_v_dirname = __pyx_t_5;
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":85
+        /* "ddb/engine/structure/database.py":85
  *             if False == os.path.exists(config_file):
  *                 dirname=os.path.dirname(config_file)
  *                 if False==os.path.exists(dirname):             # <<<<<<<<<<<<<<
@@ -3899,7 +3899,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if (__pyx_t_7) {
 
-          /* "ddb/engine/structure/database.pyx":86
+          /* "ddb/engine/structure/database.py":86
  *                 dirname=os.path.dirname(config_file)
  *                 if False==os.path.exists(dirname):
  *                     os.makedirs(dirname)             # <<<<<<<<<<<<<<
@@ -3928,7 +3928,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/structure/database.pyx":85
+          /* "ddb/engine/structure/database.py":85
  *             if False == os.path.exists(config_file):
  *                 dirname=os.path.dirname(config_file)
  *                 if False==os.path.exists(dirname):             # <<<<<<<<<<<<<<
@@ -3937,7 +3937,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
  */
         }
 
-        /* "ddb/engine/structure/database.pyx":83
+        /* "ddb/engine/structure/database.py":83
  *     def create_config(self,config_file):
  *         try:
  *             if False == os.path.exists(config_file):             # <<<<<<<<<<<<<<
@@ -3946,7 +3946,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":88
+      /* "ddb/engine/structure/database.py":88
  *                     os.makedirs(dirname)
  *                 #print ("Successfully created the directory %s " % path)
  *             yaml_data={}             # <<<<<<<<<<<<<<
@@ -3958,7 +3958,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __pyx_v_yaml_data = ((PyObject*)__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/database.pyx":89
+      /* "ddb/engine/structure/database.py":89
  *                 #print ("Successfully created the directory %s " % path)
  *             yaml_data={}
  *             f = open(config_file, "w")             # <<<<<<<<<<<<<<
@@ -3979,7 +3979,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __pyx_v_f = __pyx_t_6;
       __pyx_t_6 = 0;
 
-      /* "ddb/engine/structure/database.pyx":90
+      /* "ddb/engine/structure/database.py":90
  *             yaml_data={}
  *             f = open(config_file, "w")
  *             yaml.dump(yaml_data, f)             # <<<<<<<<<<<<<<
@@ -4038,7 +4038,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "ddb/engine/structure/database.pyx":91
+      /* "ddb/engine/structure/database.py":91
  *             f = open(config_file, "w")
  *             yaml.dump(yaml_data, f)
  *             f.close()             # <<<<<<<<<<<<<<
@@ -4064,7 +4064,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "ddb/engine/structure/database.pyx":92
+      /* "ddb/engine/structure/database.py":92
  *             yaml.dump(yaml_data, f)
  *             f.close()
  *             return             # <<<<<<<<<<<<<<
@@ -4075,7 +4075,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __pyx_r = Py_None; __Pyx_INCREF(Py_None);
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/structure/database.pyx":82
+      /* "ddb/engine/structure/database.py":82
  * 
  *     def create_config(self,config_file):
  *         try:             # <<<<<<<<<<<<<<
@@ -4089,7 +4089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "ddb/engine/structure/database.pyx":93
+    /* "ddb/engine/structure/database.py":93
  *             f.close()
  *             return
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -4106,7 +4106,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
       __Pyx_INCREF(__pyx_t_5);
       __pyx_v_ex = __pyx_t_5;
 
-      /* "ddb/engine/structure/database.pyx":94
+      /* "ddb/engine/structure/database.py":94
  *             return
  *         except Exception as ex:
  *             print "Cant create configuration file: {}".format(ex)             # <<<<<<<<<<<<<<
@@ -4140,7 +4140,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/structure/database.pyx":82
+    /* "ddb/engine/structure/database.py":82
  * 
  *     def create_config(self,config_file):
  *         try:             # <<<<<<<<<<<<<<
@@ -4165,7 +4165,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
     __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
   }
 
-  /* "ddb/engine/structure/database.pyx":81
+  /* "ddb/engine/structure/database.py":81
  * 
  * 
  *     def create_config(self,config_file):             # <<<<<<<<<<<<<<
@@ -4195,7 +4195,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_12create_c
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":97
+/* "ddb/engine/structure/database.py":97
  * 
  * 
  *     def create_table_config(self,name,db,columns):             # <<<<<<<<<<<<<<
@@ -4298,7 +4298,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("create_table_config", 0);
 
-  /* "ddb/engine/structure/database.pyx":98
+  /* "ddb/engine/structure/database.py":98
  * 
  *     def create_table_config(self,name,db,columns):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -4313,7 +4313,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_t_3)) {
 
-    /* "ddb/engine/structure/database.pyx":99
+    /* "ddb/engine/structure/database.py":99
  *     def create_table_config(self,name,db,columns):
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -4326,7 +4326,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 99, __pyx_L1_error)
 
-    /* "ddb/engine/structure/database.pyx":98
+    /* "ddb/engine/structure/database.py":98
  * 
  *     def create_table_config(self,name,db,columns):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -4335,7 +4335,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":100
+  /* "ddb/engine/structure/database.py":100
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")
  *         t=table(name=name,database=db,columns=columns)             # <<<<<<<<<<<<<<
@@ -4356,7 +4356,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   __pyx_v_t = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "ddb/engine/structure/database.pyx":101
+  /* "ddb/engine/structure/database.py":101
  *             raise Exception ("Not using a config file")
  *         t=table(name=name,database=db,columns=columns)
  *         t.save()             # <<<<<<<<<<<<<<
@@ -4382,7 +4382,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/structure/database.pyx":102
+  /* "ddb/engine/structure/database.py":102
  *         t=table(name=name,database=db,columns=columns)
  *         t.save()
  *         self.add_config(t.data.path)             # <<<<<<<<<<<<<<
@@ -4414,7 +4414,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/structure/database.pyx":97
+  /* "ddb/engine/structure/database.py":97
  * 
  * 
  *     def create_table_config(self,name,db,columns):             # <<<<<<<<<<<<<<
@@ -4439,7 +4439,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_14create_t
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":105
+/* "ddb/engine/structure/database.py":105
  * 
  * 
  *     def add_config(self,table_config=None,table=None):             # <<<<<<<<<<<<<<
@@ -4552,7 +4552,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
   PyObject *__pyx_t_15 = NULL;
   __Pyx_RefNannySetupContext("add_config", 0);
 
-  /* "ddb/engine/structure/database.pyx":106
+  /* "ddb/engine/structure/database.py":106
  * 
  *     def add_config(self,table_config=None,table=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -4568,7 +4568,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/structure/database.pyx":107
+      /* "ddb/engine/structure/database.py":107
  *     def add_config(self,table_config=None,table=None):
  *         try:
  *             if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -4583,7 +4583,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (unlikely(__pyx_t_6)) {
 
-        /* "ddb/engine/structure/database.pyx":108
+        /* "ddb/engine/structure/database.py":108
  *         try:
  *             if None==self.config_file:
  *                 raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -4596,7 +4596,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __PYX_ERR(0, 108, __pyx_L3_error)
 
-        /* "ddb/engine/structure/database.pyx":107
+        /* "ddb/engine/structure/database.py":107
  *     def add_config(self,table_config=None,table=None):
  *         try:
  *             if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -4605,7 +4605,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":109
+      /* "ddb/engine/structure/database.py":109
  *             if None==self.config_file:
  *                 raise Exception ("Not using a config file")
  *             if not os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -4643,7 +4643,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __pyx_t_9 = ((!__pyx_t_6) != 0);
       if (__pyx_t_9) {
 
-        /* "ddb/engine/structure/database.pyx":110
+        /* "ddb/engine/structure/database.py":110
  *                 raise Exception ("Not using a config file")
  *             if not os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)             # <<<<<<<<<<<<<<
@@ -4672,7 +4672,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "ddb/engine/structure/database.pyx":109
+        /* "ddb/engine/structure/database.py":109
  *             if None==self.config_file:
  *                 raise Exception ("Not using a config file")
  *             if not os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -4681,7 +4681,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":113
+      /* "ddb/engine/structure/database.py":113
  * 
  *             #if we have a file name, lets add it
  *             if None != table_config:             # <<<<<<<<<<<<<<
@@ -4693,7 +4693,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_9) {
 
-        /* "ddb/engine/structure/database.pyx":114
+        /* "ddb/engine/structure/database.py":114
  *             #if we have a file name, lets add it
  *             if None != table_config:
  *                 print "Adding table config"             # <<<<<<<<<<<<<<
@@ -4702,7 +4702,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
         if (__Pyx_PrintOne(0, __pyx_kp_s_Adding_table_config) < 0) __PYX_ERR(0, 114, __pyx_L3_error)
 
-        /* "ddb/engine/structure/database.pyx":115
+        /* "ddb/engine/structure/database.py":115
  *             if None != table_config:
  *                 print "Adding table config"
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -4757,7 +4757,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_v_stream = __pyx_t_7;
                 __pyx_t_7 = 0;
 
-                /* "ddb/engine/structure/database.pyx":116
+                /* "ddb/engine/structure/database.py":116
  *                 print "Adding table config"
  *                 with open(self.config_file, 'r') as stream:
  *                     config=table(table_config)             # <<<<<<<<<<<<<<
@@ -4783,7 +4783,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_v_config = __pyx_t_7;
                 __pyx_t_7 = 0;
 
-                /* "ddb/engine/structure/database.pyx":117
+                /* "ddb/engine/structure/database.py":117
  *                 with open(self.config_file, 'r') as stream:
  *                     config=table(table_config)
  *                     yaml_data=yaml.load(stream)             # <<<<<<<<<<<<<<
@@ -4813,7 +4813,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_v_yaml_data = __pyx_t_7;
                 __pyx_t_7 = 0;
 
-                /* "ddb/engine/structure/database.pyx":118
+                /* "ddb/engine/structure/database.py":118
  *                     config=table(table_config)
  *                     yaml_data=yaml.load(stream)
  *                     db=config.data.database             # <<<<<<<<<<<<<<
@@ -4828,7 +4828,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_v_db = __pyx_t_4;
                 __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":119
+                /* "ddb/engine/structure/database.py":119
  *                     yaml_data=yaml.load(stream)
  *                     db=config.data.database
  *                     if None == db:             # <<<<<<<<<<<<<<
@@ -4840,7 +4840,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 if (__pyx_t_9) {
 
-                  /* "ddb/engine/structure/database.pyx":120
+                  /* "ddb/engine/structure/database.py":120
  *                     db=config.data.database
  *                     if None == db:
  *                         db=self.get_default_database()             # <<<<<<<<<<<<<<
@@ -4867,7 +4867,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                   __Pyx_DECREF_SET(__pyx_v_db, __pyx_t_4);
                   __pyx_t_4 = 0;
 
-                  /* "ddb/engine/structure/database.pyx":119
+                  /* "ddb/engine/structure/database.py":119
  *                     yaml_data=yaml.load(stream)
  *                     db=config.data.database
  *                     if None == db:             # <<<<<<<<<<<<<<
@@ -4876,7 +4876,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
                 }
 
-                /* "ddb/engine/structure/database.pyx":122
+                /* "ddb/engine/structure/database.py":122
  *                         db=self.get_default_database()
  * 
  *                     if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -4887,7 +4887,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_t_6 = (__pyx_t_9 != 0);
                 if (__pyx_t_6) {
 
-                  /* "ddb/engine/structure/database.pyx":123
+                  /* "ddb/engine/structure/database.py":123
  * 
  *                     if db not in  yaml_data:
  *                         yaml_data[db]={}             # <<<<<<<<<<<<<<
@@ -4899,7 +4899,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                   if (unlikely(PyObject_SetItem(__pyx_v_yaml_data, __pyx_v_db, __pyx_t_4) < 0)) __PYX_ERR(0, 123, __pyx_L16_error)
                   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                  /* "ddb/engine/structure/database.pyx":122
+                  /* "ddb/engine/structure/database.py":122
  *                         db=self.get_default_database()
  * 
  *                     if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -4908,7 +4908,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
                 }
 
-                /* "ddb/engine/structure/database.pyx":125
+                /* "ddb/engine/structure/database.py":125
  *                         yaml_data[db]={}
  * 
  *                     yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}             # <<<<<<<<<<<<<<
@@ -4937,7 +4937,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":127
+                /* "ddb/engine/structure/database.py":127
  *                     yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}
  * 
  *                     f = open(self.config_file, "w")             # <<<<<<<<<<<<<<
@@ -4960,7 +4960,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_v_f = __pyx_t_4;
                 __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":128
+                /* "ddb/engine/structure/database.py":128
  * 
  *                     f = open(self.config_file, "w")
  *                     yaml.dump(yaml_data, f)             # <<<<<<<<<<<<<<
@@ -5019,7 +5019,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":129
+                /* "ddb/engine/structure/database.py":129
  *                     f = open(self.config_file, "w")
  *                     yaml.dump(yaml_data, f)
  *                     f.close()             # <<<<<<<<<<<<<<
@@ -5045,7 +5045,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":115
+                /* "ddb/engine/structure/database.py":115
  *             if None != table_config:
  *                 print "Adding table config"
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -5126,7 +5126,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
           __pyx_L27:;
         }
 
-        /* "ddb/engine/structure/database.pyx":113
+        /* "ddb/engine/structure/database.py":113
  * 
  *             #if we have a file name, lets add it
  *             if None != table_config:             # <<<<<<<<<<<<<<
@@ -5135,7 +5135,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":134
+      /* "ddb/engine/structure/database.py":134
  * 
  *             #if we have a table lets save it
  *             if table !=None:             # <<<<<<<<<<<<<<
@@ -5147,7 +5147,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_9) {
 
-        /* "ddb/engine/structure/database.pyx":135
+        /* "ddb/engine/structure/database.py":135
  *             #if we have a table lets save it
  *             if table !=None:
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -5202,7 +5202,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_XDECREF_SET(__pyx_v_stream, __pyx_t_4);
                 __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":136
+                /* "ddb/engine/structure/database.py":136
  *             if table !=None:
  *                 with open(self.config_file, 'r') as stream:
  *                     yaml_data=yaml.load(stream)             # <<<<<<<<<<<<<<
@@ -5232,7 +5232,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_XDECREF_SET(__pyx_v_yaml_data, __pyx_t_4);
                 __pyx_t_4 = 0;
 
-                /* "ddb/engine/structure/database.pyx":137
+                /* "ddb/engine/structure/database.py":137
  *                 with open(self.config_file, 'r') as stream:
  *                     yaml_data=yaml.load(stream)
  *                     db=table.data.database             # <<<<<<<<<<<<<<
@@ -5247,7 +5247,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_XDECREF_SET(__pyx_v_db, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":138
+                /* "ddb/engine/structure/database.py":138
  *                     yaml_data=yaml.load(stream)
  *                     db=table.data.database
  *                     if None == db:             # <<<<<<<<<<<<<<
@@ -5259,7 +5259,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                 if (__pyx_t_9) {
 
-                  /* "ddb/engine/structure/database.pyx":139
+                  /* "ddb/engine/structure/database.py":139
  *                     db=table.data.database
  *                     if None == db:
  *                         db=self.get_default_database()             # <<<<<<<<<<<<<<
@@ -5286,7 +5286,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                   __Pyx_DECREF_SET(__pyx_v_db, __pyx_t_5);
                   __pyx_t_5 = 0;
 
-                  /* "ddb/engine/structure/database.pyx":138
+                  /* "ddb/engine/structure/database.py":138
  *                     yaml_data=yaml.load(stream)
  *                     db=table.data.database
  *                     if None == db:             # <<<<<<<<<<<<<<
@@ -5295,7 +5295,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
                 }
 
-                /* "ddb/engine/structure/database.pyx":141
+                /* "ddb/engine/structure/database.py":141
  *                         db=self.get_default_database()
  * 
  *                     if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -5306,7 +5306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __pyx_t_6 = (__pyx_t_9 != 0);
                 if (__pyx_t_6) {
 
-                  /* "ddb/engine/structure/database.pyx":142
+                  /* "ddb/engine/structure/database.py":142
  * 
  *                     if db not in  yaml_data:
  *                         yaml_data[db]={}             # <<<<<<<<<<<<<<
@@ -5318,7 +5318,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                   if (unlikely(PyObject_SetItem(__pyx_v_yaml_data, __pyx_v_db, __pyx_t_5) < 0)) __PYX_ERR(0, 142, __pyx_L33_error)
                   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                  /* "ddb/engine/structure/database.pyx":141
+                  /* "ddb/engine/structure/database.py":141
  *                         db=self.get_default_database()
  * 
  *                     if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -5327,7 +5327,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
                 }
 
-                /* "ddb/engine/structure/database.pyx":144
+                /* "ddb/engine/structure/database.py":144
  *                         yaml_data[db]={}
  * 
  *                     yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}             # <<<<<<<<<<<<<<
@@ -5362,7 +5362,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":145
+                /* "ddb/engine/structure/database.py":145
  * 
  *                     yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}
  *                     f = open(self.config_file, "w")             # <<<<<<<<<<<<<<
@@ -5385,7 +5385,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_XDECREF_SET(__pyx_v_f, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":146
+                /* "ddb/engine/structure/database.py":146
  *                     yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}
  *                     f = open(self.config_file, "w")
  *                     yaml.dump(yaml_data, f)             # <<<<<<<<<<<<<<
@@ -5444,7 +5444,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":147
+                /* "ddb/engine/structure/database.py":147
  *                     f = open(self.config_file, "w")
  *                     yaml.dump(yaml_data, f)
  *                     f.close()             # <<<<<<<<<<<<<<
@@ -5470,7 +5470,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":135
+                /* "ddb/engine/structure/database.py":135
  *             #if we have a table lets save it
  *             if table !=None:
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -5551,7 +5551,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
           __pyx_L44:;
         }
 
-        /* "ddb/engine/structure/database.pyx":134
+        /* "ddb/engine/structure/database.py":134
  * 
  *             #if we have a table lets save it
  *             if table !=None:             # <<<<<<<<<<<<<<
@@ -5560,7 +5560,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":148
+      /* "ddb/engine/structure/database.py":148
  *                     yaml.dump(yaml_data, f)
  *                     f.close()
  *             return True             # <<<<<<<<<<<<<<
@@ -5572,7 +5572,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __pyx_r = Py_True;
       goto __pyx_L7_try_return;
 
-      /* "ddb/engine/structure/database.pyx":106
+      /* "ddb/engine/structure/database.py":106
  * 
  *     def add_config(self,table_config=None,table=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -5586,7 +5586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "ddb/engine/structure/database.pyx":149
+    /* "ddb/engine/structure/database.py":149
  *                     f.close()
  *             return True
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -5603,7 +5603,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
       __Pyx_INCREF(__pyx_t_4);
       __pyx_v_ex = __pyx_t_4;
 
-      /* "ddb/engine/structure/database.pyx":150
+      /* "ddb/engine/structure/database.py":150
  *             return True
  *         except Exception as ex:
  *             print ex             # <<<<<<<<<<<<<<
@@ -5612,7 +5612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
  */
       if (__Pyx_PrintOne(0, __pyx_v_ex) < 0) __PYX_ERR(0, 150, __pyx_L5_except_error)
 
-      /* "ddb/engine/structure/database.pyx":151
+      /* "ddb/engine/structure/database.py":151
  *         except Exception as ex:
  *             print ex
  *             return False             # <<<<<<<<<<<<<<
@@ -5630,7 +5630,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/structure/database.pyx":106
+    /* "ddb/engine/structure/database.py":106
  * 
  *     def add_config(self,table_config=None,table=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -5656,7 +5656,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
     goto __pyx_L0;
   }
 
-  /* "ddb/engine/structure/database.pyx":105
+  /* "ddb/engine/structure/database.py":105
  * 
  * 
  *     def add_config(self,table_config=None,table=None):             # <<<<<<<<<<<<<<
@@ -5684,7 +5684,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_16add_conf
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":154
+/* "ddb/engine/structure/database.py":154
  * 
  * 
  *     def get_default_database(self):             # <<<<<<<<<<<<<<
@@ -5714,7 +5714,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_18get_defa
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("get_default_database", 0);
 
-  /* "ddb/engine/structure/database.pyx":155
+  /* "ddb/engine/structure/database.py":155
  * 
  *     def get_default_database(self):
  *         if self.curent_database==None:             # <<<<<<<<<<<<<<
@@ -5729,7 +5729,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_18get_defa
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":156
+    /* "ddb/engine/structure/database.py":156
  *     def get_default_database(self):
  *         if self.curent_database==None:
  *             return 'main'             # <<<<<<<<<<<<<<
@@ -5741,7 +5741,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_18get_defa
     __pyx_r = __pyx_n_s_main;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":155
+    /* "ddb/engine/structure/database.py":155
  * 
  *     def get_default_database(self):
  *         if self.curent_database==None:             # <<<<<<<<<<<<<<
@@ -5750,7 +5750,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_18get_defa
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":154
+  /* "ddb/engine/structure/database.py":154
  * 
  * 
  *     def get_default_database(self):             # <<<<<<<<<<<<<<
@@ -5772,7 +5772,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_18get_defa
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":159
+/* "ddb/engine/structure/database.py":159
  * 
  * 
  *     def get_curent_database(self):             # <<<<<<<<<<<<<<
@@ -5803,7 +5803,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("get_curent_database", 0);
 
-  /* "ddb/engine/structure/database.pyx":160
+  /* "ddb/engine/structure/database.py":160
  * 
  *     def get_curent_database(self):
  *         if self.curent_database==None:             # <<<<<<<<<<<<<<
@@ -5818,7 +5818,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":161
+    /* "ddb/engine/structure/database.py":161
  *     def get_curent_database(self):
  *         if self.curent_database==None:
  *             return self.get_default_database()             # <<<<<<<<<<<<<<
@@ -5847,7 +5847,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":160
+    /* "ddb/engine/structure/database.py":160
  * 
  *     def get_curent_database(self):
  *         if self.curent_database==None:             # <<<<<<<<<<<<<<
@@ -5856,7 +5856,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":162
+  /* "ddb/engine/structure/database.py":162
  *         if self.curent_database==None:
  *             return self.get_default_database()
  *         return self.curent_database             # <<<<<<<<<<<<<<
@@ -5870,7 +5870,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":159
+  /* "ddb/engine/structure/database.py":159
  * 
  * 
  *     def get_curent_database(self):             # <<<<<<<<<<<<<<
@@ -5891,7 +5891,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_20get_cure
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":165
+/* "ddb/engine/structure/database.py":165
  * 
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):             # <<<<<<<<<<<<<<
@@ -6013,7 +6013,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_RefNannySetupContext("create_table", 0);
   __Pyx_INCREF(__pyx_v_database_name);
 
-  /* "ddb/engine/structure/database.pyx":166
+  /* "ddb/engine/structure/database.py":166
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -6028,7 +6028,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (unlikely(__pyx_t_3)) {
 
-    /* "ddb/engine/structure/database.pyx":167
+    /* "ddb/engine/structure/database.py":167
  *     def create_table(self,table_name,columns,data_file,database_name=None):
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -6041,7 +6041,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __PYX_ERR(0, 167, __pyx_L1_error)
 
-    /* "ddb/engine/structure/database.pyx":166
+    /* "ddb/engine/structure/database.py":166
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -6050,7 +6050,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":168
+  /* "ddb/engine/structure/database.py":168
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")
  *         if None ==database_name:             # <<<<<<<<<<<<<<
@@ -6062,7 +6062,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":169
+    /* "ddb/engine/structure/database.py":169
  *             raise Exception ("Not using a config file")
  *         if None ==database_name:
  *             database_name=self.get_curent_database()             # <<<<<<<<<<<<<<
@@ -6089,7 +6089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
     __Pyx_DECREF_SET(__pyx_v_database_name, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/structure/database.pyx":168
+    /* "ddb/engine/structure/database.py":168
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")
  *         if None ==database_name:             # <<<<<<<<<<<<<<
@@ -6098,7 +6098,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":170
+  /* "ddb/engine/structure/database.py":170
  *         if None ==database_name:
  *             database_name=self.get_curent_database()
  *         exists=self.get(table_name,database_name)             # <<<<<<<<<<<<<<
@@ -6155,7 +6155,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __pyx_v_exists = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":172
+  /* "ddb/engine/structure/database.py":172
  *         exists=self.get(table_name,database_name)
  *         #it exists. so no dont create it
  *         if None!=exists:             # <<<<<<<<<<<<<<
@@ -6167,7 +6167,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":173
+    /* "ddb/engine/structure/database.py":173
  *         #it exists. so no dont create it
  *         if None!=exists:
  *             return False             # <<<<<<<<<<<<<<
@@ -6179,7 +6179,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":172
+    /* "ddb/engine/structure/database.py":172
  *         exists=self.get(table_name,database_name)
  *         #it exists. so no dont create it
  *         if None!=exists:             # <<<<<<<<<<<<<<
@@ -6188,7 +6188,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":175
+  /* "ddb/engine/structure/database.py":175
  *             return False
  * 
  *         t=table(name=table_name,database=database_name,columns=columns)             # <<<<<<<<<<<<<<
@@ -6209,7 +6209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __pyx_v_t = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "ddb/engine/structure/database.pyx":176
+  /* "ddb/engine/structure/database.py":176
  * 
  *         t=table(name=table_name,database=database_name,columns=columns)
  *         t.data.path=data_file             # <<<<<<<<<<<<<<
@@ -6221,7 +6221,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   if (__Pyx_PyObject_SetAttrStr(__pyx_t_6, __pyx_n_s_path, __pyx_v_data_file) < 0) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "ddb/engine/structure/database.pyx":177
+  /* "ddb/engine/structure/database.py":177
  *         t=table(name=table_name,database=database_name,columns=columns)
  *         t.data.path=data_file
  *         res=t.save()             # <<<<<<<<<<<<<<
@@ -6248,7 +6248,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __pyx_v_res = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "ddb/engine/structure/database.pyx":178
+  /* "ddb/engine/structure/database.py":178
  *         t.data.path=data_file
  *         res=t.save()
  *         if False==res:             # <<<<<<<<<<<<<<
@@ -6260,7 +6260,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":179
+    /* "ddb/engine/structure/database.py":179
  *         res=t.save()
  *         if False==res:
  *             return False             # <<<<<<<<<<<<<<
@@ -6272,7 +6272,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":178
+    /* "ddb/engine/structure/database.py":178
  *         t.data.path=data_file
  *         res=t.save()
  *         if False==res:             # <<<<<<<<<<<<<<
@@ -6281,7 +6281,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":180
+  /* "ddb/engine/structure/database.py":180
  *         if False==res:
  *             return False
  *         self.add_config(table=t)             # <<<<<<<<<<<<<<
@@ -6299,7 +6299,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":181
+  /* "ddb/engine/structure/database.py":181
  *             return False
  *         self.add_config(table=t)
  *         return True             # <<<<<<<<<<<<<<
@@ -6311,7 +6311,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":165
+  /* "ddb/engine/structure/database.py":165
  * 
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):             # <<<<<<<<<<<<<<
@@ -6337,7 +6337,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_22create_t
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":185
+/* "ddb/engine/structure/database.py":185
  * 
  * 
  *     def drop_table(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -6439,7 +6439,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
   __Pyx_RefNannySetupContext("drop_table", 0);
   __Pyx_INCREF(__pyx_v_database_name);
 
-  /* "ddb/engine/structure/database.pyx":186
+  /* "ddb/engine/structure/database.py":186
  * 
  *     def drop_table(self,table_name,database_name=None):
  *         if None ==database_name:             # <<<<<<<<<<<<<<
@@ -6451,7 +6451,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/database.pyx":187
+    /* "ddb/engine/structure/database.py":187
  *     def drop_table(self,table_name,database_name=None):
  *         if None ==database_name:
  *             database_name=self.get_curent_database()             # <<<<<<<<<<<<<<
@@ -6478,7 +6478,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
     __Pyx_DECREF_SET(__pyx_v_database_name, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":186
+    /* "ddb/engine/structure/database.py":186
  * 
  *     def drop_table(self,table_name,database_name=None):
  *         if None ==database_name:             # <<<<<<<<<<<<<<
@@ -6487,7 +6487,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":189
+  /* "ddb/engine/structure/database.py":189
  *             database_name=self.get_curent_database()
  *         #print table_name,database_name
  *         for index in range(0,len(self.tables)):             # <<<<<<<<<<<<<<
@@ -6502,7 +6502,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_index = __pyx_t_7;
 
-    /* "ddb/engine/structure/database.pyx":191
+    /* "ddb/engine/structure/database.py":191
  *         for index in range(0,len(self.tables)):
  *             #print self.tables[index].data.name,self.tables[index].data.database
  *             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:             # <<<<<<<<<<<<<<
@@ -6548,7 +6548,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
     __pyx_L7_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/database.pyx":192
+      /* "ddb/engine/structure/database.py":192
  *             #print self.tables[index].data.name,self.tables[index].data.database
  *             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:
  *                 res=self.remove_config(table_object=self.tables[index])             # <<<<<<<<<<<<<<
@@ -6573,7 +6573,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
       __pyx_v_res = __pyx_t_9;
       __pyx_t_9 = 0;
 
-      /* "ddb/engine/structure/database.pyx":193
+      /* "ddb/engine/structure/database.py":193
  *             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:
  *                 res=self.remove_config(table_object=self.tables[index])
  *                 if False==res:             # <<<<<<<<<<<<<<
@@ -6585,7 +6585,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (__pyx_t_2) {
 
-        /* "ddb/engine/structure/database.pyx":194
+        /* "ddb/engine/structure/database.py":194
  *                 res=self.remove_config(table_object=self.tables[index])
  *                 if False==res:
  *                     return False             # <<<<<<<<<<<<<<
@@ -6597,7 +6597,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
         __pyx_r = Py_False;
         goto __pyx_L0;
 
-        /* "ddb/engine/structure/database.pyx":193
+        /* "ddb/engine/structure/database.py":193
  *             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:
  *                 res=self.remove_config(table_object=self.tables[index])
  *                 if False==res:             # <<<<<<<<<<<<<<
@@ -6606,7 +6606,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":195
+      /* "ddb/engine/structure/database.py":195
  *                 if False==res:
  *                     return False
  *                 self.tables.pop(index)             # <<<<<<<<<<<<<<
@@ -6620,7 +6620,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "ddb/engine/structure/database.pyx":196
+      /* "ddb/engine/structure/database.py":196
  *                     return False
  *                 self.tables.pop(index)
  *                 return True             # <<<<<<<<<<<<<<
@@ -6632,7 +6632,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/database.pyx":191
+      /* "ddb/engine/structure/database.py":191
  *         for index in range(0,len(self.tables)):
  *             #print self.tables[index].data.name,self.tables[index].data.database
  *             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:             # <<<<<<<<<<<<<<
@@ -6642,7 +6642,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
     }
   }
 
-  /* "ddb/engine/structure/database.pyx":198
+  /* "ddb/engine/structure/database.py":198
  *                 return True
  *                 break
  *         return False             # <<<<<<<<<<<<<<
@@ -6654,7 +6654,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":185
+  /* "ddb/engine/structure/database.py":185
  * 
  * 
  *     def drop_table(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -6678,7 +6678,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_24drop_tab
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":201
+/* "ddb/engine/structure/database.py":201
  * 
  * 
  *     def remove_config(self,table_config=None,table_object=None):             # <<<<<<<<<<<<<<
@@ -6792,7 +6792,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
   PyObject *__pyx_t_15 = NULL;
   __Pyx_RefNannySetupContext("remove_config", 0);
 
-  /* "ddb/engine/structure/database.pyx":202
+  /* "ddb/engine/structure/database.py":202
  * 
  *     def remove_config(self,table_config=None,table_object=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -6808,7 +6808,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "ddb/engine/structure/database.pyx":203
+      /* "ddb/engine/structure/database.py":203
  *     def remove_config(self,table_config=None,table_object=None):
  *         try:
  *             if not os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -6846,7 +6846,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
       __pyx_t_9 = ((!__pyx_t_8) != 0);
       if (__pyx_t_9) {
 
-        /* "ddb/engine/structure/database.pyx":204
+        /* "ddb/engine/structure/database.py":204
  *         try:
  *             if not os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)             # <<<<<<<<<<<<<<
@@ -6875,7 +6875,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "ddb/engine/structure/database.pyx":203
+        /* "ddb/engine/structure/database.py":203
  *     def remove_config(self,table_config=None,table_object=None):
  *         try:
  *             if not os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -6884,7 +6884,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
  */
       }
 
-      /* "ddb/engine/structure/database.pyx":205
+      /* "ddb/engine/structure/database.py":205
  *             if not os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)
  *             with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -6939,7 +6939,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_v_stream = __pyx_t_6;
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":206
+              /* "ddb/engine/structure/database.py":206
  *                 self.create_config(self.config_file)
  *             with open(self.config_file, 'r') as stream:
  *                 if table_object==None:             # <<<<<<<<<<<<<<
@@ -6951,7 +6951,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
               if (__pyx_t_9) {
 
-                /* "ddb/engine/structure/database.pyx":207
+                /* "ddb/engine/structure/database.py":207
  *             with open(self.config_file, 'r') as stream:
  *                 if table_object==None:
  *                     config=table(table_config)             # <<<<<<<<<<<<<<
@@ -6978,7 +6978,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
                 __pyx_v_config = __pyx_t_6;
                 __pyx_t_6 = 0;
 
-                /* "ddb/engine/structure/database.pyx":206
+                /* "ddb/engine/structure/database.py":206
  *                 self.create_config(self.config_file)
  *             with open(self.config_file, 'r') as stream:
  *                 if table_object==None:             # <<<<<<<<<<<<<<
@@ -6988,7 +6988,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
                 goto __pyx_L20;
               }
 
-              /* "ddb/engine/structure/database.pyx":209
+              /* "ddb/engine/structure/database.py":209
  *                     config=table(table_config)
  *                 else:
  *                     config=table_object             # <<<<<<<<<<<<<<
@@ -7001,7 +7001,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               }
               __pyx_L20:;
 
-              /* "ddb/engine/structure/database.pyx":210
+              /* "ddb/engine/structure/database.py":210
  *                 else:
  *                     config=table_object
  *                 yaml_data=yaml.load(stream)             # <<<<<<<<<<<<<<
@@ -7031,7 +7031,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_v_yaml_data = __pyx_t_6;
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":211
+              /* "ddb/engine/structure/database.py":211
  *                     config=table_object
  *                 yaml_data=yaml.load(stream)
  *                 db=config.data.database             # <<<<<<<<<<<<<<
@@ -7046,7 +7046,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_v_db = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/structure/database.pyx":212
+              /* "ddb/engine/structure/database.py":212
  *                 yaml_data=yaml.load(stream)
  *                 db=config.data.database
  *                 if None == db:             # <<<<<<<<<<<<<<
@@ -7058,7 +7058,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               if (__pyx_t_9) {
 
-                /* "ddb/engine/structure/database.pyx":213
+                /* "ddb/engine/structure/database.py":213
  *                 db=config.data.database
  *                 if None == db:
  *                     db=self.get_default_database()             # <<<<<<<<<<<<<<
@@ -7085,7 +7085,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
                 __Pyx_DECREF_SET(__pyx_v_db, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":212
+                /* "ddb/engine/structure/database.py":212
  *                 yaml_data=yaml.load(stream)
  *                 db=config.data.database
  *                 if None == db:             # <<<<<<<<<<<<<<
@@ -7094,7 +7094,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
  */
               }
 
-              /* "ddb/engine/structure/database.pyx":215
+              /* "ddb/engine/structure/database.py":215
  *                     db=self.get_default_database()
  * 
  *                 if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -7105,7 +7105,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_t_8 = (__pyx_t_9 != 0);
               if (__pyx_t_8) {
 
-                /* "ddb/engine/structure/database.pyx":216
+                /* "ddb/engine/structure/database.py":216
  * 
  *                 if db not in  yaml_data:
  *                     yaml_data[db]={}             # <<<<<<<<<<<<<<
@@ -7117,7 +7117,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
                 if (unlikely(PyObject_SetItem(__pyx_v_yaml_data, __pyx_v_db, __pyx_t_5) < 0)) __PYX_ERR(0, 216, __pyx_L14_error)
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-                /* "ddb/engine/structure/database.pyx":215
+                /* "ddb/engine/structure/database.py":215
  *                     db=self.get_default_database()
  * 
  *                 if db not in  yaml_data:             # <<<<<<<<<<<<<<
@@ -7126,7 +7126,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
  */
               }
 
-              /* "ddb/engine/structure/database.pyx":218
+              /* "ddb/engine/structure/database.py":218
  *                     yaml_data[db]={}
  * 
  *                 table_name=config.data.name             # <<<<<<<<<<<<<<
@@ -7141,7 +7141,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_v_table_name = __pyx_t_6;
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":220
+              /* "ddb/engine/structure/database.py":220
  *                 table_name=config.data.name
  *                 #print db,table_name
  *                 if table_name in yaml_data[db]:             # <<<<<<<<<<<<<<
@@ -7155,7 +7155,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_t_9 = (__pyx_t_8 != 0);
               if (__pyx_t_9) {
 
-                /* "ddb/engine/structure/database.pyx":221
+                /* "ddb/engine/structure/database.py":221
  *                 #print db,table_name
  *                 if table_name in yaml_data[db]:
  *                     yaml_data[db].pop(table_name, None)             # <<<<<<<<<<<<<<
@@ -7214,7 +7214,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                /* "ddb/engine/structure/database.pyx":220
+                /* "ddb/engine/structure/database.py":220
  *                 table_name=config.data.name
  *                 #print db,table_name
  *                 if table_name in yaml_data[db]:             # <<<<<<<<<<<<<<
@@ -7223,7 +7223,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
  */
               }
 
-              /* "ddb/engine/structure/database.pyx":224
+              /* "ddb/engine/structure/database.py":224
  * 
  * 
  *                 f = open(self.config_file, "w")             # <<<<<<<<<<<<<<
@@ -7246,7 +7246,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_v_f = __pyx_t_6;
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":225
+              /* "ddb/engine/structure/database.py":225
  * 
  *                 f = open(self.config_file, "w")
  *                 yaml.dump(yaml_data, f)             # <<<<<<<<<<<<<<
@@ -7305,7 +7305,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":226
+              /* "ddb/engine/structure/database.py":226
  *                 f = open(self.config_file, "w")
  *                 yaml.dump(yaml_data, f)
  *                 f.close()             # <<<<<<<<<<<<<<
@@ -7331,7 +7331,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-              /* "ddb/engine/structure/database.pyx":227
+              /* "ddb/engine/structure/database.py":227
  *                 yaml.dump(yaml_data, f)
  *                 f.close()
  *                 return True             # <<<<<<<<<<<<<<
@@ -7343,7 +7343,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
               __pyx_r = Py_True;
               goto __pyx_L18_try_return;
 
-              /* "ddb/engine/structure/database.pyx":205
+              /* "ddb/engine/structure/database.py":205
  *             if not os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)
  *             with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -7439,7 +7439,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
         __pyx_L27:;
       }
 
-      /* "ddb/engine/structure/database.pyx":202
+      /* "ddb/engine/structure/database.py":202
  * 
  *     def remove_config(self,table_config=None,table_object=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -7457,7 +7457,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/structure/database.pyx":228
+    /* "ddb/engine/structure/database.py":228
  *                 f.close()
  *                 return True
  *         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -7474,7 +7474,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
       __Pyx_INCREF(__pyx_t_7);
       __pyx_v_ex = __pyx_t_7;
 
-      /* "ddb/engine/structure/database.pyx":229
+      /* "ddb/engine/structure/database.py":229
  *                 return True
  *         except Exception as ex:
  *                 print ex             # <<<<<<<<<<<<<<
@@ -7483,7 +7483,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
  */
       if (__Pyx_PrintOne(0, __pyx_v_ex) < 0) __PYX_ERR(0, 229, __pyx_L5_except_error)
 
-      /* "ddb/engine/structure/database.pyx":230
+      /* "ddb/engine/structure/database.py":230
  *         except Exception as ex:
  *                 print ex
  *                 return False             # <<<<<<<<<<<<<<
@@ -7501,7 +7501,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "ddb/engine/structure/database.pyx":202
+    /* "ddb/engine/structure/database.py":202
  * 
  *     def remove_config(self,table_config=None,table_object=None):
  *         try:             # <<<<<<<<<<<<<<
@@ -7528,7 +7528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
     __pyx_L8_try_end:;
   }
 
-  /* "ddb/engine/structure/database.pyx":201
+  /* "ddb/engine/structure/database.py":201
  * 
  * 
  *     def remove_config(self,table_config=None,table_object=None):             # <<<<<<<<<<<<<<
@@ -7559,7 +7559,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_26remove_c
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":233
+/* "ddb/engine/structure/database.py":233
  * 
  * 
  *     def reload_config(self):             # <<<<<<<<<<<<<<
@@ -7598,7 +7598,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("reload_config", 0);
 
-  /* "ddb/engine/structure/database.pyx":234
+  /* "ddb/engine/structure/database.py":234
  * 
  *     def reload_config(self):
  *         temp_tables=self.get_tables()             # <<<<<<<<<<<<<<
@@ -7625,7 +7625,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   __pyx_v_temp_tables = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":235
+  /* "ddb/engine/structure/database.py":235
  *     def reload_config(self):
  *         temp_tables=self.get_tables()
  *         table_swap=[]             # <<<<<<<<<<<<<<
@@ -7637,7 +7637,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   __pyx_v_table_swap = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":237
+  /* "ddb/engine/structure/database.py":237
  *         table_swap=[]
  *         # add temp tables to list
  *         for t in self.tables:             # <<<<<<<<<<<<<<
@@ -7689,7 +7689,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
     __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":238
+    /* "ddb/engine/structure/database.py":238
  *         # add temp tables to list
  *         for t in self.tables:
  *             if t.data.type=='Temp':             # <<<<<<<<<<<<<<
@@ -7705,7 +7705,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/database.pyx":239
+      /* "ddb/engine/structure/database.py":239
  *         for t in self.tables:
  *             if t.data.type=='Temp':
  *                 table_swap.append(t)             # <<<<<<<<<<<<<<
@@ -7714,7 +7714,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
  */
       __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_table_swap, __pyx_v_t); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 239, __pyx_L1_error)
 
-      /* "ddb/engine/structure/database.pyx":238
+      /* "ddb/engine/structure/database.py":238
  *         # add temp tables to list
  *         for t in self.tables:
  *             if t.data.type=='Temp':             # <<<<<<<<<<<<<<
@@ -7723,7 +7723,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
  */
     }
 
-    /* "ddb/engine/structure/database.pyx":237
+    /* "ddb/engine/structure/database.py":237
  *         table_swap=[]
  *         # add temp tables to list
  *         for t in self.tables:             # <<<<<<<<<<<<<<
@@ -7733,7 +7733,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":241
+  /* "ddb/engine/structure/database.py":241
  *                 table_swap.append(t)
  * 
  *         for t in temp_tables:             # <<<<<<<<<<<<<<
@@ -7782,7 +7782,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
     __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/database.pyx":242
+    /* "ddb/engine/structure/database.py":242
  * 
  *         for t in temp_tables:
  *             self.tables.append(table(t))             # <<<<<<<<<<<<<<
@@ -7812,7 +7812,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":241
+    /* "ddb/engine/structure/database.py":241
  *                 table_swap.append(t)
  * 
  *         for t in temp_tables:             # <<<<<<<<<<<<<<
@@ -7822,7 +7822,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":244
+  /* "ddb/engine/structure/database.py":244
  *             self.tables.append(table(t))
  * 
  *         self.tables=table_swap             # <<<<<<<<<<<<<<
@@ -7831,7 +7831,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_tables, __pyx_v_table_swap) < 0) __PYX_ERR(0, 244, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":233
+  /* "ddb/engine/structure/database.py":233
  * 
  * 
  *     def reload_config(self):             # <<<<<<<<<<<<<<
@@ -7859,7 +7859,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_28reload_c
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/database.pyx":246
+/* "ddb/engine/structure/database.py":246
  *         self.tables=table_swap
  * 
  *     def get_tables(self):             # <<<<<<<<<<<<<<
@@ -7907,7 +7907,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   int __pyx_t_16;
   __Pyx_RefNannySetupContext("get_tables", 0);
 
-  /* "ddb/engine/structure/database.pyx":247
+  /* "ddb/engine/structure/database.py":247
  * 
  *     def get_tables(self):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -7922,7 +7922,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":248
+    /* "ddb/engine/structure/database.py":248
  *     def get_tables(self):
  *         if None==self.config_file:
  *             return []             # <<<<<<<<<<<<<<
@@ -7936,7 +7936,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":247
+    /* "ddb/engine/structure/database.py":247
  * 
  *     def get_tables(self):
  *         if None==self.config_file:             # <<<<<<<<<<<<<<
@@ -7945,7 +7945,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":250
+  /* "ddb/engine/structure/database.py":250
  *             return []
  * 
  *         if False==os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -7984,7 +7984,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":251
+    /* "ddb/engine/structure/database.py":251
  * 
  *         if False==os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)             # <<<<<<<<<<<<<<
@@ -8013,7 +8013,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/database.pyx":250
+    /* "ddb/engine/structure/database.py":250
  *             return []
  * 
  *         if False==os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -8022,7 +8022,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":253
+  /* "ddb/engine/structure/database.py":253
  *                 self.create_config(self.config_file)
  * 
  *         tables=[]             # <<<<<<<<<<<<<<
@@ -8034,7 +8034,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   __pyx_v_tables = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":254
+  /* "ddb/engine/structure/database.py":254
  * 
  *         tables=[]
  *         if False==os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -8073,7 +8073,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/database.pyx":255
+    /* "ddb/engine/structure/database.py":255
  *         tables=[]
  *         if False==os.path.exists(self.config_file):
  *             return []             # <<<<<<<<<<<<<<
@@ -8087,7 +8087,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/database.pyx":254
+    /* "ddb/engine/structure/database.py":254
  * 
  *         tables=[]
  *         if False==os.path.exists(self.config_file):             # <<<<<<<<<<<<<<
@@ -8096,7 +8096,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
  */
   }
 
-  /* "ddb/engine/structure/database.pyx":257
+  /* "ddb/engine/structure/database.py":257
  *             return []
  * 
  *         with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8151,7 +8151,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
           __pyx_v_stream = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "ddb/engine/structure/database.pyx":258
+          /* "ddb/engine/structure/database.py":258
  * 
  *         with open(self.config_file, 'r') as stream:
  *             yaml_data=yaml.load(stream)             # <<<<<<<<<<<<<<
@@ -8181,7 +8181,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
           __pyx_v_yaml_data = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "ddb/engine/structure/database.pyx":260
+          /* "ddb/engine/structure/database.py":260
  *             yaml_data=yaml.load(stream)
  * 
  *             for db in  yaml_data:             # <<<<<<<<<<<<<<
@@ -8230,7 +8230,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
             __Pyx_XDECREF_SET(__pyx_v_db, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/structure/database.pyx":261
+            /* "ddb/engine/structure/database.py":261
  * 
  *             for db in  yaml_data:
  *                 for table in yaml_data[db]:             # <<<<<<<<<<<<<<
@@ -8282,7 +8282,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
               __Pyx_XDECREF_SET(__pyx_v_table, __pyx_t_1);
               __pyx_t_1 = 0;
 
-              /* "ddb/engine/structure/database.pyx":262
+              /* "ddb/engine/structure/database.py":262
  *             for db in  yaml_data:
  *                 for table in yaml_data[db]:
  *                     tables.append(yaml_data[db][table]['path'])             # <<<<<<<<<<<<<<
@@ -8300,7 +8300,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
               __pyx_t_14 = __Pyx_PyList_Append(__pyx_v_tables, __pyx_t_1); if (unlikely(__pyx_t_14 == ((int)-1))) __PYX_ERR(0, 262, __pyx_L10_error)
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-              /* "ddb/engine/structure/database.pyx":261
+              /* "ddb/engine/structure/database.py":261
  * 
  *             for db in  yaml_data:
  *                 for table in yaml_data[db]:             # <<<<<<<<<<<<<<
@@ -8310,7 +8310,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
             }
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "ddb/engine/structure/database.pyx":260
+            /* "ddb/engine/structure/database.py":260
  *             yaml_data=yaml.load(stream)
  * 
  *             for db in  yaml_data:             # <<<<<<<<<<<<<<
@@ -8320,7 +8320,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
           }
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-          /* "ddb/engine/structure/database.pyx":257
+          /* "ddb/engine/structure/database.py":257
  *             return []
  * 
  *         with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8401,7 +8401,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
     __pyx_L23:;
   }
 
-  /* "ddb/engine/structure/database.pyx":264
+  /* "ddb/engine/structure/database.py":264
  *                     tables.append(yaml_data[db][table]['path'])
  * 
  *         return tables             # <<<<<<<<<<<<<<
@@ -8412,7 +8412,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_8database_8database_30get_tabl
   __pyx_r = __pyx_v_tables;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/database.pyx":246
+  /* "ddb/engine/structure/database.py":246
  *         self.tables=table_swap
  * 
  *     def get_tables(self):             # <<<<<<<<<<<<<<
@@ -8614,7 +8614,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/structure/database.pyx":99
+  /* "ddb/engine/structure/database.py":99
  *     def create_table_config(self,name,db,columns):
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -8625,7 +8625,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/structure/database.pyx":108
+  /* "ddb/engine/structure/database.py":108
  *         try:
  *             if None==self.config_file:
  *                 raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -8636,7 +8636,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/structure/database.pyx":115
+  /* "ddb/engine/structure/database.py":115
  *             if None != table_config:
  *                 print "Adding table config"
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8647,7 +8647,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/structure/database.pyx":135
+  /* "ddb/engine/structure/database.py":135
  *             #if we have a table lets save it
  *             if table !=None:
  *                 with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8658,7 +8658,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/structure/database.pyx":167
+  /* "ddb/engine/structure/database.py":167
  *     def create_table(self,table_name,columns,data_file,database_name=None):
  *         if None==self.config_file:
  *             raise Exception ("Not using a config file")             # <<<<<<<<<<<<<<
@@ -8669,7 +8669,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/structure/database.pyx":205
+  /* "ddb/engine/structure/database.py":205
  *             if not os.path.exists(self.config_file):
  *                 self.create_config(self.config_file)
  *             with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8683,7 +8683,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/structure/database.pyx":257
+  /* "ddb/engine/structure/database.py":257
  *             return []
  * 
  *         with open(self.config_file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -8694,7 +8694,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "ddb/engine/structure/database.pyx":9
+  /* "ddb/engine/structure/database.py":9
  * class database:
  *     tables=[]
  *     def __init__(self,directory=None,config_file=None,show_config=False):             # <<<<<<<<<<<<<<
@@ -8709,7 +8709,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "ddb/engine/structure/database.pyx":47
+  /* "ddb/engine/structure/database.py":47
  *                     self.tables.append(table(cf,show_config))
  * 
  *     def set_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -8721,7 +8721,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__7);
   __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_set_database, 47, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 47, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":51
+  /* "ddb/engine/structure/database.py":51
  *         self.curent_database=database_name
  * 
  *     def get(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -8736,7 +8736,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "ddb/engine/structure/database.pyx":61
+  /* "ddb/engine/structure/database.py":61
  *         #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
  * 
  *     def count(self):             # <<<<<<<<<<<<<<
@@ -8748,7 +8748,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__12);
   __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_count, 61, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 61, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":65
+  /* "ddb/engine/structure/database.py":65
  *         return len(self.tables)
  * 
  *     def get_clone(self,table_name):             # <<<<<<<<<<<<<<
@@ -8760,7 +8760,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__14);
   __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_get_clone, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 65, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":74
+  /* "ddb/engine/structure/database.py":74
  *         return temp_table
  * 
  *     def temp_table(self,name=None,columns=[]):             # <<<<<<<<<<<<<<
@@ -8772,7 +8772,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__16);
   __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_temp_table, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 74, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":81
+  /* "ddb/engine/structure/database.py":81
  * 
  * 
  *     def create_config(self,config_file):             # <<<<<<<<<<<<<<
@@ -8784,7 +8784,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__18);
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_create_config, 81, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 81, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":97
+  /* "ddb/engine/structure/database.py":97
  * 
  * 
  *     def create_table_config(self,name,db,columns):             # <<<<<<<<<<<<<<
@@ -8796,7 +8796,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__20);
   __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(4, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_create_table_config, 97, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 97, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":105
+  /* "ddb/engine/structure/database.py":105
  * 
  * 
  *     def add_config(self,table_config=None,table=None):             # <<<<<<<<<<<<<<
@@ -8811,7 +8811,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "ddb/engine/structure/database.pyx":154
+  /* "ddb/engine/structure/database.py":154
  * 
  * 
  *     def get_default_database(self):             # <<<<<<<<<<<<<<
@@ -8823,7 +8823,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__25);
   __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_get_default_database, 154, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 154, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":159
+  /* "ddb/engine/structure/database.py":159
  * 
  * 
  *     def get_curent_database(self):             # <<<<<<<<<<<<<<
@@ -8835,7 +8835,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__27);
   __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_get_curent_database, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 159, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":165
+  /* "ddb/engine/structure/database.py":165
  * 
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):             # <<<<<<<<<<<<<<
@@ -8850,7 +8850,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
 
-  /* "ddb/engine/structure/database.pyx":185
+  /* "ddb/engine/structure/database.py":185
  * 
  * 
  *     def drop_table(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -8865,7 +8865,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
 
-  /* "ddb/engine/structure/database.pyx":201
+  /* "ddb/engine/structure/database.py":201
  * 
  * 
  *     def remove_config(self,table_config=None,table_object=None):             # <<<<<<<<<<<<<<
@@ -8880,7 +8880,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
 
-  /* "ddb/engine/structure/database.pyx":233
+  /* "ddb/engine/structure/database.py":233
  * 
  * 
  *     def reload_config(self):             # <<<<<<<<<<<<<<
@@ -8892,7 +8892,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__38);
   __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_database_py, __pyx_n_s_reload_config, 233, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 233, __pyx_L1_error)
 
-  /* "ddb/engine/structure/database.pyx":246
+  /* "ddb/engine/structure/database.py":246
  *         self.tables=table_swap
  * 
  *     def get_tables(self):             # <<<<<<<<<<<<<<
@@ -9181,7 +9181,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/structure/database.pyx":1
+  /* "ddb/engine/structure/database.py":1
  * import os             # <<<<<<<<<<<<<<
  * import glob
  * import copy
@@ -9191,7 +9191,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":2
+  /* "ddb/engine/structure/database.py":2
  * import os
  * import glob             # <<<<<<<<<<<<<<
  * import copy
@@ -9202,7 +9202,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_glob, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":3
+  /* "ddb/engine/structure/database.py":3
  * import os
  * import glob
  * import copy             # <<<<<<<<<<<<<<
@@ -9214,7 +9214,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_copy, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":4
+  /* "ddb/engine/structure/database.py":4
  * import glob
  * import copy
  * from table import table             # <<<<<<<<<<<<<<
@@ -9235,7 +9235,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":5
+  /* "ddb/engine/structure/database.py":5
  * import copy
  * from table import table
  * import yaml             # <<<<<<<<<<<<<<
@@ -9247,7 +9247,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_yaml, __pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":7
+  /* "ddb/engine/structure/database.py":7
  * import yaml
  * 
  * class database:             # <<<<<<<<<<<<<<
@@ -9257,7 +9257,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_database, __pyx_n_s_database, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_database, (PyObject *) NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "ddb/engine/structure/database.pyx":8
+  /* "ddb/engine/structure/database.py":8
  * 
  * class database:
  *     tables=[]             # <<<<<<<<<<<<<<
@@ -9269,7 +9269,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_tables, __pyx_t_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":9
+  /* "ddb/engine/structure/database.py":9
  * class database:
  *     tables=[]
  *     def __init__(self,directory=None,config_file=None,show_config=False):             # <<<<<<<<<<<<<<
@@ -9282,7 +9282,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":47
+  /* "ddb/engine/structure/database.py":47
  *                     self.tables.append(table(cf,show_config))
  * 
  *     def set_database(self,database_name):             # <<<<<<<<<<<<<<
@@ -9294,7 +9294,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_set_database, __pyx_t_1) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":51
+  /* "ddb/engine/structure/database.py":51
  *         self.curent_database=database_name
  * 
  *     def get(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -9307,7 +9307,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get, __pyx_t_1) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":61
+  /* "ddb/engine/structure/database.py":61
  *         #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
  * 
  *     def count(self):             # <<<<<<<<<<<<<<
@@ -9319,7 +9319,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_count, __pyx_t_1) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":65
+  /* "ddb/engine/structure/database.py":65
  *         return len(self.tables)
  * 
  *     def get_clone(self,table_name):             # <<<<<<<<<<<<<<
@@ -9331,7 +9331,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_clone, __pyx_t_1) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":74
+  /* "ddb/engine/structure/database.py":74
  *         return temp_table
  * 
  *     def temp_table(self,name=None,columns=[]):             # <<<<<<<<<<<<<<
@@ -9350,7 +9350,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_temp_table, __pyx_t_1) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":81
+  /* "ddb/engine/structure/database.py":81
  * 
  * 
  *     def create_config(self,config_file):             # <<<<<<<<<<<<<<
@@ -9362,7 +9362,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_create_config, __pyx_t_1) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":97
+  /* "ddb/engine/structure/database.py":97
  * 
  * 
  *     def create_table_config(self,name,db,columns):             # <<<<<<<<<<<<<<
@@ -9374,7 +9374,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_create_table_config, __pyx_t_1) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":105
+  /* "ddb/engine/structure/database.py":105
  * 
  * 
  *     def add_config(self,table_config=None,table=None):             # <<<<<<<<<<<<<<
@@ -9387,7 +9387,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_add_config, __pyx_t_1) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":154
+  /* "ddb/engine/structure/database.py":154
  * 
  * 
  *     def get_default_database(self):             # <<<<<<<<<<<<<<
@@ -9399,7 +9399,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_default_database, __pyx_t_1) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":159
+  /* "ddb/engine/structure/database.py":159
  * 
  * 
  *     def get_curent_database(self):             # <<<<<<<<<<<<<<
@@ -9411,7 +9411,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_curent_database, __pyx_t_1) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":165
+  /* "ddb/engine/structure/database.py":165
  * 
  * 
  *     def create_table(self,table_name,columns,data_file,database_name=None):             # <<<<<<<<<<<<<<
@@ -9424,7 +9424,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_create_table, __pyx_t_1) < 0) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":185
+  /* "ddb/engine/structure/database.py":185
  * 
  * 
  *     def drop_table(self,table_name,database_name=None):             # <<<<<<<<<<<<<<
@@ -9437,7 +9437,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_drop_table, __pyx_t_1) < 0) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":201
+  /* "ddb/engine/structure/database.py":201
  * 
  * 
  *     def remove_config(self,table_config=None,table_object=None):             # <<<<<<<<<<<<<<
@@ -9450,7 +9450,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_remove_config, __pyx_t_1) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":233
+  /* "ddb/engine/structure/database.py":233
  * 
  * 
  *     def reload_config(self):             # <<<<<<<<<<<<<<
@@ -9462,7 +9462,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_reload_config, __pyx_t_1) < 0) __PYX_ERR(0, 233, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":246
+  /* "ddb/engine/structure/database.py":246
  *         self.tables=table_swap
  * 
  *     def get_tables(self):             # <<<<<<<<<<<<<<
@@ -9474,7 +9474,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_tables, __pyx_t_1) < 0) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/database.pyx":7
+  /* "ddb/engine/structure/database.py":7
  * import yaml
  * 
  * class database:             # <<<<<<<<<<<<<<
@@ -9487,7 +9487,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/database.pyx":1
+  /* "ddb/engine/structure/database.py":1
  * import os             # <<<<<<<<<<<<<<
  * import glob
  * import copy

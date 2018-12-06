@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.structure.table", 
         "sources": [
-            "./ddb/engine/structure/table.pyx"
+            "./ddb/engine/structure/table.py"
         ]
     }, 
     "module_name": "ddb.engine.structure.table"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/structure/table.pyx",
+  "ddb/engine/structure/table.py",
 };
 
 /*--- Type declarations ---*/
@@ -1524,9 +1524,9 @@ static const char __pyx_k_ddb_engine_structure_table[] = "ddb.engine.structure.t
 static const char __pyx_k_get_column_at_data_ordinal[] = "get_column_at_data_ordinal";
 static const char __pyx_k_table_get_data_from_column[] = "table.get_data_from_column";
 static const char __pyx_k_get_lowest_available_ordinal[] = "get_lowest_available_ordinal";
+static const char __pyx_k_ddb_engine_structure_table_py[] = "ddb/engine/structure/table.py";
 static const char __pyx_k_table_does_data_ordinal_exist[] = "table.does_data_ordinal_exist";
 static const char __pyx_k_table_visible_attributes_noop[] = "table_visible_attributes.noop";
-static const char __pyx_k_ddb_engine_structure_table_pyx[] = "ddb/engine/structure/table.pyx";
 static const char __pyx_k_table_visible_attributes___init[] = "table_visible_attributes.__init__";
 static const char __pyx_k_Cannot_save_a_table_without_a_da[] = "Cannot save a table without a database name";
 static const char __pyx_k_Cannot_save_a_table_without_a_na[] = "Cannot save a table without a name";
@@ -1576,7 +1576,7 @@ static PyObject *__pyx_n_s_data_file;
 static PyObject *__pyx_n_s_database;
 static PyObject *__pyx_kp_s_ddb;
 static PyObject *__pyx_n_s_ddb_engine_structure_table;
-static PyObject *__pyx_kp_s_ddb_engine_structure_table_pyx;
+static PyObject *__pyx_kp_s_ddb_engine_structure_table_py;
 static PyObject *__pyx_kp_s_ddb_yaml;
 static PyObject *__pyx_n_s_default_flow_style;
 static PyObject *__pyx_n_s_delimiter;
@@ -1808,7 +1808,7 @@ static PyObject *__pyx_codeobj__72;
 static PyObject *__pyx_codeobj__74;
 /* Late includes */
 
-/* "ddb/engine/structure/table.pyx":15
+/* "ddb/engine/structure/table.py":15
  * 
  * class table:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -1899,7 +1899,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_noop(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":17
+/* "ddb/engine/structure/table.py":17
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -2087,7 +2087,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   int __pyx_t_24;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/table.pyx":18
+  /* "ddb/engine/structure/table.py":18
  *         pass
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):
  *         self.version               = 1             # <<<<<<<<<<<<<<
@@ -2096,7 +2096,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_version, __pyx_int_1) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":19
+  /* "ddb/engine/structure/table.py":19
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):
  *         self.version               = 1
  *         self.ownership             = table_ownership()             # <<<<<<<<<<<<<<
@@ -2123,7 +2123,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ownership, __pyx_t_1) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":20
+  /* "ddb/engine/structure/table.py":20
  *         self.version               = 1
  *         self.ownership             = table_ownership()
  *         self.delimiters            = table_delimiters()             # <<<<<<<<<<<<<<
@@ -2150,7 +2150,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_delimiters, __pyx_t_1) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":21
+  /* "ddb/engine/structure/table.py":21
  *         self.ownership             = table_ownership()
  *         self.delimiters            = table_delimiters()
  *         self.visible               = table_visible_attributes()             # <<<<<<<<<<<<<<
@@ -2177,7 +2177,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_visible, __pyx_t_1) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":22
+  /* "ddb/engine/structure/table.py":22
  *         self.delimiters            = table_delimiters()
  *         self.visible               = table_visible_attributes()
  *         self.data                  = table_data(name=name,database=database)             # <<<<<<<<<<<<<<
@@ -2197,7 +2197,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_data, __pyx_t_3) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":23
+  /* "ddb/engine/structure/table.py":23
  *         self.visible               = table_visible_attributes()
  *         self.data                  = table_data(name=name,database=database)
  *         self.columns               = []             # <<<<<<<<<<<<<<
@@ -2209,7 +2209,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_columns, __pyx_t_3) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":24
+  /* "ddb/engine/structure/table.py":24
  *         self.data                  = table_data(name=name,database=database)
  *         self.columns               = []
  *         self.active                = True             # <<<<<<<<<<<<<<
@@ -2218,7 +2218,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_active, Py_True) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":25
+  /* "ddb/engine/structure/table.py":25
  *         self.columns               = []
  *         self.active                = True
  *         self.ordinals={}             # <<<<<<<<<<<<<<
@@ -2230,7 +2230,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ordinals, __pyx_t_3) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":26
+  /* "ddb/engine/structure/table.py":26
  *         self.active                = True
  *         self.ordinals={}
  *         self.errors=[]             # <<<<<<<<<<<<<<
@@ -2242,7 +2242,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_errors, __pyx_t_3) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":27
+  /* "ddb/engine/structure/table.py":27
  *         self.ordinals={}
  *         self.errors=[]
  *         self.results=[]             # <<<<<<<<<<<<<<
@@ -2254,7 +2254,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_3) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":29
+  /* "ddb/engine/structure/table.py":29
  *         self.results=[]
  * 
  *         if None != field_delimiter:             # <<<<<<<<<<<<<<
@@ -2266,7 +2266,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/structure/table.pyx":30
+    /* "ddb/engine/structure/table.py":30
  * 
  *         if None != field_delimiter:
  *             self.set_field_delimiter(field_delimiter)             # <<<<<<<<<<<<<<
@@ -2292,7 +2292,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":29
+    /* "ddb/engine/structure/table.py":29
  *         self.results=[]
  * 
  *         if None != field_delimiter:             # <<<<<<<<<<<<<<
@@ -2301,7 +2301,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":32
+  /* "ddb/engine/structure/table.py":32
  *             self.set_field_delimiter(field_delimiter)
  * 
  *         if None !=data_file:             # <<<<<<<<<<<<<<
@@ -2313,7 +2313,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/structure/table.pyx":33
+    /* "ddb/engine/structure/table.py":33
  * 
  *         if None !=data_file:
  *             self.data.path=data_file             # <<<<<<<<<<<<<<
@@ -2325,7 +2325,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_path, __pyx_v_data_file) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":32
+    /* "ddb/engine/structure/table.py":32
  *             self.set_field_delimiter(field_delimiter)
  * 
  *         if None !=data_file:             # <<<<<<<<<<<<<<
@@ -2334,7 +2334,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":35
+  /* "ddb/engine/structure/table.py":35
  *             self.data.path=data_file
  * 
  *         if None != columns:             # <<<<<<<<<<<<<<
@@ -2346,7 +2346,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/structure/table.pyx":36
+    /* "ddb/engine/structure/table.py":36
  * 
  *         if None != columns:
  *             for column in columns:             # <<<<<<<<<<<<<<
@@ -2395,7 +2395,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
       __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "ddb/engine/structure/table.pyx":37
+      /* "ddb/engine/structure/table.py":37
  *         if None != columns:
  *             for column in columns:
  *                 self.add_column(column)             # <<<<<<<<<<<<<<
@@ -2421,7 +2421,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "ddb/engine/structure/table.pyx":36
+      /* "ddb/engine/structure/table.py":36
  * 
  *         if None != columns:
  *             for column in columns:             # <<<<<<<<<<<<<<
@@ -2431,7 +2431,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":35
+    /* "ddb/engine/structure/table.py":35
  *             self.data.path=data_file
  * 
  *         if None != columns:             # <<<<<<<<<<<<<<
@@ -2440,7 +2440,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":40
+  /* "ddb/engine/structure/table.py":40
  * 
  * 
  *         if None != file:             # <<<<<<<<<<<<<<
@@ -2452,7 +2452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "ddb/engine/structure/table.pyx":41
+    /* "ddb/engine/structure/table.py":41
  * 
  *         if None != file:
  *             self.data.config=file             # <<<<<<<<<<<<<<
@@ -2464,7 +2464,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_config, __pyx_v_file) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":42
+    /* "ddb/engine/structure/table.py":42
  *         if None != file:
  *             self.data.config=file
  *             self.data.type="File"             # <<<<<<<<<<<<<<
@@ -2476,7 +2476,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     if (__Pyx_PyObject_SetAttrStr(__pyx_t_3, __pyx_n_s_type, __pyx_n_s_File) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":43
+    /* "ddb/engine/structure/table.py":43
  *             self.data.config=file
  *             self.data.type="File"
  *             with open(file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -2529,7 +2529,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
             __pyx_v_stream = __pyx_t_1;
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/structure/table.pyx":44
+            /* "ddb/engine/structure/table.py":44
  *             self.data.type="File"
  *             with open(file, 'r') as stream:
  *                 try:             # <<<<<<<<<<<<<<
@@ -2545,7 +2545,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
               __Pyx_XGOTREF(__pyx_t_14);
               /*try:*/ {
 
-                /* "ddb/engine/structure/table.pyx":45
+                /* "ddb/engine/structure/table.py":45
  *             with open(file, 'r') as stream:
  *                 try:
  *                     yaml_data=yaml.load(stream, Loader=Loader)             # <<<<<<<<<<<<<<
@@ -2576,7 +2576,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                 __pyx_v_yaml_data = __pyx_t_7;
                 __pyx_t_7 = 0;
 
-                /* "ddb/engine/structure/table.pyx":47
+                /* "ddb/engine/structure/table.py":47
  *                     yaml_data=yaml.load(stream, Loader=Loader)
  *                     #print yaml_data
  *                     for key in yaml_data:             # <<<<<<<<<<<<<<
@@ -2625,7 +2625,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                   __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_3);
                   __pyx_t_3 = 0;
 
-                  /* "ddb/engine/structure/table.pyx":48
+                  /* "ddb/engine/structure/table.py":48
  *                     #print yaml_data
  *                     for key in yaml_data:
  *                         try:             # <<<<<<<<<<<<<<
@@ -2641,7 +2641,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                     __Pyx_XGOTREF(__pyx_t_17);
                     /*try:*/ {
 
-                      /* "ddb/engine/structure/table.pyx":49
+                      /* "ddb/engine/structure/table.py":49
  *                     for key in yaml_data:
  *                         try:
  *                             if 'version' == key:             # <<<<<<<<<<<<<<
@@ -2651,7 +2651,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_version, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 49, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":50
+                        /* "ddb/engine/structure/table.py":50
  *                         try:
  *                             if 'version' == key:
  *                                 self.version=yaml_data[key]             # <<<<<<<<<<<<<<
@@ -2663,7 +2663,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_version, __pyx_t_3) < 0) __PYX_ERR(0, 50, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":49
+                        /* "ddb/engine/structure/table.py":49
  *                     for key in yaml_data:
  *                         try:
  *                             if 'version' == key:             # <<<<<<<<<<<<<<
@@ -2672,7 +2672,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":52
+                      /* "ddb/engine/structure/table.py":52
  *                                 self.version=yaml_data[key]
  * 
  *                             if 'ownership' == key:             # <<<<<<<<<<<<<<
@@ -2682,7 +2682,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_ownership, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 52, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":53
+                        /* "ddb/engine/structure/table.py":53
  * 
  *                             if 'ownership' == key:
  *                                 self.ownership = table_ownership(yaml=yaml_data[key])             # <<<<<<<<<<<<<<
@@ -2704,7 +2704,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ownership, __pyx_t_2) < 0) __PYX_ERR(0, 53, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":52
+                        /* "ddb/engine/structure/table.py":52
  *                                 self.version=yaml_data[key]
  * 
  *                             if 'ownership' == key:             # <<<<<<<<<<<<<<
@@ -2713,7 +2713,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":55
+                      /* "ddb/engine/structure/table.py":55
  *                                 self.ownership = table_ownership(yaml=yaml_data[key])
  * 
  *                             if 'delimiters' == key:             # <<<<<<<<<<<<<<
@@ -2723,7 +2723,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_delimiters, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 55, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":56
+                        /* "ddb/engine/structure/table.py":56
  * 
  *                             if 'delimiters' == key:
  *                                 self.delimiters = table_delimiters(yaml=yaml_data[key])             # <<<<<<<<<<<<<<
@@ -2745,7 +2745,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_delimiters, __pyx_t_3) < 0) __PYX_ERR(0, 56, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":55
+                        /* "ddb/engine/structure/table.py":55
  *                                 self.ownership = table_ownership(yaml=yaml_data[key])
  * 
  *                             if 'delimiters' == key:             # <<<<<<<<<<<<<<
@@ -2754,7 +2754,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":58
+                      /* "ddb/engine/structure/table.py":58
  *                                 self.delimiters = table_delimiters(yaml=yaml_data[key])
  * 
  *                             if 'visible' == key:             # <<<<<<<<<<<<<<
@@ -2764,7 +2764,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_visible, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 58, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":59
+                        /* "ddb/engine/structure/table.py":59
  * 
  *                             if 'visible' == key:
  *                                 self.visible = table_visible_attributes(yaml=yaml_data[key])             # <<<<<<<<<<<<<<
@@ -2786,7 +2786,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_visible, __pyx_t_2) < 0) __PYX_ERR(0, 59, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":58
+                        /* "ddb/engine/structure/table.py":58
  *                                 self.delimiters = table_delimiters(yaml=yaml_data[key])
  * 
  *                             if 'visible' == key:             # <<<<<<<<<<<<<<
@@ -2795,7 +2795,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":61
+                      /* "ddb/engine/structure/table.py":61
  *                                 self.visible = table_visible_attributes(yaml=yaml_data[key])
  * 
  *                             if 'data' == key:             # <<<<<<<<<<<<<<
@@ -2805,7 +2805,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_data, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 61, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":62
+                        /* "ddb/engine/structure/table.py":62
  * 
  *                             if 'data' == key:
  *                                 self.data = table_data(yaml=yaml_data[key])             # <<<<<<<<<<<<<<
@@ -2827,7 +2827,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_data, __pyx_t_3) < 0) __PYX_ERR(0, 62, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":61
+                        /* "ddb/engine/structure/table.py":61
  *                                 self.visible = table_visible_attributes(yaml=yaml_data[key])
  * 
  *                             if 'data' == key:             # <<<<<<<<<<<<<<
@@ -2836,7 +2836,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":65
+                      /* "ddb/engine/structure/table.py":65
  * 
  *                             # one offs
  *                             if 'columns' == key:             # <<<<<<<<<<<<<<
@@ -2846,7 +2846,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_columns, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 65, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":66
+                        /* "ddb/engine/structure/table.py":66
  *                             # one offs
  *                             if 'columns' == key:
  *                                 for c in yaml_data['columns']:             # <<<<<<<<<<<<<<
@@ -2898,7 +2898,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                           __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_3);
                           __pyx_t_3 = 0;
 
-                          /* "ddb/engine/structure/table.pyx":72
+                          /* "ddb/engine/structure/table.py":72
  *                                     #    self.columns.append( cv2 )
  *                                     #if self.version == 2:
  *                                         self.columns.append( column_v2( c ) )             # <<<<<<<<<<<<<<
@@ -2928,7 +2928,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
                           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                          /* "ddb/engine/structure/table.pyx":66
+                          /* "ddb/engine/structure/table.py":66
  *                             # one offs
  *                             if 'columns' == key:
  *                                 for c in yaml_data['columns']:             # <<<<<<<<<<<<<<
@@ -2938,7 +2938,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         }
                         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":65
+                        /* "ddb/engine/structure/table.py":65
  * 
  *                             # one offs
  *                             if 'columns' == key:             # <<<<<<<<<<<<<<
@@ -2947,7 +2947,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":75
+                      /* "ddb/engine/structure/table.py":75
  * 
  * 
  *                             if 'active' == key:             # <<<<<<<<<<<<<<
@@ -2957,7 +2957,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __pyx_t_4 = (__Pyx_PyString_Equals(__pyx_n_s_active, __pyx_v_key, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 75, __pyx_L27_error)
                       if (__pyx_t_4) {
 
-                        /* "ddb/engine/structure/table.pyx":76
+                        /* "ddb/engine/structure/table.py":76
  * 
  *                             if 'active' == key:
  *                                 self.active=yaml_data[key]             # <<<<<<<<<<<<<<
@@ -2969,7 +2969,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                         if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_active, __pyx_t_1) < 0) __PYX_ERR(0, 76, __pyx_L27_error)
                         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                        /* "ddb/engine/structure/table.pyx":75
+                        /* "ddb/engine/structure/table.py":75
  * 
  * 
  *                             if 'active' == key:             # <<<<<<<<<<<<<<
@@ -2978,7 +2978,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
                       }
 
-                      /* "ddb/engine/structure/table.pyx":48
+                      /* "ddb/engine/structure/table.py":48
  *                     #print yaml_data
  *                     for key in yaml_data:
  *                         try:             # <<<<<<<<<<<<<<
@@ -2997,7 +2997,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
                     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                    /* "ddb/engine/structure/table.pyx":81
+                    /* "ddb/engine/structure/table.py":81
  *                             #attr=getattr(self,key)
  *                             #setattr(self,key,yaml_data[key])
  *                         except Exception as ex:             # <<<<<<<<<<<<<<
@@ -3014,7 +3014,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                       __Pyx_INCREF(__pyx_t_2);
                       __Pyx_XDECREF_SET(__pyx_v_ex, __pyx_t_2);
 
-                      /* "ddb/engine/structure/table.pyx":82
+                      /* "ddb/engine/structure/table.py":82
  *                             #setattr(self,key,yaml_data[key])
  *                         except Exception as ex:
  *                             print(ex)             # <<<<<<<<<<<<<<
@@ -3030,7 +3030,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                     goto __pyx_L29_except_error;
                     __pyx_L29_except_error:;
 
-                    /* "ddb/engine/structure/table.pyx":48
+                    /* "ddb/engine/structure/table.py":48
  *                     #print yaml_data
  *                     for key in yaml_data:
  *                         try:             # <<<<<<<<<<<<<<
@@ -3050,7 +3050,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                     __pyx_L34_try_end:;
                   }
 
-                  /* "ddb/engine/structure/table.pyx":47
+                  /* "ddb/engine/structure/table.py":47
  *                     yaml_data=yaml.load(stream, Loader=Loader)
  *                     #print yaml_data
  *                     for key in yaml_data:             # <<<<<<<<<<<<<<
@@ -3060,7 +3060,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                 }
                 __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-                /* "ddb/engine/structure/table.pyx":44
+                /* "ddb/engine/structure/table.py":44
  *             self.data.type="File"
  *             with open(file, 'r') as stream:
  *                 try:             # <<<<<<<<<<<<<<
@@ -3080,7 +3080,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
               __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
               __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-              /* "ddb/engine/structure/table.pyx":83
+              /* "ddb/engine/structure/table.py":83
  *                         except Exception as ex:
  *                             print(ex)
  *                 except yaml.YAMLError as exc:             # <<<<<<<<<<<<<<
@@ -3106,7 +3106,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
                 __Pyx_INCREF(__pyx_t_3);
                 __pyx_v_exc = __pyx_t_3;
 
-                /* "ddb/engine/structure/table.pyx":84
+                /* "ddb/engine/structure/table.py":84
  *                             print(ex)
  *                 except yaml.YAMLError as exc:
  *                     print(exc)             # <<<<<<<<<<<<<<
@@ -3122,7 +3122,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
               goto __pyx_L21_except_error;
               __pyx_L21_except_error:;
 
-              /* "ddb/engine/structure/table.pyx":44
+              /* "ddb/engine/structure/table.py":44
  *             self.data.type="File"
  *             with open(file, 'r') as stream:
  *                 try:             # <<<<<<<<<<<<<<
@@ -3142,7 +3142,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
               __pyx_L24_try_end:;
             }
 
-            /* "ddb/engine/structure/table.pyx":43
+            /* "ddb/engine/structure/table.py":43
  *             self.data.config=file
  *             self.data.type="File"
  *             with open(file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -3225,7 +3225,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
       __pyx_L51:;
     }
 
-    /* "ddb/engine/structure/table.pyx":85
+    /* "ddb/engine/structure/table.py":85
  *                 except yaml.YAMLError as exc:
  *                     print(exc)
  *             self.update_ordinals()             # <<<<<<<<<<<<<<
@@ -3251,7 +3251,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/structure/table.pyx":86
+    /* "ddb/engine/structure/table.py":86
  *                     print(exc)
  *             self.update_ordinals()
  *             yaml.emitter.Emitter.process_tag = self.noop             # <<<<<<<<<<<<<<
@@ -3272,7 +3272,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "ddb/engine/structure/table.pyx":87
+    /* "ddb/engine/structure/table.py":87
  *             self.update_ordinals()
  *             yaml.emitter.Emitter.process_tag = self.noop
  *             if True == show_config:             # <<<<<<<<<<<<<<
@@ -3284,7 +3284,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_24) {
 
-      /* "ddb/engine/structure/table.pyx":88
+      /* "ddb/engine/structure/table.py":88
  *             yaml.emitter.Emitter.process_tag = self.noop
  *             if True == show_config:
  *                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)             # <<<<<<<<<<<<<<
@@ -3323,7 +3323,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
 
-      /* "ddb/engine/structure/table.pyx":87
+      /* "ddb/engine/structure/table.py":87
  *             self.update_ordinals()
  *             yaml.emitter.Emitter.process_tag = self.noop
  *             if True == show_config:             # <<<<<<<<<<<<<<
@@ -3332,7 +3332,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":89
+    /* "ddb/engine/structure/table.py":89
  *             if True == show_config:
  *                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
  *             if None !=self.data.path:             # <<<<<<<<<<<<<<
@@ -3350,7 +3350,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
     __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
     if (__pyx_t_24) {
 
-      /* "ddb/engine/structure/table.pyx":90
+      /* "ddb/engine/structure/table.py":90
  *                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
  *             if None !=self.data.path:
  *                 if False == os.path.exists(self.data.path):             # <<<<<<<<<<<<<<
@@ -3392,7 +3392,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (unlikely(__pyx_t_24)) {
 
-        /* "ddb/engine/structure/table.pyx":91
+        /* "ddb/engine/structure/table.py":91
  *             if None !=self.data.path:
  *                 if False == os.path.exists(self.data.path):
  *                     raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )             # <<<<<<<<<<<<<<
@@ -3467,7 +3467,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
         __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
         __PYX_ERR(0, 91, __pyx_L1_error)
 
-        /* "ddb/engine/structure/table.pyx":90
+        /* "ddb/engine/structure/table.py":90
  *                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
  *             if None !=self.data.path:
  *                 if False == os.path.exists(self.data.path):             # <<<<<<<<<<<<<<
@@ -3476,7 +3476,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
       }
 
-      /* "ddb/engine/structure/table.pyx":89
+      /* "ddb/engine/structure/table.py":89
  *             if True == show_config:
  *                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
  *             if None !=self.data.path:             # <<<<<<<<<<<<<<
@@ -3485,7 +3485,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":40
+    /* "ddb/engine/structure/table.py":40
  * 
  * 
  *         if None != file:             # <<<<<<<<<<<<<<
@@ -3494,7 +3494,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":17
+  /* "ddb/engine/structure/table.py":17
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -3527,7 +3527,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_2__init__(CYTHON
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":94
+/* "ddb/engine/structure/table.py":94
  * 
  * 
  *     def set_field_delimiter(self,delimiter):             # <<<<<<<<<<<<<<
@@ -3603,7 +3603,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_4set_field_delim
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("set_field_delimiter", 0);
 
-  /* "ddb/engine/structure/table.pyx":95
+  /* "ddb/engine/structure/table.py":95
  * 
  *     def set_field_delimiter(self,delimiter):
  *         self.delimiters.field=delimiter             # <<<<<<<<<<<<<<
@@ -3615,7 +3615,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_4set_field_delim
   if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_field, __pyx_v_delimiter) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":94
+  /* "ddb/engine/structure/table.py":94
  * 
  * 
  *     def set_field_delimiter(self,delimiter):             # <<<<<<<<<<<<<<
@@ -3636,7 +3636,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_4set_field_delim
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":97
+/* "ddb/engine/structure/table.py":97
  *         self.delimiters.field=delimiter
  * 
  *     def append_data(self,data):             # <<<<<<<<<<<<<<
@@ -3714,7 +3714,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_6append_data(CYT
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("append_data", 0);
 
-  /* "ddb/engine/structure/table.pyx":99
+  /* "ddb/engine/structure/table.py":99
  *     def append_data(self,data):
  *         """Add a row to the resultset for this table"""
  *         self.results.append(data)             # <<<<<<<<<<<<<<
@@ -3726,7 +3726,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_6append_data(CYT
   __pyx_t_2 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_data); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":97
+  /* "ddb/engine/structure/table.py":97
  *         self.delimiters.field=delimiter
  * 
  *     def append_data(self,data):             # <<<<<<<<<<<<<<
@@ -3747,7 +3747,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_6append_data(CYT
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":102
+/* "ddb/engine/structure/table.py":102
  * 
  * 
  *     def column_count(self):             # <<<<<<<<<<<<<<
@@ -3777,7 +3777,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_8column_count(CY
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("column_count", 0);
 
-  /* "ddb/engine/structure/table.pyx":104
+  /* "ddb/engine/structure/table.py":104
  *     def column_count(self):
  *         """Return the column count for this table"""
  *         return len(self.columns)             # <<<<<<<<<<<<<<
@@ -3795,7 +3795,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_8column_count(CY
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":102
+  /* "ddb/engine/structure/table.py":102
  * 
  * 
  *     def column_count(self):             # <<<<<<<<<<<<<<
@@ -3814,7 +3814,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_8column_count(CY
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":106
+/* "ddb/engine/structure/table.py":106
  *         return len(self.columns)
  * 
  *     def get_columns(self):             # <<<<<<<<<<<<<<
@@ -3850,7 +3850,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("get_columns", 0);
 
-  /* "ddb/engine/structure/table.pyx":108
+  /* "ddb/engine/structure/table.py":108
  *     def get_columns(self):
  *         """return a list of columns"""
  *         columns=[]             # <<<<<<<<<<<<<<
@@ -3862,7 +3862,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
   __pyx_v_columns = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":109
+  /* "ddb/engine/structure/table.py":109
  *         """return a list of columns"""
  *         columns=[]
  *         for column in self.columns:             # <<<<<<<<<<<<<<
@@ -3914,7 +3914,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":110
+    /* "ddb/engine/structure/table.py":110
  *         columns=[]
  *         for column in self.columns:
  *             columns.append(column.data.name)             # <<<<<<<<<<<<<<
@@ -3929,7 +3929,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
     __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_columns, __pyx_t_5); if (unlikely(__pyx_t_6 == ((int)-1))) __PYX_ERR(0, 110, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "ddb/engine/structure/table.pyx":109
+    /* "ddb/engine/structure/table.py":109
  *         """return a list of columns"""
  *         columns=[]
  *         for column in self.columns:             # <<<<<<<<<<<<<<
@@ -3939,7 +3939,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":111
+  /* "ddb/engine/structure/table.py":111
  *         for column in self.columns:
  *             columns.append(column.data.name)
  *         return columns             # <<<<<<<<<<<<<<
@@ -3951,7 +3951,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
   __pyx_r = __pyx_v_columns;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":106
+  /* "ddb/engine/structure/table.py":106
  *         return len(self.columns)
  * 
  *     def get_columns(self):             # <<<<<<<<<<<<<<
@@ -3974,7 +3974,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_10get_columns(CY
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":113
+/* "ddb/engine/structure/table.py":113
  *         return columns
  * 
  *     def results_length(self):             # <<<<<<<<<<<<<<
@@ -4004,7 +4004,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_12results_length
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("results_length", 0);
 
-  /* "ddb/engine/structure/table.pyx":115
+  /* "ddb/engine/structure/table.py":115
  *     def results_length(self):
  *         """Return the result set length for this table"""
  *         return len(self.results)             # <<<<<<<<<<<<<<
@@ -4022,7 +4022,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_12results_length
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":113
+  /* "ddb/engine/structure/table.py":113
  *         return columns
  * 
  *     def results_length(self):             # <<<<<<<<<<<<<<
@@ -4041,7 +4041,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_12results_length
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":117
+/* "ddb/engine/structure/table.py":117
  *         return len(self.results)
  * 
  *     def error_count(self):             # <<<<<<<<<<<<<<
@@ -4071,7 +4071,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_14error_count(CY
   Py_ssize_t __pyx_t_2;
   __Pyx_RefNannySetupContext("error_count", 0);
 
-  /* "ddb/engine/structure/table.pyx":119
+  /* "ddb/engine/structure/table.py":119
  *     def error_count(self):
  *         """Return the result set length for this table"""
  *         return len(self.errors)             # <<<<<<<<<<<<<<
@@ -4089,7 +4089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_14error_count(CY
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":117
+  /* "ddb/engine/structure/table.py":117
  *         return len(self.results)
  * 
  *     def error_count(self):             # <<<<<<<<<<<<<<
@@ -4108,7 +4108,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_14error_count(CY
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":122
+/* "ddb/engine/structure/table.py":122
  * 
  * 
  *     def add_error(self,error):             # <<<<<<<<<<<<<<
@@ -4186,7 +4186,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_16add_error(CYTH
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("add_error", 0);
 
-  /* "ddb/engine/structure/table.pyx":124
+  /* "ddb/engine/structure/table.py":124
  *     def add_error(self,error):
  *         """Add an error to the list of errors processed this cycle"""
  *         self.errors.append(error)             # <<<<<<<<<<<<<<
@@ -4198,7 +4198,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_16add_error(CYTH
   __pyx_t_2 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_error); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":122
+  /* "ddb/engine/structure/table.py":122
  * 
  * 
  *     def add_error(self,error):             # <<<<<<<<<<<<<<
@@ -4219,7 +4219,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_16add_error(CYTH
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":127
+/* "ddb/engine/structure/table.py":127
  * 
  * 
  *     def add_column(self,name,display=None):             # <<<<<<<<<<<<<<
@@ -4315,7 +4315,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("add_column", 0);
 
-  /* "ddb/engine/structure/table.pyx":129
+  /* "ddb/engine/structure/table.py":129
  *     def add_column(self,name,display=None):
  *         """Add a column to this table"""
  *         column=column_v2()             # <<<<<<<<<<<<<<
@@ -4342,7 +4342,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   __pyx_v_column = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":130
+  /* "ddb/engine/structure/table.py":130
  *         """Add a column to this table"""
  *         column=column_v2()
  *         column.data.name=name             # <<<<<<<<<<<<<<
@@ -4354,7 +4354,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_name, __pyx_v_name) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":131
+  /* "ddb/engine/structure/table.py":131
  *         column=column_v2()
  *         column.data.name=name
  *         column.display.name=display             # <<<<<<<<<<<<<<
@@ -4366,7 +4366,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   if (__Pyx_PyObject_SetAttrStr(__pyx_t_1, __pyx_n_s_name, __pyx_v_display) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":132
+  /* "ddb/engine/structure/table.py":132
  *         column.data.name=name
  *         column.display.name=display
  *         self.columns.append(column)             # <<<<<<<<<<<<<<
@@ -4378,7 +4378,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   __pyx_t_4 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_v_column); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":133
+  /* "ddb/engine/structure/table.py":133
  *         column.display.name=display
  *         self.columns.append(column)
  *         self.update_ordinals()             # <<<<<<<<<<<<<<
@@ -4404,7 +4404,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":127
+  /* "ddb/engine/structure/table.py":127
  * 
  * 
  *     def add_column(self,name,display=None):             # <<<<<<<<<<<<<<
@@ -4428,7 +4428,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_18add_column(CYT
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":135
+/* "ddb/engine/structure/table.py":135
  *         self.update_ordinals()
  * 
  *     def get_column_at_data_ordinal(self,ordinal):             # <<<<<<<<<<<<<<
@@ -4511,7 +4511,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("get_column_at_data_ordinal", 0);
 
-  /* "ddb/engine/structure/table.pyx":136
+  /* "ddb/engine/structure/table.py":136
  * 
  *     def get_column_at_data_ordinal(self,ordinal):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -4563,7 +4563,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":137
+    /* "ddb/engine/structure/table.py":137
  *     def get_column_at_data_ordinal(self,ordinal):
  *         for c in self.columns:
  *             if c.data.ordinal==int(ordinal):             # <<<<<<<<<<<<<<
@@ -4584,7 +4584,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/structure/table.pyx":138
+      /* "ddb/engine/structure/table.py":138
  *         for c in self.columns:
  *             if c.data.ordinal==int(ordinal):
  *                 return c.data.name             # <<<<<<<<<<<<<<
@@ -4602,7 +4602,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":137
+      /* "ddb/engine/structure/table.py":137
  *     def get_column_at_data_ordinal(self,ordinal):
  *         for c in self.columns:
  *             if c.data.ordinal==int(ordinal):             # <<<<<<<<<<<<<<
@@ -4611,7 +4611,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":136
+    /* "ddb/engine/structure/table.py":136
  * 
  *     def get_column_at_data_ordinal(self,ordinal):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -4621,7 +4621,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":139
+  /* "ddb/engine/structure/table.py":139
  *             if c.data.ordinal==int(ordinal):
  *                 return c.data.name
  *         return None             # <<<<<<<<<<<<<<
@@ -4632,7 +4632,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":135
+  /* "ddb/engine/structure/table.py":135
  *         self.update_ordinals()
  * 
  *     def get_column_at_data_ordinal(self,ordinal):             # <<<<<<<<<<<<<<
@@ -4655,7 +4655,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_20get_column_at_
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":142
+/* "ddb/engine/structure/table.py":142
  * 
  * 
  *     def has_column(self,column):             # <<<<<<<<<<<<<<
@@ -4738,7 +4738,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("has_column", 0);
 
-  /* "ddb/engine/structure/table.pyx":144
+  /* "ddb/engine/structure/table.py":144
  *     def has_column(self,column):
  *         """determine if a column exists by string name"""
  *         if column=='*':             # <<<<<<<<<<<<<<
@@ -4748,7 +4748,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
   __pyx_t_1 = (__Pyx_PyString_Equals(__pyx_v_column, __pyx_kp_s__2, Py_EQ)); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
   if (__pyx_t_1) {
 
-    /* "ddb/engine/structure/table.pyx":145
+    /* "ddb/engine/structure/table.py":145
  *         """determine if a column exists by string name"""
  *         if column=='*':
  *             return True             # <<<<<<<<<<<<<<
@@ -4760,7 +4760,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/table.pyx":144
+    /* "ddb/engine/structure/table.py":144
  *     def has_column(self,column):
  *         """determine if a column exists by string name"""
  *         if column=='*':             # <<<<<<<<<<<<<<
@@ -4769,7 +4769,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":146
+  /* "ddb/engine/structure/table.py":146
  *         if column=='*':
  *             return True
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -4821,7 +4821,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/structure/table.pyx":147
+    /* "ddb/engine/structure/table.py":147
  *             return True
  *         for c in self.columns:
  *             if column==c.data.name:             # <<<<<<<<<<<<<<
@@ -4839,7 +4839,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_1) {
 
-      /* "ddb/engine/structure/table.pyx":148
+      /* "ddb/engine/structure/table.py":148
  *         for c in self.columns:
  *             if column==c.data.name:
  *                 return True             # <<<<<<<<<<<<<<
@@ -4852,7 +4852,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":147
+      /* "ddb/engine/structure/table.py":147
  *             return True
  *         for c in self.columns:
  *             if column==c.data.name:             # <<<<<<<<<<<<<<
@@ -4861,7 +4861,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":146
+    /* "ddb/engine/structure/table.py":146
  *         if column=='*':
  *             return True
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -4871,7 +4871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/structure/table.pyx":149
+  /* "ddb/engine/structure/table.py":149
  *             if column==c.data.name:
  *                 return True
  *         return False             # <<<<<<<<<<<<<<
@@ -4883,7 +4883,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":142
+  /* "ddb/engine/structure/table.py":142
  * 
  * 
  *     def has_column(self,column):             # <<<<<<<<<<<<<<
@@ -4905,7 +4905,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_22has_column(CYT
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":151
+/* "ddb/engine/structure/table.py":151
  *         return False
  * 
  *     def get_ordinal_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -4987,7 +4987,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("get_ordinal_by_name", 0);
 
-  /* "ddb/engine/structure/table.pyx":152
+  /* "ddb/engine/structure/table.py":152
  * 
  *     def get_ordinal_by_name(self,name):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5039,7 +5039,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":153
+    /* "ddb/engine/structure/table.py":153
  *     def get_ordinal_by_name(self,name):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -5057,7 +5057,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/table.pyx":154
+      /* "ddb/engine/structure/table.py":154
  *         for c in self.columns:
  *             if c.data.name==name:
  *                 return c.data.ordinal             # <<<<<<<<<<<<<<
@@ -5075,7 +5075,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":153
+      /* "ddb/engine/structure/table.py":153
  *     def get_ordinal_by_name(self,name):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -5084,7 +5084,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":152
+    /* "ddb/engine/structure/table.py":152
  * 
  *     def get_ordinal_by_name(self,name):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5094,7 +5094,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":155
+  /* "ddb/engine/structure/table.py":155
  *             if c.data.name==name:
  *                 return c.data.ordinal
  *         return None             # <<<<<<<<<<<<<<
@@ -5105,7 +5105,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":151
+  /* "ddb/engine/structure/table.py":151
  *         return False
  * 
  *     def get_ordinal_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -5127,7 +5127,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_24get_ordinal_by
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":157
+/* "ddb/engine/structure/table.py":157
  *         return None
  * 
  *     def column_ordinals(self):             # <<<<<<<<<<<<<<
@@ -5164,7 +5164,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("column_ordinals", 0);
 
-  /* "ddb/engine/structure/table.pyx":158
+  /* "ddb/engine/structure/table.py":158
  * 
  *     def column_ordinals(self):
  *         temp_columns=[]             # <<<<<<<<<<<<<<
@@ -5176,7 +5176,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
   __pyx_v_temp_columns = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":159
+  /* "ddb/engine/structure/table.py":159
  *     def column_ordinals(self):
  *         temp_columns=[]
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5228,7 +5228,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":160
+    /* "ddb/engine/structure/table.py":160
  *         temp_columns=[]
  *         for c in self.columns:
  *             if c.display.visible == True:             # <<<<<<<<<<<<<<
@@ -5246,7 +5246,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/table.pyx":161
+      /* "ddb/engine/structure/table.py":161
  *         for c in self.columns:
  *             if c.display.visible == True:
  *                 temp_columns.append({'data':c.data.ordinal,'display':c.display.ordinal })             # <<<<<<<<<<<<<<
@@ -5272,7 +5272,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
       __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_temp_columns, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":160
+      /* "ddb/engine/structure/table.py":160
  *         temp_columns=[]
  *         for c in self.columns:
  *             if c.display.visible == True:             # <<<<<<<<<<<<<<
@@ -5281,7 +5281,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":159
+    /* "ddb/engine/structure/table.py":159
  *     def column_ordinals(self):
  *         temp_columns=[]
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5291,7 +5291,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":165
+  /* "ddb/engine/structure/table.py":165
  *         #L = [(k,v) for (k,v) in temp_columns]
  *         #temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
  *         return temp_columns             # <<<<<<<<<<<<<<
@@ -5303,7 +5303,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
   __pyx_r = __pyx_v_temp_columns;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":157
+  /* "ddb/engine/structure/table.py":157
  *         return None
  * 
  *     def column_ordinals(self):             # <<<<<<<<<<<<<<
@@ -5327,7 +5327,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_26column_ordinal
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":168
+/* "ddb/engine/structure/table.py":168
  * 
  * 
  *     def does_data_ordinal_exist(self,ordinal):             # <<<<<<<<<<<<<<
@@ -5409,7 +5409,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("does_data_ordinal_exist", 0);
 
-  /* "ddb/engine/structure/table.pyx":169
+  /* "ddb/engine/structure/table.py":169
  * 
  *     def does_data_ordinal_exist(self,ordinal):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5461,7 +5461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":170
+    /* "ddb/engine/structure/table.py":170
  *     def does_data_ordinal_exist(self,ordinal):
  *         for c in self.columns:
  *             if int(c.data.ordinal)==ordinal:             # <<<<<<<<<<<<<<
@@ -5482,7 +5482,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/table.pyx":171
+      /* "ddb/engine/structure/table.py":171
  *         for c in self.columns:
  *             if int(c.data.ordinal)==ordinal:
  *                 return True             # <<<<<<<<<<<<<<
@@ -5495,7 +5495,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":170
+      /* "ddb/engine/structure/table.py":170
  *     def does_data_ordinal_exist(self,ordinal):
  *         for c in self.columns:
  *             if int(c.data.ordinal)==ordinal:             # <<<<<<<<<<<<<<
@@ -5504,7 +5504,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":169
+    /* "ddb/engine/structure/table.py":169
  * 
  *     def does_data_ordinal_exist(self,ordinal):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5514,7 +5514,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":172
+  /* "ddb/engine/structure/table.py":172
  *             if int(c.data.ordinal)==ordinal:
  *                 return True
  *         return False             # <<<<<<<<<<<<<<
@@ -5526,7 +5526,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":168
+  /* "ddb/engine/structure/table.py":168
  * 
  * 
  *     def does_data_ordinal_exist(self,ordinal):             # <<<<<<<<<<<<<<
@@ -5548,7 +5548,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_28does_data_ordi
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":175
+/* "ddb/engine/structure/table.py":175
  * 
  * 
  *     def get_lowest_available_ordinal(self):             # <<<<<<<<<<<<<<
@@ -5584,7 +5584,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("get_lowest_available_ordinal", 0);
 
-  /* "ddb/engine/structure/table.pyx":176
+  /* "ddb/engine/structure/table.py":176
  * 
  *     def get_lowest_available_ordinal(self):
  *         for c in range(0,len(self.columns)):             # <<<<<<<<<<<<<<
@@ -5599,7 +5599,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_c = __pyx_t_4;
 
-    /* "ddb/engine/structure/table.pyx":177
+    /* "ddb/engine/structure/table.py":177
  *     def get_lowest_available_ordinal(self):
  *         for c in range(0,len(self.columns)):
  *             if False == self.does_data_ordinal_exist(c):             # <<<<<<<<<<<<<<
@@ -5632,7 +5632,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     if (__pyx_t_8) {
 
-      /* "ddb/engine/structure/table.pyx":178
+      /* "ddb/engine/structure/table.py":178
  *         for c in range(0,len(self.columns)):
  *             if False == self.does_data_ordinal_exist(c):
  *                 return c             # <<<<<<<<<<<<<<
@@ -5646,7 +5646,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
       __pyx_t_5 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":177
+      /* "ddb/engine/structure/table.py":177
  *     def get_lowest_available_ordinal(self):
  *         for c in range(0,len(self.columns)):
  *             if False == self.does_data_ordinal_exist(c):             # <<<<<<<<<<<<<<
@@ -5656,7 +5656,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
     }
   }
 
-  /* "ddb/engine/structure/table.pyx":179
+  /* "ddb/engine/structure/table.py":179
  *             if False == self.does_data_ordinal_exist(c):
  *                 return c
  *         return None             # <<<<<<<<<<<<<<
@@ -5667,7 +5667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":175
+  /* "ddb/engine/structure/table.py":175
  * 
  * 
  *     def get_lowest_available_ordinal(self):             # <<<<<<<<<<<<<<
@@ -5689,7 +5689,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_30get_lowest_ava
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":181
+/* "ddb/engine/structure/table.py":181
  *         return None
  * 
  *     def get_column_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -5771,7 +5771,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
   int __pyx_t_6;
   __Pyx_RefNannySetupContext("get_column_by_name", 0);
 
-  /* "ddb/engine/structure/table.pyx":182
+  /* "ddb/engine/structure/table.py":182
  * 
  *     def get_column_by_name(self,name):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5823,7 +5823,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":183
+    /* "ddb/engine/structure/table.py":183
  *     def get_column_by_name(self,name):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -5841,7 +5841,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/table.pyx":184
+      /* "ddb/engine/structure/table.py":184
  *         for c in self.columns:
  *             if c.data.name==name:
  *                 return c             # <<<<<<<<<<<<<<
@@ -5854,7 +5854,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":183
+      /* "ddb/engine/structure/table.py":183
  *     def get_column_by_name(self,name):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -5863,7 +5863,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":182
+    /* "ddb/engine/structure/table.py":182
  * 
  *     def get_column_by_name(self,name):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -5873,7 +5873,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":181
+  /* "ddb/engine/structure/table.py":181
  *         return None
  * 
  *     def get_column_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -5897,7 +5897,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_32get_column_by_
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":187
+/* "ddb/engine/structure/table.py":187
  * 
  * 
  *     def get_data_by_name(self,name,row):             # <<<<<<<<<<<<<<
@@ -5992,7 +5992,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
   Py_ssize_t __pyx_t_7;
   __Pyx_RefNannySetupContext("get_data_by_name", 0);
 
-  /* "ddb/engine/structure/table.pyx":188
+  /* "ddb/engine/structure/table.py":188
  * 
  *     def get_data_by_name(self,name,row):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -6044,7 +6044,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
     __Pyx_XDECREF_SET(__pyx_v_c, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":189
+    /* "ddb/engine/structure/table.py":189
  *     def get_data_by_name(self,name,row):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -6062,7 +6062,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_6) {
 
-      /* "ddb/engine/structure/table.pyx":190
+      /* "ddb/engine/structure/table.py":190
  *         for c in self.columns:
  *             if c.data.name==name:
  *                 i=c.data.ordinal             # <<<<<<<<<<<<<<
@@ -6077,7 +6077,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
       __pyx_v_i = __pyx_t_5;
       __pyx_t_5 = 0;
 
-      /* "ddb/engine/structure/table.pyx":191
+      /* "ddb/engine/structure/table.py":191
  *             if c.data.name==name:
  *                 i=c.data.ordinal
  *                 if None==row:             # <<<<<<<<<<<<<<
@@ -6089,7 +6089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_6) {
 
-        /* "ddb/engine/structure/table.pyx":192
+        /* "ddb/engine/structure/table.py":192
  *                 i=c.data.ordinal
  *                 if None==row:
  *                     return None             # <<<<<<<<<<<<<<
@@ -6101,7 +6101,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         goto __pyx_L0;
 
-        /* "ddb/engine/structure/table.pyx":191
+        /* "ddb/engine/structure/table.py":191
  *             if c.data.name==name:
  *                 i=c.data.ordinal
  *                 if None==row:             # <<<<<<<<<<<<<<
@@ -6110,7 +6110,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
  */
       }
 
-      /* "ddb/engine/structure/table.pyx":193
+      /* "ddb/engine/structure/table.py":193
  *                 if None==row:
  *                     return None
  *                 if len(row)<=i:             # <<<<<<<<<<<<<<
@@ -6126,7 +6126,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_6) {
 
-        /* "ddb/engine/structure/table.pyx":194
+        /* "ddb/engine/structure/table.py":194
  *                     return None
  *                 if len(row)<=i:
  *                     return None             # <<<<<<<<<<<<<<
@@ -6138,7 +6138,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         goto __pyx_L0;
 
-        /* "ddb/engine/structure/table.pyx":193
+        /* "ddb/engine/structure/table.py":193
  *                 if None==row:
  *                     return None
  *                 if len(row)<=i:             # <<<<<<<<<<<<<<
@@ -6147,7 +6147,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
  */
       }
 
-      /* "ddb/engine/structure/table.pyx":195
+      /* "ddb/engine/structure/table.py":195
  *                 if len(row)<=i:
  *                     return None
  *                 return row[i]             # <<<<<<<<<<<<<<
@@ -6162,7 +6162,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/structure/table.pyx":189
+      /* "ddb/engine/structure/table.py":189
  *     def get_data_by_name(self,name,row):
  *         for c in self.columns:
  *             if c.data.name==name:             # <<<<<<<<<<<<<<
@@ -6171,7 +6171,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":188
+    /* "ddb/engine/structure/table.py":188
  * 
  *     def get_data_by_name(self,name,row):
  *         for c in self.columns:             # <<<<<<<<<<<<<<
@@ -6181,7 +6181,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":187
+  /* "ddb/engine/structure/table.py":187
  * 
  * 
  *     def get_data_by_name(self,name,row):             # <<<<<<<<<<<<<<
@@ -6206,7 +6206,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_34get_data_by_na
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":198
+/* "ddb/engine/structure/table.py":198
  * 
  * 
  *     def get_data_from_column(self,column,row):             # <<<<<<<<<<<<<<
@@ -6297,7 +6297,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   Py_ssize_t __pyx_t_4;
   __Pyx_RefNannySetupContext("get_data_from_column", 0);
 
-  /* "ddb/engine/structure/table.pyx":199
+  /* "ddb/engine/structure/table.py":199
  * 
  *     def get_data_from_column(self,column,row):
  *         i=column.data.ordinal             # <<<<<<<<<<<<<<
@@ -6312,7 +6312,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   __pyx_v_i = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":200
+  /* "ddb/engine/structure/table.py":200
  *     def get_data_from_column(self,column,row):
  *         i=column.data.ordinal
  *         if None==row:             # <<<<<<<<<<<<<<
@@ -6324,7 +6324,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/table.pyx":201
+    /* "ddb/engine/structure/table.py":201
  *         i=column.data.ordinal
  *         if None==row:
  *             return None             # <<<<<<<<<<<<<<
@@ -6335,7 +6335,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/table.pyx":200
+    /* "ddb/engine/structure/table.py":200
  *     def get_data_from_column(self,column,row):
  *         i=column.data.ordinal
  *         if None==row:             # <<<<<<<<<<<<<<
@@ -6344,7 +6344,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":202
+  /* "ddb/engine/structure/table.py":202
  *         if None==row:
  *             return None
  *         if len(row)<=i:             # <<<<<<<<<<<<<<
@@ -6360,7 +6360,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/table.pyx":203
+    /* "ddb/engine/structure/table.py":203
  *             return None
  *         if len(row)<=i:
  *             return None             # <<<<<<<<<<<<<<
@@ -6371,7 +6371,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/table.pyx":202
+    /* "ddb/engine/structure/table.py":202
  *         if None==row:
  *             return None
  *         if len(row)<=i:             # <<<<<<<<<<<<<<
@@ -6380,7 +6380,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":204
+  /* "ddb/engine/structure/table.py":204
  *         if len(row)<=i:
  *             return None
  *         return row[i]             # <<<<<<<<<<<<<<
@@ -6394,7 +6394,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "ddb/engine/structure/table.pyx":198
+  /* "ddb/engine/structure/table.py":198
  * 
  * 
  *     def get_data_from_column(self,column,row):             # <<<<<<<<<<<<<<
@@ -6415,7 +6415,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_36get_data_from_
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":207
+/* "ddb/engine/structure/table.py":207
  * 
  * 
  *     def update_ordinals(self):             # <<<<<<<<<<<<<<
@@ -6455,7 +6455,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   PyObject *__pyx_t_10 = NULL;
   __Pyx_RefNannySetupContext("update_ordinals", 0);
 
-  /* "ddb/engine/structure/table.pyx":208
+  /* "ddb/engine/structure/table.py":208
  * 
  *     def update_ordinals(self):
  *         if None  == self.columns:             # <<<<<<<<<<<<<<
@@ -6470,7 +6470,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "ddb/engine/structure/table.pyx":209
+    /* "ddb/engine/structure/table.py":209
  *     def update_ordinals(self):
  *         if None  == self.columns:
  *             return             # <<<<<<<<<<<<<<
@@ -6481,7 +6481,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "ddb/engine/structure/table.pyx":208
+    /* "ddb/engine/structure/table.py":208
  * 
  *     def update_ordinals(self):
  *         if None  == self.columns:             # <<<<<<<<<<<<<<
@@ -6490,7 +6490,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":211
+  /* "ddb/engine/structure/table.py":211
  *             return
  * 
  *         column_count=len(self.columns)             # <<<<<<<<<<<<<<
@@ -6503,7 +6503,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_column_count = __pyx_t_4;
 
-  /* "ddb/engine/structure/table.pyx":214
+  /* "ddb/engine/structure/table.py":214
  *         #has_ordinal=[i for i in range(column_count)]
  * 
  *         self.ordinals={}             # <<<<<<<<<<<<<<
@@ -6515,7 +6515,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ordinals, __pyx_t_2) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":215
+  /* "ddb/engine/structure/table.py":215
  * 
  *         self.ordinals={}
  *         for k,v in enumerate(self.columns):             # <<<<<<<<<<<<<<
@@ -6576,7 +6576,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
     __pyx_t_2 = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":216
+    /* "ddb/engine/structure/table.py":216
  *         self.ordinals={}
  *         for k,v in enumerate(self.columns):
  *             if None == v.data.ordinal or -1==v.data.ordinal:             # <<<<<<<<<<<<<<
@@ -6611,7 +6611,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
     __pyx_L7_bool_binop_done:;
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":219
+      /* "ddb/engine/structure/table.py":219
  * 
  *                 #print (self.columns[k].data.ordinal)
  *                 self.columns[k].data.ordinal=self.get_lowest_available_ordinal()             # <<<<<<<<<<<<<<
@@ -6647,7 +6647,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/structure/table.pyx":220
+      /* "ddb/engine/structure/table.py":220
  *                 #print (self.columns[k].data.ordinal)
  *                 self.columns[k].data.ordinal=self.get_lowest_available_ordinal()
  *                 self.ordinals[v.data.name]=self.columns[k].data.ordinal             # <<<<<<<<<<<<<<
@@ -6677,7 +6677,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":216
+      /* "ddb/engine/structure/table.py":216
  *         self.ordinals={}
  *         for k,v in enumerate(self.columns):
  *             if None == v.data.ordinal or -1==v.data.ordinal:             # <<<<<<<<<<<<<<
@@ -6687,7 +6687,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
       goto __pyx_L6;
     }
 
-    /* "ddb/engine/structure/table.pyx":222
+    /* "ddb/engine/structure/table.py":222
  *                 self.ordinals[v.data.name]=self.columns[k].data.ordinal
  *             else:
  *                 self.ordinals[v.data.name]=v.data.ordinal             # <<<<<<<<<<<<<<
@@ -6714,7 +6714,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
     }
     __pyx_L6:;
 
-    /* "ddb/engine/structure/table.pyx":215
+    /* "ddb/engine/structure/table.py":215
  * 
  *         self.ordinals={}
  *         for k,v in enumerate(self.columns):             # <<<<<<<<<<<<<<
@@ -6725,7 +6725,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":207
+  /* "ddb/engine/structure/table.py":207
  * 
  * 
  *     def update_ordinals(self):             # <<<<<<<<<<<<<<
@@ -6753,7 +6753,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_38update_ordinal
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":253
+/* "ddb/engine/structure/table.py":253
  *         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
  * 
  *     def save(self):             # <<<<<<<<<<<<<<
@@ -6797,7 +6797,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   PyObject *__pyx_t_15 = NULL;
   __Pyx_RefNannySetupContext("save", 0);
 
-  /* "ddb/engine/structure/table.pyx":254
+  /* "ddb/engine/structure/table.py":254
  * 
  *     def save(self):
  *         home = os.path.expanduser("~")             # <<<<<<<<<<<<<<
@@ -6830,7 +6830,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __pyx_v_home = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":256
+  /* "ddb/engine/structure/table.py":256
  *         home = os.path.expanduser("~")
  *         #make app dir
  *         if not os.path.exists(os.path.join(home, '.ddb')):             # <<<<<<<<<<<<<<
@@ -6919,7 +6919,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __pyx_t_9 = ((!__pyx_t_8) != 0);
   if (__pyx_t_9) {
 
-    /* "ddb/engine/structure/table.pyx":257
+    /* "ddb/engine/structure/table.py":257
  *         #make app dir
  *         if not os.path.exists(os.path.join(home, '.ddb')):
  *            os.makedirs(os.path.join(home, '.ddb'))             # <<<<<<<<<<<<<<
@@ -7002,7 +7002,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":256
+    /* "ddb/engine/structure/table.py":256
  *         home = os.path.expanduser("~")
  *         #make app dir
  *         if not os.path.exists(os.path.join(home, '.ddb')):             # <<<<<<<<<<<<<<
@@ -7011,7 +7011,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":259
+  /* "ddb/engine/structure/table.py":259
  *            os.makedirs(os.path.join(home, '.ddb'))
  * 
  *         home=os.path.join(home, '.ddb')             # <<<<<<<<<<<<<<
@@ -7074,7 +7074,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __Pyx_DECREF_SET(__pyx_v_home, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":260
+  /* "ddb/engine/structure/table.py":260
  * 
  *         home=os.path.join(home, '.ddb')
  *         if None == self.data.name:             # <<<<<<<<<<<<<<
@@ -7092,7 +7092,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_9)) {
 
-    /* "ddb/engine/structure/table.pyx":261
+    /* "ddb/engine/structure/table.py":261
  *         home=os.path.join(home, '.ddb')
  *         if None == self.data.name:
  *             raise Exception ("Cannot save a table without a name")             # <<<<<<<<<<<<<<
@@ -7105,7 +7105,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 261, __pyx_L1_error)
 
-    /* "ddb/engine/structure/table.pyx":260
+    /* "ddb/engine/structure/table.py":260
  * 
  *         home=os.path.join(home, '.ddb')
  *         if None == self.data.name:             # <<<<<<<<<<<<<<
@@ -7114,7 +7114,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":263
+  /* "ddb/engine/structure/table.py":263
  *             raise Exception ("Cannot save a table without a name")
  * 
  *         if None == self.data.database:             # <<<<<<<<<<<<<<
@@ -7132,7 +7132,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_9)) {
 
-    /* "ddb/engine/structure/table.pyx":264
+    /* "ddb/engine/structure/table.py":264
  * 
  *         if None == self.data.database:
  *             raise Exception ("Cannot save a table without a database name")             # <<<<<<<<<<<<<<
@@ -7145,7 +7145,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 264, __pyx_L1_error)
 
-    /* "ddb/engine/structure/table.pyx":263
+    /* "ddb/engine/structure/table.py":263
  *             raise Exception ("Cannot save a table without a name")
  * 
  *         if None == self.data.database:             # <<<<<<<<<<<<<<
@@ -7154,7 +7154,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":266
+  /* "ddb/engine/structure/table.py":266
  *             raise Exception ("Cannot save a table without a database name")
  * 
  *         if not os.path.exists(os.path.join(home, self.data.database)):             # <<<<<<<<<<<<<<
@@ -7250,7 +7250,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __pyx_t_8 = ((!__pyx_t_9) != 0);
   if (__pyx_t_8) {
 
-    /* "ddb/engine/structure/table.pyx":267
+    /* "ddb/engine/structure/table.py":267
  * 
  *         if not os.path.exists(os.path.join(home, self.data.database)):
  *             os.makedirs(os.path.join(home, self.data.database))             # <<<<<<<<<<<<<<
@@ -7340,7 +7340,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/structure/table.pyx":266
+    /* "ddb/engine/structure/table.py":266
  *             raise Exception ("Cannot save a table without a database name")
  * 
  *         if not os.path.exists(os.path.join(home, self.data.database)):             # <<<<<<<<<<<<<<
@@ -7349,7 +7349,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":269
+  /* "ddb/engine/structure/table.py":269
  *             os.makedirs(os.path.join(home, self.data.database))
  * 
  *         home=os.path.join(home, self.data.database)             # <<<<<<<<<<<<<<
@@ -7419,7 +7419,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __Pyx_DECREF_SET(__pyx_v_home, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":270
+  /* "ddb/engine/structure/table.py":270
  * 
  *         home=os.path.join(home, self.data.database)
  *         if None == self.data.config:             # <<<<<<<<<<<<<<
@@ -7437,7 +7437,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_8) {
 
-    /* "ddb/engine/structure/table.pyx":271
+    /* "ddb/engine/structure/table.py":271
  *         home=os.path.join(home, self.data.database)
  *         if None == self.data.config:
  *             self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))             # <<<<<<<<<<<<<<
@@ -7528,7 +7528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "ddb/engine/structure/table.pyx":270
+    /* "ddb/engine/structure/table.py":270
  * 
  *         home=os.path.join(home, self.data.database)
  *         if None == self.data.config:             # <<<<<<<<<<<<<<
@@ -7537,7 +7537,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":273
+  /* "ddb/engine/structure/table.py":273
  *             self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
  * 
  *         with open(self.data.config, 'w') as stream:             # <<<<<<<<<<<<<<
@@ -7595,7 +7595,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
           __pyx_v_stream = __pyx_t_7;
           __pyx_t_7 = 0;
 
-          /* "ddb/engine/structure/table.pyx":274
+          /* "ddb/engine/structure/table.py":274
  * 
  *         with open(self.data.config, 'w') as stream:
  *             yaml.emitter.Emitter.process_tag = self.noop             # <<<<<<<<<<<<<<
@@ -7616,7 +7616,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "ddb/engine/structure/table.pyx":275
+          /* "ddb/engine/structure/table.py":275
  *         with open(self.data.config, 'w') as stream:
  *             yaml.emitter.Emitter.process_tag = self.noop
  *             yaml.dump(self,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True,stream=stream)             # <<<<<<<<<<<<<<
@@ -7648,7 +7648,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-          /* "ddb/engine/structure/table.pyx":276
+          /* "ddb/engine/structure/table.py":276
  *             yaml.emitter.Emitter.process_tag = self.noop
  *             yaml.dump(self,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True,stream=stream)
  *             stream.close()             # <<<<<<<<<<<<<<
@@ -7674,7 +7674,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-          /* "ddb/engine/structure/table.pyx":273
+          /* "ddb/engine/structure/table.py":273
  *             self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
  * 
  *         with open(self.data.config, 'w') as stream:             # <<<<<<<<<<<<<<
@@ -7758,7 +7758,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
     __pyx_L21:;
   }
 
-  /* "ddb/engine/structure/table.pyx":253
+  /* "ddb/engine/structure/table.py":253
  *         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
  * 
  *     def save(self):             # <<<<<<<<<<<<<<
@@ -7787,7 +7787,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_5table_40save(CYTHON_UN
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":283
+/* "ddb/engine/structure/table.py":283
  * 
  * class table_visible_attributes:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -7878,7 +7878,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":285
+/* "ddb/engine/structure/table.py":285
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -7960,7 +7960,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/table.pyx":286
+  /* "ddb/engine/structure/table.py":286
  *         pass
  *     def __init__(self,yaml=None):
  *         self.comments    = False             # <<<<<<<<<<<<<<
@@ -7969,7 +7969,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_comments, Py_False) < 0) __PYX_ERR(0, 286, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":287
+  /* "ddb/engine/structure/table.py":287
  *     def __init__(self,yaml=None):
  *         self.comments    = False
  *         self.errors      = True             # <<<<<<<<<<<<<<
@@ -7978,7 +7978,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_errors, Py_True) < 0) __PYX_ERR(0, 287, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":288
+  /* "ddb/engine/structure/table.py":288
  *         self.comments    = False
  *         self.errors      = True
  *         self.whitespace  = False             # <<<<<<<<<<<<<<
@@ -7987,7 +7987,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_whitespace, Py_False) < 0) __PYX_ERR(0, 288, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":289
+  /* "ddb/engine/structure/table.py":289
  *         self.errors      = True
  *         self.whitespace  = False
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -7999,7 +7999,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":291
+    /* "ddb/engine/structure/table.py":291
  *         if None != yaml:
  * 
  *             if 'comments' in yaml:             # <<<<<<<<<<<<<<
@@ -8010,7 +8010,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":292
+      /* "ddb/engine/structure/table.py":292
  * 
  *             if 'comments' in yaml:
  *                 self.comments=yaml['comments']             # <<<<<<<<<<<<<<
@@ -8022,7 +8022,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_comments, __pyx_t_1) < 0) __PYX_ERR(0, 292, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":291
+      /* "ddb/engine/structure/table.py":291
  *         if None != yaml:
  * 
  *             if 'comments' in yaml:             # <<<<<<<<<<<<<<
@@ -8031,7 +8031,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":293
+    /* "ddb/engine/structure/table.py":293
  *             if 'comments' in yaml:
  *                 self.comments=yaml['comments']
  *             if 'errors' in yaml:             # <<<<<<<<<<<<<<
@@ -8042,7 +8042,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":294
+      /* "ddb/engine/structure/table.py":294
  *                 self.comments=yaml['comments']
  *             if 'errors' in yaml:
  *                 self.errors=yaml['errors']             # <<<<<<<<<<<<<<
@@ -8054,7 +8054,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_errors, __pyx_t_1) < 0) __PYX_ERR(0, 294, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":293
+      /* "ddb/engine/structure/table.py":293
  *             if 'comments' in yaml:
  *                 self.comments=yaml['comments']
  *             if 'errors' in yaml:             # <<<<<<<<<<<<<<
@@ -8063,7 +8063,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":295
+    /* "ddb/engine/structure/table.py":295
  *             if 'errors' in yaml:
  *                 self.errors=yaml['errors']
  *             if 'whitespace' in yaml:             # <<<<<<<<<<<<<<
@@ -8074,7 +8074,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":296
+      /* "ddb/engine/structure/table.py":296
  *                 self.errors=yaml['errors']
  *             if 'whitespace' in yaml:
  *                 self.whitespace=yaml['whitespace']             # <<<<<<<<<<<<<<
@@ -8086,7 +8086,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_whitespace, __pyx_t_1) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":295
+      /* "ddb/engine/structure/table.py":295
  *             if 'errors' in yaml:
  *                 self.errors=yaml['errors']
  *             if 'whitespace' in yaml:             # <<<<<<<<<<<<<<
@@ -8095,7 +8095,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":289
+    /* "ddb/engine/structure/table.py":289
  *         self.errors      = True
  *         self.whitespace  = False
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -8104,7 +8104,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":285
+  /* "ddb/engine/structure/table.py":285
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -8125,7 +8125,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_24table_visible_attribu
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":300
+/* "ddb/engine/structure/table.py":300
  * 
  * class table_data:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -8216,7 +8216,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_noop(CYTHO
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":302
+/* "ddb/engine/structure/table.py":302
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None,name=None,database=None):             # <<<<<<<<<<<<<<
@@ -8325,7 +8325,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/table.pyx":303
+  /* "ddb/engine/structure/table.py":303
  *         pass
  *     def __init__(self,yaml=None,name=None,database=None):
  *         self.type           = 'Temp'             # <<<<<<<<<<<<<<
@@ -8334,7 +8334,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_type, __pyx_n_s_Temp) < 0) __PYX_ERR(0, 303, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":304
+  /* "ddb/engine/structure/table.py":304
  *     def __init__(self,yaml=None,name=None,database=None):
  *         self.type           = 'Temp'
  *         self.name           = None             # <<<<<<<<<<<<<<
@@ -8343,7 +8343,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_name, Py_None) < 0) __PYX_ERR(0, 304, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":305
+  /* "ddb/engine/structure/table.py":305
  *         self.type           = 'Temp'
  *         self.name           = None
  *         self.database       = 'main'             # <<<<<<<<<<<<<<
@@ -8352,7 +8352,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_database, __pyx_n_s_main) < 0) __PYX_ERR(0, 305, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":306
+  /* "ddb/engine/structure/table.py":306
  *         self.name           = None
  *         self.database       = 'main'
  *         self.display_name   = None             # <<<<<<<<<<<<<<
@@ -8361,7 +8361,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_display_name, Py_None) < 0) __PYX_ERR(0, 306, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":307
+  /* "ddb/engine/structure/table.py":307
  *         self.database       = 'main'
  *         self.display_name   = None
  *         self.multi_search   = True             # <<<<<<<<<<<<<<
@@ -8370,7 +8370,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_multi_search, Py_True) < 0) __PYX_ERR(0, 307, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":308
+  /* "ddb/engine/structure/table.py":308
  *         self.display_name   = None
  *         self.multi_search   = True
  *         self.starts_on_line = 0             # <<<<<<<<<<<<<<
@@ -8379,7 +8379,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_starts_on_line, __pyx_int_0) < 0) __PYX_ERR(0, 308, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":309
+  /* "ddb/engine/structure/table.py":309
  *         self.multi_search   = True
  *         self.starts_on_line = 0
  *         self.uid            = None             # <<<<<<<<<<<<<<
@@ -8388,7 +8388,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_uid, Py_None) < 0) __PYX_ERR(0, 309, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":310
+  /* "ddb/engine/structure/table.py":310
  *         self.starts_on_line = 0
  *         self.uid            = None
  *         self.path           = None             # <<<<<<<<<<<<<<
@@ -8397,7 +8397,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_path, Py_None) < 0) __PYX_ERR(0, 310, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":311
+  /* "ddb/engine/structure/table.py":311
  *         self.uid            = None
  *         self.path           = None
  *         self.key            = None             # <<<<<<<<<<<<<<
@@ -8406,7 +8406,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_key, Py_None) < 0) __PYX_ERR(0, 311, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":312
+  /* "ddb/engine/structure/table.py":312
  *         self.path           = None
  *         self.key            = None
  *         self.ordinal        = -1             # <<<<<<<<<<<<<<
@@ -8415,7 +8415,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ordinal, __pyx_int_neg_1) < 0) __PYX_ERR(0, 312, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":313
+  /* "ddb/engine/structure/table.py":313
  *         self.key            = None
  *         self.ordinal        = -1
  *         self.config         = None             # <<<<<<<<<<<<<<
@@ -8424,7 +8424,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_config, Py_None) < 0) __PYX_ERR(0, 313, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":314
+  /* "ddb/engine/structure/table.py":314
  *         self.ordinal        = -1
  *         self.config         = None
  *         self.retults        = None             # <<<<<<<<<<<<<<
@@ -8433,7 +8433,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_retults, Py_None) < 0) __PYX_ERR(0, 314, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":315
+  /* "ddb/engine/structure/table.py":315
  *         self.config         = None
  *         self.retults        = None
  *         if None != name:             # <<<<<<<<<<<<<<
@@ -8445,7 +8445,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":316
+    /* "ddb/engine/structure/table.py":316
  *         self.retults        = None
  *         if None != name:
  *             self.name=name             # <<<<<<<<<<<<<<
@@ -8454,7 +8454,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_name, __pyx_v_name) < 0) __PYX_ERR(0, 316, __pyx_L1_error)
 
-    /* "ddb/engine/structure/table.pyx":315
+    /* "ddb/engine/structure/table.py":315
  *         self.config         = None
  *         self.retults        = None
  *         if None != name:             # <<<<<<<<<<<<<<
@@ -8463,7 +8463,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":318
+  /* "ddb/engine/structure/table.py":318
  *             self.name=name
  * 
  *         if None != database:             # <<<<<<<<<<<<<<
@@ -8475,7 +8475,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":319
+    /* "ddb/engine/structure/table.py":319
  * 
  *         if None != database:
  *             self.database=database             # <<<<<<<<<<<<<<
@@ -8484,7 +8484,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_database, __pyx_v_database) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
 
-    /* "ddb/engine/structure/table.pyx":318
+    /* "ddb/engine/structure/table.py":318
  *             self.name=name
  * 
  *         if None != database:             # <<<<<<<<<<<<<<
@@ -8493,7 +8493,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":321
+  /* "ddb/engine/structure/table.py":321
  *             self.database=database
  * 
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -8505,7 +8505,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":322
+    /* "ddb/engine/structure/table.py":322
  * 
  *         if None != yaml:
  *             if 'name' in yaml:             # <<<<<<<<<<<<<<
@@ -8516,7 +8516,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":323
+      /* "ddb/engine/structure/table.py":323
  *         if None != yaml:
  *             if 'name' in yaml:
  *                 self.name=yaml['name']             # <<<<<<<<<<<<<<
@@ -8528,7 +8528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_name, __pyx_t_1) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":322
+      /* "ddb/engine/structure/table.py":322
  * 
  *         if None != yaml:
  *             if 'name' in yaml:             # <<<<<<<<<<<<<<
@@ -8537,7 +8537,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":324
+    /* "ddb/engine/structure/table.py":324
  *             if 'name' in yaml:
  *                 self.name=yaml['name']
  *             if 'database' in yaml:             # <<<<<<<<<<<<<<
@@ -8548,7 +8548,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":325
+      /* "ddb/engine/structure/table.py":325
  *                 self.name=yaml['name']
  *             if 'database' in yaml:
  *                 self.database=yaml['database']             # <<<<<<<<<<<<<<
@@ -8560,7 +8560,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_database, __pyx_t_1) < 0) __PYX_ERR(0, 325, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":324
+      /* "ddb/engine/structure/table.py":324
  *             if 'name' in yaml:
  *                 self.name=yaml['name']
  *             if 'database' in yaml:             # <<<<<<<<<<<<<<
@@ -8569,7 +8569,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":326
+    /* "ddb/engine/structure/table.py":326
  *             if 'database' in yaml:
  *                 self.database=yaml['database']
  *             if 'display_name' in yaml:             # <<<<<<<<<<<<<<
@@ -8580,7 +8580,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":327
+      /* "ddb/engine/structure/table.py":327
  *                 self.database=yaml['database']
  *             if 'display_name' in yaml:
  *                 self.display_name=yaml['display_name']             # <<<<<<<<<<<<<<
@@ -8592,7 +8592,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_display_name, __pyx_t_1) < 0) __PYX_ERR(0, 327, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":326
+      /* "ddb/engine/structure/table.py":326
  *             if 'database' in yaml:
  *                 self.database=yaml['database']
  *             if 'display_name' in yaml:             # <<<<<<<<<<<<<<
@@ -8601,7 +8601,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":328
+    /* "ddb/engine/structure/table.py":328
  *             if 'display_name' in yaml:
  *                 self.display_name=yaml['display_name']
  *             if 'multi_search' in yaml:             # <<<<<<<<<<<<<<
@@ -8612,7 +8612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":329
+      /* "ddb/engine/structure/table.py":329
  *                 self.display_name=yaml['display_name']
  *             if 'multi_search' in yaml:
  *                 self.multi_search=yaml['multi_search']             # <<<<<<<<<<<<<<
@@ -8624,7 +8624,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_multi_search, __pyx_t_1) < 0) __PYX_ERR(0, 329, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":328
+      /* "ddb/engine/structure/table.py":328
  *             if 'display_name' in yaml:
  *                 self.display_name=yaml['display_name']
  *             if 'multi_search' in yaml:             # <<<<<<<<<<<<<<
@@ -8633,7 +8633,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":330
+    /* "ddb/engine/structure/table.py":330
  *             if 'multi_search' in yaml:
  *                 self.multi_search=yaml['multi_search']
  *             if 'starts_on_line' in yaml:             # <<<<<<<<<<<<<<
@@ -8644,7 +8644,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":331
+      /* "ddb/engine/structure/table.py":331
  *                 self.multi_search=yaml['multi_search']
  *             if 'starts_on_line' in yaml:
  *                 self.starts_on_line=int(yaml['starts_on_line'])             # <<<<<<<<<<<<<<
@@ -8659,7 +8659,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_starts_on_line, __pyx_t_4) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/table.pyx":330
+      /* "ddb/engine/structure/table.py":330
  *             if 'multi_search' in yaml:
  *                 self.multi_search=yaml['multi_search']
  *             if 'starts_on_line' in yaml:             # <<<<<<<<<<<<<<
@@ -8668,7 +8668,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":332
+    /* "ddb/engine/structure/table.py":332
  *             if 'starts_on_line' in yaml:
  *                 self.starts_on_line=int(yaml['starts_on_line'])
  *             if 'uid' in yaml:             # <<<<<<<<<<<<<<
@@ -8679,7 +8679,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":333
+      /* "ddb/engine/structure/table.py":333
  *                 self.starts_on_line=int(yaml['starts_on_line'])
  *             if 'uid' in yaml:
  *                 self.uid=yaml['uid']             # <<<<<<<<<<<<<<
@@ -8691,7 +8691,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_uid, __pyx_t_4) < 0) __PYX_ERR(0, 333, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/table.pyx":332
+      /* "ddb/engine/structure/table.py":332
  *             if 'starts_on_line' in yaml:
  *                 self.starts_on_line=int(yaml['starts_on_line'])
  *             if 'uid' in yaml:             # <<<<<<<<<<<<<<
@@ -8700,7 +8700,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":334
+    /* "ddb/engine/structure/table.py":334
  *             if 'uid' in yaml:
  *                 self.uid=yaml['uid']
  *             if 'path' in yaml:             # <<<<<<<<<<<<<<
@@ -8711,7 +8711,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":335
+      /* "ddb/engine/structure/table.py":335
  *                 self.uid=yaml['uid']
  *             if 'path' in yaml:
  *                 self.path=yaml['path']             # <<<<<<<<<<<<<<
@@ -8723,7 +8723,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_path, __pyx_t_4) < 0) __PYX_ERR(0, 335, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/table.pyx":334
+      /* "ddb/engine/structure/table.py":334
  *             if 'uid' in yaml:
  *                 self.uid=yaml['uid']
  *             if 'path' in yaml:             # <<<<<<<<<<<<<<
@@ -8732,7 +8732,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":336
+    /* "ddb/engine/structure/table.py":336
  *             if 'path' in yaml:
  *                 self.path=yaml['path']
  *             if 'key' in yaml:             # <<<<<<<<<<<<<<
@@ -8743,7 +8743,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":337
+      /* "ddb/engine/structure/table.py":337
  *                 self.path=yaml['path']
  *             if 'key' in yaml:
  *                 self.key=yaml['key']             # <<<<<<<<<<<<<<
@@ -8755,7 +8755,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_key, __pyx_t_4) < 0) __PYX_ERR(0, 337, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "ddb/engine/structure/table.pyx":336
+      /* "ddb/engine/structure/table.py":336
  *             if 'path' in yaml:
  *                 self.path=yaml['path']
  *             if 'key' in yaml:             # <<<<<<<<<<<<<<
@@ -8764,7 +8764,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":338
+    /* "ddb/engine/structure/table.py":338
  *             if 'key' in yaml:
  *                 self.key=yaml['key']
  *             if 'ordinal' in yaml:             # <<<<<<<<<<<<<<
@@ -8775,7 +8775,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":339
+      /* "ddb/engine/structure/table.py":339
  *                 self.key=yaml['key']
  *             if 'ordinal' in yaml:
  *                 self.ordinal=int(yaml['ordinal'])             # <<<<<<<<<<<<<<
@@ -8790,7 +8790,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_ordinal, __pyx_t_1) < 0) __PYX_ERR(0, 339, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":338
+      /* "ddb/engine/structure/table.py":338
  *             if 'key' in yaml:
  *                 self.key=yaml['key']
  *             if 'ordinal' in yaml:             # <<<<<<<<<<<<<<
@@ -8799,7 +8799,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":321
+    /* "ddb/engine/structure/table.py":321
  *             self.database=database
  * 
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -8808,7 +8808,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":302
+  /* "ddb/engine/structure/table.py":302
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None,name=None,database=None):             # <<<<<<<<<<<<<<
@@ -8830,7 +8830,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_10table_data_2__init__(
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":343
+/* "ddb/engine/structure/table.py":343
  * 
  * class table_ownership:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -8921,7 +8921,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_noop(
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":345
+/* "ddb/engine/structure/table.py":345
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -9003,7 +9003,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/table.pyx":346
+  /* "ddb/engine/structure/table.py":346
  *         pass
  *     def __init__(self,yaml=None):
  *         self.group=None             # <<<<<<<<<<<<<<
@@ -9012,7 +9012,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_group, Py_None) < 0) __PYX_ERR(0, 346, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":347
+  /* "ddb/engine/structure/table.py":347
  *     def __init__(self,yaml=None):
  *         self.group=None
  *         self.entity=None             # <<<<<<<<<<<<<<
@@ -9021,7 +9021,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_entity, Py_None) < 0) __PYX_ERR(0, 347, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":348
+  /* "ddb/engine/structure/table.py":348
  *         self.group=None
  *         self.entity=None
  *         self.location=None             # <<<<<<<<<<<<<<
@@ -9030,7 +9030,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_location, Py_None) < 0) __PYX_ERR(0, 348, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":349
+  /* "ddb/engine/structure/table.py":349
  *         self.entity=None
  *         self.location=None
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -9042,7 +9042,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":350
+    /* "ddb/engine/structure/table.py":350
  *         self.location=None
  *         if None != yaml:
  *             if 'group' in yaml:             # <<<<<<<<<<<<<<
@@ -9053,7 +9053,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":351
+      /* "ddb/engine/structure/table.py":351
  *         if None != yaml:
  *             if 'group' in yaml:
  *                 self.group=yaml['group']             # <<<<<<<<<<<<<<
@@ -9065,7 +9065,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_group, __pyx_t_1) < 0) __PYX_ERR(0, 351, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":350
+      /* "ddb/engine/structure/table.py":350
  *         self.location=None
  *         if None != yaml:
  *             if 'group' in yaml:             # <<<<<<<<<<<<<<
@@ -9074,7 +9074,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":352
+    /* "ddb/engine/structure/table.py":352
  *             if 'group' in yaml:
  *                 self.group=yaml['group']
  *             if 'entity' in yaml:             # <<<<<<<<<<<<<<
@@ -9085,7 +9085,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":353
+      /* "ddb/engine/structure/table.py":353
  *                 self.group=yaml['group']
  *             if 'entity' in yaml:
  *                 self.entity=yaml['entity']             # <<<<<<<<<<<<<<
@@ -9097,7 +9097,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_entity, __pyx_t_1) < 0) __PYX_ERR(0, 353, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":352
+      /* "ddb/engine/structure/table.py":352
  *             if 'group' in yaml:
  *                 self.group=yaml['group']
  *             if 'entity' in yaml:             # <<<<<<<<<<<<<<
@@ -9106,7 +9106,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":354
+    /* "ddb/engine/structure/table.py":354
  *             if 'entity' in yaml:
  *                 self.entity=yaml['entity']
  *             if 'location' in yaml:             # <<<<<<<<<<<<<<
@@ -9117,7 +9117,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":355
+      /* "ddb/engine/structure/table.py":355
  *                 self.entity=yaml['entity']
  *             if 'location' in yaml:
  *                 self.location=yaml['location']             # <<<<<<<<<<<<<<
@@ -9129,7 +9129,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_location, __pyx_t_1) < 0) __PYX_ERR(0, 355, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":354
+      /* "ddb/engine/structure/table.py":354
  *             if 'entity' in yaml:
  *                 self.entity=yaml['entity']
  *             if 'location' in yaml:             # <<<<<<<<<<<<<<
@@ -9138,7 +9138,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":349
+    /* "ddb/engine/structure/table.py":349
  *         self.entity=None
  *         self.location=None
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -9147,7 +9147,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":345
+  /* "ddb/engine/structure/table.py":345
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -9168,7 +9168,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_15table_ownership_2__in
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":359
+/* "ddb/engine/structure/table.py":359
  * 
  * class table_delimiters:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -9259,7 +9259,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_noop
   return __pyx_r;
 }
 
-/* "ddb/engine/structure/table.pyx":361
+/* "ddb/engine/structure/table.py":361
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -9343,7 +9343,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
   PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/structure/table.pyx":362
+  /* "ddb/engine/structure/table.py":362
  *         pass
  *     def __init__(self,yaml=None):
  *         self.field=":"             # <<<<<<<<<<<<<<
@@ -9352,7 +9352,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field, __pyx_kp_s__6) < 0) __PYX_ERR(0, 362, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":363
+  /* "ddb/engine/structure/table.py":363
  *     def __init__(self,yaml=None):
  *         self.field=":"
  *         self.array=","             # <<<<<<<<<<<<<<
@@ -9361,7 +9361,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_array, __pyx_kp_s__7) < 0) __PYX_ERR(0, 363, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":364
+  /* "ddb/engine/structure/table.py":364
  *         self.field=":"
  *         self.array=","
  *         self.error="#"             # <<<<<<<<<<<<<<
@@ -9370,7 +9370,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_error, __pyx_kp_s__8) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":365
+  /* "ddb/engine/structure/table.py":365
  *         self.array=","
  *         self.error="#"
  *         self.block_quote=None             # <<<<<<<<<<<<<<
@@ -9379,7 +9379,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_block_quote, Py_None) < 0) __PYX_ERR(0, 365, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":366
+  /* "ddb/engine/structure/table.py":366
  *         self.error="#"
  *         self.block_quote=None
  *         self.comment=["#",";","/"]             # <<<<<<<<<<<<<<
@@ -9400,7 +9400,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_comment, __pyx_t_1) < 0) __PYX_ERR(0, 366, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":368
+  /* "ddb/engine/structure/table.py":368
  *         self.comment=["#",";","/"]
  *         # TODO hard coding this for a moment... must think
  *         self.new_line="\n"             # <<<<<<<<<<<<<<
@@ -9409,7 +9409,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_new_line, __pyx_kp_s__11) < 0) __PYX_ERR(0, 368, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":369
+  /* "ddb/engine/structure/table.py":369
  *         # TODO hard coding this for a moment... must think
  *         self.new_line="\n"
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -9421,7 +9421,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/structure/table.pyx":370
+    /* "ddb/engine/structure/table.py":370
  *         self.new_line="\n"
  *         if None != yaml:
  *             if 'field' in yaml:             # <<<<<<<<<<<<<<
@@ -9432,7 +9432,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":371
+      /* "ddb/engine/structure/table.py":371
  *         if None != yaml:
  *             if 'field' in yaml:
  *                 self.field=yaml['field']             # <<<<<<<<<<<<<<
@@ -9444,7 +9444,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_field, __pyx_t_1) < 0) __PYX_ERR(0, 371, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":370
+      /* "ddb/engine/structure/table.py":370
  *         self.new_line="\n"
  *         if None != yaml:
  *             if 'field' in yaml:             # <<<<<<<<<<<<<<
@@ -9453,7 +9453,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":372
+    /* "ddb/engine/structure/table.py":372
  *             if 'field' in yaml:
  *                 self.field=yaml['field']
  *             if 'error' in yaml:             # <<<<<<<<<<<<<<
@@ -9464,7 +9464,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":373
+      /* "ddb/engine/structure/table.py":373
  *                 self.field=yaml['field']
  *             if 'error' in yaml:
  *                 self.error=yaml['error']             # <<<<<<<<<<<<<<
@@ -9476,7 +9476,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_error, __pyx_t_1) < 0) __PYX_ERR(0, 373, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":372
+      /* "ddb/engine/structure/table.py":372
  *             if 'field' in yaml:
  *                 self.field=yaml['field']
  *             if 'error' in yaml:             # <<<<<<<<<<<<<<
@@ -9485,7 +9485,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":374
+    /* "ddb/engine/structure/table.py":374
  *             if 'error' in yaml:
  *                 self.error=yaml['error']
  *             if 'array' in yaml:             # <<<<<<<<<<<<<<
@@ -9496,7 +9496,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":375
+      /* "ddb/engine/structure/table.py":375
  *                 self.error=yaml['error']
  *             if 'array' in yaml:
  *                 self.array=yaml['array']             # <<<<<<<<<<<<<<
@@ -9508,7 +9508,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_array, __pyx_t_1) < 0) __PYX_ERR(0, 375, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":374
+      /* "ddb/engine/structure/table.py":374
  *             if 'error' in yaml:
  *                 self.error=yaml['error']
  *             if 'array' in yaml:             # <<<<<<<<<<<<<<
@@ -9517,7 +9517,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":376
+    /* "ddb/engine/structure/table.py":376
  *             if 'array' in yaml:
  *                 self.array=yaml['array']
  *             if 'comment' in yaml:             # <<<<<<<<<<<<<<
@@ -9528,7 +9528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/structure/table.pyx":377
+      /* "ddb/engine/structure/table.py":377
  *                 self.array=yaml['array']
  *             if 'comment' in yaml:
  *                 self.comment=yaml['comment']             # <<<<<<<<<<<<<<
@@ -9540,7 +9540,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_comment, __pyx_t_1) < 0) __PYX_ERR(0, 377, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":376
+      /* "ddb/engine/structure/table.py":376
  *             if 'array' in yaml:
  *                 self.array=yaml['array']
  *             if 'comment' in yaml:             # <<<<<<<<<<<<<<
@@ -9549,7 +9549,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":378
+    /* "ddb/engine/structure/table.py":378
  *             if 'comment' in yaml:
  *                 self.comment=yaml['comment']
  *             if 'block_quote' in yaml:             # <<<<<<<<<<<<<<
@@ -9560,7 +9560,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/structure/table.pyx":379
+      /* "ddb/engine/structure/table.py":379
  *                 self.comment=yaml['comment']
  *             if 'block_quote' in yaml:
  *                 self.block_quote=yaml['block_quote']             # <<<<<<<<<<<<<<
@@ -9572,7 +9572,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_block_quote, __pyx_t_1) < 0) __PYX_ERR(0, 379, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/structure/table.pyx":380
+      /* "ddb/engine/structure/table.py":380
  *             if 'block_quote' in yaml:
  *                 self.block_quote=yaml['block_quote']
  *                 if isinstance(self.block_quote,str):             # <<<<<<<<<<<<<<
@@ -9586,7 +9586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       __pyx_t_2 = (__pyx_t_3 != 0);
       if (__pyx_t_2) {
 
-        /* "ddb/engine/structure/table.pyx":381
+        /* "ddb/engine/structure/table.py":381
  *                 self.block_quote=yaml['block_quote']
  *                 if isinstance(self.block_quote,str):
  *                     if not  self.block_quote.strip():             # <<<<<<<<<<<<<<
@@ -9618,7 +9618,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
         __pyx_t_3 = ((!__pyx_t_2) != 0);
         if (__pyx_t_3) {
 
-          /* "ddb/engine/structure/table.pyx":382
+          /* "ddb/engine/structure/table.py":382
  *                 if isinstance(self.block_quote,str):
  *                     if not  self.block_quote.strip():
  *                         self.block_quote=None             # <<<<<<<<<<<<<<
@@ -9627,7 +9627,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
           if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_block_quote, Py_None) < 0) __PYX_ERR(0, 382, __pyx_L1_error)
 
-          /* "ddb/engine/structure/table.pyx":381
+          /* "ddb/engine/structure/table.py":381
  *                 self.block_quote=yaml['block_quote']
  *                 if isinstance(self.block_quote,str):
  *                     if not  self.block_quote.strip():             # <<<<<<<<<<<<<<
@@ -9636,7 +9636,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
         }
 
-        /* "ddb/engine/structure/table.pyx":380
+        /* "ddb/engine/structure/table.py":380
  *             if 'block_quote' in yaml:
  *                 self.block_quote=yaml['block_quote']
  *                 if isinstance(self.block_quote,str):             # <<<<<<<<<<<<<<
@@ -9646,7 +9646,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
         goto __pyx_L9;
       }
 
-      /* "ddb/engine/structure/table.pyx":384
+      /* "ddb/engine/structure/table.py":384
  *                         self.block_quote=None
  *                 else:
  *                     self.block_quote=None             # <<<<<<<<<<<<<<
@@ -9658,7 +9658,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
       }
       __pyx_L9:;
 
-      /* "ddb/engine/structure/table.pyx":378
+      /* "ddb/engine/structure/table.py":378
  *             if 'comment' in yaml:
  *                 self.comment=yaml['comment']
  *             if 'block_quote' in yaml:             # <<<<<<<<<<<<<<
@@ -9667,7 +9667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
     }
 
-    /* "ddb/engine/structure/table.pyx":369
+    /* "ddb/engine/structure/table.py":369
  *         # TODO hard coding this for a moment... must think
  *         self.new_line="\n"
  *         if None != yaml:             # <<<<<<<<<<<<<<
@@ -9676,7 +9676,7 @@ static PyObject *__pyx_pf_3ddb_6engine_9structure_5table_16table_delimiters_2__i
  */
   }
 
-  /* "ddb/engine/structure/table.pyx":361
+  /* "ddb/engine/structure/table.py":361
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -9919,7 +9919,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_database, __pyx_k_database, sizeof(__pyx_k_database), 0, 0, 1, 1},
   {&__pyx_kp_s_ddb, __pyx_k_ddb, sizeof(__pyx_k_ddb), 0, 0, 1, 0},
   {&__pyx_n_s_ddb_engine_structure_table, __pyx_k_ddb_engine_structure_table, sizeof(__pyx_k_ddb_engine_structure_table), 0, 0, 1, 1},
-  {&__pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_k_ddb_engine_structure_table_pyx, sizeof(__pyx_k_ddb_engine_structure_table_pyx), 0, 0, 1, 0},
+  {&__pyx_kp_s_ddb_engine_structure_table_py, __pyx_k_ddb_engine_structure_table_py, sizeof(__pyx_k_ddb_engine_structure_table_py), 0, 0, 1, 0},
   {&__pyx_kp_s_ddb_yaml, __pyx_k_ddb_yaml, sizeof(__pyx_k_ddb_yaml), 0, 0, 1, 0},
   {&__pyx_n_s_default_flow_style, __pyx_k_default_flow_style, sizeof(__pyx_k_default_flow_style), 0, 0, 1, 1},
   {&__pyx_n_s_delimiter, __pyx_k_delimiter, sizeof(__pyx_k_delimiter), 0, 0, 1, 1},
@@ -10065,7 +10065,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/structure/table.pyx":43
+  /* "ddb/engine/structure/table.py":43
  *             self.data.config=file
  *             self.data.type="File"
  *             with open(file, 'r') as stream:             # <<<<<<<<<<<<<<
@@ -10076,7 +10076,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "ddb/engine/structure/table.pyx":261
+  /* "ddb/engine/structure/table.py":261
  *         home=os.path.join(home, '.ddb')
  *         if None == self.data.name:
  *             raise Exception ("Cannot save a table without a name")             # <<<<<<<<<<<<<<
@@ -10087,7 +10087,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "ddb/engine/structure/table.pyx":264
+  /* "ddb/engine/structure/table.py":264
  * 
  *         if None == self.data.database:
  *             raise Exception ("Cannot save a table without a database name")             # <<<<<<<<<<<<<<
@@ -10098,7 +10098,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "ddb/engine/structure/table.pyx":273
+  /* "ddb/engine/structure/table.py":273
  *             self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
  * 
  *         with open(self.data.config, 'w') as stream:             # <<<<<<<<<<<<<<
@@ -10109,7 +10109,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "ddb/engine/structure/table.pyx":15
+  /* "ddb/engine/structure/table.py":15
  * 
  * class table:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10119,9 +10119,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__12 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kw); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_noop, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_noop, 15, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 15, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":17
+  /* "ddb/engine/structure/table.py":17
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -10131,12 +10131,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__14 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_file, __pyx_n_s_show_config, __pyx_n_s_database, __pyx_n_s_columns, __pyx_n_s_name, __pyx_n_s_data_file, __pyx_n_s_field_delimiter, __pyx_n_s_column, __pyx_n_s_stream, __pyx_n_s_yaml_data, __pyx_n_s_key, __pyx_n_s_c, __pyx_n_s_ex, __pyx_n_s_exc); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(8, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_init, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(8, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_init, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(0, 17, __pyx_L1_error)
   __pyx_tuple__16 = PyTuple_Pack(7, ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
 
-  /* "ddb/engine/structure/table.pyx":94
+  /* "ddb/engine/structure/table.py":94
  * 
  * 
  *     def set_field_delimiter(self,delimiter):             # <<<<<<<<<<<<<<
@@ -10146,9 +10146,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__17 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_delimiter); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_set_field_delimiter, 94, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_set_field_delimiter, 94, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(0, 94, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":97
+  /* "ddb/engine/structure/table.py":97
  *         self.delimiters.field=delimiter
  * 
  *     def append_data(self,data):             # <<<<<<<<<<<<<<
@@ -10158,9 +10158,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__19 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_data); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_append_data, 97, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_append_data, 97, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 97, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":102
+  /* "ddb/engine/structure/table.py":102
  * 
  * 
  *     def column_count(self):             # <<<<<<<<<<<<<<
@@ -10170,9 +10170,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_column_count, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_column_count, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 102, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":106
+  /* "ddb/engine/structure/table.py":106
  *         return len(self.columns)
  * 
  *     def get_columns(self):             # <<<<<<<<<<<<<<
@@ -10182,9 +10182,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__23 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_columns, __pyx_n_s_column); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_columns, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 106, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_columns, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 106, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":113
+  /* "ddb/engine/structure/table.py":113
  *         return columns
  * 
  *     def results_length(self):             # <<<<<<<<<<<<<<
@@ -10194,9 +10194,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__25 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_results_length, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_results_length, 113, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":117
+  /* "ddb/engine/structure/table.py":117
  *         return len(self.results)
  * 
  *     def error_count(self):             # <<<<<<<<<<<<<<
@@ -10206,9 +10206,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__27 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_error_count, 117, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_error_count, 117, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 117, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":122
+  /* "ddb/engine/structure/table.py":122
  * 
  * 
  *     def add_error(self,error):             # <<<<<<<<<<<<<<
@@ -10218,9 +10218,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_error); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_add_error, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_add_error, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 122, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":127
+  /* "ddb/engine/structure/table.py":127
  * 
  * 
  *     def add_column(self,name,display=None):             # <<<<<<<<<<<<<<
@@ -10230,12 +10230,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__31 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_display, __pyx_n_s_column); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_add_column, 127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_add_column, 127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 127, __pyx_L1_error)
   __pyx_tuple__33 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "ddb/engine/structure/table.pyx":135
+  /* "ddb/engine/structure/table.py":135
  *         self.update_ordinals()
  * 
  *     def get_column_at_data_ordinal(self,ordinal):             # <<<<<<<<<<<<<<
@@ -10245,9 +10245,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__34 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_ordinal, __pyx_n_s_c); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_column_at_data_ordinal, 135, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_column_at_data_ordinal, 135, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 135, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":142
+  /* "ddb/engine/structure/table.py":142
  * 
  * 
  *     def has_column(self,column):             # <<<<<<<<<<<<<<
@@ -10257,9 +10257,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__36 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_column, __pyx_n_s_c); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_has_column, 142, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_has_column, 142, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 142, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":151
+  /* "ddb/engine/structure/table.py":151
  *         return False
  * 
  *     def get_ordinal_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -10269,9 +10269,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__38 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_c); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__38);
   __Pyx_GIVEREF(__pyx_tuple__38);
-  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_ordinal_by_name, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_ordinal_by_name, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 151, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":157
+  /* "ddb/engine/structure/table.py":157
  *         return None
  * 
  *     def column_ordinals(self):             # <<<<<<<<<<<<<<
@@ -10281,9 +10281,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__40 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_temp_columns, __pyx_n_s_c); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__40);
   __Pyx_GIVEREF(__pyx_tuple__40);
-  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_column_ordinals, 157, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_column_ordinals, 157, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 157, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":168
+  /* "ddb/engine/structure/table.py":168
  * 
  * 
  *     def does_data_ordinal_exist(self,ordinal):             # <<<<<<<<<<<<<<
@@ -10293,9 +10293,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__42 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_ordinal, __pyx_n_s_c); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__42);
   __Pyx_GIVEREF(__pyx_tuple__42);
-  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_does_data_ordinal_exist, 168, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 168, __pyx_L1_error)
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_does_data_ordinal_exist, 168, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 168, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":175
+  /* "ddb/engine/structure/table.py":175
  * 
  * 
  *     def get_lowest_available_ordinal(self):             # <<<<<<<<<<<<<<
@@ -10305,9 +10305,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__44 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_c); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__44);
   __Pyx_GIVEREF(__pyx_tuple__44);
-  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_lowest_available_ordinal, 175, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_lowest_available_ordinal, 175, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 175, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":181
+  /* "ddb/engine/structure/table.py":181
  *         return None
  * 
  *     def get_column_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -10317,9 +10317,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__46 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_c); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__46);
   __Pyx_GIVEREF(__pyx_tuple__46);
-  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_column_by_name, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 181, __pyx_L1_error)
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_column_by_name, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 181, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":187
+  /* "ddb/engine/structure/table.py":187
  * 
  * 
  *     def get_data_by_name(self,name,row):             # <<<<<<<<<<<<<<
@@ -10329,9 +10329,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__48 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_name, __pyx_n_s_row, __pyx_n_s_c, __pyx_n_s_i); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__48);
   __Pyx_GIVEREF(__pyx_tuple__48);
-  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_data_by_name, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 187, __pyx_L1_error)
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_data_by_name, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 187, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":198
+  /* "ddb/engine/structure/table.py":198
  * 
  * 
  *     def get_data_from_column(self,column,row):             # <<<<<<<<<<<<<<
@@ -10341,9 +10341,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__50 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_column, __pyx_n_s_row, __pyx_n_s_i); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__50);
   __Pyx_GIVEREF(__pyx_tuple__50);
-  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_get_data_from_column, 198, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(3, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_get_data_from_column, 198, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 198, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":207
+  /* "ddb/engine/structure/table.py":207
  * 
  * 
  *     def update_ordinals(self):             # <<<<<<<<<<<<<<
@@ -10353,9 +10353,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__52 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_column_count, __pyx_n_s_k, __pyx_n_s_v); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__52);
   __Pyx_GIVEREF(__pyx_tuple__52);
-  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_update_ordinals, 207, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __pyx_codeobj__53 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__52, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_update_ordinals, 207, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__53)) __PYX_ERR(0, 207, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":253
+  /* "ddb/engine/structure/table.py":253
  *         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
  * 
  *     def save(self):             # <<<<<<<<<<<<<<
@@ -10365,9 +10365,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__54 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_home, __pyx_n_s_stream); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__54);
   __Pyx_GIVEREF(__pyx_tuple__54);
-  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_save, 253, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_codeobj__55 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__54, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_save, 253, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__55)) __PYX_ERR(0, 253, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":283
+  /* "ddb/engine/structure/table.py":283
  * 
  * class table_visible_attributes:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10377,9 +10377,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__56 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kw); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(0, 283, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__56);
   __Pyx_GIVEREF(__pyx_tuple__56);
-  __pyx_codeobj__57 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__56, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_noop, 283, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__57)) __PYX_ERR(0, 283, __pyx_L1_error)
+  __pyx_codeobj__57 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__56, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_noop, 283, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__57)) __PYX_ERR(0, 283, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":285
+  /* "ddb/engine/structure/table.py":285
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -10389,12 +10389,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__58 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_yaml); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(0, 285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__58);
   __Pyx_GIVEREF(__pyx_tuple__58);
-  __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_init, 285, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 285, __pyx_L1_error)
+  __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_init, 285, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 285, __pyx_L1_error)
   __pyx_tuple__60 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__60)) __PYX_ERR(0, 285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__60);
   __Pyx_GIVEREF(__pyx_tuple__60);
 
-  /* "ddb/engine/structure/table.pyx":300
+  /* "ddb/engine/structure/table.py":300
  * 
  * class table_data:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10404,9 +10404,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__61 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kw); if (unlikely(!__pyx_tuple__61)) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__61);
   __Pyx_GIVEREF(__pyx_tuple__61);
-  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_noop, 300, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) __PYX_ERR(0, 300, __pyx_L1_error)
+  __pyx_codeobj__62 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__61, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_noop, 300, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__62)) __PYX_ERR(0, 300, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":302
+  /* "ddb/engine/structure/table.py":302
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None,name=None,database=None):             # <<<<<<<<<<<<<<
@@ -10416,12 +10416,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__63 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_yaml, __pyx_n_s_name, __pyx_n_s_database); if (unlikely(!__pyx_tuple__63)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__63);
   __Pyx_GIVEREF(__pyx_tuple__63);
-  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_init, 302, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 302, __pyx_L1_error)
+  __pyx_codeobj__64 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__63, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_init, 302, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__64)) __PYX_ERR(0, 302, __pyx_L1_error)
   __pyx_tuple__65 = PyTuple_Pack(3, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__65)) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__65);
   __Pyx_GIVEREF(__pyx_tuple__65);
 
-  /* "ddb/engine/structure/table.pyx":343
+  /* "ddb/engine/structure/table.py":343
  * 
  * class table_ownership:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10431,9 +10431,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__66 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kw); if (unlikely(!__pyx_tuple__66)) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__66);
   __Pyx_GIVEREF(__pyx_tuple__66);
-  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_noop, 343, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_codeobj__67 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__66, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_noop, 343, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__67)) __PYX_ERR(0, 343, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":345
+  /* "ddb/engine/structure/table.py":345
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -10443,12 +10443,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__68 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_yaml); if (unlikely(!__pyx_tuple__68)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__68);
   __Pyx_GIVEREF(__pyx_tuple__68);
-  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_init, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 345, __pyx_L1_error)
+  __pyx_codeobj__69 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__68, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_init, 345, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__69)) __PYX_ERR(0, 345, __pyx_L1_error)
   __pyx_tuple__70 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__70)) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__70);
   __Pyx_GIVEREF(__pyx_tuple__70);
 
-  /* "ddb/engine/structure/table.pyx":359
+  /* "ddb/engine/structure/table.py":359
  * 
  * class table_delimiters:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10458,9 +10458,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__71 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_args, __pyx_n_s_kw); if (unlikely(!__pyx_tuple__71)) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__71);
   __Pyx_GIVEREF(__pyx_tuple__71);
-  __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_noop, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) __PYX_ERR(0, 359, __pyx_L1_error)
+  __pyx_codeobj__72 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__71, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_noop, 359, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__72)) __PYX_ERR(0, 359, __pyx_L1_error)
 
-  /* "ddb/engine/structure/table.pyx":361
+  /* "ddb/engine/structure/table.py":361
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -10470,7 +10470,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__73 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_yaml); if (unlikely(!__pyx_tuple__73)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__73);
   __Pyx_GIVEREF(__pyx_tuple__73);
-  __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_pyx, __pyx_n_s_init, 361, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) __PYX_ERR(0, 361, __pyx_L1_error)
+  __pyx_codeobj__74 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__73, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_structure_table_py, __pyx_n_s_init, 361, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__74)) __PYX_ERR(0, 361, __pyx_L1_error)
   __pyx_tuple__75 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__75)) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__75);
   __Pyx_GIVEREF(__pyx_tuple__75);
@@ -10762,7 +10762,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/structure/table.pyx":1
+  /* "ddb/engine/structure/table.py":1
  * import sys             # <<<<<<<<<<<<<<
  * import yaml
  * import os
@@ -10772,7 +10772,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":2
+  /* "ddb/engine/structure/table.py":2
  * import sys
  * import yaml             # <<<<<<<<<<<<<<
  * import os
@@ -10783,7 +10783,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_yaml, __pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":3
+  /* "ddb/engine/structure/table.py":3
  * import sys
  * import yaml
  * import os             # <<<<<<<<<<<<<<
@@ -10795,7 +10795,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":4
+  /* "ddb/engine/structure/table.py":4
  * import yaml
  * import os
  * import os             # <<<<<<<<<<<<<<
@@ -10807,7 +10807,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_os, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":5
+  /* "ddb/engine/structure/table.py":5
  * import os
  * import os
  * from column import *             # <<<<<<<<<<<<<<
@@ -10825,7 +10825,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 5, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/structure/table.pyx":6
+  /* "ddb/engine/structure/table.py":6
  * import os
  * from column import *
  * from yaml import load, dump             # <<<<<<<<<<<<<<
@@ -10853,7 +10853,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":7
+  /* "ddb/engine/structure/table.py":7
  * from column import *
  * from yaml import load, dump
  * try:             # <<<<<<<<<<<<<<
@@ -10869,7 +10869,7 @@ if (!__Pyx_RefNanny) {
     __Pyx_XGOTREF(__pyx_t_5);
     /*try:*/ {
 
-      /* "ddb/engine/structure/table.pyx":8
+      /* "ddb/engine/structure/table.py":8
  * from yaml import load, dump
  * try:
  *     from yaml import CLoader as Loader             # <<<<<<<<<<<<<<
@@ -10890,7 +10890,7 @@ if (!__Pyx_RefNanny) {
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "ddb/engine/structure/table.pyx":7
+      /* "ddb/engine/structure/table.py":7
  * from column import *
  * from yaml import load, dump
  * try:             # <<<<<<<<<<<<<<
@@ -10906,7 +10906,7 @@ if (!__Pyx_RefNanny) {
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "ddb/engine/structure/table.pyx":9
+    /* "ddb/engine/structure/table.py":9
  * try:
  *     from yaml import CLoader as Loader
  * except ImportError:             # <<<<<<<<<<<<<<
@@ -10921,7 +10921,7 @@ if (!__Pyx_RefNanny) {
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "ddb/engine/structure/table.pyx":10
+      /* "ddb/engine/structure/table.py":10
  *     from yaml import CLoader as Loader
  * except ImportError:
  *     from yaml import Loader             # <<<<<<<<<<<<<<
@@ -10949,7 +10949,7 @@ if (!__Pyx_RefNanny) {
     goto __pyx_L4_except_error;
     __pyx_L4_except_error:;
 
-    /* "ddb/engine/structure/table.pyx":7
+    /* "ddb/engine/structure/table.py":7
  * from column import *
  * from yaml import load, dump
  * try:             # <<<<<<<<<<<<<<
@@ -10969,7 +10969,7 @@ if (!__Pyx_RefNanny) {
     __pyx_L7_try_end:;
   }
 
-  /* "ddb/engine/structure/table.pyx":14
+  /* "ddb/engine/structure/table.py":14
  * #use the c based parser, or you're going to get massive lag with the python based solution
  * 
  * class table:             # <<<<<<<<<<<<<<
@@ -10979,7 +10979,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_table, __pyx_n_s_table, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_table, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "ddb/engine/structure/table.pyx":15
+  /* "ddb/engine/structure/table.py":15
  * 
  * class table:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -10991,7 +10991,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_noop, __pyx_t_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":17
+  /* "ddb/engine/structure/table.py":17
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):             # <<<<<<<<<<<<<<
@@ -11004,7 +11004,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":94
+  /* "ddb/engine/structure/table.py":94
  * 
  * 
  *     def set_field_delimiter(self,delimiter):             # <<<<<<<<<<<<<<
@@ -11016,7 +11016,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_set_field_delimiter, __pyx_t_1) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":97
+  /* "ddb/engine/structure/table.py":97
  *         self.delimiters.field=delimiter
  * 
  *     def append_data(self,data):             # <<<<<<<<<<<<<<
@@ -11028,7 +11028,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_append_data, __pyx_t_1) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":102
+  /* "ddb/engine/structure/table.py":102
  * 
  * 
  *     def column_count(self):             # <<<<<<<<<<<<<<
@@ -11040,7 +11040,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_column_count, __pyx_t_1) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":106
+  /* "ddb/engine/structure/table.py":106
  *         return len(self.columns)
  * 
  *     def get_columns(self):             # <<<<<<<<<<<<<<
@@ -11052,7 +11052,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_columns, __pyx_t_1) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":113
+  /* "ddb/engine/structure/table.py":113
  *         return columns
  * 
  *     def results_length(self):             # <<<<<<<<<<<<<<
@@ -11064,7 +11064,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_results_length, __pyx_t_1) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":117
+  /* "ddb/engine/structure/table.py":117
  *         return len(self.results)
  * 
  *     def error_count(self):             # <<<<<<<<<<<<<<
@@ -11076,7 +11076,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_error_count, __pyx_t_1) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":122
+  /* "ddb/engine/structure/table.py":122
  * 
  * 
  *     def add_error(self,error):             # <<<<<<<<<<<<<<
@@ -11088,7 +11088,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_add_error, __pyx_t_1) < 0) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":127
+  /* "ddb/engine/structure/table.py":127
  * 
  * 
  *     def add_column(self,name,display=None):             # <<<<<<<<<<<<<<
@@ -11101,7 +11101,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_add_column, __pyx_t_1) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":135
+  /* "ddb/engine/structure/table.py":135
  *         self.update_ordinals()
  * 
  *     def get_column_at_data_ordinal(self,ordinal):             # <<<<<<<<<<<<<<
@@ -11113,7 +11113,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_column_at_data_ordinal, __pyx_t_1) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":142
+  /* "ddb/engine/structure/table.py":142
  * 
  * 
  *     def has_column(self,column):             # <<<<<<<<<<<<<<
@@ -11125,7 +11125,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_has_column, __pyx_t_1) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":151
+  /* "ddb/engine/structure/table.py":151
  *         return False
  * 
  *     def get_ordinal_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -11137,7 +11137,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_ordinal_by_name, __pyx_t_1) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":157
+  /* "ddb/engine/structure/table.py":157
  *         return None
  * 
  *     def column_ordinals(self):             # <<<<<<<<<<<<<<
@@ -11149,7 +11149,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_column_ordinals, __pyx_t_1) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":168
+  /* "ddb/engine/structure/table.py":168
  * 
  * 
  *     def does_data_ordinal_exist(self,ordinal):             # <<<<<<<<<<<<<<
@@ -11161,7 +11161,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_does_data_ordinal_exist, __pyx_t_1) < 0) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":175
+  /* "ddb/engine/structure/table.py":175
  * 
  * 
  *     def get_lowest_available_ordinal(self):             # <<<<<<<<<<<<<<
@@ -11173,7 +11173,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_lowest_available_ordinal, __pyx_t_1) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":181
+  /* "ddb/engine/structure/table.py":181
  *         return None
  * 
  *     def get_column_by_name(self,name):             # <<<<<<<<<<<<<<
@@ -11185,7 +11185,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_column_by_name, __pyx_t_1) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":187
+  /* "ddb/engine/structure/table.py":187
  * 
  * 
  *     def get_data_by_name(self,name,row):             # <<<<<<<<<<<<<<
@@ -11197,7 +11197,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_data_by_name, __pyx_t_1) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":198
+  /* "ddb/engine/structure/table.py":198
  * 
  * 
  *     def get_data_from_column(self,column,row):             # <<<<<<<<<<<<<<
@@ -11209,7 +11209,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_get_data_from_column, __pyx_t_1) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":207
+  /* "ddb/engine/structure/table.py":207
  * 
  * 
  *     def update_ordinals(self):             # <<<<<<<<<<<<<<
@@ -11221,7 +11221,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_update_ordinals, __pyx_t_1) < 0) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":253
+  /* "ddb/engine/structure/table.py":253
  *         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
  * 
  *     def save(self):             # <<<<<<<<<<<<<<
@@ -11233,7 +11233,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_save, __pyx_t_1) < 0) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":14
+  /* "ddb/engine/structure/table.py":14
  * #use the c based parser, or you're going to get massive lag with the python based solution
  * 
  * class table:             # <<<<<<<<<<<<<<
@@ -11246,7 +11246,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/structure/table.pyx":282
+  /* "ddb/engine/structure/table.py":282
  * 
  * 
  * class table_visible_attributes:             # <<<<<<<<<<<<<<
@@ -11256,7 +11256,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_table_visible_attributes, __pyx_n_s_table_visible_attributes, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_table, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 282, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "ddb/engine/structure/table.pyx":283
+  /* "ddb/engine/structure/table.py":283
  * 
  * class table_visible_attributes:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -11268,7 +11268,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_noop, __pyx_t_1) < 0) __PYX_ERR(0, 283, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":285
+  /* "ddb/engine/structure/table.py":285
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -11281,7 +11281,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 285, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":282
+  /* "ddb/engine/structure/table.py":282
  * 
  * 
  * class table_visible_attributes:             # <<<<<<<<<<<<<<
@@ -11294,7 +11294,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/structure/table.pyx":299
+  /* "ddb/engine/structure/table.py":299
  * 
  * 
  * class table_data:             # <<<<<<<<<<<<<<
@@ -11304,7 +11304,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_table_data, __pyx_n_s_table_data, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_table, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "ddb/engine/structure/table.pyx":300
+  /* "ddb/engine/structure/table.py":300
  * 
  * class table_data:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -11316,7 +11316,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_noop, __pyx_t_1) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":302
+  /* "ddb/engine/structure/table.py":302
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None,name=None,database=None):             # <<<<<<<<<<<<<<
@@ -11329,7 +11329,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 302, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":299
+  /* "ddb/engine/structure/table.py":299
  * 
  * 
  * class table_data:             # <<<<<<<<<<<<<<
@@ -11342,7 +11342,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/structure/table.pyx":342
+  /* "ddb/engine/structure/table.py":342
  * 
  * 
  * class table_ownership:             # <<<<<<<<<<<<<<
@@ -11352,7 +11352,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_table_ownership, __pyx_n_s_table_ownership, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_table, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "ddb/engine/structure/table.pyx":343
+  /* "ddb/engine/structure/table.py":343
  * 
  * class table_ownership:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -11364,7 +11364,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_noop, __pyx_t_1) < 0) __PYX_ERR(0, 343, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":345
+  /* "ddb/engine/structure/table.py":345
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -11377,7 +11377,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 345, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":342
+  /* "ddb/engine/structure/table.py":342
  * 
  * 
  * class table_ownership:             # <<<<<<<<<<<<<<
@@ -11390,7 +11390,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/structure/table.pyx":358
+  /* "ddb/engine/structure/table.py":358
  * 
  * 
  * class table_delimiters:             # <<<<<<<<<<<<<<
@@ -11400,7 +11400,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_7 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_table_delimiters, __pyx_n_s_table_delimiters, (PyObject *) NULL, __pyx_n_s_ddb_engine_structure_table, (PyObject *) NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 358, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
 
-  /* "ddb/engine/structure/table.pyx":359
+  /* "ddb/engine/structure/table.py":359
  * 
  * class table_delimiters:
  *     def noop(self, *args, **kw):             # <<<<<<<<<<<<<<
@@ -11412,7 +11412,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_noop, __pyx_t_1) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":361
+  /* "ddb/engine/structure/table.py":361
  *     def noop(self, *args, **kw):
  *         pass
  *     def __init__(self,yaml=None):             # <<<<<<<<<<<<<<
@@ -11425,7 +11425,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_7, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 361, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/structure/table.pyx":358
+  /* "ddb/engine/structure/table.py":358
  * 
  * 
  * class table_delimiters:             # <<<<<<<<<<<<<<
@@ -11438,7 +11438,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/structure/table.pyx":1
+  /* "ddb/engine/structure/table.py":1
  * import sys             # <<<<<<<<<<<<<<
  * import yaml
  * import os

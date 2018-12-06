@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.parser.language", 
         "sources": [
-            "./ddb/engine/parser/language.pyx"
+            "./ddb/engine/parser/language.py"
         ]
     }, 
     "module_name": "ddb.engine.parser.language"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/parser/language.pyx",
+  "ddb/engine/parser/language.py",
 };
 
 /*--- Type declarations ---*/
@@ -1538,7 +1538,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/parser/language.pyx":1
+  /* "ddb/engine/parser/language.py":1
  * query_matrix=[{'query': 'show tables',             # <<<<<<<<<<<<<<
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},
  *                   {'query': 'show columns',
@@ -1547,7 +1547,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_query, __pyx_kp_s_show_tables) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":2
+  /* "ddb/engine/parser/language.py":2
  * query_matrix=[{'query': 'show tables',
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},             # <<<<<<<<<<<<<<
  *                   {'query': 'show columns',
@@ -1574,7 +1574,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_switch, __pyx_t_3) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/parser/language.pyx":3
+  /* "ddb/engine/parser/language.py":3
  * query_matrix=[{'query': 'show tables',
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},
  *                   {'query': 'show columns',             # <<<<<<<<<<<<<<
@@ -1585,7 +1585,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_3);
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_query, __pyx_kp_s_show_columns) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":4
+  /* "ddb/engine/parser/language.py":4
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},
  *                   {'query': 'show columns',
  *                    'switch': [{'data': False, 'name': ['show', 'columns']},             # <<<<<<<<<<<<<<
@@ -1606,7 +1606,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_name_2, __pyx_t_4) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/parser/language.pyx":5
+  /* "ddb/engine/parser/language.py":5
  *                   {'query': 'show columns',
  *                    'switch': [{'data': False, 'name': ['show', 'columns']},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -1617,7 +1617,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":6
+  /* "ddb/engine/parser/language.py":6
  *                    'switch': [{'data': False, 'name': ['show', 'columns']},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -1642,7 +1642,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_name_2, __pyx_n_s_from) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":4
+  /* "ddb/engine/parser/language.py":4
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},
  *                   {'query': 'show columns',
  *                    'switch': [{'data': False, 'name': ['show', 'columns']},             # <<<<<<<<<<<<<<
@@ -1660,7 +1660,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_switch, __pyx_t_6) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "ddb/engine/parser/language.pyx":8
+  /* "ddb/engine/parser/language.py":8
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'from'}]},
  *                   {'argument': 1,             # <<<<<<<<<<<<<<
@@ -1672,7 +1672,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_argument, __pyx_int_1) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_query, __pyx_n_s_select) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":10
+  /* "ddb/engine/parser/language.py":10
  *                   {'argument': 1,
  *                    'query': 'select',
  *                    'switch': [{'arguments': 0,             # <<<<<<<<<<<<<<
@@ -1683,7 +1683,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":11
+  /* "ddb/engine/parser/language.py":11
  *                    'query': 'select',
  *                    'switch': [{'arguments': 0,
  *                                'data': [{'sig': ['{column}']},             # <<<<<<<<<<<<<<
@@ -1700,7 +1700,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_sig, __pyx_t_5) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/parser/language.pyx":12
+  /* "ddb/engine/parser/language.py":12
  *                    'switch': [{'arguments': 0,
  *                                'data': [{'sig': ['{column}']},
  *                                         {'sig': ['{column}',             # <<<<<<<<<<<<<<
@@ -1723,7 +1723,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sig, __pyx_t_7) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "ddb/engine/parser/language.pyx":11
+  /* "ddb/engine/parser/language.py":11
  *                    'query': 'select',
  *                    'switch': [{'arguments': 0,
  *                                'data': [{'sig': ['{column}']},             # <<<<<<<<<<<<<<
@@ -1742,7 +1742,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_name_2, __pyx_n_s_select) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":16
+  /* "ddb/engine/parser/language.py":16
  *                                                  '{display}']}],
  *                                'name': 'select'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -1753,7 +1753,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_7);
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":17
+  /* "ddb/engine/parser/language.py":17
  *                                'name': 'select'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -1778,7 +1778,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_name_2, __pyx_n_s_from) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":19
+  /* "ddb/engine/parser/language.py":19
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'from'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -1789,7 +1789,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":20
+  /* "ddb/engine/parser/language.py":20
  *                                'name': 'from'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -1820,7 +1820,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_name_2, __pyx_n_s_where) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":22
+  /* "ddb/engine/parser/language.py":22
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
  *                                'name': 'where',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -1829,7 +1829,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":23
+  /* "ddb/engine/parser/language.py":23
  *                                'name': 'where',
  *                                'optional': True,
  *                                'store_array': True},             # <<<<<<<<<<<<<<
@@ -1838,7 +1838,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_store_array, Py_True) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":24
+  /* "ddb/engine/parser/language.py":24
  *                                'optional': True,
  *                                'store_array': True},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -1849,7 +1849,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":25
+  /* "ddb/engine/parser/language.py":25
  *                                'store_array': True},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -1882,7 +1882,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_and) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":29
+  /* "ddb/engine/parser/language.py":29
  *                                'jump': 'where',
  *                                'name': 'and',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -1892,7 +1892,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":31
+  /* "ddb/engine/parser/language.py":31
  *                                'optional': True,
  *                                'parent': 'where'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -1903,7 +1903,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_9);
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":32
+  /* "ddb/engine/parser/language.py":32
  *                                'parent': 'where'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -1936,7 +1936,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_name_2, __pyx_n_s_or) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":36
+  /* "ddb/engine/parser/language.py":36
  *                                'jump': 'where',
  *                                'name': 'or',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -1946,7 +1946,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":38
+  /* "ddb/engine/parser/language.py":38
  *                                'optional': True,
  *                                'parent': 'where'},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -1957,7 +1957,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_10);
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":39
+  /* "ddb/engine/parser/language.py":39
  *                                'parent': 'where'},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}']},             # <<<<<<<<<<<<<<
@@ -1974,7 +1974,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_sig, __pyx_t_11) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "ddb/engine/parser/language.pyx":40
+  /* "ddb/engine/parser/language.py":40
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}']},
  *                                         {'sig': ['{column}', 'asc']},             # <<<<<<<<<<<<<<
@@ -1994,7 +1994,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_sig, __pyx_t_12) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-  /* "ddb/engine/parser/language.pyx":41
+  /* "ddb/engine/parser/language.py":41
  *                                'data': [{'sig': ['{column}']},
  *                                         {'sig': ['{column}', 'asc']},
  *                                         {'sig': ['{column}', 'desc']}],             # <<<<<<<<<<<<<<
@@ -2014,7 +2014,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_sig, __pyx_t_13) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "ddb/engine/parser/language.pyx":39
+  /* "ddb/engine/parser/language.py":39
  *                                'parent': 'where'},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}']},             # <<<<<<<<<<<<<<
@@ -2035,7 +2035,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_data, __pyx_t_13) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "ddb/engine/parser/language.pyx":42
+  /* "ddb/engine/parser/language.py":42
  *                                         {'sig': ['{column}', 'asc']},
  *                                         {'sig': ['{column}', 'desc']}],
  *                                'name': ['order', 'by'],             # <<<<<<<<<<<<<<
@@ -2053,7 +2053,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_name_2, __pyx_t_13) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "ddb/engine/parser/language.pyx":43
+  /* "ddb/engine/parser/language.py":43
  *                                         {'sig': ['{column}', 'desc']}],
  *                                'name': ['order', 'by'],
  *                                'optional': True},             # <<<<<<<<<<<<<<
@@ -2062,7 +2062,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":44
+  /* "ddb/engine/parser/language.py":44
  *                                'name': ['order', 'by'],
  *                                'optional': True},
  *                               {'data': [{'sig': ['{#length}']},             # <<<<<<<<<<<<<<
@@ -2081,7 +2081,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_sig, __pyx_t_11) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "ddb/engine/parser/language.pyx":45
+  /* "ddb/engine/parser/language.py":45
  *                                'optional': True},
  *                               {'data': [{'sig': ['{#length}']},
  *                                         {'sig': ['{#start}',             # <<<<<<<<<<<<<<
@@ -2104,7 +2104,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_sig, __pyx_t_5) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/parser/language.pyx":44
+  /* "ddb/engine/parser/language.py":44
  *                                'name': ['order', 'by'],
  *                                'optional': True},
  *                               {'data': [{'sig': ['{#length}']},             # <<<<<<<<<<<<<<
@@ -2123,7 +2123,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_name_2, __pyx_n_s_limit) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":49
+  /* "ddb/engine/parser/language.py":49
  *                                                  '{#length}']}],
  *                                'name': 'limit',
  *                                'optional': True}]},             # <<<<<<<<<<<<<<
@@ -2132,7 +2132,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":10
+  /* "ddb/engine/parser/language.py":10
  *                   {'argument': 1,
  *                    'query': 'select',
  *                    'switch': [{'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2165,7 +2165,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_switch, __pyx_t_5) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "ddb/engine/parser/language.pyx":50
+  /* "ddb/engine/parser/language.py":50
  *                                'name': 'limit',
  *                                'optional': True}]},
  *                   {'query': 'delete',             # <<<<<<<<<<<<<<
@@ -2176,7 +2176,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_5);
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_query, __pyx_n_s_delete) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":51
+  /* "ddb/engine/parser/language.py":51
  *                                'optional': True}]},
  *                   {'query': 'delete',
  *                    'switch': [{'data': False, 'name': 'delete'},             # <<<<<<<<<<<<<<
@@ -2188,7 +2188,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_data, Py_False) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_name_2, __pyx_n_s_delete) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":52
+  /* "ddb/engine/parser/language.py":52
  *                   {'query': 'delete',
  *                    'switch': [{'data': False, 'name': 'delete'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2199,7 +2199,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_10);
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":53
+  /* "ddb/engine/parser/language.py":53
  *                    'switch': [{'data': False, 'name': 'delete'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -2224,7 +2224,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_name_2, __pyx_n_s_from) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":55
+  /* "ddb/engine/parser/language.py":55
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'from'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2235,7 +2235,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":56
+  /* "ddb/engine/parser/language.py":56
  *                                'name': 'from'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2266,7 +2266,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_where) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":58
+  /* "ddb/engine/parser/language.py":58
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
  *                                'name': 'where',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2275,7 +2275,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":59
+  /* "ddb/engine/parser/language.py":59
  *                                'name': 'where',
  *                                'optional': True,
  *                                'store_array': True},             # <<<<<<<<<<<<<<
@@ -2284,7 +2284,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_store_array, Py_True) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":60
+  /* "ddb/engine/parser/language.py":60
  *                                'optional': True,
  *                                'store_array': True},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2295,7 +2295,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":61
+  /* "ddb/engine/parser/language.py":61
  *                                'store_array': True},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2328,7 +2328,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_name_2, __pyx_n_s_and) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":65
+  /* "ddb/engine/parser/language.py":65
  *                                'jump': 'where',
  *                                'name': 'and',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2338,7 +2338,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":67
+  /* "ddb/engine/parser/language.py":67
  *                                'optional': True,
  *                                'parent': 'where'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2349,7 +2349,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_7);
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":68
+  /* "ddb/engine/parser/language.py":68
  *                                'parent': 'where'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2382,7 +2382,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_name_2, __pyx_n_s_or) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":72
+  /* "ddb/engine/parser/language.py":72
  *                                'jump': 'where',
  *                                'name': 'or',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2392,7 +2392,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":51
+  /* "ddb/engine/parser/language.py":51
  *                                'optional': True}]},
  *                   {'query': 'delete',
  *                    'switch': [{'data': False, 'name': 'delete'},             # <<<<<<<<<<<<<<
@@ -2419,7 +2419,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_switch, __pyx_t_4) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "ddb/engine/parser/language.pyx":74
+  /* "ddb/engine/parser/language.py":74
  *                                'optional': True,
  *                                'parent': 'where'}]},
  *                   {'query': 'insert',             # <<<<<<<<<<<<<<
@@ -2430,7 +2430,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_query, __pyx_n_s_insert) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":75
+  /* "ddb/engine/parser/language.py":75
  *                                'parent': 'where'}]},
  *                   {'query': 'insert',
  *                    'switch': [{'data': False, 'name': 'insert'},             # <<<<<<<<<<<<<<
@@ -2442,7 +2442,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_data, Py_False) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_name_2, __pyx_n_s_insert) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":76
+  /* "ddb/engine/parser/language.py":76
  *                   {'query': 'insert',
  *                    'switch': [{'data': False, 'name': 'insert'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2453,7 +2453,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":77
+  /* "ddb/engine/parser/language.py":77
  *                    'switch': [{'data': False, 'name': 'insert'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -2478,7 +2478,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_name_2, __pyx_n_s_into) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":79
+  /* "ddb/engine/parser/language.py":79
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'into'},
  *                               {'data': False, 'dispose': True, 'name': '('},             # <<<<<<<<<<<<<<
@@ -2491,7 +2491,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_name_2, __pyx_kp_s__2) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":80
+  /* "ddb/engine/parser/language.py":80
  *                                'name': 'into'},
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2502,7 +2502,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":81
+  /* "ddb/engine/parser/language.py":81
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}']}],             # <<<<<<<<<<<<<<
@@ -2527,7 +2527,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_columns) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":83
+  /* "ddb/engine/parser/language.py":83
  *                                'data': [{'sig': ['{column}']}],
  *                                'name': 'columns',
  *                                'no_keyword': True},             # <<<<<<<<<<<<<<
@@ -2536,7 +2536,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_no_keyword, Py_True) < 0) __PYX_ERR(0, 80, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":84
+  /* "ddb/engine/parser/language.py":84
  *                                'name': 'columns',
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'},             # <<<<<<<<<<<<<<
@@ -2549,7 +2549,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_name_2, __pyx_kp_s__3) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":85
+  /* "ddb/engine/parser/language.py":85
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'},
  *                               {'data': False,             # <<<<<<<<<<<<<<
@@ -2560,7 +2560,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_13);
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_data, Py_False) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":86
+  /* "ddb/engine/parser/language.py":86
  *                               {'data': False, 'dispose': True, 'name': ')'},
  *                               {'data': False,
  *                                'dispose': True,             # <<<<<<<<<<<<<<
@@ -2570,7 +2570,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_name_2, __pyx_n_s_values) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":88
+  /* "ddb/engine/parser/language.py":88
  *                                'dispose': True,
  *                                'name': 'values'},
  *                               {'data': False, 'dispose': True, 'name': '('},             # <<<<<<<<<<<<<<
@@ -2583,7 +2583,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_name_2, __pyx_kp_s__2) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":89
+  /* "ddb/engine/parser/language.py":89
  *                                'name': 'values'},
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2594,7 +2594,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_12);
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":90
+  /* "ddb/engine/parser/language.py":90
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{value}']}],             # <<<<<<<<<<<<<<
@@ -2619,7 +2619,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_name_2, __pyx_n_s_values) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":92
+  /* "ddb/engine/parser/language.py":92
  *                                'data': [{'sig': ['{value}']}],
  *                                'name': 'values',
  *                                'no_keyword': True},             # <<<<<<<<<<<<<<
@@ -2628,7 +2628,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_no_keyword, Py_True) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":93
+  /* "ddb/engine/parser/language.py":93
  *                                'name': 'values',
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'}]},             # <<<<<<<<<<<<<<
@@ -2641,7 +2641,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_name_2, __pyx_kp_s__3) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":75
+  /* "ddb/engine/parser/language.py":75
  *                                'parent': 'where'}]},
  *                   {'query': 'insert',
  *                    'switch': [{'data': False, 'name': 'insert'},             # <<<<<<<<<<<<<<
@@ -2680,7 +2680,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_switch, __pyx_t_14) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
 
-  /* "ddb/engine/parser/language.pyx":94
+  /* "ddb/engine/parser/language.py":94
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'}]},
  *                   {'query': 'update',             # <<<<<<<<<<<<<<
@@ -2691,7 +2691,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_14);
   if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_query, __pyx_n_s_update) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":95
+  /* "ddb/engine/parser/language.py":95
  *                               {'data': False, 'dispose': True, 'name': ')'}]},
  *                   {'query': 'update',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2702,7 +2702,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_15);
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":96
+  /* "ddb/engine/parser/language.py":96
  *                   {'query': 'update',
  *                    'switch': [{'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -2727,7 +2727,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_name_2, __pyx_n_s_update) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":98
+  /* "ddb/engine/parser/language.py":98
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'update'},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2738,7 +2738,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_11);
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":99
+  /* "ddb/engine/parser/language.py":99
  *                                'name': 'update'},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}', '=', '{e}']}],             # <<<<<<<<<<<<<<
@@ -2769,7 +2769,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_name_2, __pyx_n_s_set) < 0) __PYX_ERR(0, 98, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":101
+  /* "ddb/engine/parser/language.py":101
  *                                'data': [{'sig': ['{column}', '=', '{e}']}],
  *                                'name': 'set'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2780,7 +2780,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_13);
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":102
+  /* "ddb/engine/parser/language.py":102
  *                                'name': 'set'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2811,7 +2811,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_name_2, __pyx_n_s_where) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":104
+  /* "ddb/engine/parser/language.py":104
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
  *                                'name': 'where',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2820,7 +2820,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":105
+  /* "ddb/engine/parser/language.py":105
  *                                'name': 'where',
  *                                'optional': True,
  *                                'store_array': True},             # <<<<<<<<<<<<<<
@@ -2829,7 +2829,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_store_array, Py_True) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":106
+  /* "ddb/engine/parser/language.py":106
  *                                'optional': True,
  *                                'store_array': True},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -2840,7 +2840,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_9);
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":107
+  /* "ddb/engine/parser/language.py":107
  *                                'store_array': True},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2873,7 +2873,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_name_2, __pyx_n_s_and) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":111
+  /* "ddb/engine/parser/language.py":111
  *                                'jump': 'where',
  *                                'name': 'and',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2883,7 +2883,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":113
+  /* "ddb/engine/parser/language.py":113
  *                                'optional': True,
  *                                'parent': 'where'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2894,7 +2894,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":114
+  /* "ddb/engine/parser/language.py":114
  *                                'parent': 'where'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['{e1}', '{c}', '{e2}']}],             # <<<<<<<<<<<<<<
@@ -2927,7 +2927,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_jump, __pyx_n_s_where) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_or) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":118
+  /* "ddb/engine/parser/language.py":118
  *                                'jump': 'where',
  *                                'name': 'or',
  *                                'optional': True,             # <<<<<<<<<<<<<<
@@ -2937,7 +2937,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_optional, Py_True) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_parent, __pyx_n_s_where) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":95
+  /* "ddb/engine/parser/language.py":95
  *                               {'data': False, 'dispose': True, 'name': ')'}]},
  *                   {'query': 'update',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2964,7 +2964,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_14, __pyx_n_s_switch, __pyx_t_10) < 0) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "ddb/engine/parser/language.pyx":120
+  /* "ddb/engine/parser/language.py":120
  *                                'optional': True,
  *                                'parent': 'where'}]},
  *                   {'query': 'use',             # <<<<<<<<<<<<<<
@@ -2975,7 +2975,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_10);
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_query, __pyx_n_s_use) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":121
+  /* "ddb/engine/parser/language.py":121
  *                                'parent': 'where'}]},
  *                   {'query': 'use',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -2986,7 +2986,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":122
+  /* "ddb/engine/parser/language.py":122
  *                   {'query': 'use',
  *                    'switch': [{'arguments': 1,
  *                                'data': [{'sig': ['{table}']}],             # <<<<<<<<<<<<<<
@@ -3011,7 +3011,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_use) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":121
+  /* "ddb/engine/parser/language.py":121
  *                                'parent': 'where'}]},
  *                   {'query': 'use',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3026,7 +3026,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_switch, __pyx_t_13) < 0) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
 
-  /* "ddb/engine/parser/language.pyx":124
+  /* "ddb/engine/parser/language.py":124
  *                                'data': [{'sig': ['{table}']}],
  *                                'name': 'use'}]},
  *                   {'query': 'drop table',             # <<<<<<<<<<<<<<
@@ -3037,7 +3037,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_13);
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_query, __pyx_kp_s_drop_table) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":125
+  /* "ddb/engine/parser/language.py":125
  *                                'name': 'use'}]},
  *                   {'query': 'drop table',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3048,7 +3048,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":126
+  /* "ddb/engine/parser/language.py":126
  *                   {'query': 'drop table',
  *                    'switch': [{'arguments': 1,
  *                                'data': [{'sig': ['table', '{table}']}],             # <<<<<<<<<<<<<<
@@ -3076,7 +3076,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_drop) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":125
+  /* "ddb/engine/parser/language.py":125
  *                                'name': 'use'}]},
  *                   {'query': 'drop table',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3091,7 +3091,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_13, __pyx_n_s_switch, __pyx_t_11) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "ddb/engine/parser/language.pyx":128
+  /* "ddb/engine/parser/language.py":128
  *                                'data': [{'sig': ['table', '{table}']}],
  *                                'name': 'drop'}]},
  *                   {'query': 'create table',             # <<<<<<<<<<<<<<
@@ -3102,7 +3102,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_11);
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_query, __pyx_kp_s_create_table) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":129
+  /* "ddb/engine/parser/language.py":129
  *                                'name': 'drop'}]},
  *                   {'query': 'create table',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3113,7 +3113,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_8);
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":130
+  /* "ddb/engine/parser/language.py":130
  *                   {'query': 'create table',
  *                    'switch': [{'arguments': 1,
  *                                'data': [{'sig': ['table', '{table}']}],             # <<<<<<<<<<<<<<
@@ -3141,7 +3141,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
   if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_name_2, __pyx_n_s_create) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":132
+  /* "ddb/engine/parser/language.py":132
  *                                'data': [{'sig': ['table', '{table}']}],
  *                                'name': 'create'},
  *                               {'data': False, 'dispose': True, 'name': '('},             # <<<<<<<<<<<<<<
@@ -3154,7 +3154,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_15, __pyx_n_s_name_2, __pyx_kp_s__2) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":133
+  /* "ddb/engine/parser/language.py":133
  *                                'name': 'create'},
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,             # <<<<<<<<<<<<<<
@@ -3165,7 +3165,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_9);
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_arguments, __pyx_int_0) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":134
+  /* "ddb/engine/parser/language.py":134
  *                               {'data': False, 'dispose': True, 'name': '('},
  *                               {'arguments': 0,
  *                                'data': [{'sig': ['{column}']}],             # <<<<<<<<<<<<<<
@@ -3190,7 +3190,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_name_2, __pyx_n_s_columns) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":136
+  /* "ddb/engine/parser/language.py":136
  *                                'data': [{'sig': ['{column}']}],
  *                                'name': 'columns',
  *                                'no_keyword': True},             # <<<<<<<<<<<<<<
@@ -3199,7 +3199,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_no_keyword, Py_True) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":137
+  /* "ddb/engine/parser/language.py":137
  *                                'name': 'columns',
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'},             # <<<<<<<<<<<<<<
@@ -3212,7 +3212,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dispose, Py_True) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_name_2, __pyx_kp_s__3) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":138
+  /* "ddb/engine/parser/language.py":138
  *                                'no_keyword': True},
  *                               {'data': False, 'dispose': True, 'name': ')'},
  *                               {'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3223,7 +3223,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_12);
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_arguments, __pyx_int_1) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":139
+  /* "ddb/engine/parser/language.py":139
  *                               {'data': False, 'dispose': True, 'name': ')'},
  *                               {'arguments': 1,
  *                                'data': [{'sig': ['=', '{file}']}],             # <<<<<<<<<<<<<<
@@ -3250,7 +3250,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
   if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_name_2, __pyx_n_s_file_2) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
 
-  /* "ddb/engine/parser/language.pyx":129
+  /* "ddb/engine/parser/language.py":129
  *                                'name': 'drop'}]},
  *                   {'query': 'create table',
  *                    'switch': [{'arguments': 1,             # <<<<<<<<<<<<<<
@@ -3277,7 +3277,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_switch, __pyx_t_16) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-  /* "ddb/engine/parser/language.pyx":1
+  /* "ddb/engine/parser/language.py":1
  * query_matrix=[{'query': 'show tables',             # <<<<<<<<<<<<<<
  *                    'switch': [{'data': False, 'name': ['show', 'tables']}]},
  *                   {'query': 'show columns',

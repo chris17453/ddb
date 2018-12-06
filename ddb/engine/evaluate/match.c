@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.evaluate.match", 
         "sources": [
-            "./ddb/engine/evaluate/match.pyx"
+            "./ddb/engine/evaluate/match.py"
         ]
     }, 
     "module_name": "ddb.engine.evaluate.match"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/evaluate/match.pyx",
+  "ddb/engine/evaluate/match.py",
 };
 
 /*--- Type declarations ---*/
@@ -1094,6 +1094,63 @@ static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_ve
 static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
 #endif
 
+/* FetchCommonType.proto */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type);
+
+/* CythonFunction.proto */
+#define __Pyx_CyFunction_USED 1
+#define __Pyx_CYFUNCTION_STATICMETHOD  0x01
+#define __Pyx_CYFUNCTION_CLASSMETHOD   0x02
+#define __Pyx_CYFUNCTION_CCLASS        0x04
+#define __Pyx_CyFunction_GetClosure(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_closure)
+#define __Pyx_CyFunction_GetClassObj(f)\
+    (((__pyx_CyFunctionObject *) (f))->func_classobj)
+#define __Pyx_CyFunction_Defaults(type, f)\
+    ((type *)(((__pyx_CyFunctionObject *) (f))->defaults))
+#define __Pyx_CyFunction_SetDefaultsGetter(f, g)\
+    ((__pyx_CyFunctionObject *) (f))->defaults_getter = (g)
+typedef struct {
+    PyCFunctionObject func;
+#if PY_VERSION_HEX < 0x030500A0
+    PyObject *func_weakreflist;
+#endif
+    PyObject *func_dict;
+    PyObject *func_name;
+    PyObject *func_qualname;
+    PyObject *func_doc;
+    PyObject *func_globals;
+    PyObject *func_code;
+    PyObject *func_closure;
+    PyObject *func_classobj;
+    void *defaults;
+    int defaults_pyobjects;
+    int flags;
+    PyObject *defaults_tuple;
+    PyObject *defaults_kwdict;
+    PyObject *(*defaults_getter)(PyObject *);
+    PyObject *func_annotations;
+} __pyx_CyFunctionObject;
+static PyTypeObject *__pyx_CyFunctionType = 0;
+#define __Pyx_CyFunction_Check(obj)  (__Pyx_TypeCheck(obj, __pyx_CyFunctionType))
+#define __Pyx_CyFunction_NewEx(ml, flags, qualname, self, module, globals, code)\
+    __Pyx_CyFunction_New(__pyx_CyFunctionType, ml, flags, qualname, self, module, globals, code)
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *, PyMethodDef *ml,
+                                      int flags, PyObject* qualname,
+                                      PyObject *self,
+                                      PyObject *module, PyObject *globals,
+                                      PyObject* code);
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *m,
+                                                         size_t size,
+                                                         int pyobjects);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *m,
+                                                            PyObject *tuple);
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *m,
+                                                             PyObject *dict);
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *m,
+                                                              PyObject *dict);
+static int __pyx_CyFunction_init(void);
+
 /* CLineInTraceback.proto */
 #ifdef CYTHON_CLINE_IN_TRACEBACK
 #define __Pyx_CLineForTraceback(tstate, c_line)  (((CYTHON_CLINE_IN_TRACEBACK)) ? c_line : 0)
@@ -1203,7 +1260,7 @@ static const char __pyx_k_compare1_is_column[] = "compare1_is_column";
 static const char __pyx_k_compare2_is_column[] = "compare2_is_column";
 static const char __pyx_k_evaluate_single_match[] = "evaluate_single_match";
 static const char __pyx_k_ddb_engine_evaluate_match[] = "ddb.engine.evaluate.match";
-static const char __pyx_k_ddb_engine_evaluate_match_pyx[] = "ddb/engine/evaluate/match.pyx";
+static const char __pyx_k_ddb_engine_evaluate_match_py[] = "ddb/engine/evaluate/match.py";
 static const char __pyx_k_Where_invalid_like_cant_be_betwe[] = "Where invalid {}, like cant be between 2 columns";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_kp_s_Where_invalid;
@@ -1228,7 +1285,7 @@ static PyObject *__pyx_n_s_compare2_is_column;
 static PyObject *__pyx_n_s_comparitor;
 static PyObject *__pyx_n_s_data;
 static PyObject *__pyx_n_s_ddb_engine_evaluate_match;
-static PyObject *__pyx_kp_s_ddb_engine_evaluate_match_pyx;
+static PyObject *__pyx_kp_s_ddb_engine_evaluate_match_py;
 static PyObject *__pyx_n_s_e1;
 static PyObject *__pyx_n_s_e2;
 static PyObject *__pyx_n_s_evaluate_match;
@@ -1269,7 +1326,7 @@ static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 /* Late includes */
 
-/* "ddb/engine/evaluate/match.pyx":5
+/* "ddb/engine/evaluate/match.py":5
  * 
  * 
  * def evaluate_single_match(test,row,table):             # <<<<<<<<<<<<<<
@@ -1374,7 +1431,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("evaluate_single_match", 0);
 
-  /* "ddb/engine/evaluate/match.pyx":7
+  /* "ddb/engine/evaluate/match.py":7
  * def evaluate_single_match(test,row,table):
  * 
  *     compare1=None             # <<<<<<<<<<<<<<
@@ -1384,7 +1441,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __Pyx_INCREF(Py_None);
   __pyx_v_compare1 = Py_None;
 
-  /* "ddb/engine/evaluate/match.pyx":8
+  /* "ddb/engine/evaluate/match.py":8
  * 
  *     compare1=None
  *     compare2=None             # <<<<<<<<<<<<<<
@@ -1394,7 +1451,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __Pyx_INCREF(Py_None);
   __pyx_v_compare2 = Py_None;
 
-  /* "ddb/engine/evaluate/match.pyx":9
+  /* "ddb/engine/evaluate/match.py":9
  *     compare1=None
  *     compare2=None
  *     compare1_is_column=False             # <<<<<<<<<<<<<<
@@ -1403,7 +1460,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   __pyx_v_compare1_is_column = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":10
+  /* "ddb/engine/evaluate/match.py":10
  *     compare2=None
  *     compare1_is_column=False
  *     compare2_is_column=False             # <<<<<<<<<<<<<<
@@ -1412,7 +1469,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   __pyx_v_compare2_is_column = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":12
+  /* "ddb/engine/evaluate/match.py":12
  *     compare2_is_column=False
  * 
  *     comparitor=test['c']             # <<<<<<<<<<<<<<
@@ -1424,7 +1481,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_v_comparitor = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":20
+  /* "ddb/engine/evaluate/match.py":20
  * 
  * 
  *     for column in table.columns:             # <<<<<<<<<<<<<<
@@ -1476,7 +1533,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":22
+    /* "ddb/engine/evaluate/match.py":22
  *     for column in table.columns:
  *         #print column.data.name
  *         if column.data.name==test['e1']:             # <<<<<<<<<<<<<<
@@ -1497,7 +1554,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":23
+      /* "ddb/engine/evaluate/match.py":23
  *         #print column.data.name
  *         if column.data.name==test['e1']:
  *             index=table.ordinals[column.data.name]             # <<<<<<<<<<<<<<
@@ -1518,7 +1575,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_XDECREF_SET(__pyx_v_index, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/evaluate/match.pyx":25
+      /* "ddb/engine/evaluate/match.py":25
  *             index=table.ordinals[column.data.name]
  *             #print "found1", column.data.name
  *             compare1=row[index]#table.ordinals[].get_data_from_column(column,row)             # <<<<<<<<<<<<<<
@@ -1530,7 +1587,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF_SET(__pyx_v_compare1, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/evaluate/match.pyx":27
+      /* "ddb/engine/evaluate/match.py":27
  *             compare1=row[index]#table.ordinals[].get_data_from_column(column,row)
  *             #compare1=table.get_data_from_column(column,row)
  *             compare1_is_column=True             # <<<<<<<<<<<<<<
@@ -1539,7 +1596,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       __pyx_v_compare1_is_column = 1;
 
-      /* "ddb/engine/evaluate/match.pyx":22
+      /* "ddb/engine/evaluate/match.py":22
  *     for column in table.columns:
  *         #print column.data.name
  *         if column.data.name==test['e1']:             # <<<<<<<<<<<<<<
@@ -1548,7 +1605,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":28
+    /* "ddb/engine/evaluate/match.py":28
  *             #compare1=table.get_data_from_column(column,row)
  *             compare1_is_column=True
  *         if column.data.name==test['e2']:             # <<<<<<<<<<<<<<
@@ -1569,7 +1626,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":29
+      /* "ddb/engine/evaluate/match.py":29
  *             compare1_is_column=True
  *         if column.data.name==test['e2']:
  *             index=table.ordinals[column.data.name]             # <<<<<<<<<<<<<<
@@ -1590,7 +1647,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_XDECREF_SET(__pyx_v_index, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/evaluate/match.pyx":31
+      /* "ddb/engine/evaluate/match.py":31
  *             index=table.ordinals[column.data.name]
  *             #print "found2", column.data.name
  *             compare2=row[index] #table.get_data_from_column(column,row)             # <<<<<<<<<<<<<<
@@ -1602,7 +1659,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF_SET(__pyx_v_compare2, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "ddb/engine/evaluate/match.pyx":33
+      /* "ddb/engine/evaluate/match.py":33
  *             compare2=row[index] #table.get_data_from_column(column,row)
  *             #compare2=table.get_data_from_column(column,row)
  *             compare2_is_column=True             # <<<<<<<<<<<<<<
@@ -1611,7 +1668,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       __pyx_v_compare2_is_column = 1;
 
-      /* "ddb/engine/evaluate/match.pyx":28
+      /* "ddb/engine/evaluate/match.py":28
  *             #compare1=table.get_data_from_column(column,row)
  *             compare1_is_column=True
  *         if column.data.name==test['e2']:             # <<<<<<<<<<<<<<
@@ -1620,7 +1677,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":34
+    /* "ddb/engine/evaluate/match.py":34
  *             #compare2=table.get_data_from_column(column,row)
  *             compare2_is_column=True
  *         if None !=compare1 and None != compare2:             # <<<<<<<<<<<<<<
@@ -1642,7 +1699,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_L8_bool_binop_done:;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":35
+      /* "ddb/engine/evaluate/match.py":35
  *             compare2_is_column=True
  *         if None !=compare1 and None != compare2:
  *             break             # <<<<<<<<<<<<<<
@@ -1651,7 +1708,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       goto __pyx_L4_break;
 
-      /* "ddb/engine/evaluate/match.pyx":34
+      /* "ddb/engine/evaluate/match.py":34
  *             #compare2=table.get_data_from_column(column,row)
  *             compare2_is_column=True
  *         if None !=compare1 and None != compare2:             # <<<<<<<<<<<<<<
@@ -1660,7 +1717,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":20
+    /* "ddb/engine/evaluate/match.py":20
  * 
  * 
  *     for column in table.columns:             # <<<<<<<<<<<<<<
@@ -1671,7 +1728,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":37
+  /* "ddb/engine/evaluate/match.py":37
  *             break
  * 
  *     if None == compare1:             # <<<<<<<<<<<<<<
@@ -1683,7 +1740,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":38
+    /* "ddb/engine/evaluate/match.py":38
  * 
  *     if None == compare1:
  *         compare1=test['e1']             # <<<<<<<<<<<<<<
@@ -1695,7 +1752,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF_SET(__pyx_v_compare1, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":37
+    /* "ddb/engine/evaluate/match.py":37
  *             break
  * 
  *     if None == compare1:             # <<<<<<<<<<<<<<
@@ -1704,7 +1761,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":39
+  /* "ddb/engine/evaluate/match.py":39
  *     if None == compare1:
  *         compare1=test['e1']
  *     if None == compare2:             # <<<<<<<<<<<<<<
@@ -1716,7 +1773,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":40
+    /* "ddb/engine/evaluate/match.py":40
  *         compare1=test['e1']
  *     if None == compare2:
  *         compare2=test['e2']             # <<<<<<<<<<<<<<
@@ -1728,7 +1785,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF_SET(__pyx_v_compare2, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":39
+    /* "ddb/engine/evaluate/match.py":39
  *     if None == compare1:
  *         compare1=test['e1']
  *     if None == compare2:             # <<<<<<<<<<<<<<
@@ -1737,7 +1794,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":41
+  /* "ddb/engine/evaluate/match.py":41
  *     if None == compare2:
  *         compare2=test['e2']
  *     if None == compare1 and None == compare2:             # <<<<<<<<<<<<<<
@@ -1759,7 +1816,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_L13_bool_binop_done:;
   if (unlikely(__pyx_t_7)) {
 
-    /* "ddb/engine/evaluate/match.pyx":42
+    /* "ddb/engine/evaluate/match.py":42
  *         compare2=test['e2']
  *     if None == compare1 and None == compare2:
  *         raise Exception("Where invalid {}".format(test))             # <<<<<<<<<<<<<<
@@ -1790,7 +1847,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 42, __pyx_L1_error)
 
-    /* "ddb/engine/evaluate/match.pyx":41
+    /* "ddb/engine/evaluate/match.py":41
  *     if None == compare2:
  *         compare2=test['e2']
  *     if None == compare1 and None == compare2:             # <<<<<<<<<<<<<<
@@ -1799,7 +1856,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":44
+  /* "ddb/engine/evaluate/match.py":44
  *         raise Exception("Where invalid {}".format(test))
  * 
  *     if comparitor=='=' or comparitor=='is' :             # <<<<<<<<<<<<<<
@@ -1817,7 +1874,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_L16_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":45
+    /* "ddb/engine/evaluate/match.py":45
  * 
  *     if comparitor=='=' or comparitor=='is' :
  *         if compare1==compare2:             # <<<<<<<<<<<<<<
@@ -1829,7 +1886,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":47
+      /* "ddb/engine/evaluate/match.py":47
  *         if compare1==compare2:
  *             #print compare1,compare2
  *             return True             # <<<<<<<<<<<<<<
@@ -1841,7 +1898,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":45
+      /* "ddb/engine/evaluate/match.py":45
  * 
  *     if comparitor=='=' or comparitor=='is' :
  *         if compare1==compare2:             # <<<<<<<<<<<<<<
@@ -1850,7 +1907,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":44
+    /* "ddb/engine/evaluate/match.py":44
  *         raise Exception("Where invalid {}".format(test))
  * 
  *     if comparitor=='=' or comparitor=='is' :             # <<<<<<<<<<<<<<
@@ -1859,7 +1916,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":48
+  /* "ddb/engine/evaluate/match.py":48
  *             #print compare1,compare2
  *             return True
  *     if comparitor=='like':  #paritial match             # <<<<<<<<<<<<<<
@@ -1869,7 +1926,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_v_comparitor, __pyx_n_s_like, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":50
+    /* "ddb/engine/evaluate/match.py":50
  *     if comparitor=='like':  #paritial match
  * 
  *         if True == compare1_is_column and  True == compare2_is_column:             # <<<<<<<<<<<<<<
@@ -1887,7 +1944,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_L21_bool_binop_done:;
     if (unlikely(__pyx_t_7)) {
 
-      /* "ddb/engine/evaluate/match.pyx":51
+      /* "ddb/engine/evaluate/match.py":51
  * 
  *         if True == compare1_is_column and  True == compare2_is_column:
  *             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))             # <<<<<<<<<<<<<<
@@ -1918,7 +1975,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __PYX_ERR(0, 51, __pyx_L1_error)
 
-      /* "ddb/engine/evaluate/match.pyx":50
+      /* "ddb/engine/evaluate/match.py":50
  *     if comparitor=='like':  #paritial match
  * 
  *         if True == compare1_is_column and  True == compare2_is_column:             # <<<<<<<<<<<<<<
@@ -1927,7 +1984,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":53
+    /* "ddb/engine/evaluate/match.py":53
  *             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
  * 
  *         if True == compare1_is_column:             # <<<<<<<<<<<<<<
@@ -1937,7 +1994,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_t_7 = ((1 == __pyx_v_compare1_is_column) != 0);
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":54
+      /* "ddb/engine/evaluate/match.py":54
  * 
  *         if True == compare1_is_column:
  *             like=compare2             # <<<<<<<<<<<<<<
@@ -1947,7 +2004,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_INCREF(__pyx_v_compare2);
       __pyx_v_like = __pyx_v_compare2;
 
-      /* "ddb/engine/evaluate/match.pyx":55
+      /* "ddb/engine/evaluate/match.py":55
  *         if True == compare1_is_column:
  *             like=compare2
  *             data=compare1             # <<<<<<<<<<<<<<
@@ -1957,7 +2014,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_INCREF(__pyx_v_compare1);
       __pyx_v_data = __pyx_v_compare1;
 
-      /* "ddb/engine/evaluate/match.pyx":53
+      /* "ddb/engine/evaluate/match.py":53
  *             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
  * 
  *         if True == compare1_is_column:             # <<<<<<<<<<<<<<
@@ -1967,7 +2024,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       goto __pyx_L23;
     }
 
-    /* "ddb/engine/evaluate/match.pyx":57
+    /* "ddb/engine/evaluate/match.py":57
  *             data=compare1
  *         else:
  *             like=compare1             # <<<<<<<<<<<<<<
@@ -1978,7 +2035,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_INCREF(__pyx_v_compare1);
       __pyx_v_like = __pyx_v_compare1;
 
-      /* "ddb/engine/evaluate/match.pyx":58
+      /* "ddb/engine/evaluate/match.py":58
  *         else:
  *             like=compare1
  *             data=compare2             # <<<<<<<<<<<<<<
@@ -1990,7 +2047,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     }
     __pyx_L23:;
 
-    /* "ddb/engine/evaluate/match.pyx":60
+    /* "ddb/engine/evaluate/match.py":60
  *             data=compare2
  * 
  *         if None == like:             # <<<<<<<<<<<<<<
@@ -2002,7 +2059,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":61
+      /* "ddb/engine/evaluate/match.py":61
  * 
  *         if None == like:
  *             return False             # <<<<<<<<<<<<<<
@@ -2014,7 +2071,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_False;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":60
+      /* "ddb/engine/evaluate/match.py":60
  *             data=compare2
  * 
  *         if None == like:             # <<<<<<<<<<<<<<
@@ -2023,7 +2080,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":66
+    /* "ddb/engine/evaluate/match.py":66
  *         #print "--"
  *         #print compare1,compare2,like
  *         if like[0]=='%':             # <<<<<<<<<<<<<<
@@ -2036,7 +2093,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":67
+      /* "ddb/engine/evaluate/match.py":67
  *         #print compare1,compare2,like
  *         if like[0]=='%':
  *             like_left=True             # <<<<<<<<<<<<<<
@@ -2045,7 +2102,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       __pyx_v_like_left = 1;
 
-      /* "ddb/engine/evaluate/match.pyx":66
+      /* "ddb/engine/evaluate/match.py":66
  *         #print "--"
  *         #print compare1,compare2,like
  *         if like[0]=='%':             # <<<<<<<<<<<<<<
@@ -2055,7 +2112,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       goto __pyx_L25;
     }
 
-    /* "ddb/engine/evaluate/match.pyx":69
+    /* "ddb/engine/evaluate/match.py":69
  *             like_left=True
  *         else:
  *             like_left=False             # <<<<<<<<<<<<<<
@@ -2067,7 +2124,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     }
     __pyx_L25:;
 
-    /* "ddb/engine/evaluate/match.pyx":71
+    /* "ddb/engine/evaluate/match.py":71
  *             like_left=False
  * 
  *         if like[-1]=='%':             # <<<<<<<<<<<<<<
@@ -2080,7 +2137,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":72
+      /* "ddb/engine/evaluate/match.py":72
  * 
  *         if like[-1]=='%':
  *             like_right=True             # <<<<<<<<<<<<<<
@@ -2089,7 +2146,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       __pyx_v_like_right = 1;
 
-      /* "ddb/engine/evaluate/match.pyx":71
+      /* "ddb/engine/evaluate/match.py":71
  *             like_left=False
  * 
  *         if like[-1]=='%':             # <<<<<<<<<<<<<<
@@ -2099,7 +2156,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       goto __pyx_L26;
     }
 
-    /* "ddb/engine/evaluate/match.pyx":74
+    /* "ddb/engine/evaluate/match.py":74
  *             like_right=True
  *         else:
  *             like_right=False             # <<<<<<<<<<<<<<
@@ -2111,7 +2168,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     }
     __pyx_L26:;
 
-    /* "ddb/engine/evaluate/match.pyx":77
+    /* "ddb/engine/evaluate/match.py":77
  * 
  *         # compare middle of search
  *         if True == like_right and True == like_left:             # <<<<<<<<<<<<<<
@@ -2129,7 +2186,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_L28_bool_binop_done:;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":78
+      /* "ddb/engine/evaluate/match.py":78
  *         # compare middle of search
  *         if True == like_right and True == like_left:
  *             if data.find(like[1:-1])>-1:             # <<<<<<<<<<<<<<
@@ -2162,7 +2219,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/evaluate/match.pyx":79
+        /* "ddb/engine/evaluate/match.py":79
  *         if True == like_right and True == like_left:
  *             if data.find(like[1:-1])>-1:
  *                 return True             # <<<<<<<<<<<<<<
@@ -2174,7 +2231,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "ddb/engine/evaluate/match.pyx":78
+        /* "ddb/engine/evaluate/match.py":78
  *         # compare middle of search
  *         if True == like_right and True == like_left:
  *             if data.find(like[1:-1])>-1:             # <<<<<<<<<<<<<<
@@ -2183,7 +2240,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       }
 
-      /* "ddb/engine/evaluate/match.pyx":81
+      /* "ddb/engine/evaluate/match.py":81
  *                 return True
  *             else:
  *                 return False             # <<<<<<<<<<<<<<
@@ -2197,7 +2254,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         goto __pyx_L0;
       }
 
-      /* "ddb/engine/evaluate/match.pyx":77
+      /* "ddb/engine/evaluate/match.py":77
  * 
  *         # compare middle of search
  *         if True == like_right and True == like_left:             # <<<<<<<<<<<<<<
@@ -2206,7 +2263,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":84
+    /* "ddb/engine/evaluate/match.py":84
  * 
  *         #if not found at end bail
  *         if True == like_left:             # <<<<<<<<<<<<<<
@@ -2216,7 +2273,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_t_7 = ((1 == __pyx_v_like_left) != 0);
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":85
+      /* "ddb/engine/evaluate/match.py":85
  *         #if not found at end bail
  *         if True == like_left:
  *             if data[-(len(like)-1):]==like[1:]:             # <<<<<<<<<<<<<<
@@ -2235,7 +2292,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/evaluate/match.pyx":86
+        /* "ddb/engine/evaluate/match.py":86
  *         if True == like_left:
  *             if data[-(len(like)-1):]==like[1:]:
  *                 return True             # <<<<<<<<<<<<<<
@@ -2247,7 +2304,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "ddb/engine/evaluate/match.pyx":85
+        /* "ddb/engine/evaluate/match.py":85
  *         #if not found at end bail
  *         if True == like_left:
  *             if data[-(len(like)-1):]==like[1:]:             # <<<<<<<<<<<<<<
@@ -2256,7 +2313,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       }
 
-      /* "ddb/engine/evaluate/match.pyx":88
+      /* "ddb/engine/evaluate/match.py":88
  *                 return True
  *             else:
  *                 return False             # <<<<<<<<<<<<<<
@@ -2270,7 +2327,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         goto __pyx_L0;
       }
 
-      /* "ddb/engine/evaluate/match.pyx":84
+      /* "ddb/engine/evaluate/match.py":84
  * 
  *         #if not found at end bail
  *         if True == like_left:             # <<<<<<<<<<<<<<
@@ -2279,7 +2336,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":91
+    /* "ddb/engine/evaluate/match.py":91
  * 
  *         #if not found at start, bail
  *         if True == like_right:             # <<<<<<<<<<<<<<
@@ -2289,7 +2346,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_t_7 = ((1 == __pyx_v_like_right) != 0);
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":92
+      /* "ddb/engine/evaluate/match.py":92
  *         #if not found at start, bail
  *         if True == like_right:
  *             if data[0:(len(like)-1)]==like[0:-1]:             # <<<<<<<<<<<<<<
@@ -2308,7 +2365,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/evaluate/match.pyx":93
+        /* "ddb/engine/evaluate/match.py":93
  *         if True == like_right:
  *             if data[0:(len(like)-1)]==like[0:-1]:
  *                 return True             # <<<<<<<<<<<<<<
@@ -2320,7 +2377,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         __pyx_r = Py_True;
         goto __pyx_L0;
 
-        /* "ddb/engine/evaluate/match.pyx":92
+        /* "ddb/engine/evaluate/match.py":92
  *         #if not found at start, bail
  *         if True == like_right:
  *             if data[0:(len(like)-1)]==like[0:-1]:             # <<<<<<<<<<<<<<
@@ -2329,7 +2386,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
       }
 
-      /* "ddb/engine/evaluate/match.pyx":95
+      /* "ddb/engine/evaluate/match.py":95
  *                 return True
  *             else:
  *                 return False             # <<<<<<<<<<<<<<
@@ -2343,7 +2400,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
         goto __pyx_L0;
       }
 
-      /* "ddb/engine/evaluate/match.pyx":91
+      /* "ddb/engine/evaluate/match.py":91
  * 
  *         #if not found at start, bail
  *         if True == like_right:             # <<<<<<<<<<<<<<
@@ -2352,7 +2409,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":98
+    /* "ddb/engine/evaluate/match.py":98
  * 
  * 
  *         return False             # <<<<<<<<<<<<<<
@@ -2364,7 +2421,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/evaluate/match.pyx":48
+    /* "ddb/engine/evaluate/match.py":48
  *             #print compare1,compare2
  *             return True
  *     if comparitor=='like':  #paritial match             # <<<<<<<<<<<<<<
@@ -2373,7 +2430,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":99
+  /* "ddb/engine/evaluate/match.py":99
  * 
  *         return False
  *     if comparitor=='<' :             # <<<<<<<<<<<<<<
@@ -2383,7 +2440,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_v_comparitor, __pyx_kp_s__6, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":100
+    /* "ddb/engine/evaluate/match.py":100
  *         return False
  *     if comparitor=='<' :
  *         if compare1<compare2:             # <<<<<<<<<<<<<<
@@ -2395,7 +2452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":101
+      /* "ddb/engine/evaluate/match.py":101
  *     if comparitor=='<' :
  *         if compare1<compare2:
  *             return True             # <<<<<<<<<<<<<<
@@ -2407,7 +2464,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":100
+      /* "ddb/engine/evaluate/match.py":100
  *         return False
  *     if comparitor=='<' :
  *         if compare1<compare2:             # <<<<<<<<<<<<<<
@@ -2416,7 +2473,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":99
+    /* "ddb/engine/evaluate/match.py":99
  * 
  *         return False
  *     if comparitor=='<' :             # <<<<<<<<<<<<<<
@@ -2425,7 +2482,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":102
+  /* "ddb/engine/evaluate/match.py":102
  *         if compare1<compare2:
  *             return True
  *     if comparitor=='>' :             # <<<<<<<<<<<<<<
@@ -2435,7 +2492,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_v_comparitor, __pyx_kp_s__7, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 102, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":103
+    /* "ddb/engine/evaluate/match.py":103
  *             return True
  *     if comparitor=='>' :
  *         if compare1>compare2:             # <<<<<<<<<<<<<<
@@ -2447,7 +2504,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":104
+      /* "ddb/engine/evaluate/match.py":104
  *     if comparitor=='>' :
  *         if compare1>compare2:
  *             return True             # <<<<<<<<<<<<<<
@@ -2459,7 +2516,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":103
+      /* "ddb/engine/evaluate/match.py":103
  *             return True
  *     if comparitor=='>' :
  *         if compare1>compare2:             # <<<<<<<<<<<<<<
@@ -2468,7 +2525,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":102
+    /* "ddb/engine/evaluate/match.py":102
  *         if compare1<compare2:
  *             return True
  *     if comparitor=='>' :             # <<<<<<<<<<<<<<
@@ -2477,7 +2534,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":105
+  /* "ddb/engine/evaluate/match.py":105
  *         if compare1>compare2:
  *             return True
  *     if comparitor=='>=' :             # <<<<<<<<<<<<<<
@@ -2487,7 +2544,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_v_comparitor, __pyx_kp_s__8, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 105, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":106
+    /* "ddb/engine/evaluate/match.py":106
  *             return True
  *     if comparitor=='>=' :
  *         if compare1>=compare2:             # <<<<<<<<<<<<<<
@@ -2499,7 +2556,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":107
+      /* "ddb/engine/evaluate/match.py":107
  *     if comparitor=='>=' :
  *         if compare1>=compare2:
  *             return True             # <<<<<<<<<<<<<<
@@ -2511,7 +2568,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":106
+      /* "ddb/engine/evaluate/match.py":106
  *             return True
  *     if comparitor=='>=' :
  *         if compare1>=compare2:             # <<<<<<<<<<<<<<
@@ -2520,7 +2577,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":105
+    /* "ddb/engine/evaluate/match.py":105
  *         if compare1>compare2:
  *             return True
  *     if comparitor=='>=' :             # <<<<<<<<<<<<<<
@@ -2529,7 +2586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":108
+  /* "ddb/engine/evaluate/match.py":108
  *         if compare1>=compare2:
  *             return True
  *     if comparitor=='<=' :             # <<<<<<<<<<<<<<
@@ -2539,7 +2596,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_t_7 = (__Pyx_PyString_Equals(__pyx_v_comparitor, __pyx_kp_s__9, Py_EQ)); if (unlikely(__pyx_t_7 < 0)) __PYX_ERR(0, 108, __pyx_L1_error)
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":109
+    /* "ddb/engine/evaluate/match.py":109
  *             return True
  *     if comparitor=='<=' :
  *         if compare1<=compare2:             # <<<<<<<<<<<<<<
@@ -2551,7 +2608,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":110
+      /* "ddb/engine/evaluate/match.py":110
  *     if comparitor=='<=' :
  *         if compare1<=compare2:
  *             return True             # <<<<<<<<<<<<<<
@@ -2563,7 +2620,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":109
+      /* "ddb/engine/evaluate/match.py":109
  *             return True
  *     if comparitor=='<=' :
  *         if compare1<=compare2:             # <<<<<<<<<<<<<<
@@ -2572,7 +2629,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":108
+    /* "ddb/engine/evaluate/match.py":108
  *         if compare1>=compare2:
  *             return True
  *     if comparitor=='<=' :             # <<<<<<<<<<<<<<
@@ -2581,7 +2638,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":111
+  /* "ddb/engine/evaluate/match.py":111
  *         if compare1<=compare2:
  *             return True
  *     if comparitor=='!=' or comparitor=='<>' or comparitor=='not':             # <<<<<<<<<<<<<<
@@ -2605,7 +2662,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_L44_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":112
+    /* "ddb/engine/evaluate/match.py":112
  *             return True
  *     if comparitor=='!=' or comparitor=='<>' or comparitor=='not':
  *         if compare1!=compare2:             # <<<<<<<<<<<<<<
@@ -2617,7 +2674,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":113
+      /* "ddb/engine/evaluate/match.py":113
  *     if comparitor=='!=' or comparitor=='<>' or comparitor=='not':
  *         if compare1!=compare2:
  *             return True             # <<<<<<<<<<<<<<
@@ -2629,7 +2686,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
       __pyx_r = Py_True;
       goto __pyx_L0;
 
-      /* "ddb/engine/evaluate/match.pyx":112
+      /* "ddb/engine/evaluate/match.py":112
  *             return True
  *     if comparitor=='!=' or comparitor=='<>' or comparitor=='not':
  *         if compare1!=compare2:             # <<<<<<<<<<<<<<
@@ -2638,7 +2695,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":111
+    /* "ddb/engine/evaluate/match.py":111
  *         if compare1<=compare2:
  *             return True
  *     if comparitor=='!=' or comparitor=='<>' or comparitor=='not':             # <<<<<<<<<<<<<<
@@ -2647,7 +2704,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":115
+  /* "ddb/engine/evaluate/match.py":115
  *             return True
  * 
  *     return False             # <<<<<<<<<<<<<<
@@ -2659,7 +2716,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/evaluate/match.pyx":5
+  /* "ddb/engine/evaluate/match.py":5
  * 
  * 
  * def evaluate_single_match(test,row,table):             # <<<<<<<<<<<<<<
@@ -2688,7 +2745,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_evaluate_single_match(CY
   return __pyx_r;
 }
 
-/* "ddb/engine/evaluate/match.pyx":118
+/* "ddb/engine/evaluate/match.py":118
  * 
  * 
  * def evaluate_match(where,row,table):             # <<<<<<<<<<<<<<
@@ -2790,7 +2847,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("evaluate_match", 0);
 
-  /* "ddb/engine/evaluate/match.pyx":120
+  /* "ddb/engine/evaluate/match.py":120
  * def evaluate_match(where,row,table):
  *     #print where
  *     if None == row:             # <<<<<<<<<<<<<<
@@ -2802,7 +2859,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/evaluate/match.pyx":121
+    /* "ddb/engine/evaluate/match.py":121
  *     #print where
  *     if None == row:
  *         return False             # <<<<<<<<<<<<<<
@@ -2814,7 +2871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/evaluate/match.pyx":120
+    /* "ddb/engine/evaluate/match.py":120
  * def evaluate_match(where,row,table):
  *     #print where
  *     if None == row:             # <<<<<<<<<<<<<<
@@ -2823,7 +2880,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":123
+  /* "ddb/engine/evaluate/match.py":123
  *         return False
  * 
  *     if 0 == len(where):             # <<<<<<<<<<<<<<
@@ -2834,7 +2891,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __pyx_t_2 = ((0 == __pyx_t_3) != 0);
   if (__pyx_t_2) {
 
-    /* "ddb/engine/evaluate/match.pyx":125
+    /* "ddb/engine/evaluate/match.py":125
  *     if 0 == len(where):
  *         #print "0 len"
  *         return True             # <<<<<<<<<<<<<<
@@ -2846,7 +2903,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_r = Py_True;
     goto __pyx_L0;
 
-    /* "ddb/engine/evaluate/match.pyx":123
+    /* "ddb/engine/evaluate/match.py":123
  *         return False
  * 
  *     if 0 == len(where):             # <<<<<<<<<<<<<<
@@ -2855,7 +2912,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":126
+  /* "ddb/engine/evaluate/match.py":126
  *         #print "0 len"
  *         return True
  *     success=None             # <<<<<<<<<<<<<<
@@ -2865,7 +2922,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __Pyx_INCREF(Py_None);
   __pyx_v_success = Py_None;
 
-  /* "ddb/engine/evaluate/match.pyx":127
+  /* "ddb/engine/evaluate/match.py":127
  *         return True
  *     success=None
  *     skip_section=False             # <<<<<<<<<<<<<<
@@ -2874,7 +2931,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
   __pyx_v_skip_section = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":128
+  /* "ddb/engine/evaluate/match.py":128
  *     success=None
  *     skip_section=False
  *     operation=""             # <<<<<<<<<<<<<<
@@ -2884,7 +2941,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __Pyx_INCREF(__pyx_kp_s__12);
   __pyx_v_operation = __pyx_kp_s__12;
 
-  /* "ddb/engine/evaluate/match.pyx":129
+  /* "ddb/engine/evaluate/match.py":129
  *     skip_section=False
  *     operation=""
  *     for test in where:             # <<<<<<<<<<<<<<
@@ -2933,7 +2990,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __Pyx_XDECREF_SET(__pyx_v_test, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":132
+    /* "ddb/engine/evaluate/match.py":132
  *         #print test
  *         # if a evaluation chain failed, continue until out of that section
  *         if 'and' in test and skip_section==True:             # <<<<<<<<<<<<<<
@@ -2952,7 +3009,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_L8_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "ddb/engine/evaluate/match.pyx":133
+      /* "ddb/engine/evaluate/match.py":133
  *         # if a evaluation chain failed, continue until out of that section
  *         if 'and' in test and skip_section==True:
  *             continue             # <<<<<<<<<<<<<<
@@ -2961,7 +3018,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
       goto __pyx_L5_continue;
 
-      /* "ddb/engine/evaluate/match.pyx":132
+      /* "ddb/engine/evaluate/match.py":132
  *         #print test
  *         # if a evaluation chain failed, continue until out of that section
  *         if 'and' in test and skip_section==True:             # <<<<<<<<<<<<<<
@@ -2970,7 +3027,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":135
+    /* "ddb/engine/evaluate/match.py":135
  *             continue
  *         else:
  *             skip_section=False             # <<<<<<<<<<<<<<
@@ -2981,7 +3038,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __pyx_v_skip_section = 0;
     }
 
-    /* "ddb/engine/evaluate/match.pyx":137
+    /* "ddb/engine/evaluate/match.py":137
  *             skip_section=False
  * 
  *         operation=None             # <<<<<<<<<<<<<<
@@ -2991,7 +3048,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __Pyx_INCREF(Py_None);
     __Pyx_DECREF_SET(__pyx_v_operation, Py_None);
 
-    /* "ddb/engine/evaluate/match.pyx":138
+    /* "ddb/engine/evaluate/match.py":138
  * 
  *         operation=None
  *         if 'where' in test:             # <<<<<<<<<<<<<<
@@ -3002,7 +3059,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_t_7 = (__pyx_t_2 != 0);
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":139
+      /* "ddb/engine/evaluate/match.py":139
  *         operation=None
  *         if 'where' in test:
  *             operation='where'             # <<<<<<<<<<<<<<
@@ -3012,7 +3069,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __Pyx_INCREF(__pyx_n_s_where);
       __Pyx_DECREF_SET(__pyx_v_operation, __pyx_n_s_where);
 
-      /* "ddb/engine/evaluate/match.pyx":138
+      /* "ddb/engine/evaluate/match.py":138
  * 
  *         operation=None
  *         if 'where' in test:             # <<<<<<<<<<<<<<
@@ -3021,7 +3078,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":141
+    /* "ddb/engine/evaluate/match.py":141
  *             operation='where'
  * 
  *         if 'or' in test:             # <<<<<<<<<<<<<<
@@ -3032,7 +3089,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_t_2 = (__pyx_t_7 != 0);
     if (__pyx_t_2) {
 
-      /* "ddb/engine/evaluate/match.pyx":142
+      /* "ddb/engine/evaluate/match.py":142
  * 
  *         if 'or' in test:
  *             operation='or'             # <<<<<<<<<<<<<<
@@ -3042,7 +3099,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __Pyx_INCREF(__pyx_n_s_or);
       __Pyx_DECREF_SET(__pyx_v_operation, __pyx_n_s_or);
 
-      /* "ddb/engine/evaluate/match.pyx":143
+      /* "ddb/engine/evaluate/match.py":143
  *         if 'or' in test:
  *             operation='or'
  *             if success==True:             # <<<<<<<<<<<<<<
@@ -3054,7 +3111,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_2) {
 
-        /* "ddb/engine/evaluate/match.pyx":144
+        /* "ddb/engine/evaluate/match.py":144
  *             operation='or'
  *             if success==True:
  *                 return True             # <<<<<<<<<<<<<<
@@ -3067,7 +3124,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
 
-        /* "ddb/engine/evaluate/match.pyx":143
+        /* "ddb/engine/evaluate/match.py":143
  *         if 'or' in test:
  *             operation='or'
  *             if success==True:             # <<<<<<<<<<<<<<
@@ -3076,7 +3133,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
       }
 
-      /* "ddb/engine/evaluate/match.pyx":141
+      /* "ddb/engine/evaluate/match.py":141
  *             operation='where'
  * 
  *         if 'or' in test:             # <<<<<<<<<<<<<<
@@ -3085,7 +3142,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":146
+    /* "ddb/engine/evaluate/match.py":146
  *                 return True
  * 
  *         if 'and' in test:             # <<<<<<<<<<<<<<
@@ -3096,7 +3153,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_t_7 = (__pyx_t_2 != 0);
     if (__pyx_t_7) {
 
-      /* "ddb/engine/evaluate/match.pyx":148
+      /* "ddb/engine/evaluate/match.py":148
  *         if 'and' in test:
  * 
  *             operation='and'             # <<<<<<<<<<<<<<
@@ -3106,7 +3163,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __Pyx_INCREF(__pyx_n_s_and);
       __Pyx_DECREF_SET(__pyx_v_operation, __pyx_n_s_and);
 
-      /* "ddb/engine/evaluate/match.pyx":149
+      /* "ddb/engine/evaluate/match.py":149
  * 
  *             operation='and'
  *             if success==False:             # <<<<<<<<<<<<<<
@@ -3118,7 +3175,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_7) {
 
-        /* "ddb/engine/evaluate/match.pyx":150
+        /* "ddb/engine/evaluate/match.py":150
  *             operation='and'
  *             if success==False:
  *                 skip_section=True             # <<<<<<<<<<<<<<
@@ -3127,7 +3184,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
         __pyx_v_skip_section = 1;
 
-        /* "ddb/engine/evaluate/match.pyx":151
+        /* "ddb/engine/evaluate/match.py":151
  *             if success==False:
  *                 skip_section=True
  *                 continue             # <<<<<<<<<<<<<<
@@ -3136,7 +3193,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
         goto __pyx_L5_continue;
 
-        /* "ddb/engine/evaluate/match.pyx":149
+        /* "ddb/engine/evaluate/match.py":149
  * 
  *             operation='and'
  *             if success==False:             # <<<<<<<<<<<<<<
@@ -3145,7 +3202,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
       }
 
-      /* "ddb/engine/evaluate/match.pyx":146
+      /* "ddb/engine/evaluate/match.py":146
  *                 return True
  * 
  *         if 'and' in test:             # <<<<<<<<<<<<<<
@@ -3154,7 +3211,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
     }
 
-    /* "ddb/engine/evaluate/match.pyx":153
+    /* "ddb/engine/evaluate/match.py":153
  *                 continue
  * 
  *         test_operation=test[operation]             # <<<<<<<<<<<<<<
@@ -3166,7 +3223,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __Pyx_XDECREF_SET(__pyx_v_test_operation, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":154
+    /* "ddb/engine/evaluate/match.py":154
  * 
  *         test_operation=test[operation]
  *         success=evaluate_single_match(test_operation,row,table)             # <<<<<<<<<<<<<<
@@ -3226,7 +3283,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __Pyx_DECREF_SET(__pyx_v_success, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "ddb/engine/evaluate/match.pyx":129
+    /* "ddb/engine/evaluate/match.py":129
  *     skip_section=False
  *     operation=""
  *     for test in where:             # <<<<<<<<<<<<<<
@@ -3237,7 +3294,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":157
+  /* "ddb/engine/evaluate/match.py":157
  * 
  *     # never matched anytthing...
  *     if success==None:             # <<<<<<<<<<<<<<
@@ -3249,7 +3306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_7) {
 
-    /* "ddb/engine/evaluate/match.pyx":158
+    /* "ddb/engine/evaluate/match.py":158
  *     # never matched anytthing...
  *     if success==None:
  *         return False             # <<<<<<<<<<<<<<
@@ -3261,7 +3318,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
     __pyx_r = Py_False;
     goto __pyx_L0;
 
-    /* "ddb/engine/evaluate/match.pyx":157
+    /* "ddb/engine/evaluate/match.py":157
  * 
  *     # never matched anytthing...
  *     if success==None:             # <<<<<<<<<<<<<<
@@ -3270,7 +3327,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
  */
   }
 
-  /* "ddb/engine/evaluate/match.pyx":159
+  /* "ddb/engine/evaluate/match.py":159
  *     if success==None:
  *         return False
  *     return success             # <<<<<<<<<<<<<<
@@ -3281,7 +3338,7 @@ static PyObject *__pyx_pf_3ddb_6engine_8evaluate_5match_2evaluate_match(CYTHON_U
   __pyx_r = __pyx_v_success;
   goto __pyx_L0;
 
-  /* "ddb/engine/evaluate/match.pyx":118
+  /* "ddb/engine/evaluate/match.py":118
  * 
  * 
  * def evaluate_match(where,row,table):             # <<<<<<<<<<<<<<
@@ -3377,7 +3434,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_comparitor, __pyx_k_comparitor, sizeof(__pyx_k_comparitor), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_evaluate_match, __pyx_k_ddb_engine_evaluate_match, sizeof(__pyx_k_ddb_engine_evaluate_match), 0, 0, 1, 1},
-  {&__pyx_kp_s_ddb_engine_evaluate_match_pyx, __pyx_k_ddb_engine_evaluate_match_pyx, sizeof(__pyx_k_ddb_engine_evaluate_match_pyx), 0, 0, 1, 0},
+  {&__pyx_kp_s_ddb_engine_evaluate_match_py, __pyx_k_ddb_engine_evaluate_match_py, sizeof(__pyx_k_ddb_engine_evaluate_match_py), 0, 0, 1, 0},
   {&__pyx_n_s_e1, __pyx_k_e1, sizeof(__pyx_k_e1), 0, 0, 1, 1},
   {&__pyx_n_s_e2, __pyx_k_e2, sizeof(__pyx_k_e2), 0, 0, 1, 1},
   {&__pyx_n_s_evaluate_match, __pyx_k_evaluate_match, sizeof(__pyx_k_evaluate_match), 0, 0, 1, 1},
@@ -3414,7 +3471,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/evaluate/match.pyx":78
+  /* "ddb/engine/evaluate/match.py":78
  *         # compare middle of search
  *         if True == like_right and True == like_left:
  *             if data.find(like[1:-1])>-1:             # <<<<<<<<<<<<<<
@@ -3425,7 +3482,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__3);
   __Pyx_GIVEREF(__pyx_slice__3);
 
-  /* "ddb/engine/evaluate/match.pyx":85
+  /* "ddb/engine/evaluate/match.py":85
  *         #if not found at end bail
  *         if True == like_left:
  *             if data[-(len(like)-1):]==like[1:]:             # <<<<<<<<<<<<<<
@@ -3436,7 +3493,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__4);
   __Pyx_GIVEREF(__pyx_slice__4);
 
-  /* "ddb/engine/evaluate/match.pyx":92
+  /* "ddb/engine/evaluate/match.py":92
  *         #if not found at start, bail
  *         if True == like_right:
  *             if data[0:(len(like)-1)]==like[0:-1]:             # <<<<<<<<<<<<<<
@@ -3447,7 +3504,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
 
-  /* "ddb/engine/evaluate/match.pyx":5
+  /* "ddb/engine/evaluate/match.py":5
  * 
  * 
  * def evaluate_single_match(test,row,table):             # <<<<<<<<<<<<<<
@@ -3457,9 +3514,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__13 = PyTuple_Pack(14, __pyx_n_s_test, __pyx_n_s_row, __pyx_n_s_table, __pyx_n_s_compare1, __pyx_n_s_compare2, __pyx_n_s_compare1_is_column, __pyx_n_s_compare2_is_column, __pyx_n_s_comparitor, __pyx_n_s_column, __pyx_n_s_index, __pyx_n_s_like, __pyx_n_s_data, __pyx_n_s_like_left, __pyx_n_s_like_right); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_evaluate_match_pyx, __pyx_n_s_evaluate_single_match, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_evaluate_match_py, __pyx_n_s_evaluate_single_match, 5, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 5, __pyx_L1_error)
 
-  /* "ddb/engine/evaluate/match.pyx":118
+  /* "ddb/engine/evaluate/match.py":118
  * 
  * 
  * def evaluate_match(where,row,table):             # <<<<<<<<<<<<<<
@@ -3469,7 +3526,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__15 = PyTuple_Pack(8, __pyx_n_s_where, __pyx_n_s_row, __pyx_n_s_table, __pyx_n_s_success, __pyx_n_s_skip_section, __pyx_n_s_operation, __pyx_n_s_test, __pyx_n_s_test_operation); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_evaluate_match_pyx, __pyx_n_s_evaluate_match, 118, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_evaluate_match_py, __pyx_n_s_evaluate_match, 118, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3749,31 +3806,31 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/evaluate/match.pyx":5
+  /* "ddb/engine/evaluate/match.py":5
  * 
  * 
  * def evaluate_single_match(test,row,table):             # <<<<<<<<<<<<<<
  * 
  *     compare1=None
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_8evaluate_5match_1evaluate_single_match, NULL, __pyx_n_s_ddb_engine_evaluate_match); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_8evaluate_5match_1evaluate_single_match, 0, __pyx_n_s_evaluate_single_match, NULL, __pyx_n_s_ddb_engine_evaluate_match, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_evaluate_single_match, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":118
+  /* "ddb/engine/evaluate/match.py":118
  * 
  * 
  * def evaluate_match(where,row,table):             # <<<<<<<<<<<<<<
  *     #print where
  *     if None == row:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3ddb_6engine_8evaluate_5match_3evaluate_match, NULL, __pyx_n_s_ddb_engine_evaluate_match); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_8evaluate_5match_3evaluate_match, 0, __pyx_n_s_evaluate_match, NULL, __pyx_n_s_ddb_engine_evaluate_match, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_evaluate_match, __pyx_t_1) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/evaluate/match.pyx":5
+  /* "ddb/engine/evaluate/match.py":5
  * 
  * 
  * def evaluate_single_match(test,row,table):             # <<<<<<<<<<<<<<
@@ -4850,6 +4907,641 @@ static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
     PyErr_Clear();
 #endif
     return __Pyx_GetBuiltinName(name);
+}
+
+/* FetchCommonType */
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+    PyObject* fake_module;
+    PyTypeObject* cached_type = NULL;
+    fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
+    if (!fake_module) return NULL;
+    Py_INCREF(fake_module);
+    cached_type = (PyTypeObject*) PyObject_GetAttrString(fake_module, type->tp_name);
+    if (cached_type) {
+        if (!PyType_Check((PyObject*)cached_type)) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s is not a type object",
+                type->tp_name);
+            goto bad;
+        }
+        if (cached_type->tp_basicsize != type->tp_basicsize) {
+            PyErr_Format(PyExc_TypeError,
+                "Shared Cython type %.200s has the wrong size, try recompiling",
+                type->tp_name);
+            goto bad;
+        }
+    } else {
+        if (!PyErr_ExceptionMatches(PyExc_AttributeError)) goto bad;
+        PyErr_Clear();
+        if (PyType_Ready(type) < 0) goto bad;
+        if (PyObject_SetAttrString(fake_module, type->tp_name, (PyObject*) type) < 0)
+            goto bad;
+        Py_INCREF(type);
+        cached_type = type;
+    }
+done:
+    Py_DECREF(fake_module);
+    return cached_type;
+bad:
+    Py_XDECREF(cached_type);
+    cached_type = NULL;
+    goto done;
+}
+
+/* CythonFunction */
+#include <structmember.h>
+static PyObject *
+__Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
+{
+    if (unlikely(op->func_doc == NULL)) {
+        if (op->func.m_ml->ml_doc) {
+#if PY_MAJOR_VERSION >= 3
+            op->func_doc = PyUnicode_FromString(op->func.m_ml->ml_doc);
+#else
+            op->func_doc = PyString_FromString(op->func.m_ml->ml_doc);
+#endif
+            if (unlikely(op->func_doc == NULL))
+                return NULL;
+        } else {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
+    }
+    Py_INCREF(op->func_doc);
+    return op->func_doc;
+}
+static int
+__Pyx_CyFunction_set_doc(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp = op->func_doc;
+    if (value == NULL) {
+        value = Py_None;
+    }
+    Py_INCREF(value);
+    op->func_doc = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_name(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_name == NULL)) {
+#if PY_MAJOR_VERSION >= 3
+        op->func_name = PyUnicode_InternFromString(op->func.m_ml->ml_name);
+#else
+        op->func_name = PyString_InternFromString(op->func.m_ml->ml_name);
+#endif
+        if (unlikely(op->func_name == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_name);
+    return op->func_name;
+}
+static int
+__Pyx_CyFunction_set_name(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__name__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_name;
+    Py_INCREF(value);
+    op->func_name = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_qualname(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_qualname);
+    return op->func_qualname;
+}
+static int
+__Pyx_CyFunction_set_qualname(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+#if PY_MAJOR_VERSION >= 3
+    if (unlikely(value == NULL || !PyUnicode_Check(value)))
+#else
+    if (unlikely(value == NULL || !PyString_Check(value)))
+#endif
+    {
+        PyErr_SetString(PyExc_TypeError,
+                        "__qualname__ must be set to a string object");
+        return -1;
+    }
+    tmp = op->func_qualname;
+    Py_INCREF(value);
+    op->func_qualname = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_self(__pyx_CyFunctionObject *m, CYTHON_UNUSED void *closure)
+{
+    PyObject *self;
+    self = m->func_closure;
+    if (self == NULL)
+        self = Py_None;
+    Py_INCREF(self);
+    return self;
+}
+static PyObject *
+__Pyx_CyFunction_get_dict(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    if (unlikely(op->func_dict == NULL)) {
+        op->func_dict = PyDict_New();
+        if (unlikely(op->func_dict == NULL))
+            return NULL;
+    }
+    Py_INCREF(op->func_dict);
+    return op->func_dict;
+}
+static int
+__Pyx_CyFunction_set_dict(__pyx_CyFunctionObject *op, PyObject *value, CYTHON_UNUSED void *context)
+{
+    PyObject *tmp;
+    if (unlikely(value == NULL)) {
+        PyErr_SetString(PyExc_TypeError,
+               "function's dictionary may not be deleted");
+        return -1;
+    }
+    if (unlikely(!PyDict_Check(value))) {
+        PyErr_SetString(PyExc_TypeError,
+               "setting function's dictionary to a non-dict");
+        return -1;
+    }
+    tmp = op->func_dict;
+    Py_INCREF(value);
+    op->func_dict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_globals(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(op->func_globals);
+    return op->func_globals;
+}
+static PyObject *
+__Pyx_CyFunction_get_closure(CYTHON_UNUSED __pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+static PyObject *
+__Pyx_CyFunction_get_code(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context)
+{
+    PyObject* result = (op->func_code) ? op->func_code : Py_None;
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_init_defaults(__pyx_CyFunctionObject *op) {
+    int result = 0;
+    PyObject *res = op->defaults_getter((PyObject *) op);
+    if (unlikely(!res))
+        return -1;
+    #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    op->defaults_tuple = PyTuple_GET_ITEM(res, 0);
+    Py_INCREF(op->defaults_tuple);
+    op->defaults_kwdict = PyTuple_GET_ITEM(res, 1);
+    Py_INCREF(op->defaults_kwdict);
+    #else
+    op->defaults_tuple = PySequence_ITEM(res, 0);
+    if (unlikely(!op->defaults_tuple)) result = -1;
+    else {
+        op->defaults_kwdict = PySequence_ITEM(res, 1);
+        if (unlikely(!op->defaults_kwdict)) result = -1;
+    }
+    #endif
+    Py_DECREF(res);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_defaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyTuple_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__defaults__ must be set to a tuple object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_tuple;
+    op->defaults_tuple = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_defaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_tuple;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_tuple;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_kwdefaults(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value) {
+        value = Py_None;
+    } else if (value != Py_None && !PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__kwdefaults__ must be set to a dict object");
+        return -1;
+    }
+    Py_INCREF(value);
+    tmp = op->defaults_kwdict;
+    op->defaults_kwdict = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_kwdefaults(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->defaults_kwdict;
+    if (unlikely(!result)) {
+        if (op->defaults_getter) {
+            if (__Pyx_CyFunction_init_defaults(op) < 0) return NULL;
+            result = op->defaults_kwdict;
+        } else {
+            result = Py_None;
+        }
+    }
+    Py_INCREF(result);
+    return result;
+}
+static int
+__Pyx_CyFunction_set_annotations(__pyx_CyFunctionObject *op, PyObject* value, CYTHON_UNUSED void *context) {
+    PyObject* tmp;
+    if (!value || value == Py_None) {
+        value = NULL;
+    } else if (!PyDict_Check(value)) {
+        PyErr_SetString(PyExc_TypeError,
+                        "__annotations__ must be set to a dict object");
+        return -1;
+    }
+    Py_XINCREF(value);
+    tmp = op->func_annotations;
+    op->func_annotations = value;
+    Py_XDECREF(tmp);
+    return 0;
+}
+static PyObject *
+__Pyx_CyFunction_get_annotations(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *context) {
+    PyObject* result = op->func_annotations;
+    if (unlikely(!result)) {
+        result = PyDict_New();
+        if (unlikely(!result)) return NULL;
+        op->func_annotations = result;
+    }
+    Py_INCREF(result);
+    return result;
+}
+static PyGetSetDef __pyx_CyFunction_getsets[] = {
+    {(char *) "func_doc", (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "__doc__",  (getter)__Pyx_CyFunction_get_doc, (setter)__Pyx_CyFunction_set_doc, 0, 0},
+    {(char *) "func_name", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__name__", (getter)__Pyx_CyFunction_get_name, (setter)__Pyx_CyFunction_set_name, 0, 0},
+    {(char *) "__qualname__", (getter)__Pyx_CyFunction_get_qualname, (setter)__Pyx_CyFunction_set_qualname, 0, 0},
+    {(char *) "__self__", (getter)__Pyx_CyFunction_get_self, 0, 0, 0},
+    {(char *) "func_dict", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "__dict__", (getter)__Pyx_CyFunction_get_dict, (setter)__Pyx_CyFunction_set_dict, 0, 0},
+    {(char *) "func_globals", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "__globals__", (getter)__Pyx_CyFunction_get_globals, 0, 0, 0},
+    {(char *) "func_closure", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "__closure__", (getter)__Pyx_CyFunction_get_closure, 0, 0, 0},
+    {(char *) "func_code", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "__code__", (getter)__Pyx_CyFunction_get_code, 0, 0, 0},
+    {(char *) "func_defaults", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__defaults__", (getter)__Pyx_CyFunction_get_defaults, (setter)__Pyx_CyFunction_set_defaults, 0, 0},
+    {(char *) "__kwdefaults__", (getter)__Pyx_CyFunction_get_kwdefaults, (setter)__Pyx_CyFunction_set_kwdefaults, 0, 0},
+    {(char *) "__annotations__", (getter)__Pyx_CyFunction_get_annotations, (setter)__Pyx_CyFunction_set_annotations, 0, 0},
+    {0, 0, 0, 0, 0}
+};
+static PyMemberDef __pyx_CyFunction_members[] = {
+    {(char *) "__module__", T_OBJECT, offsetof(PyCFunctionObject, m_module), PY_WRITE_RESTRICTED, 0},
+    {0, 0, 0,  0, 0}
+};
+static PyObject *
+__Pyx_CyFunction_reduce(__pyx_CyFunctionObject *m, CYTHON_UNUSED PyObject *args)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromString(m->func.m_ml->ml_name);
+#else
+    return PyString_FromString(m->func.m_ml->ml_name);
+#endif
+}
+static PyMethodDef __pyx_CyFunction_methods[] = {
+    {"__reduce__", (PyCFunction)__Pyx_CyFunction_reduce, METH_VARARGS, 0},
+    {0, 0, 0, 0}
+};
+#if PY_VERSION_HEX < 0x030500A0
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func_weakreflist)
+#else
+#define __Pyx_CyFunction_weakreflist(cyfunc) ((cyfunc)->func.m_weakreflist)
+#endif
+static PyObject *__Pyx_CyFunction_New(PyTypeObject *type, PyMethodDef *ml, int flags, PyObject* qualname,
+                                      PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
+    __pyx_CyFunctionObject *op = PyObject_GC_New(__pyx_CyFunctionObject, type);
+    if (op == NULL)
+        return NULL;
+    op->flags = flags;
+    __Pyx_CyFunction_weakreflist(op) = NULL;
+    op->func.m_ml = ml;
+    op->func.m_self = (PyObject *) op;
+    Py_XINCREF(closure);
+    op->func_closure = closure;
+    Py_XINCREF(module);
+    op->func.m_module = module;
+    op->func_dict = NULL;
+    op->func_name = NULL;
+    Py_INCREF(qualname);
+    op->func_qualname = qualname;
+    op->func_doc = NULL;
+    op->func_classobj = NULL;
+    op->func_globals = globals;
+    Py_INCREF(op->func_globals);
+    Py_XINCREF(code);
+    op->func_code = code;
+    op->defaults_pyobjects = 0;
+    op->defaults = NULL;
+    op->defaults_tuple = NULL;
+    op->defaults_kwdict = NULL;
+    op->defaults_getter = NULL;
+    op->func_annotations = NULL;
+    PyObject_GC_Track(op);
+    return (PyObject *) op;
+}
+static int
+__Pyx_CyFunction_clear(__pyx_CyFunctionObject *m)
+{
+    Py_CLEAR(m->func_closure);
+    Py_CLEAR(m->func.m_module);
+    Py_CLEAR(m->func_dict);
+    Py_CLEAR(m->func_name);
+    Py_CLEAR(m->func_qualname);
+    Py_CLEAR(m->func_doc);
+    Py_CLEAR(m->func_globals);
+    Py_CLEAR(m->func_code);
+    Py_CLEAR(m->func_classobj);
+    Py_CLEAR(m->defaults_tuple);
+    Py_CLEAR(m->defaults_kwdict);
+    Py_CLEAR(m->func_annotations);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_XDECREF(pydefaults[i]);
+        PyObject_Free(m->defaults);
+        m->defaults = NULL;
+    }
+    return 0;
+}
+static void __Pyx__CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    if (__Pyx_CyFunction_weakreflist(m) != NULL)
+        PyObject_ClearWeakRefs((PyObject *) m);
+    __Pyx_CyFunction_clear(m);
+    PyObject_GC_Del(m);
+}
+static void __Pyx_CyFunction_dealloc(__pyx_CyFunctionObject *m)
+{
+    PyObject_GC_UnTrack(m);
+    __Pyx__CyFunction_dealloc(m);
+}
+static int __Pyx_CyFunction_traverse(__pyx_CyFunctionObject *m, visitproc visit, void *arg)
+{
+    Py_VISIT(m->func_closure);
+    Py_VISIT(m->func.m_module);
+    Py_VISIT(m->func_dict);
+    Py_VISIT(m->func_name);
+    Py_VISIT(m->func_qualname);
+    Py_VISIT(m->func_doc);
+    Py_VISIT(m->func_globals);
+    Py_VISIT(m->func_code);
+    Py_VISIT(m->func_classobj);
+    Py_VISIT(m->defaults_tuple);
+    Py_VISIT(m->defaults_kwdict);
+    if (m->defaults) {
+        PyObject **pydefaults = __Pyx_CyFunction_Defaults(PyObject *, m);
+        int i;
+        for (i = 0; i < m->defaults_pyobjects; i++)
+            Py_VISIT(pydefaults[i]);
+    }
+    return 0;
+}
+static PyObject *__Pyx_CyFunction_descr_get(PyObject *func, PyObject *obj, PyObject *type)
+{
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    if (m->flags & __Pyx_CYFUNCTION_STATICMETHOD) {
+        Py_INCREF(func);
+        return func;
+    }
+    if (m->flags & __Pyx_CYFUNCTION_CLASSMETHOD) {
+        if (type == NULL)
+            type = (PyObject *)(Py_TYPE(obj));
+        return __Pyx_PyMethod_New(func, type, (PyObject *)(Py_TYPE(type)));
+    }
+    if (obj == Py_None)
+        obj = NULL;
+    return __Pyx_PyMethod_New(func, obj, type);
+}
+static PyObject*
+__Pyx_CyFunction_repr(__pyx_CyFunctionObject *op)
+{
+#if PY_MAJOR_VERSION >= 3
+    return PyUnicode_FromFormat("<cyfunction %U at %p>",
+                                op->func_qualname, (void *)op);
+#else
+    return PyString_FromFormat("<cyfunction %s at %p>",
+                               PyString_AsString(op->func_qualname), (void *)op);
+#endif
+}
+static PyObject * __Pyx_CyFunction_CallMethod(PyObject *func, PyObject *self, PyObject *arg, PyObject *kw) {
+    PyCFunctionObject* f = (PyCFunctionObject*)func;
+    PyCFunction meth = f->m_ml->ml_meth;
+    Py_ssize_t size;
+    switch (f->m_ml->ml_flags & (METH_VARARGS | METH_KEYWORDS | METH_NOARGS | METH_O)) {
+    case METH_VARARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0))
+            return (*meth)(self, arg);
+        break;
+    case METH_VARARGS | METH_KEYWORDS:
+        return (*(PyCFunctionWithKeywords)(void*)meth)(self, arg, kw);
+    case METH_NOARGS:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 0))
+                return (*meth)(self, NULL);
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes no arguments (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    case METH_O:
+        if (likely(kw == NULL || PyDict_Size(kw) == 0)) {
+            size = PyTuple_GET_SIZE(arg);
+            if (likely(size == 1)) {
+                PyObject *result, *arg0;
+                #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+                arg0 = PyTuple_GET_ITEM(arg, 0);
+                #else
+                arg0 = PySequence_ITEM(arg, 0); if (unlikely(!arg0)) return NULL;
+                #endif
+                result = (*meth)(self, arg0);
+                #if !(CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS)
+                Py_DECREF(arg0);
+                #endif
+                return result;
+            }
+            PyErr_Format(PyExc_TypeError,
+                "%.200s() takes exactly one argument (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                f->m_ml->ml_name, size);
+            return NULL;
+        }
+        break;
+    default:
+        PyErr_SetString(PyExc_SystemError, "Bad call flags in "
+                        "__Pyx_CyFunction_Call. METH_OLDARGS is no "
+                        "longer supported!");
+        return NULL;
+    }
+    PyErr_Format(PyExc_TypeError, "%.200s() takes no keyword arguments",
+                 f->m_ml->ml_name);
+    return NULL;
+}
+static CYTHON_INLINE PyObject *__Pyx_CyFunction_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    return __Pyx_CyFunction_CallMethod(func, ((PyCFunctionObject*)func)->m_self, arg, kw);
+}
+static PyObject *__Pyx_CyFunction_CallAsMethod(PyObject *func, PyObject *args, PyObject *kw) {
+    PyObject *result;
+    __pyx_CyFunctionObject *cyfunc = (__pyx_CyFunctionObject *) func;
+    if ((cyfunc->flags & __Pyx_CYFUNCTION_CCLASS) && !(cyfunc->flags & __Pyx_CYFUNCTION_STATICMETHOD)) {
+        Py_ssize_t argc;
+        PyObject *new_args;
+        PyObject *self;
+        argc = PyTuple_GET_SIZE(args);
+        new_args = PyTuple_GetSlice(args, 1, argc);
+        if (unlikely(!new_args))
+            return NULL;
+        self = PyTuple_GetItem(args, 0);
+        if (unlikely(!self)) {
+            Py_DECREF(new_args);
+            return NULL;
+        }
+        result = __Pyx_CyFunction_CallMethod(func, self, new_args, kw);
+        Py_DECREF(new_args);
+    } else {
+        result = __Pyx_CyFunction_Call(func, args, kw);
+    }
+    return result;
+}
+static PyTypeObject __pyx_CyFunctionType_type = {
+    PyVarObject_HEAD_INIT(0, 0)
+    "cython_function_or_method",
+    sizeof(__pyx_CyFunctionObject),
+    0,
+    (destructor) __Pyx_CyFunction_dealloc,
+    0,
+    0,
+    0,
+#if PY_MAJOR_VERSION < 3
+    0,
+#else
+    0,
+#endif
+    (reprfunc) __Pyx_CyFunction_repr,
+    0,
+    0,
+    0,
+    0,
+    __Pyx_CyFunction_CallAsMethod,
+    0,
+    0,
+    0,
+    0,
+    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,
+    0,
+    (traverseproc) __Pyx_CyFunction_traverse,
+    (inquiry) __Pyx_CyFunction_clear,
+    0,
+#if PY_VERSION_HEX < 0x030500A0
+    offsetof(__pyx_CyFunctionObject, func_weakreflist),
+#else
+    offsetof(PyCFunctionObject, m_weakreflist),
+#endif
+    0,
+    0,
+    __pyx_CyFunction_methods,
+    __pyx_CyFunction_members,
+    __pyx_CyFunction_getsets,
+    0,
+    0,
+    __Pyx_CyFunction_descr_get,
+    0,
+    offsetof(__pyx_CyFunctionObject, func_dict),
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+#if PY_VERSION_HEX >= 0x030400a1
+    0,
+#endif
+};
+static int __pyx_CyFunction_init(void) {
+    __pyx_CyFunctionType = __Pyx_FetchCommonType(&__pyx_CyFunctionType_type);
+    if (unlikely(__pyx_CyFunctionType == NULL)) {
+        return -1;
+    }
+    return 0;
+}
+static CYTHON_INLINE void *__Pyx_CyFunction_InitDefaults(PyObject *func, size_t size, int pyobjects) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults = PyObject_Malloc(size);
+    if (unlikely(!m->defaults))
+        return PyErr_NoMemory();
+    memset(m->defaults, 0, size);
+    m->defaults_pyobjects = pyobjects;
+    return m->defaults;
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsTuple(PyObject *func, PyObject *tuple) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_tuple = tuple;
+    Py_INCREF(tuple);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetDefaultsKwDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->defaults_kwdict = dict;
+    Py_INCREF(dict);
+}
+static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, PyObject *dict) {
+    __pyx_CyFunctionObject *m = (__pyx_CyFunctionObject *) func;
+    m->func_annotations = dict;
+    Py_INCREF(dict);
 }
 
 /* CLineInTraceback */

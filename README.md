@@ -13,16 +13,28 @@ pipenv install ddb
 ```
 ddb
 # OR
-ddb --config-dir --query 'select * from `tablename` where column=value limit 0,10'
+ddb --query 'select * from `tablename` where column=value limit 0,10'
 ```
 
 ### Code integration
 ```
 import ddb
 
-e=ddb.engine('config_dir')
+engine=ddb.engine(mode='object')
 
-results=e.query('select * from `tablename` where column=value limit 0,10')
+# defining the table.
+# not needed if you define out of code in the cli app with "create table"
+engine.define_table(table_name='test_table',database_name='test_Db',field_delimiter=',',
+                            columns=['name','document','os','id','price','qty','value'],
+                            data_file='/MOCK_DATA.csv')
+
+# standard query
+query="SELECT * FROM `test_table` WHERE id='{}'".format(id)
+
+# an array of matched results
+# None if an invalid query or error
+# an empty array if nothing matches the query
+results=self.engine.query(query)
 
 
 ```
@@ -31,16 +43,22 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 ### Query support
 - Query support is limited. As needed I'll improve the system.
 - If you're doing vastly comlicated things, it shouldn't be with a flat file.
-- This code is slow. It will be refactored, but not until more support is added.
+- This code is not fast, but not slow either. It will be refactored, but not until more support is added.
+- compiled with cpython gives a 450%+ boost in execution time. 
+- My test record set with 60k records, at first, came back in 1.6 seconds, now comes in at .35 seconds
 
 
 ### Supported Querys
-- SELECT [COLUMNS] FROM [Table] [WHERE] [ORDER BY] [LIMIT]
-- INSERT INTO [TABLE] ([COLUMNS]) VALUES ([VALUES])
-- DELETE FROM [TABLE] [WHERE] 
-- UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
-- SHOW COLUMNS
+- USE [DATABASE]
 - SHOW TABLES
+- SHOW COLUMNS FROM [TABLE]
+- CREATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH]
+- DROP TABLE [TABLE]
+- SELECT [[COLUMN [AS COLUMN]]] FROM [TABLE] [WHERE] [AND] [OR] [ORDER BY] [LIMIT]
+- INSERT INTO [TABLE] ([[COLUMNS]]) VALUES ([[VALUES])
+- DELETE FROM [TABLE] [WHERE] [AND] [OR]
+- UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
+
 
 ### Not supported
 - Right now this is a POC, complex operations are not supported, but are in the works.
@@ -59,10 +77,6 @@ results=e.query('select * from `tablename` where column=value limit 0,10')
 # CONFIG
 ```
 ```
-
-
-
-
 
 
 ### Demo

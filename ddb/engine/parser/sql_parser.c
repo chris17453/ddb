@@ -5,7 +5,7 @@
     "distutils": {
         "name": "ddb.engine.parser.sql_parser", 
         "sources": [
-            "./ddb/engine/parser/sql_parser.pyx"
+            "./ddb/engine/parser/sql_parser.py"
         ]
     }, 
     "module_name": "ddb.engine.parser.sql_parser"
@@ -827,7 +827,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "ddb/engine/parser/sql_parser.pyx",
+  "ddb/engine/parser/sql_parser.py",
 };
 
 /*--- Type declarations ---*/
@@ -1537,9 +1537,9 @@ static const char __pyx_k_sql_parser_get_sub_array[] = "sql_parser.get_sub_array
 static const char __pyx_k_sql_parser_expand_columns[] = "sql_parser.expand_columns";
 static const char __pyx_k_ddb_engine_parser_sql_parser[] = "ddb.engine.parser.sql_parser";
 static const char __pyx_k_sql_parser_single_array_match[] = "sql_parser.single_array_match";
+static const char __pyx_k_ddb_engine_parser_sql_parser_py[] = "ddb/engine/parser/sql_parser.py";
 static const char __pyx_k_Missing_argument_in_last_element[] = "Missing argument in last element";
 static const char __pyx_k_Not_successful_required_argument[] = "Not successful. required arguments missing";
-static const char __pyx_k_ddb_engine_parser_sql_parser_pyx[] = "ddb/engine/parser/sql_parser.pyx";
 static const char __pyx_k_sql_parser_get_sub_array_sub_key[] = "sql_parser.get_sub_array_sub_key";
 static PyObject *__pyx_kp_s_;
 static PyObject *__pyx_n_s_APPEND;
@@ -1583,7 +1583,7 @@ static PyObject *__pyx_n_s_copy;
 static PyObject *__pyx_n_s_curent_object;
 static PyObject *__pyx_n_s_data;
 static PyObject *__pyx_n_s_ddb_engine_parser_sql_parser;
-static PyObject *__pyx_kp_s_ddb_engine_parser_sql_parser_pyx;
+static PyObject *__pyx_kp_s_ddb_engine_parser_sql_parser_py;
 static PyObject *__pyx_n_s_debug;
 static PyObject *__pyx_n_s_debug_on;
 static PyObject *__pyx_n_s_dependency_found;
@@ -1710,7 +1710,7 @@ static PyObject *__pyx_codeobj__26;
 static PyObject *__pyx_codeobj__28;
 /* Late includes */
 
-/* "ddb/engine/parser/sql_parser.pyx":74
+/* "ddb/engine/parser/sql_parser.py":74
  *     #         ({EXPRESSION}])
  * 
  *     def __init__(self,query,debug=False):             # <<<<<<<<<<<<<<
@@ -1814,7 +1814,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":83
+  /* "ddb/engine/parser/sql_parser.py":83
  * 
  *         global debug_on
  *         self.debug=debug             # <<<<<<<<<<<<<<
@@ -1823,7 +1823,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, __pyx_v_debug) < 0) __PYX_ERR(0, 83, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":84
+  /* "ddb/engine/parser/sql_parser.py":84
  *         global debug_on
  *         self.debug=debug
  *         self.debug_on=debug             # <<<<<<<<<<<<<<
@@ -1832,7 +1832,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug_on, __pyx_v_debug) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":85
+  /* "ddb/engine/parser/sql_parser.py":85
  *         self.debug=debug
  *         self.debug_on=debug
  *         self.query_objects=[]             # <<<<<<<<<<<<<<
@@ -1844,7 +1844,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_query_objects, __pyx_t_1) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":86
+  /* "ddb/engine/parser/sql_parser.py":86
  *         self.debug_on=debug
  *         self.query_objects=[]
  *         querys=query.split(';')             # <<<<<<<<<<<<<<
@@ -1871,7 +1871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   __pyx_v_querys = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":88
+  /* "ddb/engine/parser/sql_parser.py":88
  *         querys=query.split(';')
  *         #print querys
  *         for q in querys:             # <<<<<<<<<<<<<<
@@ -1920,7 +1920,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __Pyx_XDECREF_SET(__pyx_v_q, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":89
+    /* "ddb/engine/parser/sql_parser.py":89
  *         #print querys
  *         for q in querys:
  *             tokens=tokenize(q,discard_whitespace=True,debug=debug)             # <<<<<<<<<<<<<<
@@ -1946,7 +1946,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __Pyx_XDECREF_SET(__pyx_v_tokens, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":91
+    /* "ddb/engine/parser/sql_parser.py":91
  *             tokens=tokenize(q,discard_whitespace=True,debug=debug)
  *             #skip 0 lenght commands, such as single ';'
  *             if len(tokens)==0:             # <<<<<<<<<<<<<<
@@ -1957,7 +1957,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __pyx_t_9 = ((__pyx_t_8 == 0) != 0);
     if (__pyx_t_9) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":92
+      /* "ddb/engine/parser/sql_parser.py":92
  *             #skip 0 lenght commands, such as single ';'
  *             if len(tokens)==0:
  *                 continue             # <<<<<<<<<<<<<<
@@ -1966,7 +1966,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
       goto __pyx_L3_continue;
 
-      /* "ddb/engine/parser/sql_parser.pyx":91
+      /* "ddb/engine/parser/sql_parser.py":91
  *             tokens=tokenize(q,discard_whitespace=True,debug=debug)
  *             #skip 0 lenght commands, such as single ';'
  *             if len(tokens)==0:             # <<<<<<<<<<<<<<
@@ -1975,7 +1975,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":94
+    /* "ddb/engine/parser/sql_parser.py":94
  *                 continue
  * 
  *             parsed=self.parse(tokens)             # <<<<<<<<<<<<<<
@@ -2002,7 +2002,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __Pyx_XDECREF_SET(__pyx_v_parsed, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":95
+    /* "ddb/engine/parser/sql_parser.py":95
  * 
  *             parsed=self.parse(tokens)
  *             if False==parsed:             # <<<<<<<<<<<<<<
@@ -2014,7 +2014,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_9) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":96
+      /* "ddb/engine/parser/sql_parser.py":96
  *             parsed=self.parse(tokens)
  *             if False==parsed:
  *                 self.query_objects=None             # <<<<<<<<<<<<<<
@@ -2023,7 +2023,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_query_objects, Py_None) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
 
-      /* "ddb/engine/parser/sql_parser.pyx":97
+      /* "ddb/engine/parser/sql_parser.py":97
  *             if False==parsed:
  *                 self.query_objects=None
  *                 break             # <<<<<<<<<<<<<<
@@ -2032,7 +2032,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
       goto __pyx_L4_break;
 
-      /* "ddb/engine/parser/sql_parser.pyx":95
+      /* "ddb/engine/parser/sql_parser.py":95
  * 
  *             parsed=self.parse(tokens)
  *             if False==parsed:             # <<<<<<<<<<<<<<
@@ -2041,7 +2041,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":98
+    /* "ddb/engine/parser/sql_parser.py":98
  *                 self.query_objects=None
  *                 break
  *             self.query_objects.append(parsed)             # <<<<<<<<<<<<<<
@@ -2053,7 +2053,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __pyx_t_10 = __Pyx_PyObject_Append(__pyx_t_7, __pyx_v_parsed); if (unlikely(__pyx_t_10 == ((int)-1))) __PYX_ERR(0, 98, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":88
+    /* "ddb/engine/parser/sql_parser.py":88
  *         querys=query.split(';')
  *         #print querys
  *         for q in querys:             # <<<<<<<<<<<<<<
@@ -2065,7 +2065,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":100
+  /* "ddb/engine/parser/sql_parser.py":100
  *             self.query_objects.append(parsed)
  * 
  *         if None == self.query_objects:             # <<<<<<<<<<<<<<
@@ -2080,7 +2080,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (unlikely(__pyx_t_9)) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":101
+    /* "ddb/engine/parser/sql_parser.py":101
  * 
  *         if None == self.query_objects:
  *             raise Exception("Object failed to decode")             # <<<<<<<<<<<<<<
@@ -2093,7 +2093,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __PYX_ERR(0, 101, __pyx_L1_error)
 
-    /* "ddb/engine/parser/sql_parser.pyx":100
+    /* "ddb/engine/parser/sql_parser.py":100
  *             self.query_objects.append(parsed)
  * 
  *         if None == self.query_objects:             # <<<<<<<<<<<<<<
@@ -2102,7 +2102,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
  */
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":74
+  /* "ddb/engine/parser/sql_parser.py":74
  *     #         ({EXPRESSION}])
  * 
  *     def __init__(self,query,debug=False):             # <<<<<<<<<<<<<<
@@ -2131,7 +2131,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser___init_
   return __pyx_r;
 }
 
-/* "ddb/engine/parser/sql_parser.pyx":103
+/* "ddb/engine/parser/sql_parser.py":103
  *             raise Exception("Object failed to decode")
  * 
  *     def parse(self,tokens):             # <<<<<<<<<<<<<<
@@ -2266,7 +2266,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   int __pyx_t_21;
   __Pyx_RefNannySetupContext("parse", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":105
+  /* "ddb/engine/parser/sql_parser.py":105
  *     def parse(self,tokens):
  * 
  *         sql_object=[]             # <<<<<<<<<<<<<<
@@ -2278,7 +2278,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   __pyx_v_sql_object = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":108
+  /* "ddb/engine/parser/sql_parser.py":108
  *         # SOME TODO!
  *         # loop through types
  *         debug=True             # <<<<<<<<<<<<<<
@@ -2287,7 +2287,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
   __pyx_v_debug = 1;
 
-  /* "ddb/engine/parser/sql_parser.pyx":109
+  /* "ddb/engine/parser/sql_parser.py":109
  *         # loop through types
  *         debug=True
  *         query_object={}             # <<<<<<<<<<<<<<
@@ -2299,7 +2299,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   __pyx_v_query_object = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":110
+  /* "ddb/engine/parser/sql_parser.py":110
  *         debug=True
  *         query_object={}
  *         for query in query_matrix:             # <<<<<<<<<<<<<<
@@ -2351,7 +2351,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_XDECREF_SET(__pyx_v_query, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":112
+    /* "ddb/engine/parser/sql_parser.py":112
  *         for query in query_matrix:
  *             # loop through switches
  *             token_index=0             # <<<<<<<<<<<<<<
@@ -2361,7 +2361,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_token_index, __pyx_int_0);
 
-    /* "ddb/engine/parser/sql_parser.pyx":113
+    /* "ddb/engine/parser/sql_parser.py":113
  *             # loop through switches
  *             token_index=0
  *             info("-----",query['query'])             # <<<<<<<<<<<<<<
@@ -2421,7 +2421,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":115
+    /* "ddb/engine/parser/sql_parser.py":115
  *             info("-----",query['query'])
  * 
  *             keyword_found=False             # <<<<<<<<<<<<<<
@@ -2430,7 +2430,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
     __pyx_v_keyword_found = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":116
+    /* "ddb/engine/parser/sql_parser.py":116
  * 
  *             keyword_found=False
  *             switch_index=0             # <<<<<<<<<<<<<<
@@ -2440,7 +2440,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_INCREF(__pyx_int_0);
     __Pyx_XDECREF_SET(__pyx_v_switch_index, __pyx_int_0);
 
-    /* "ddb/engine/parser/sql_parser.pyx":117
+    /* "ddb/engine/parser/sql_parser.py":117
  *             keyword_found=False
  *             switch_index=0
  *             query_mode=None             # <<<<<<<<<<<<<<
@@ -2450,7 +2450,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_INCREF(Py_None);
     __Pyx_XDECREF_SET(__pyx_v_query_mode, Py_None);
 
-    /* "ddb/engine/parser/sql_parser.pyx":118
+    /* "ddb/engine/parser/sql_parser.py":118
  *             switch_index=0
  *             query_mode=None
  *             curent_object={}             # <<<<<<<<<<<<<<
@@ -2462,7 +2462,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_XDECREF_SET(__pyx_v_curent_object, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":119
+    /* "ddb/engine/parser/sql_parser.py":119
  *             query_mode=None
  *             curent_object={}
  *             switch={}             # <<<<<<<<<<<<<<
@@ -2474,7 +2474,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_XDECREF_SET(__pyx_v_switch, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":120
+    /* "ddb/engine/parser/sql_parser.py":120
  *             curent_object={}
  *             switch={}
  *             while switch_index<len(query['switch']) and token_index<len(tokens):             # <<<<<<<<<<<<<<
@@ -2508,7 +2508,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_L7_bool_binop_done:;
       if (!__pyx_t_10) break;
 
-      /* "ddb/engine/parser/sql_parser.pyx":122
+      /* "ddb/engine/parser/sql_parser.py":122
  *             while switch_index<len(query['switch']) and token_index<len(tokens):
  * 
  *                 info("token",token_index,tokens[token_index])             # <<<<<<<<<<<<<<
@@ -2571,7 +2571,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":123
+      /* "ddb/engine/parser/sql_parser.py":123
  * 
  *                 info("token",token_index,tokens[token_index])
  *                 switch=query['switch'][switch_index]             # <<<<<<<<<<<<<<
@@ -2586,7 +2586,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF_SET(__pyx_v_switch, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":124
+      /* "ddb/engine/parser/sql_parser.py":124
  *                 info("token",token_index,tokens[token_index])
  *                 switch=query['switch'][switch_index]
  *                 switch_index+=1             # <<<<<<<<<<<<<<
@@ -2598,7 +2598,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF_SET(__pyx_v_switch_index, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":125
+      /* "ddb/engine/parser/sql_parser.py":125
  *                 switch=query['switch'][switch_index]
  *                 switch_index+=1
  *                 curent_object={}             # <<<<<<<<<<<<<<
@@ -2610,7 +2610,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF_SET(__pyx_v_curent_object, ((PyObject*)__pyx_t_5));
       __pyx_t_5 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":126
+      /* "ddb/engine/parser/sql_parser.py":126
  *                 switch_index+=1
  *                 curent_object={}
  *                 if 'dispose' in switch:             # <<<<<<<<<<<<<<
@@ -2621,7 +2621,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_12 = (__pyx_t_10 != 0);
       if (__pyx_t_12) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":127
+        /* "ddb/engine/parser/sql_parser.py":127
  *                 curent_object={}
  *                 if 'dispose' in switch:
  *                     dispose=switch['dispose']             # <<<<<<<<<<<<<<
@@ -2633,7 +2633,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_dispose, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":126
+        /* "ddb/engine/parser/sql_parser.py":126
  *                 switch_index+=1
  *                 curent_object={}
  *                 if 'dispose' in switch:             # <<<<<<<<<<<<<<
@@ -2643,7 +2643,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L9;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":129
+      /* "ddb/engine/parser/sql_parser.py":129
  *                     dispose=switch['dispose']
  *                 else:
  *                     dispose=False             # <<<<<<<<<<<<<<
@@ -2656,7 +2656,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L9:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":130
+      /* "ddb/engine/parser/sql_parser.py":130
  *                 else:
  *                     dispose=False
  *                 if 'no_keyword' in switch:             # <<<<<<<<<<<<<<
@@ -2667,7 +2667,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_10 = (__pyx_t_12 != 0);
       if (__pyx_t_10) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":131
+        /* "ddb/engine/parser/sql_parser.py":131
  *                     dispose=False
  *                 if 'no_keyword' in switch:
  *                     no_keyword=switch['no_keyword']             # <<<<<<<<<<<<<<
@@ -2679,7 +2679,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_no_keyword, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":130
+        /* "ddb/engine/parser/sql_parser.py":130
  *                 else:
  *                     dispose=False
  *                 if 'no_keyword' in switch:             # <<<<<<<<<<<<<<
@@ -2689,7 +2689,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L10;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":133
+      /* "ddb/engine/parser/sql_parser.py":133
  *                     no_keyword=switch['no_keyword']
  *                 else:
  *                     no_keyword=False             # <<<<<<<<<<<<<<
@@ -2702,7 +2702,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L10:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":134
+      /* "ddb/engine/parser/sql_parser.py":134
  *                 else:
  *                     no_keyword=False
  *                 if 'store_array' in switch:             # <<<<<<<<<<<<<<
@@ -2713,7 +2713,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_12 = (__pyx_t_10 != 0);
       if (__pyx_t_12) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":135
+        /* "ddb/engine/parser/sql_parser.py":135
  *                     no_keyword=False
  *                 if 'store_array' in switch:
  *                     store_array=switch['store_array']             # <<<<<<<<<<<<<<
@@ -2725,7 +2725,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_store_array, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":134
+        /* "ddb/engine/parser/sql_parser.py":134
  *                 else:
  *                     no_keyword=False
  *                 if 'store_array' in switch:             # <<<<<<<<<<<<<<
@@ -2735,7 +2735,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L11;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":137
+      /* "ddb/engine/parser/sql_parser.py":137
  *                     store_array=switch['store_array']
  *                 else:
  *                     store_array=False             # <<<<<<<<<<<<<<
@@ -2748,7 +2748,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L11:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":139
+      /* "ddb/engine/parser/sql_parser.py":139
  *                     store_array=False
  * 
  *                 if 'parent' in switch:             # <<<<<<<<<<<<<<
@@ -2759,7 +2759,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_10 = (__pyx_t_12 != 0);
       if (__pyx_t_10) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":140
+        /* "ddb/engine/parser/sql_parser.py":140
  * 
  *                 if 'parent' in switch:
  *                     parent=switch['parent']             # <<<<<<<<<<<<<<
@@ -2771,7 +2771,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_parent, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":139
+        /* "ddb/engine/parser/sql_parser.py":139
  *                     store_array=False
  * 
  *                 if 'parent' in switch:             # <<<<<<<<<<<<<<
@@ -2781,7 +2781,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L12;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":142
+      /* "ddb/engine/parser/sql_parser.py":142
  *                     parent=switch['parent']
  *                 else:
  *                     parent=None             # <<<<<<<<<<<<<<
@@ -2794,7 +2794,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L12:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":143
+      /* "ddb/engine/parser/sql_parser.py":143
  *                 else:
  *                     parent=None
  *                 if 'optional' in switch:             # <<<<<<<<<<<<<<
@@ -2805,7 +2805,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_12 = (__pyx_t_10 != 0);
       if (__pyx_t_12) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":144
+        /* "ddb/engine/parser/sql_parser.py":144
  *                     parent=None
  *                 if 'optional' in switch:
  *                     optional=switch['optional']             # <<<<<<<<<<<<<<
@@ -2817,7 +2817,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_optional, __pyx_t_5);
         __pyx_t_5 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":143
+        /* "ddb/engine/parser/sql_parser.py":143
  *                 else:
  *                     parent=None
  *                 if 'optional' in switch:             # <<<<<<<<<<<<<<
@@ -2827,7 +2827,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L13;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":146
+      /* "ddb/engine/parser/sql_parser.py":146
  *                     optional=switch['optional']
  *                 else:
  *                     optional=False             # <<<<<<<<<<<<<<
@@ -2840,7 +2840,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L13:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":149
+      /* "ddb/engine/parser/sql_parser.py":149
  * 
  * 
  *                 if isinstance(switch['name'],list):             # <<<<<<<<<<<<<<
@@ -2854,7 +2854,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_t_10 = (__pyx_t_12 != 0);
       if (__pyx_t_10) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":150
+        /* "ddb/engine/parser/sql_parser.py":150
  * 
  *                 if isinstance(switch['name'],list):
  *                     object_id=' '.join([str(x) for x in switch['name'] ])             # <<<<<<<<<<<<<<
@@ -2919,7 +2919,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_object_id, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":151
+        /* "ddb/engine/parser/sql_parser.py":151
  *                 if isinstance(switch['name'],list):
  *                     object_id=' '.join([str(x) for x in switch['name'] ])
  *                     object_id=object_id.lower()             # <<<<<<<<<<<<<<
@@ -2946,7 +2946,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF_SET(__pyx_v_object_id, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":149
+        /* "ddb/engine/parser/sql_parser.py":149
  * 
  * 
  *                 if isinstance(switch['name'],list):             # <<<<<<<<<<<<<<
@@ -2956,7 +2956,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L14;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":153
+      /* "ddb/engine/parser/sql_parser.py":153
  *                     object_id=object_id.lower()
  *                 else:
  *                     object_id=switch['name']             # <<<<<<<<<<<<<<
@@ -2969,7 +2969,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_object_id, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":154
+        /* "ddb/engine/parser/sql_parser.py":154
  *                 else:
  *                     object_id=switch['name']
  *                     object_id=object_id.lower()             # <<<<<<<<<<<<<<
@@ -2998,7 +2998,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L14:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":155
+      /* "ddb/engine/parser/sql_parser.py":155
  *                     object_id=switch['name']
  *                     object_id=object_id.lower()
  *                 info("------",object_id,token_index)             # <<<<<<<<<<<<<<
@@ -3057,7 +3057,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":156
+      /* "ddb/engine/parser/sql_parser.py":156
  *                     object_id=object_id.lower()
  *                 info("------",object_id,token_index)
  *                 if False == no_keyword:             # <<<<<<<<<<<<<<
@@ -3069,7 +3069,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_10) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":157
+        /* "ddb/engine/parser/sql_parser.py":157
  *                 info("------",object_id,token_index)
  *                 if False == no_keyword:
  *                     keyword_compare=self.get_sub_array(switch,'name')             # <<<<<<<<<<<<<<
@@ -3126,7 +3126,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_keyword_compare, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":158
+        /* "ddb/engine/parser/sql_parser.py":158
  *                 if False == no_keyword:
  *                     keyword_compare=self.get_sub_array(switch,'name')
  *                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')             # <<<<<<<<<<<<<<
@@ -3187,7 +3187,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_XDECREF_SET(__pyx_v_haystack, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":159
+        /* "ddb/engine/parser/sql_parser.py":159
  *                     keyword_compare=self.get_sub_array(switch,'name')
  *                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                     info( keyword_compare)             # <<<<<<<<<<<<<<
@@ -3213,7 +3213,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":160
+        /* "ddb/engine/parser/sql_parser.py":160
  *                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                     info( keyword_compare)
  *                     if True == self.single_array_match(keyword_compare,haystack):             # <<<<<<<<<<<<<<
@@ -3273,7 +3273,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         if (__pyx_t_10) {
 
-          /* "ddb/engine/parser/sql_parser.pyx":161
+          /* "ddb/engine/parser/sql_parser.py":161
  *                     info( keyword_compare)
  *                     if True == self.single_array_match(keyword_compare,haystack):
  *                         info("match", keyword_compare,haystack)             # <<<<<<<<<<<<<<
@@ -3332,7 +3332,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":164
+          /* "ddb/engine/parser/sql_parser.py":164
  *                         # we use name because it may be a list. and its simpler to hash by name
  *                         # as long as the compare is good, we dont care
  *                         curent_object['mode']=object_id             # <<<<<<<<<<<<<<
@@ -3341,7 +3341,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           if (unlikely(PyDict_SetItem(__pyx_v_curent_object, __pyx_n_s_mode, __pyx_v_object_id) < 0)) __PYX_ERR(0, 164, __pyx_L1_error)
 
-          /* "ddb/engine/parser/sql_parser.pyx":165
+          /* "ddb/engine/parser/sql_parser.py":165
  *                         # as long as the compare is good, we dont care
  *                         curent_object['mode']=object_id
  *                         if switch_index==1:             # <<<<<<<<<<<<<<
@@ -3354,7 +3354,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           if (__pyx_t_10) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":166
+            /* "ddb/engine/parser/sql_parser.py":166
  *                         curent_object['mode']=object_id
  *                         if switch_index==1:
  *                             query_mode=query['query']             # <<<<<<<<<<<<<<
@@ -3366,7 +3366,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF_SET(__pyx_v_query_mode, __pyx_t_5);
             __pyx_t_5 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":165
+            /* "ddb/engine/parser/sql_parser.py":165
  *                         # as long as the compare is good, we dont care
  *                         curent_object['mode']=object_id
  *                         if switch_index==1:             # <<<<<<<<<<<<<<
@@ -3375,7 +3375,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":167
+          /* "ddb/engine/parser/sql_parser.py":167
  *                         if switch_index==1:
  *                             query_mode=query['query']
  *                         keyword_found=True             # <<<<<<<<<<<<<<
@@ -3384,7 +3384,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           __pyx_v_keyword_found = 1;
 
-          /* "ddb/engine/parser/sql_parser.pyx":160
+          /* "ddb/engine/parser/sql_parser.py":160
  *                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                     info( keyword_compare)
  *                     if True == self.single_array_match(keyword_compare,haystack):             # <<<<<<<<<<<<<<
@@ -3394,7 +3394,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           goto __pyx_L18;
         }
 
-        /* "ddb/engine/parser/sql_parser.pyx":169
+        /* "ddb/engine/parser/sql_parser.py":169
  *                         keyword_found=True
  *                     else:
  *                         if False == optional:             # <<<<<<<<<<<<<<
@@ -3407,7 +3407,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           if (__pyx_t_10) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":170
+            /* "ddb/engine/parser/sql_parser.py":170
  *                     else:
  *                         if False == optional:
  *                             if True == debug:             # <<<<<<<<<<<<<<
@@ -3417,7 +3417,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __pyx_t_10 = ((1 == __pyx_v_debug) != 0);
             if (__pyx_t_10) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":171
+              /* "ddb/engine/parser/sql_parser.py":171
  *                         if False == optional:
  *                             if True == debug:
  *                                 info("Exiting")             # <<<<<<<<<<<<<<
@@ -3443,7 +3443,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":170
+              /* "ddb/engine/parser/sql_parser.py":170
  *                     else:
  *                         if False == optional:
  *                             if True == debug:             # <<<<<<<<<<<<<<
@@ -3452,7 +3452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":172
+            /* "ddb/engine/parser/sql_parser.py":172
  *                             if True == debug:
  *                                 info("Exiting")
  *                             break             # <<<<<<<<<<<<<<
@@ -3461,7 +3461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             goto __pyx_L6_break;
 
-            /* "ddb/engine/parser/sql_parser.pyx":169
+            /* "ddb/engine/parser/sql_parser.py":169
  *                         keyword_found=True
  *                     else:
  *                         if False == optional:             # <<<<<<<<<<<<<<
@@ -3470,7 +3470,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":174
+          /* "ddb/engine/parser/sql_parser.py":174
  *                             break
  *                         else:
  *                             continue             # <<<<<<<<<<<<<<
@@ -3483,7 +3483,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         }
         __pyx_L18:;
 
-        /* "ddb/engine/parser/sql_parser.pyx":175
+        /* "ddb/engine/parser/sql_parser.py":175
  *                         else:
  *                             continue
  *                     if False == keyword_found:             # <<<<<<<<<<<<<<
@@ -3493,7 +3493,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __pyx_t_10 = ((0 == __pyx_v_keyword_found) != 0);
         if (__pyx_t_10) {
 
-          /* "ddb/engine/parser/sql_parser.pyx":176
+          /* "ddb/engine/parser/sql_parser.py":176
  *                             continue
  *                     if False == keyword_found:
  *                         info("Keywords exhausted")             # <<<<<<<<<<<<<<
@@ -3519,7 +3519,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":177
+          /* "ddb/engine/parser/sql_parser.py":177
  *                     if False == keyword_found:
  *                         info("Keywords exhausted")
  *                         break             # <<<<<<<<<<<<<<
@@ -3528,7 +3528,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           goto __pyx_L6_break;
 
-          /* "ddb/engine/parser/sql_parser.pyx":175
+          /* "ddb/engine/parser/sql_parser.py":175
  *                         else:
  *                             continue
  *                     if False == keyword_found:             # <<<<<<<<<<<<<<
@@ -3537,7 +3537,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         }
 
-        /* "ddb/engine/parser/sql_parser.pyx":179
+        /* "ddb/engine/parser/sql_parser.py":179
  *                         break
  * 
  *                     token_index+=len(keyword_compare)             # <<<<<<<<<<<<<<
@@ -3553,7 +3553,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF_SET(__pyx_v_token_index, __pyx_t_7);
         __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":180
+        /* "ddb/engine/parser/sql_parser.py":180
  * 
  *                     token_index+=len(keyword_compare)
  *                     info("advance token index ",token_index,switch['data'])             # <<<<<<<<<<<<<<
@@ -3616,7 +3616,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":156
+        /* "ddb/engine/parser/sql_parser.py":156
  *                     object_id=object_id.lower()
  *                 info("------",object_id,token_index)
  *                 if False == no_keyword:             # <<<<<<<<<<<<<<
@@ -3626,7 +3626,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L17;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":182
+      /* "ddb/engine/parser/sql_parser.py":182
  *                     info("advance token index ",token_index,switch['data'])
  *                 else:
  *                     curent_object['mode']=object_id             # <<<<<<<<<<<<<<
@@ -3638,7 +3638,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       }
       __pyx_L17:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":184
+      /* "ddb/engine/parser/sql_parser.py":184
  *                     curent_object['mode']=object_id
  * 
  *                 if None == switch['data'] or False == switch['data']:             # <<<<<<<<<<<<<<
@@ -3666,7 +3666,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_L24_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":185
+        /* "ddb/engine/parser/sql_parser.py":185
  * 
  *                 if None == switch['data'] or False == switch['data']:
  *                     info("No data to match")             # <<<<<<<<<<<<<<
@@ -3692,7 +3692,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":188
+        /* "ddb/engine/parser/sql_parser.py":188
  *                     # only append object after argument collection is done
  *                     #query_object.append(curent_object)
  *                     if dispose != True:             # <<<<<<<<<<<<<<
@@ -3704,7 +3704,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         if (__pyx_t_10) {
 
-          /* "ddb/engine/parser/sql_parser.pyx":189
+          /* "ddb/engine/parser/sql_parser.py":189
  *                     #query_object.append(curent_object)
  *                     if dispose != True:
  *                         info("----------Adding",curent_object['mode'])             # <<<<<<<<<<<<<<
@@ -3764,7 +3764,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":190
+          /* "ddb/engine/parser/sql_parser.py":190
  *                     if dispose != True:
  *                         info("----------Adding",curent_object['mode'])
  *                         query_object[curent_object['mode']]=None             # <<<<<<<<<<<<<<
@@ -3776,7 +3776,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           if (unlikely(PyDict_SetItem(__pyx_v_query_object, __pyx_t_7, Py_None) < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":188
+          /* "ddb/engine/parser/sql_parser.py":188
  *                     # only append object after argument collection is done
  *                     #query_object.append(curent_object)
  *                     if dispose != True:             # <<<<<<<<<<<<<<
@@ -3785,7 +3785,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         }
 
-        /* "ddb/engine/parser/sql_parser.pyx":184
+        /* "ddb/engine/parser/sql_parser.py":184
  *                     curent_object['mode']=object_id
  * 
  *                 if None == switch['data'] or False == switch['data']:             # <<<<<<<<<<<<<<
@@ -3795,7 +3795,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         goto __pyx_L23;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":195
+      /* "ddb/engine/parser/sql_parser.py":195
  *                 # This is where data colection happens
  *                 else:
  *                     in_argument=True             # <<<<<<<<<<<<<<
@@ -3805,7 +3805,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       /*else*/ {
         __pyx_v_in_argument = 1;
 
-        /* "ddb/engine/parser/sql_parser.pyx":196
+        /* "ddb/engine/parser/sql_parser.py":196
  *                 else:
  *                     in_argument=True
  *                     argument_index=0             # <<<<<<<<<<<<<<
@@ -3815,7 +3815,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_INCREF(__pyx_int_0);
         __Pyx_XDECREF_SET(__pyx_v_argument_index, __pyx_int_0);
 
-        /* "ddb/engine/parser/sql_parser.pyx":197
+        /* "ddb/engine/parser/sql_parser.py":197
  *                     in_argument=True
  *                     argument_index=0
  *                     while True==in_argument:             # <<<<<<<<<<<<<<
@@ -3826,7 +3826,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __pyx_t_10 = ((1 == __pyx_v_in_argument) != 0);
           if (!__pyx_t_10) break;
 
-          /* "ddb/engine/parser/sql_parser.pyx":199
+          /* "ddb/engine/parser/sql_parser.py":199
  *                     while True==in_argument:
  * 
  *                         info("---in argument")             # <<<<<<<<<<<<<<
@@ -3852,7 +3852,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":205
+          /* "ddb/engine/parser/sql_parser.py":205
  *                         ## DEPENDENCY
  * 
  *                         if 'depends_on' in switch:             # <<<<<<<<<<<<<<
@@ -3863,7 +3863,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __pyx_t_12 = (__pyx_t_10 != 0);
           if (__pyx_t_12) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":206
+            /* "ddb/engine/parser/sql_parser.py":206
  * 
  *                         if 'depends_on' in switch:
  *                             depends_on=switch['depends_on']             # <<<<<<<<<<<<<<
@@ -3875,7 +3875,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_depends_on, __pyx_t_7);
             __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":205
+            /* "ddb/engine/parser/sql_parser.py":205
  *                         ## DEPENDENCY
  * 
  *                         if 'depends_on' in switch:             # <<<<<<<<<<<<<<
@@ -3885,7 +3885,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             goto __pyx_L29;
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":208
+          /* "ddb/engine/parser/sql_parser.py":208
  *                             depends_on=switch['depends_on']
  *                         else:
  *                             info("--- Depends on nothing")             # <<<<<<<<<<<<<<
@@ -3912,7 +3912,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":209
+            /* "ddb/engine/parser/sql_parser.py":209
  *                         else:
  *                             info("--- Depends on nothing")
  *                             depends_on=None             # <<<<<<<<<<<<<<
@@ -3924,7 +3924,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           }
           __pyx_L29:;
 
-          /* "ddb/engine/parser/sql_parser.pyx":212
+          /* "ddb/engine/parser/sql_parser.py":212
  * 
  *                         # if there is a dependency, enforce
  *                         if None != depends_on:             # <<<<<<<<<<<<<<
@@ -3936,7 +3936,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           if (__pyx_t_12) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":214
+            /* "ddb/engine/parser/sql_parser.py":214
  *                         if None != depends_on:
  * 
  *                             depends_oncompare=self.get_sub_array(depends_on)             # <<<<<<<<<<<<<<
@@ -3963,7 +3963,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_depends_oncompare, __pyx_t_7);
             __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":216
+            /* "ddb/engine/parser/sql_parser.py":216
  *                             depends_oncompare=self.get_sub_array(depends_on)
  * 
  *                             dependency_found=False             # <<<<<<<<<<<<<<
@@ -3972,7 +3972,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             __pyx_v_dependency_found = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":217
+            /* "ddb/engine/parser/sql_parser.py":217
  * 
  *                             dependency_found=False
  *                             for q_o in query_object:             # <<<<<<<<<<<<<<
@@ -3993,7 +3993,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_XDECREF_SET(__pyx_v_q_o, __pyx_t_5);
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":218
+              /* "ddb/engine/parser/sql_parser.py":218
  *                             dependency_found=False
  *                             for q_o in query_object:
  *                                 info( depends_on,q_o)             # <<<<<<<<<<<<<<
@@ -4049,7 +4049,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":219
+              /* "ddb/engine/parser/sql_parser.py":219
  *                             for q_o in query_object:
  *                                 info( depends_on,q_o)
  *                                 haystack=self.get_sub_array(q_o)             # <<<<<<<<<<<<<<
@@ -4076,7 +4076,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_XDECREF_SET(__pyx_v_haystack, __pyx_t_5);
               __pyx_t_5 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":220
+              /* "ddb/engine/parser/sql_parser.py":220
  *                                 info( depends_on,q_o)
  *                                 haystack=self.get_sub_array(q_o)
  *                                 if True == self.single_array_match(depends_oncompare,haystack):             # <<<<<<<<<<<<<<
@@ -4136,7 +4136,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               if (__pyx_t_12) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":221
+                /* "ddb/engine/parser/sql_parser.py":221
  *                                 haystack=self.get_sub_array(q_o)
  *                                 if True == self.single_array_match(depends_oncompare,haystack):
  *                                     dependency_found=True             # <<<<<<<<<<<<<<
@@ -4145,7 +4145,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                 __pyx_v_dependency_found = 1;
 
-                /* "ddb/engine/parser/sql_parser.pyx":220
+                /* "ddb/engine/parser/sql_parser.py":220
  *                                 info( depends_on,q_o)
  *                                 haystack=self.get_sub_array(q_o)
  *                                 if True == self.single_array_match(depends_oncompare,haystack):             # <<<<<<<<<<<<<<
@@ -4156,7 +4156,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             }
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":222
+            /* "ddb/engine/parser/sql_parser.py":222
  *                                 if True == self.single_array_match(depends_oncompare,haystack):
  *                                     dependency_found=True
  *                             if False == dependency_found:             # <<<<<<<<<<<<<<
@@ -4166,7 +4166,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __pyx_t_12 = ((0 == __pyx_v_dependency_found) != 0);
             if (__pyx_t_12) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":223
+              /* "ddb/engine/parser/sql_parser.py":223
  *                                     dependency_found=True
  *                             if False == dependency_found:
  *                                 info("Missing", depends_on)             # <<<<<<<<<<<<<<
@@ -4222,7 +4222,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":224
+              /* "ddb/engine/parser/sql_parser.py":224
  *                             if False == dependency_found:
  *                                 info("Missing", depends_on)
  *                                 break             # <<<<<<<<<<<<<<
@@ -4231,7 +4231,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               goto __pyx_L28_break;
 
-              /* "ddb/engine/parser/sql_parser.pyx":222
+              /* "ddb/engine/parser/sql_parser.py":222
  *                                 if True == self.single_array_match(depends_oncompare,haystack):
  *                                     dependency_found=True
  *                             if False == dependency_found:             # <<<<<<<<<<<<<<
@@ -4240,7 +4240,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":226
+            /* "ddb/engine/parser/sql_parser.py":226
  *                                 break
  *                             else:
  *                                 info("Dependency found", depends_on)             # <<<<<<<<<<<<<<
@@ -4298,7 +4298,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":212
+            /* "ddb/engine/parser/sql_parser.py":212
  * 
  *                         # if there is a dependency, enforce
  *                         if None != depends_on:             # <<<<<<<<<<<<<<
@@ -4307,7 +4307,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":230
+          /* "ddb/engine/parser/sql_parser.py":230
  * 
  * 
  *                         info("data",switch['data'])             # <<<<<<<<<<<<<<
@@ -4367,7 +4367,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":231
+          /* "ddb/engine/parser/sql_parser.py":231
  * 
  *                         info("data",switch['data'])
  *                         if 'arguments' in switch:             # <<<<<<<<<<<<<<
@@ -4378,7 +4378,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __pyx_t_10 = (__pyx_t_12 != 0);
           if (__pyx_t_10) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":232
+            /* "ddb/engine/parser/sql_parser.py":232
  *                         info("data",switch['data'])
  *                         if 'arguments' in switch:
  *                             arguments=switch['arguments']             # <<<<<<<<<<<<<<
@@ -4390,7 +4390,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_arguments, __pyx_t_7);
             __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":231
+            /* "ddb/engine/parser/sql_parser.py":231
  * 
  *                         info("data",switch['data'])
  *                         if 'arguments' in switch:             # <<<<<<<<<<<<<<
@@ -4400,7 +4400,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             goto __pyx_L35;
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":234
+          /* "ddb/engine/parser/sql_parser.py":234
  *                             arguments=switch['arguments']
  *                         else:
  *                             arguments=1             # <<<<<<<<<<<<<<
@@ -4413,7 +4413,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           }
           __pyx_L35:;
 
-          /* "ddb/engine/parser/sql_parser.pyx":235
+          /* "ddb/engine/parser/sql_parser.py":235
  *                         else:
  *                             arguments=1
  *                         info("Number of arguments",arguments)             # <<<<<<<<<<<<<<
@@ -4469,7 +4469,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":237
+          /* "ddb/engine/parser/sql_parser.py":237
  *                         info("Number of arguments",arguments)
  * 
  *                         data=self.get_sub_array(switch,'data')             # <<<<<<<<<<<<<<
@@ -4526,7 +4526,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_XDECREF_SET(__pyx_v_data, __pyx_t_7);
           __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":238
+          /* "ddb/engine/parser/sql_parser.py":238
  * 
  *                         data=self.get_sub_array(switch,'data')
  *                         match_len=0             # <<<<<<<<<<<<<<
@@ -4535,7 +4535,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           __pyx_v_match_len = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":239
+          /* "ddb/engine/parser/sql_parser.py":239
  *                         data=self.get_sub_array(switch,'data')
  *                         match_len=0
  *                         match=None             # <<<<<<<<<<<<<<
@@ -4545,7 +4545,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_INCREF(Py_None);
           __Pyx_XDECREF_SET(__pyx_v_match, Py_None);
 
-          /* "ddb/engine/parser/sql_parser.pyx":240
+          /* "ddb/engine/parser/sql_parser.py":240
  *                         match_len=0
  *                         match=None
  *                         for sig  in data:             # <<<<<<<<<<<<<<
@@ -4594,7 +4594,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_sig, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":241
+            /* "ddb/engine/parser/sql_parser.py":241
  *                         match=None
  *                         for sig  in data:
  *                             signature_compare=self.get_sub_array(sig,'sig')             # <<<<<<<<<<<<<<
@@ -4651,7 +4651,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_signature_compare, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":242
+            /* "ddb/engine/parser/sql_parser.py":242
  *                         for sig  in data:
  *                             signature_compare=self.get_sub_array(sig,'sig')
  *                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')             # <<<<<<<<<<<<<<
@@ -4712,7 +4712,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_haystack, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":243
+            /* "ddb/engine/parser/sql_parser.py":243
  *                             signature_compare=self.get_sub_array(sig,'sig')
  *                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                             if True == self.single_array_match(signature_compare,haystack):             # <<<<<<<<<<<<<<
@@ -4772,7 +4772,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             if (__pyx_t_10) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":244
+              /* "ddb/engine/parser/sql_parser.py":244
  *                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                             if True == self.single_array_match(signature_compare,haystack):
  *                                 if True == debug:             # <<<<<<<<<<<<<<
@@ -4782,7 +4782,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __pyx_t_10 = ((1 == __pyx_v_debug) != 0);
               if (__pyx_t_10) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":245
+                /* "ddb/engine/parser/sql_parser.py":245
  *                             if True == self.single_array_match(signature_compare,haystack):
  *                                 if True == debug:
  *                                     info("match", signature_compare,haystack)             # <<<<<<<<<<<<<<
@@ -4841,7 +4841,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":244
+                /* "ddb/engine/parser/sql_parser.py":244
  *                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                             if True == self.single_array_match(signature_compare,haystack):
  *                                 if True == debug:             # <<<<<<<<<<<<<<
@@ -4850,7 +4850,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               }
 
-              /* "ddb/engine/parser/sql_parser.pyx":246
+              /* "ddb/engine/parser/sql_parser.py":246
  *                                 if True == debug:
  *                                     info("match", signature_compare,haystack)
  *                                 if len(signature_compare)>match_len:             # <<<<<<<<<<<<<<
@@ -4861,7 +4861,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __pyx_t_10 = ((__pyx_t_11 > __pyx_v_match_len) != 0);
               if (__pyx_t_10) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":247
+                /* "ddb/engine/parser/sql_parser.py":247
  *                                     info("match", signature_compare,haystack)
  *                                 if len(signature_compare)>match_len:
  *                                     match_len=len(signature_compare)             # <<<<<<<<<<<<<<
@@ -4871,7 +4871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __pyx_t_11 = PyObject_Length(__pyx_v_signature_compare); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 247, __pyx_L1_error)
                 __pyx_v_match_len = __pyx_t_11;
 
-                /* "ddb/engine/parser/sql_parser.pyx":248
+                /* "ddb/engine/parser/sql_parser.py":248
  *                                 if len(signature_compare)>match_len:
  *                                     match_len=len(signature_compare)
  *                                     match=signature_compare             # <<<<<<<<<<<<<<
@@ -4881,7 +4881,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_INCREF(__pyx_v_signature_compare);
                 __Pyx_DECREF_SET(__pyx_v_match, __pyx_v_signature_compare);
 
-                /* "ddb/engine/parser/sql_parser.pyx":249
+                /* "ddb/engine/parser/sql_parser.py":249
  *                                     match_len=len(signature_compare)
  *                                     match=signature_compare
  *                                     info( "Best Match",match_len)             # <<<<<<<<<<<<<<
@@ -4941,7 +4941,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":246
+                /* "ddb/engine/parser/sql_parser.py":246
  *                                 if True == debug:
  *                                     info("match", signature_compare,haystack)
  *                                 if len(signature_compare)>match_len:             # <<<<<<<<<<<<<<
@@ -4950,7 +4950,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               }
 
-              /* "ddb/engine/parser/sql_parser.pyx":243
+              /* "ddb/engine/parser/sql_parser.py":243
  *                             signature_compare=self.get_sub_array(sig,'sig')
  *                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
  *                             if True == self.single_array_match(signature_compare,haystack):             # <<<<<<<<<<<<<<
@@ -4959,7 +4959,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":240
+            /* "ddb/engine/parser/sql_parser.py":240
  *                         match_len=0
  *                         match=None
  *                         for sig  in data:             # <<<<<<<<<<<<<<
@@ -4969,7 +4969,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           }
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":250
+          /* "ddb/engine/parser/sql_parser.py":250
  *                                     match=signature_compare
  *                                     info( "Best Match",match_len)
  *                         if None == match:             # <<<<<<<<<<<<<<
@@ -4981,7 +4981,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           if (__pyx_t_10) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":251
+            /* "ddb/engine/parser/sql_parser.py":251
  *                                     info( "Best Match",match_len)
  *                         if None == match:
  *                             info("No match")             # <<<<<<<<<<<<<<
@@ -5007,7 +5007,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":252
+            /* "ddb/engine/parser/sql_parser.py":252
  *                         if None == match:
  *                             info("No match")
  *                             break             # <<<<<<<<<<<<<<
@@ -5016,7 +5016,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             goto __pyx_L28_break;
 
-            /* "ddb/engine/parser/sql_parser.pyx":250
+            /* "ddb/engine/parser/sql_parser.py":250
  *                                     match=signature_compare
  *                                     info( "Best Match",match_len)
  *                         if None == match:             # <<<<<<<<<<<<<<
@@ -5025,7 +5025,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":254
+          /* "ddb/engine/parser/sql_parser.py":254
  *                             break
  *                         else:
  *                             w_index=0             # <<<<<<<<<<<<<<
@@ -5036,7 +5036,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_INCREF(__pyx_int_0);
             __Pyx_XDECREF_SET(__pyx_v_w_index, __pyx_int_0);
 
-            /* "ddb/engine/parser/sql_parser.pyx":255
+            /* "ddb/engine/parser/sql_parser.py":255
  *                         else:
  *                             w_index=0
  *                             argument={}             # <<<<<<<<<<<<<<
@@ -5048,7 +5048,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_XDECREF_SET(__pyx_v_argument, ((PyObject*)__pyx_t_7));
             __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":256
+            /* "ddb/engine/parser/sql_parser.py":256
  *                             w_index=0
  *                             argument={}
  *                             for word in match:             # <<<<<<<<<<<<<<
@@ -5097,7 +5097,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_XDECREF_SET(__pyx_v_word, __pyx_t_6);
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":257
+              /* "ddb/engine/parser/sql_parser.py":257
  *                             argument={}
  *                             for word in match:
  *                                 if word[0:1]=='{' and word[-1]=='}':             # <<<<<<<<<<<<<<
@@ -5121,7 +5121,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __pyx_L45_bool_binop_done:;
               if (__pyx_t_10) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":259
+                /* "ddb/engine/parser/sql_parser.py":259
  *                                 if word[0:1]=='{' and word[-1]=='}':
  *                                     # variable
  *                                     if word[1]=='#':             # <<<<<<<<<<<<<<
@@ -5134,7 +5134,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                 if (__pyx_t_10) {
 
-                  /* "ddb/engine/parser/sql_parser.pyx":260
+                  /* "ddb/engine/parser/sql_parser.py":260
  *                                     # variable
  *                                     if word[1]=='#':
  *                                         try:             # <<<<<<<<<<<<<<
@@ -5150,7 +5150,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_XGOTREF(__pyx_t_19);
                     /*try:*/ {
 
-                      /* "ddb/engine/parser/sql_parser.pyx":261
+                      /* "ddb/engine/parser/sql_parser.py":261
  *                                     if word[1]=='#':
  *                                         try:
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']=int(tokens[token_index+w_index]['data'])             # <<<<<<<<<<<<<<
@@ -5181,7 +5181,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":260
+                      /* "ddb/engine/parser/sql_parser.py":260
  *                                     # variable
  *                                     if word[1]=='#':
  *                                         try:             # <<<<<<<<<<<<<<
@@ -5200,7 +5200,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
                     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":262
+                    /* "ddb/engine/parser/sql_parser.py":262
  *                                         try:
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']=int(tokens[token_index+w_index]['data'])
  *                                         except:             # <<<<<<<<<<<<<<
@@ -5214,7 +5214,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_GOTREF(__pyx_t_5);
                       __Pyx_GOTREF(__pyx_t_6);
 
-                      /* "ddb/engine/parser/sql_parser.pyx":263
+                      /* "ddb/engine/parser/sql_parser.py":263
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']=int(tokens[token_index+w_index]['data'])
  *                                         except:
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']             # <<<<<<<<<<<<<<
@@ -5241,7 +5241,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     }
                     __pyx_L50_except_error:;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":260
+                    /* "ddb/engine/parser/sql_parser.py":260
  *                                     # variable
  *                                     if word[1]=='#':
  *                                         try:             # <<<<<<<<<<<<<<
@@ -5261,7 +5261,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __pyx_L55_try_end:;
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":259
+                  /* "ddb/engine/parser/sql_parser.py":259
  *                                 if word[0:1]=='{' and word[-1]=='}':
  *                                     # variable
  *                                     if word[1]=='#':             # <<<<<<<<<<<<<<
@@ -5271,7 +5271,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   goto __pyx_L47;
                 }
 
-                /* "ddb/engine/parser/sql_parser.pyx":265
+                /* "ddb/engine/parser/sql_parser.py":265
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']
  *                                     else:
  *                                         argument[word[1:-1]]=tokens[token_index+w_index]['data']             # <<<<<<<<<<<<<<
@@ -5295,7 +5295,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 }
                 __pyx_L47:;
 
-                /* "ddb/engine/parser/sql_parser.pyx":257
+                /* "ddb/engine/parser/sql_parser.py":257
  *                             argument={}
  *                             for word in match:
  *                                 if word[0:1]=='{' and word[-1]=='}':             # <<<<<<<<<<<<<<
@@ -5305,7 +5305,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 goto __pyx_L44;
               }
 
-              /* "ddb/engine/parser/sql_parser.pyx":268
+              /* "ddb/engine/parser/sql_parser.py":268
  *                                 else:
  *                                     ## normal keyword
  *                                     argument[word]=tokens[token_index+w_index]['data']             # <<<<<<<<<<<<<<
@@ -5326,7 +5326,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               }
               __pyx_L44:;
 
-              /* "ddb/engine/parser/sql_parser.pyx":269
+              /* "ddb/engine/parser/sql_parser.py":269
  *                                     ## normal keyword
  *                                     argument[word]=tokens[token_index+w_index]['data']
  *                                 w_index+=1             # <<<<<<<<<<<<<<
@@ -5338,7 +5338,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF_SET(__pyx_v_w_index, __pyx_t_6);
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":256
+              /* "ddb/engine/parser/sql_parser.py":256
  *                             w_index=0
  *                             argument={}
  *                             for word in match:             # <<<<<<<<<<<<<<
@@ -5348,7 +5348,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             }
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":270
+            /* "ddb/engine/parser/sql_parser.py":270
  *                                     argument[word]=tokens[token_index+w_index]['data']
  *                                 w_index+=1
  *                             if 'arguments' not in curent_object:             # <<<<<<<<<<<<<<
@@ -5359,7 +5359,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __pyx_t_12 = (__pyx_t_10 != 0);
             if (__pyx_t_12) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":271
+              /* "ddb/engine/parser/sql_parser.py":271
  *                                 w_index+=1
  *                             if 'arguments' not in curent_object:
  *                                 curent_object['arguments']=[]             # <<<<<<<<<<<<<<
@@ -5371,7 +5371,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               if (unlikely(PyDict_SetItem(__pyx_v_curent_object, __pyx_n_s_arguments, __pyx_t_7) < 0)) __PYX_ERR(0, 271, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":270
+              /* "ddb/engine/parser/sql_parser.py":270
  *                                     argument[word]=tokens[token_index+w_index]['data']
  *                                 w_index+=1
  *                             if 'arguments' not in curent_object:             # <<<<<<<<<<<<<<
@@ -5380,7 +5380,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":273
+            /* "ddb/engine/parser/sql_parser.py":273
  *                                 curent_object['arguments']=[]
  * 
  *                             if arguments==1:             # <<<<<<<<<<<<<<
@@ -5393,7 +5393,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
             if (__pyx_t_12) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":274
+              /* "ddb/engine/parser/sql_parser.py":274
  * 
  *                             if arguments==1:
  *                                 curent_object['arguments']=argument             # <<<<<<<<<<<<<<
@@ -5402,7 +5402,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               if (unlikely(PyDict_SetItem(__pyx_v_curent_object, __pyx_n_s_arguments, __pyx_v_argument) < 0)) __PYX_ERR(0, 274, __pyx_L1_error)
 
-              /* "ddb/engine/parser/sql_parser.pyx":273
+              /* "ddb/engine/parser/sql_parser.py":273
  *                                 curent_object['arguments']=[]
  * 
  *                             if arguments==1:             # <<<<<<<<<<<<<<
@@ -5412,7 +5412,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               goto __pyx_L59;
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":277
+            /* "ddb/engine/parser/sql_parser.py":277
  *                             else:
  *                             # add the arguments to curent object
  *                                 curent_object['arguments'].append(argument)             # <<<<<<<<<<<<<<
@@ -5427,7 +5427,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             }
             __pyx_L59:;
 
-            /* "ddb/engine/parser/sql_parser.pyx":279
+            /* "ddb/engine/parser/sql_parser.py":279
  *                                 curent_object['arguments'].append(argument)
  * 
  *                             info("match", match)             # <<<<<<<<<<<<<<
@@ -5483,7 +5483,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":280
+            /* "ddb/engine/parser/sql_parser.py":280
  * 
  *                             info("match", match)
  *                             token_index+=len(match)             # <<<<<<<<<<<<<<
@@ -5499,7 +5499,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF_SET(__pyx_v_token_index, __pyx_t_6);
             __pyx_t_6 = 0;
 
-            /* "ddb/engine/parser/sql_parser.pyx":281
+            /* "ddb/engine/parser/sql_parser.py":281
  *                             info("match", match)
  *                             token_index+=len(match)
  *                             if arguments!=0:             # <<<<<<<<<<<<<<
@@ -5512,7 +5512,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             if (__pyx_t_12) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":282
+              /* "ddb/engine/parser/sql_parser.py":282
  *                             token_index+=len(match)
  *                             if arguments!=0:
  *                                 info("print not in list")             # <<<<<<<<<<<<<<
@@ -5538,7 +5538,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":283
+              /* "ddb/engine/parser/sql_parser.py":283
  *                             if arguments!=0:
  *                                 info("print not in list")
  *                                 argument_index+=1             # <<<<<<<<<<<<<<
@@ -5550,7 +5550,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF_SET(__pyx_v_argument_index, __pyx_t_6);
               __pyx_t_6 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":284
+              /* "ddb/engine/parser/sql_parser.py":284
  *                                 info("print not in list")
  *                                 argument_index+=1
  *                                 if argument_index>=arguments:             # <<<<<<<<<<<<<<
@@ -5562,7 +5562,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
               if (__pyx_t_12) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":286
+                /* "ddb/engine/parser/sql_parser.py":286
  *                                 if argument_index>=arguments:
  * 
  *                                     info("----------Adding",curent_object['mode'])             # <<<<<<<<<<<<<<
@@ -5622,7 +5622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":287
+                /* "ddb/engine/parser/sql_parser.py":287
  * 
  *                                     info("----------Adding",curent_object['mode'])
  *                                     if True == store_array:             # <<<<<<<<<<<<<<
@@ -5634,7 +5634,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                 if (__pyx_t_12) {
 
-                  /* "ddb/engine/parser/sql_parser.pyx":288
+                  /* "ddb/engine/parser/sql_parser.py":288
  *                                     info("----------Adding",curent_object['mode'])
  *                                     if True == store_array:
  *                                         if curent_object['mode'] not in query_object:             # <<<<<<<<<<<<<<
@@ -5648,7 +5648,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __pyx_t_10 = (__pyx_t_12 != 0);
                   if (__pyx_t_10) {
 
-                    /* "ddb/engine/parser/sql_parser.pyx":289
+                    /* "ddb/engine/parser/sql_parser.py":289
  *                                     if True == store_array:
  *                                         if curent_object['mode'] not in query_object:
  *                                             query_object[curent_object['mode']]=[]             # <<<<<<<<<<<<<<
@@ -5663,7 +5663,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":288
+                    /* "ddb/engine/parser/sql_parser.py":288
  *                                     info("----------Adding",curent_object['mode'])
  *                                     if True == store_array:
  *                                         if curent_object['mode'] not in query_object:             # <<<<<<<<<<<<<<
@@ -5672,7 +5672,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":291
+                  /* "ddb/engine/parser/sql_parser.py":291
  *                                             query_object[curent_object['mode']]=[]
  * 
  *                                         query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})             # <<<<<<<<<<<<<<
@@ -5697,7 +5697,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":287
+                  /* "ddb/engine/parser/sql_parser.py":287
  * 
  *                                     info("----------Adding",curent_object['mode'])
  *                                     if True == store_array:             # <<<<<<<<<<<<<<
@@ -5707,7 +5707,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   goto __pyx_L62;
                 }
 
-                /* "ddb/engine/parser/sql_parser.pyx":293
+                /* "ddb/engine/parser/sql_parser.py":293
  *                                         query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})
  *                                     else:
  *                                         if None == parent:             # <<<<<<<<<<<<<<
@@ -5720,7 +5720,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                   if (__pyx_t_10) {
 
-                    /* "ddb/engine/parser/sql_parser.pyx":294
+                    /* "ddb/engine/parser/sql_parser.py":294
  *                                     else:
  *                                         if None == parent:
  *                                             query_object[curent_object['mode']]=curent_object['arguments']             # <<<<<<<<<<<<<<
@@ -5735,7 +5735,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":295
+                    /* "ddb/engine/parser/sql_parser.py":295
  *                                         if None == parent:
  *                                             query_object[curent_object['mode']]=curent_object['arguments']
  *                                             info( "NO APPEND")             # <<<<<<<<<<<<<<
@@ -5761,7 +5761,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":293
+                    /* "ddb/engine/parser/sql_parser.py":293
  *                                         query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})
  *                                     else:
  *                                         if None == parent:             # <<<<<<<<<<<<<<
@@ -5771,7 +5771,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     goto __pyx_L64;
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":297
+                  /* "ddb/engine/parser/sql_parser.py":297
  *                                             info( "NO APPEND")
  *                                         else:
  *                                             info( "APPEND")             # <<<<<<<<<<<<<<
@@ -5798,7 +5798,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":298
+                    /* "ddb/engine/parser/sql_parser.py":298
  *                                         else:
  *                                             info( "APPEND")
  *                                             query_object[parent].append({curent_object['mode']:curent_object['arguments']})             # <<<<<<<<<<<<<<
@@ -5824,7 +5824,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 }
                 __pyx_L62:;
 
-                /* "ddb/engine/parser/sql_parser.pyx":299
+                /* "ddb/engine/parser/sql_parser.py":299
  *                                             info( "APPEND")
  *                                             query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                     jump=None             # <<<<<<<<<<<<<<
@@ -5834,7 +5834,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_INCREF(Py_None);
                 __Pyx_XDECREF_SET(__pyx_v_jump, Py_None);
 
-                /* "ddb/engine/parser/sql_parser.pyx":300
+                /* "ddb/engine/parser/sql_parser.py":300
  *                                             query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                     jump=None
  *                                     if 'jump' in switch:             # <<<<<<<<<<<<<<
@@ -5845,7 +5845,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __pyx_t_12 = (__pyx_t_10 != 0);
                 if (__pyx_t_12) {
 
-                  /* "ddb/engine/parser/sql_parser.pyx":301
+                  /* "ddb/engine/parser/sql_parser.py":301
  *                                     jump=None
  *                                     if 'jump' in switch:
  *                                         info( "JUMP")             # <<<<<<<<<<<<<<
@@ -5871,7 +5871,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":302
+                  /* "ddb/engine/parser/sql_parser.py":302
  *                                     if 'jump' in switch:
  *                                         info( "JUMP")
  *                                         jump=switch['jump']             # <<<<<<<<<<<<<<
@@ -5883,7 +5883,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF_SET(__pyx_v_jump, __pyx_t_7);
                   __pyx_t_7 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":300
+                  /* "ddb/engine/parser/sql_parser.py":300
  *                                             query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                     jump=None
  *                                     if 'jump' in switch:             # <<<<<<<<<<<<<<
@@ -5892,7 +5892,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                 }
 
-                /* "ddb/engine/parser/sql_parser.pyx":303
+                /* "ddb/engine/parser/sql_parser.py":303
  *                                         info( "JUMP")
  *                                         jump=switch['jump']
  *                                     if None != jump:             # <<<<<<<<<<<<<<
@@ -5904,7 +5904,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                 if (__pyx_t_12) {
 
-                  /* "ddb/engine/parser/sql_parser.pyx":304
+                  /* "ddb/engine/parser/sql_parser.py":304
  *                                         jump=switch['jump']
  *                                     if None != jump:
  *                                         tsi=0             # <<<<<<<<<<<<<<
@@ -5914,7 +5914,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_INCREF(__pyx_int_0);
                   __Pyx_XDECREF_SET(__pyx_v_tsi, __pyx_int_0);
 
-                  /* "ddb/engine/parser/sql_parser.pyx":305
+                  /* "ddb/engine/parser/sql_parser.py":305
  *                                     if None != jump:
  *                                         tsi=0
  *                                         for ts in query['switch']:             # <<<<<<<<<<<<<<
@@ -5966,7 +5966,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_XDECREF_SET(__pyx_v_ts, __pyx_t_7);
                     __pyx_t_7 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":306
+                    /* "ddb/engine/parser/sql_parser.py":306
  *                                         tsi=0
  *                                         for ts in query['switch']:
  *                                             if ts['name']==jump:             # <<<<<<<<<<<<<<
@@ -5981,7 +5981,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                     if (__pyx_t_12) {
 
-                      /* "ddb/engine/parser/sql_parser.pyx":307
+                      /* "ddb/engine/parser/sql_parser.py":307
  *                                         for ts in query['switch']:
  *                                             if ts['name']==jump:
  *                                                 info("Jumpping from ",switch_index,tsi+1)             # <<<<<<<<<<<<<<
@@ -6044,7 +6044,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":308
+                      /* "ddb/engine/parser/sql_parser.py":308
  *                                             if ts['name']==jump:
  *                                                 info("Jumpping from ",switch_index,tsi+1)
  *                                                 switch_index=tsi+1             # <<<<<<<<<<<<<<
@@ -6056,7 +6056,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF_SET(__pyx_v_switch_index, __pyx_t_16);
                       __pyx_t_16 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":309
+                      /* "ddb/engine/parser/sql_parser.py":309
  *                                                 info("Jumpping from ",switch_index,tsi+1)
  *                                                 switch_index=tsi+1
  *                                                 break             # <<<<<<<<<<<<<<
@@ -6065,7 +6065,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                       goto __pyx_L68_break;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":306
+                      /* "ddb/engine/parser/sql_parser.py":306
  *                                         tsi=0
  *                                         for ts in query['switch']:
  *                                             if ts['name']==jump:             # <<<<<<<<<<<<<<
@@ -6074,7 +6074,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                     }
 
-                    /* "ddb/engine/parser/sql_parser.pyx":310
+                    /* "ddb/engine/parser/sql_parser.py":310
  *                                                 switch_index=tsi+1
  *                                                 break
  *                                             tsi+=1             # <<<<<<<<<<<<<<
@@ -6086,7 +6086,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF_SET(__pyx_v_tsi, __pyx_t_16);
                     __pyx_t_16 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":305
+                    /* "ddb/engine/parser/sql_parser.py":305
  *                                     if None != jump:
  *                                         tsi=0
  *                                         for ts in query['switch']:             # <<<<<<<<<<<<<<
@@ -6097,7 +6097,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __pyx_L68_break:;
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":303
+                  /* "ddb/engine/parser/sql_parser.py":303
  *                                         info( "JUMP")
  *                                         jump=switch['jump']
  *                                     if None != jump:             # <<<<<<<<<<<<<<
@@ -6106,7 +6106,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                 }
 
-                /* "ddb/engine/parser/sql_parser.pyx":311
+                /* "ddb/engine/parser/sql_parser.py":311
  *                                                 break
  *                                             tsi+=1
  *                                     in_argument=False             # <<<<<<<<<<<<<<
@@ -6115,7 +6115,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                 __pyx_v_in_argument = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":313
+                /* "ddb/engine/parser/sql_parser.py":313
  *                                     in_argument=False
  * 
  *                                     in_argument=False             # <<<<<<<<<<<<<<
@@ -6124,7 +6124,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                 __pyx_v_in_argument = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":284
+                /* "ddb/engine/parser/sql_parser.py":284
  *                                 info("print not in list")
  *                                 argument_index+=1
  *                                 if argument_index>=arguments:             # <<<<<<<<<<<<<<
@@ -6133,7 +6133,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               }
 
-              /* "ddb/engine/parser/sql_parser.pyx":281
+              /* "ddb/engine/parser/sql_parser.py":281
  *                             info("match", match)
  *                             token_index+=len(match)
  *                             if arguments!=0:             # <<<<<<<<<<<<<<
@@ -6143,7 +6143,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               goto __pyx_L60;
             }
 
-            /* "ddb/engine/parser/sql_parser.pyx":315
+            /* "ddb/engine/parser/sql_parser.py":315
  *                                     in_argument=False
  *                             else:
  *                                 info("in list")             # <<<<<<<<<<<<<<
@@ -6170,7 +6170,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-              /* "ddb/engine/parser/sql_parser.pyx":318
+              /* "ddb/engine/parser/sql_parser.py":318
  * 
  *                                 # look ahead to see if its a list ","
  *                                 if len(tokens)>token_index:             # <<<<<<<<<<<<<<
@@ -6186,7 +6186,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               if (__pyx_t_12) {
 
-                /* "ddb/engine/parser/sql_parser.pyx":319
+                /* "ddb/engine/parser/sql_parser.py":319
  *                                 # look ahead to see if its a list ","
  *                                 if len(tokens)>token_index:
  *                                     info("--looking ahead")             # <<<<<<<<<<<<<<
@@ -6212,7 +6212,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                 __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":321
+                /* "ddb/engine/parser/sql_parser.py":321
  *                                     info("--looking ahead")
  *                                     # if its not exit
  *                                     info("----" ,tokens[token_index]['data'])             # <<<<<<<<<<<<<<
@@ -6275,7 +6275,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                 __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-                /* "ddb/engine/parser/sql_parser.pyx":322
+                /* "ddb/engine/parser/sql_parser.py":322
  *                                     # if its not exit
  *                                     info("----" ,tokens[token_index]['data'])
  *                                     if tokens[token_index]['data']!=',':             # <<<<<<<<<<<<<<
@@ -6291,7 +6291,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                 if (__pyx_t_12) {
 
-                  /* "ddb/engine/parser/sql_parser.pyx":323
+                  /* "ddb/engine/parser/sql_parser.py":323
  *                                     info("----" ,tokens[token_index]['data'])
  *                                     if tokens[token_index]['data']!=',':
  *                                         info("---not list")             # <<<<<<<<<<<<<<
@@ -6317,7 +6317,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":325
+                  /* "ddb/engine/parser/sql_parser.py":325
  *                                         info("---not list")
  *                                         # only append object after argument collection is done
  *                                         info("----------Adding",curent_object['mode'])             # <<<<<<<<<<<<<<
@@ -6377,7 +6377,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":326
+                  /* "ddb/engine/parser/sql_parser.py":326
  *                                         # only append object after argument collection is done
  *                                         info("----------Adding",curent_object['mode'])
  *                                         if True == store_array:             # <<<<<<<<<<<<<<
@@ -6389,7 +6389,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                   if (__pyx_t_12) {
 
-                    /* "ddb/engine/parser/sql_parser.pyx":327
+                    /* "ddb/engine/parser/sql_parser.py":327
  *                                         info("----------Adding",curent_object['mode'])
  *                                         if True == store_array:
  *                                             if curent_object['mode'] not in query_object:             # <<<<<<<<<<<<<<
@@ -6403,7 +6403,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __pyx_t_10 = (__pyx_t_12 != 0);
                     if (__pyx_t_10) {
 
-                      /* "ddb/engine/parser/sql_parser.pyx":328
+                      /* "ddb/engine/parser/sql_parser.py":328
  *                                         if True == store_array:
  *                                             if curent_object['mode'] not in query_object:
  *                                                 query_object[curent_object['mode']]=[]             # <<<<<<<<<<<<<<
@@ -6418,7 +6418,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":327
+                      /* "ddb/engine/parser/sql_parser.py":327
  *                                         info("----------Adding",curent_object['mode'])
  *                                         if True == store_array:
  *                                             if curent_object['mode'] not in query_object:             # <<<<<<<<<<<<<<
@@ -6427,7 +6427,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                     }
 
-                    /* "ddb/engine/parser/sql_parser.pyx":330
+                    /* "ddb/engine/parser/sql_parser.py":330
  *                                                 query_object[curent_object['mode']]=[]
  * 
  *                                             query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})             # <<<<<<<<<<<<<<
@@ -6452,7 +6452,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":326
+                    /* "ddb/engine/parser/sql_parser.py":326
  *                                         # only append object after argument collection is done
  *                                         info("----------Adding",curent_object['mode'])
  *                                         if True == store_array:             # <<<<<<<<<<<<<<
@@ -6462,7 +6462,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     goto __pyx_L72;
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":332
+                  /* "ddb/engine/parser/sql_parser.py":332
  *                                             query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})
  *                                         else:
  *                                             if None == parent:             # <<<<<<<<<<<<<<
@@ -6475,7 +6475,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
                     if (__pyx_t_10) {
 
-                      /* "ddb/engine/parser/sql_parser.pyx":334
+                      /* "ddb/engine/parser/sql_parser.py":334
  *                                             if None == parent:
  *                                                 #print curent_object
  *                                                 query_object[curent_object['mode']]=curent_object['arguments']             # <<<<<<<<<<<<<<
@@ -6490,7 +6490,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":335
+                      /* "ddb/engine/parser/sql_parser.py":335
  *                                                 #print curent_object
  *                                                 query_object[curent_object['mode']]=curent_object['arguments']
  *                                                 info("NO APPEND")             # <<<<<<<<<<<<<<
@@ -6516,7 +6516,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":332
+                      /* "ddb/engine/parser/sql_parser.py":332
  *                                             query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})
  *                                         else:
  *                                             if None == parent:             # <<<<<<<<<<<<<<
@@ -6526,7 +6526,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       goto __pyx_L74;
                     }
 
-                    /* "ddb/engine/parser/sql_parser.pyx":338
+                    /* "ddb/engine/parser/sql_parser.py":338
  * 
  *                                             else:
  *                                                 info("APPEND")             # <<<<<<<<<<<<<<
@@ -6553,7 +6553,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":339
+                      /* "ddb/engine/parser/sql_parser.py":339
  *                                             else:
  *                                                 info("APPEND")
  *                                                 query_object[parent].append({curent_object['mode']:curent_object['arguments']})             # <<<<<<<<<<<<<<
@@ -6579,7 +6579,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   }
                   __pyx_L72:;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":340
+                  /* "ddb/engine/parser/sql_parser.py":340
  *                                                 info("APPEND")
  *                                                 query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                         jump=None             # <<<<<<<<<<<<<<
@@ -6589,7 +6589,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_INCREF(Py_None);
                   __Pyx_XDECREF_SET(__pyx_v_jump, Py_None);
 
-                  /* "ddb/engine/parser/sql_parser.pyx":341
+                  /* "ddb/engine/parser/sql_parser.py":341
  *                                                 query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                         jump=None
  *                                         if 'jump' in switch:             # <<<<<<<<<<<<<<
@@ -6600,7 +6600,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __pyx_t_12 = (__pyx_t_10 != 0);
                   if (__pyx_t_12) {
 
-                    /* "ddb/engine/parser/sql_parser.pyx":342
+                    /* "ddb/engine/parser/sql_parser.py":342
  *                                         jump=None
  *                                         if 'jump' in switch:
  *                                             jump=switch['jump']             # <<<<<<<<<<<<<<
@@ -6612,7 +6612,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_DECREF_SET(__pyx_v_jump, __pyx_t_16);
                     __pyx_t_16 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":341
+                    /* "ddb/engine/parser/sql_parser.py":341
  *                                                 query_object[parent].append({curent_object['mode']:curent_object['arguments']})
  *                                         jump=None
  *                                         if 'jump' in switch:             # <<<<<<<<<<<<<<
@@ -6621,7 +6621,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":343
+                  /* "ddb/engine/parser/sql_parser.py":343
  *                                         if 'jump' in switch:
  *                                             jump=switch['jump']
  *                                         if None != jump:             # <<<<<<<<<<<<<<
@@ -6633,7 +6633,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                   if (__pyx_t_12) {
 
-                    /* "ddb/engine/parser/sql_parser.pyx":344
+                    /* "ddb/engine/parser/sql_parser.py":344
  *                                             jump=switch['jump']
  *                                         if None != jump:
  *                                             tsi=0             # <<<<<<<<<<<<<<
@@ -6643,7 +6643,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __Pyx_INCREF(__pyx_int_0);
                     __Pyx_XDECREF_SET(__pyx_v_tsi, __pyx_int_0);
 
-                    /* "ddb/engine/parser/sql_parser.pyx":345
+                    /* "ddb/engine/parser/sql_parser.py":345
  *                                         if None != jump:
  *                                             tsi=0
  *                                             for ts in query['switch']:             # <<<<<<<<<<<<<<
@@ -6695,7 +6695,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_XDECREF_SET(__pyx_v_ts, __pyx_t_16);
                       __pyx_t_16 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":346
+                      /* "ddb/engine/parser/sql_parser.py":346
  *                                             tsi=0
  *                                             for ts in query['switch']:
  *                                                 if ts['name']==jump:             # <<<<<<<<<<<<<<
@@ -6710,7 +6710,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                       if (__pyx_t_12) {
 
-                        /* "ddb/engine/parser/sql_parser.pyx":347
+                        /* "ddb/engine/parser/sql_parser.py":347
  *                                             for ts in query['switch']:
  *                                                 if ts['name']==jump:
  *                                                     info("Jumpping from ",switch_index,tsi+1)             # <<<<<<<<<<<<<<
@@ -6773,7 +6773,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
                         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-                        /* "ddb/engine/parser/sql_parser.pyx":348
+                        /* "ddb/engine/parser/sql_parser.py":348
  *                                                 if ts['name']==jump:
  *                                                     info("Jumpping from ",switch_index,tsi+1)
  *                                                     switch_index=tsi+1             # <<<<<<<<<<<<<<
@@ -6785,7 +6785,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                         __Pyx_DECREF_SET(__pyx_v_switch_index, __pyx_t_7);
                         __pyx_t_7 = 0;
 
-                        /* "ddb/engine/parser/sql_parser.pyx":349
+                        /* "ddb/engine/parser/sql_parser.py":349
  *                                                     info("Jumpping from ",switch_index,tsi+1)
  *                                                     switch_index=tsi+1
  *                                                     break             # <<<<<<<<<<<<<<
@@ -6794,7 +6794,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                         goto __pyx_L78_break;
 
-                        /* "ddb/engine/parser/sql_parser.pyx":346
+                        /* "ddb/engine/parser/sql_parser.py":346
  *                                             tsi=0
  *                                             for ts in query['switch']:
  *                                                 if ts['name']==jump:             # <<<<<<<<<<<<<<
@@ -6803,7 +6803,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                       }
 
-                      /* "ddb/engine/parser/sql_parser.pyx":350
+                      /* "ddb/engine/parser/sql_parser.py":350
  *                                                     switch_index=tsi+1
  *                                                     break
  *                                                 tsi+=1             # <<<<<<<<<<<<<<
@@ -6815,7 +6815,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                       __Pyx_DECREF_SET(__pyx_v_tsi, __pyx_t_7);
                       __pyx_t_7 = 0;
 
-                      /* "ddb/engine/parser/sql_parser.pyx":345
+                      /* "ddb/engine/parser/sql_parser.py":345
  *                                         if None != jump:
  *                                             tsi=0
  *                                             for ts in query['switch']:             # <<<<<<<<<<<<<<
@@ -6826,7 +6826,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                     __pyx_L78_break:;
                     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                    /* "ddb/engine/parser/sql_parser.pyx":343
+                    /* "ddb/engine/parser/sql_parser.py":343
  *                                         if 'jump' in switch:
  *                                             jump=switch['jump']
  *                                         if None != jump:             # <<<<<<<<<<<<<<
@@ -6835,7 +6835,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                   }
 
-                  /* "ddb/engine/parser/sql_parser.pyx":351
+                  /* "ddb/engine/parser/sql_parser.py":351
  *                                                     break
  *                                                 tsi+=1
  *                                         in_argument=False             # <<<<<<<<<<<<<<
@@ -6844,7 +6844,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
                   __pyx_v_in_argument = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":322
+                  /* "ddb/engine/parser/sql_parser.py":322
  *                                     # if its not exit
  *                                     info("----" ,tokens[token_index]['data'])
  *                                     if tokens[token_index]['data']!=',':             # <<<<<<<<<<<<<<
@@ -6854,7 +6854,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   goto __pyx_L71;
                 }
 
-                /* "ddb/engine/parser/sql_parser.pyx":353
+                /* "ddb/engine/parser/sql_parser.py":353
  *                                         in_argument=False
  *                                     else:
  *                                         info("------more list")             # <<<<<<<<<<<<<<
@@ -6881,7 +6881,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
                   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-                  /* "ddb/engine/parser/sql_parser.pyx":354
+                  /* "ddb/engine/parser/sql_parser.py":354
  *                                     else:
  *                                         info("------more list")
  *                                         token_index+=1             # <<<<<<<<<<<<<<
@@ -6895,7 +6895,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
                 }
                 __pyx_L71:;
 
-                /* "ddb/engine/parser/sql_parser.pyx":318
+                /* "ddb/engine/parser/sql_parser.py":318
  * 
  *                                 # look ahead to see if its a list ","
  *                                 if len(tokens)>token_index:             # <<<<<<<<<<<<<<
@@ -6914,7 +6914,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     }
     __pyx_L6_break:;
 
-    /* "ddb/engine/parser/sql_parser.pyx":358
+    /* "ddb/engine/parser/sql_parser.py":358
  *             # This is where we exit if we reached the end of processing with a full length
  *             #print token_index,len(tokens)
  *             info(switch_index,token_index,len(tokens))             # <<<<<<<<<<<<<<
@@ -6978,7 +6978,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":360
+    /* "ddb/engine/parser/sql_parser.py":360
  *             info(switch_index,token_index,len(tokens))
  * 
  *             info (query_object)             # <<<<<<<<<<<<<<
@@ -7004,7 +7004,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":362
+    /* "ddb/engine/parser/sql_parser.py":362
  *             info (query_object)
  *             #so we have run out of text to match and everything is good so far
  *             if token_index==len(tokens):             # <<<<<<<<<<<<<<
@@ -7020,7 +7020,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     if (__pyx_t_12) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":363
+      /* "ddb/engine/parser/sql_parser.py":363
  *             #so we have run out of text to match and everything is good so far
  *             if token_index==len(tokens):
  *                 info("############################think its a match")             # <<<<<<<<<<<<<<
@@ -7046,7 +7046,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":365
+      /* "ddb/engine/parser/sql_parser.py":365
  *                 info("############################think its a match")
  * 
  *                 if 'arguments' not in curent_object and 'arguments' in switch:             # <<<<<<<<<<<<<<
@@ -7066,7 +7066,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __pyx_L82_bool_binop_done:;
       if (__pyx_t_12) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":366
+        /* "ddb/engine/parser/sql_parser.py":366
  * 
  *                 if 'arguments' not in curent_object and 'arguments' in switch:
  *                     info("Missing argument in last element")             # <<<<<<<<<<<<<<
@@ -7092,7 +7092,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":367
+        /* "ddb/engine/parser/sql_parser.py":367
  *                 if 'arguments' not in curent_object and 'arguments' in switch:
  *                     info("Missing argument in last element")
  *                     bad=True             # <<<<<<<<<<<<<<
@@ -7101,7 +7101,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         __pyx_v_bad = 1;
 
-        /* "ddb/engine/parser/sql_parser.pyx":368
+        /* "ddb/engine/parser/sql_parser.py":368
  *                     info("Missing argument in last element")
  *                     bad=True
  *                     break             # <<<<<<<<<<<<<<
@@ -7110,7 +7110,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         goto __pyx_L4_break;
 
-        /* "ddb/engine/parser/sql_parser.pyx":365
+        /* "ddb/engine/parser/sql_parser.py":365
  *                 info("############################think its a match")
  * 
  *                 if 'arguments' not in curent_object and 'arguments' in switch:             # <<<<<<<<<<<<<<
@@ -7119,7 +7119,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":371
+      /* "ddb/engine/parser/sql_parser.py":371
  * 
  *                 #lets make sure the rest are optional
  *                 if len(query['switch'])>=switch_index:             # <<<<<<<<<<<<<<
@@ -7138,7 +7138,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_12) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":372
+        /* "ddb/engine/parser/sql_parser.py":372
  *                 #lets make sure the rest are optional
  *                 if len(query['switch'])>=switch_index:
  *                     info("still checking")             # <<<<<<<<<<<<<<
@@ -7164,7 +7164,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":373
+        /* "ddb/engine/parser/sql_parser.py":373
  *                 if len(query['switch'])>=switch_index:
  *                     info("still checking")
  *                     bad=False             # <<<<<<<<<<<<<<
@@ -7173,7 +7173,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         __pyx_v_bad = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":374
+        /* "ddb/engine/parser/sql_parser.py":374
  *                     info("still checking")
  *                     bad=False
  *                     for t in  range(switch_index,len(query['switch'])):             # <<<<<<<<<<<<<<
@@ -7240,7 +7240,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_6);
           __pyx_t_6 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":375
+          /* "ddb/engine/parser/sql_parser.py":375
  *                     bad=False
  *                     for t in  range(switch_index,len(query['switch'])):
  *                         if 'optional' not in query['switch'][t]:             # <<<<<<<<<<<<<<
@@ -7257,7 +7257,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __pyx_t_10 = (__pyx_t_12 != 0);
           if (__pyx_t_10) {
 
-            /* "ddb/engine/parser/sql_parser.pyx":376
+            /* "ddb/engine/parser/sql_parser.py":376
  *                     for t in  range(switch_index,len(query['switch'])):
  *                         if 'optional' not in query['switch'][t]:
  *                             bad=True             # <<<<<<<<<<<<<<
@@ -7266,7 +7266,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             __pyx_v_bad = 1;
 
-            /* "ddb/engine/parser/sql_parser.pyx":377
+            /* "ddb/engine/parser/sql_parser.py":377
  *                         if 'optional' not in query['switch'][t]:
  *                             bad=True
  *                             break             # <<<<<<<<<<<<<<
@@ -7275,7 +7275,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
             goto __pyx_L86_break;
 
-            /* "ddb/engine/parser/sql_parser.pyx":375
+            /* "ddb/engine/parser/sql_parser.py":375
  *                     bad=False
  *                     for t in  range(switch_index,len(query['switch'])):
  *                         if 'optional' not in query['switch'][t]:             # <<<<<<<<<<<<<<
@@ -7284,7 +7284,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":379
+          /* "ddb/engine/parser/sql_parser.py":379
  *                             break
  *                         else:
  *                             if  query['switch'][t]['optional']!=True:             # <<<<<<<<<<<<<<
@@ -7306,7 +7306,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
             if (__pyx_t_10) {
 
-              /* "ddb/engine/parser/sql_parser.pyx":380
+              /* "ddb/engine/parser/sql_parser.py":380
  *                         else:
  *                             if  query['switch'][t]['optional']!=True:
  *                                 bad=True             # <<<<<<<<<<<<<<
@@ -7315,7 +7315,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               __pyx_v_bad = 1;
 
-              /* "ddb/engine/parser/sql_parser.pyx":381
+              /* "ddb/engine/parser/sql_parser.py":381
  *                             if  query['switch'][t]['optional']!=True:
  *                                 bad=True
  *                                 break             # <<<<<<<<<<<<<<
@@ -7324,7 +7324,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
               goto __pyx_L86_break;
 
-              /* "ddb/engine/parser/sql_parser.pyx":379
+              /* "ddb/engine/parser/sql_parser.py":379
  *                             break
  *                         else:
  *                             if  query['switch'][t]['optional']!=True:             # <<<<<<<<<<<<<<
@@ -7334,7 +7334,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
             }
           }
 
-          /* "ddb/engine/parser/sql_parser.pyx":374
+          /* "ddb/engine/parser/sql_parser.py":374
  *                     info("still checking")
  *                     bad=False
  *                     for t in  range(switch_index,len(query['switch'])):             # <<<<<<<<<<<<<<
@@ -7345,7 +7345,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __pyx_L86_break:;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":385
+        /* "ddb/engine/parser/sql_parser.py":385
  * 
  * 
  *                     if True == bad:             # <<<<<<<<<<<<<<
@@ -7355,7 +7355,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
         __pyx_t_10 = ((1 == __pyx_v_bad) != 0);
         if (__pyx_t_10) {
 
-          /* "ddb/engine/parser/sql_parser.pyx":386
+          /* "ddb/engine/parser/sql_parser.py":386
  * 
  *                     if True == bad:
  *                         info("Not successful. required arguments missing")             # <<<<<<<<<<<<<<
@@ -7381,7 +7381,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":387
+          /* "ddb/engine/parser/sql_parser.py":387
  *                     if True == bad:
  *                         info("Not successful. required arguments missing")
  *                         break             # <<<<<<<<<<<<<<
@@ -7390,7 +7390,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
           goto __pyx_L4_break;
 
-          /* "ddb/engine/parser/sql_parser.pyx":385
+          /* "ddb/engine/parser/sql_parser.py":385
  * 
  * 
  *                     if True == bad:             # <<<<<<<<<<<<<<
@@ -7399,7 +7399,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
         }
 
-        /* "ddb/engine/parser/sql_parser.pyx":371
+        /* "ddb/engine/parser/sql_parser.py":371
  * 
  *                 #lets make sure the rest are optional
  *                 if len(query['switch'])>=switch_index:             # <<<<<<<<<<<<<<
@@ -7408,7 +7408,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":390
+      /* "ddb/engine/parser/sql_parser.py":390
  * 
  * 
  *                 info("SUCCESS")             # <<<<<<<<<<<<<<
@@ -7434,7 +7434,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":391
+      /* "ddb/engine/parser/sql_parser.py":391
  * 
  *                 info("SUCCESS")
  *                 sql_object={'mode':query_mode,'meta':query_object}             # <<<<<<<<<<<<<<
@@ -7448,7 +7448,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF_SET(__pyx_v_sql_object, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":392
+      /* "ddb/engine/parser/sql_parser.py":392
  *                 info("SUCCESS")
  *                 sql_object={'mode':query_mode,'meta':query_object}
  *                 return sql_object             # <<<<<<<<<<<<<<
@@ -7461,7 +7461,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":362
+      /* "ddb/engine/parser/sql_parser.py":362
  *             info (query_object)
  *             #so we have run out of text to match and everything is good so far
  *             if token_index==len(tokens):             # <<<<<<<<<<<<<<
@@ -7470,7 +7470,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":110
+    /* "ddb/engine/parser/sql_parser.py":110
  *         debug=True
  *         query_object={}
  *         for query in query_matrix:             # <<<<<<<<<<<<<<
@@ -7481,7 +7481,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   __pyx_L4_break:;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":393
+  /* "ddb/engine/parser/sql_parser.py":393
  *                 sql_object={'mode':query_mode,'meta':query_object}
  *                 return sql_object
  *         return False             # <<<<<<<<<<<<<<
@@ -7493,7 +7493,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   __pyx_r = Py_False;
   goto __pyx_L0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":103
+  /* "ddb/engine/parser/sql_parser.py":103
  *             raise Exception("Object failed to decode")
  * 
  *     def parse(self,tokens):             # <<<<<<<<<<<<<<
@@ -7551,7 +7551,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_2parse(
   return __pyx_r;
 }
 
-/* "ddb/engine/parser/sql_parser.pyx":397
+/* "ddb/engine/parser/sql_parser.py":397
  *     #expand columns
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):             # <<<<<<<<<<<<<<
@@ -7649,7 +7649,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("expand_columns", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":398
+  /* "ddb/engine/parser/sql_parser.py":398
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):
  *         if query_object['mode']=="select":             # <<<<<<<<<<<<<<
@@ -7662,7 +7662,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":399
+    /* "ddb/engine/parser/sql_parser.py":399
  *     def expand_columns(self,query_object,columns):
  *         if query_object['mode']=="select":
  *             expanded_select=[]             # <<<<<<<<<<<<<<
@@ -7674,7 +7674,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
     __pyx_v_expanded_select = ((PyObject*)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":400
+    /* "ddb/engine/parser/sql_parser.py":400
  *         if query_object['mode']=="select":
  *             expanded_select=[]
  *             for item in query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -7729,7 +7729,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
       __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":401
+      /* "ddb/engine/parser/sql_parser.py":401
  *             expanded_select=[]
  *             for item in query_object['meta']['select']:
  *                 if item['column']=='*':             # <<<<<<<<<<<<<<
@@ -7742,7 +7742,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (__pyx_t_2) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":402
+        /* "ddb/engine/parser/sql_parser.py":402
  *             for item in query_object['meta']['select']:
  *                 if item['column']=='*':
  *                     for column in columns:             # <<<<<<<<<<<<<<
@@ -7791,7 +7791,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
           __Pyx_XDECREF_SET(__pyx_v_column, __pyx_t_8);
           __pyx_t_8 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":403
+          /* "ddb/engine/parser/sql_parser.py":403
  *                 if item['column']=='*':
  *                     for column in columns:
  *                         expanded_select.append({'column':column})             # <<<<<<<<<<<<<<
@@ -7804,7 +7804,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
           __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_expanded_select, __pyx_t_8); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 403, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-          /* "ddb/engine/parser/sql_parser.pyx":402
+          /* "ddb/engine/parser/sql_parser.py":402
  *             for item in query_object['meta']['select']:
  *                 if item['column']=='*':
  *                     for column in columns:             # <<<<<<<<<<<<<<
@@ -7814,7 +7814,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
         }
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":401
+        /* "ddb/engine/parser/sql_parser.py":401
  *             expanded_select=[]
  *             for item in query_object['meta']['select']:
  *                 if item['column']=='*':             # <<<<<<<<<<<<<<
@@ -7824,7 +7824,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
         goto __pyx_L6;
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":405
+      /* "ddb/engine/parser/sql_parser.py":405
  *                         expanded_select.append({'column':column})
  *                 else:
  *                     expanded_select.append(item)             # <<<<<<<<<<<<<<
@@ -7836,7 +7836,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
       }
       __pyx_L6:;
 
-      /* "ddb/engine/parser/sql_parser.pyx":400
+      /* "ddb/engine/parser/sql_parser.py":400
  *         if query_object['mode']=="select":
  *             expanded_select=[]
  *             for item in query_object['meta']['select']:             # <<<<<<<<<<<<<<
@@ -7846,7 +7846,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":406
+    /* "ddb/engine/parser/sql_parser.py":406
  *                 else:
  *                     expanded_select.append(item)
  *             query_object['meta']['select']=expanded_select             # <<<<<<<<<<<<<<
@@ -7858,7 +7858,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
     if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_n_s_select, __pyx_v_expanded_select) < 0)) __PYX_ERR(0, 406, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":398
+    /* "ddb/engine/parser/sql_parser.py":398
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):
  *         if query_object['mode']=="select":             # <<<<<<<<<<<<<<
@@ -7867,7 +7867,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
  */
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":397
+  /* "ddb/engine/parser/sql_parser.py":397
  *     #expand columns
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):             # <<<<<<<<<<<<<<
@@ -7893,7 +7893,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_4expand
   return __pyx_r;
 }
 
-/* "ddb/engine/parser/sql_parser.pyx":413
+/* "ddb/engine/parser/sql_parser.py":413
  * 
  * 
  *     def get_sub_array(self,array,key=None):             # <<<<<<<<<<<<<<
@@ -7987,7 +7987,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("get_sub_array", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":414
+  /* "ddb/engine/parser/sql_parser.py":414
  * 
  *     def get_sub_array(self,array,key=None):
  *         if None == key:             # <<<<<<<<<<<<<<
@@ -7999,7 +7999,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":415
+    /* "ddb/engine/parser/sql_parser.py":415
  *     def get_sub_array(self,array,key=None):
  *         if None == key:
  *             if isinstance(array,str):             # <<<<<<<<<<<<<<
@@ -8010,7 +8010,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
     __pyx_t_3 = (__pyx_t_2 != 0);
     if (__pyx_t_3) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":416
+      /* "ddb/engine/parser/sql_parser.py":416
  *         if None == key:
  *             if isinstance(array,str):
  *                 return [array]             # <<<<<<<<<<<<<<
@@ -8027,7 +8027,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
       __pyx_t_1 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":415
+      /* "ddb/engine/parser/sql_parser.py":415
  *     def get_sub_array(self,array,key=None):
  *         if None == key:
  *             if isinstance(array,str):             # <<<<<<<<<<<<<<
@@ -8036,7 +8036,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":418
+    /* "ddb/engine/parser/sql_parser.py":418
  *                 return [array]
  *             else:
  *                 return array             # <<<<<<<<<<<<<<
@@ -8050,7 +8050,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
       goto __pyx_L0;
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":414
+    /* "ddb/engine/parser/sql_parser.py":414
  * 
  *     def get_sub_array(self,array,key=None):
  *         if None == key:             # <<<<<<<<<<<<<<
@@ -8059,7 +8059,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
  */
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":419
+  /* "ddb/engine/parser/sql_parser.py":419
  *             else:
  *                 return array
  *         if True == isinstance(array[key],list):             # <<<<<<<<<<<<<<
@@ -8073,7 +8073,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
   __pyx_t_2 = ((1 == __pyx_t_3) != 0);
   if (__pyx_t_2) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":420
+    /* "ddb/engine/parser/sql_parser.py":420
  *                 return array
  *         if True == isinstance(array[key],list):
  *             return array[key]             # <<<<<<<<<<<<<<
@@ -8087,7 +8087,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
     __pyx_t_1 = 0;
     goto __pyx_L0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":419
+    /* "ddb/engine/parser/sql_parser.py":419
  *             else:
  *                 return array
  *         if True == isinstance(array[key],list):             # <<<<<<<<<<<<<<
@@ -8096,7 +8096,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
  */
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":422
+  /* "ddb/engine/parser/sql_parser.py":422
  *             return array[key]
  *         else:
  *             return [array[key]]             # <<<<<<<<<<<<<<
@@ -8117,7 +8117,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
     goto __pyx_L0;
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":413
+  /* "ddb/engine/parser/sql_parser.py":413
  * 
  * 
  *     def get_sub_array(self,array,key=None):             # <<<<<<<<<<<<<<
@@ -8137,7 +8137,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_6get_su
   return __pyx_r;
 }
 
-/* "ddb/engine/parser/sql_parser.pyx":426
+/* "ddb/engine/parser/sql_parser.py":426
  * 
  *     # for tokens ['data']
  *     def get_sub_array_sub_key(self,array,key):             # <<<<<<<<<<<<<<
@@ -8230,7 +8230,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
   int __pyx_t_5;
   __Pyx_RefNannySetupContext("get_sub_array_sub_key", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":427
+  /* "ddb/engine/parser/sql_parser.py":427
  *     # for tokens ['data']
  *     def get_sub_array_sub_key(self,array,key):
  *         temp_array=[]             # <<<<<<<<<<<<<<
@@ -8242,7 +8242,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
   __pyx_v_temp_array = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":429
+  /* "ddb/engine/parser/sql_parser.py":429
  *         temp_array=[]
  * 
  *         for item in array:             # <<<<<<<<<<<<<<
@@ -8291,7 +8291,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
     __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":430
+    /* "ddb/engine/parser/sql_parser.py":430
  * 
  *         for item in array:
  *             temp_array.append(item[key])             # <<<<<<<<<<<<<<
@@ -8303,7 +8303,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
     __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_temp_array, __pyx_t_4); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 430, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":429
+    /* "ddb/engine/parser/sql_parser.py":429
  *         temp_array=[]
  * 
  *         for item in array:             # <<<<<<<<<<<<<<
@@ -8313,7 +8313,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":432
+  /* "ddb/engine/parser/sql_parser.py":432
  *             temp_array.append(item[key])
  * 
  *         return temp_array             # <<<<<<<<<<<<<<
@@ -8325,7 +8325,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
   __pyx_r = __pyx_v_temp_array;
   goto __pyx_L0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":426
+  /* "ddb/engine/parser/sql_parser.py":426
  * 
  *     # for tokens ['data']
  *     def get_sub_array_sub_key(self,array,key):             # <<<<<<<<<<<<<<
@@ -8347,7 +8347,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_8get_su
   return __pyx_r;
 }
 
-/* "ddb/engine/parser/sql_parser.pyx":435
+/* "ddb/engine/parser/sql_parser.py":435
  * 
  * 
  *     def single_array_match(self,needles,haystacks):             # <<<<<<<<<<<<<<
@@ -8449,7 +8449,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   PyObject *__pyx_t_10 = NULL;
   __Pyx_RefNannySetupContext("single_array_match", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":439
+  /* "ddb/engine/parser/sql_parser.py":439
  * 
  *         # make needels an array, with or without a sub key
  *         if isinstance(needles,str):             # <<<<<<<<<<<<<<
@@ -8460,7 +8460,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":440
+    /* "ddb/engine/parser/sql_parser.py":440
  *         # make needels an array, with or without a sub key
  *         if isinstance(needles,str):
  *             temp_needles=[needles]             # <<<<<<<<<<<<<<
@@ -8475,7 +8475,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __pyx_v_temp_needles = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":439
+    /* "ddb/engine/parser/sql_parser.py":439
  * 
  *         # make needels an array, with or without a sub key
  *         if isinstance(needles,str):             # <<<<<<<<<<<<<<
@@ -8485,7 +8485,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     goto __pyx_L3;
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":442
+  /* "ddb/engine/parser/sql_parser.py":442
  *             temp_needles=[needles]
  *         else:
  *             temp_needles=needles             # <<<<<<<<<<<<<<
@@ -8498,7 +8498,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   }
   __pyx_L3:;
 
-  /* "ddb/engine/parser/sql_parser.pyx":446
+  /* "ddb/engine/parser/sql_parser.py":446
  * 
  *         # make haystacks an array
  *         if isinstance(haystacks,str):             # <<<<<<<<<<<<<<
@@ -8509,7 +8509,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "ddb/engine/parser/sql_parser.pyx":447
+    /* "ddb/engine/parser/sql_parser.py":447
  *         # make haystacks an array
  *         if isinstance(haystacks,str):
  *             temp_haystacks=[haystacks]             # <<<<<<<<<<<<<<
@@ -8524,7 +8524,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __pyx_v_temp_haystacks = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":446
+    /* "ddb/engine/parser/sql_parser.py":446
  * 
  *         # make haystacks an array
  *         if isinstance(haystacks,str):             # <<<<<<<<<<<<<<
@@ -8534,7 +8534,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     goto __pyx_L4;
   }
 
-  /* "ddb/engine/parser/sql_parser.pyx":449
+  /* "ddb/engine/parser/sql_parser.py":449
  *             temp_haystacks=[haystacks]
  *         else:
  *             temp_haystacks=haystacks             # <<<<<<<<<<<<<<
@@ -8547,7 +8547,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   }
   __pyx_L4:;
 
-  /* "ddb/engine/parser/sql_parser.pyx":453
+  /* "ddb/engine/parser/sql_parser.py":453
  *         # now we have 2 plain array/lists to compare
  * 
  *         index=0             # <<<<<<<<<<<<<<
@@ -8557,7 +8557,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   __Pyx_INCREF(__pyx_int_0);
   __pyx_v_index = __pyx_int_0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":454
+  /* "ddb/engine/parser/sql_parser.py":454
  * 
  *         index=0
  *         for needle in temp_needles:             # <<<<<<<<<<<<<<
@@ -8606,7 +8606,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __Pyx_XDECREF_SET(__pyx_v_needle, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":456
+    /* "ddb/engine/parser/sql_parser.py":456
  *         for needle in temp_needles:
  *             # ran out of haystack to test. not a match
  *             if index>=len(temp_haystacks):             # <<<<<<<<<<<<<<
@@ -8622,7 +8622,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     if (__pyx_t_1) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":457
+      /* "ddb/engine/parser/sql_parser.py":457
  *             # ran out of haystack to test. not a match
  *             if index>=len(temp_haystacks):
  *                 return False             # <<<<<<<<<<<<<<
@@ -8635,7 +8635,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       goto __pyx_L0;
 
-      /* "ddb/engine/parser/sql_parser.pyx":456
+      /* "ddb/engine/parser/sql_parser.py":456
  *         for needle in temp_needles:
  *             # ran out of haystack to test. not a match
  *             if index>=len(temp_haystacks):             # <<<<<<<<<<<<<<
@@ -8644,7 +8644,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":458
+    /* "ddb/engine/parser/sql_parser.py":458
  *             if index>=len(temp_haystacks):
  *                 return False
  *             haystack=temp_haystacks[index]             # <<<<<<<<<<<<<<
@@ -8656,7 +8656,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __Pyx_XDECREF_SET(__pyx_v_haystack, __pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":460
+    /* "ddb/engine/parser/sql_parser.py":460
  *             haystack=temp_haystacks[index]
  *             # not a match
  *             if needle[0:1]!='{' and needle[-1]!='}':             # <<<<<<<<<<<<<<
@@ -8680,7 +8680,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __pyx_L9_bool_binop_done:;
     if (__pyx_t_1) {
 
-      /* "ddb/engine/parser/sql_parser.pyx":461
+      /* "ddb/engine/parser/sql_parser.py":461
  *             # not a match
  *             if needle[0:1]!='{' and needle[-1]!='}':
  *                 if needle.lower()!=haystack.lower():             # <<<<<<<<<<<<<<
@@ -8728,7 +8728,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       if (__pyx_t_1) {
 
-        /* "ddb/engine/parser/sql_parser.pyx":462
+        /* "ddb/engine/parser/sql_parser.py":462
  *             if needle[0:1]!='{' and needle[-1]!='}':
  *                 if needle.lower()!=haystack.lower():
  *                     return False             # <<<<<<<<<<<<<<
@@ -8741,7 +8741,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         goto __pyx_L0;
 
-        /* "ddb/engine/parser/sql_parser.pyx":461
+        /* "ddb/engine/parser/sql_parser.py":461
  *             # not a match
  *             if needle[0:1]!='{' and needle[-1]!='}':
  *                 if needle.lower()!=haystack.lower():             # <<<<<<<<<<<<<<
@@ -8750,7 +8750,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
  */
       }
 
-      /* "ddb/engine/parser/sql_parser.pyx":460
+      /* "ddb/engine/parser/sql_parser.py":460
  *             haystack=temp_haystacks[index]
  *             # not a match
  *             if needle[0:1]!='{' and needle[-1]!='}':             # <<<<<<<<<<<<<<
@@ -8759,7 +8759,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
  */
     }
 
-    /* "ddb/engine/parser/sql_parser.pyx":463
+    /* "ddb/engine/parser/sql_parser.py":463
  *                 if needle.lower()!=haystack.lower():
  *                     return False
  *             index+=1             # <<<<<<<<<<<<<<
@@ -8771,7 +8771,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
     __Pyx_DECREF_SET(__pyx_v_index, __pyx_t_9);
     __pyx_t_9 = 0;
 
-    /* "ddb/engine/parser/sql_parser.pyx":454
+    /* "ddb/engine/parser/sql_parser.py":454
  * 
  *         index=0
  *         for needle in temp_needles:             # <<<<<<<<<<<<<<
@@ -8781,7 +8781,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":465
+  /* "ddb/engine/parser/sql_parser.py":465
  *             index+=1
  *         # if we got here it must match
  *         return  True             # <<<<<<<<<<<<<<
@@ -8792,7 +8792,7 @@ static PyObject *__pyx_pf_3ddb_6engine_6parser_10sql_parser_10sql_parser_10singl
   __pyx_r = Py_True;
   goto __pyx_L0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":435
+  /* "ddb/engine/parser/sql_parser.py":435
  * 
  * 
  *     def single_array_match(self,needles,haystacks):             # <<<<<<<<<<<<<<
@@ -9035,7 +9035,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_curent_object, __pyx_k_curent_object, sizeof(__pyx_k_curent_object), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
   {&__pyx_n_s_ddb_engine_parser_sql_parser, __pyx_k_ddb_engine_parser_sql_parser, sizeof(__pyx_k_ddb_engine_parser_sql_parser), 0, 0, 1, 1},
-  {&__pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_k_ddb_engine_parser_sql_parser_pyx, sizeof(__pyx_k_ddb_engine_parser_sql_parser_pyx), 0, 0, 1, 0},
+  {&__pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_k_ddb_engine_parser_sql_parser_py, sizeof(__pyx_k_ddb_engine_parser_sql_parser_py), 0, 0, 1, 0},
   {&__pyx_n_s_debug, __pyx_k_debug, sizeof(__pyx_k_debug), 0, 0, 1, 1},
   {&__pyx_n_s_debug_on, __pyx_k_debug_on, sizeof(__pyx_k_debug_on), 0, 0, 1, 1},
   {&__pyx_n_s_dependency_found, __pyx_k_dependency_found, sizeof(__pyx_k_dependency_found), 0, 0, 1, 1},
@@ -9145,7 +9145,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "ddb/engine/parser/sql_parser.pyx":101
+  /* "ddb/engine/parser/sql_parser.py":101
  * 
  *         if None == self.query_objects:
  *             raise Exception("Object failed to decode")             # <<<<<<<<<<<<<<
@@ -9156,7 +9156,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "ddb/engine/parser/sql_parser.pyx":257
+  /* "ddb/engine/parser/sql_parser.py":257
  *                             argument={}
  *                             for word in match:
  *                                 if word[0:1]=='{' and word[-1]=='}':             # <<<<<<<<<<<<<<
@@ -9167,7 +9167,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__6);
   __Pyx_GIVEREF(__pyx_slice__6);
 
-  /* "ddb/engine/parser/sql_parser.pyx":261
+  /* "ddb/engine/parser/sql_parser.py":261
  *                                     if word[1]=='#':
  *                                         try:
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']=int(tokens[token_index+w_index]['data'])             # <<<<<<<<<<<<<<
@@ -9178,7 +9178,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__10);
   __Pyx_GIVEREF(__pyx_slice__10);
 
-  /* "ddb/engine/parser/sql_parser.pyx":263
+  /* "ddb/engine/parser/sql_parser.py":263
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']=int(tokens[token_index+w_index]['data'])
  *                                         except:
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']             # <<<<<<<<<<<<<<
@@ -9189,7 +9189,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__10);
   __Pyx_GIVEREF(__pyx_slice__10);
 
-  /* "ddb/engine/parser/sql_parser.pyx":265
+  /* "ddb/engine/parser/sql_parser.py":265
  *                                             argument[word[2:-1]]=tokens[token_index+w_index]['data']
  *                                     else:
  *                                         argument[word[1:-1]]=tokens[token_index+w_index]['data']             # <<<<<<<<<<<<<<
@@ -9200,7 +9200,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__11);
   __Pyx_GIVEREF(__pyx_slice__11);
 
-  /* "ddb/engine/parser/sql_parser.pyx":460
+  /* "ddb/engine/parser/sql_parser.py":460
  *             haystack=temp_haystacks[index]
  *             # not a match
  *             if needle[0:1]!='{' and needle[-1]!='}':             # <<<<<<<<<<<<<<
@@ -9211,7 +9211,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__6);
   __Pyx_GIVEREF(__pyx_slice__6);
 
-  /* "ddb/engine/parser/sql_parser.pyx":74
+  /* "ddb/engine/parser/sql_parser.py":74
  *     #         ({EXPRESSION}])
  * 
  *     def __init__(self,query,debug=False):             # <<<<<<<<<<<<<<
@@ -9221,12 +9221,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__15 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_query, __pyx_n_s_debug, __pyx_n_s_querys, __pyx_n_s_q, __pyx_n_s_tokens, __pyx_n_s_parsed); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_init, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_init, 74, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 74, __pyx_L1_error)
   __pyx_tuple__17 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "ddb/engine/parser/sql_parser.pyx":103
+  /* "ddb/engine/parser/sql_parser.py":103
  *             raise Exception("Object failed to decode")
  * 
  *     def parse(self,tokens):             # <<<<<<<<<<<<<<
@@ -9236,9 +9236,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__18 = PyTuple_Pack(41, __pyx_n_s_self, __pyx_n_s_tokens, __pyx_n_s_sql_object, __pyx_n_s_debug, __pyx_n_s_query_object, __pyx_n_s_query, __pyx_n_s_token_index, __pyx_n_s_keyword_found, __pyx_n_s_switch_index, __pyx_n_s_query_mode, __pyx_n_s_curent_object, __pyx_n_s_switch, __pyx_n_s_dispose, __pyx_n_s_no_keyword, __pyx_n_s_store_array, __pyx_n_s_parent, __pyx_n_s_optional, __pyx_n_s_object_id, __pyx_n_s_keyword_compare, __pyx_n_s_haystack, __pyx_n_s_in_argument_2, __pyx_n_s_argument_index, __pyx_n_s_depends_on, __pyx_n_s_depends_oncompare, __pyx_n_s_dependency_found, __pyx_n_s_q_o, __pyx_n_s_arguments, __pyx_n_s_data, __pyx_n_s_match_len, __pyx_n_s_match, __pyx_n_s_sig, __pyx_n_s_signature_compare, __pyx_n_s_w_index, __pyx_n_s_argument, __pyx_n_s_word, __pyx_n_s_jump, __pyx_n_s_tsi, __pyx_n_s_ts, __pyx_n_s_bad, __pyx_n_s_t, __pyx_n_s_x); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 41, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_parse, 103, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 41, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_parse, 103, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 103, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":397
+  /* "ddb/engine/parser/sql_parser.py":397
  *     #expand columns
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):             # <<<<<<<<<<<<<<
@@ -9248,9 +9248,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__20 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_columns, __pyx_n_s_expanded_select, __pyx_n_s_item, __pyx_n_s_column); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_expand_columns, 397, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 397, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_expand_columns, 397, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 397, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":413
+  /* "ddb/engine/parser/sql_parser.py":413
  * 
  * 
  *     def get_sub_array(self,array,key=None):             # <<<<<<<<<<<<<<
@@ -9260,12 +9260,12 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__22 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_array, __pyx_n_s_key); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_get_sub_array, 413, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 413, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_get_sub_array, 413, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 413, __pyx_L1_error)
   __pyx_tuple__24 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
 
-  /* "ddb/engine/parser/sql_parser.pyx":426
+  /* "ddb/engine/parser/sql_parser.py":426
  * 
  *     # for tokens ['data']
  *     def get_sub_array_sub_key(self,array,key):             # <<<<<<<<<<<<<<
@@ -9275,9 +9275,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__25 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_array, __pyx_n_s_key, __pyx_n_s_temp_array, __pyx_n_s_item); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_get_sub_array_sub_key, 426, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 426, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_get_sub_array_sub_key, 426, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 426, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":435
+  /* "ddb/engine/parser/sql_parser.py":435
  * 
  * 
  *     def single_array_match(self,needles,haystacks):             # <<<<<<<<<<<<<<
@@ -9287,7 +9287,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__27 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_needles, __pyx_n_s_haystacks, __pyx_n_s_temp_needles, __pyx_n_s_temp_haystacks, __pyx_n_s_index, __pyx_n_s_needle, __pyx_n_s_haystack); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_pyx, __pyx_n_s_single_array_match, 435, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 435, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_parser_sql_parser_py, __pyx_n_s_single_array_match, 435, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9569,7 +9569,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "ddb/engine/parser/sql_parser.pyx":1
+  /* "ddb/engine/parser/sql_parser.py":1
  * from ..tokenizer.sql_tokenize import *             # <<<<<<<<<<<<<<
  * from ..structure.table import *
  * from .language import query_matrix
@@ -9585,7 +9585,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":2
+  /* "ddb/engine/parser/sql_parser.py":2
  * from ..tokenizer.sql_tokenize import *
  * from ..structure.table import *             # <<<<<<<<<<<<<<
  * from .language import query_matrix
@@ -9602,7 +9602,7 @@ if (!__Pyx_RefNanny) {
   if (__pyx_import_star(__pyx_t_1) < 0) __PYX_ERR(0, 2, __pyx_L1_error);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":3
+  /* "ddb/engine/parser/sql_parser.py":3
  * from ..tokenizer.sql_tokenize import *
  * from ..structure.table import *
  * from .language import query_matrix             # <<<<<<<<<<<<<<
@@ -9623,7 +9623,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":4
+  /* "ddb/engine/parser/sql_parser.py":4
  * from ..structure.table import *
  * from .language import query_matrix
  * import copy             # <<<<<<<<<<<<<<
@@ -9635,7 +9635,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_copy, __pyx_t_2) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":6
+  /* "ddb/engine/parser/sql_parser.py":6
  * import copy
  * 
  * debug_on=False             # <<<<<<<<<<<<<<
@@ -9644,7 +9644,7 @@ if (!__Pyx_RefNanny) {
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_debug_on, Py_False) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
 
-  /* "ddb/engine/parser/sql_parser.pyx":10
+  /* "ddb/engine/parser/sql_parser.py":10
  * 
  * 
  * class sql_parser:             # <<<<<<<<<<<<<<
@@ -9654,7 +9654,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_sql_parser, __pyx_n_s_sql_parser, (PyObject *) NULL, __pyx_n_s_ddb_engine_parser_sql_parser, (PyObject *) NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "ddb/engine/parser/sql_parser.pyx":74
+  /* "ddb/engine/parser/sql_parser.py":74
  *     #         ({EXPRESSION}])
  * 
  *     def __init__(self,query,debug=False):             # <<<<<<<<<<<<<<
@@ -9667,7 +9667,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":103
+  /* "ddb/engine/parser/sql_parser.py":103
  *             raise Exception("Object failed to decode")
  * 
  *     def parse(self,tokens):             # <<<<<<<<<<<<<<
@@ -9679,7 +9679,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_parse, __pyx_t_1) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":397
+  /* "ddb/engine/parser/sql_parser.py":397
  *     #expand columns
  *     # TODO null trapping
  *     def expand_columns(self,query_object,columns):             # <<<<<<<<<<<<<<
@@ -9691,7 +9691,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_expand_columns, __pyx_t_1) < 0) __PYX_ERR(0, 397, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":413
+  /* "ddb/engine/parser/sql_parser.py":413
  * 
  * 
  *     def get_sub_array(self,array,key=None):             # <<<<<<<<<<<<<<
@@ -9704,7 +9704,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_sub_array, __pyx_t_1) < 0) __PYX_ERR(0, 413, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":426
+  /* "ddb/engine/parser/sql_parser.py":426
  * 
  *     # for tokens ['data']
  *     def get_sub_array_sub_key(self,array,key):             # <<<<<<<<<<<<<<
@@ -9716,7 +9716,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_sub_array_sub_key, __pyx_t_1) < 0) __PYX_ERR(0, 426, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":435
+  /* "ddb/engine/parser/sql_parser.py":435
  * 
  * 
  *     def single_array_match(self,needles,haystacks):             # <<<<<<<<<<<<<<
@@ -9728,7 +9728,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_single_array_match, __pyx_t_1) < 0) __PYX_ERR(0, 435, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":10
+  /* "ddb/engine/parser/sql_parser.py":10
  * 
  * 
  * class sql_parser:             # <<<<<<<<<<<<<<
@@ -9741,7 +9741,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "ddb/engine/parser/sql_parser.pyx":1
+  /* "ddb/engine/parser/sql_parser.py":1
  * from ..tokenizer.sql_tokenize import *             # <<<<<<<<<<<<<<
  * from ..structure.table import *
  * from .language import query_matrix
