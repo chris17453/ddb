@@ -41,7 +41,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.136',
+    version='1.0.137',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
@@ -62,7 +62,7 @@ setup(
    'match.evaluate.engine.ddb',
    'sql_parser.parserengine.ddb',
    'sql_tokenize.tokenizer.engine.ddb',
-   'language.parser.engine.ddb',]
+   'language.parser.engine.ddb',],
 
     #data_files=[
     #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
