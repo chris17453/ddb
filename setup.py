@@ -30,19 +30,7 @@ extensions = [
 ]     
   
 
-   Extension("ddb.engine.parser.language",        [ "./ddb/engine/parser/language"+ext ]),
-   Extension("ddb.engine.tokenizer.sql_tokenize", [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]) ,
-   Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ]),
-   Extension("ddb.engine.evaluate.match",         [ "./ddb/engine/evaluate/match"+ext ] ),
-   Extension("ddb.engine.structure.column",       [ "./ddb/engine/structure/column"+ext ] ),
-   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ]),
-   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
-   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ]),
-   Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
-   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ]),
-   Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
-
-   
+  
 
 if USE_CYTHON:
     try:
@@ -53,7 +41,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.135',
+    version='1.0.136',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
