@@ -9,9 +9,10 @@ except:
 
 
 USE_CYTHON = os.path.exists('ddb/sql_engine.py')
+print("USE_CYTHON",USE_CYTHON)
 
 
-ext = '.pyx' if USE_CYTHON else '.c'
+ext = '.py' if USE_CYTHON else '.c'
 
 
 extensions = [
@@ -55,7 +56,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.105',
+    version='1.0.106',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
