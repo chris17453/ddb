@@ -23,7 +23,7 @@ extensions = [
    Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ]),
    Extension("ddb.engine.tokenizer.sql_tokenize", [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]) ,
    Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
-   Extension("ddb.engine.cli",                    [ "./ddb/engine/cli"+ext ]) ,
+   Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
   
 if USE_CYTHON:
@@ -35,7 +35,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.111',
+    version='1.0.112',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
