@@ -41,8 +41,8 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.137',
-    packages=['ddb',],
+    version='1.0.138',
+    #packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
