@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "06b9ab57ae1072eef9b14156f90092e5de64ee1132d330d49256131deb48dcc9"
+            "sha256": "4e33920758c6efa2317da4efd0f62081455744d38d6d69fc71fa824b2e2c4e69"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -57,6 +57,9 @@
             ],
             "index": "pypi",
             "version": "==0.29.1"
+        },
+        "ddb": {
+            "path": "."
         },
         "e1839a8": {
             "path": "."

@@ -1,5 +1,6 @@
 include README.md
 recursive-include ddb *.c
+recursive-include ddb *.py
 include ddb/__init__.py
 include ddb/engine/__init__.py
 include ddb/engine/parser/__init__.py
