@@ -1,7 +1,7 @@
 import os
-#from distutils.core import setup
+from distutils.core import setup
 from distutils.extension import Extension
-from setuptools import setup
+#from setuptools import setup
 
 
 
@@ -36,7 +36,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.117',
+    version='1.0.118',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
