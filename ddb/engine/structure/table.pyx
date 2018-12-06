@@ -160,8 +160,8 @@ class table:
             if c.display.visible == True:
                 temp_columns.append({'data':c.data.ordinal,'display':c.display.ordinal })
 
-        L = [(k,v) for (k,v) in temp_columns]
-        temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
+        #L = [(k,v) for (k,v) in temp_columns]
+        #temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
         return temp_columns
 
 

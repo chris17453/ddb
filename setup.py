@@ -8,16 +8,25 @@ from setuptools.extension import Extension
 extensions = [
   Extension(
      "ddb.engine.evaluate.match",
-     [
-         "./ddb/engine/evaluate/match.pyx"
-              ]
-     
-  )]
+     [ "./ddb/engine/evaluate/match.pyx" ] ),
+    Extension(
+     "ddb.engine.structure.column",
+     [ "./ddb/engine/structure/column.pyx" ] ),
+    Extension(
+
+     "ddb.engine.structure.table",
+     [ "./ddb/engine/structure/table.pyx" ]),
+    Extension(
+
+     "ddb.engine.structure.database",
+     [ "./ddb/engine/structure/database.pyx" ])
+]     
+  
 
 
 setup(
     name='ddb',
-    version='1.0.87',
+    version='1.0.88',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',

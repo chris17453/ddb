@@ -239,7 +239,7 @@ class database:
                 table_swap.append(t)
                 
         for t in temp_tables:
-            self.tables.append(table(table_file))
+            self.tables.append(table(t))
         
         self.tables=table_swap
             
