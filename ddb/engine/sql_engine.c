@@ -1353,9 +1353,6 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 #endif
 #define __Pyx_PyException_Check(obj) __Pyx_TypeCheck(obj, PyExc_Exception)
 
-/* CStringEquals.proto */
-static CYTHON_INLINE int __Pyx_StrEq(const char *, const char *);
-
 /* CheckBinaryVersion.proto */
 static int __Pyx_check_binary_version(void);
 
@@ -1382,7 +1379,6 @@ static const char __pyx_k_x[] = "x";
 static const char __pyx_k_y[] = "y";
 static const char __pyx_k__3[] = "";
 static const char __pyx_k__7[] = "{}";
-static const char __pyx_k__8[] = "*";
 static const char __pyx_k_c2[] = "c2";
 static const char __pyx_k_ex[] = "ex";
 static const char __pyx_k_os[] = "os";
@@ -1533,7 +1529,6 @@ static const char __pyx_k_limit_start[] = "limit_start";
 static const char __pyx_k_line_number[] = "line_number";
 static const char __pyx_k_show_tables[] = "show tables";
 static const char __pyx_k_Create_Table[] = "Create Table";
-static const char __pyx_k_adding_table[] = "adding table";
 static const char __pyx_k_column_count[] = "column_count";
 static const char __pyx_k_content_file[] = "content_file";
 static const char __pyx_k_create_table[] = "create table";
@@ -1632,10 +1627,8 @@ static PyObject *__pyx_n_s_Use;
 static PyObject *__pyx_n_s_WHITESPACE;
 static PyObject *__pyx_kp_s__3;
 static PyObject *__pyx_kp_s__7;
-static PyObject *__pyx_n_s__8;
 static PyObject *__pyx_n_s_add_column;
 static PyObject *__pyx_n_s_add_error;
-static PyObject *__pyx_kp_s_adding_table;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_append_data;
 static PyObject *__pyx_n_s_arg1;
@@ -1883,50 +1876,50 @@ static PyObject *__pyx_slice__4;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
-static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_tuple__11;
-static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_tuple__10;
+static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
-static PyObject *__pyx_tuple__16;
+static PyObject *__pyx_tuple__17;
 static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__19;
+static PyObject *__pyx_tuple__20;
 static PyObject *__pyx_tuple__21;
-static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__24;
-static PyObject *__pyx_tuple__26;
-static PyObject *__pyx_tuple__28;
-static PyObject *__pyx_tuple__30;
+static PyObject *__pyx_tuple__23;
+static PyObject *__pyx_tuple__25;
+static PyObject *__pyx_tuple__27;
+static PyObject *__pyx_tuple__29;
+static PyObject *__pyx_tuple__31;
 static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__35;
-static PyObject *__pyx_tuple__37;
-static PyObject *__pyx_tuple__39;
-static PyObject *__pyx_tuple__41;
-static PyObject *__pyx_tuple__43;
-static PyObject *__pyx_tuple__45;
-static PyObject *__pyx_tuple__47;
-static PyObject *__pyx_tuple__49;
-static PyObject *__pyx_tuple__51;
-static PyObject *__pyx_codeobj__10;
-static PyObject *__pyx_codeobj__12;
-static PyObject *__pyx_codeobj__14;
-static PyObject *__pyx_codeobj__17;
-static PyObject *__pyx_codeobj__20;
-static PyObject *__pyx_codeobj__23;
-static PyObject *__pyx_codeobj__25;
-static PyObject *__pyx_codeobj__27;
-static PyObject *__pyx_codeobj__29;
-static PyObject *__pyx_codeobj__31;
-static PyObject *__pyx_codeobj__34;
-static PyObject *__pyx_codeobj__36;
-static PyObject *__pyx_codeobj__38;
-static PyObject *__pyx_codeobj__40;
-static PyObject *__pyx_codeobj__42;
-static PyObject *__pyx_codeobj__44;
-static PyObject *__pyx_codeobj__46;
-static PyObject *__pyx_codeobj__48;
-static PyObject *__pyx_codeobj__50;
-static PyObject *__pyx_codeobj__52;
+static PyObject *__pyx_tuple__34;
+static PyObject *__pyx_tuple__36;
+static PyObject *__pyx_tuple__38;
+static PyObject *__pyx_tuple__40;
+static PyObject *__pyx_tuple__42;
+static PyObject *__pyx_tuple__44;
+static PyObject *__pyx_tuple__46;
+static PyObject *__pyx_tuple__48;
+static PyObject *__pyx_tuple__50;
+static PyObject *__pyx_codeobj__9;
+static PyObject *__pyx_codeobj__11;
+static PyObject *__pyx_codeobj__13;
+static PyObject *__pyx_codeobj__16;
+static PyObject *__pyx_codeobj__19;
+static PyObject *__pyx_codeobj__22;
+static PyObject *__pyx_codeobj__24;
+static PyObject *__pyx_codeobj__26;
+static PyObject *__pyx_codeobj__28;
+static PyObject *__pyx_codeobj__30;
+static PyObject *__pyx_codeobj__33;
+static PyObject *__pyx_codeobj__35;
+static PyObject *__pyx_codeobj__37;
+static PyObject *__pyx_codeobj__39;
+static PyObject *__pyx_codeobj__41;
+static PyObject *__pyx_codeobj__43;
+static PyObject *__pyx_codeobj__45;
+static PyObject *__pyx_codeobj__47;
+static PyObject *__pyx_codeobj__49;
+static PyObject *__pyx_codeobj__51;
 /* Late includes */
 
 /* "ddb/engine/sql_engine.pyx":20
@@ -2722,7 +2715,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)             # <<<<<<<<<<<<<<
  *         self.database.tables.append(t)
- *         print ("adding table")
+ * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_table); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -2744,7 +2737,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  *         self.database.tables.append(t)             # <<<<<<<<<<<<<<
- *         print ("adding table")
+ * 
  * 
  */
   __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_database); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
@@ -2754,15 +2747,6 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_4 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_v_t); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "ddb/engine/sql_engine.pyx":61
- *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
- *         self.database.tables.append(t)
- *         print ("adding table")             # <<<<<<<<<<<<<<
- * 
- *     def has_configuration(self):
- */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_adding_table) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":57
  * 
@@ -2789,7 +2773,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_4define_table(C
 }
 
 /* "ddb/engine/sql_engine.pyx":63
- *         print ("adding table")
+ * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
@@ -2867,7 +2851,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_6has_configurat
   goto __pyx_L0;
 
   /* "ddb/engine/sql_engine.pyx":63
- *         print ("adding table")
+ * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
@@ -3262,7 +3246,7 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  *             #print query_object['mode']
  *             if query_object['mode']=="show tables":             # <<<<<<<<<<<<<<
  * 
- *                 self.results=show_tables(self.database)
+ *                 self.results=functions.show_tables(self.database)
  */
     __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_query_object, __pyx_n_s_mode); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
@@ -3273,30 +3257,33 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
       /* "ddb/engine/sql_engine.pyx":95
  *             if query_object['mode']=="show tables":
  * 
- *                 self.results=show_tables(self.database)             # <<<<<<<<<<<<<<
+ *                 self.results=functions.show_tables(self.database)             # <<<<<<<<<<<<<<
  *             if query_object['mode']=="show columns":
- *                 self.results=show_columns(self.database,query_object)
+ *                 self.results=functions.show_columns(self.database,query_object)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_show_tables_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_functions); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_database); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_show_tables_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_database); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
       __pyx_t_5 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_3);
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+        __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_1);
         if (likely(__pyx_t_5)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
           __Pyx_INCREF(__pyx_t_5);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_3, function);
+          __Pyx_DECREF_SET(__pyx_t_1, function);
         }
       }
-      __pyx_t_7 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_1);
+      __pyx_t_7 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_results, __pyx_t_7) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
@@ -3305,15 +3292,15 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
  *             #print query_object['mode']
  *             if query_object['mode']=="show tables":             # <<<<<<<<<<<<<<
  * 
- *                 self.results=show_tables(self.database)
+ *                 self.results=functions.show_tables(self.database)
  */
     }
 
     /* "ddb/engine/sql_engine.pyx":96
  * 
- *                 self.results=show_tables(self.database)
+ *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":             # <<<<<<<<<<<<<<
- *                 self.results=show_columns(self.database,query_object)
+ *                 self.results=functions.show_columns(self.database,query_object)
  *             #if query_object['mode']=="show errors":
  */
     __pyx_t_7 = __Pyx_PyObject_Dict_GetItem(__pyx_v_query_object, __pyx_n_s_mode); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
@@ -3323,14 +3310,17 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
     if (__pyx_t_4) {
 
       /* "ddb/engine/sql_engine.pyx":97
- *                 self.results=show_tables(self.database)
+ *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":
- *                 self.results=show_columns(self.database,query_object)             # <<<<<<<<<<<<<<
+ *                 self.results=functions.show_columns(self.database,query_object)             # <<<<<<<<<<<<<<
  *             #if query_object['mode']=="show errors":
  *             #    self.results=show_errors(self.database,self.table)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_show_columns_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_functions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_show_columns_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_database); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_5 = NULL;
@@ -3385,9 +3375,9 @@ static PyObject *__pyx_pf_3ddb_6engine_10sql_engine_10sql_engine_8query(CYTHON_U
 
       /* "ddb/engine/sql_engine.pyx":96
  * 
- *                 self.results=show_tables(self.database)
+ *                 self.results=functions.show_tables(self.database)
  *             if query_object['mode']=="show columns":             # <<<<<<<<<<<<<<
- *                 self.results=show_columns(self.database,query_object)
+ *                 self.results=functions.show_columns(self.database,query_object)
  *             #if query_object['mode']=="show errors":
  */
     }
@@ -14260,137 +14250,6 @@ static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
 
-static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
-  static const char* internal_type_names[] = {
-    "__pyx_ctuple_Py_ssize_t",
-    "__pyx_ctuple_Py_ssize_t_struct",
-    "__pyx_ctuple_long__and_Py_ssize_t",
-    "__pyx_ctuple_long__and_Py_ssize_t_struct",
-    0
-  };
-  const char** type_name = internal_type_names;
-  while (*type_name) {
-    if (__Pyx_StrEq(name, *type_name)) {
-      PyErr_Format(PyExc_TypeError, "Cannot overwrite C type %s", name);
-      goto bad;
-    }
-    type_name++;
-  }
-  if (0);
-  else {
-    if (PyObject_SetAttr(__pyx_m, py_name, o) < 0) goto bad;
-  }
-  return 0;
-  bad:
-  return -1;
-}
-
-static int
-__Pyx_import_all_from(PyObject *locals, PyObject *v)
-{
-    PyObject *all = PyObject_GetAttrString(v, "__all__");
-    PyObject *dict, *name, *value;
-    int skip_leading_underscores = 0;
-    int pos, err;
-    if (all == NULL) {
-        if (!PyErr_ExceptionMatches(PyExc_AttributeError))
-            return -1;
-        PyErr_Clear();
-        dict = PyObject_GetAttrString(v, "__dict__");
-        if (dict == NULL) {
-            if (!PyErr_ExceptionMatches(PyExc_AttributeError))
-                return -1;
-            PyErr_SetString(PyExc_ImportError,
-            "from-import-* object has no __dict__ and no __all__");
-            return -1;
-        }
-#if PY_MAJOR_VERSION < 3
-        all = PyObject_CallMethod(dict, (char *)"keys", NULL);
-#else
-        all = PyMapping_Keys(dict);
-#endif
-        Py_DECREF(dict);
-        if (all == NULL)
-            return -1;
-        skip_leading_underscores = 1;
-    }
-    for (pos = 0, err = 0; ; pos++) {
-        name = PySequence_GetItem(all, pos);
-        if (name == NULL) {
-            if (!PyErr_ExceptionMatches(PyExc_IndexError))
-                err = -1;
-            else
-                PyErr_Clear();
-            break;
-        }
-        if (skip_leading_underscores &&
-#if PY_MAJOR_VERSION < 3
-            PyString_Check(name) &&
-            PyString_AS_STRING(name)[0] == '_')
-#else
-            PyUnicode_Check(name) &&
-            PyUnicode_AS_UNICODE(name)[0] == '_')
-#endif
-        {
-            Py_DECREF(name);
-            continue;
-        }
-        value = PyObject_GetAttr(v, name);
-        if (value == NULL)
-            err = -1;
-        else if (PyDict_CheckExact(locals))
-            err = PyDict_SetItem(locals, name, value);
-        else
-            err = PyObject_SetItem(locals, name, value);
-        Py_DECREF(name);
-        Py_XDECREF(value);
-        if (err != 0)
-            break;
-    }
-    Py_DECREF(all);
-    return err;
-}
-static int __pyx_import_star(PyObject* m) {
-    int i;
-    int ret = -1;
-    char* s;
-    PyObject *locals = 0;
-    PyObject *list = 0;
-#if PY_MAJOR_VERSION >= 3
-    PyObject *utf8_name = 0;
-#endif
-    PyObject *name;
-    PyObject *item;
-    locals = PyDict_New();              if (!locals) goto bad;
-    if (__Pyx_import_all_from(locals, m) < 0) goto bad;
-    list = PyDict_Items(locals);        if (!list) goto bad;
-    for(i=0; i<PyList_GET_SIZE(list); i++) {
-        name = PyTuple_GET_ITEM(PyList_GET_ITEM(list, i), 0);
-        item = PyTuple_GET_ITEM(PyList_GET_ITEM(list, i), 1);
-#if PY_MAJOR_VERSION >= 3
-        utf8_name = PyUnicode_AsUTF8String(name);
-        if (!utf8_name) goto bad;
-        s = PyBytes_AS_STRING(utf8_name);
-        if (__pyx_import_star_set(item, name, s) < 0) goto bad;
-        Py_DECREF(utf8_name); utf8_name = 0;
-#else
-        s = PyString_AsString(name);
-        if (!s) goto bad;
-        if (__pyx_import_star_set(item, name, s) < 0) goto bad;
-#endif
-    }
-    ret = 0;
-bad:
-    Py_XDECREF(locals);
-    Py_XDECREF(list);
-#if PY_MAJOR_VERSION >= 3
-    Py_XDECREF(utf8_name);
-#endif
-    return ret;
-}
-
-
-
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
@@ -14453,10 +14312,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_WHITESPACE, __pyx_k_WHITESPACE, sizeof(__pyx_k_WHITESPACE), 0, 0, 1, 1},
   {&__pyx_kp_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 0},
   {&__pyx_kp_s__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 0, 1, 0},
-  {&__pyx_n_s__8, __pyx_k__8, sizeof(__pyx_k__8), 0, 0, 1, 1},
   {&__pyx_n_s_add_column, __pyx_k_add_column, sizeof(__pyx_k_add_column), 0, 0, 1, 1},
   {&__pyx_n_s_add_error, __pyx_k_add_error, sizeof(__pyx_k_add_error), 0, 0, 1, 1},
-  {&__pyx_kp_s_adding_table, __pyx_k_adding_table, sizeof(__pyx_k_adding_table), 0, 0, 1, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_append_data, __pyx_k_append_data, sizeof(__pyx_k_append_data), 0, 0, 1, 1},
   {&__pyx_n_s_arg1, __pyx_k_arg1, sizeof(__pyx_k_arg1), 0, 0, 1, 1},
@@ -14816,10 +14673,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     if True == debug_on:
  *         print(msg,arg1,arg2,arg3)
  */
-  __pyx_tuple__9 = PyTuple_Pack(4, __pyx_n_s_msg, __pyx_n_s_arg1, __pyx_n_s_arg2, __pyx_n_s_arg3); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 20, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_info, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(4, __pyx_n_s_msg, __pyx_n_s_arg1, __pyx_n_s_arg2, __pyx_n_s_arg3); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_info, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 20, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":29
  * # Add Update
@@ -14828,10 +14685,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     return type('Enum', (), enums)
  * 
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_n_s_enums); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 29, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_enum, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_enums); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_enum, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 29, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":36
  *     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
@@ -14840,13 +14697,13 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         global debug_on
  *         debug_on=debug
  */
-  __pyx_tuple__13 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_database_dir, __pyx_n_s_config_file, __pyx_n_s_query, __pyx_n_s_debug, __pyx_n_s_mode); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_init, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __pyx_tuple__15 = PyTuple_Pack(5, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject*)__pyx_n_s_array)); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 36, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_tuple__12 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_database_dir, __pyx_n_s_config_file, __pyx_n_s_query, __pyx_n_s_debug, __pyx_n_s_mode); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(6, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_init, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(5, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_False), ((PyObject*)__pyx_n_s_array)); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "ddb/engine/sql_engine.pyx":53
  * 
@@ -14855,13 +14712,13 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         self.debug=debug
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_debugging, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __pyx_tuple__18 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_tuple__15 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_debug); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_debugging, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(1, ((PyObject *)Py_False)); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
   /* "ddb/engine/sql_engine.pyx":57
  * 
@@ -14870,25 +14727,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  */
-  __pyx_tuple__19 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_table_name, __pyx_n_s_database_name, __pyx_n_s_columns, __pyx_n_s_data_file, __pyx_n_s_field_delimiter, __pyx_n_s_t); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_define_table, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __pyx_tuple__21 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 57, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_tuple__18 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_table_name, __pyx_n_s_database_name, __pyx_n_s_columns, __pyx_n_s_data_file, __pyx_n_s_field_delimiter, __pyx_n_s_t); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(6, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_define_table, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(1, ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
 
   /* "ddb/engine/sql_engine.pyx":63
- *         print ("adding table")
+ * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
  *             return False
  */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(0, 63, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_has_configuration, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__21);
+  __Pyx_GIVEREF(__pyx_tuple__21);
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_has_configuration, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(0, 63, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":72
  *         return True
@@ -14897,10 +14754,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         if False==self.has_configuration():
  *             raise Exception("No table found")
  */
-  __pyx_tuple__24 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_sql_query, __pyx_n_s_parser, __pyx_n_s_query_object, __pyx_n_s_new_array, __pyx_n_s_line, __pyx_n_s_columns, __pyx_n_s_len_col, __pyx_n_s_new_dict, __pyx_n_s_i); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 72, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_query, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_sql_query, __pyx_n_s_parser, __pyx_n_s_query_object, __pyx_n_s_new_array, __pyx_n_s_line, __pyx_n_s_columns, __pyx_n_s_len_col, __pyx_n_s_new_dict, __pyx_n_s_i); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__23);
+  __Pyx_GIVEREF(__pyx_tuple__23);
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_query, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 72, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":151
  * 
@@ -14909,10 +14766,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  */
-  __pyx_tuple__26 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_database_name, __pyx_n_s_query, __pyx_n_s_results); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 151, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_change_database, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_database_name, __pyx_n_s_query, __pyx_n_s_results); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__25);
+  __Pyx_GIVEREF(__pyx_tuple__25);
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_change_database, 151, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 151, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":159
  * 
@@ -14921,10 +14778,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         try:
  *             if None == index:
  */
-  __pyx_tuple__28 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_data_stream, __pyx_n_s_index, __pyx_n_s_length, __pyx_n_s_data_stream_lenght, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(0, 159, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_limit, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_data_stream, __pyx_n_s_index, __pyx_n_s_length, __pyx_n_s_data_stream_lenght, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(4, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_limit, 159, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 159, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":177
  *             info("Limit",ex)
@@ -14933,13 +14790,13 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         err=None
  *         column_len=query_object['table'].column_count()
  */
-  __pyx_tuple__30 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_line, __pyx_n_s_line_number, __pyx_n_s_err, __pyx_n_s_column_len, __pyx_n_s_line_cleaned, __pyx_n_s_line_data, __pyx_n_s_line_type, __pyx_n_s_cur_column_len, __pyx_n_s_line_data_cleaned, __pyx_n_s_d, __pyx_n_s_match_results); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(4, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_process_line, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __pyx_tuple__32 = PyTuple_Pack(1, ((PyObject *)__pyx_int_0)); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 177, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_tuple__29 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_line, __pyx_n_s_line_number, __pyx_n_s_err, __pyx_n_s_column_len, __pyx_n_s_line_cleaned, __pyx_n_s_line_data, __pyx_n_s_line_type, __pyx_n_s_cur_column_len, __pyx_n_s_line_data_cleaned, __pyx_n_s_d, __pyx_n_s_match_results); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__29);
+  __Pyx_GIVEREF(__pyx_tuple__29);
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(4, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_process_line, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(1, ((PyObject *)__pyx_int_0)); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__31);
+  __Pyx_GIVEREF(__pyx_tuple__31);
 
   /* "ddb/engine/sql_engine.pyx":234
  *         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
@@ -14948,10 +14805,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         #try:
  *             temp_data=[]
  */
-  __pyx_tuple__33 = PyTuple_Pack(20, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_parser, __pyx_n_s_temp_data, __pyx_n_s_table_name, __pyx_n_s_table_columns, __pyx_n_s_column_len, __pyx_n_s_temp_table, __pyx_n_s_column, __pyx_n_s_display, __pyx_n_s_line_number, __pyx_n_s_content_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_restructured_line, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction, __pyx_n_s_limit_start, __pyx_n_s_limit_length); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 234, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
-  __pyx_codeobj__34 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__33, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_select, 234, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__34)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(20, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_parser, __pyx_n_s_temp_data, __pyx_n_s_table_name, __pyx_n_s_table_columns, __pyx_n_s_column_len, __pyx_n_s_temp_table, __pyx_n_s_column, __pyx_n_s_display, __pyx_n_s_line_number, __pyx_n_s_content_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_restructured_line, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction, __pyx_n_s_limit_start, __pyx_n_s_limit_length); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__32);
+  __Pyx_GIVEREF(__pyx_tuple__32);
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 20, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_select, 234, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(0, 234, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":315
  * 
@@ -14960,10 +14817,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  *         for c in self.sort:
  */
-  __pyx_tuple__35 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(0, 315, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__35);
-  __Pyx_GIVEREF(__pyx_tuple__35);
-  __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__35, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_sort_cmp, 315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_c, __pyx_n_s_ordinal, __pyx_n_s_direction); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__34);
+  __Pyx_GIVEREF(__pyx_tuple__34);
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(3, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_sort_cmp, 315, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 315, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":342
  *     # ignores matches
@@ -14972,10 +14829,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         try:
  *             table_name=query_object['meta']['from']['table']
  */
-  __pyx_tuple__37 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_deleted, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 342, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__37);
-  __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_delete, 342, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_tuple__36 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_deleted, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__36);
+  __Pyx_GIVEREF(__pyx_tuple__36);
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_delete, 342, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(0, 342, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":382
  *     # File is as untouched as possible
@@ -14984,10 +14841,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         try:
  *             table_name=query_object['meta']['into']['table']
  */
-  __pyx_tuple__39 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_inserted, __pyx_n_s_requires_new_line, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 382, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__39);
-  __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_insert, 382, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_tuple__38 = PyTuple_Pack(15, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_inserted, __pyx_n_s_requires_new_line, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__38);
+  __Pyx_GIVEREF(__pyx_tuple__38);
+  __pyx_codeobj__39 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__38, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_insert, 382, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__39)) __PYX_ERR(0, 382, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":425
  * 
@@ -14996,10 +14853,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         err=False
  *         ###
  */
-  __pyx_tuple__41 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c, __pyx_n_s_column_name, __pyx_n_s_found, __pyx_n_s_c2); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(0, 425, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__41);
-  __Pyx_GIVEREF(__pyx_tuple__41);
-  __pyx_codeobj__42 = (PyObject*)__Pyx_PyCode_New(5, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__41, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_single, 425, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__42)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_tuple__40 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c, __pyx_n_s_column_name, __pyx_n_s_found, __pyx_n_s_c2); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__40);
+  __Pyx_GIVEREF(__pyx_tuple__40);
+  __pyx_codeobj__41 = (PyObject*)__Pyx_PyCode_New(5, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__40, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_single, 425, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__41)) __PYX_ERR(0, 425, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":463
  * 
@@ -15008,10 +14865,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         err=False
  *         ###
  */
-  __pyx_tuple__43 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_processed_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c2, __pyx_n_s_column_name, __pyx_n_s_c, __pyx_n_s_value); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(0, 463, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__43);
-  __Pyx_GIVEREF(__pyx_tuple__43);
-  __pyx_codeobj__44 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__43, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update_single, 463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__44)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_tuple__42 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_file, __pyx_n_s_temp_table, __pyx_n_s_requires_new_line, __pyx_n_s_processed_line, __pyx_n_s_err, __pyx_n_s_new_line, __pyx_n_s_c2, __pyx_n_s_column_name, __pyx_n_s_c, __pyx_n_s_value); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__42);
+  __Pyx_GIVEREF(__pyx_tuple__42);
+  __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(6, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__42, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update_single, 463, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) __PYX_ERR(0, 463, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":511
  *     # ignores matches
@@ -15020,10 +14877,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         try:
  *             table_name=query_object['meta']['update']['table']
  */
-  __pyx_tuple__45 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_updated, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(0, 511, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__45);
-  __Pyx_GIVEREF(__pyx_tuple__45);
-  __pyx_codeobj__46 = (PyObject*)__Pyx_PyCode_New(2, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__45, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update, 511, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__46)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_tuple__44 = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_table_name, __pyx_n_s_temp_table, __pyx_n_s_temp_file_name, __pyx_n_s_line_number, __pyx_n_s_updated, __pyx_n_s_content_file, __pyx_n_s_temp_file, __pyx_n_s_line, __pyx_n_s_processed_line, __pyx_n_s_results, __pyx_n_s_data, __pyx_n_s_ex); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__44);
+  __Pyx_GIVEREF(__pyx_tuple__44);
+  __pyx_codeobj__45 = (PyObject*)__Pyx_PyCode_New(2, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__44, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_update, 511, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__45)) __PYX_ERR(0, 511, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":549
  * 
@@ -15032,10 +14889,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']
  */
-  __pyx_tuple__47 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_target_db, __pyx_n_s_temp_table, __pyx_n_s_data); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(0, 549, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__47);
-  __Pyx_GIVEREF(__pyx_tuple__47);
-  __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_use, 549, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __pyx_tuple__46 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_target_db, __pyx_n_s_temp_table, __pyx_n_s_data); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__46);
+  __Pyx_GIVEREF(__pyx_tuple__46);
+  __pyx_codeobj__47 = (PyObject*)__Pyx_PyCode_New(2, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__46, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_use, 549, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__47)) __PYX_ERR(0, 549, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":560
  * 
@@ -15044,10 +14901,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         info("Create Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_tuple__49 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_columns, __pyx_n_s_c, __pyx_n_s_created, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(0, 560, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__49);
-  __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_table_2, 560, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_tuple__48 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_columns, __pyx_n_s_c, __pyx_n_s_created, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__48);
+  __Pyx_GIVEREF(__pyx_tuple__48);
+  __pyx_codeobj__49 = (PyObject*)__Pyx_PyCode_New(2, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__48, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_create_table_2, 560, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__49)) __PYX_ERR(0, 560, __pyx_L1_error)
 
   /* "ddb/engine/sql_engine.pyx":581
  * 
@@ -15056,10 +14913,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         info("Drop Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_tuple__51 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_dropped, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(0, 581, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__51);
-  __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_drop_table_2, 581, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __pyx_tuple__50 = PyTuple_Pack(6, __pyx_n_s_self, __pyx_n_s_query_object, __pyx_n_s_temp_table, __pyx_n_s_dropped, __pyx_n_s_results, __pyx_n_s_data); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__50);
+  __Pyx_GIVEREF(__pyx_tuple__50);
+  __pyx_codeobj__51 = (PyObject*)__Pyx_PyCode_New(2, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__50, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_ddb_engine_sql_engine_pyx, __pyx_n_s_drop_table_2, 581, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__51)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -15446,7 +15303,7 @@ if (!__Pyx_RefNanny) {
  * from .structure.database import database
  * from .structure.column import column_v2             # <<<<<<<<<<<<<<
  * from .evaluate.match import evaluate_match
- * from .functions import *
+ * from .functions import functions
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -15466,7 +15323,7 @@ if (!__Pyx_RefNanny) {
  * from .structure.database import database
  * from .structure.column import column_v2
  * from .evaluate.match import evaluate_match             # <<<<<<<<<<<<<<
- * from .functions import *
+ * from .functions import functions
  * import operator
  */
   __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 8, __pyx_L1_error)
@@ -15486,24 +15343,27 @@ if (!__Pyx_RefNanny) {
   /* "ddb/engine/sql_engine.pyx":9
  * from .structure.column import column_v2
  * from .evaluate.match import evaluate_match
- * from .functions import *             # <<<<<<<<<<<<<<
+ * from .functions import functions             # <<<<<<<<<<<<<<
  * import operator
  * import flextable
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s__8);
-  __Pyx_GIVEREF(__pyx_n_s__8);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s__8);
+  __Pyx_INCREF(__pyx_n_s_functions);
+  __Pyx_GIVEREF(__pyx_n_s_functions);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_functions);
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_functions, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 9, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_import_star(__pyx_t_1) < 0) __PYX_ERR(0, 9, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_functions); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_functions, __pyx_t_2) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.pyx":10
  * from .evaluate.match import evaluate_match
- * from .functions import *
+ * from .functions import functions
  * import operator             # <<<<<<<<<<<<<<
  * import flextable
  * 
@@ -15514,7 +15374,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "ddb/engine/sql_engine.pyx":11
- * from .functions import *
+ * from .functions import functions
  * import operator
  * import flextable             # <<<<<<<<<<<<<<
  * 
@@ -15609,9 +15469,9 @@ if (!__Pyx_RefNanny) {
  *         global debug_on
  *         debug_on=debug
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_1__init__, 0, __pyx_n_s_sql_engine___init, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_1__init__, 0, __pyx_n_s_sql_engine___init, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__15);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__14);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_4) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
@@ -15622,9 +15482,9 @@ if (!__Pyx_RefNanny) {
  *         self.debug=debug
  * 
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_3debugging, 0, __pyx_n_s_sql_engine_debugging, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_3debugging, 0, __pyx_n_s_sql_engine_debugging, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__18);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__17);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_debugging, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
@@ -15635,20 +15495,20 @@ if (!__Pyx_RefNanny) {
  *         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
  *         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_5define_table, 0, __pyx_n_s_sql_engine_define_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_5define_table, 0, __pyx_n_s_sql_engine_define_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__21);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__20);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_define_table, __pyx_t_4) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
   /* "ddb/engine/sql_engine.pyx":63
- *         print ("adding table")
+ * 
  * 
  *     def has_configuration(self):             # <<<<<<<<<<<<<<
  *         if None==self.database:
  *             return False
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_7has_configuration, 0, __pyx_n_s_sql_engine_has_configuration, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_7has_configuration, 0, __pyx_n_s_sql_engine_has_configuration, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_has_configuration, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15660,7 +15520,7 @@ if (!__Pyx_RefNanny) {
  *         if False==self.has_configuration():
  *             raise Exception("No table found")
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_9query, 0, __pyx_n_s_sql_engine_query, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_9query, 0, __pyx_n_s_sql_engine_query, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_query, __pyx_t_4) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15672,7 +15532,7 @@ if (!__Pyx_RefNanny) {
  *         query="use {}".format(database_name)
  *         results=self.query(query)
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_11change_database, 0, __pyx_n_s_sql_engine_change_database, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_11change_database, 0, __pyx_n_s_sql_engine_change_database, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_change_database, __pyx_t_4) < 0) __PYX_ERR(0, 151, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15684,7 +15544,7 @@ if (!__Pyx_RefNanny) {
  *         try:
  *             if None == index:
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_13limit, 0, __pyx_n_s_sql_engine_limit, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_13limit, 0, __pyx_n_s_sql_engine_limit, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_limit, __pyx_t_4) < 0) __PYX_ERR(0, 159, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15696,9 +15556,9 @@ if (!__Pyx_RefNanny) {
  *         err=None
  *         column_len=query_object['table'].column_count()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_15process_line, 0, __pyx_n_s_sql_engine_process_line, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_15process_line, 0, __pyx_n_s_sql_engine_process_line, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__32);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_4, __pyx_tuple__31);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_process_line, __pyx_t_4) < 0) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
@@ -15709,7 +15569,7 @@ if (!__Pyx_RefNanny) {
  *         #try:
  *             temp_data=[]
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_17select, 0, __pyx_n_s_sql_engine_select, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__34)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_17select, 0, __pyx_n_s_sql_engine_select, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_select, __pyx_t_4) < 0) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15721,7 +15581,7 @@ if (!__Pyx_RefNanny) {
  * 
  *         for c in self.sort:
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_19sort_cmp, 0, __pyx_n_s_sql_engine_sort_cmp, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__36)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_19sort_cmp, 0, __pyx_n_s_sql_engine_sort_cmp, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_sort_cmp, __pyx_t_4) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15733,7 +15593,7 @@ if (!__Pyx_RefNanny) {
  *         try:
  *             table_name=query_object['meta']['from']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_21delete, 0, __pyx_n_s_sql_engine_delete, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_21delete, 0, __pyx_n_s_sql_engine_delete, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_delete, __pyx_t_4) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15745,7 +15605,7 @@ if (!__Pyx_RefNanny) {
  *         try:
  *             table_name=query_object['meta']['into']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_23insert, 0, __pyx_n_s_sql_engine_insert, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 382, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_23insert, 0, __pyx_n_s_sql_engine_insert, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__39)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 382, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_insert, __pyx_t_4) < 0) __PYX_ERR(0, 382, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15757,7 +15617,7 @@ if (!__Pyx_RefNanny) {
  *         err=False
  *         ###
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_25create_single, 0, __pyx_n_s_sql_engine_create_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__42)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_25create_single, 0, __pyx_n_s_sql_engine_create_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__41)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_create_single, __pyx_t_4) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15769,7 +15629,7 @@ if (!__Pyx_RefNanny) {
  *         err=False
  *         ###
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_27update_single, 0, __pyx_n_s_sql_engine_update_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__44)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 463, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_27update_single, 0, __pyx_n_s_sql_engine_update_single, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__43)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_update_single, __pyx_t_4) < 0) __PYX_ERR(0, 463, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15781,7 +15641,7 @@ if (!__Pyx_RefNanny) {
  *         try:
  *             table_name=query_object['meta']['update']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_29update, 0, __pyx_n_s_sql_engine_update, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__46)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_29update, 0, __pyx_n_s_sql_engine_update, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__45)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_update, __pyx_t_4) < 0) __PYX_ERR(0, 511, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15793,7 +15653,7 @@ if (!__Pyx_RefNanny) {
  *         info("Use")
  *         target_db=query_object['meta']['use']['table']
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_31use, 0, __pyx_n_s_sql_engine_use, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__48)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_31use, 0, __pyx_n_s_sql_engine_use, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__47)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_use, __pyx_t_4) < 0) __PYX_ERR(0, 549, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15805,7 +15665,7 @@ if (!__Pyx_RefNanny) {
  *         info("Create Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_33create_table, 0, __pyx_n_s_sql_engine_create_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__50)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_33create_table, 0, __pyx_n_s_sql_engine_create_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_create_table_2, __pyx_t_4) < 0) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -15817,7 +15677,7 @@ if (!__Pyx_RefNanny) {
  *         info("Drop Table")
  *         temp_table=self.database.temp_table()
  */
-  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_35drop_table, 0, __pyx_n_s_sql_engine_drop_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3ddb_6engine_10sql_engine_10sql_engine_35drop_table, 0, __pyx_n_s_sql_engine_drop_table, NULL, __pyx_n_s_ddb_engine_sql_engine, __pyx_d, ((PyObject *)__pyx_codeobj__51)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_drop_table_2, __pyx_t_4) < 0) __PYX_ERR(0, 581, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -19217,12 +19077,6 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
     return (PyErr_GivenExceptionMatches(err, exc_type1) || PyErr_GivenExceptionMatches(err, exc_type2));
 }
 #endif
-
-/* CStringEquals */
-static CYTHON_INLINE int __Pyx_StrEq(const char *s1, const char *s2) {
-    while (*s1 != '\0' && *s1 == *s2) { s1++; s2++; }
-    return *s1 == *s2;
-}
 
 /* CheckBinaryVersion */
 static int __Pyx_check_binary_version(void) {

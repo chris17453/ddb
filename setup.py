@@ -35,13 +35,16 @@ extensions = [
     Extension(
         "ddb.engine.tokenizer.sql_tokenize",
          [ "./ddb/engine/tokenizer/sql_tokenize.pyx" ]) ,
+    Extension(
+        "ddb.engine.functions.functions",
+         [ "./ddb/engine/functions/functions.pyx" ]) ,
 ]     
   
 
 
 setup(
     name='ddb',
-    version='1.0.96',
+    version='1.0.97',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',

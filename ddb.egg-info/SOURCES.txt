@@ -4,6 +4,7 @@ setup.py
 ./ddb/engine/interactive.c
 ./ddb/engine/sql_engine.c
 ./ddb/engine/evaluate/match.c
+./ddb/engine/functions/functions.c
 ./ddb/engine/parser/language.c
 ./ddb/engine/parser/sql_parser.c
 ./ddb/engine/structure/column.c
@@ -26,11 +27,16 @@ ddb/engine/sql_engine.c
 ddb/engine/sql_engine.pyx
 ddb/engine/sql_engine.so
 ddb/engine/evaluate/__init__.py
+ddb/engine/evaluate/__init__.pyc
 ddb/engine/evaluate/match.c
 ddb/engine/evaluate/match.pyx
 ddb/engine/evaluate/match.so
 ddb/engine/functions/__init__.py
+ddb/engine/functions/functions.c
+ddb/engine/functions/functions.pyx
+ddb/engine/functions/functions.so
 ddb/engine/parser/__init__.py
+ddb/engine/parser/__init__.pyc
 ddb/engine/parser/language.c
 ddb/engine/parser/language.pyx
 ddb/engine/parser/language.so
@@ -49,6 +55,7 @@ ddb/engine/structure/table.c
 ddb/engine/structure/table.pyx
 ddb/engine/structure/table.so
 ddb/engine/tokenizer/__init__.py
+ddb/engine/tokenizer/__init__.pyc
 ddb/engine/tokenizer/sql_tokenize.c
 ddb/engine/tokenizer/sql_tokenize.pyx
 ddb/engine/tokenizer/sql_tokenize.so

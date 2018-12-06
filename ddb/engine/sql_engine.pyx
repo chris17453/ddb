@@ -6,7 +6,7 @@ from .structure.table import table
 from .structure.database import database
 from .structure.column import column_v2
 from .evaluate.match import evaluate_match
-from .functions import *
+from .functions import functions
 import operator
 import flextable
 
@@ -58,7 +58,7 @@ class sql_engine:
         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
         self.database.tables.append(t)
-        print ("adding table")
+
 
     def has_configuration(self):
         if None==self.database:
@@ -92,9 +92,9 @@ class sql_engine:
             #print query_object['mode']
             if query_object['mode']=="show tables":
 
-                self.results=show_tables(self.database)    
+                self.results=functions.show_tables(self.database)    
             if query_object['mode']=="show columns":
-                self.results=show_columns(self.database,query_object)
+                self.results=functions.show_columns(self.database,query_object)
             #if query_object['mode']=="show errors":
             #    self.results=show_errors(self.database,self.table)
             #print query_object
