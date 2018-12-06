@@ -58,6 +58,7 @@ class sql_engine:
         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
         t=table(database=database_name,columns=columns,name=table_name,data_file=data_file,field_delimiter=field_delimiter)
         self.database.tables.append(t)
+        print ("adding table")
 
     def has_configuration(self):
         if None==self.database:

@@ -17,7 +17,7 @@ extensions = [
 
 setup(
     name='ddb',
-    version='1.0.85',
+    version='1.0.86',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
