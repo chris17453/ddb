@@ -10,6 +10,7 @@ class database:
         self.curent_database=None
         self.tables=[]
         is_file=False
+        self.config_file=None
         if None !=config_file and config_file!=False:
             self.config_file=config_file
             tables=self.get_tables()
@@ -234,6 +235,9 @@ class database:
             self.tables.append(table(table_file))
             
     def get_tables(self):
+        if None==self.config_file: 
+            return []
+
         if False==os.path.exists(self.config_file):
                 self.create_config(self.config_file)
         

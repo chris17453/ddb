@@ -1,6 +1,7 @@
 MANIFEST.in
 README.md
 setup.py
+./ddb/engine/evaluate/match.c
 ddb/__init__.py
 ddb/cli.py
 ddb.egg-info/PKG-INFO
@@ -15,10 +16,13 @@ ddb/engine/interactive.py
 ddb/engine/interactive.pyc
 ddb/engine/sql_engine.py
 ddb/engine/sql_engine.pyc
+ddb/engine/evaluate/Pipfile
+ddb/engine/evaluate/Pipfile.lock
 ddb/engine/evaluate/__init__.py
-ddb/engine/evaluate/__init__.pyc
-ddb/engine/evaluate/match.py
-ddb/engine/evaluate/match.pyc
+ddb/engine/evaluate/match.c
+ddb/engine/evaluate/match.pyx
+ddb/engine/evaluate/match.so
+ddb/engine/evaluate/setup.py
 ddb/engine/functions/__init__.py
 ddb/engine/functions/__init__.pyc
 ddb/engine/parser/__init__.py
