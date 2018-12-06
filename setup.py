@@ -1,50 +1,62 @@
 from distutils.core import setup
 from Cython.Build import cythonize
-from setuptools import setup
+#from setuptools import setup
 from setuptools.extension import Extension
 
+try:
+     from Cython.distutils import build_ext
+except ImportError:
+     from distutils.command import build_ext
+
+
+
+
+USE_CYTHON = os.path.exists('ddb/sql_engine.py')
+
+
+ext = '.pyx' if USE_CYTHON else '.c'
 
 
 extensions = [
   Extension(
      "ddb.engine.evaluate.match",
-     [ "./ddb/engine/evaluate/match.py" ] ),
+     [ "./ddb/engine/evaluate/match"+ext ] ),
     Extension(
      "ddb.engine.structure.column",
-     [ "./ddb/engine/structure/column.py" ] ),
+     [ "./ddb/engine/structure/column"+ext ] ),
     Extension(
 
      "ddb.engine.structure.table",
-     [ "./ddb/engine/structure/table.py" ]),
+     [ "./ddb/engine/structure/table"+ext ]),
     Extension(
 
      "ddb.engine.structure.database",
-     [ "./ddb/engine/structure/database.py" ]),
+     [ "./ddb/engine/structure/database"+ext ]),
     Extension(
      "ddb.engine.sql_engine",
-     [ "./ddb/engine/sql_engine.py" ]),
+     [ "./ddb/engine/sql_engine"+ext ]),
     Extension(
         "ddb.engine.interactive",
-         [ "./ddb/engine/interactive.py" ]),
+         [ "./ddb/engine/interactive"+ext ]),
     Extension(
         "ddb.engine.parser.language",
-         [ "./ddb/engine/parser/language.py" ]),
+         [ "./ddb/engine/parser/language"+ext ]),
     Extension(
         "ddb.engine.parser.sql_parser",
-         [ "./ddb/engine/parser/sql_parser.py" ]),
+         [ "./ddb/engine/parser/sql_parser"+ext ]),
     Extension(
         "ddb.engine.tokenizer.sql_tokenize",
-         [ "./ddb/engine/tokenizer/sql_tokenize.py" ]) ,
+         [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]) ,
     Extension(
         "ddb.engine.functions.functions",
-         [ "./ddb/engine/functions/functions.py" ]) ,
+         [ "./ddb/engine/functions/functions"+ext ]) ,
 ]     
   
 
 
 setup(
     name='ddb',
-    version='1.0.98',
+    version='1.0.99',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
