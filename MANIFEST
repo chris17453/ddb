@@ -12,7 +12,6 @@ setup.py
 ./ddb/engine/structure/database.c
 ./ddb/engine/structure/table.c
 ./ddb/engine/tokenizer/sql_tokenize.c
-ddb/__init__.py
 ddb/cli.c
 ddb/engine/__init__.py
 ddb/engine/interactive.c

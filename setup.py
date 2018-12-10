@@ -49,7 +49,8 @@ extensions = [
    ),
    Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
-  
+
+
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
@@ -61,8 +62,20 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.152',
-    packages=['ddb',],
+    version='1.0.153',
+    packages=[  'ddb',
+                'ddb.engine.parser.language',
+                'ddb.engine.tokenizer.sql_tokenize',
+                'ddb.engine.evaluate.match',     
+                'ddb.engine.structure.column',   
+                'ddb.engine.functions.functions',
+                'ddb.engine.parser.sql_parser', 
+                'ddb.engine.structure.table',   
+                'ddb.engine.structure.database',
+                'ddb.engine.sql_engine',             
+                'ddb.engine.interactive',            
+                'ddb.cli'],
+
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
