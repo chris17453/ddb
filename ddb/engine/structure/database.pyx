@@ -1,7 +1,7 @@
 import os
 import glob
 import copy
-from table import table
+from ddb.engine.structure.table import table
 import yaml
 
 class database:
