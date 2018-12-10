@@ -22,11 +22,33 @@ extensions = [
    Extension("ddb.engine.structure.column",       [ "./ddb/engine/structure/column"+ext ] ),
    Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
   
-   Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ]),
-   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ]),
-   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
-   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ]),
-   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ]),
+   Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ],
+    libraries = ['ddb.engine.tokenizer.sql_tokenize',
+                'ddb.engine.structure.table',
+                'ddb.engine.parser.language'],
+   ),
+   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ],
+    libraries = ['ddb.engine.structure.column',],
+   ),
+   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ],
+    libraries = ['ddb.engine.structure.table',],
+   ),
+
+   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ],
+    libraries = ['ddb.engine.parser.sql_parser',
+                 'ddb.engine.structure.table',
+                 'ddb.engine.structure.database',
+                 'ddb.engine.structure.column',
+                 'ddb.engine.evaluate.match',
+                 'ddb.engine.functions',]
+   ),
+   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ],
+    libraries = ['ddb.engine.structure.table',
+                'ddb.engine.structure.database',
+                'ddb.engine.sql_engine',]
+
+
+   ),
    #Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
   
@@ -41,7 +63,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.143',
+    version='1.0.144',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
