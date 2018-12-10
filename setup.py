@@ -62,7 +62,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.154',
+    version='1.0.155',
     packages=[  'ddb',
                 'ddb.engine.parser',
                 'ddb.engine.tokenizer',
@@ -70,8 +70,8 @@ setup(
                 'ddb.engine.structure',   
                 'ddb.engine.functions',
                 'ddb.engine.structure',   
-                'ddb.engine',            
-                'ddb.cli'],
+                'ddb.engine'
+                ],
 
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
