@@ -92,9 +92,10 @@ class sql_parser:
             for token in tokens:
                 if token['data']!='':
                 token_length+=1
-                
+
             if tokens_length==0:
                 continue
+            info("Token Length",tokens_length)
 
             parsed=self.parse(tokens)
             if False==parsed:
