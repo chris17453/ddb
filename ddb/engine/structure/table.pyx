@@ -2,7 +2,7 @@ import sys
 import yaml
 import os
 import os
-from ddb.engine.structure.column import *
+from .column import *
 from yaml import load, dump
 try:
     from yaml import CLoader as Loader
