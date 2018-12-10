@@ -86,6 +86,7 @@ class sql_parser:
         querys=query.split(';')
         #print querys
         for q in querys:
+            info("-----------------------------------")
             tokens=tokenize(q,discard_whitespace=True,debug=debug)
             #skip 0 length commands such as single ';'
             token_length=0
