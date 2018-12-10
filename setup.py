@@ -24,9 +24,13 @@ extensions = [
   
    Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ],
     libraries = ['ddb.engine.tokenizer.sql_tokenize',
-                'ddb.engine.structure.table',
-                'ddb.engine.parser.language'],
+                 'ddb.engine.structure.table',
+                 'ddb.engine.parser.language'],
+    library_dirs=['./ddb/engine/tokenizer/',
+                  './ddb/engine/language/',
+                  './ddb/engine/structure/']
    ),
+   
    Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ],
     libraries = ['ddb.engine.structure.column',],
    ),
@@ -63,7 +67,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.146',
+    version='1.0.145',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
