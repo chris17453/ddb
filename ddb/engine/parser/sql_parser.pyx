@@ -87,8 +87,13 @@ class sql_parser:
         #print querys
         for q in querys:
             tokens=tokenize(q,discard_whitespace=True,debug=debug)
-            #skip 0 lenght commands, such as single ';'
-            if len(tokens)==0:
+            #skip 0 length commands such as single ';'
+            token_length=0
+            for token in tokens:
+                if token['data']!='':
+                token_length+=1
+                
+            if tokens_length==0:
                 continue
 
             parsed=self.parse(tokens)

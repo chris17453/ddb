@@ -82,7 +82,13 @@ results=self.engine.query(query)
 ```
 ```
 
-
 ### Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
 
+
+### Notes to self
+- cython builds the python code as a ".so"
+- packages can see down, not up
+- in code import using full package name
+- cython packages myst be includes must be marked as extensions
+- all pure cython packages myst be marked as packages in setup, otherwise le fail
