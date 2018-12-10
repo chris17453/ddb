@@ -1,6 +1,6 @@
-from ..tokenizer.sql_tokenize cimport *
-from ..structure.table cimport *
-from .parser.language cimport query_matrix
+from ddb.engine.parser.language import query_matrix
+from ddb.engine.tokenizer.sql_tokenize cimport *
+from ddb.engine.structure.table cimport *
 import copy 
 
 debug_on=False

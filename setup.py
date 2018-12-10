@@ -23,33 +23,36 @@ extensions = [
    Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
   
    Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ],
-    libraries = ['ddb.engine.tokenizer.sql_tokenize',
-                 'ddb.engine.structure.table',
-                 'ddb.engine.parser.language'],
-    library_dirs=['./ddb/engine/tokenizer/',
-                  './ddb/engine/language/',
-                  './ddb/engine/structure/']
+   include_dirs=['./ddb/engine/tokenizer/',
+                './ddb/engine/language/',
+                './ddb/engine/structure/'],
+#    libraries = ['ddb.engine.tokenizer.sql_tokenize',
+#                 'ddb.engine.structure.table',
+#                 'ddb.engine.parser.language'],
+#    library_dirs=['./ddb/engine/tokenizer/',
+#                  './ddb/engine/language/',
+#                  './ddb/engine/structure/']
    ),
    
    Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ],
-    libraries = ['ddb.engine.structure.column',],
+#    libraries = ['ddb.engine.structure.column',],
    ),
    Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ],
-    libraries = ['ddb.engine.structure.table',],
+#    libraries = ['ddb.engine.structure.table',],
    ),
 
    Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ],
-    libraries = ['ddb.engine.parser.sql_parser',
-                 'ddb.engine.structure.table',
-                 'ddb.engine.structure.database',
-                 'ddb.engine.structure.column',
-                 'ddb.engine.evaluate.match',
-                 'ddb.engine.functions',]
+#    libraries = ['ddb.engine.parser.sql_parser',
+#                 'ddb.engine.structure.table',
+#                 'ddb.engine.structure.database',
+#                 'ddb.engine.structure.column',
+#                 'ddb.engine.evaluate.match',
+#                 'ddb.engine.functions',]
    ),
    Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ],
-    libraries = ['ddb.engine.structure.table',
-                'ddb.engine.structure.database',
-                'ddb.engine.sql_engine',]
+#    libraries = ['ddb.engine.structure.table',
+#                'ddb.engine.structure.database',
+#                'ddb.engine.sql_engine',]
 
 
    ),
@@ -67,7 +70,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.149',
+    version='1.0.150',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
