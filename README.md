@@ -2,6 +2,10 @@
  A sql interface for flat files written in python 
 
 
+## Prerequisites (Fedora)
+- yum install -y redhat-rpm-config
+- yum install -y python2-devel
+
 ## Install
 ```
 pip install ddb

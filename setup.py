@@ -61,7 +61,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.151',
+    version='1.0.152',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
