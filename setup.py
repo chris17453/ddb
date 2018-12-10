@@ -26,20 +26,11 @@ extensions = [
    include_dirs=['./ddb/engine/tokenizer/',
                 './ddb/engine/language/',
                 './ddb/engine/structure/'],
-#    libraries = ['ddb.engine.tokenizer.sql_tokenize',
-#                 'ddb.engine.structure.table',
-#                 'ddb.engine.parser.language'],
-#    library_dirs=['./ddb/engine/tokenizer/',
-#                  './ddb/engine/language/',
-#                  './ddb/engine/structure/']
    ),
    
-   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ],
-#    libraries = ['ddb.engine.structure.column',],
-   ),
-   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ],
-#    libraries = ['ddb.engine.structure.table',],
-   ),
+   Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ]),
+
+   Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
 
    Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ],
 #    libraries = ['ddb.engine.parser.sql_parser',
@@ -56,7 +47,7 @@ extensions = [
 
 
    ),
-   #Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
+   Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
   
 if USE_CYTHON:
@@ -70,7 +61,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.150',
+    version='1.0.151',
     packages=['ddb',],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
