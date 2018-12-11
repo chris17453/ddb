@@ -92,7 +92,7 @@ class sql_parser:
             token_length=0
             for token in tokens:
                 if token['data']!='':
-                token_length+=1
+                    token_length+=1
 
             info("Token Length",tokens_length)
             if tokens_length==0:
