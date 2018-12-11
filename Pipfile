@@ -11,7 +11,6 @@ bumpversion = "*"
 [packages]
 pyyaml = "*"
 flextable = "*"
-unittest = "*"
 
 [requires]
 python_version = "2.7"
