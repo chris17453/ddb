@@ -1,4 +1,4 @@
-from ddb.engine.parser.language import sql_syntax
+from language import sql_syntax
 from ddb.engine.tokenizer.sql_tokenize import *
 from ddb.engine.structure.table import *
 import copy 
