@@ -2,10 +2,10 @@ import argparse
 import tempfile
 import os
 import flextable
-from engine.sql_engine  import sql_engine
-from engine.interactive import ddbPrompt
-from engine.structure.database import database
-from engine.structure.table import table
+from ddb.engine.sql_engine  import sql_engine
+from ddb.engine.interactive import ddbPrompt
+from ddb.engine.structure.database import database
+from ddb.engine.structure.table import table
 
 from os.path import expanduser
     
