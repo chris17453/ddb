@@ -54,7 +54,7 @@ if [[ $? -ne 0 ]]; then
 
 #    if [[ ! -f './bumpversion.cfg' ]]; then
         version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")
-        echo "Creating bump version Config"
+        echo "Creating bump version Config -->"$version
         cat >.bumpversion.cfg <<EOL
 [bumpversion]
 current_version = $version
@@ -68,7 +68,7 @@ EOL
 fi
 
 echo "Build the package"
-python setup.py build_ext --inplace sdist
+python setup.py build_ext --inplace sdist 
 
 echo "---$pub"
 if [[ ! -z "$pub" ]]; then
