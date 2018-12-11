@@ -1,6 +1,7 @@
 #!/bin/bash
 dir=$(pwd)
 pub="$1"
+echo Current Dir : $dir
 
 
 if [[ $PIPENV_ACTIVE -ne '1' ]];
