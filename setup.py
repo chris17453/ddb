@@ -3,7 +3,7 @@ from distutils.core import setup
 from distutils.extension import Extension
 
 
-USE_CYTHON = os.path.exists('ddb/engine/sql_engine.py')
+USE_CYTHON = os.path.exists('ddb/engine/sql_engine.pyx')
 print("USE_CYTHON",USE_CYTHON)
 
 
@@ -45,7 +45,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.163',
+    version='1.0.164',
     packages=[  'ddb',
                 'ddb.engine.parser',
                 'ddb.engine.tokenizer',
