@@ -81,10 +81,10 @@ then
     mkdir test
 fi
 
-echo "Updating test Environment $dir"/test
-cd test
-pipenv install "$dir"/test -vvv
-cd ..
+#echo "Updating test Environment $dir"/test
+#cd test
+#pipenv install "$dir"/test -vvv
+#cd ..
 
 
 echo "Done.."
