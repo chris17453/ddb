@@ -56,11 +56,11 @@ if [[ $? -ne 0 ]]; then
         version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")
         echo "Creating bump version Config"
         cat >.bumpversion.cfg <<EOL
-        [bumpversion]
-        current_version = $version
-        files = setup.py
-        commit = False
-        tag = False 
+[bumpversion]
+current_version = $version
+files = setup.py
+commit = False
+tag = False 
 EOL
 
     git commit -m 'BumpVersion Config'
