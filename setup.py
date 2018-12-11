@@ -11,25 +11,19 @@ ext = '.pyx' if USE_CYTHON else '.c'
 
 extensions = [
    Extension("ddb.engine.parser.language",        [ "./ddb/engine/parser/language"+ext ]),
-   Extension("ddb.engine.tokenizer.sql_tokenize", [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]) ,
+   Extension("ddb.engine.tokenizer.sql_tokenize", [ "./ddb/engine/tokenizer/sql_tokenize"+ext ]),
    Extension("ddb.engine.evaluate.match",         [ "./ddb/engine/evaluate/match"+ext ] ),
    Extension("ddb.engine.structure.column",       [ "./ddb/engine/structure/column"+ext ] ),
    Extension("ddb.engine.functions.functions",    [ "./ddb/engine/functions/functions"+ext ]) ,
-  
    Extension("ddb.engine.parser.sql_parser",      [ "./ddb/engine/parser/sql_parser"+ext ],
    include_dirs=['./ddb/engine/tokenizer/',
                 './ddb/engine/language/',
                 './ddb/engine/structure/'],
-   ),
-   
+   ),   
    Extension("ddb.engine.structure.table",        [ "./ddb/engine/structure/table"+ext ]),
-
    Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
-
-   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ],
-   ),
-   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ],
-   ),
+   Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ], ),
+   Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ], ),
    Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
 
@@ -45,7 +39,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.167',
+    version='1.0.168',
     packages=[  'ddb',
                 'ddb.engine.parser',
                 'ddb.engine.tokenizer',
@@ -65,11 +59,6 @@ setup(
     description= '',
     install_requires=['pyyaml','flextable'],
     ext_modules = extensions,
-    
-    #data_files=[
-    #    ('share/icons/hicolor/scalable/apps', ['data/proxx.svg']),
-    #    ('share/applications', ['data/proxx.desktop'])
-    #],
     entry_points="""
         [console_scripts]
         ddb = ddb.cli:cli_main

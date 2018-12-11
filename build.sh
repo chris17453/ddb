@@ -14,10 +14,6 @@ then
     fi
 fi
 
-
-
-echo "Attempting to PyPi package"
-
 echo "Remove old images"
 if [[ ! -d 'dist' ]];
 then
@@ -44,6 +40,7 @@ echo "Bumping Python patch version"
 bumpversion patch --allow-dirty
 if [[ $? -ne 0 ]]; then
         echo "Bumpversion failed"
+    ## I was having issues with pip 18.1 on fedora 28. sub dependencies wouldnt build
     #    ver="$(pipenv run pip show pip | grep Version)"
     #    echo $ver
     #    if [[ "$ver" != "Version: 18.0" ]];
@@ -83,7 +80,7 @@ then
     mkdir test
 fi
 
-echo "Updating test Environment"
+echo "Updating test Environment $dir"/test
 cd test
 pipenv install "$dir"/test
 cd ..
