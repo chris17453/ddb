@@ -30,37 +30,38 @@ cd ..
 
 if [[ ! -d '.git' ]];
 then
+    echo "Creating Git Repo"
     git init
 fi
-echo "Adding git changes"
+git config --global user.email "charles@titandws.com"
+git config --global user.name "Charles Watkins"
+
+echo "Adding changes to git"
 git add -A 
 git commit -m 'Bump Version'
 
 echo "Bumping Python patch version"
 bumpversion patch --allow-dirty
 if [[ $? -ne 0 ]]; then
-    
-    ver="$(pipenv run pip show pip | grep Version)"
-    echo $ver
-#    if [[ "$ver" != "Version: 18.0" ]];
-#    then
-#        echo "reinstall"
-#        pipenv install pip==18
-#    fi
-    
-    pipenv install bumpversion pip==18
+    #    ver="$(pipenv run pip show pip | grep Version)"
+    #    echo $ver
+    #    if [[ "$ver" != "Version: 18.0" ]];
+    #    then
+    #        echo "reinstall"
+    #        pipenv install pip==18
+    #    fi
+        
+    #    pipenv install bumpversion pip==18
 
-cat >.bumpversion.cfg <<EOL
-[bumpversion]
-current_version = 1.0.0 
-files = setup.py
-commit = False
-tag = False 
+    cat >.bumpversion.cfg <<EOL
+    [bumpversion]
+    current_version = 1.0.0 
+    files = setup.py
+    commit = False
+    tag = False 
 EOL
 
-
-
-git commit -m 'BumpVersion Config'
+    git commit -m 'BumpVersion Config'
 
 fi
 

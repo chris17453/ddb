@@ -4,14 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+pylint = "<2.0.0"
 
 [packages]
 pip = "==18"
 pyyaml = "*"
 bumpversion = "*"
-flextable = {path = "./../flextable"}
+flextable = "*"
 cython = "*"
-e1839a8 = {path = "."}
 ddb = {path = "."}
 
 [requires]
