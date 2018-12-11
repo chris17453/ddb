@@ -1,4 +1,4 @@
-from ddb.engine.parser.language import query_matrix
+from ddb.engine.parser.language import sql_syntax
 from ddb.engine.tokenizer.sql_tokenize import *
 from ddb.engine.structure.table import *
 import copy 
@@ -114,7 +114,7 @@ class sql_parser:
         # loop through types
         debug=True
         query_object={}
-        for query in query_matrix:
+        for query in sql_syntax['query_matrix']:
             # loop through switches
             token_index=0
             info("-----",query['query'])
