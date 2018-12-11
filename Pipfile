@@ -9,7 +9,9 @@ name = "pypi"
 pip = "==18"
 pyyaml = "*"
 bumpversion = "*"
-delimiteddb = {path = "."}
+flextable = {path = "./../flextable"}
+cython = "*"
+"e1839a8" = {path = "."}
 ddb = {path = "."}
 
 [requires]

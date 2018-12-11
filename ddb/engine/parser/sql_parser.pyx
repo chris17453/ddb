@@ -1,12 +1,10 @@
-from ..tokenizer.sql_tokenize import *
-from ..structure.table import *
-from .language import query_matrix
+from ddb.engine.parser.language import query_matrix
+from ddb.engine.tokenizer.sql_tokenize cimport *
+from ddb.engine.structure.table cimport *
 import copy 
 
 debug_on=False
-def info(msg,arg1=None,arg2=None,arg3=None):
-    if True == debug_on:
-        print(msg,arg1,arg2,arg3)
+
 
 
 class sql_parser:
@@ -84,13 +82,32 @@ class sql_parser:
         global debug_on
         self.debug=debug
         self.debug_on=debug
-        tokens=tokenize(query,discard_whitespace=True,debug=debug)
-        self.query_object=self.parse(tokens)
-        if None == self.query_object:
+        self.query_objects=[]
+        querys=query.split(';')
+        print querys
+        for q in querys:
+            info("-----------------------------------")
+            tokens=tokenize(q,discard_whitespace=True,debug=debug)
+            #skip 0 length commands such as single ';'
+            token_length=0
+            for token in tokens:
+                if token['data']!='':
+                token_length+=1
+
+            info("Token Length",tokens_length)
+            if tokens_length==0:
+                continue
+
+            parsed=self.parse(tokens)
+            if False==parsed:
+                self.query_objects=None 
+                break
+            self.query_objects.append(parsed)
+
+        if None == self.query_objects:
             raise Exception("Object failed to decode")
 
     def parse(self,tokens):
-
 
         sql_object=[]
         # SOME TODO!
@@ -105,7 +122,11 @@ class sql_parser:
             keyword_found=False
             switch_index=0
             query_mode=None
-            while switch_index<len(query['switch']):
+            curent_object={}
+            switch={}
+            while switch_index<len(query['switch']) and token_index<len(tokens):
+                
+                info("token",token_index,tokens[token_index])
                 switch=query['switch'][switch_index]
                 switch_index+=1
                 curent_object={}
@@ -132,7 +153,13 @@ class sql_parser:
                     optional=False
 
 
-
+                if isinstance(switch['name'],list):
+                    object_id=' '.join([str(x) for x in switch['name'] ])
+                    object_id=object_id.lower()
+                else:
+                    object_id=switch['name']
+                    object_id=object_id.lower()
+                info("------",object_id,token_index)
                 if False == no_keyword:
                     keyword_compare=self.get_sub_array(switch,'name')
                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
@@ -141,13 +168,9 @@ class sql_parser:
                         info("match", keyword_compare,haystack)
                         # we use name because it may be a list. and its simpler to hash by name
                         # as long as the compare is good, we dont care
-                        if isinstance(switch['name'],list):
-                            object_id=' '.join([str(x) for x in switch['name'] ]) 
-                        else:
-                            object_id=switch['name']
                         curent_object['mode']=object_id
                         if switch_index==1:
-                            query_mode=switch['name'] 
+                            query_mode=query['query']
                         keyword_found=True
                     else:
                         if False == optional:
@@ -163,7 +186,7 @@ class sql_parser:
                     token_index+=len(keyword_compare)
                     info("advance token index ",token_index,switch['data'])
                 else:
-                    curent_object['mode']=switch['name'] 
+                    curent_object['mode']=object_id
 
                 if None == switch['data'] or False == switch['data']:
                     info("No data to match")
@@ -172,6 +195,7 @@ class sql_parser:
                     if dispose != True:
                         info("----------Adding",curent_object['mode'])
                         query_object[curent_object['mode']]=None
+                    
                     
                 # This is where data colection happens
                 else:
@@ -266,7 +290,7 @@ class sql_parser:
                                 argument_index+=1
                                 if argument_index>=arguments:
 
-                                    info("----------Adding",curent_object['mode'],)
+                                    info("----------Adding",curent_object['mode'])
                                     if True == store_array:
                                         if curent_object['mode'] not in query_object:
                                             query_object[curent_object['mode']]=[]
@@ -305,7 +329,7 @@ class sql_parser:
                                     if tokens[token_index]['data']!=',':
                                         info("---not list")
                                         # only append object after argument collection is done
-                                        info("----------Adding",curent_object['mode'],)
+                                        info("----------Adding",curent_object['mode'])
                                         if True == store_array:
                                             if curent_object['mode'] not in query_object:
                                                 query_object[curent_object['mode']]=[]
@@ -337,9 +361,39 @@ class sql_parser:
                                         token_index+=1
             
             # This is where we exit if we reached the end of processing with a full length
-            info(token_index,len(tokens))
+            #print token_index,len(tokens) 
+            info(switch_index,token_index,len(tokens))
+            
             info (query_object)
+            #so we have run out of text to match and everything is good so far
             if token_index==len(tokens):
+                info("############################think its a match")
+               
+                if 'arguments' not in curent_object and 'arguments' in switch:
+                    info("Missing argument in last element")
+                    bad=True
+                    break
+
+                #lets make sure the rest are optional
+                if len(query['switch'])>=switch_index:
+                    info("still checking")
+                    bad=False
+                    for t in  range(switch_index,len(query['switch'])):
+                        if 'optional' not in query['switch'][t]:
+                            bad=True
+                            break
+                        else:
+                            if  query['switch'][t]['optional']!=True:
+                                bad=True
+                                break
+                        
+                    
+
+                    if True == bad:
+                        info("Not successful. required arguments missing")
+                        break
+                  
+                    
                 info("SUCCESS")
                 sql_object={'mode':query_mode,'meta':query_object}
                 return sql_object
@@ -347,16 +401,16 @@ class sql_parser:
     
     #expand columns
     # TODO null trapping
-    def expand_columns(self,columns):
-        if self.query_object['mode']=="select":
+    def expand_columns(self,query_object,columns):
+        if query_object['mode']=="select":
             expanded_select=[]
-            for item in self.query_object['meta']['select']:
+            for item in query_object['meta']['select']:
                 if item['column']=='*':
                     for column in columns:
                         expanded_select.append({'column':column})    
                 else:
                     expanded_select.append(item)
-            self.query_object['meta']['select']=expanded_select
+            query_object['meta']['select']=expanded_select
         #?? needed
 
     
