@@ -54,16 +54,16 @@ if [[ $? -ne 0 ]]; then
         
     #    pipenv install bumpversion pip==18
 
-    if [[ ! -f './bumpversion.cfg' ]]; then
+#    if [[ ! -f './bumpversion.cfg' ]]; then
+        version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")
         echo "Creating bump version Config"
         cat >.bumpversion.cfg <<EOL
         [bumpversion]
-        current_version = 1.0.0 
+        current_version = $version
         files = setup.py
         commit = False
         tag = False 
 EOL
-   fi
 
     git commit -m 'BumpVersion Config'
 
