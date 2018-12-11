@@ -3,4 +3,5 @@ dist/
 test/
 *.pyc
 .vscode/
-
+*.so
+*.c

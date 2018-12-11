@@ -3,8 +3,9 @@
 
 
 ## Prerequisites (Fedora)
-- yum install -y redhat-rpm-config
-- yum install -y python2-devel
+- yum install -y redhat-rpm-config   # for cython deps
+- yum install -y python2-devel       # for cython deps
+- yum install -y libyaml-devel       # for c bindings on config loader
 
 ## Install
 ```
@@ -90,5 +91,5 @@ results=self.engine.query(query)
 - cython builds the python code as a ".so"
 - packages can see down, not up
 - in code import using full package name
-- cython packages myst be includes must be marked as extensions
-- all pure cython packages myst be marked as packages in setup, otherwise le fail
+- cython packages must be marked as extensions
+- all pure cython packages must be marked as packages in setup, otherwise "le fail"

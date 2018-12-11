@@ -2,18 +2,12 @@ import os
 from distutils.core import setup
 from distutils.extension import Extension
 
-#from setuptools import setup
-
-
-
 
 USE_CYTHON = os.path.exists('ddb/engine/sql_engine.py')
 print("USE_CYTHON",USE_CYTHON)
 
 
 ext = '.pyx' if USE_CYTHON else '.c'
-
-
 
 extensions = [
    Extension("ddb.engine.parser.language",        [ "./ddb/engine/parser/language"+ext ]),
@@ -33,19 +27,8 @@ extensions = [
    Extension("ddb.engine.structure.database",     [ "./ddb/engine/structure/database"+ext ]),
 
    Extension("ddb.engine.sql_engine",             [ "./ddb/engine/sql_engine"+ext ],
-#    libraries = ['ddb.engine.parser.sql_parser',
-#                 'ddb.engine.structure.table',
-#                 'ddb.engine.structure.database',
-#                 'ddb.engine.structure.column',
-#                 'ddb.engine.evaluate.match',
-#                 'ddb.engine.functions',]
    ),
    Extension("ddb.engine.interactive",            [ "./ddb/engine/interactive"+ext ],
-#    libraries = ['ddb.engine.structure.table',
-#                'ddb.engine.structure.database',
-#                'ddb.engine.sql_engine',]
-
-
    ),
    Extension("ddb.cli",                           [ "./ddb/cli"+ext ]) ,
 ]     
@@ -96,17 +79,3 @@ setup(
     
 )
 
-
-
-#packages = ['cli.ddb',
-#   'interactive.engine.ddb',
-#   'functions.functions.engine.ddb',
-#   'sql_engine.engine.ddb',
-#   'database.structure.engine.ddb',
-#   'table.structure.engine.ddb',
-#   'column.structure.engine.ddb',
-#   'match.evaluate.engine.ddb',
-#   'sql_parser.parserengine.ddb',
-#   'sql_tokenize.tokenizer.engine.ddb',
-#   'language.parser.engine.ddb',],
-#
