@@ -8,33 +8,44 @@ def evaluate_single_match(test,row,table):
     compare2=None
     compare1_is_column=False
     compare2_is_column=False
-    if None !=test['condition']:
-        test['condition']=test['condition'].lower()
 
+    comparitor=test['c']
+
+
+    #if None !=comparitor:
+    #   comparitor=comparitor.lower()
+
+    
+     
     for column in table.columns:
         #print column.data.name
-        if column.data.name==test['expression1']:
+        if column.data.name==test['e1']:
+            index=table.ordinals[column.data.name]
             #print "found1", column.data.name
-            compare1=table.get_data_from_column(column,row)
-            #compare1_is_column=True
-        if column.data.name==test['expression2']:
+            compare1=row[index]#table.ordinals[].get_data_from_column(column,row)
+            #compare1=table.get_data_from_column(column,row)
+            compare1_is_column=True
+        if column.data.name==test['e2']:
+            index=table.ordinals[column.data.name]            
             #print "found2", column.data.name
-            compare2=table.get_data_from_column(column,row)
+            compare2=row[index] #table.get_data_from_column(column,row)
+            #compare2=table.get_data_from_column(column,row)
             compare2_is_column=True
         if None !=compare1 and None != compare2:
             break
+
     if None == compare1:
-        compare1=test['expression1']
+        compare1=test['e1']
     if None == compare2:
-        compare2=test['expression2']
+        compare2=test['e2']
     if None == compare1 and None == compare2:
         raise Exception("Where invalid {}".format(test))
         
-    if test['condition']=='=' or test['condition']=='is' :
+    if comparitor=='=' or comparitor=='is' :
         if compare1==compare2:
             #print compare1,compare2
             return True
-    if test['condition']=='like':  #paritial match
+    if comparitor=='like':  #paritial match
 
         if True == compare1_is_column and  True == compare2_is_column:
             raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
@@ -46,6 +57,12 @@ def evaluate_single_match(test,row,table):
             like=compare1
             data=compare2
 
+        if None == like:
+            return False
+        #if len(like)==0:
+        #    return False
+        #print "--"
+        #print compare1,compare2,like
         if like[0]=='%':
             like_left=True
         else:
@@ -79,19 +96,19 @@ def evaluate_single_match(test,row,table):
         
         
         return False
-    if test['condition']=='<' :
+    if comparitor=='<' :
         if compare1<compare2:
             return True
-    if test['condition']=='>' :
+    if comparitor=='>' :
         if compare1>compare2:
             return True
-    if test['condition']=='>=' :
+    if comparitor=='>=' :
         if compare1>=compare2:
             return True
-    if test['condition']=='<=' :
+    if comparitor=='<=' :
         if compare1<=compare2:
             return True
-    if test['condition']=='!=' or test['condition']=='<>' or test['condition']=='not':
+    if comparitor=='!=' or comparitor=='<>' or comparitor=='not':
         if compare1!=compare2:
             return True
 
@@ -102,6 +119,7 @@ def evaluate_match(where,row,table):
     #print where
     if None == row: 
         return False
+        
     if 0 == len(where):
         #print "0 len"
         return True

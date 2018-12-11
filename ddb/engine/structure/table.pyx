@@ -1,33 +1,49 @@
 import sys
 import yaml
 import os
-from column import *
+import os
+from .column import *
+from yaml import load, dump
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
 
-        
+#use the c based parser, or you're going to get massive lag with the python based solution
+
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,columns=None,name=None):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
         self.visible               = table_visible_attributes()
-        self.data                  = table_data(name=name) 
+        self.data                  = table_data(name=name,database=database) 
         self.columns               = []
         self.active                = True
-
+        self.ordinals={}
         self.errors=[]
         self.results=[]
-
+        
+        if None != field_delimiter:
+            self.set_field_delimiter(field_delimiter)
+            
+        if None !=data_file:
+            self.data.path=data_file
+        
         if None != columns:
             for column in columns:
                 self.add_column(column)
 
 
         if None != file:
+            self.data.config=file
+            self.data.type="File"
             with open(file, 'r') as stream:
                 try:
-                    yaml_data=yaml.load(stream)
+                    yaml_data=yaml.load(stream, Loader=Loader)
+                    #print yaml_data
                     for key in yaml_data:
                         try:
                             if 'version' == key:
@@ -48,11 +64,11 @@ class table:
                             # one offs
                             if 'columns' == key:
                                 for c in yaml_data['columns']:
-                                    if self.version == 1:
-                                        cv1=column_v1( c )
-                                        cv2=cv1.to_v2()
-                                        self.columns.append( cv2 )
-                                    if self.version == 2:
+                                    #if self.version == 1:
+                                    #    cv1=column_v1( c )
+                                    #    cv2=cv1.to_v2()
+                                    #    self.columns.append( cv2 )
+                                    #if self.version == 2:
                                         self.columns.append( column_v2( c ) )
                                         
                                                 
@@ -70,7 +86,13 @@ class table:
             yaml.emitter.Emitter.process_tag = self.noop
             if True == show_config:
                 yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
+            if None !=self.data.path:
+                if False == os.path.exists(self.data.path):
+                    raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )
+                
 
+    def set_field_delimiter(self,delimiter):
+        self.delimiters.field=delimiter
 
     def append_data(self,data):
         """Add a row to the resultset for this table"""
@@ -138,8 +160,8 @@ class table:
             if c.display.visible == True:
                 temp_columns.append({'data':c.data.ordinal,'display':c.display.ordinal })
 
-        L = [(k,v) for (k,v) in temp_columns]
-        temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
+        #L = [(k,v) for (k,v) in temp_columns]
+        #temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
         return temp_columns
 
 
@@ -187,13 +209,17 @@ class table:
             return
 
         column_count=len(self.columns)
-        has_ordinal=[i for i in range(column_count)]
+        #has_ordinal=[i for i in range(column_count)]
 
-
+        self.ordinals={}
         for k,v in enumerate(self.columns):
             if None == v.data.ordinal or -1==v.data.ordinal:
+
                 #print (self.columns[k].data.ordinal)
                 self.columns[k].data.ordinal=self.get_lowest_available_ordinal()
+                self.ordinals[v.data.name]=self.columns[k].data.ordinal
+            else:
+                self.ordinals[v.data.name]=v.data.ordinal
         
         ## create lookup hash
         #for i in range (0,column_count):
@@ -224,7 +250,34 @@ class table:
         #    else:
         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
             
+    def save(self):
+        home = os.path.expanduser("~")
+        #make app dir
+        if not os.path.exists(os.path.join(home, '.ddb')):
+           os.makedirs(os.path.join(home, '.ddb'))
+
+        home=os.path.join(home, '.ddb')
+        if None == self.data.name:
+            raise Exception ("Cannot save a table without a name")
+
+        if None == self.data.database:
+            raise Exception ("Cannot save a table without a database name")
             
+        if not os.path.exists(os.path.join(home, self.data.database)):
+            os.makedirs(os.path.join(home, self.data.database))
+
+        home=os.path.join(home, self.data.database)
+        if None == self.data.config:
+            self.data.config=os.path.join(home,"{}.ddb.yaml".format(self.data.name))
+
+        with open(self.data.config, 'w') as stream:
+            yaml.emitter.Emitter.process_tag = self.noop
+            yaml.dump(self,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True,stream=stream)
+            stream.close()
+
+
+
+      
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
@@ -246,8 +299,10 @@ class table_visible_attributes:
 class table_data:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,yaml=None,name=None):
+    def __init__(self,yaml=None,name=None,database=None):
+        self.type           = 'Temp'
         self.name           = None
+        self.database       = 'main'
         self.display_name   = None
         self.multi_search   = True
         self.starts_on_line = 0
@@ -255,12 +310,19 @@ class table_data:
         self.path           = None
         self.key            = None
         self.ordinal        = -1
+        self.config         = None
+        self.retults        = None
         if None != name:
             self.name=name
+        
+        if None != database:
+            self.database=database
 
         if None != yaml:
             if 'name' in yaml:
                 self.name=yaml['name']
+            if 'database' in yaml:
+                self.database=yaml['database']
             if 'display_name' in yaml:
                 self.display_name=yaml['display_name']
             if 'multi_search' in yaml:

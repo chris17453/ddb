@@ -3,9 +3,19 @@ import time
 from cmd import Cmd
 from .structure.table import table
 from .structure.database import database
-from sql_engine  import sql_engine
-from .formatting.colors import bcolors
-from .formatting.formatting import format_data
+from .sql_engine  import sql_engine
+import flextable
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 class ddbPrompt(Cmd):
@@ -22,18 +32,19 @@ class ddbPrompt(Cmd):
                 self.help_exit("")
 
     def set_vars(self,
-                 database,
-                 debug,
-                 no_clip,
-                 width ,
-                 format):
+                 database=None,
+                 config_file=None,
+                 debug=False,
+                 no_clip=False,
+                 width ='auto',
+                 format='term'):
         if debug==None:
             debug=False
         self.debug=debug
         self.no_clip=no_clip
         self.width=width
         self.format=format
-        self.engine=sql_engine(database,debug=self.debug)
+        self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
 
     def msg(self,type,name,message=''):
         if type=='info':
@@ -89,6 +100,7 @@ class ddbPrompt(Cmd):
 
 
     def default(self, inp):
+        print inp
         if inp == 'x' or inp == 'q':
             return self.do_exit("")
         
@@ -97,10 +109,15 @@ class ddbPrompt(Cmd):
                 print ("sql engin gone")
                 return
             start = time.time()
-            results_table=self.engine.query(sql_query=inp)
+            results=self.engine.query(sql_query=inp)
             end = time.time()
-            format_data(no_clip=self.no_clip,width='auto',format='term',table=results_table)
+            if results!=None:
+                config=flextable.table_config()
+                config.columns=results.get_columns()
+                flextable.table(data=results.results,args=config)
+            
             self.msg("info","executed in {} seconds".format(end - start))
+            inp=None
         except Exception as ex:
             self.msg("error",ex)
 

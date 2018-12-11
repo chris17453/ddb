@@ -65,7 +65,7 @@ git commit -m 'BumpVersion Config'
 fi
 
 echo "Build the package"
-python setup.py sdist
+python setup.py build_ext --inplace sdist
 
 echo "---$pub"
 if [[ ! -z "$pub" ]]; then
