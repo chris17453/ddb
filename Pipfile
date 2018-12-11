@@ -8,11 +8,8 @@ pylint = "<2.0.0"
 cython = "*"
 
 [packages]
-pip = "==18"
 pyyaml = "*"
-bumpversion = "*"
 flextable = "*"
-cython = "*"
 
 [requires]
 python_version = "2.7"
