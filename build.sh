@@ -43,6 +43,7 @@ git commit -m 'Bump Version'
 echo "Bumping Python patch version"
 bumpversion patch --allow-dirty
 if [[ $? -ne 0 ]]; then
+        echo "Bumpversion failed"
     #    ver="$(pipenv run pip show pip | grep Version)"
     #    echo $ver
     #    if [[ "$ver" != "Version: 18.0" ]];
@@ -53,13 +54,16 @@ if [[ $? -ne 0 ]]; then
         
     #    pipenv install bumpversion pip==18
 
-    cat >.bumpversion.cfg <<EOL
-    [bumpversion]
-    current_version = 1.0.0 
-    files = setup.py
-    commit = False
-    tag = False 
+    if [[ ! -f './bumpversion.cfg' ]]; then
+        echo "Creating bump version Config"
+        cat >.bumpversion.cfg <<EOL
+        [bumpversion]
+        current_version = 1.0.0 
+        files = setup.py
+        commit = False
+        tag = False 
 EOL
+   fi
 
     git commit -m 'BumpVersion Config'
 
