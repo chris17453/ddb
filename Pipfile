@@ -11,7 +11,7 @@ pyyaml = "*"
 bumpversion = "*"
 flextable = {path = "./../flextable"}
 cython = "*"
-"e1839a8" = {path = "."}
+e1839a8 = {path = "."}
 ddb = {path = "."}
 
 [requires]
