@@ -50,7 +50,7 @@ results=self.engine.query(query)
 
 - Query support is limited. As needed I'll improve the system.
 - If you're doing vastly comlicated things, it shouldn't be with a flat file.
-- This code is not fast, but not slow either. It will be refactored, but not until more support is added.
+- This code is no t fast, but not slow either. It will be refactored, but not until more support is added.
 - compiled with cython gives a 450%+ boost in execution time. 
 - My test record set with 60k records, at first, came back in 1.6 seconds, now comes in at .35 seconds
 

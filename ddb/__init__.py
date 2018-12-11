@@ -2,7 +2,7 @@ from cli import cli_main
 import os
 
 
-from ddb.engine.sql_engine import sql_engine
+from .engine.sql_engine import sql_engine
 
 #main import
 def engine(config_file=None,mode='array'):

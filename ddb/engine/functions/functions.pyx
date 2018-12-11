@@ -29,3 +29,6 @@ def show_errors(database,table):
         columns=[e]
         temp_table.append_data({'data':columns,'type':data_type.DATA,'error':None})
     return temp_table
+
+def database(database):
+    return database.get_curent_database()

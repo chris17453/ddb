@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "783ef8491be2a458f1987c8e57438e3e6a329b7ad14b06b3c579529f2a08402f"
+            "sha256": "4536685781d49c56cd020a29e3e87e53e7f8b980c925b4c4ddd184179605cbe1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,9 +16,6 @@
         ]
     },
     "default": {
-        "ddb": {
-            "path": "."
-        },
         "flextable": {
             "hashes": [
                 "sha256:9f6d75325473b4b66caa80a08d0132e29512a0008f33182f1eb320629e310e58"
@@ -59,6 +56,14 @@
             ],
             "markers": "python_version == '2.7'",
             "version": "==1.5"
+        },
+        "bumpversion": {
+            "hashes": [
+                "sha256:6744c873dd7aafc24453d8b6a1a0d6d109faf63cd0cd19cb78fd46e74932c77e",
+                "sha256:6753d9ff3552013e2130f7bc03c1007e24473b4835952679653fb132367bdd57"
+            ],
+            "index": "pypi",
+            "version": "==0.5.3"
         },
         "configparser": {
             "hashes": [
