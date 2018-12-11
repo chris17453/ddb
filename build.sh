@@ -85,7 +85,7 @@ fi
 
 echo "Updating test Environment"
 cd test
-pipenv install "$dir"
+pipenv install "$dir"/test
 cd ..
 
 

@@ -45,7 +45,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.162',
+    version='1.0.163',
     packages=[  'ddb',
                 'ddb.engine.parser',
                 'ddb.engine.tokenizer',
