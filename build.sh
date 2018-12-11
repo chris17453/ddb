@@ -52,7 +52,7 @@ if [[ $? -ne 0 ]]; then
     #        pipenv install pip==18
     #    fi
         
-    #    pipenv install bumpversion pip==18
+    pipenv install bumpversion --dev
 
 #    if [[ ! -f './bumpversion.cfg' ]]; then
         version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")

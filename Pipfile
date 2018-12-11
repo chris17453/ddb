@@ -5,6 +5,7 @@ name = "pypi"
 
 [dev-packages]
 pylint = "<2.0.0"
+cython = "*"
 
 [packages]
 pip = "==18"
@@ -12,7 +13,6 @@ pyyaml = "*"
 bumpversion = "*"
 flextable = "*"
 cython = "*"
-ddb = {path = "."}
 
 [requires]
 python_version = "2.7"
