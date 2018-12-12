@@ -223,7 +223,7 @@ class sql_parser:
                                                         
                             dependency_found=False
                             for q_o in query_object:
-                                info( depends_on,q_o)
+                                #info( depends_on,q_o)
                                 haystack=self.get_sub_array(q_o)
                                 if True == self.single_array_match(depends_oncompare,haystack):
                                     dependency_found=True
@@ -235,7 +235,7 @@ class sql_parser:
 
 
 
-                        info("data",switch['data'])
+                        #info("data",switch['data'])
                         if 'arguments' in switch:
                             arguments=switch['arguments']
                         else:
