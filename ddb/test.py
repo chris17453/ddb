@@ -34,8 +34,8 @@ class test_engine(unittest.TestCase):
         self.assertEqual(1,results[0][0])
 
         #fail on existing table
-        
-        print engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        with self.assertRaises(Exception) :
+            engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
         
         

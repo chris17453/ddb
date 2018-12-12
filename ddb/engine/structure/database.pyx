@@ -167,7 +167,6 @@ class database:
         if False==os.path.isfile(data_file):
             raise Exception ("Data file does not exist")
         
-        print "create table"
         if None ==database_name:
             database_name=self.get_curent_database()
         exists=self.get(table_name,database_name)
