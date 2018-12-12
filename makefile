@@ -44,7 +44,7 @@ bump:
 	
 	
 build: bump
-	@find .dist -type f -name "*.gz" -exec rm -f {} \;
+	@find dist -type f -name "*.gz" -exec rm -f {} \;
 	@python setup.py build_ext --inplace sdist 
 
 upload:
