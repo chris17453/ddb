@@ -237,8 +237,10 @@ class sql_engine:
             has_columns=False
             for c in query_object['meta']['select']:
                 if 'function' in  c:
+                    info("Has funcitons, doesnt need a table")
                     has_functions=True
                 if 'column' in c:
+                    info("Has columns, needs a table")
                     has_columns=True
                 
             # if has functions, tables may not be needed
