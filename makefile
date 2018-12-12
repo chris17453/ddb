@@ -45,7 +45,7 @@ bump:
 		@echo $'files = setup.py\n'>.bumpversion.cfg 
 		@echo $'commit = False\n'>.bumpversion.cfg 
 		@echo $'tag = False\n'>.bumpversion.cfg 
-		@git commit -m 'BumpVersion Config - '$version
+		@git commit -m 'BumpVersion Config - '$(version)
 	fi
 
 build:
