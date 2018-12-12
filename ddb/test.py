@@ -55,7 +55,7 @@ class test_engine(unittest.TestCase):
                 engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
         except Exception as ex:
             self.fail(ex)
-            self.cleanup(engine)
+        self.cleanup(engine)
             
 
     def test_drop_table(self):
@@ -103,7 +103,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(2,len(results))
         except Exception as ex:
             self.fail(ex)
-            self.cleanup(engine)
+        self.cleanup(engine)
 
 
     def test_update(self):
@@ -119,7 +119,8 @@ class test_engine(unittest.TestCase):
             results=engine.query('update test set email="bob@pizza" where id="1" and id not "2" or id="3"')
             self.assertEqual(2,results[0][0])
         except Exception as ex:
-            self.cleanup(engine)
+            self.fail(ex)
+        self.cleanup(engine)
     
     def test_insert(self):
         """Insert a row in the test file"""
@@ -136,7 +137,7 @@ class test_engine(unittest.TestCase):
                 
         except Exception as ex:
             self.fail(ex)
-            self.cleanup(engine)
+        self.cleanup(engine)
 
     def test_delete(self):
         """Delete a test row in the test file"""
@@ -156,7 +157,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(1,results[0][0])
         except Exception as ex:
             self.fail(ex)
-            self.cleanup(engine)
+        self.cleanup(engine)
 
 
 if __name__=='__main__':
