@@ -262,9 +262,12 @@ class database:
             yaml_data=yaml.load(stream)
             # could be empty
             if None !=yaml_data:
+                print "TT"
                 for db in  yaml_data:
                     for table in yaml_data[db]:
                         tables.append(yaml_data[db][table]['path'])
+            else:
+                print "Empty"
 
         return tables
 
