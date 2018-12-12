@@ -164,7 +164,7 @@ sql_syntax={
                                 'data': [{'sig': ['{table}']}],
                                 'name': 'update'},
                                 {'arguments': 0,
-                                'data': [{'sig': ['{column}', '=', '{e}']}],
+                                'data': [{'sig': ['{column}', '=', '{expression}']}],
                                 'name': 'set'},
                                 {'arguments': 1,
                                 'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
