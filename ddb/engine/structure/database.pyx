@@ -260,10 +260,11 @@ class database:
 
         with open(self.config_file, 'r') as stream:
             yaml_data=yaml.load(stream)
-            
-            for db in  yaml_data:
-                for table in yaml_data[db]:
-                    tables.append(yaml_data[db][table]['path'])
+            # could be empty
+            if None !=yaml_data:
+                for db in  yaml_data:
+                    for table in yaml_data[db]:
+                        tables.append(yaml_data[db][table]['path'])
 
         return tables
 
