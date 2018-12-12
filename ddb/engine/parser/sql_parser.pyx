@@ -394,6 +394,21 @@ class sql_parser:
                         break
                   
                     
+                #check to make sure functions are valid
+                if query_mode=='select':
+                    info("Validating Select Functions")
+                    for node in query_object:
+                        valid_funciton_name=False
+                        if 'function' in node:
+                            info ("It's a function!")
+                            for f in  sql_syntax['functions']:
+                                if f['name']== node['function']:
+                                    valid_funciton_name=True
+                                    break
+                        if False==valid_funciton_name:
+                            info("FAIL","This isnt a valid function",node['name'])
+                            return False
+
                 info("SUCCESS")
                 sql_object={'mode':query_mode,'meta':query_object}
                 return sql_object

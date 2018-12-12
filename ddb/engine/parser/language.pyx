@@ -1,8 +1,8 @@
 
 sql_syntax={
-    'functions':[ {'name':'database','arguments':False},
-                {'name':'count','arguments':['where']},
-                {'name':'sum','arguments':['column']},],
+    'functions':[ {'name':'database','arguments':None},
+                {'name':'count','arguments':[{'name':'where','required':True}]},
+                {'name':'sum','arguments':[{'name':'column','required':True}]},
     'query_matrix':[
                     {'query': 'show tables',
                     'switch': [{'data': False, 'name': ['show', 'tables']}]},
