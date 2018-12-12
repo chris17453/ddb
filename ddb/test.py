@@ -22,19 +22,22 @@ class test_engine(unittest.TestCase):
 
     def test_use(self):
         """Test changing database context"""
-        print("Use")
+        try:
+            print("Use")
 
-        # single db change from default
-        engine=sql_engine(config_file=False)
-        test_db_name="TEST"
-        results=engine.query("use {}".format(test_db_name))
-        results=engine.query("select database()")
-        self.assertEqual(results[0][0],test_db_name)
-    
-        # default context check
-        engine=sql_engine(config_file=False)
-        results=engine.query("select database()")
-        self.assertEqual("main",results[0][0])
+            # single db change from default
+            engine=sql_engine(config_file=False)
+            test_db_name="TEST"
+            results=engine.query("use {}".format(test_db_name))
+            results=engine.query("select database()")
+            self.assertEqual(results[0][0],test_db_name)
+        
+            # default context check
+            engine=sql_engine(config_file=False)
+            results=engine.query("select database()")
+            self.assertEqual("main",results[0][0])
+        except Exception ex:
+            self.fail(ex)
 
 
     def test_create_table(self):
@@ -51,6 +54,7 @@ class test_engine(unittest.TestCase):
             with self.assertRaises(Exception) :
                 engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
         except Exception as ex:
+            self.fail(ex)
             self.cleanup(engine)
             
 
@@ -98,6 +102,7 @@ class test_engine(unittest.TestCase):
             results=engine.query('select * from test where id="1" and id not "2" or id="3" order by id LIMIT 100;')
             self.assertEqual(2,len(results))
         except Exception as ex:
+            self.fail(ex)
             self.cleanup(engine)
 
 
@@ -130,6 +135,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(1,results[0][0])
                 
         except Exception as ex:
+            self.fail(ex)
             self.cleanup(engine)
 
     def test_delete(self):
@@ -149,6 +155,7 @@ class test_engine(unittest.TestCase):
             results=engine.query("delete from test where email like 'bop@%'")
             self.assertEqual(1,results[0][0])
         except Exception as ex:
+            self.fail(ex)
             self.cleanup(engine)
 
 
