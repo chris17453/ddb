@@ -1,5 +1,3 @@
-#.PHONY: help clean init bump build upload
-
 
 dir=$(pwd)
 git_username="Charles Watkins"
@@ -22,10 +20,22 @@ clean:
 
 
 init:
+	@echo dependencies for building...  dnf install python-devel libyaml-devel gcc make
 	@if [[ ! -d 'dist' ]]; then  mkdir dist ; fi
 	@if [[ ! -d '.git' ]]; then  git init; fi
 	@git config --global user.email $(git_email)
 	@git config --global user.name $(git_username)
+	pipenv install bumpversion --dev
+	pipenv install twine --dev
+	pipenv install cython --dev
+	
+	
+
+	@echo [bumpversion]>.bumpversion.cfg
+	@echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
+	@echo files = setup.py>>.bumpversion.cfg
+	@echo commit = False>>.bumpversion.cfg
+	@echo tag = False>>.bumpversion.cfg
 
 
 bump:
@@ -34,11 +44,13 @@ bump:
 	@pipenv run bumpversion patch --allow-dirty
 	
 	
-build: clean init bump
+build: init bump
 	@python setup.py build_ext --inplace sdist 
 
 upload:
-	if [[ ! -z "$pub" ]]; then \
-		@twine upload  dist/* ; \
-	fi
+	@twine upload  dist/*
+
+install:
+	pip install . --user
+	
 
