@@ -399,7 +399,7 @@ class sql_parser:
                     info("Validating Select Functions")
                     if 'select' in    query_object:
                         for node in query_object['select']:
-                            valid_funciton_name=False
+                            valid_function_name=False
                             if 'function' in node:
                                 info ("It's a function!")
                                 for f in  sql_syntax['functions']:
@@ -420,11 +420,11 @@ class sql_parser:
                                             info("Too many arguments")
                                             return False
                 
-                                    valid_funciton_name=True
+                                    valid_function_name=True
                                     break
-                        if False==valid_funciton_name:
-                            info("FAIL","This isnt a valid function",node['function'])
-                            return False
+                            if False==valid_function_name:
+                                info("FAIL","This isnt a valid function",node['function'])
+                                return False
                     else:
                         info("No columns in select")
                         return False
