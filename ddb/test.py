@@ -18,6 +18,9 @@ class test_engine(unittest.TestCase):
             os.remove(config_dir) 
         if os.path.exists(config_dir):
             print("Still here")
+    
+    def test_zzz(self):
+        self.test_aaa()
         
     def cleanup(self,engine):
         if None != engine:
