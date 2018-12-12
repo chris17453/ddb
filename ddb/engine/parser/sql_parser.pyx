@@ -126,7 +126,8 @@ class sql_parser:
             switch={}
             while switch_index<len(query['switch']) and token_index<len(tokens):
                 
-                info("token",token_index,tokens[token_index])
+                info("Token Index",token_index,"token",tokens[token_index])
+                info("Token Length",len(tokens))
                 switch=query['switch'][switch_index]
                 switch_index+=1
                 curent_object={}
@@ -321,7 +322,7 @@ class sql_parser:
                             else:
                                 info("in list")
 
-                                if len(tokens)<=token_index:
+                                if len(tokens)<token_index:
                                     info("at the end")
                                 # look ahead to see if its a list ","
                                 if len(tokens)>=token_index:
