@@ -180,7 +180,7 @@ class database:
         t.data.path=data_file
         res=t.save()
         if False==res:
-            return False
+            raise Exception("Couldn't save table configuation")
         self.add_config(table=t)
         return True
 

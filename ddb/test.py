@@ -1,12 +1,14 @@
 import unittest
+import os
 from engine.sql_engine  import sql_engine
 
 
 
 
 class test_engine(unittest.TestCase):
-    temp_config='../data/temp_config.yaml'
-    temp_data='../data/MOCK_DATA.csv'
+    temp_config='test/temp_config.yaml'
+    temp_data='test/MOCK_DATA.csv'
+    basedir=os.path.dirname(os.path.abspath(__file__))
 
 
     def test_use(self):
@@ -26,9 +28,9 @@ class test_engine(unittest.TestCase):
 
 
     def test_create_table(self):
-        engine=sql_engine(config_file=self.temp_config)
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.temp_data))
-        print results[0][0]
+        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        print results
         self.assertEqual(1,results[0][0])
         
 
