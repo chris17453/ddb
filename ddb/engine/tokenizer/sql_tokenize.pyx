@@ -379,11 +379,15 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
         for d in delimiters_sorted:
             delimter_len=len(d)
             fragment=text[c:c+delimter_len]
+            if  c>=text_length-1:
+                info ("Last Cycle")
             if True == compare_text_fragment(fragment,d) or c>=text_length-1:
                 info("Delemiter found",c,fragment)
                 if c-word_start>0:
+                    info ("Data word found")
                     word_end=c
                     if word_end>=text_length:
+                        info("word ends on last character")
                         word_end=text_length-1
                     not_delimiter=text[word_start:word_end]
                     token_type='data'
