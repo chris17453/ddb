@@ -41,11 +41,11 @@ bump:
 	@if [[  $'EXIT_CODE' -ne 0 ]]; then \
 		@pipenv install bumpversion --dev 
 		@touch .bumpversion.cfg 
-		@echo $'[bumpversion]\n'>.bumpversion.cf
-		@echo $'current_version = $version\n'>.bumpversion.cfg 
-		@echo $'files = setup.py\n'>.bumpversion.cfg 
-		@echo $'commit = False\n'>.bumpversion.cfg 
-		@echo $'tag = False\n'>.bumpversion.cfg 
+		@echo '[bumpversion]\n'>.bumpversion.cf
+		@echo 'current_version = $version\n'>.bumpversion.cfg 
+		@echo 'files = setup.py\n'>.bumpversion.cfg 
+		@echo 'commit = False\n'>.bumpversion.cfg 
+		@echo 'tag = False\n'>.bumpversion.cfg 
 		@git commit -m 'BumpVersion Config - '$(version)
 	fi
 
