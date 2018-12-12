@@ -249,8 +249,7 @@ class sql_parser:
                             signature_compare=self.get_sub_array(sig,'sig')
                             haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
                             if True == self.single_array_match(signature_compare,haystack):
-                                if True == debug:
-                                    info("match", signature_compare,haystack)
+                                #    info("match", signature_compare,haystack)
                                 if len(signature_compare)>match_len:
                                     match_len=len(signature_compare)
                                     match=signature_compare
@@ -290,7 +289,6 @@ class sql_parser:
                                 info("print not in list")
                                 argument_index+=1
                                 if argument_index>=arguments:
-
                                     info("----------Adding",curent_object['mode'])
                                     if True == store_array:
                                         if curent_object['mode'] not in query_object:
