@@ -87,7 +87,7 @@ sql_syntax={
                                 'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
                                 'name': 'where',
                                 'optional': True,
-                                'depends_on': 'from'
+                                'depends_on': 'from',
                                 'store_array': True},
                                 {'arguments': 1,
                                 'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
