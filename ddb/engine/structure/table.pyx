@@ -14,7 +14,7 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None,):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
@@ -40,55 +40,60 @@ class table:
         if None != file:
             self.data.config=file
             self.data.type="File"
-            with open(file, 'r') as stream:
-                try:
-                    yaml_data=yaml.load(stream, Loader=Loader)
-                    #print yaml_data
-                    for key in yaml_data:
-                        try:
-                            if 'version' == key:
-                                self.version=yaml_data[key]
+            if os.path.exists(file):
+                with open(file, 'r') as stream:
+                    try:
+                        yaml_data=yaml.load(stream, Loader=Loader)
+                        if None==yaml_data:
+                            raise Exception ("Table configuration empty")
+                        #print yaml_data
+                        for key in yaml_data:
+                            try:
+                                if 'version' == key:
+                                    self.version=yaml_data[key]
 
-                            if 'ownership' == key:
-                                self.ownership = table_ownership(yaml=yaml_data[key])
-                            
-                            if 'delimiters' == key:
-                                self.delimiters = table_delimiters(yaml=yaml_data[key])
-                            
-                            if 'visible' == key:
-                                self.visible = table_visible_attributes(yaml=yaml_data[key])
-                            
-                            if 'data' == key:
-                                self.data = table_data(yaml=yaml_data[key])
-                            
-                            # one offs
-                            if 'columns' == key:
-                                for c in yaml_data['columns']:
-                                    #if self.version == 1:
-                                    #    cv1=column_v1( c )
-                                    #    cv2=cv1.to_v2()
-                                    #    self.columns.append( cv2 )
-                                    #if self.version == 2:
-                                        self.columns.append( column_v2( c ) )
-                                        
-                                                
-                            if 'active' == key:
-                                self.active=yaml_data[key]
-
+                                if 'ownership' == key:
+                                    self.ownership = table_ownership(yaml=yaml_data[key])
                                 
-                            #attr=getattr(self,key)
-                            #setattr(self,key,yaml_data[key])
-                        except Exception as ex:
-                            print(ex)    
-                except yaml.YAMLError as exc:
-                    print(exc)
-            self.update_ordinals()
-            yaml.emitter.Emitter.process_tag = self.noop
-            if True == show_config:
-                yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
-            if None !=self.data.path:
-                if False == os.path.exists(self.data.path):
-                    raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )
+                                if 'delimiters' == key:
+                                    self.delimiters = table_delimiters(yaml=yaml_data[key])
+                                
+                                if 'visible' == key:
+                                    self.visible = table_visible_attributes(yaml=yaml_data[key])
+                                
+                                if 'data' == key:
+                                    self.data = table_data(yaml=yaml_data[key])
+                                
+                                # one offs
+                                if 'columns' == key:
+                                    for c in yaml_data['columns']:
+                                        #if self.version == 1:
+                                        #    cv1=column_v1( c )
+                                        #    cv2=cv1.to_v2()
+                                        #    self.columns.append( cv2 )
+                                        #if self.version == 2:
+                                            self.columns.append( column_v2( c ) )
+                                            
+                                                    
+                                if 'active' == key:
+                                    self.active=yaml_data[key]
+
+                                    
+                                #attr=getattr(self,key)
+                                #setattr(self,key,yaml_data[key])
+                            except Exception as ex:
+                                print(ex)    
+                    except yaml.YAMLError as exc:
+                        print(exc)
+            
+        
+        self.update_ordinals()
+        yaml.emitter.Emitter.process_tag = self.noop
+        if True == show_config:
+            yaml.dump(self,sys.stdout,indent=4, default_flow_style=False, allow_unicode=True,explicit_start=True,explicit_end=True)
+        if None !=self.data.path:
+            if False == os.path.exists(self.data.path):
+                raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name,self.data.path) )
                 
 
     def set_field_delimiter(self,delimiter):
