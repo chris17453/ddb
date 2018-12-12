@@ -16,8 +16,8 @@ help:
 
 
 clean:
-	@rm *.c -f
-	@rm *.so -f 
+	@rm *.c -rf
+	@rm *.so -rf 
 	@if [[ ! -d 'dist' ]]; then  mkdir dist ; fi
 	@cd dist
 	@rm *.gz -f
