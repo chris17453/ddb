@@ -569,7 +569,7 @@ class sql_engine:
         if os.path.exists(target):
             raise Exception("Deleting target file {} failed".format(target))
         os.rename(temp,target)
-        if os.path.exists(temp_file):
+        if os.path.exists(temp):
             raise Exception("Renaming temp file {} failed".format(temp))
         
 
