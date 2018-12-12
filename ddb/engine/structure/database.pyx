@@ -133,10 +133,13 @@ class database:
         if table !=None:
             with open(self.config_file, 'r') as stream:
                 yaml_data=yaml.load(stream)
+                if None==yaml_data:
+                    yaml_data={}
                 db=table.data.database
                 if None == db:
                     db=self.get_default_database()
                 
+                    
                 if db not in  yaml_data:
                     yaml_data[db]={}
                 
