@@ -141,7 +141,10 @@ class test_engine(unittest.TestCase):
             #update
             results=engine.query("insert into test ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')")
             self.assertEqual(1,results[0][0])
-                
+            #Delete
+            results=engine.query("delete from test where id='1001'")
+            self.assertEqual(1,results[0][0])
+                        
         except Exception as ex:
             self.fail(ex)
 
@@ -159,7 +162,7 @@ class test_engine(unittest.TestCase):
 
             #update non existant
             results=engine.query("delete from test where id='1003'")
-            self.assertEqual(0,results[0][0])
+            self.assertEqual(1,results[0][0])
                 
             #update existing
             results=engine.query("delete from test where email like 'bop@%'")
