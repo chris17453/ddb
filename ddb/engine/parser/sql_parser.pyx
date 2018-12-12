@@ -440,11 +440,15 @@ class sql_parser:
         if query_object['mode']=="select":
             expanded_select=[]
             for item in query_object['meta']['select']:
-                if item['column']=='*':
-                    for column in columns:
-                        expanded_select.append({'column':column})    
-                else:
+                if 'column' in item:
+                    if item['column']=='*':
+                        for column in columns:
+                            expanded_select.append({'column':column})    
+                    else:
+                        expanded_select.append(item)
+                if 'function' in item:
                     expanded_select.append(item)
+
             query_object['meta']['select']=expanded_select
         #?? needed
 

@@ -82,8 +82,7 @@ class sql_engine:
       
         for query_object in parser.query_objects:
             
-            if True==self.debug:
-                print(query_object)
+            info("query_object",query_object)
             #print  query_object
             #exit(9)
             #get columns, doesnt need a table
@@ -232,22 +231,40 @@ class sql_engine:
     def select(self,query_object,parser):
         #try:
             temp_data=[]
-            table_name=query_object['meta']['from']['table']
-            query_object['table']=self.database.get(table_name)
-            if None ==query_object['table']:
-                raise Exception("invalid table {}".format(table_name))
-            table_columns=query_object['table'].get_columns()                      
-            parser.expand_columns(query_object,table_columns)
-            column_len=query_object['table'].column_count()
-            if column_len==0:
-                raise Exception("No defined columns in configuration")
-         
+            #if has columns, then it needs a table
+            
+            has_functions=False
+            has columns=False
+            for c in query_object['meta']['select']:
+                if 'function' in  c:
+                    has_functions=True
+                if 'column' in c:
+                    has columns=True
+                
+            # if has functions, tables may not be needed
+            if True == has columns:
+                table_name=query_object['meta']['from']['table']
+                query_object['table']=self.database.get(table_name)
+                if None ==query_object['table']:
+                    raise Exception("invalid table {}".format(table_name))
+                table_columns=query_object['table'].get_columns()                      
+                parser.expand_columns(query_object,table_columns)
+                column_len=query_object['table'].column_count()
+                if column_len==0:
+                    raise Exception("No defined columns in configuration")
+
+
             temp_table=self.database.temp_table()
             for column in  query_object['meta']['select']:
                 display=None
                 if 'display' in column:
                     display=column['display']
-                temp_table.add_column(column['column'],display)
+                
+                if 'column' in column:
+                    temp_table.add_column(column['column'],display)
+                if 'function' in column:
+                    temp_table.add_column(column['function'],display)
+                
 
             
             line_number=1
