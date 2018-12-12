@@ -1,0 +1,2 @@
+main:
+  test: {name: test, path: /home/nd/.ddb/main/test.ddb.yaml}

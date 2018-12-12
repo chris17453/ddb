@@ -16,7 +16,8 @@ class test_engine(unittest.TestCase):
             os.remove(config_dir) 
 
     def cleanup(self,engine):
-        engine.query("drop table test")
+        if None != engine:
+            engine.query("drop table test")
         
 
     def test_use(self):
@@ -38,6 +39,7 @@ class test_engine(unittest.TestCase):
 
     def test_create_table(self):
         """Test creating a table"""
+        engine=None
         try:
             print("Create Table")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
@@ -69,6 +71,7 @@ class test_engine(unittest.TestCase):
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
+        engine=None
         try:
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
             print("Select")
@@ -99,7 +102,8 @@ class test_engine(unittest.TestCase):
 
 
     def test_update(self):
-        """Update a row in the test file""""
+        """Update a row in the test file"""
+        engine=None
         try:
             print("Update")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
@@ -113,7 +117,8 @@ class test_engine(unittest.TestCase):
             self.cleanup(engine)
     
     def test_insert(self):
-        """Insert a row in the test file""""
+        """Insert a row in the test file"""
+        engine=None
         try:
             print("Insert")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
@@ -128,7 +133,8 @@ class test_engine(unittest.TestCase):
             self.cleanup(engine)
 
     def test_delete(self):
-        """Delete a test row in the test file""""
+        """Delete a test row in the test file"""
+        engine=None
         try:
             print("Delete")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
