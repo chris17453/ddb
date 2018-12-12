@@ -24,6 +24,7 @@ class test_engine(unittest.TestCase):
         
     def cleanup(self,engine):
         if None != engine:
+            print "Cleaning"
             engine.query("drop table test")
         
 
