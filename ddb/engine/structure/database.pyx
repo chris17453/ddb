@@ -14,10 +14,8 @@ class database:
         if None !=config_file and config_file!=False:
             self.config_file=config_file
             tables=self.get_tables()
-            print "F"
             for table_file in tables:
                 self.tables.append(table(table_file,show_config))
-            print "FF"
             return
 
         if None !=directory:
