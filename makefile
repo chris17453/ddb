@@ -1,5 +1,4 @@
 
-dir=$(pwd)
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
 
@@ -29,10 +28,8 @@ init:
 	# bumpversion
 	# twine
 	# and other deps should be in the pipfile
-	pipenv install 
+	@pipenv install 
 	
-	
-
 	@echo [bumpversion]>.bumpversion.cfg
 	@echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
 	@echo files = setup.py>S>.bumpversion.cfg
