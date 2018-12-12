@@ -248,16 +248,18 @@ class sql_engine:
                 
             # if has functions, tables may not be needed
             if True == has_columns:
-                table_name=query_object['meta']['from']['table']
-                query_object['table']=self.database.get(table_name)
-                if None ==query_object['table']:
-                    raise Exception("invalid table {}".format(table_name))
-                table_columns=query_object['table'].get_columns()                      
-                parser.expand_columns(query_object,table_columns)
-                column_len=query_object['table'].column_count()
-                if column_len==0:
-                    raise Exception("No defined columns in configuration")
-
+                if 'from' in  query_object['meta']:
+                    table_name=query_object['meta']['from']['table']
+                    query_object['table']=self.database.get(table_name)
+                    if None ==query_object['table']:
+                        raise Exception("invalid table {}".format(table_name))
+                    table_columns=query_object['table'].get_columns()                      
+                    parser.expand_columns(query_object,table_columns)
+                    column_len=query_object['table'].column_count()
+                    if column_len==0:
+                        raise Exception("No defined columns in configuration")
+                else:
+                    raise Exception("Missing FROM in select")
 
             temp_table=self.database.temp_table()
             for column in  query_object['meta']['select']:
