@@ -496,7 +496,7 @@ class sql_engine:
             column_name=query_object['meta']['set'][c2]['column']
             if None == query_object['table'].get_column_by_name(column_name):
                 temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
-                #print "no column"
+                print "no column"
                 err=True
                 
         if False==err:
@@ -506,16 +506,16 @@ class sql_engine:
                 for c2 in range(0,len(query_object['meta']['set'])):
                     #print column_name,query_object['meta']['set']
                     if query_object['meta']['set'][c2]['column']==column_name:
-                        #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
+                        print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                         value=query_object['meta']['set'][c2]['expression']
                 if c>0:
                     new_line+='{}'.format(query_object['table'].delimiters.field)    
                 new_line+='{}'.format(value)
-            #print new_line,value
+            print new_line,value
 
          
         if False == err:
-            #print new_line
+            print new_line
             if True == requires_new_line:
                 temp_file.write(query_object['table'].delimiters.new_line)
             temp_file.write(new_line+query_object['table'].delimiters.new_line)
