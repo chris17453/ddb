@@ -43,18 +43,16 @@ class test_engine(unittest.TestCase):
     def test_create_table(self):
         """Test creating a table"""
         engine=None
-        try:
-            print("Create Table")
-            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-            #new on existing table
-            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-            self.assertEqual(1,results[0][0])
+        print("Create Table")
+        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        #new on existing table
+        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        self.assertEqual(1,results[0][0])
 
-            #fail on existing table
-            with self.assertRaises(Exception) :
-                engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        except Exception as ex:
-            self.fail(ex)
+        #fail on existing table
+        with self.assertRaises(Exception) :
+            engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+    
         self.cleanup(engine)
             
 
