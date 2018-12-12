@@ -400,7 +400,9 @@ class sql_parser:
                     if 'select' in    query_object:
                         for node in query_object['select']:
                             valid_function_name=False
+                            is_function=False
                             if 'function' in node:
+                                is_function=True
                                 info ("It's a function!")
                                 for f in  sql_syntax['functions']:
                                     if f['name']== node['function']:
@@ -422,7 +424,7 @@ class sql_parser:
                 
                                     valid_function_name=True
                                     break
-                            if False==valid_function_name:
+                            if False==valid_function_name and True == is_function:
                                 info("FAIL","This isnt a valid function",node['function'])
                                 return False
                     else:

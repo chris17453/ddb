@@ -328,7 +328,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
     delimiters_sorted=sort_array_by_length(delimiters)
     
     # padding prevents fencpost error
-    text+=" "
+    #text+=" "
     text_length=len(text)
     # c is the incremental pointer to the string
     word_start=0
