@@ -269,8 +269,10 @@ class sql_engine:
                     info("RENAME COLUMN",display)
                 
                 if 'column' in column:
+                    info("adding data column")
                     temp_table.add_column(column['column'],display)
                 if 'function' in column:
+                    info("adding function column")
                     temp_table.add_column(column['function'],display)
                 
 
