@@ -103,52 +103,48 @@ class database:
 
 
     def add_config(self,table_config=None,table=None):
-        try:
-            if None==self.config_file:
-                raise Exception ("Not using a config file")
-            if not os.path.exists(self.config_file):
-                self.create_config(self.config_file)
-            
-            #if we have a file name, lets add it
-            if None != table_config:
-                print "Adding table config"
-                with open(self.config_file, 'r') as stream:
-                    config=table(table_config)
-                    yaml_data=yaml.load(stream)
-                    db=config.data.database
-                    if None == db:
-                        db=self.get_default_database()
-                    
-                    if db not in  yaml_data:
-                        yaml_data[db]={}
+        if None==self.config_file:
+            raise Exception ("Not using a config file")
+        if not os.path.exists(self.config_file):
+            self.create_config(self.config_file)
+        
+        #if we have a file name, lets add it
+        if None != table_config:
+            print "Adding table config"
+            with open(self.config_file, 'r') as stream:
+                config=table(table_config)
+                yaml_data=yaml.load(stream)
+                db=config.data.database
+                if None == db:
+                    db=self.get_default_database()
+                
+                if db not in  yaml_data:
+                    yaml_data[db]={}
 
-                    yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}
-                    
-                    f = open(self.config_file, "w")
-                    yaml.dump(yaml_data, f)
-                    f.close()
-
+                yaml_data[db][config.data.name]={'name':config.data.name,'path':table_config}
+                
+                f = open(self.config_file, "w")
+                yaml.dump(yaml_data, f)
+                f.close()
 
 
-            #if we have a table lets save it
-            if table !=None:
-                with open(self.config_file, 'r') as stream:
-                    yaml_data=yaml.load(stream)
-                    db=table.data.database
-                    if None == db:
-                        db=self.get_default_database()
-                    
-                    if db not in  yaml_data:
-                        yaml_data[db]={}
-                    
-                    yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}
-                    f = open(self.config_file, "w")
-                    yaml.dump(yaml_data, f)
-                    f.close()
-            return True
-        except Exception as ex:
-            print ex    
-            return False
+
+        #if we have a table lets save it
+        if table !=None:
+            with open(self.config_file, 'r') as stream:
+                yaml_data=yaml.load(stream)
+                db=table.data.database
+                if None == db:
+                    db=self.get_default_database()
+                
+                if db not in  yaml_data:
+                    yaml_data[db]={}
+                
+                yaml_data[db][table.data.name]={'name':table.data.name,'path':table.data.config}
+                f = open(self.config_file, "w")
+                yaml.dump(yaml_data, f)
+                f.close()
+        return True
 
 
     def get_default_database(self):
