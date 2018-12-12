@@ -11,7 +11,7 @@ def info(msg,arg1=None,arg2=None,arg3=None):
             print("{} {}".format(msg,arg1))
             return
     
-        print("{} {} {}".format(msg))
+        print("[{}]".format(msg))
 
 
 # yes, this could be a giant regex, but no.
