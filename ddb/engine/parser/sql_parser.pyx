@@ -325,7 +325,7 @@ class sql_parser:
                                 if len(tokens)<token_index:
                                     info("at the end")
                                 # look ahead to see if its a list ","
-                                if len(tokens)>=token_index:
+                                if len(tokens)>token_index:
                                     info("--looking ahead")
                                     # if its not exit
                                     info("----" ,tokens[token_index]['data'])
