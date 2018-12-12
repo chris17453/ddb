@@ -8,7 +8,7 @@ git_email="charles@titandws.com"
 .DEFAULT: help
 
 help:
-	@echo "make init   | init git"
+	@echo "make init   | init git, create base directories"
 	@echo "make clean  | delete pypi packages and cython files"
 	@echo "make build  | build bython files and make pypi package"
 	@echo "make bump   | bump the package version"
@@ -16,15 +16,13 @@ help:
 
 
 clean:
-	@rm *.c -rf
-	@rm *.so -rf 
-	@if [[ ! -d 'dist' ]]; then  mkdir dist ; fi
-	@cd dist
-	@rm *.gz -f
-	@cd ..
+	@find . -type f -name "*.c" -exec rm -f {} \;
+	@find . -type f -name "*.so" -exec rm -f {} \;
+	@find . -type f -name "*.gz" -exec rm -f {} \;
 
 
 init:
+	@if [[ ! -d 'dist' ]]; then  mkdir dist ; fi
 	@if [[ ! -d '.git' ]]; then  git init; fi
 	@git config --global user.email $(git_email)
 	@git config --global user.name $(git_username)
