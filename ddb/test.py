@@ -10,7 +10,8 @@ class test_engine(unittest.TestCase):
     temp_data='test/MOCK_DATA.csv'
     basedir=os.path.dirname(os.path.abspath(__file__))
 
-    def test_a(self):
+    def test_aaa(self):
+        
         config_dir=os.path.join(self.basedir,self.temp_config)
         if os.path.exists(config_dir):
             print config_dir
