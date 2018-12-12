@@ -294,11 +294,11 @@ class sql_engine:
                         if None != processed_line['data']:
                             restructured_line=[]
                             for c in query_object['meta']['select']:
-                            if 'column' in c:
-                                restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
-                            if 'function' in c:
-                                if c['function']=='database':
-                                    restructured_line.append(functions.database())
+                                if 'column' in c:
+                                    restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
+                                if 'function' in c:
+                                    if c['function']=='database':
+                                        restructured_line.append(functions.database())
 
                             temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
                 
