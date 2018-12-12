@@ -379,39 +379,35 @@ class sql_engine:
     # ignores matches
     # File is as untouched as possible
     def delete(self,query_object):
-        try:
-            table_name=query_object['meta']['from']['table']
-            query_object['table']=self.database.get(table_name)
+        table_name=query_object['meta']['from']['table']
+        query_object['table']=self.database.get(table_name)
 
-            temp_table=self.database.temp_table()
-            temp_table.add_column('deleted')
+        temp_table=self.database.temp_table()
+        temp_table.add_column('deleted')
 
-            temp_file_name = next(tempfile._get_candidate_names())
-            line_number=1
-            deleted=0
-            # process file
-            with open(query_object['table'].data.path, 'r') as content_file:
-                with open(temp_file_name, 'w') as temp_file:
-                    for line in content_file:
-                        processed_line=self.process_line(query_object,line,line_number)
-                        if None != processed_line['error']:
-                            temp_table.add_error(processed_line['error'])
-                        line_number+=1
-                        #skip matches
-                        if True  == processed_line['match']:
-                            deleted+=1
-                            continue
-                        temp_file.write(processed_line['raw'])
-            
-            data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
-            temp_table.append_data(data)
-            os.remove(query_object['table'].data.path)
-            os.rename(temp_file_name,query_object['table'].data.path)
-            return temp_table
+        temp_file_name = next(tempfile._get_candidate_names())
+        line_number=1
+        deleted=0
+        # process file
+        with open(query_object['table'].data.path, 'r') as content_file:
+            with open(temp_file_name, 'w') as temp_file:
+                for line in content_file:
+                    processed_line=self.process_line(query_object,line,line_number)
+                    if None != processed_line['error']:
+                        temp_table.add_error(processed_line['error'])
+                    line_number+=1
+                    #skip matches
+                    if True  == processed_line['match']:
+                        deleted+=1
+                        continue
+                    temp_file.write(processed_line['raw'])
         
-        except Exception as ex:
-            
-            print (ex)
+        data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
+        temp_table.append_data(data)
+        os.remove(query_object['table'].data.path)
+        os.rename(temp_file_name,query_object['table'].data.path)
+        return temp_table
+        
 
     
     # creates a tempfile 

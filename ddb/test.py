@@ -134,7 +134,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(0,results[0][0])
              
             #update existing
-            results=engine.query("delete from test where email like 'bob@%'")
+            results=engine.query("delete from test where email like 'bop@%'")
             self.assertEqual(1,results[0][0])
 
         except Exception as ex:
