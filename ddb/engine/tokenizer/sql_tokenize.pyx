@@ -371,7 +371,9 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                 c+=1
             continue  
         # not equal.. greater than. we want the things on the last pass...
+        info("position1",c,text_length)
         if c>text_length:
+
             break         
         for d in delimiters_sorted:
             delimter_len=len(d)
