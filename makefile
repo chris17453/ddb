@@ -35,7 +35,7 @@ bump:
 	@git add -A 
 	git commit -m 'Bump Version $(version)'
 
-	$(shell -c "pipenv run bumpversion patch --allow-dirty ")
+	$(shell sh -c "pipenv run bumpversion patch --allow-dirty ")
 	@if [[  $(.SHELLSTATUS) -ne 0 ]]; then \
 		@pipenv install bumpversion --dev ;\
 		@touch .bumpversion.cfg ;\
