@@ -298,7 +298,7 @@ class sql_engine:
                                     restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
                                 if 'function' in c:
                                     if c['function']=='database':
-                                        restructured_line.append(functions.database())
+                                        restructured_line.append(functions.database(self.engine.database))
 
                             temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
                 
