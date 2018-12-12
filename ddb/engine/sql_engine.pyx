@@ -509,11 +509,11 @@ class sql_engine:
                 if c>0:
                     new_line+='{}'.format(query_object['table'].delimiters.field)    
                 new_line+='{}'.format(value)
-            print new_line,value
+            
 
          
         if False == err:
-            print new_line
+            #print new_line
             if True == requires_new_line:
                 temp_file.write(query_object['table'].delimiters.new_line)
             temp_file.write(new_line+query_object['table'].delimiters.new_line)
