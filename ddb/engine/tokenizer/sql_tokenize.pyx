@@ -367,7 +367,8 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
             if just_crossed_block==False:
                 c+=1
             continue  
-        if c>=text_length:
+        # not equal.. greater than. we want the things on the last pass...
+        if c>text_length:
             break         
         for d in delimiters_sorted:
             delimter_len=len(d)
