@@ -487,7 +487,7 @@ class sql_engine:
         # insert new data at end of file
         new_line=''
         err=False
-        print query_object
+        #print query_object
 
         # make sure the inserted columns exist
         for c2 in range(0,len(query_object['meta']['set'])):
