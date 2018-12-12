@@ -114,9 +114,17 @@ class test_engine(unittest.TestCase):
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
+            results=engine.query("insert into test ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')")
+            self.assertEqual(1,results[0][0])
+
             #update
-            results=engine.query('update test set email="bob@pizza" where id="1" and id not "2" or id="3"')
-            self.assertEqual(2,results[0][0])
+            results=engine.query('update test set email="test@test.com" where id="1002"')
+            self.assertEqual(1,results[0][0])
+
+            results=engine.query("delete from test where id='1002'")
+            self.assertEqual(1,results[0][0])
+                
+        
         except Exception as ex:
             self.fail(ex)
     
@@ -146,8 +154,11 @@ class test_engine(unittest.TestCase):
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
+            results=engine.query("insert into test ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')")
+            self.assertEqual(1,results[0][0])
+
             #update non existant
-            results=engine.query("delete from test where id='sam'")
+            results=engine.query("delete from test where id='1003'")
             self.assertEqual(0,results[0][0])
                 
             #update existing
