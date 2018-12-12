@@ -6,11 +6,13 @@ git_email="charles@titandws.com"
 .DEFAULT: help
 
 help:
-	@echo "make init   | init git, create base directories"
-	@echo "make clean  | delete pypi packages and cython files"
-	@echo "make build  | build bython files and make pypi package"
-	@echo "make bump   | bump the package version"
-	@echo "make upload | upload to pypi"
+	@echo "make build          | build bython files and make pypi package"
+	@echo "make bump           | bump the package version"
+	@echo "make clean          | delete pypi packages and cython files"
+	@echo "make init           | init git, create base directories"
+	@echo "make make-pipfile   | recreate the pipfile"
+	@echo "make test           | run unit test "
+	@echo "make upload         | upload any build packages to pypi"
 
 
 clean:
@@ -24,9 +26,10 @@ init:
 	@if [[ ! -d '.git' ]]; then  git init; fi
 	@git config --global user.email $(git_email)
 	@git config --global user.name $(git_username)
-	pipenv install bumpversion --dev
-	pipenv install twine --dev
-	pipenv install cython --dev
+	# bumpversion
+	# twine
+	# and other deps should be in the pipfile
+	pipenv install 
 	
 	
 
@@ -36,14 +39,22 @@ init:
 	@echo commit = False>>.bumpversion.cfg
 	@echo tag = False>>.bumpversion.cfg
 
+make-pipfile:
+	pipenv install bumpversion --dev
+	pipenv install twine --dev
+	pipenv install ctyhon --dev
+	pipenv install pyyaml
+	pipenv install flextable
 
 bump:
 	@git add -A 
 	@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
 	@pipenv run bumpversion patch --allow-dirty
+
+test:
+	@python ddb/test.py
 	
-	
-build: bump
+build: bump test
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
 	@python setup.py build_ext --inplace sdist 
 

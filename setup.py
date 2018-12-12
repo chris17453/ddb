@@ -4,7 +4,7 @@ from distutils.extension import Extension
 
 
 USE_CYTHON = os.path.exists('ddb/engine/sql_engine.pyx')
-print("USE_CYTHON",USE_CYTHON)
+#print("USE_CYTHON",USE_CYTHON)
 
 
 ext = '.pyx' if USE_CYTHON else '.c'
@@ -32,14 +32,14 @@ if USE_CYTHON:
     try:
         from Cython.Build import cythonize
     except:
-        print ("Cython not found")
+     #   print ("Cython not found")
         exit(1)
     
     extensions =  cythonize(extensions)
 
 setup(
     name='ddb',
-    version='1.0.342',
+    version='1.0.343',
     packages=[  'ddb',
                 'ddb.engine.parser',
                 'ddb.engine.tokenizer',
