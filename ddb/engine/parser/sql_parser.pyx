@@ -426,8 +426,8 @@ class sql_parser:
                             info("FAIL","This isnt a valid function",node['function'])
                             return False
                     else:
-                    info("No columns in select")
-                    return False
+                        info("No columns in select")
+                        return False
             
 
                 info("SUCCESS")
