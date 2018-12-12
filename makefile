@@ -33,7 +33,7 @@ init:
 bump:
 	@git add -A 
 	@version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
-	@git commit -m 'Bump Version $(version)'
+	git commit -m 'Bump Version $(version)'
 
 	
 	@if [[ $(pipenv run bumpversion patch --allow-dirty) -ne 0 ]]; then \
