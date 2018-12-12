@@ -396,7 +396,7 @@ class sql_engine:
         
         data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
-        self.swap_files(query_object['table'].data.path,(temp_file_name)
+        self.swap_files(query_object['table'].data.path,temp_file_name)
         return temp_table
         
 
@@ -437,7 +437,7 @@ class sql_engine:
         
         data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
-        self.swap_files(query_object['table'].data.path,(temp_file_name)
+        self.swap_files(query_object['table'].data.path,temp_file_name)
 
         return temp_table
         
@@ -557,7 +557,7 @@ class sql_engine:
         data= {'data':[updated],'type':self.data_type.DATA,'error':None}
 
         temp_table.append_data(data)
-        self.swap_files(query_object['table'].data.path,(temp_file_name)
+        self.swap_files(query_object['table'].data.path,temp_file_name)
 
         return temp_table
 
