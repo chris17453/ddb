@@ -36,7 +36,7 @@ class test_engine(unittest.TestCase):
             engine=sql_engine(config_file=False)
             results=engine.query("select database()")
             self.assertEqual("main",results[0][0])
-        except Exception ex:
+        except Exception as ex:
             self.fail(ex)
 
 
