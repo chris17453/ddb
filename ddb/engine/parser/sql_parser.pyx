@@ -406,7 +406,7 @@ class sql_parser:
                                     valid_funciton_name=True
                                     break
                         if False==valid_funciton_name:
-                            info("FAIL","This isnt a valid function",node['name'])
+                            info("FAIL","This isnt a valid function",node['function'])
                             return False
 
                 info("SUCCESS")
