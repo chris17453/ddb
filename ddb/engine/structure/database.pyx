@@ -174,7 +174,7 @@ class database:
         exists=self.get(table_name,database_name)
         #it exists. so no dont create it
         if None!=exists:
-            return False
+            raise Exception("table already exists")
 
         t=table(name=table_name,database=database_name,columns=columns)
         t.data.path=data_file
