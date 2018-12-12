@@ -393,11 +393,11 @@ class sql_parser:
                         info("Not successful. required arguments missing")
                         break
                   
-                    
+                info("Query object",query_object)
                 #check to make sure functions are valid
                 if query_mode=='select':
                     info("Validating Select Functions")
-                    if 'select' in    query_object:
+                    if 'select' in  query_object:
                         for node in query_object['select']:
                             valid_function_name=False
                             is_function=False
