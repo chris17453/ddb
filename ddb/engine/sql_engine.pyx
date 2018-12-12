@@ -614,7 +614,7 @@ class sql_engine:
         temp_table.add_column('create table')
         data= {'data':[created],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
-        prin "BOB"
+        print "BOB"
         return temp_table
 
 
