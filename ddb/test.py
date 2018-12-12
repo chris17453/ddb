@@ -11,30 +11,28 @@ class test_engine(unittest.TestCase):
     basedir=os.path.dirname(os.path.abspath(__file__))
 
     def test_aaa(self):
-        print ("#--->init")
-        config_dir=os.path.join(self.basedir,self.temp_config)
-        if os.path.exists(config_dir):
-            print "Config dir: {}".format(config_dir)
-            os.remove(config_dir) 
-        if os.path.exists(config_dir):
-            print("Still here")
     
-    def test_zzz(self):
-        self.test_aaa()
         
     def cleanup(self,engine):
         if None != engine:
-            print "Cleaning"
-            engine.query("drop table test")
+            print ("#--->Fresh init")
+            config_dir=os.path.join(self.basedir,self.temp_config)
+            if os.path.exists(config_dir):
+                print "Config dir: {}".format(config_dir)
+                os.remove(config_dir) 
+            if os.path.exists(config_dir):
+                print("Still here")
+            #print "Cleaning"
+            #engine.query("drop table test")
         
 
     def test_use(self):
         """Test changing database context"""
         try:
             print("Use")
-
-            # single db change from default
+        # single db change from default
             engine=sql_engine(config_file=False)
+            engine=None
             test_db_name="TEST"
             results=engine.query("use {}".format(test_db_name))
             results=engine.query("select database()")
@@ -50,9 +48,9 @@ class test_engine(unittest.TestCase):
 
     def test_create_table(self):
         """Test creating a table"""
-        engine=None
         print("Create Table")
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        self.cleanup(engine)
         #new on existing table
         results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
         self.assertEqual(1,results[0][0])
@@ -68,6 +66,7 @@ class test_engine(unittest.TestCase):
         """Test dropping a table"""
         print("Drop Table")
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        self.cleanup(engine)
         results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
                 #fail on existing table
         results=engine.query('drop table test')
@@ -84,6 +83,7 @@ class test_engine(unittest.TestCase):
         engine=None
         try:
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            self.cleanup(engine)
             print("Select")
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
@@ -109,15 +109,14 @@ class test_engine(unittest.TestCase):
             self.assertEqual(2,len(results))
         except Exception as ex:
             self.fail(ex)
-        self.cleanup(engine)
-
+    
 
     def test_update(self):
         """Update a row in the test file"""
-        engine=None
         try:
             print("Update")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            self.cleanup(engine)
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
@@ -126,14 +125,13 @@ class test_engine(unittest.TestCase):
             self.assertEqual(2,results[0][0])
         except Exception as ex:
             self.fail(ex)
-        self.cleanup(engine)
     
     def test_insert(self):
         """Insert a row in the test file"""
-        engine=None
         try:
             print("Insert")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            self.cleanup(engine)
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
@@ -148,9 +146,11 @@ class test_engine(unittest.TestCase):
     def test_delete(self):
         """Delete a test row in the test file"""
         engine=None
+        self.cleanup(engine)
         try:
             print("Delete")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            self.cleanup(engine)
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
@@ -163,7 +163,6 @@ class test_engine(unittest.TestCase):
             self.assertEqual(1,results[0][0])
         except Exception as ex:
             self.fail(ex)
-        self.cleanup(engine)
 
 
 if __name__=='__main__':
