@@ -201,7 +201,7 @@ class database:
                 self.reload_config()
                 return True
                 break
-        return False
+        raise Exception("Failed to drop table. Does not exist")
 
 
     def remove_config(self,table_config=None,table_object=None):
