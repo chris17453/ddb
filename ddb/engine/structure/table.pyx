@@ -25,7 +25,7 @@ class table:
         self.ordinals={}
         self.errors=[]
         self.results=[]
-        self.config_directory      =config_directory
+        self.config_directory     =config_directory
         
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
@@ -267,9 +267,16 @@ class table:
         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
             
     def save(self):
-        home = self.config_directory
-        #make app dir
-
+        #if no config dir given, save in users home dir
+        if None==self.config_directory:
+            home = os.path.expanduser("~")
+            #make app dir
+            if not os.path.exists(os.path.join(home, '.ddb')):
+            os.makedirs(os.path.join(home, '.ddb'))
+            home=os.path.join(home, '.ddb')
+        else:
+            home = self.config_directory
+        
         if None == self.data.name:
             raise Exception ("Cannot save a table without a name")
 
