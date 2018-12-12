@@ -35,7 +35,7 @@ init:
 
 	@echo [bumpversion]>.bumpversion.cfg
 	@echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
-	@echo files = setup.py>>.bumpversion.cfg
+	@echo files = setup.py>S>.bumpversion.cfg
 	@echo commit = False>>.bumpversion.cfg
 	@echo tag = False>>.bumpversion.cfg
 
@@ -56,7 +56,7 @@ test:
 	
 build: bump test
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
-	@python setup.py build_ext --inplace sdist 
+	@pipenv run python setup.py build_ext --inplace sdist 
 
 upload:
 	@twine upload  dist/*
