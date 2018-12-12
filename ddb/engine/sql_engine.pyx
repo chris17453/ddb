@@ -278,27 +278,39 @@ class sql_engine:
         
             # create temp table structure
             # process file
-            with open(query_object['table'].data.path, 'r') as content_file:
-                for line in content_file:
-                    processed_line=self.process_line(query_object,line,line_number)
-                    if None != processed_line['error']:
-                        temp_table.add_error(processed_line['error'])
-                    line_number+=1
-                    
-                    #print processed_line
-                    if False == processed_line['match']:
-                        continue
+            if True == has_columns:
+                with open(query_object['table'].data.path, 'r') as content_file:
+                    for line in content_file:
+                        processed_line=self.process_line(query_object,line,line_number)
+                        if None != processed_line['error']:
+                            temp_table.add_error(processed_line['error'])
+                        line_number+=1
+                        
+                        #print processed_line
+                        if False == processed_line['match']:
+                            continue
 
-                    # add to temp table
-                    if None != processed_line['data']:
-                        restructured_line=[]
-                        for c in query_object['meta']['select']:
-                            restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
-                        temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
-            
-        
+                        # add to temp table
+                        if None != processed_line['data']:
+                            restructured_line=[]
+                            for c in query_object['meta']['select']:
+                            if 'column' in c:
+                                restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
+                            if 'function' in c:
+                                if c['function']=='database':
+                                    restructured_line.append(functions.database())
+
+                            temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
+                
             # file is closed at this point
 
+            if False==has_columns and True == has_functions:
+                row=[]
+                for c in query_object['meta']['select']:
+                    if 'function' in c:
+                        if c['function']=='database':
+                            row.append(functions.database())
+                temp_data=[row]
 
             if 'order by' in  query_object['meta']:
                 self.sort=[]
