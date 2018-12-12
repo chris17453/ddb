@@ -165,6 +165,10 @@ class database:
     def create_table(self,table_name,columns,data_file,database_name=None):
         if None==self.config_file:
             raise Exception ("Not using a config file")
+        if False==os.path.exist(data_file):
+            raise Exception ("Data file does not exist")
+        
+        
         if None ==database_name:
             database_name=self.get_curent_database()
         exists=self.get(table_name,database_name)

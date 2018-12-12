@@ -5,17 +5,32 @@ from engine.sql_engine  import sql_engine
 
 
 class test_engine(unittest.TestCase):
-    #def __init__(self):
-        
+    temp_config='../data/temp_config.yaml'
+    temp_data='../data/MOCK_DATA.csv'
+
+
     def test_use(self):
+        """Test changing database context"""
+
+        # single db change from default
         engine=sql_engine(config_file=False)
         test_db_name="TEST"
         results=engine.query("use {}".format(test_db_name))
         results=engine.query("select database()")
         self.assertEqual(results[0][0],test_db_name)
     
-    #def test_create_table(self):
-    #    engine=sql_engine(database_dir=None,config_file=None,query=None,debug=False,mode='array')
+        # default context check
+        engine=sql_engine(config_file=False)
+        results=engine.query("select database()")
+        self.assertEqual("main",results[0][0])
+
+
+    def test_create_table(self):
+        engine=sql_engine(config_file=self.temp_config)
+        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.temp_data))
+        print results[0][0]
+        self.assertEqual(1,results[0][0])
+        
 
     #def test_drop_table(self):
     #def test_select(self):
