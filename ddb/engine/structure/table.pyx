@@ -14,7 +14,7 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass    
-    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None,):
+    def __init__(self,file=None,show_config=False,database=None,columns=None,name=None,data_file=None,field_delimiter=None,config_directory=None):
         self.version               = 1
         self.ownership             = table_ownership()
         self.delimiters            = table_delimiters()
@@ -25,6 +25,7 @@ class table:
         self.ordinals={}
         self.errors=[]
         self.results=[]
+        self.config_directory      =config_directory
         
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
@@ -266,12 +267,9 @@ class table:
         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
             
     def save(self):
-        home = os.path.expanduser("~")
+        home = self.config_directory
         #make app dir
-        if not os.path.exists(os.path.join(home, '.ddb')):
-           os.makedirs(os.path.join(home, '.ddb'))
 
-        home=os.path.join(home, '.ddb')
         if None == self.data.name:
             raise Exception ("Cannot save a table without a name")
 

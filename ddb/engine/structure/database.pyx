@@ -175,7 +175,8 @@ class database:
         if None!=exists:
             raise Exception("table already exists")
 
-        t=table(name=table_name,database=database_name,columns=columns)
+        config_directory=os.path.dirname(self.config_file)
+        t=table(name=table_name,database=database_name,columns=columns,config_directory=config_directory)
         t.data.path=data_file
         res=t.save()
         if False==res:
