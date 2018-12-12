@@ -44,7 +44,7 @@ bump:
 	@pipenv run bumpversion patch --allow-dirty
 	
 	
-build: init bump
+build: bump
 	@python setup.py build_ext --inplace sdist 
 
 upload:
