@@ -13,8 +13,11 @@ class test_engine(unittest.TestCase):
     def test_init(self):
         config_dir=os.path.join(self.basedir,self.temp_config)
         if os.path.exists(config_dir):
+            print removing  config_dir
             os.remove(config_dir) 
-
+        if os.path.exists(config_dir):
+            print "Still here"
+        
     def cleanup(self,engine):
         if None != engine:
             engine.query("drop table test")
