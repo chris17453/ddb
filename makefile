@@ -36,10 +36,7 @@ bump:
 	@pipenv run bumpversion patch --allow-dirty
 	
 	
-build:
-	remove-pypi-images
-	init-git
-	bump-verion
+build: clean init bump
 	@python setup.py build_ext --inplace sdist 
 
 upload:
