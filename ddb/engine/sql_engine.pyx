@@ -37,6 +37,7 @@ class sql_engine:
         self.debug=debug
         self.results=None
         self.mode=mode
+        print "Config",config_file
         self.database=database(directory=database_dir,config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
