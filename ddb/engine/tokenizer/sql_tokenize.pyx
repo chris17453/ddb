@@ -389,6 +389,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                 
                 if  c>=text_length-1:
                     break
+                    info("Position",c,'of',text_length)
                 word_start=c+delimter_len
                 
                 #if not fragment or fragment =='':
