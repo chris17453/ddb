@@ -56,7 +56,6 @@ class test_engine(unittest.TestCase):
         with self.assertRaises(Exception) :
             engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
     
-        self.cleanup(engine)
             
 
     def test_drop_table(self):
