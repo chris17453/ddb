@@ -404,7 +404,7 @@ class sql_parser:
                             for f in  sql_syntax['functions']:
                                 if f['name']== node['function']:
                                     argindex=1
-                                    if f['arguments']!=False:
+                                    if f['arguments']!=None:
                                         for arg in f['arguments']:
                                             if f['required']==True:
                                                 if 'argument{}'.format(argindex) not in f:
@@ -414,9 +414,9 @@ class sql_parser:
                                         
                                     else:
                                         argindex=0
-                                        if 'argument{}'.format(argindex+1) in node:
-                                            info("Too many arguments")
-                                            return False
+                                    if 'argument{}'.format(argindex+1) in node:
+                                        info("Too many arguments")
+                                        return False
                                             
                                     
 
