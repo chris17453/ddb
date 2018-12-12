@@ -320,7 +320,8 @@ class sql_parser:
                             else:
                                 info("in list")
 
-                                if len(tokens)<token_index:
+                                if len(tokens)<=token_index:
+                                    token_index=len(tokens)-1
                                     info("at the end")
                                 # look ahead to see if its a list ","
                                 if len(tokens)>token_index:
