@@ -95,7 +95,7 @@ class sql_parser:
                     token_length+=1
 
             info("Token Length",tokens_length)
-            if tokens_length==0:
+            if token_length==0:
                 continue
 
             parsed=self.parse(tokens)
