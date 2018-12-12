@@ -14,6 +14,9 @@ class test_engine(unittest.TestCase):
         config_dir=os.path.join(self.basedir,self.temp_config)
         if os.path.exists(config_dir):
             os.remove(config_dir) 
+
+    def cleanup(self,engine):
+        engine.query("drop table test")
         
 
     def test_use(self):
@@ -35,17 +38,18 @@ class test_engine(unittest.TestCase):
 
     def test_create_table(self):
         """Test creating a table"""
-        print("Create Table")
-        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        #new on existing table
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        self.assertEqual(1,results[0][0])
+        try:
+            print("Create Table")
+            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            #new on existing table
+            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+            self.assertEqual(1,results[0][0])
 
-        #fail on existing table
-        with self.assertRaises(Exception) :
-            engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        #drop test table
-        engine.query("drop table test")
+            #fail on existing table
+            with self.assertRaises(Exception) :
+                engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        except Exception as ex:
+            self.cleanup(engine)
             
 
     def test_drop_table(self):
@@ -65,74 +69,81 @@ class test_engine(unittest.TestCase):
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
-        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        print("Select")
-        #fail on existing table
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        
-        # test results length
-        results=engine.query('select * from test LIMIT 10')
-        self.assertEqual(10,len(results))
-        results=engine.query('select * from test LIMIT 1')
-        self.assertEqual(1,len(results))
-        results=engine.query('select * from test LIMIT 0')
-        self.assertEqual(0,len(results))
-        
-        #WHERE/LIMIT
-        results=engine.query('select * from test where id="1" order by id LIMIT 100;')
-        self.assertEqual(1,len(results))
-        
-        #WHERE AND/LIMIT
-        results=engine.query('select * from test where id="1" and id not "2" order by id LIMIT 100;')
-        self.assertEqual(1,len(results))
+        try:
+            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            print("Select")
+            #fail on existing table
+            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+            
+            # test results length
+            results=engine.query('select * from test LIMIT 10')
+            self.assertEqual(10,len(results))
+            results=engine.query('select * from test LIMIT 1')
+            self.assertEqual(1,len(results))
+            results=engine.query('select * from test LIMIT 0')
+            self.assertEqual(0,len(results))
+            
+            #WHERE/LIMIT
+            results=engine.query('select * from test where id="1" order by id LIMIT 100;')
+            self.assertEqual(1,len(results))
+            
+            #WHERE AND/LIMIT
+            results=engine.query('select * from test where id="1" and id not "2" order by id LIMIT 100;')
+            self.assertEqual(1,len(results))
 
-        #WHERE / AND / OR/LIMIT
-        results=engine.query('select * from test where id="1" and id not "2" or id="3" order by id LIMIT 100;')
-        self.assertEqual(2,len(results))
-
-        engine.query("drop table test")
-
+            #WHERE / AND / OR/LIMIT
+            results=engine.query('select * from test where id="1" and id not "2" or id="3" order by id LIMIT 100;')
+            self.assertEqual(2,len(results))
+        except Exception as ex:
+            self.cleanup(engine)
 
 
     def test_update(self):
-        print("Update")
-        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        #fail on existing table
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        
-        #update
-        results=engine.query('update test set email="bob@pizza" where id="1" and id not "2" or id="3"')
-        self.assertEqual(2,results[0][0])
-             
-        engine.query("drop table test")
+        """Update a row in the test file""""
+        try:
+            print("Update")
+            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            #fail on existing table
+            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+            
+            #update
+            results=engine.query('update test set email="bob@pizza" where id="1" and id not "2" or id="3"')
+            self.assertEqual(2,results[0][0])
+        except Exception as ex:
+            self.cleanup(engine)
     
     def test_insert(self):
-        print("Insert")
-        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        #fail on existing table
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        
-        #update
-        results=engine.query("insert into test ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')")
-        self.assertEqual(1,results[0][0])
+        """Insert a row in the test file""""
+        try:
+            print("Insert")
+            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            #fail on existing table
+            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
-        engine.query("drop table test")
+            #update
+            results=engine.query("insert into test ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')")
+            self.assertEqual(1,results[0][0])
+                
+        except Exception as ex:
+            self.cleanup(engine)
 
     def test_delete(self):
-        print("Delete")
-        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        #fail on existing table
-        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        
-        #update non existant
-        results=engine.query("delete from test where id='sam'")
-        self.assertEqual(0,results[0][0])
+        """Delete a test row in the test file""""
+        try:
+            print("Delete")
+            engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+            #fail on existing table
+            results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
-        #update existing
-        results=engine.query("delete from test where email like 'bop@%'")
-        self.assertEqual(1,results[0][0])
-
-        engine.query("drop table test")
+            #update non existant
+            results=engine.query("delete from test where id='sam'")
+            self.assertEqual(0,results[0][0])
+                
+            #update existing
+            results=engine.query("delete from test where email like 'bop@%'")
+            self.assertEqual(1,results[0][0])
+        except Exception as ex:
+            self.cleanup(engine)
 
 
 if __name__=='__main__':
