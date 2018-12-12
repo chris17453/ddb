@@ -34,9 +34,8 @@ bump:
 	@git add -A 
 	@git commit -m 'Bump Version'
 
-	@echo "Bumping Python patch version"
 	@pipenv run bumpversion patch --allow-dirty
-	@if [[ $? -ne 0 ]]; then\
+	@if [[ $? -ne 0 ]]; then \
 		@pipenv install bumpversion --dev ;\
 		@version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") ;\
 		@touch .bumpversion.cfg ;\
