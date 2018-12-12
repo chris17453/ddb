@@ -321,8 +321,22 @@ class sql_parser:
                                 info("in list")
 
                                 if len(tokens)<=token_index:
-                                    token_index=len(tokens)-1
                                     info("at the end")
+                                    if True == store_array:
+                                        if curent_object['mode'] not in query_object:
+                                            query_object[curent_object['mode']]=[]
+
+                                        query_object[curent_object['mode']].append({curent_object['mode']:curent_object['arguments']})
+                                    else:
+                                        if None == parent:
+                                            #print curent_object
+                                            query_object[curent_object['mode']]=curent_object['arguments']
+                                            info("NO APPEND")
+                                        
+                                        else:
+                                            info("APPEND")
+                                            query_object[parent].append({curent_object['mode']:curent_object['arguments']})                                    
+                                
                                 # look ahead to see if its a list ","
                                 if len(tokens)>token_index:
                                     info("--looking ahead")
