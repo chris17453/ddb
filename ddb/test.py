@@ -127,7 +127,7 @@ class test_engine(unittest.TestCase):
             print("Insert")
             self.cleanup()
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-            self.cleanup(engine)
+            self.cleanup()
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
