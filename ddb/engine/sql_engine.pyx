@@ -242,7 +242,7 @@ class sql_engine:
                     has_columns=True
                 
             # if has functions, tables may not be needed
-            if True == has columns:
+            if True == has_columns:
                 table_name=query_object['meta']['from']['table']
                 query_object['table']=self.database.get(table_name)
                 if None ==query_object['table']:
