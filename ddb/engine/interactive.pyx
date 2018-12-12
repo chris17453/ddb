@@ -32,7 +32,6 @@ class ddbPrompt(Cmd):
                 self.help_exit("")
 
     def set_vars(self,
-                 database=None,
                  config_file=None,
                  debug=False,
                  no_clip=False,
@@ -44,7 +43,7 @@ class ddbPrompt(Cmd):
         self.no_clip=no_clip
         self.width=width
         self.format=format
-        self.engine=sql_engine(database_dir=database,config_file=config_file,debug=self.debug,mode="full")
+        self.engine=sql_engine(config_file=config_file,debug=self.debug,mode="full")
 
     def msg(self,type,name,message=''):
         if type=='info':
@@ -79,15 +78,15 @@ class ddbPrompt(Cmd):
 
 
     ##
-    def do_config_dir(self, inp):
+    def do_config(self, inp):
         try:
-            self.msg("info","configuration_dir set to'{}'".format(inp))
-            self.engine=sql_engine(database_dir=inp,debug=self.debug)
+            self.msg("info","configuration_file set to'{}'".format(inp))
+            self.engine=sql_engine(config_file=inp,debug=self.debug)
         except Exception as ex:
             self.msg("error","config_dir",ex)
 
-    def help_config_dir(self):
-        self.msg("info","Set configuration Directory. Files end in ddb.yaml.")
+    def help_config(self):
+        self.msg("info","Set configuration file.")
 
     ##
     #def do_show_errors(self, inp):

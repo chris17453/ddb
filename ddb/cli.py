@@ -59,7 +59,7 @@ def cli_main():
     
     if None != args.query:
         if None != args.config:
-            e=sql_engine(database_dir=args.config,debug=args.debug,mode="full")
+            e=sql_engine(config_file=args.config,debug=args.debug,mode="full")
         else:
             e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
             results=e.query(args.query)
@@ -73,8 +73,7 @@ def cli_main():
     else:
         # interactive session
         prompt=ddbPrompt()
-        prompt.set_vars(database    = args.config,
-                        config_file =config_file,
+        prompt.set_vars(config_file =config_file,
                         debug       = args.debug)
         prompt.cmdloop_with_keyboard_interrupt()
     

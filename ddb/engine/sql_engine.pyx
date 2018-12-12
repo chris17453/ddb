@@ -31,14 +31,14 @@ def enum(**enums):
 class sql_engine:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
 
-    def __init__(self,database_dir=None,config_file=None,query=None,debug=False,mode='array'):
+    def __init__(self,config_file=None,query=None,debug=False,mode='array'):
         global debug_on
         debug_on=debug
         self.debug=debug
         self.results=None
         self.mode=mode
         #print "Config",config_file
-        self.database=database(directory=database_dir,config_file=config_file)
+        self.database=database(config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
             self.query(query)
