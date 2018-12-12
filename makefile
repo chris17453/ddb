@@ -4,6 +4,7 @@
 dir=$(pwd)
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
+version := $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
 
 .DEFAULT: help
 
@@ -32,8 +33,7 @@ init:
 
 bump:
 	@git add -A 
-	$version=$(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
-	git commit -m 'Bump Version ${version}'
+	git commit -m 'Bump Version $(version)'
 
 	
 	@if [[ $(pipenv run bumpversion patch --allow-dirty) -ne 0 ]]; then \
