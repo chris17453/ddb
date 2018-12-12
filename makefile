@@ -1,3 +1,13 @@
+# If the first argument is "run"...
+# WIP...
+ifeq (run,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "run"
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(RUN_ARGS):;@:)
+endif
+
+
 
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
@@ -10,7 +20,7 @@ help:
 	@echo "make clean          | delete pypi packages and cython files"
 	@echo "make init           | init git, create base directories"
 	@echo "make make-pipfile   | recreate the pipfile"
-	@echo "make test           | run unit test "
+	@echo "make unittest       | run unittest "
 	@echo "make upload         | upload any build packages to pypi"
 
 
@@ -48,7 +58,7 @@ bump:
 	@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
 	@pipenv run bumpversion patch --allow-dirty
 
-test:
+unittest:
 	@python ddb/test.py
 	
 build: bump test
@@ -60,5 +70,5 @@ upload:
 
 install:
 	pip install . --user
-	
+
 
