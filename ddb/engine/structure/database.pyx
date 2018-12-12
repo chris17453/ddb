@@ -196,7 +196,7 @@ class database:
             if self.tables[index].data.name==table_name and self.tables[index].data.database==database_name:
                 res=self.remove_config(table_object=self.tables[index])
                 if False==res:
-                    return False
+                    raise Exception ("Failed to remove configuration for table")
                 self.tables.pop(index)
                 self.reload_config()
                 return True
@@ -232,8 +232,7 @@ class database:
                 f.close()
                 return True
         except Exception as ex:
-                print ex   
-                return False 
+                raise Exception ("failed to remove table from db configuration")
 
 
     def reload_config(self):
