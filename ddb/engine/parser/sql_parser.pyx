@@ -105,7 +105,7 @@ class sql_parser:
             self.query_objects.append(parsed)
 
         if None == self.query_objects:
-            raise Exception("Object failed to decode")
+            raise Exception("Invalid SQL")
 
     def parse(self,tokens):
 
