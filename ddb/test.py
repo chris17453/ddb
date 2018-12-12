@@ -137,7 +137,6 @@ class test_engine(unittest.TestCase):
                 
         except Exception as ex:
             self.fail(ex)
-        self.cleanup(engine)
 
     def test_delete(self):
         """Delete a test row in the test file"""
