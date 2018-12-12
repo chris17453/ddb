@@ -182,6 +182,7 @@ class database:
         if False==res:
             raise Exception("Couldn't save table configuation")
         self.add_config(table=t)
+        
         self.reload_config()
         return True
 
@@ -245,7 +246,7 @@ class database:
                 table_swap.append(t)
                 
         for t in temp_tables:
-            self.tables.append(table(t))
+            self.table_swap.append(table(t))
         
         self.tables=table_swap
             
