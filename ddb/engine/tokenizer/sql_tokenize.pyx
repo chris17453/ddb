@@ -1,7 +1,15 @@
 debug_on=False
 def info(msg,arg1=None,arg2=None,arg3=None):
     if True == debug_on:
-        print(msg,arg1,arg2,arg3)
+        if arg3==None and arg2==None:
+            print("{} {}".format(msg,arg1))
+            return
+        if arg3==None:
+            print("{} {} {}".format(msg,arg1,arg2))
+            return
+    
+        print("{} {} {}".format(msg,arg1,arg2,arg3))
+
 
 # yes, this could be a giant regex, but no.
 # TODO: memory optimization.. maybe not sure how wastefull this is
@@ -381,7 +389,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                         block_left=None
                         block_right=None
                         block_type=None
-                    info(c,not_delimiter)
+                    info("POSITION",c,not_delimiter)
                     #if not not_delimiter:
                     #    break
 
@@ -389,6 +397,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                 
                 info("After Data Append, Position",c,'of',text_length)
                 if  c>=text_length-1:
+                    info("Break, after end of string")
                     break
                 
                 word_start=c+delimter_len
