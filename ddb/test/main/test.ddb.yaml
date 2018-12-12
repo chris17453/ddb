@@ -1,0 +1,210 @@
+---
+active: true
+columns:
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: id
+        ordinal: 0
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: first_name
+        ordinal: 1
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: last_name
+        ordinal: 2
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: email
+        ordinal: 3
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: gender
+        ordinal: 4
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+-   data:
+        default_value: null
+        export: false
+        has_default: false
+        is_array: false
+        name: ip_address
+        ordinal: 5
+        regex: null
+        type: string
+    display:
+        fixed_width: true
+        max_width: 0
+        min_width: 0
+        name: null
+        ordinal: -1
+        overflow: false
+        visible: true
+        width: 100
+    options: {}
+    search:
+        multi_search: false
+        searchable: false
+    sort:
+        default: false
+        default_asc: false
+        ordinal: 0
+        sortable: false
+config_directory: /home/nd/repos/chris17453/ddb/ddb/test
+data:
+    config: /home/nd/repos/chris17453/ddb/ddb/test/main/test.ddb.yaml
+    database: main
+    display_name: null
+    key: null
+    multi_search: true
+    name: test
+    ordinal: -1
+    path: /home/nd/repos/chris17453/ddb/ddb/test/MOCK_DATA.csv
+    retults: null
+    starts_on_line: 0
+    type: Temp
+    uid: null
+delimiters:
+    array: '|'
+    block_quote: null
+    comment:
+    - '#'
+    - ;
+    - /
+    error: '#'
+    field: ','
+    new_line: '
+
+        '
+errors: []
+ordinals:
+    email: 3
+    first_name: 1
+    gender: 4
+    id: 0
+    ip_address: 5
+    last_name: 2
+ownership:
+    entity: null
+    group: null
+    location: null
+results: []
+version: 1
+visible:
+    comments: false
+    errors: true
+    whitespace: false
+...
