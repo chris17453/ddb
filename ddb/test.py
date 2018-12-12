@@ -29,7 +29,6 @@ class test_engine(unittest.TestCase):
         # single db change from default
             self.cleanup()
             engine=sql_engine(config_file=False)
-            engine=None
             test_db_name="TEST"
             results=engine.query("use {}".format(test_db_name))
             results=engine.query("select database()")
