@@ -272,7 +272,7 @@ class table:
             home = os.path.expanduser("~")
             #make app dir
             if not os.path.exists(os.path.join(home, '.ddb')):
-            os.makedirs(os.path.join(home, '.ddb'))
+                os.makedirs(os.path.join(home, '.ddb'))
             home=os.path.join(home, '.ddb')
         else:
             home = self.config_directory
