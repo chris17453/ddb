@@ -26,8 +26,8 @@ clean:
 
 init:
 	@if [[ ! -d '.git' ]]; then  git init; fi
-	@git config --global user.email $git_email
-	@git config --global user.name $git_username
+	@git config --global user.email $(git_email)
+	@git config --global user.name $(git_username)
 
 
 bump:
