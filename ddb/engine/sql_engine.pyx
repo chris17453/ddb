@@ -155,22 +155,19 @@ class sql_engine:
 
 
     def limit(self,data_stream,index,length):
-        try:
-            if None == index:
-                index=0
-            if None == length:
-                length=len(data_stream)-index
-                
-            data_stream_lenght=len(data_stream)
-            if index>=data_stream_lenght:
-                #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
-                return []
-            if index+length>data_stream_lenght:
-                #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
-                length=data_stream_lenght-index
-            return data_stream[index:index+length]
-        except Exception as ex:
-            info("Limit",ex)
+        if None == index:
+            index=0
+        if None == length:
+            length=len(data_stream)-index
+            
+        data_stream_lenght=len(data_stream)
+        if index>=data_stream_lenght:
+            #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
+            return []
+        if index+length>data_stream_lenght:
+            #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
+            length=data_stream_lenght-index
+        return data_stream[index:index+length]
 
     def process_line(self,query_object,line,line_number=0):
         err=None
@@ -230,125 +227,120 @@ class sql_engine:
         return {'data':line_data,'type':line_type,'raw':line,'line_number':line_number,'match':match_results,'error':err}
    
     def select(self,query_object,parser):
-        #try:
-            temp_data=[]
-            #if has columns, then it needs a table
-            
-            has_functions=False
-            has_columns=False
-            for c in query_object['meta']['select']:
-                if 'function' in  c:
-                    info("Has functions, doesnt need a table")
-                    has_functions=True
-                if 'column' in c:
-                    info("Has columns, needs a table")
-                    has_columns=True
-            if False == has_columns and 'from' in query_object['meta']:
-                raise Exception("Invalid FROM, all columns are functions")
-
-                
-            # if has functions, tables may not be needed
-            if True == has_columns:
-                if 'from' in  query_object['meta']:
-                    table_name=query_object['meta']['from']['table']
-                    query_object['table']=self.database.get(table_name)
-                    if None ==query_object['table']:
-                        raise Exception("invalid table {}".format(table_name))
-                    table_columns=query_object['table'].get_columns()                      
-                    parser.expand_columns(query_object,table_columns)
-                    column_len=query_object['table'].column_count()
-                    if column_len==0:
-                        raise Exception("No defined columns in configuration")
-                else:
-                    raise Exception("Missing FROM in select")
-
-            temp_table=self.database.temp_table()
-            for column in  query_object['meta']['select']:
-                display=None
-                if 'display' in column:
-                    display=column['display']
-                    info("RENAME COLUMN",display)
-                
-                if 'column' in column:
-                    info("adding data column")
-                    temp_table.add_column(column['column'],display)
-                if 'function' in column:
-                    info("adding function column")
-                    temp_table.add_column(column['function'],display)
-                
-
-            # TODO Columns with the same name can be renamed, but fail. Key issue?
-            line_number=1
+        temp_data=[]
+        #if has columns, then it needs a table
         
-            # create temp table structure
-            # process file
-            if True == has_columns:
-                with open(query_object['table'].data.path, 'r') as content_file:
-                    for line in content_file:
-                        processed_line=self.process_line(query_object,line,line_number)
-                        if None != processed_line['error']:
-                            temp_table.add_error(processed_line['error'])
-                        line_number+=1
-                        
-                        #print processed_line
-                        if False == processed_line['match']:
-                            continue
+        has_functions=False
+        has_columns=False
+        for c in query_object['meta']['select']:
+            if 'function' in  c:
+                info("Has functions, doesnt need a table")
+                has_functions=True
+            if 'column' in c:
+                info("Has columns, needs a table")
+                has_columns=True
+        if False == has_columns and 'from' in query_object['meta']:
+            raise Exception("Invalid FROM, all columns are functions")
 
-                        # add to temp table
-                        if None != processed_line['data']:
-                            restructured_line=[]
-                            for c in query_object['meta']['select']:
-                                if 'column' in c:
-                                    restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
-                                if 'function' in c:
-                                    if c['function']=='database':
-                                        restructured_line.append(functions.database(self.database))
+            
+        # if has functions, tables may not be needed
+        if True == has_columns:
+            if 'from' in  query_object['meta']:
+                table_name=query_object['meta']['from']['table']
+                query_object['table']=self.database.get(table_name)
+                if None ==query_object['table']:
+                    raise Exception("invalid table {}".format(table_name))
+                table_columns=query_object['table'].get_columns()                      
+                parser.expand_columns(query_object,table_columns)
+                column_len=query_object['table'].column_count()
+                if column_len==0:
+                    raise Exception("No defined columns in configuration")
+            else:
+                raise Exception("Missing FROM in select")
 
-                            temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
-                
-            # file is closed at this point
+        temp_table=self.database.temp_table()
+        for column in  query_object['meta']['select']:
+            display=None
+            if 'display' in column:
+                display=column['display']
+                info("RENAME COLUMN",display)
+            
+            if 'column' in column:
+                info("adding data column")
+                temp_table.add_column(column['column'],display)
+            if 'function' in column:
+                info("adding function column")
+                temp_table.add_column(column['function'],display)
+            
 
-            if False==has_columns and True == has_functions:
-                row=[]
-                for c in query_object['meta']['select']:
-                    if 'function' in c:
-                        if c['function']=='database':
-                            row.append(functions.database(self.database))
-                temp_data.append({'data':row,'type':self.data_type.DATA,'error':None,'raw':None})
+        # TODO Columns with the same name can be renamed, but fail. Key issue?
+        line_number=1
+    
+        # create temp table structure
+        # process file
+        if True == has_columns:
+            with open(query_object['table'].data.path, 'r') as content_file:
+                for line in content_file:
+                    processed_line=self.process_line(query_object,line,line_number)
+                    if None != processed_line['error']:
+                        temp_table.add_error(processed_line['error'])
+                    line_number+=1
+                    
+                    #print processed_line
+                    if False == processed_line['match']:
+                        continue
+
+                    # add to temp table
+                    if None != processed_line['data']:
+                        restructured_line=[]
+                        for c in query_object['meta']['select']:
+                            if 'column' in c:
+                                restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
+                            if 'function' in c:
+                                if c['function']=='database':
+                                    restructured_line.append(functions.database(self.database))
+
+                        temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
+            
+        # file is closed at this point
+
+        if False==has_columns and True == has_functions:
+            row=[]
+            for c in query_object['meta']['select']:
+                if 'function' in c:
+                    if c['function']=='database':
+                        row.append(functions.database(self.database))
+            temp_data.append({'data':row,'type':self.data_type.DATA,'error':None,'raw':None})
 
 
-            if 'order by' in  query_object['meta']:
-                self.sort=[]
-                for c in  query_object['meta']['order by']:
-                    ordinal=query_object['table'].get_ordinal_by_name(c['column'])
+        if 'order by' in  query_object['meta']:
+            self.sort=[]
+            for c in  query_object['meta']['order by']:
+                ordinal=query_object['table'].get_ordinal_by_name(c['column'])
+                direction=1
+                if 'asc' in c:
                     direction=1
-                    if 'asc' in c:
-                        direction=1
-                    if 'desc' in c:
-                        direction=-1 
-                    self.sort.append([ordinal,direction])
-                temp_data=sorted(temp_data,self.sort_cmp)
-                #print temp_data
+                if 'desc' in c:
+                    direction=-1 
+                self.sort.append([ordinal,direction])
+            temp_data=sorted(temp_data,self.sort_cmp)
+            #print temp_data
 
-            limit_start=0
-            limit_length=None
-            #print query_object['meta']
-            #exit(1)
+        limit_start=0
+        limit_length=None
+        #print query_object['meta']
+        #exit(1)
 
-            if 'limit' in query_object['meta']:
-                if 'start' in query_object['meta']['limit']:
-                    limit_start=query_object['meta']['limit']['start']
-                if 'length' in query_object['meta']['limit']:
-                    limit_length=query_object['meta']['limit']['length']
+        if 'limit' in query_object['meta']:
+            if 'start' in query_object['meta']['limit']:
+                limit_start=query_object['meta']['limit']['start']
+            if 'length' in query_object['meta']['limit']:
+                limit_length=query_object['meta']['limit']['length']
 
 
-            
-            temp_table.results=self.limit(temp_data,limit_start,limit_length)
-            return temp_table
-        #except Exception as ex:
-            
-        #    print ("Select",ex)
-            #exit(1)
+        
+        temp_table.results=self.limit(temp_data,limit_start,limit_length)
+        return temp_table
     
     
     def sort_cmp(self,x,y):
@@ -415,46 +407,42 @@ class sql_engine:
     # File is as untouched as possible
     # new lines are joined at the end
     def insert(self,query_object):
-        try:
-            table_name=query_object['meta']['into']['table']
-            query_object['table']=self.database.get(table_name)
+        table_name=query_object['meta']['into']['table']
+        query_object['table']=self.database.get(table_name)
 
-            temp_table=self.database.temp_table()
-            temp_table.add_column('inserted')
+        temp_table=self.database.temp_table()
+        temp_table.add_column('inserted')
 
-            temp_file_name = next(tempfile._get_candidate_names())
-            line_number=1
-            inserted=0
-            # process file
-            requires_new_line=False
-            with open(query_object['table'].data.path, 'r') as content_file:
-                with open(temp_file_name, 'w') as temp_file:
-                    for line in content_file:
-                        processed_line=self.process_line(query_object,line,line_number)
-                        if None != processed_line['error']:
-                            temp_table.add_error(processed_line['error'])
-                        line_number+=1
-                        temp_file.write(processed_line['raw'])
-                        if processed_line['raw'][-1]==query_object['table'].delimiters.new_line:
-                            requires_new_line=False
-                        else: 
-                            requires_new_line=True
+        temp_file_name = next(tempfile._get_candidate_names())
+        line_number=1
+        inserted=0
+        # process file
+        requires_new_line=False
+        with open(query_object['table'].data.path, 'r') as content_file:
+            with open(temp_file_name, 'w') as temp_file:
+                for line in content_file:
+                    processed_line=self.process_line(query_object,line,line_number)
+                    if None != processed_line['error']:
+                        temp_table.add_error(processed_line['error'])
+                    line_number+=1
+                    temp_file.write(processed_line['raw'])
+                    if processed_line['raw'][-1]==query_object['table'].delimiters.new_line:
+                        requires_new_line=False
+                    else: 
+                        requires_new_line=True
 
-                    results=self.create_single(query_object,temp_file,temp_table,requires_new_line)
-                    if True==results:
-                        inserted+=1
+                results=self.create_single(query_object,temp_file,temp_table,requires_new_line)
+                if True==results:
+                    inserted+=1
 
-            
-            data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
-            temp_table.append_data(data)
-            os.remove(query_object['table'].data.path)
-            os.rename(temp_file_name,query_object['table'].data.path)
-            #print temp_table.errors
-            return temp_table
         
-        except Exception as ex:
-            
-            print (ex)    
+        data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
+        temp_table.append_data(data)
+        os.remove(query_object['table'].data.path)
+        os.rename(temp_file_name,query_object['table'].data.path)
+        #print temp_table.errors
+        return temp_table
+        
 
 
     def create_single(self,query_object,temp_file,temp_table,requires_new_line):
@@ -544,41 +532,36 @@ class sql_engine:
     # ignores matches
     # File is as untouched as possible
     def update(self,query_object):
-        try:
-            table_name=query_object['meta']['update']['table']
-            query_object['table']=self.database.get(table_name)
+        table_name=query_object['meta']['update']['table']
+        query_object['table']=self.database.get(table_name)
 
-            temp_table=self.database.temp_table()
-            temp_table.add_column('updated')
+        temp_table=self.database.temp_table()
+        temp_table.add_column('updated')
 
-            temp_file_name = next(tempfile._get_candidate_names())
-            line_number=1
-            updated=0
-            # process file
-            with open(query_object['table'].data.path, 'r') as content_file:
-                with open(temp_file_name, 'w') as temp_file:
-                    for line in content_file:
-                        processed_line=self.process_line(query_object,line,line_number)
-                        if None != processed_line['error']:
-                            temp_table.add_error(processed_line['error'])
-                        line_number+=1
-                        #skip matches
-                        if True  == processed_line['match']:
-                            results=self.update_single(query_object,temp_file,temp_table,False,processed_line)
-                            if True==results:
-                                updated+=1
-                            continue
-                        temp_file.write(processed_line['raw'])
-            data= {'data':[updated],'type':self.data_type.DATA,'error':None}
+        temp_file_name = next(tempfile._get_candidate_names())
+        line_number=1
+        updated=0
+        # process file
+        with open(query_object['table'].data.path, 'r') as content_file:
+            with open(temp_file_name, 'w') as temp_file:
+                for line in content_file:
+                    processed_line=self.process_line(query_object,line,line_number)
+                    if None != processed_line['error']:
+                        temp_table.add_error(processed_line['error'])
+                    line_number+=1
+                    #skip matches
+                    if True  == processed_line['match']:
+                        results=self.update_single(query_object,temp_file,temp_table,False,processed_line)
+                        if True==results:
+                            updated+=1
+                        continue
+                    temp_file.write(processed_line['raw'])
+        data= {'data':[updated],'type':self.data_type.DATA,'error':None}
 
-            temp_table.append_data(data)
-            os.remove(query_object['table'].data.path)
-            os.rename(temp_file_name,query_object['table'].data.path)
-            return temp_table
-        
-        except Exception as ex:
-            
-            print (ex)
+        temp_table.append_data(data)
+        os.remove(query_object['table'].data.path)
+        os.rename(temp_file_name,query_object['table'].data.path)
+        return temp_table
 
 
     def use(self,query_object):

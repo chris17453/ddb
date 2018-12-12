@@ -43,50 +43,44 @@ class table:
             self.data.type="File"
             if os.path.exists(file):
                 with open(file, 'r') as stream:
-                    try:
-                        yaml_data=yaml.load(stream, Loader=Loader)
-                        if None==yaml_data:
-                            raise Exception ("Table configuration empty")
-                        #print yaml_data
-                        for key in yaml_data:
-                            try:
-                                if 'version' == key:
-                                    self.version=yaml_data[key]
+                    yaml_data=yaml.load(stream, Loader=Loader)
+                    if None==yaml_data:
+                        raise Exception ("Table configuration empty")
+                    #print yaml_data
+                    for key in yaml_data:
+                        if 'version' == key:
+                            self.version=yaml_data[key]
 
-                                if 'ownership' == key:
-                                    self.ownership = table_ownership(yaml=yaml_data[key])
-                                
-                                if 'delimiters' == key:
-                                    self.delimiters = table_delimiters(yaml=yaml_data[key])
-                                
-                                if 'visible' == key:
-                                    self.visible = table_visible_attributes(yaml=yaml_data[key])
-                                
-                                if 'data' == key:
-                                    self.data = table_data(yaml=yaml_data[key])
-                                
-                                # one offs
-                                if 'columns' == key:
-                                    for c in yaml_data['columns']:
-                                        #if self.version == 1:
-                                        #    cv1=column_v1( c )
-                                        #    cv2=cv1.to_v2()
-                                        #    self.columns.append( cv2 )
-                                        #if self.version == 2:
-                                            self.columns.append( column_v2( c ) )
-                                            
-                                                    
-                                if 'active' == key:
-                                    self.active=yaml_data[key]
-
+                        if 'ownership' == key:
+                            self.ownership = table_ownership(yaml=yaml_data[key])
+                        
+                        if 'delimiters' == key:
+                            self.delimiters = table_delimiters(yaml=yaml_data[key])
+                        
+                        if 'visible' == key:
+                            self.visible = table_visible_attributes(yaml=yaml_data[key])
+                        
+                        if 'data' == key:
+                            self.data = table_data(yaml=yaml_data[key])
+                        
+                        # one offs
+                        if 'columns' == key:
+                            for c in yaml_data['columns']:
+                                #if self.version == 1:
+                                #    cv1=column_v1( c )
+                                #    cv2=cv1.to_v2()
+                                #    self.columns.append( cv2 )
+                                #if self.version == 2:
+                                    self.columns.append( column_v2( c ) )
                                     
-                                #attr=getattr(self,key)
-                                #setattr(self,key,yaml_data[key])
-                            except Exception as ex:
-                                print(ex)    
-                    except yaml.YAMLError as exc:
-                        print(exc)
-            
+                                            
+                        if 'active' == key:
+                            self.active=yaml_data[key]
+
+                            
+                        #attr=getattr(self,key)
+                        #setattr(self,key,yaml_data[key])
+        
         
         self.update_ordinals()
         yaml.emitter.Emitter.process_tag = self.noop
