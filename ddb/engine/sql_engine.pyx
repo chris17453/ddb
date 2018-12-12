@@ -600,11 +600,11 @@ class sql_engine:
         temp_table=self.database.temp_table()
         
         columns=[]
-        print query_object
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         info("Columns to create",columns)
         created=0
+        print "sam"
         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
                                             columns=columns,
                                             data_file=query_object['meta']['file']['file'])
@@ -614,6 +614,7 @@ class sql_engine:
         temp_table.add_column('create table')
         data= {'data':[created],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
+        prin "BOB"
         return temp_table
 
 
