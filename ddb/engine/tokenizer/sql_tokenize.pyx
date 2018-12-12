@@ -335,6 +335,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
     delimter_len=1
     in_block=None
     block=None
+
     while c < text_length:
         
         info("-",c)
@@ -365,7 +366,9 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
             info("in block skipp")
             if just_crossed_block==False:
                 c+=1
-            continue           
+            continue  
+        if c>=text_length:
+            break         
         for d in delimiters_sorted:
             delimter_len=len(d)
             fragment=text[c:c+delimter_len]
@@ -397,7 +400,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
                 
                 info("After Data Append, Position",c,'of',text_length)
                 if  c>=text_length-1:
-                    info("Break, after end of string")
+                    info("Break, after end of string",c)
                     break
                 
                 word_start=c+delimter_len
@@ -420,6 +423,7 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
      
                 info("delemiter c/fragment- ",c,fragment)
                 tokens.append({'type':delimiter_type,'data':fragment.lower()})
+           
                 break
         c+=delimter_len
     
