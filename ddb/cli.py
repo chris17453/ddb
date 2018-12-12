@@ -58,15 +58,18 @@ def cli_main():
 
     
     if None != args.query:
-        if None != args.config:
-            e=sql_engine(database_dir=args.config,debug=args.debug,mode="full")
-        else:
-            e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
-            results=e.query(args.query)
-            if results!=None:
-                config=flextable.table_config()
-                config.columns=results.get_columns()
-                flextable.table(data=results.results,args=config)
+        try:
+            if None != args.config:
+                e=sql_engine(database_dir=args.config,debug=args.debug,mode="full")
+            else:
+                e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
+                results=e.query(args.query)
+                if results!=None:
+                    config=flextable.table_config()
+                    config.columns=results.get_columns()
+                    flextable.table(data=results.results,args=config)
+        except Exception as ex:
+            print("Error:{}".format(ex))
 
     else:
         # interactive session
