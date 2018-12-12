@@ -14,8 +14,10 @@ class database:
         if None !=config_file and config_file!=False:
             self.config_file=config_file
             tables=self.get_tables()
+            print "F"
             for table_file in tables:
                 self.tables.append(table(table_file,show_config))
+            print "FF"
             return
 
         if None !=directory:
@@ -262,12 +264,9 @@ class database:
             yaml_data=yaml.load(stream)
             # could be empty
             if None !=yaml_data:
-                print "TT"
                 for db in  yaml_data:
                     for table in yaml_data[db]:
                         tables.append(yaml_data[db][table]['path'])
-            else:
-                print "Empty"
 
         return tables
 
