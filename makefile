@@ -32,12 +32,12 @@ init:
 
 bump:
 	@git add -A 
-	@git commit -m 'Bump Version'
+	#version:=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
+	@git commit -m 'Bump Version $version'
 
 	
 	@if [[ $(pipenv run bumpversion patch --allow-dirty) -ne 0 ]]; then \
 		@pipenv install bumpversion --dev ;\
-		@version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") ;\
 		@touch .bumpversion.cfg ;\
 		@echo $'[bumpversion]\n'>.bumpversion.cfg ;\
 		@echo $'current_version = $version\n'>.bumpversion.cfg ;\
