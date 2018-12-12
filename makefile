@@ -32,7 +32,7 @@ init:
 
 bump:
 	@git add -A 
-	version=$(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
+	$version=$(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
 	git commit -m 'Bump Version ${version}'
 
 	
