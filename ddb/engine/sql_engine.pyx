@@ -310,7 +310,8 @@ class sql_engine:
                     if 'function' in c:
                         if c['function']=='database':
                             row.append(functions.database(self.database))
-                temp_data=[row]
+                temp_data.append({'data':row,'type':self.data_type.DATA,'error':None,'raw':None})
+
 
             if 'order by' in  query_object['meta']:
                 self.sort=[]
