@@ -66,7 +66,7 @@ unittest:
 build: bump 
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
 	@pipenv run python setup.py build_ext --inplace sdist 
-	@$(MAKE) -f $(THIS_FILE) unitest
+	@$(MAKE) -f $(THIS_FILE) unittest
 
 
 upload:
