@@ -298,7 +298,7 @@ class sql_engine:
                                     restructured_line.append(query_object['table'].get_data_by_name(c['column'],processed_line['data']))
                                 if 'function' in c:
                                     if c['function']=='database':
-                                        restructured_line.append(functions.database(self.engine.database))
+                                        restructured_line.append(functions.database(self.database))
 
                             temp_data.append({'data':restructured_line,'type':processed_line['type'],'error':processed_line['error'],'raw':processed_line['raw']})
                 
@@ -309,7 +309,7 @@ class sql_engine:
                 for c in query_object['meta']['select']:
                     if 'function' in c:
                         if c['function']=='database':
-                            row.append(functions.database(self.engine.database))
+                            row.append(functions.database(self.database))
                 temp_data=[row]
 
             if 'order by' in  query_object['meta']:
