@@ -597,6 +597,7 @@ class sql_engine:
 
     
     def create_table(self,query_object):
+        info("Create Table")
         temp_table=self.database.temp_table()
         
         columns=[]
@@ -604,7 +605,7 @@ class sql_engine:
             columns.append(c['column'])
         info("Columns to create",columns)
         created=0
-        info("Create Table")
+        print self.database.config_file
         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
                                             columns=columns,
                                             data_file=query_object['meta']['file']['file'])
