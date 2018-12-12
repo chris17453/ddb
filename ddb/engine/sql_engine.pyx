@@ -377,7 +377,7 @@ class sql_engine:
         temp_table=self.database.temp_table()
         temp_table.add_column('deleted')
 
-        temp_file_name = next(tempfile._get_candidate_names())
+        temp_file_name ="DEL"+ next(tempfile._get_candidate_names())
         line_number=1
         deleted=0
         # process file
@@ -413,7 +413,7 @@ class sql_engine:
         temp_table=self.database.temp_table()
         temp_table.add_column('inserted')
 
-        temp_file_name = next(tempfile._get_candidate_names())
+        temp_file_name = "INS_"+next(tempfile._get_candidate_names())
         line_number=1
         inserted=0
         # process file
@@ -538,7 +538,7 @@ class sql_engine:
         temp_table=self.database.temp_table()
         temp_table.add_column('updated')
 
-        temp_file_name = next(tempfile._get_candidate_names())
+        temp_file_name = "UP_"+next(tempfile._get_candidate_names())
         line_number=1
         updated=0
         # process file
@@ -561,6 +561,7 @@ class sql_engine:
         temp_table.append_data(data)
         os.remove(query_object['table'].data.path)
         os.rename(temp_file_name,query_object['table'].data.path)
+
         return temp_table
 
 
