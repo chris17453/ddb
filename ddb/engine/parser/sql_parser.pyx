@@ -84,7 +84,7 @@ class sql_parser:
         self.debug_on=debug
         self.query_objects=[]
         querys=query.split(';')
-        print querys
+        info("Queries",querys)
         for q in querys:
             info("-----------------------------------")
             tokens=tokenize(q,discard_whitespace=True,debug=debug)
