@@ -10,9 +10,10 @@ class test_engine(unittest.TestCase):
     temp_data='test/MOCK_DATA.csv'
     basedir=os.path.dirname(os.path.abspath(__file__))
 
-    def test__init(self):
-        if os.path.exists(self.temp_config):
-            os.remove(self.temp_config) 
+    def test_init(self):
+        config_dir=os.path.join(self.basedir,self.temp_config)
+        if os.path.exists(config_dir):
+            os.remove(config_dir) 
         
 
 
@@ -42,12 +43,15 @@ class test_engine(unittest.TestCase):
         #fail on existing table
         with self.assertRaises(Exception) :
             engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        #drop test table
+        engine.query("drop table test")
             
 
     def test_drop_table(self):
         """Test dropping a table"""
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        #fail on existing table
+        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+                #fail on existing table
         results=engine.query('drop table test')
         self.assertEqual(1,results[0][0])
         
@@ -57,7 +61,17 @@ class test_engine(unittest.TestCase):
         
 
 
-    #def test_select(self):
+    def test_select(self):
+        """Test dropping a table"""
+        engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        #fail on existing table
+        results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+        results=engine.query('select * from test LIMIT 10')
+        self.assertEqual(10,len(results))
+        print results
+        engine.query("drop table test")
+        
+
     #def test_update(self):
     #def test_insert(self):
 

@@ -379,8 +379,8 @@ class table_delimiters:
     def noop(self, *args, **kw):
         pass    
     def __init__(self,yaml=None):
-        self.field=":"
-        self.array=","
+        self.field=","
+        self.array="|"
         self.error="#"
         self.block_quote=None
         self.comment=["#",";","/"]        
