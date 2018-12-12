@@ -266,6 +266,7 @@ class sql_engine:
                 display=None
                 if 'display' in column:
                     display=column['display']
+                    info("RENAME COLUMN",display)
                 
                 if 'column' in column:
                     temp_table.add_column(column['column'],display)
