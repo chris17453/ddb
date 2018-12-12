@@ -384,10 +384,10 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
             if True == compare_text_fragment(fragment,d) or c>=text_length-1:
                 info("Delemiter found",c,fragment)
                 if c-word_start>0:
-                    info ("Data word found")
+                    info ("Data word found",c-word_start)
                     word_end=c
                     if word_end>=text_length:
-                        info("word ends on last character")
+                        info("word ends on last character",word_end,text_length)
                         word_end=text_length-1
                     not_delimiter=text[word_start:word_end]
                     token_type='data'
