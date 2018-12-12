@@ -407,7 +407,8 @@ class sql_parser:
                                     if f['arguments']!=None:
                                         for arg in f['arguments']:
                                             if arg['required']==True:
-                                                if 'argument{}'.format(argindex) not in f:
+                                                # if this argument key is not in the node dict
+                                                if 'argument{}'.format(argindex) not in node: 
                                                     info("Missing arguments")
                                                     return False
                                             argindex+=1
