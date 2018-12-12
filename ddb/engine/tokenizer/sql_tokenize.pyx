@@ -387,9 +387,10 @@ def tokenize(text,discard_delimiters=False,discard_whitespace=True,debug=False):
 
                     tokens.append({'type':token_type,'data':not_delimiter,'block_left':block_left,'block_right':block_right,'block_type':block_type})
                 
+                info("After Data Append, Position",c,'of',text_length)
                 if  c>=text_length-1:
                     break
-                    info("Position",c,'of',text_length)
+                
                 word_start=c+delimter_len
                 
                 #if not fragment or fragment =='':
