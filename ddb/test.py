@@ -11,7 +11,7 @@ class test_engine(unittest.TestCase):
     basedir=os.path.dirname(os.path.abspath(__file__))
 
     def test_aaa(self):
-        
+        print ("init")
         config_dir=os.path.join(self.basedir,self.temp_config)
         if os.path.exists(config_dir):
             print config_dir
