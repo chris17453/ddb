@@ -8,6 +8,8 @@ ifeq (run,$(firstword $(MAKECMDGOALS)))
 endif
 
 
+THIS_FILE := $(lastword $(MAKEFILE_LIST))
+
 
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
@@ -61,9 +63,11 @@ bump:
 unittest:
 	@python ddb/test.py
 	
-build: bump test
+build: bump 
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
 	@pipenv run python setup.py build_ext --inplace sdist 
+	@$(MAKE) -f $(THIS_FILE) unitest
+
 
 upload:
 	@twine upload  dist/*
