@@ -309,7 +309,7 @@ class sql_engine:
                 for c in query_object['meta']['select']:
                     if 'function' in c:
                         if c['function']=='database':
-                            row.append(functions.database())
+                            row.append(functions.database(self.engine.database))
                 temp_data=[row]
 
             if 'order by' in  query_object['meta']:
