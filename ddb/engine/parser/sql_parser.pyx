@@ -419,18 +419,16 @@ class sql_parser:
                                         if 'argument{}'.format(argindex+1) in node:
                                             info("Too many arguments")
                                             return False
-                    else:
-                        info("No columns in select")
-                        return False
-                                    
-
-
-
+                
                                     valid_funciton_name=True
                                     break
                         if False==valid_funciton_name:
                             info("FAIL","This isnt a valid function",node['function'])
                             return False
+                    else:
+                    info("No columns in select")
+                    return False
+            
 
                 info("SUCCESS")
                 sql_object={'mode':query_mode,'meta':query_object}
