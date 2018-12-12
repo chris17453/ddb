@@ -65,7 +65,7 @@ def cli_main():
             results=e.query(args.query)
             if results!=None:
                 config=flextable.table_config()
-                config.columns=results.get_columns()
+                config.columns=results.get_columns_display()
                 flextable.table(data=results.results,args=config)
 #            except Exception as ex:
 #                print("Error:{}".format(ex))

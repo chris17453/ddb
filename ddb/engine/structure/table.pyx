@@ -109,7 +109,17 @@ class table:
         for column in self.columns:
             columns.append(column.data.name)
         return columns
-
+    
+    def get_columns_display(self):
+        """return a list of columns with alternate display name"""
+        columns=[]
+        for column in self.columns:
+            if None != column.display.name:
+                columns.append(column.display.name)
+            else:
+                columns.append(column.data.name)
+        return columns
+    
     def results_length(self):
         """Return the result set length for this table"""
         return len(self.results)

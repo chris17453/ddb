@@ -113,7 +113,7 @@ class ddbPrompt(Cmd):
             end = time.time()
             if results!=None:
                 config=flextable.table_config()
-                config.columns=results.get_columns()
+                config.columns=results.get_columns_display()
                 flextable.table(data=results.results,args=config)
             
             self.msg("info","executed in {} seconds".format(end - start))

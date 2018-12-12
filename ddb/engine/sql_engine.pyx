@@ -276,7 +276,7 @@ class sql_engine:
                     temp_table.add_column(column['function'],display)
                 
 
-            
+            # TODO Columns with the same name can be renamed, but fail. Key issue?
             line_number=1
         
             # create temp table structure
