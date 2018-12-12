@@ -37,7 +37,7 @@ class sql_engine:
         self.debug=debug
         self.results=None
         self.mode=mode
-        print "Config",config_file
+        #print "Config",config_file
         self.database=database(directory=database_dir,config_file=config_file)
         self.current_database=self.database.get_default_database()
         if None !=query:
@@ -597,7 +597,6 @@ class sql_engine:
 
     
     def create_table(self,query_object):
-        info("Create Table")
         temp_table=self.database.temp_table()
         
         columns=[]
@@ -605,6 +604,7 @@ class sql_engine:
             columns.append(c['column'])
         info("Columns to create",columns)
         created=0
+        info("Create Table")
         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
                                             columns=columns,
                                             data_file=query_object['meta']['file']['file'])
