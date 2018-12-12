@@ -311,7 +311,7 @@ class sql_parser:
                                         tsi=0
                                         for ts in query['switch']:
                                             if ts['name']==jump:
-                                                info("Jumpping from ",switch_index,tsi+1)
+                                                info("Jumping from ",switch_index,tsi+1)
                                                 switch_index=tsi+1
                                                 break
                                             tsi+=1
@@ -324,7 +324,7 @@ class sql_parser:
                                 if len(tokens)<=token_index:
                                     info("at the end")
                                 # look ahead to see if its a list ","
-                                if len(tokens)>token_index:
+                                if len(tokens)>=token_index:
                                     info("--looking ahead")
                                     # if its not exit
                                     info("----" ,tokens[token_index]['data'])
@@ -353,7 +353,7 @@ class sql_parser:
                                             tsi=0
                                             for ts in query['switch']:
                                                 if ts['name']==jump:
-                                                    info("Jumpping from ",switch_index,tsi+1)
+                                                    info("Jumping from ",switch_index,tsi+1)
                                                     switch_index=tsi+1
                                                     break
                                                 tsi+=1
