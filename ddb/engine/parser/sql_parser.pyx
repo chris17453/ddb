@@ -403,6 +403,25 @@ class sql_parser:
                             info ("It's a function!")
                             for f in  sql_syntax['functions']:
                                 if f['name']== node['function']:
+                                    argindex=1
+                                    if f['arguments']!=False:
+                                        for arg in f['arguments']:
+                                            if f['required']==True:
+                                                if 'argument{}'.format(argindex) not f:
+                                                    info("Missing arguments")
+                                                    return False
+                                            argindex+=1
+                                        
+                                    else:
+                                        argindex=0
+                                        if 'argument{}'.format(argindex+1) in node:
+                                            info("Too many arguments")
+                                            return False
+                                            
+                                    
+
+
+
                                     valid_funciton_name=True
                                     break
                         if False==valid_funciton_name:
