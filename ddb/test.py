@@ -129,10 +129,14 @@ class test_engine(unittest.TestCase):
         try:
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
-            #update
+            #update non existant
             results=engine.query("delete from test where id='sam'")
             self.assertEqual(0,results[0][0])
              
+            #update existing
+            results=engine.query("delete from test where email like 'bob@%'")
+            self.assertEqual(1,results[0][0])
+
         except Exception as ex:
             print ex
         engine.query("drop table test")
