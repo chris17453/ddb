@@ -34,8 +34,8 @@ bump:
 	@git add -A 
 	@git commit -m 'Bump Version'
 
-	@pipenv run bumpversion patch --allow-dirty
-	@if [[ $? -ne 0 ]]; then \
+	
+	@if [[ $(pipenv run bumpversion patch --allow-dirty) -ne 0 ]]; then \
 		@pipenv install bumpversion --dev ;\
 		@version=$(cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") ;\
 		@touch .bumpversion.cfg ;\
@@ -51,14 +51,10 @@ build:
 	remove-pypi-images
 	init-git
 	bump-verion
-
-	$(info Build the package)
-	python setup.py build_ext --inplace sdist 
+	@python setup.py build_ext --inplace sdist 
 
 upload:
-	$(info Uploading to pypi)
 	if [[ ! -z "$pub" ]]; then \
-		$(info Upload the package) ; \
-		twine upload  dist/* ; \
+		@twine upload  dist/* ; \
 	fi
 
