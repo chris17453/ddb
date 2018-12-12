@@ -1,4 +1,4 @@
-.PHONY: help clean init bump build upload
+#.PHONY: help clean init bump build upload
 
 
 dir=$(pwd)
