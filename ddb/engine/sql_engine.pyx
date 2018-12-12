@@ -487,14 +487,14 @@ class sql_engine:
         # insert new data at end of file
         new_line=''
         err=False
-        #print query_object['meta']['columns']
+        print query_object
 
         # make sure the inserted columns exist
         for c2 in range(0,len(query_object['meta']['set'])):
             column_name=query_object['meta']['set'][c2]['column']
             if None == query_object['table'].get_column_by_name(column_name):
                 temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
-                print "no column"
+                #print "no column"
                 err=True
                 
         if False==err:
@@ -504,7 +504,7 @@ class sql_engine:
                 for c2 in range(0,len(query_object['meta']['set'])):
                     #print column_name,query_object['meta']['set']
                     if query_object['meta']['set'][c2]['column']==column_name:
-                        print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
+                        #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                         value=query_object['meta']['set'][c2]['expression']
                 if c>0:
                     new_line+='{}'.format(query_object['table'].delimiters.field)    
