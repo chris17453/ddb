@@ -12,7 +12,7 @@ class test_engine(unittest.TestCase):
 
     
         
-    def cleanup(self,engine):
+    def cleanup(self):
         if None != engine:
             print ("#--->Fresh init")
             config_dir=os.path.join(self.basedir,self.temp_config)
@@ -30,6 +30,7 @@ class test_engine(unittest.TestCase):
         try:
             print("Use")
         # single db change from default
+            self.cleanup()
             engine=sql_engine(config_file=False)
             engine=None
             test_db_name="TEST"
@@ -48,8 +49,8 @@ class test_engine(unittest.TestCase):
     def test_create_table(self):
         """Test creating a table"""
         print("Create Table")
+        self.cleanup()
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        self.cleanup(engine)
         #new on existing table
         results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
         self.assertEqual(1,results[0][0])
@@ -64,8 +65,8 @@ class test_engine(unittest.TestCase):
     def test_drop_table(self):
         """Test dropping a table"""
         print("Drop Table")
+        self.cleanup()
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-        self.cleanup(engine)
         results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
                 #fail on existing table
         results=engine.query('drop table test')
@@ -79,10 +80,9 @@ class test_engine(unittest.TestCase):
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
-        engine=None
         try:
+            self.cleanup()
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-            self.cleanup(engine)
             print("Select")
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
@@ -114,8 +114,8 @@ class test_engine(unittest.TestCase):
         """Update a row in the test file"""
         try:
             print("Update")
+            self.cleanup()
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-            self.cleanup(engine)
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
@@ -129,6 +129,7 @@ class test_engine(unittest.TestCase):
         """Insert a row in the test file"""
         try:
             print("Insert")
+            self.cleanup()
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
             self.cleanup(engine)
             #fail on existing table
@@ -144,12 +145,10 @@ class test_engine(unittest.TestCase):
 
     def test_delete(self):
         """Delete a test row in the test file"""
-        engine=None
-        self.cleanup(engine)
+        self.cleanup()
         try:
             print("Delete")
             engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
-            self.cleanup(engine)
             #fail on existing table
             results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
             
