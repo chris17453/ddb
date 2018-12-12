@@ -367,7 +367,7 @@ class sql_parser:
             #print token_index,len(tokens) 
             info(switch_index,token_index,len(tokens))
             
-            info (query_object)
+            info (curent_object)
             #so we have run out of text to match and everything is good so far
             if token_index==len(tokens):
                 info("############################think its a match")
