@@ -396,8 +396,7 @@ class sql_engine:
         
         data= {'data':[deleted],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
-        os.remove(query_object['table'].data.path)
-        os.rename(temp_file_name,query_object['table'].data.path)
+        self.swap_files(query_object['table'].data.path,(temp_file_name)
         return temp_table
         
 
@@ -438,9 +437,8 @@ class sql_engine:
         
         data= {'data':[inserted],'type':self.data_type.DATA,'error':None}
         temp_table.append_data(data)
-        os.remove(query_object['table'].data.path)
-        os.rename(temp_file_name,query_object['table'].data.path)
-        #print temp_table.errors
+        self.swap_files(query_object['table'].data.path,(temp_file_name)
+
         return temp_table
         
 
@@ -559,10 +557,21 @@ class sql_engine:
         data= {'data':[updated],'type':self.data_type.DATA,'error':None}
 
         temp_table.append_data(data)
-        os.remove(query_object['table'].data.path)
-        os.rename(temp_file_name,query_object['table'].data.path)
+        self.swap_files(query_object['table'].data.path,(temp_file_name)
 
         return temp_table
+
+
+
+
+    def swap_files(self,target,temp):
+        os.remove(target)
+        if os.path.exists(target):
+            raise Exception("Deleting target file {} failed".format(target))
+        os.rename(temp,target)
+        if os.path.exists(temp_file):
+            raise Exception("Renaming temp file {} failed".format(temp))
+        
 
 
     def use(self,query_object):
