@@ -182,6 +182,7 @@ class database:
         if False==res:
             raise Exception("Couldn't save table configuation")
         self.add_config(table=t)
+        self.reload_config()
         return True
 
     
@@ -197,6 +198,7 @@ class database:
                 if False==res:
                     return False
                 self.tables.pop(index)
+                self.reload_config()
                 return True
                 break
         return False
@@ -249,11 +251,9 @@ class database:
             
     def get_tables(self):
         if None==self.config_file: 
-            print "no config"
             return []
 
         if False==os.path.exists(self.config_file):
-            print "create db config"
             self.create_config(self.config_file)
         
         tables=[]
@@ -267,8 +267,6 @@ class database:
                 for db in  yaml_data:
                     for table in yaml_data[db]:
                         tables.append(yaml_data[db][table]['path'])
-            else:
-                print "No data in db config"
 
         return tables
 

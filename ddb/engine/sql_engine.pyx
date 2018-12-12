@@ -75,7 +75,7 @@ class sql_engine:
         
         # update table info...
         # it may have changed...
-        self.database.reload_config()
+        #self.database.reload_config()
         
         parser=sql_parser(sql_query,self.debug)
         if False == parser.query_objects:
@@ -605,7 +605,6 @@ class sql_engine:
             columns.append(c['column'])
         info("Columns to create",columns)
         created=0
-        print self.database.config_file
         results=self.database.create_table( table_name=query_object['meta']['create']['table'],
                                             columns=columns,
                                             data_file=query_object['meta']['file']['file'])
