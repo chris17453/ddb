@@ -600,6 +600,7 @@ class sql_engine:
         temp_table=self.database.temp_table()
         
         columns=[]
+        print query_object
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         info("Columns to create",columns)
