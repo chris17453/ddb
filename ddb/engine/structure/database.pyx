@@ -249,14 +249,16 @@ class database:
             
     def get_tables(self):
         if None==self.config_file: 
+            print "no config"
             return []
 
         if False==os.path.exists(self.config_file):
-                self.create_config(self.config_file)
+            print "create db config"
+            self.create_config(self.config_file)
         
         tables=[]
         if False==os.path.exists(self.config_file):
-            return []
+            raise Exception("db config invalid")
 
         with open(self.config_file, 'r') as stream:
             yaml_data=yaml.load(stream)
@@ -265,6 +267,8 @@ class database:
                 for db in  yaml_data:
                     for table in yaml_data[db]:
                         tables.append(yaml_data[db][table]['path'])
+            else:
+                print "No data in db config"
 
         return tables
 

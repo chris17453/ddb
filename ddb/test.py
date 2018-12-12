@@ -29,12 +29,30 @@ class test_engine(unittest.TestCase):
 
     def test_create_table(self):
         engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+        #new on existing table
         results=engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
-        print results
         self.assertEqual(1,results[0][0])
+
+        #fail on existing table
+        
+        print engine.query("create table test('id','first_name','last_name','email','gender','ip_address') file='{}'".format(os.path.join(self.basedir,self.temp_data)) )
+            
+        
         
 
+
+
     #def test_drop_table(self):
+    #    engine=sql_engine(config_file=os.path.join(self.basedir,self.temp_config))
+    #    #fail on existing table
+    #    results=engine.query('drop table test')
+    #    self.assertEqual(1,results[0][0])
+    #    
+    #    #fail on dropping non existant table
+    #    results=engine.query('drop table test')
+    #    self.assertEqual(0,results[0][0])
+
+
     #def test_select(self):
     #def test_update(self):
     #def test_insert(self):
