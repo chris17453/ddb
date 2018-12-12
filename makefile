@@ -4,7 +4,6 @@
 dir=$(pwd)
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
-version := $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'") 
 
 .DEFAULT: help
 
