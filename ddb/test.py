@@ -166,7 +166,7 @@ class test_engine(unittest.TestCase):
                 
             #delete non existing
             results=engine.query("delete from test where email like 'bop@%'")
-            self.assertEqual(,results[0][0])
+            self.assertEqual(0,results[0][0])
         except Exception as ex:
             self.fail(ex)
 
