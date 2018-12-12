@@ -397,7 +397,7 @@ class sql_parser:
                 #check to make sure functions are valid
                 if query_mode=='select':
                     info("Validating Select Functions")
-                    for node in query_object:
+                    for node in query_object['select']:
                         valid_funciton_name=False
                         if 'function' in node:
                             info ("It's a function!")
