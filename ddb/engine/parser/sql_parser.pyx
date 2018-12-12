@@ -159,7 +159,7 @@ class sql_parser:
                 else:
                     object_id=switch['name']
                     object_id=object_id.lower()
-                info("------",object_id,token_index)
+                info("Object Id:",object_id,"Token Id:",token_index)
                 if False == no_keyword:
                     keyword_compare=self.get_sub_array(switch,'name')
                     haystack=self.get_sub_array_sub_key(tokens[token_index:],'data')
@@ -397,28 +397,31 @@ class sql_parser:
                 #check to make sure functions are valid
                 if query_mode=='select':
                     info("Validating Select Functions")
-                    for node in query_object['select']:
-                        valid_funciton_name=False
-                        if 'function' in node:
-                            info ("It's a function!")
-                            for f in  sql_syntax['functions']:
-                                if f['name']== node['function']:
-                                    argindex=1
-                                    if f['arguments']!=None:
-                                        for arg in f['arguments']:
-                                            if arg['required']==True:
-                                                # if this argument key is not in the node dict
-                                                if 'argument{}'.format(argindex) not in node: 
-                                                    info("Missing arguments")
-                                                    return False
-                                            argindex+=1
-                                        
-                                    else:
-                                        argindex=0
-                                    if 'argument{}'.format(argindex+1) in node:
-                                        info("Too many arguments")
-                                        return False
+                    if 'select' in    query_object:
+                        for node in query_object['select']:
+                            valid_funciton_name=False
+                            if 'function' in node:
+                                info ("It's a function!")
+                                for f in  sql_syntax['functions']:
+                                    if f['name']== node['function']:
+                                        argindex=1
+                                        if f['arguments']!=None:
+                                            for arg in f['arguments']:
+                                                if arg['required']==True:
+                                                    # if this argument key is not in the node dict
+                                                    if 'argument{}'.format(argindex) not in node: 
+                                                        info("Missing arguments")
+                                                        return False
+                                                argindex+=1
                                             
+                                        else:
+                                            argindex=0
+                                        if 'argument{}'.format(argindex+1) in node:
+                                            info("Too many arguments")
+                                            return False
+                    else:
+                        info("No columns in select")
+                        return False
                                     
 
 
