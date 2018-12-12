@@ -406,7 +406,7 @@ class sql_parser:
                                     argindex=1
                                     if f['arguments']!=None:
                                         for arg in f['arguments']:
-                                            if f['required']==True:
+                                            if arg['required']==True:
                                                 if 'argument{}'.format(argindex) not in f:
                                                     info("Missing arguments")
                                                     return False
