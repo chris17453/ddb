@@ -83,7 +83,7 @@ class ddbPrompt(Cmd):
             self.msg("info","configuration_file set to'{}'".format(inp))
             self.engine=sql_engine(config_file=inp,debug=self.debug)
         except Exception as ex:
-            self.msg("error","config_dir",ex)
+            self.msg("error","config",ex)
 
     def help_config(self):
         self.msg("info","Set configuration file.")

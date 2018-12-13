@@ -21,10 +21,12 @@ help:
 	@echo "make bump           | bump the package version"
 	@echo "make clean          | delete pypi packages and cython files"
 	@echo "make init           | init git, create base directories"
+	@echo "make install        | install the latest ddb from pypi in your user directory"
 	@echo "make make-pipfile   | recreate the pipfile"
 	@echo "make unittest       | run unittest "
 	@echo "make upload         | upload any build packages to pypi"
-
+	@echo "make uninstall      | uninstall ddb from your user directory"
+	
 
 clean:
 	@find . -type f -name "*.c" -exec rm -f {} \;
@@ -70,9 +72,13 @@ build: bump
 
 
 upload:
-	@twine upload  dist/*
+	@pipenv run twine upload  dist/*
 
 install:
-	pip install . --user
+	pip install ddb --user
+
+uninstall:
+	pip uninstall ddb
+
 
 
