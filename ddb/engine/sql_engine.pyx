@@ -216,7 +216,7 @@ class sql_engine:
                 match_results = evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
             else:
                 match_results = False
-
+        
         return {'data': line_data, 'type': line_type, 'raw': line, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
@@ -564,12 +564,22 @@ class sql_engine:
         info("Columns to create", columns)
         created = 0
         found_delimiter=None
-        if 'delimiters' in query_object['meta']:
-            found_delimiter= query_object['meta']['delimiters']['field']
+        if 'delimiter' in query_object['meta']:
+            found_delimiter= query_object['meta']['delimiter']['field']
+        if 'ignore_whitespace' in query_object['meta']:
+            found_whitespace= query_object['meta']['ignore_whitespace']['ignore_whitespace']
+        if 'ignore_comments' in query_object['meta']:
+            found_comments= query_object['meta']['ignore_comments']['ignore_comments']
+        if 'data_starts_on' in query_object['meta']:
+            found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
     
         results = self.database.create_table(table_name=query_object['meta']['create']['table'],
                                              columns=columns,
-                                             data_file=query_object['meta']['file']['file'],delimiter=found_delimiter)
+                                             data_file=query_object['meta']['file']['file'],delimiter=found_delimiter
+                                             ignore_comments=found_comments,
+                                             ignore_whitespace=found_whitespace,
+                                             data_on=found_data_on
+                                             )
         if True == results:
             created += 1
 

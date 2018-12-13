@@ -256,7 +256,26 @@ sql_syntax = {
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{field}']}],
                      'optional': True,
-                     'name': 'delimiters'}
+                     'name': 'delimiter'},
+                     {'arguments': 1,
+                     'data': [{'sig': ['=', '{ignore_whitespace}']}],
+                     'optional': True,
+                     'type': 'bool'
+                     'default': False
+                     'name': 'ignore_whitespace'},                     
+                     {'arguments': 1,
+                     'data': [{'sig': ['=', '{ignore_comments}']}],
+                     'optional': True,
+                     'type': 'bool'
+                     'default': False
+                     'name': 'ignore_comments'},
+                     {'arguments': 1,
+                     'data': [{'sig': ['=', '{data_starts_on}']}],
+                     'optional': True,
+                     'type': 'int'
+                     'default': 1
+                     'name': 'data_starts_on'},
                      
-                     ]}]
+                     
+                                          ]}]
 }

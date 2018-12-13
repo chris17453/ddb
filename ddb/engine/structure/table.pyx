@@ -2,8 +2,7 @@ import sys
 import yaml
 import os
 import os
-from .column import *
-from yaml import load, dump
+from .column import column_v2
 try:
     from yaml import CLoader as Loader
 except ImportError:
@@ -16,7 +15,18 @@ class table:
     def noop(self, *args, **kw):
         pass
 
-    def __init__(self, file=None, show_config=False, database=None, columns=None, name=None, data_file=None, field_delimiter=None, config_directory=None):
+    def __init__(self, file=None, 
+                    show_config=False, 
+                    database=None, 
+                    columns=None, 
+                    name=None, 
+                    data_file=None, 
+                    field_delimiter=None, 
+                    config_directory=None,
+                    ignore_comments=None,
+                    ignore_whitespace=None,
+                    data_on=None
+    ):
         self.version = 1
         self.ownership = table_ownership()
         self.delimiters = table_delimiters()
@@ -28,6 +38,15 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
+        
+        if None != data_on:
+            self.data.starts_on_line=int(data_on)-1
+        
+        if None != ignore_comments:
+            self.visible.comment=ignore_comments
+
+        if None != ignore_whitespace:
+            self.visible.whitespace=ignore_whitespace
 
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
