@@ -23,8 +23,9 @@ class table:
                     data_file=None, 
                     field_delimiter=None, 
                     config_directory=None,
-                    ignore_comments=None,
-                    ignore_whitespace=None,
+                    comments=None,
+                    whitespace=None,
+                    errors=None,
                     data_on=None
     ):
         self.version = 1
@@ -42,8 +43,9 @@ class table:
         self.update(data_file=data_file, 
                     columns=columns, 
                     field_delimiter=field_delimiter, 
-                    ignore_comments=ignore_comments,
-                    ignore_whitespace=ignore_whitespace,
+                    comments=comments,
+                    whitespace=whitespace,
+                    errors=errors,
                     data_on=data_on)
 
         if None != file:
@@ -97,23 +99,21 @@ class table:
                     columns=None, 
                     data_file=None, 
                     field_delimiter=None, 
-                    ignore_comments=None,
-                    ignore_whitespace=None,
+                    comments=None,
+                    whitespace=None,
+                    errors=None,
                     data_on=None):
         if None != data_on:
             self.data.starts_on_line=int(data_on)
         
-        if None != ignore_comments:
-            if ignore_comments==True:
-                self.visible.comments=False
-            else: 
-                self.visible.comments=True
+        if None != comments:
+            self.visible.comments=comments
 
-        if None != ignore_whitespace:
-            if True==ignore_whitespace:
-                self.visible.whitespace=False
-            else:
-                self.visible.whitespace=True
+        if None != whitespace:
+            self.visible.whitespace=whitespace
+
+        if None != errors:
+            self.visible.errors=errors
 
 
         if None != field_delimiter:
