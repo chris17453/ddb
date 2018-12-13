@@ -637,6 +637,7 @@ class sql_engine:
         found_comments=None
         found_whitespace=None
         found_data_on=None
+        found_file=None
         if 'delimiter' in query_object['meta']:
             found_delimiter= query_object['meta']['delimiter']['field']
         if 'whitespace' in query_object['meta']:
