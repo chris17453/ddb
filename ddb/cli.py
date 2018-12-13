@@ -24,20 +24,21 @@ def cli_main():
     args = parser.parse_args()
 
 
-    home = expanduser("~")
-    config_file=os.path.join(os.path.join(home, '.ddb'),'ddb.conf')
-
+ 
 
     if None != args.query:
         if None != args.config:
-            e=sql_engine(config_file=args.config,debug=args.debug,mode="full")
+            home = expanduser("~")
+            config_file=os.path.join(os.path.join(home, '.ddb'),'ddb.conf')
         else:
-            e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
-            results=e.query(args.query)
-            if results!=None:
-                config=flextable.table_config()
-                config.columns=results.get_columns_display()
-                flextable.table(data=results.results,args=config)
+            config_file=args.config
+
+        e=sql_engine(config_file=config_file,debug=args.debug,mode="full")
+        results=e.query(args.query)
+        if results!=None:
+            config=flextable.table_config()
+            config.columns=results.get_columns_display()
+            flextable.table(data=results.results,args=config)
 
     else:
         # interactive session
