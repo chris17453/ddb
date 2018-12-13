@@ -40,10 +40,10 @@ class table:
         self.config_directory = config_directory
         
         if None != data_on:
-            self.data.starts_on_line=int(data_on)-1
+            self.data.starts_on_line=int(data_on)
         
         if None != ignore_comments:
-            self.visible.comment=ignore_comments
+            self.visible.comments=ignore_comments
 
         if None != ignore_whitespace:
             self.visible.whitespace=ignore_whitespace
