@@ -26,6 +26,11 @@ OR
 pipenv install ddb
 ```
 
+## Dev
+- use the makefile
+- make build.. etc
+
+
 ### Commandline interface
 ```
 ddb
