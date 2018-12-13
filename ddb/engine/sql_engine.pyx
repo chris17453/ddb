@@ -561,11 +561,15 @@ class sql_engine:
         columns = []
         if 'columns' not in  query_object['meta'] :
             raise Exception ("Missing columns, cannot create table")
+
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         info("Columns to create", columns)
         created = 0
         found_delimiter=None
+        found_comments=None
+        found_whitespace=None
+        found_data_on=None
         if 'delimiter' in query_object['meta']:
             found_delimiter= query_object['meta']['delimiter']['field']
         if 'ignore_whitespace' in query_object['meta']:
