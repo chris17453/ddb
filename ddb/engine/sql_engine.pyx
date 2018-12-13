@@ -78,7 +78,7 @@ class sql_engine:
 
         for query_object in parser.query_objects:
 
-            info("query_object", query_object)
+            info("Engine: query_object", query_object)
             #print  query_object
             # exit(9)
             # get columns, doesnt need a table
