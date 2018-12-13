@@ -1,5 +1,6 @@
 from language import sql_syntax
 from ..tokenizer.sql_tokenize import info, sql_tokenize
+from ..tokenizer.sql_tokenize import sql_tokenize
 from ..structure.table import *
 
 debug_on = False
