@@ -4,16 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+pip = "18.0"
 bumpversion = "*"
 twine = "*"
 cython = "*"
+autopep8 = "*"
+flake8 = "*"
 
 [packages]
-pip = "==18.0"
 pyyaml = "*"
 flextable = "*"
-"autopep8" = "*"
-"flake8" = "*"
 
 [requires]
 python_version = "2.7"
