@@ -18,13 +18,15 @@ def cli_main():
     parser.add_argument('query', help='query to return data', nargs="?")
 
     args = parser.parse_args()
-    # set the config file location
+    
+    # set the config q
+    # file location
     if args.config is not None:
+        config_file = args.config
+    else:
         home = expanduser("~")
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
-    else:
-        config_file = args.config
-
+    
     if args.query is not None:
         e = sql_engine(config_file=config_file, debug=args.debug, mode="full")
         results = e.query(args.query)

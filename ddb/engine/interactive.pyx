@@ -41,7 +41,6 @@ class ddbPrompt(Cmd):
         self.width = width
         self.format = format
         self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full")
-        print config_file
 
     def msg(self, type, name, message=''):
         if type == 'info':
