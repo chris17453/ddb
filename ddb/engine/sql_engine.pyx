@@ -646,18 +646,15 @@ class sql_engine:
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
     
         target_table= self.database.get(table_name)
-        try:
-            target_table.update(columns=columns,
-                                data_file=query_object['meta']['file']['file'],
-                                delimiter=found_delimiter,
-                                ignore_comments=found_comments,
-                                ignore_whitespace=found_whitespace,
-                                data_on=found_data_on)
-            #sace the update to the table
-            target_table.save()
-            updated += 1
-        except Exception as ex:
-            updated=0
+        target_table.update(columns=columns,
+                            data_file=query_object['meta']['file']['file'],
+                            delimiter=found_delimiter,
+                            ignore_comments=found_comments,
+                            ignore_whitespace=found_whitespace,
+                            data_on=found_data_on)
+        #sace the update to the table
+        target_table.save()
+        updated=1
 
         temp_table.add_column('update table')
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
