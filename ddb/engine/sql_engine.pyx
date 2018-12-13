@@ -694,9 +694,9 @@ class sql_engine:
         data.append(['config_file',target_table.data.config])
         data.append(['data_starts_on',target_table.data.starts_on_line])
         data.append(['field_delimiter'  ,target_table.delimiters.field])
-        data.append(['comments_visible',target_table.data.visible.comments])
-        data.append(['errors_visible',target_table.data.visible.errors])
-        data.append(['whitespace_visible',target_table.data.visible.whitespace])
+        data.append(['comments_visible',target_table.visible.comments])
+        data.append(['errors_visible',target_table.visible.errors])
+        data.append(['whitespace_visible',target_table.visible.whitespace])
         data.append(['',target_table.data.config])
         data = {'data': [data], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
