@@ -14,42 +14,6 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass
-    def update(     data_file=None, 
-                    columns=None, 
-                    data_file=None, 
-                    field_delimiter=None, 
-                    ignore_comments=None,
-                    ignore_whitespace=None,
-                    data_on=None):
-        if None != data_on:
-            self.data.starts_on_line=int(data_on)
-        
-        if None != ignore_comments:
-            if ignore_comments==True:
-                self.visible.comments=False
-            else: 
-                self.visible.comments=True
-
-        if None != ignore_whitespace:
-            if True==ignore_whitespace:
-                self.visible.whitespace=False
-            else:
-                self.visible.whitespace=True
-
-
-        if None != field_delimiter:
-            self.set_field_delimiter(field_delimiter)
-
-        if None != data_file:
-            self.data.path = data_file
-
-        if None != columns:
-            self.columns=[]
-            for column in columns:
-                self.add_column(column)
-
-
-
 
     def __init__(self, file=None, 
                     show_config=False, 
@@ -82,7 +46,7 @@ class table:
                     ignore_comments=ignore_comments,
                     ignore_whitespace=ignore_whitespace,
                     data_on=data_on)
-                    
+
         if None != file:
             if os.path.exists(file):
                 with open(file, 'r') as stream:
@@ -129,6 +93,41 @@ class table:
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
                 raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
+
+    def update(self,
+                    data_file=None, 
+                    columns=None, 
+                    data_file=None, 
+                    field_delimiter=None, 
+                    ignore_comments=None,
+                    ignore_whitespace=None,
+                    data_on=None):
+        if None != data_on:
+            self.data.starts_on_line=int(data_on)
+        
+        if None != ignore_comments:
+            if ignore_comments==True:
+                self.visible.comments=False
+            else: 
+                self.visible.comments=True
+
+        if None != ignore_whitespace:
+            if True==ignore_whitespace:
+                self.visible.whitespace=False
+            else:
+                self.visible.whitespace=True
+
+
+        if None != field_delimiter:
+            self.set_field_delimiter(field_delimiter)
+
+        if None != data_file:
+            self.data.path = data_file
+
+        if None != columns:
+            self.columns=[]
+            for column in columns:
+                self.add_column(column)
 
     def set_field_delimiter(self, delimiter):
         self.delimiters.field = delimiter
