@@ -697,7 +697,7 @@ class sql_engine:
         data.append(['comments_visible',target_table.visible.comments])
         data.append(['errors_visible',target_table.visible.errors])
         data.append(['whitespace_visible',target_table.visible.whitespace])
-        data = {'data': [data], 'type': self.data_type.DATA, 'error': None}
+        data = {'data': data, 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return temp_table
 
