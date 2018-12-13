@@ -559,6 +559,8 @@ class sql_engine:
         temp_table = self.database.temp_table()
 
         columns = []
+        if 'columns' not in  query_object['meta'] :
+            raise Exception ("Missing columns, cannot create table")
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         info("Columns to create", columns)

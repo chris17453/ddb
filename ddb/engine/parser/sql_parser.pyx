@@ -267,19 +267,19 @@ class sql_parser:
                                             argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
                                         except BaseException:
                                             raise Exception ("Variable data not an integer")
-                                    elif variable=='bool':
+                                    elif variable_type=='bool':
                                         if variable_data.lower()=='true':
                                             argument[variable] =True
                                         elif variable_data.lower()=='false':
                                             argument[variable] =False
                                         else:
                                             raise Exception("Variable Data not boolean")
-                                    elif variable=='char':
+                                    elif variable_type=='char':
                                         if len(variable_data)!=1:
                                             raise Exception("variable data length exceeded, type char")
                                         argument[variable] =variable_data
 
-                                    elif variable=='string':
+                                    elif variable_type=='string':
                                         argument[variable] =variable_data
                                 else:
                                     # normal keyword
