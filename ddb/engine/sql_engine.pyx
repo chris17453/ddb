@@ -581,12 +581,15 @@ class sql_engine:
         found_comments=None
         found_whitespace=None
         found_data_on=None
+        found_errors=None
         if 'delimiter' in query_object['meta']:
             found_delimiter= query_object['meta']['delimiter']['field']
-        if 'ignore_whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['ignore_whitespace']['ignore_whitespace']
-        if 'ignore_comments' in query_object['meta']:
-            found_comments= query_object['meta']['ignore_comments']['ignore_comments']
+        if 'whitespace' in query_object['meta']:
+            found_whitespace= query_object['meta']['whitespace']['whitespace']
+        if 'comments' in query_object['meta']:
+            found_comments= query_object['meta']['comments']['comments']
+        if 'errors' in query_object['meta']:
+            found_errors= query_object['meta']['errors']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
     
@@ -594,8 +597,9 @@ class sql_engine:
                                              columns=columns,
                                              data_file=query_object['meta']['file']['file'],
                                              delimiter=found_delimiter,
-                                             ignore_comments=found_comments,
-                                             ignore_whitespace=found_whitespace,
+                                             comments=found_comments,
+                                             errors=found_errors,
+                                             whitespace=found_whitespace,
                                              data_on=found_data_on
                                              )
         if True == results:
