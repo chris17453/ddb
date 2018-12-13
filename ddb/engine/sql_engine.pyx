@@ -624,8 +624,9 @@ class sql_engine:
         info("Update Table")
         temp_table = self.database.temp_table()
 
-        columns = []
+        columns = None  
         if 'columns'  in  query_object['meta'] :
+            columns = []
             for c in query_object['meta']['columns']:
                 columns.append(c['column'])
         
@@ -644,10 +645,12 @@ class sql_engine:
             found_comments= query_object['meta']['comments']['comments']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
-    
+        if 'file' in query_object['meta']:
+            found_file=query_object['meta']['file']['file']
+
         target_table= self.database.get(table_name)
         target_table.update(columns=columns,
-                            data_file=query_object['meta']['file']['file'],
+                            data_file=found_file,
                             delimiter=found_delimiter,
                             ignore_comments=found_comments,
                             ignore_whitespace=found_whitespace,
