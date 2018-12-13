@@ -46,11 +46,11 @@ class database:
         temp_table.columns = []
         return temp_table
 
-    def temp_table(self, name=None, columns=[]):
+    def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:
             name = "#table_temp"  # TODO make unique random name
-        return table(name=name, columns=columns, database=self.get_curent_database())
+        return table(name=name, columns=columns, database=self.get_curent_database(),field_delimiter=delimiter)
 
     def create_config(self, config_file):
         try:
@@ -128,7 +128,7 @@ class database:
             return self.get_default_database()
         return self.curent_database
 
-    def create_table(self, table_name, columns, data_file, database_name=None):
+    def create_table(self, table_name, columns, data_file, database_name=None,delimiter=None):
         if None == self.config_file:
             raise Exception("Not using a config file")
         if False == os.path.isfile(data_file):
@@ -142,7 +142,7 @@ class database:
             raise Exception("table already exists")
 
         config_directory = os.path.dirname(self.config_file)
-        t = table(name=table_name, database=database_name, columns=columns, config_directory=config_directory)
+        t = table(name=table_name, database=database_name, columns=columns, config_directory=config_directory,field_delimiter=delimiter)
         t.data.path = data_file
         res = t.save()
         if False == res:
