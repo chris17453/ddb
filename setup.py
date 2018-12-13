@@ -54,11 +54,18 @@ setup(
     url='https://github.com/chris17453/ddb/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+
     author= 'Charles Watkins',
     author_email= 'charles@titandws.com',
-    description= '',
+    description= 'A serviceless sql interface for flat files written in python',
     install_requires=['pyyaml','flextable'],
     ext_modules = extensions,
+    classifiers=[
+        "Programming Language :: Python :: 2",
+        "License :: Creative Commons Attribution-Noncommercial-Share Alike license",
+        "Operating System :: OS Independent",
+    ],    
     entry_points="""
         [console_scripts]
         ddb = ddb.cli:cli_main
