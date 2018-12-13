@@ -263,21 +263,21 @@ class sql_parser:
                                                 variable_type=node['specs'][variable]['type']
                                             
                                     if variable_type=='int':
-                                        try
+                                        try:
                                             argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
                                         except BaseException:
                                             raise Exception ("Variable data not an integer")
                                     elif variable=='bool':
-                                            if variable_data.lower()=='true':
-                                                argument[variable] =True
-                                            elif variable_data.lower()=='false':
-                                                argument[variable] =False
-                                            else:
-                                                raise Exception("Variable Data not boolean")
+                                        if variable_data.lower()=='true':
+                                            argument[variable] =True
+                                        elif variable_data.lower()=='false':
+                                            argument[variable] =False
+                                        else:
+                                            raise Exception("Variable Data not boolean")
                                     elif variable=='char':
-                                            if len(variable_data)!=1:
-                                                raise Exception("variable data length exceeded, type char")
-                                            argument[variable] =variable_data
+                                        if len(variable_data)!=1:
+                                            raise Exception("variable data length exceeded, type char")
+                                        argument[variable] =variable_data
 
                                     elif variable=='string':
                                         argument[variable] =variable_data
