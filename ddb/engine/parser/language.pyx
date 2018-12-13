@@ -321,7 +321,7 @@ sql_syntax = {
                      'optional': True,
                      'specs':{'data_starts_on':{'type': 'int'}},
                      'name': 'data_starts_on'}
-                     
-                     ]}#query
+                     ]
+                     }#query
                      ]#query Matrix
 }#sql_syntax
