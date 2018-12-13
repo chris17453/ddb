@@ -115,6 +115,9 @@ class sql_engine:
             if query_object['mode'] == 'update table':
                 self.results = self.update_table(query_object)
 
+            if query_object['mode'] == 'describe table':
+                self.results = self.describe_table(query_object)
+
         # only return last command
         if None != self.results:
             if self.mode == 'full':
@@ -673,4 +676,32 @@ class sql_engine:
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return temp_table
+
+
+  def describe_table(self, query_object):
+        info("Update Table")
+        temp_table = self.database.temp_table()
+        table_name=query_object['meta']['update']['table']
+        target_table= self.database.get(table_name)
+        temp_table.add_column('option')
+        temp_table.add_column('value')
+        data=[]
+        data.append(['active',target.table.active])
+        data.append(['table_name',target.table.data.name])
+        data.append(['database',target.table.data.database])
+        data.append(['data_file',target.table.data.path])
+        data.append(['type',target.table.data.type])
+        data.append(['config_file',target.table.data.config])
+        data.append(['data_starts_on',target.table.data.starts_on_line])
+        data.append(['field_delimiter'  ,target.table.delimiters.field])
+        data.append(['comments_visible',target.table.data.visible.comments])
+        data.append(['errors_visible',target.table.data.visible.errors])
+        data.append(['whitespace_visible',target.table.data.visible.whitespace])
+        data.append(['',target.table.data.config])
+        data = {'data': [data], 'type': self.data_type.DATA, 'error': None}
+        temp_table.append_data(data)
+        return temp_table
+
+
+
 

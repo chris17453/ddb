@@ -322,7 +322,12 @@ sql_syntax = {
                      'specs':{'data_starts_on':{'type': 'int'}},
                      'name': 'data_starts_on'}
                      ]
-                     }#query
+                     },
+        {'query': 'describe table',
+         'switch': [{'arguments': 1,
+                     'data': [{'sig': ['table', '{table}']}],
+                     'name': 'describe'}]},
+                          
  
     ]#query matrix array
 }#sql_syntax
