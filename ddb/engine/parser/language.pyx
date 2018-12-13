@@ -283,7 +283,7 @@ sql_syntax = {
         {'query': 'update table',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
-                     'name': 'create'},
+                     'name': 'update'},
                     {'data': False, 'dispose': True, 'name': '(','optional': True},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']}],
