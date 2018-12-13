@@ -687,17 +687,17 @@ class sql_engine:
         temp_table.add_column('value')
         
         
-        temp_table.append({'data':['active',target_table.active],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['table_name',target_table.data.name],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['database',target_table.data.database],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['data_file',target_table.data.path],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['type',target_table.data.type],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['config_file',target_table.data.config],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['data_starts_on',target_table.data.starts_on_line],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['field_delimiter'  ,target_table.delimiters.field],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['comments_visible',target_table.visible.comments],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['errors_visible',target_table.visible.errors],, 'type': self.data_type.DATA, 'error': None})
-        temp_table.append({'data':['whitespace_visible',target_table.visible.whitespace],, 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['active',target_table.active], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['table_name',target_table.data.name], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['database',target_table.data.database], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['data_file',target_table.data.path], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['type',target_table.data.type], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['config_file',target_table.data.config], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['data_starts_on',target_table.data.starts_on_line], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['field_delimiter'  ,target_table.delimiters.field], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['comments_visible',target_table.visible.comments], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['errors_visible',target_table.visible.errors], 'type': self.data_type.DATA, 'error': None})
+        temp_table.append({'data':['whitespace_visible',target_table.visible.whitespace], 'type': self.data_type.DATA, 'error': None})
         return temp_table
 
 
