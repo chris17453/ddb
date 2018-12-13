@@ -97,12 +97,14 @@ USE main
 ### CREATE TABLE
 -- creates a table in a database. If no context is used, the default context of 'main' is used.
 ```
- create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
+USE test;
+create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
 ```
 
 ### DROP TABLE
 -- removes a table from the database. It does not alter the data_file or the table configuration file.
 ```
+USE test;
 drop table test
 ```
 
@@ -115,6 +117,7 @@ show tables
 ### SHOW COLUMNS FROM TABLE
 - list all of the columns of a given table
 ```
+USE test;
 show columns from test
 ```
 
@@ -132,6 +135,7 @@ show columns from test
 
 
 ```
+USE test;
 SELECT database()
 SELECT * FROM TEST LIMIT 10
 SELECT * from test limit 5,10
@@ -143,12 +147,14 @@ SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE
 - update a row in the database based on a standard where clause
 - If no data is matched in the where, nothing is updated
 ```
+USE test;
 UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
 ```
 
 ### INSERT
 - insert a row of data into the database, columns can be orderd
 ```
+USE test;
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10001,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
 INSERT INTO test (ip_address,id,first_name,last_name,email,gender) values ('0.0.0.0',10002,test_name1,'test_lname','sam@bob.com','male');
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
@@ -157,6 +163,7 @@ INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003
 ## DELETE
 - remove a row from the database based on matching criteria
 ```
+USE test;
 DELETE FROM test where email like 'sam%'
 ```
 
