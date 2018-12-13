@@ -81,12 +81,14 @@ results=self.engine.query(query)
 - USE [DATABASE]
 - SHOW TABLES
 - SHOW COLUMNS FROM [TABLE]
-- CREATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH] delimiter=[FIELD_DELIMITER(default=',')] data_on=[DATA_BEGINS_AT_LINE(default=1)]
+- CREATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH] delimiter=[FIELD_DELIMITER(default=',')] [WHITESPACE=bool] [ERRORS=bool] [COMMENTS=bool] data_on=[DATA_BEGINS_AT_LINE(default=1)] 
 - DROP TABLE [TABLE]
 - SELECT [[COLUMN [AS COLUMN]]|[FUNCTION(...) [AS COLUMN]]] FROM [TABLE] [WHERE] [AND] [OR] [ORDER BY] [LIMIT]
 - INSERT INTO [TABLE] ([[COLUMNS]]) VALUES ([[VALUES])
 - DELETE FROM [TABLE] [WHERE] [AND] [OR]
 - UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
+- DESCRIBE TABLE [TABLE]
+- UPDATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH] delimiter=[FIELD_DELIMITER(default=',')] [WHITESPACE=bool] [ERRORS=bool] [COMMENTS=bool] data_on=[DATA_BEGINS_AT_LINE(default=1)] 
 
 ### Supported functions
 
@@ -251,6 +253,35 @@ DELETE FROM test where email like 'sam%'
 ╔╡deleted                                                                                       ╞╗
 ║0                                                                                               ║
 ╚[deleted                                                                                       ]╝
+```
+
+### DESCRIBE TABLE
+-view table configuration
+```sql
+use test;
+describe table test
+╔╡option                                               ╞╦╡value                                                ╞╗
+║active                                                 ║True                                                   ║
+║table_name                                             ║test                                                   ║
+║database                                               ║main                                                   ║
+║data_file                                              ║ddb/test/MOCK_DATA.csv                                 ║
+║type                                                   ║Temp                                                   ║
+║config_file                                            ║                                                       ║
+║data_starts_on                                         ║0                                                      ║
+║field_delimiter                                        ║,                                                      ║
+║comments_visible                                       ║False                                                  ║
+║errors_visible                                         ║True                                                   ║
+║whitespace_visible                                     ║False                                                  ║
+╚[option                                               ]╩[value                                                ]╝
+```
+
+### UPDATE TABLE
+Change the properties of a table
+```
+update table test whitespace=true
+╔╡update table                                                                                                 ╞╗
+║1                                                                                                              ║
+╚[update table                                                                                                 ]╝
 ```
 
 ### Docker
