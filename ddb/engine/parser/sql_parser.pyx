@@ -251,18 +251,34 @@ class sql_parser:
                             w_index = 0
                             argument = {}
                             for word in match:
+                                variable_data=tokens[token_index + w_index]['data']
                                 if word[0:1] == '{' and word[-1] == '}':
-                                    # variable
-                                    if word[1] == '#':
-                                        try:
-                                            argument[word[2:-1]] = tokens[token_index + w_index]['data'] = int(tokens[token_index + w_index]['data'])
+                                    # if we have definitions
+                                    variable=word[1:-1]
+                                    variable_type='string'
+                                    if 'specs' in node:
+                                        # if this is in or definitions
+                                        if variable in node['specs']:
+                                            if 'type' in node['specs'][variable]:
+                                                variable_type=node['specs'][variable]['type']
+                                            
+                                    if variable_type=='int':
+                                        try
+                                            argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
                                         except BaseException:
-                                            argument[word[2:-1]] = tokens[token_index + w_index]['data']
-                                    else:
-                                        argument[word[1:-1]] = tokens[token_index + w_index]['data']
+                                            raise Exception ("Variable data not an integer")
+                                    elif variable=='bool':
+                                            if variable_data.lower()=='true':
+                                                argument[variable] =True
+                                            elif variable_data.lower()=='false':
+                                                argument[variable] =False
+                                            else:
+                                                raise Exception("Variable Data not boolean")
+                                    elif variable=='string':
+                                        argument[variable] =variable_data
                                 else:
                                     # normal keyword
-                                    argument[word] = tokens[token_index + w_index]['data']
+                                    argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
                                 curent_object['arguments'] = []
