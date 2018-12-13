@@ -183,8 +183,8 @@ SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE
 
 ### UPDATE
 
-- update a row in the database based on a standard where clause
-- If no data is matched in the where, nothing is updated
+update a row in the database based on a standard where clause.
+If no data is matched in the where, nothing is updated
 
 ```
 USE test;
@@ -193,7 +193,7 @@ UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
 
 ### INSERT
 
-- insert a row of data into the database, columns can be orderd
+insert a row of data into the database, columns can be orderd
 
 ```
 USE test;
@@ -204,7 +204,7 @@ INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003
 
 ## DELETE
 
-- remove a row from the database based on matching criteria
+remove a row from the database based on matching criteria
 
 ```
 USE test;
