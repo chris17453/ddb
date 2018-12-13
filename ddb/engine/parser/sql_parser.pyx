@@ -274,6 +274,11 @@ class sql_parser:
                                                 argument[variable] =False
                                             else:
                                                 raise Exception("Variable Data not boolean")
+                                    elif variable=='char':
+                                            if len(variable_data)!=1:
+                                                raise Exception("variable data length exceeded, type char")
+                                            argument[variable] =variable_data
+
                                     elif variable=='string':
                                         argument[variable] =variable_data
                                 else:
