@@ -14,6 +14,42 @@ except ImportError:
 class table:
     def noop(self, *args, **kw):
         pass
+    def update(     data_file=None, 
+                    columns=None, 
+                    data_file=None, 
+                    field_delimiter=None, 
+                    ignore_comments=None,
+                    ignore_whitespace=None,
+                    data_on=None):
+        if None != data_on:
+            self.data.starts_on_line=int(data_on)
+        
+        if None != ignore_comments:
+            if ignore_comments==True:
+                self.visible.comments=False
+            else: 
+                self.visible.comments=True
+
+        if None != ignore_whitespace:
+            if True==ignore_whitespace:
+                self.visible.whitespace=False
+            else:
+                self.visible.whitespace=True
+
+
+        if None != field_delimiter:
+            self.set_field_delimiter(field_delimiter)
+
+        if None != data_file:
+            self.data.path = data_file
+
+        if None != columns:
+            self.columns=[]
+            for column in columns:
+                self.add_column(column)
+
+
+
 
     def __init__(self, file=None, 
                     show_config=False, 
@@ -39,35 +75,15 @@ class table:
         self.results = []
         self.config_directory = config_directory
         
-        if None != data_on:
-            self.data.starts_on_line=int(data_on)
-        
-        if None != ignore_comments:
-            if ignore_comments==True:
-                self.visible.comments=False
-            else: 
-                self.visible.comments=True
-
-        if None != ignore_whitespace:
-            if True==ignore_whitespace:
-                self.visible.whitespace=False
-            else:
-                self.visible.whitespace=True
-
-
-        if None != field_delimiter:
-            self.set_field_delimiter(field_delimiter)
-
-        if None != data_file:
-            self.data.path = data_file
-
-        if None != columns:
-            for column in columns:
-                self.add_column(column)
-
+        self.update(data_file=data_file, 
+                    columns=columns, 
+                    data_file=data_file, 
+                    field_delimiter=field_delimiter, 
+                    ignore_comments=ignore_comments,
+                    ignore_whitespace=ignore_whitespace,
+                    data_on=data_on)
+                    
         if None != file:
-            self.data.config = file
-            self.data.type = "File"
             if os.path.exists(file):
                 with open(file, 'r') as stream:
                     yaml_data = yaml.load(stream, Loader=Loader)

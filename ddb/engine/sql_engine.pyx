@@ -112,6 +112,9 @@ class sql_engine:
             if query_object['mode'] == 'create table':
                 self.results = self.create_table(query_object)
 
+            if query_object['mode'] == 'update table':
+                self.results = self.update_table(query_object)
+
         # only return last command
         if None != self.results:
             if self.mode == 'full':
@@ -616,3 +619,48 @@ class sql_engine:
         data = {'data': [dropped], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return temp_table
+
+def update_table(self, query_object):
+        info("Update Table")
+        temp_table = self.database.temp_table()
+
+        columns = []
+        if 'columns'  in  query_object['meta'] :
+            for c in query_object['meta']['columns']:
+                columns.append(c['column'])
+        
+        table_name=query_object['meta']['update']['table']
+
+        updated = 0
+        found_delimiter=None
+        found_comments=None
+        found_whitespace=None
+        found_data_on=None
+        if 'delimiter' in query_object['meta']:
+            found_delimiter= query_object['meta']['delimiter']['field']
+        if 'ignore_whitespace' in query_object['meta']:
+            found_whitespace= query_object['meta']['ignore_whitespace']['ignore_whitespace']
+        if 'ignore_comments' in query_object['meta']:
+            found_comments= query_object['meta']['ignore_comments']['ignore_comments']
+        if 'data_starts_on' in query_object['meta']:
+            found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
+    
+        target_table= self.database.get(table_name)
+        try:
+            target_table.update(columns=columns,
+                                data_file=query_object['meta']['file']['file'],
+                                delimiter=found_delimiter,
+                                ignore_comments=found_comments,
+                                ignore_whitespace=found_whitespace,
+                                data_on=found_data_on)
+            #sace the update to the table
+            target_table.save()
+            updated += 1
+        except Exception as ex:
+            updated=0
+
+        temp_table.add_column('update table')
+        data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
+        temp_table.append_data(data)
+        return temp_table
+
