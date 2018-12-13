@@ -256,7 +256,7 @@ class sql_parser:
                                     # if we have definitions
                                     variable=word[1:-1]
                                     variable_type='string'
-                                    if 'specs' in node:
+                                    if 'specs' in switch:
                                         # if this is in or definitions
                                         if variable in node['specs']:
                                             if 'type' in node['specs'][variable]:
