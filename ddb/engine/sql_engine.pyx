@@ -216,6 +216,14 @@ class sql_engine:
                 match_results = evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
             else:
                 match_results = False
+        if query_object['table'].visible.whitespace is False and line_type==self.data_type.WHITESPACE:
+            match_results=False
+        elif query_object['table'].visible.comments is False and line_type==self.data_type.COMMENT:
+            match_results=False
+        elif query_object['table'].visible.errors is False and line_type==self.data_type.ERROR:
+            match_results=False
+
+
         
         return {'data': line_data, 'type': line_type, 'raw': line, 'line_number': line_number, 'match': match_results, 'error': err}
 
