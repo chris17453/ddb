@@ -105,7 +105,7 @@ results=self.engine.query(query)
 - base support for non aggregate functions in select column, with renaming, up to 3 paramaters
 - sql function: "database()" returns the curently selected database context
 - added sql parsing support for join, left join, right join, full join *not implimented*
-- added sql parsing support renaming tables ASwith joins and from *not implimented*
+- added sql parsing support renaming tables "AS" with joins and from *not implimented*
 
 ## Examples
 
@@ -120,14 +120,16 @@ results=self.engine.query(query)
 
 ### USE
 
-- Changes the database context, all operations after this apply to that context
+Changes the database context, all operations after this apply to that context
+
 ```
 USE main
 ```
 
 ### CREATE TABLE
 
-- creates a table in a database. If no context is used, the default context of 'main' is used.
+creates a table in a database. If no context is used, the default context of 'main' is used.
+
 ```
 USE test;
 create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
@@ -135,22 +137,22 @@ create table test('id','first_name','last_name','email','gender','ip_address') f
 
 ### DROP TABLE
 
-- removes a table from the database. It does not alter the data_file or the table configuration file.
+removes a table from the database. It does not alter the data_file or the table configuration file.
+
 ```
 USE test;
 drop table test
 ```
 
 ### SHOW TABLES
+list all tables in the system. ? maybe by database. But I think its all of them. #TODO FIX
 
-- list all tables in the system. ? maybe by database. But I think its all of them. #TODO FIX
 ```
 show tables
 ```
 
 ### SHOW COLUMNS FROM TABLE
-
-- list all of the columns of a given table
+list all of the columns of a given table
 
 ```
 USE test;
