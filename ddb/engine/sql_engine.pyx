@@ -563,9 +563,13 @@ class sql_engine:
             columns.append(c['column'])
         info("Columns to create", columns)
         created = 0
+        found_delimiter=None
+        if 'delimiters' in query_object['meta']:
+            found_delimiter= query_object['meta']['delimiters']['field']
+    
         results = self.database.create_table(table_name=query_object['meta']['create']['table'],
                                              columns=columns,
-                                             data_file=query_object['meta']['file']['file'],delimiter=query_object['meta']['delimiters']['field'])
+                                             data_file=query_object['meta']['file']['file'],delimiter=found_delimiter)
         if True == results:
             created += 1
 
