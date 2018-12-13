@@ -258,9 +258,9 @@ class sql_parser:
                                     variable_type='string'
                                     if 'specs' in switch:
                                         # if this is in or definitions
-                                        if variable in node['specs']:
-                                            if 'type' in node['specs'][variable]:
-                                                variable_type=node['specs'][variable]['type']
+                                        if variable in switch['specs']:
+                                            if 'type' in switch['specs'][variable]:
+                                                variable_type=switch['specs'][variable]['type']
                                             
                                     if variable_type=='int':
                                         try:
