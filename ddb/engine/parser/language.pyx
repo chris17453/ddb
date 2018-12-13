@@ -160,7 +160,7 @@ sql_syntax = {
                               {'sig': ['{start}',
                                        ',',
                                        '{length}']}],
-                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}}
+                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}},
 
                      'name': 'limit',
                      'optional': True}]},
@@ -263,17 +263,17 @@ sql_syntax = {
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{ignore_whitespace}']}],
                      'optional': True,
-                     'specs':{'ignore_whitespace':{'type': 'bool','default': False}}
+                     'specs':{'ignore_whitespace':{'type': 'bool','default': False}},
                      'name': 'ignore_whitespace'},                     
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{ignore_comments}']}],
                      'optional': True,
-                     'specs':{'ignore_comments':{'type': 'bool','default': False}}
+                     'specs':{'ignore_comments':{'type': 'bool','default': False}},
                      'name': 'ignore_comments'},
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{data_starts_on}']}],
                      'optional': True,
-                     'specs':{'data_starts_on':{'type': 'int','default': 1}}
+                     'specs':{'data_starts_on':{'type': 'int','default': 1}},
                      'name': 'data_starts_on'},
                      
                      
