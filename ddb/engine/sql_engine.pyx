@@ -679,25 +679,25 @@ class sql_engine:
 
 
     def describe_table(self, query_object):
-        info("Update Table")
+        info("Describe Table")
         temp_table = self.database.temp_table()
         table_name=query_object['meta']['update']['table']
         target_table= self.database.get(table_name)
         temp_table.add_column('option')
         temp_table.add_column('value')
         data=[]
-        data.append(['active',target.table.active])
-        data.append(['table_name',target.table.data.name])
-        data.append(['database',target.table.data.database])
-        data.append(['data_file',target.table.data.path])
-        data.append(['type',target.table.data.type])
-        data.append(['config_file',target.table.data.config])
-        data.append(['data_starts_on',target.table.data.starts_on_line])
-        data.append(['field_delimiter'  ,target.table.delimiters.field])
-        data.append(['comments_visible',target.table.data.visible.comments])
-        data.append(['errors_visible',target.table.data.visible.errors])
-        data.append(['whitespace_visible',target.table.data.visible.whitespace])
-        data.append(['',target.table.data.config])
+        data.append(['active',target_table.active])
+        data.append(['table_name',target_table.data.name])
+        data.append(['database',target_table.data.database])
+        data.append(['data_file',target_table.data.path])
+        data.append(['type',target_table.data.type])
+        data.append(['config_file',target_table.data.config])
+        data.append(['data_starts_on',target_table.data.starts_on_line])
+        data.append(['field_delimiter'  ,target_table.delimiters.field])
+        data.append(['comments_visible',target_table.data.visible.comments])
+        data.append(['errors_visible',target_table.data.visible.errors])
+        data.append(['whitespace_visible',target_table.data.visible.whitespace])
+        data.append(['',target_table.data.config])
         data = {'data': [data], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return temp_table
