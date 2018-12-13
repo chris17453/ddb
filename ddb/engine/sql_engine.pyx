@@ -620,7 +620,7 @@ class sql_engine:
         temp_table.append_data(data)
         return temp_table
 
-def update_table(self, query_object):
+    def update_table(self, query_object):
         info("Update Table")
         temp_table = self.database.temp_table()
 

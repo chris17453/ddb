@@ -94,7 +94,7 @@ class ddbPrompt(Cmd):
     ##
 
     def default(self, inp):
-        print inp
+        #print inp
         if inp == 'x' or inp == 'q':
             return self.do_exit("")
 
