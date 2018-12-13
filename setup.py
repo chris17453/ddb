@@ -46,7 +46,7 @@ setup(
                 'ddb.engine.evaluate',     
                 'ddb.engine.structure',   
                 'ddb.engine.functions',
-                'ddb.engine.structure',   
+        crea        'ddb.engine.structure',   
                 'ddb.engine'
                 ],
 
@@ -63,7 +63,7 @@ setup(
     ext_modules = extensions,
     classifiers=[
         "Programming Language :: Python :: 2",
-        "License :: Creative Commons Attribution-Noncommercial-Share Alike license",
+        "Development Status :: 3 - Alpha",
         "Operating System :: OS Independent",
     ],    
     entry_points="""
