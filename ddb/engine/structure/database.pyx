@@ -131,8 +131,9 @@ class database:
     def create_table(self, table_name, columns, data_file, 
                                             database_name=None,
                                             delimiter=None,
-                                            ignore_comments=None,
-                                            ignore_whitespace=None,
+                                            comments=None,
+                                            errors=None,
+                                            whitespace=None,
                                             data_on=None):
         if None == self.config_file:
             raise Exception("Not using a config file")
@@ -147,7 +148,15 @@ class database:
             raise Exception("table already exists")
 
         config_directory = os.path.dirname(self.config_file)
-        t = table(name=table_name, database=database_name, columns=columns, config_directory=config_directory,field_delimiter=delimiter,data_on=data_on,ignore_comments=ignore_comments,ignore_whitespace=ignore_whitespace)
+        t = table(  name=table_name, 
+                    database=database_name, 
+                    columns=columns, 
+                    config_directory=config_directory,
+                    field_delimiter=delimiter,
+                    data_on=data_on,
+                    comments=comments,
+                    whitespace=whitespace,
+                    errors=errors)
         t.data.path = data_file
         res = t.save()
         if False == res:
