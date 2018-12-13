@@ -43,7 +43,7 @@ class table:
             self.data.starts_on_line=int(data_on)
         
         if None != ignore_comments:
-            if ignore_comments=True:
+            if ignore_comments==True:
                 self.visible.comments=False
             else: 
                 self.visible.comments=True
