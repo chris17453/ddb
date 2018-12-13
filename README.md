@@ -98,13 +98,12 @@ results=self.engine.query(query)
 - adding test cases for tokenizing
 - aggregate function support 
 - functions: COUNT, JOIN, SUM, DISTINCT, GROUP BY are all high on the list in that order
-- anything inside of a block quote is treated as a single expression. '...' or "..." or [...]
 
 ### Recent additions
 
 - unittesting has began!
 - base support for non aggregate functions in select column, with renaming, up to 3 paramaters
-- sql function: database(). returns the curently selected database context
+- sql function: "database()" returns the curently selected database context
 
 ## Examples
 
@@ -115,6 +114,7 @@ results=self.engine.query(query)
 - results are only returned for the last operation preformed
 - all interactions are parsed directly from the data_files at time of execution
 - 5 querys will consist of 5 file reads.
+- anything inside of a block quote is treated as a single expression. '...' or "..." or [...]
 
 ### USE
 
