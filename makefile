@@ -54,8 +54,11 @@ make-pipfile:
 	pipenv install bumpversion --dev
 	pipenv install twine --dev
 	pipenv install ctyhon --dev
+	pipenv install flake8 --dev
+	pipenv install autopep8 --dev
 	pipenv install pyyaml
 	pipenv install flextable
+	
 
 bump:
 	@git add -A 
@@ -79,6 +82,4 @@ install:
 
 uninstall:
 	pip uninstall ddb
-
-
 

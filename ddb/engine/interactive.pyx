@@ -1,9 +1,6 @@
-import sys
 import time
 from cmd import Cmd
-from .structure.table import table
-from .structure.database import database
-from .sql_engine  import sql_engine
+from .sql_engine import sql_engine
 import flextable
 
 
@@ -35,101 +32,91 @@ class ddbPrompt(Cmd):
                  config_file=None,
                  debug=False,
                  no_clip=False,
-                 width ='auto',
+                 width='auto',
                  format='term'):
-        if debug==None:
-            debug=False
-        self.debug=debug
-        self.no_clip=no_clip
-        self.width=width
-        self.format=format
-        self.engine=sql_engine(config_file=config_file,debug=self.debug,mode="full")
+        if debug is None:
+            debug = False
+        self.debug = debug
+        self.no_clip = no_clip
+        self.width = width
+        self.format = format
+        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full")
 
-    def msg(self,type,name,message=''):
-        if type=='info':
-            color=bcolors.OKGREEN
-        if type=='warn':
-            color=bcolors.WARNING
-        if type=='error':
-            color=bcolors.FAIL
+    def msg(self, type, name, message=''):
+        if type == 'info':
+            color = bcolors.OKGREEN
+        if type == 'warn':
+            color = bcolors.WARNING
+        if type == 'error':
+            color = bcolors.FAIL
 
-        print("{2}>>>{3} {4}{0}{3} {1}".format(name,message,bcolors.OKBLUE,bcolors.ENDC,color))
+        print("{2}>>>{3} {4}{0}{3} {1}".format(name, message, bcolors.OKBLUE, bcolors.ENDC, color))
 
     ##
-    def do_exit(self,inp):
-        self.msg("info","Bye")
+    def do_exit(self, inp):
+        self.msg("info", "Bye")
         return True
 
-    def help_exit(self,inp):
-        self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')
+    def help_exit(self, inp):
+        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
 
     ##
-    def do_debug(self,inp):
-        if self.debug==False:
-            self.debug=True
-            self.msg("info","Debugging ON")
+    def do_debug(self, inp):
+        if not self.debug:
+            self.debug = True
+            self.msg("info", "Debugging ON")
         else:
-            self.debug=False
-            self.msg("info","Debugging Off")
+            self.debug = False
+            self.msg("info", "Debugging Off")
         self.engine.debugging(debug=self.debug)
 
-    def help_debug(self,inp):
-        self.msg("info",'Toggle debugging on or off')
-
+    def help_debug(self, inp):
+        self.msg("info", 'Toggle debugging on or off')
 
     ##
+
     def do_config(self, inp):
         try:
-            self.msg("info","configuration_file set to'{}'".format(inp))
-            self.engine=sql_engine(config_file=inp,debug=self.debug)
+            self.msg("info", "configuration_file set to'{}'".format(inp))
+            self.engine = sql_engine(config_file=inp, debug=self.debug)
         except Exception as ex:
-            self.msg("error","config",ex)
+            self.msg("error", "config", ex)
 
     def help_config(self):
-        self.msg("info","Set configuration file.")
+        self.msg("info", "Set configuration file.")
 
     ##
-    #def do_show_errors(self, inp):
+    # def do_show_errors(self, inp):
     #    self.engine.print_errors()
-        
 
-    #def help_show_errors(self):
+    # def help_show_errors(self):
     #   self.msg("info","Show last error(s) generated")
     ##
-
 
     def default(self, inp):
         print inp
         if inp == 'x' or inp == 'q':
             return self.do_exit("")
-        
+
         try:
             if None == self.engine:
                 print ("sql engin gone")
                 return
             start = time.time()
-            results=self.engine.query(sql_query=inp)
+            results = self.engine.query(sql_query=inp)
             end = time.time()
-            if results!=None:
-                config=flextable.table_config()
-                config.columns=results.get_columns_display()
-                flextable.table(data=results.results,args=config)
-            
-            self.msg("info","executed in {} seconds".format(end - start))
-            inp=None
+            if results is not None:
+                config = flextable.table_config()
+                config.columns = results.get_columns_display()
+                flextable.table(data=results.results, args=config)
+
+            self.msg("info", "executed in {} seconds".format(end - start))
+            inp = None
         except Exception as ex:
-            self.msg("error",ex)
+            self.msg("error", ex)
 
     def default_exit(self):
-        self.msg("info",'exit the application. Shorthand: x q Ctrl-D.')
+        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
 
     do_EOF = help_exit
     help_EOF = help_exit
-    
- 
-
-
-
-
-
-
