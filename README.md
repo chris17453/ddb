@@ -1,6 +1,16 @@
 # ddb
  A sql interface for flat files written in python
 
+## use 
+- programatic access via python
+- cli access
+
+# usecase
+- running queries on exported data
+- automation of flat file data
+- serviceless db, with human readable data and configuration
+- managing legacy data tabular data
+- querys port easily to mariadb/mysql
 
 ## Prerequisites (Fedora)
 - yum install -y python2-devel       # for cython deps
@@ -87,6 +97,10 @@ results=self.engine.query(query)
 - unlsee specified, all configurations apply to ~/.ddb/ddb.conf in your home directory
 - this is a lookup file for the tables
 - table configs are stored in a sub directory based on the db name
+- ; is a command seperator. everything after this is a new command
+- results are only returned for the last operation preformed
+- all interactions are parsed directly from the data_files at time of execution
+- 5 querys will consist of 5 file reads.
 
 ### USE
 - Changes the database context, all operations after this apply to that context
@@ -95,14 +109,14 @@ USE main
 ```
 
 ### CREATE TABLE
--- creates a table in a database. If no context is used, the default context of 'main' is used.
+- creates a table in a database. If no context is used, the default context of 'main' is used.
 ```
 USE test;
 create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
 ```
 
 ### DROP TABLE
--- removes a table from the database. It does not alter the data_file or the table configuration file.
+- removes a table from the database. It does not alter the data_file or the table configuration file.
 ```
 USE test;
 drop table test
