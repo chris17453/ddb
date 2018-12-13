@@ -95,7 +95,6 @@ class table:
                 raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
 
     def update(self,
-                    data_file=None, 
                     columns=None, 
                     data_file=None, 
                     field_delimiter=None, 
