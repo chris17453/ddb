@@ -90,6 +90,23 @@ sql_syntax={
                                 'depends_on': 'from',
                                 'optional': True},
 
+                                {'arguments': 1,
+                                'data': [{'sig': ['{table}']},{'sig': ['{table}','as','{display}']}],
+                                'name': 'left join',
+                                'depends_on': 'from',
+                                'optional': True},
+                                
+                                {'arguments': 1,
+                                'data': [{'sig': ['{table}']},{'sig': ['{table}','as','{display}']}],
+                                'name': 'right join',
+                                'depends_on': 'from',
+                                'optional': True},
+
+                                {'arguments': 1,
+                                'data': [{'sig': ['{table}']},{'sig': ['{table}','as','{display}']}],
+                                'name': 'full join',
+                                'depends_on': 'from',
+                                'optional': True},
 
                                 {'arguments': 1,
                                 'data': [{'sig': ['{e1}', '{c}', '{e2}']}],

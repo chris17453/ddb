@@ -104,6 +104,8 @@ results=self.engine.query(query)
 - unittesting has began!
 - base support for non aggregate functions in select column, with renaming, up to 3 paramaters
 - sql function: "database()" returns the curently selected database context
+- added sql parsing support for join, left join, right join, full join *not implimented*
+- added sql parsing support renaming tables ASwith joins and from *not implimented*
 
 ## Examples
 
