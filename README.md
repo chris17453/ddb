@@ -5,7 +5,7 @@
 - programatic access via python
 - cli access
 
-# usecase
+## usecase
 - running queries on exported data
 - automation of flat file data
 - serviceless db, with human readable data and configuration
