@@ -1,6 +1,6 @@
-# ddb
+# ddb (delimited database)
 
- A serviceless sql interface for flat files written in python.
+ A serviceless sql interface for flat files written in python. 
  
 ## use 
 
@@ -12,8 +12,6 @@
 - running queries on exported data
 - automation of flat file data
 - managing legacy flat files
-
-
 
 ## Prerequisites (Fedora)
 
@@ -210,6 +208,10 @@ remove a row from the database based on matching criteria
 USE test;
 DELETE FROM test where email like 'sam%'
 ```
+
+### Docker
+- TODO
+
 
 ### Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
