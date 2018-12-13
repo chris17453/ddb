@@ -319,9 +319,9 @@ sql_syntax = {
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{data_starts_on}']}],
                      'optional': True,
-                     'specs':{'data_starts_on':{'type': 'int','default': 1}},
-                     'name': 'data_starts_on'},
-                     
-                     
-                                          ]}]
+                     'specs':{'data_starts_on':{'type': 'int'}},
+                     'name': 'data_starts_on'}
+        ]
+        }
+        ]
 }
