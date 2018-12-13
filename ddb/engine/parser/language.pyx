@@ -325,3 +325,4 @@ sql_syntax = {
                      }#query
                      ]#query Matrix
 }#sql_syntax
+    ]
