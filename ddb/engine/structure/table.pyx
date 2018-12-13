@@ -43,10 +43,17 @@ class table:
             self.data.starts_on_line=int(data_on)
         
         if None != ignore_comments:
-            self.visible.comments=ignore_comments
+            if ignore_comments=True:
+                self.visible.comments=False
+            else: 
+                self.visible.comments=True
 
         if None != ignore_whitespace:
-            self.visible.whitespace=ignore_whitespace
+            if True==ignore_whitespace:
+                self.visible.whitespace=False
+            else:
+                self.visible.whitespace=True
+
 
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
