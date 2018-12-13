@@ -681,7 +681,7 @@ class sql_engine:
     def describe_table(self, query_object):
         info("Describe Table")
         temp_table = self.database.temp_table()
-        table_name=query_object['meta']['update']['table']
+        table_name=query_object['meta']['describe']['table']
         target_table= self.database.get(table_name)
         temp_table.add_column('option')
         temp_table.add_column('value')
