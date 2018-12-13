@@ -575,7 +575,8 @@ class sql_engine:
     
         results = self.database.create_table(table_name=query_object['meta']['create']['table'],
                                              columns=columns,
-                                             data_file=query_object['meta']['file']['file'],delimiter=found_delimiter
+                                             data_file=query_object['meta']['file']['file'],
+                                             delimiter=found_delimiter,
                                              ignore_comments=found_comments,
                                              ignore_whitespace=found_whitespace,
                                              data_on=found_data_on
