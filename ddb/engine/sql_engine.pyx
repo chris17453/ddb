@@ -678,7 +678,7 @@ class sql_engine:
         return temp_table
 
 
-  def describe_table(self, query_object):
+    def describe_table(self, query_object):
         info("Update Table")
         temp_table = self.database.temp_table()
         table_name=query_object['meta']['update']['table']
