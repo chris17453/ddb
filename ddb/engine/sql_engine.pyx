@@ -565,7 +565,7 @@ class sql_engine:
         created = 0
         results = self.database.create_table(table_name=query_object['meta']['create']['table'],
                                              columns=columns,
-                                             data_file=query_object['meta']['file']['file'],delimiter,delimiter=query_object['meta']['delimiters']['field'])
+                                             data_file=query_object['meta']['file']['file'],delimiter=query_object['meta']['delimiters']['field'])
         if True == results:
             created += 1
 
