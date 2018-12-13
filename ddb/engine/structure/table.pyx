@@ -41,7 +41,6 @@ class table:
         
         self.update(data_file=data_file, 
                     columns=columns, 
-                    data_file=data_file, 
                     field_delimiter=field_delimiter, 
                     ignore_comments=ignore_comments,
                     ignore_whitespace=ignore_whitespace,
