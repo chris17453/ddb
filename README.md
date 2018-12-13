@@ -67,53 +67,70 @@ results=self.engine.query(query)
 - DELETE FROM [TABLE] [WHERE] [AND] [OR]
 - UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
 
-# Supported functions
+### Supported functions
 - database()
-
-
-### Not supported
-- Right now this is a PoC, complex operations are not supported, but are in the works.
-- JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
 ### TODO
 - curses browser for results (wil be built in flextable)
 - output to yaml,json,raw, csv formatted string (should be simple)
 - adding test cases for tokenizing
+- aggregate function support 
+- functions: COUNT, JOIN, SUM, DISTINCT, GROUP BY are all high on the list in that order
+- anything inside of a block quote is treated as a single expression. '...' or "..." or [...]
 
-# Recent additions
+### Recent additions
 - unittesting has began!
-- base suppppport for non aggregate functions in select column, with renaming, up to 3 paramaters
+- base support for non aggregate functions in select column, with renaming, up to 3 paramaters
 - sql function: database(). returns the curently selected database context
 
-
-### Examples
+## Examples
+- unlsee specified, all configurations apply to ~/.ddb/ddb.conf in your home directory
+- this is a lookup file for the tables
+- table configs are stored in a sub directory based on the db name
 
 ### USE
+- Changes the database context, all operations after this apply to that context
 ```
 USE main
 ```
 
 ### CREATE TABLE
+-- creates a table in a database. If no context is used, the default context of 'main' is used.
 ```
  create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
 ```
 
 ### DROP TABLE
+-- removes a table from the database. It does not alter the data_file or the table configuration file.
 ```
 drop table test
 ```
 
 ### SHOW TABLES
+- list all tables in the system. ? maybe by database. But I think its all of them. #TODO FIX
 ```
 show tables
 ```
 
 ### SHOW COLUMNS FROM TABLE
+- list all of the columns of a given table
 ```
 show columns from test
 ```
 
 ### SELECT
+- bring data back from the database
+- nested querys are not supported
+- "as like, not, is, or, and, where, from, order by,limit" are supported
+- like '%x%' or like '%x' or like 'x%' 
+- operators are supported. Though casting isnt setup yet
+- =, >, >=, <, <=, like, not, is
+- selecting from columns in a table requires a from target 
+- selecting from functions does not require a table, they are calculated
+- if a function is present and no table data is present, no data will be returned
+- if a function is present and no columns are present, a single row will be returned
+
+
 ```
 SELECT database()
 SELECT * FROM TEST LIMIT 10
@@ -123,18 +140,22 @@ SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE
 ```
 
 ### UPDATE
+- update a row in the database based on a standard where clause
+- If no data is matched in the where, nothing is updated
 ```
 UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
 ```
 
 ### INSERT
+- insert a row of data into the database, columns can be orderd
 ```
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10001,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
-INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10002,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
+INSERT INTO test (ip_address,id,first_name,last_name,email,gender) values ('0.0.0.0',10002,test_name1,'test_lname','sam@bob.com','male');
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
 ```
 
 ## DELETE
+- remove a row from the database based on matching criteria
 ```
 DELETE FROM test where email like 'sam%'
 ```
