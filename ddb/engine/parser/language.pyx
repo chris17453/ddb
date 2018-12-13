@@ -156,10 +156,12 @@ sql_syntax = {
                               {'sig': ['{column}', 'desc']}],
                      'name': ['order', 'by'],
                      'optional': True},
-                    {'data': [{'sig': ['{#length}']},
-                              {'sig': ['{#start}',
+                    {'data': [{'sig': ['{length}']},
+                              {'sig': ['{start}',
                                        ',',
-                                       '{#length}']}],
+                                       '{length}']}],
+                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}}
+
                      'name': 'limit',
                      'optional': True}]},
         {'query': 'delete',
@@ -256,24 +258,22 @@ sql_syntax = {
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{field}']}],
                      'optional': True,
+                     'specs':{'field':{'type': 'char','default': ','}}
                      'name': 'delimiter'},
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{ignore_whitespace}']}],
                      'optional': True,
-                     'type': 'bool'
-                     'default': False
+                     'specs':{'ignore_whitespace':{'type': 'bool','default': False}}
                      'name': 'ignore_whitespace'},                     
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{ignore_comments}']}],
                      'optional': True,
-                     'type': 'bool'
-                     'default': False
+                     'specs':{'ignore_comments':{'type': 'bool','default': False}}
                      'name': 'ignore_comments'},
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{data_starts_on}']}],
                      'optional': True,
-                     'type': 'int'
-                     'default': 1
+                     'specs':{'data_starts_on':{'type': 'int','default': 1}}
                      'name': 'data_starts_on'},
                      
                      
