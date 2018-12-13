@@ -18,6 +18,7 @@
 - yum install -y python2-devel       # for cython deps
 - yum install -y redhat-rpm-config   # for cython deps
 - yum install -y libyaml-devel       # for c bindings on yaml reader 
+- uses python 2.7
 
 ## Install
 
@@ -124,6 +125,10 @@ Changes the database context, all operations after this apply to that context
 
 ```
 USE main
+╔╡changed_db                                                                                    ╞╗
+║main                                                                                            ║
+╚[changed_db                                                                                    ]╝
+
 ```
 
 ### CREATE TABLE
@@ -133,6 +138,9 @@ creates a table in a database. If no context is used, the default context of 'ma
 ```sql
 USE test;
 create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
+╔╡create table                                                                                  ╞╗
+║1                                                                                               ║
+╚[create table                                                                                  ]╝
 ```
 
 ### DROP TABLE
@@ -142,6 +150,9 @@ removes a table from the database. It does not alter the data_file or the table 
 ```sql
 USE test;
 drop table test
+╔╡dropped                                                                                       ╞╗
+║1                                                                                               ║
+╚[dropped                                                                                       ]╝
 ```
 
 ### SHOW TABLES
@@ -149,6 +160,9 @@ list all tables in the system. ? maybe by database. But I think its all of them.
 
 ```sql
 show tables
+╔╡database                                     ╞╦╡table                                        ╞╗
+║main                                           ║test                                           ║
+╚[database                                     ]╩[table                                        ]╝
 ```
 
 ### SHOW COLUMNS FROM TABLE
@@ -157,6 +171,14 @@ list all of the columns of a given table
 ```sql
 USE test;
 show columns from test
+╔╡table                                        ╞╦╡column                                       ╞╗
+║test                                           ║id                                             ║
+║test                                           ║first_name                                     ║
+║test                                           ║last_name                                      ║
+║test                                           ║email                                          ║
+║test                                           ║gender                                         ║
+║test                                           ║ip_address                                     ║
+╚[table                                        ]╩[column                                       ]╝
 ```
 
 ### SELECT
@@ -179,6 +201,16 @@ SELECT * FROM TEST LIMIT 10
 SELECT * from test limit 5,10
 SELECT id,first_name from test order by id limit 15,10
 SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE 'Ma%' or id=1  ORDER BY gender,id desc LIMIT 0,1000
+╔╡id       ╞╦╡first_nam╞╦╡last_name╞╦╡email    ╞╦╡gender   ╞╦╡ip_addres╞╦╡ID2      ╞╦╡db_name  ╞╗
+║999        ║Karlik     ║Terrett    ║kterrettrq@║Male       ║55.93.204.4║999        ║main       ║
+║998        ║Calvin     ║Hedger     ║chedgerrp@g║Male       ║171.110.129║998        ║main       ║
+║995        ║Peter      ║Oliff      ║poliffrm@si║Male       ║104.255.33.║995        ║main       ║
+║994        ║Valentijn  ║Dentith    ║vdentithrl@║Male       ║171.49.46.7║994        ║main       ║
+║992        ║Bernarr    ║Playle     ║bplaylerj@s║Male       ║201.5.16.21║992        ║main       ║
+║991        ║Waite      ║Pettipher  ║wpettipherr║Male       ║236.2.105.1║991        ║main       ║
+║1          ║Say        ║Murgatroyd ║smurgatroyd║Male       ║35.226.127.║1          ║main       ║
+╚[id       ]╩[first_nam]╩[last_name]╩[email    ]╩[gender   ]╩[ip_addres]╩[ID2      ]╩[db_name  ]╝
+
 ```
 
 ### UPDATE
@@ -189,6 +221,9 @@ If no data is matched in the where, nothing is updated
 ```sql
 USE test;
 UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
+╔╡updated                                                                                       ╞╗
+║0                                                                                               ║
+╚[updated                                                                                       ]╝
 ```
 
 ### INSERT
@@ -200,6 +235,9 @@ USE test;
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10001,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
 INSERT INTO test (ip_address,id,first_name,last_name,email,gender) values ('0.0.0.0',10002,test_name1,'test_lname','sam@bob.com','male');
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
+╔╡inserted                                                                                      ╞╗
+║1                                                                                               ║
+╚[inserted                                                                                      ]╝
 ```
 
 ## DELETE
@@ -209,6 +247,9 @@ remove a row from the database based on matching criteria
 ```sql
 USE test;
 DELETE FROM test where email like 'sam%'
+╔╡deleted                                                                                       ╞╗
+║0                                                                                               ║
+╚[deleted                                                                                       ]╝
 ```
 
 ### Docker
