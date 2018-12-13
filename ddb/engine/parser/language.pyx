@@ -258,7 +258,7 @@ sql_syntax = {
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{field}']}],
                      'optional': True,
-                     'specs':{'field':{'type': 'char','default': ','}}n
+                     'specs':{'field':{'type': 'char','default': ','}},
                      'name': 'delimiter'},
                      {'arguments': 1,
                      'data': [{'sig': ['=', '{ignore_whitespace}']}],
