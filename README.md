@@ -1,8 +1,8 @@
 # ddb (delimited database)
 
- A serviceless sql interface for flat files written in python. 
- 
-## use 
+ A serviceless sql interface for flat files written in python.
+
+## use
 
 - programatic access via python
 - cli access
@@ -21,11 +21,13 @@
 
 ## Install
 
-```
+```bash
 pip install ddb
 ```
+
 OR
-```
+
+```bash
 pipenv install ddb
 ```
 
@@ -37,7 +39,7 @@ pipenv install ddb
 
 ### Commandline interface
 
-```
+```bash
 ddb
 ddb 'select * from `tablename` where column=value limit 0,10'
 ddb 'select * from `tablename` where column=value limit 0,10' --config=my_database_config_file.yaml
@@ -45,7 +47,7 @@ ddb 'select * from `tablename` where column=value limit 0,10' --config=my_databa
 
 ### Code integration
 
-```
+```python
 import ddb
 
 engine=ddb.engine(mode='object')
@@ -128,7 +130,7 @@ USE main
 
 creates a table in a database. If no context is used, the default context of 'main' is used.
 
-```
+```sql
 USE test;
 create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
 ```
@@ -137,7 +139,7 @@ create table test('id','first_name','last_name','email','gender','ip_address') f
 
 removes a table from the database. It does not alter the data_file or the table configuration file.
 
-```
+```sql
 USE test;
 drop table test
 ```
@@ -145,14 +147,14 @@ drop table test
 ### SHOW TABLES
 list all tables in the system. ? maybe by database. But I think its all of them. #TODO FIX
 
-```
+```sql
 show tables
 ```
 
 ### SHOW COLUMNS FROM TABLE
 list all of the columns of a given table
 
-```
+```sql
 USE test;
 show columns from test
 ```
@@ -170,7 +172,7 @@ show columns from test
 - if a function is present and no table data is present, no data will be returned
 - if a function is present and no columns are present, a single row will be returned
 
-```
+```sql
 USE test;
 SELECT database()
 SELECT * FROM TEST LIMIT 10
@@ -184,7 +186,7 @@ SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE
 update a row in the database based on a standard where clause.
 If no data is matched in the where, nothing is updated
 
-```
+```sql
 USE test;
 UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
 ```
@@ -193,7 +195,7 @@ UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
 
 insert a row of data into the database, columns can be orderd
 
-```
+```sql
 USE test;
 INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10001,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
 INSERT INTO test (ip_address,id,first_name,last_name,email,gender) values ('0.0.0.0',10002,test_name1,'test_lname','sam@bob.com','male');
@@ -204,20 +206,20 @@ INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003
 
 remove a row from the database based on matching criteria
 
-```
+```sql
 USE test;
 DELETE FROM test where email like 'sam%'
 ```
 
 ### Docker
-- TODO
 
+- TODO
 
 ### Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
 
-
 ### Notes to self
+
 - cython builds the python code as a ".so"
 - packages can see down, not up
 - in code import using full package name
