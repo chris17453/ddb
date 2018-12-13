@@ -1,11 +1,11 @@
 # ddb
- A sql interface for flat files written in python 
+ A sql interface for flat files written in python
 
 
 ## Prerequisites (Fedora)
-- yum install -y redhat-rpm-config   # for cython deps
 - yum install -y python2-devel       # for cython deps
-- yum install -y libyaml-devel       # for c bindings on config loader
+- yum install -y redhat-rpm-config   # for cython deps
+- yum install -y libyaml-devel       # for c bindings on yaml reader 
 
 ## Install
 ```
@@ -19,7 +19,8 @@ pipenv install ddb
 ### Commandline interface
 ```
 ddb
-ddb --query 'select * from `tablename` where column=value limit 0,10'
+ddb 'select * from `tablename` where column=value limit 0,10'
+ddb 'select * from `tablename` where column=value limit 0,10' --config=my_database_config_file.yaml
 ```
 
 ### Code integration
@@ -61,10 +62,13 @@ results=self.engine.query(query)
 - SHOW COLUMNS FROM [TABLE]
 - CREATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH]
 - DROP TABLE [TABLE]
-- SELECT [[COLUMN [AS COLUMN]]] FROM [TABLE] [WHERE] [AND] [OR] [ORDER BY] [LIMIT]
+- SELECT [[COLUMN [AS COLUMN]]|[FUNCTION(...) [AS COLUMN]]] FROM [TABLE] [WHERE] [AND] [OR] [ORDER BY] [LIMIT]
 - INSERT INTO [TABLE] ([[COLUMNS]]) VALUES ([[VALUES])
 - DELETE FROM [TABLE] [WHERE] [AND] [OR]
 - UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
+
+# Supported functions
+- database()
 
 
 ### Not supported
@@ -72,18 +76,69 @@ results=self.engine.query(query)
 - JOIN, COUNT, SUM, DISTINCT, GROUP BY are all high on the list
 
 ### TODO
-- curses browser for results
-- unit testing
+- curses browser for results (wil be built in flextable)
+- output to yaml,json,raw, csv formatted string (should be simple)
+- adding test cases for tokenizing
+
+# Recent additions
+- unittesting has began!
+- base suppppport for non aggregate functions in select column, with renaming, up to 3 paramaters
+- sql function: database(). returns the curently selected database context
+
 
 ### Examples
 
-# SELECT
-# UPDATE
-# INSERT
-# DELETE
-# CONFIG
+### USE
 ```
+USE main
 ```
+
+### CREATE TABLE
+```
+ create table test('id','first_name','last_name','email','gender','ip_address') file='/test/MOCK_DATA.csv'
+```
+
+### DROP TABLE
+```
+drop table test
+```
+
+### SHOW TABLES
+```
+show tables
+```
+
+### SHOW COLUMNS FROM TABLE
+```
+show columns from test
+```
+
+### SELECT
+```
+SELECT database()
+SELECT * FROM TEST LIMIT 10
+SELECT * from test limit 5,10
+SELECT id,first_name from test order by id limit 15,10
+SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE 'Ma%' or id=1  ORDER BY gender,id desc LIMIT 0,1000
+```
+
+### UPDATE
+```
+UPDATE 'test' SET first_name='TEST_UPDATE' where id='1001' or id='1001'
+```
+
+### INSERT
+```
+INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10001,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
+INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10002,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
+INSERT INTO test (id,first_name,last_name,email,gender,ip_address) values (10003,test_name1,'test_lname','sam@bob.com','male','0.0.0.0');
+```
+
+## DELETE
+```
+DELETE FROM test where email like 'sam%'
+```
+
 
 ### Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
