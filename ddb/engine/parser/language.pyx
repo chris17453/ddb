@@ -320,7 +320,7 @@ sql_syntax = {
                      'data': [{'sig': ['=', '{data_starts_on}']}],
                      'optional': True,
                      'specs':{'data_starts_on':{'type': 'int'}},
-                     'name': 'data_starts_on'},
+                     'name': 'data_starts_on'}
                      
                      ]}#query
                      ]#query Matrix
