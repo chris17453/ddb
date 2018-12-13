@@ -638,10 +638,10 @@ def update_table(self, query_object):
         found_data_on=None
         if 'delimiter' in query_object['meta']:
             found_delimiter= query_object['meta']['delimiter']['field']
-        if 'ignore_whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['ignore_whitespace']['ignore_whitespace']
-        if 'ignore_comments' in query_object['meta']:
-            found_comments= query_object['meta']['ignore_comments']['ignore_comments']
+        if 'whitespace' in query_object['meta']:
+            found_whitespace= query_object['meta']['whitespace']['whitespace']
+        if 'comments' in query_object['meta']:
+            found_comments= query_object['meta']['comments']['comments']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
     
