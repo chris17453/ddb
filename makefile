@@ -61,7 +61,6 @@ pipfile:
 	pipenv install pyyaml
 	pipenv install flextable
 	
-
 bump:
 	@git add -A 
 	@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
@@ -80,7 +79,7 @@ standalone:
 	@pyinstaller ddb.spec
 
 upload:
-	@pipenv run twine upload  dist/*
+	@pipenv run twine upload  dist/*.gz
 
 install:
 	pip install ddb --user
