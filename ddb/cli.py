@@ -1,14 +1,19 @@
 import argparse
 import os
+import sys
+import codecs
 import flextable
-from engine.sql_engine import sql_engine
-from engine.interactive import ddbPrompt
+from sql_engine import sql_engine
+from interactive import ddbPrompt
 
 
 from os.path import expanduser
 
 
 def cli_main():
+    UTF8Writer = codecs.getwriter('utf8')
+    sys.stdout = UTF8Writer(sys.stdout)
+
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
 
