@@ -14,10 +14,10 @@ def cli_main():
     # when compiled, you loose some of the benifits of the terminal
     # also an issue on windows
     try:
+        #UTF8Reader = codecs.getreader('utf8')
+        #sys.stdin = UTF8Reader(sys.stdin)
         UTF8Writer = codecs.getwriter('utf8')
         sys.stdout = UTF8Writer(sys.stdout)
-        UTF8Reader = codecs.getreader('utf8')
-        sys.stdin = UTF8Reader(sys.stdin)
     except:
         pass
 
