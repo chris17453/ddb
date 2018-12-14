@@ -71,7 +71,7 @@ unittest:
 	
 build: bump 
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
-	@pipenv run python setup.py build_ext 
+	@pipenv run python setup.py build_ext sdist
 	@$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
