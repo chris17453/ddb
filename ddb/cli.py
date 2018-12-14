@@ -17,9 +17,11 @@ def cli_main():
         #UTF8Reader = codecs.getreader('utf8')
         #sys.stdin = UTF8Reader(sys.stdin)
         UTF8Writer = codecs.getwriter('utf8')
-        sys.stdout = UTF8Writer(sys.stdout)
+        #sys.stdout = UTF8Writer(sys.stdout)
+        print sys.stdout,sys.stdin
     except:
         pass
+
 
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
