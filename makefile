@@ -17,12 +17,13 @@ git_email="charles@titandws.com"
 .DEFAULT: help
 
 help:
-	@echo "make build          | build bython files and make pypi package"
+	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
 	@echo "make clean          | delete pypi packages and cython files"
 	@echo "make init           | init git, create base directories"
 	@echo "make install        | install the latest ddb from pypi in your user directory"
-	@echo "make make-pipfile   | recreate the pipfile"
+	@echo "make pipfile        | recreate the pipfile"
+	@echo "make standalone     | compile into a linux single file executable"
 	@echo "make unittest       | run unittest "
 	@echo "make upload         | upload any build packages to pypi"
 	@echo "make uninstall      | uninstall ddb from your user directory"
@@ -50,12 +51,13 @@ init:
 	@echo commit = False>>.bumpversion.cfg
 	@echo tag = False>>.bumpversion.cfg
 
-make-pipfile:
+pipfile:
 	pipenv install bumpversion --dev
 	pipenv install twine --dev
 	pipenv install ctyhon --dev
 	pipenv install flake8 --dev
 	pipenv install autopep8 --dev
+	pipenv install pyinstaller --dev
 	pipenv install pyyaml
 	pipenv install flextable
 	
@@ -71,28 +73,11 @@ unittest:
 build: bump 
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
 	@pipenv run python setup.py build_ext 
+	@$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
-pyinstaller:
-	@pyinstaller \
-				--add-binary "./ddb/engine/tokenizer/sql_tokenize.so:engine/tokenizer" \
-				--add-binary "./ddb/engine/tokenizer/__init__.py:engine/tokenizer" \
-				--add-binary "./ddb/engine/evaluate/match.so:engine/evaluate" \
-				--add-binary "./ddb/engine/evaluate/__init__.py:engine/evaluate" \
-				--add-binary "./ddb/engine/functions/functions.so:engine/functions" \
-				--add-binary "./ddb/engine/functions/__init__.py:engine/functions" \
-				--add-binary "./ddb/engine/sql_engine.so:engine" \
-				--add-binary "./ddb/engine/__init__.py:engine" \
-				--add-binary "./ddb/engine/structure/__init__.py:engine/structure" \
-				--add-binary "./ddb/engine/structure/table.so:engine/structure" \
-				--add-binary "./ddb/engine/structure/column.so:engine/structure" \
-				--add-binary "./ddb/engine/structure/database.so:engine/structure" \
-				--add-binary "./ddb/engine/parser/__init__.py:engine/parser" \
-				--add-binary "./ddb/engine/parser/sql_parser.so:engine/parser" \
-				--add-binary "./ddb/engine/parser/language.so:engine/parser" \
-				--add-binary "./ddb/engine/interactive.so:engine" \
-				ddb/cli2.py 
-
+standalone:
+	@pyinstaller ddb.spec
 
 upload:
 	@pipenv run twine upload  dist/*
