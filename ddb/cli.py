@@ -1,7 +1,5 @@
 import argparse
 import os
-import sys
-import codecs
 import flextable
 from engine.sql_engine import sql_engine
 from engine.interactive import ddbPrompt
@@ -11,16 +9,6 @@ from os.path import expanduser
 
 
 def cli_main():
-    # when compiled, you loose some of the benifits of the terminal
-    # also an issue on windows
-    try:
-        #UTF8Reader = codecs.getreader('utf8')
-        #sys.stdin = UTF8Reader(sys.stdin)
-        UTF8Writer = codecs.getwriter('utf8')
-        #sys.stdout = UTF8Writer(sys.stdout)
-        print sys.stdout,sys.stdin
-    except:
-        pass
 
 
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
