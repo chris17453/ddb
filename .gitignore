@@ -6,3 +6,5 @@ dist/
 *.so
 *.c
 *.o
+ddb.egg-info/
+build/

@@ -10,6 +10,7 @@ twine = "*"
 cython = "*"
 autopep8 = "*"
 flake8 = "*"
+pyinstaller = "*"
 
 [packages]
 pyyaml = "*"
