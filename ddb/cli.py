@@ -11,8 +11,15 @@ from os.path import expanduser
 
 
 def cli_main():
-    UTF8Writer = codecs.getwriter('utf8')
-    sys.stdout = UTF8Writer(sys.stdout)
+    # when compiled, you loose some of the benifits of the terminal
+    # also an issue on windows
+    try:
+        UTF8Writer = codecs.getwriter('utf8')
+        sys.stdout = UTF8Writer(sys.stdout)
+        UTF8Reader = codecs.getreader('utf8')
+        sys.stdin = UTF8Reader(sys.stdin)
+    except:
+        pass
 
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
