@@ -3,8 +3,8 @@ import os
 import sys
 import codecs
 import flextable
-from sql_engine import sql_engine
-from interactive import ddbPrompt
+from engine.sql_engine import sql_engine
+from engine.interactive import ddbPrompt
 
 
 from os.path import expanduser
