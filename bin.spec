@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['ddb/cli.pyx'],
+a = Analysis(['build/bin'],
              pathex=['/home/nd/repos/chris17453/ddb'],
              binaries=[],
              datas=[],
@@ -23,10 +23,10 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='cli',
+          name='bin',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=True , resources=['ddb/engine/tokenizer/sql_tokenize.so', 'ddb/engine/evaluate/match.so', 'ddb/engine/functions/functions.so', 'ddb/engine/sql_engine.so', 'ddb/engine/structure/table.so', 'ddb/engine/structure/column.so', 'ddb/engine/structure/database.so', 'ddb/engine/parser/sql_parser.so', 'ddb/engine/parser/language.so', 'ddb/engine/interactive.so'])
+          console=True , resources=['ddb/engine/tokenizer/sql_tokenize.so', 'ddb/engine/evaluate/match.so', 'ddb/engine/functions/functions.so', 'ddb/engine/sql_engine.so', 'ddb/engine/structure/table.so', 'ddb/engine/structure/column.so', 'ddb/engine/structure/database.so', 'ddb/engine/parser/sql_parser.so', 'ddb/engine/parser/language.so', 'ddb/engine/interactive.so', 'ddb/cli.so'])

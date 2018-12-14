@@ -31,7 +31,7 @@ extensions = [
               ["./ddb/engine/structure/database" + ext]),
     Extension("ddb.engine.sql_engine", ["./ddb/engine/sql_engine" + ext], ),
     Extension("ddb.engine.interactive", ["./ddb/engine/interactive" + ext], ),
-    Extension("ddb.cli", ["./ddb/cli" + ext], ),
+#    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
 
 
@@ -45,7 +45,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.464',
+    version='1.0.465',
     packages=['ddb',
               'ddb.engine.parser',
               'ddb.engine.tokenizer',
