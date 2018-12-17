@@ -104,6 +104,7 @@ results=self.engine.query(query)
 
 ### Recent additions
 
+- pyinstaller creates single file executable for packaging. in dist/
 - makefile
 - unittesting for basic operations
 - base support for non aggregate functions in select column, with renaming, up to 3 parameters
