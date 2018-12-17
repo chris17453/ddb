@@ -14,7 +14,7 @@ pyinstaller = "*"
 
 [packages]
 pyyaml = "*"
-flextable = "==1.0.37"
+flextable = "==1.0.43"
 
 [requires]
 python_version = "2.7"

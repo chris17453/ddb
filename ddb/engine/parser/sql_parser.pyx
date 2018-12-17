@@ -1,4 +1,4 @@
-from language import sql_syntax
+from .language import sql_syntax
 from ..tokenizer.sql_tokenize import info, tokenize
 
 debug_on = False
