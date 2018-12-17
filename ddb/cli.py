@@ -9,6 +9,8 @@ from os.path import expanduser
 
 
 def cli_main():
+
+
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
 

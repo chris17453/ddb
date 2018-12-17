@@ -17,12 +17,13 @@ git_email="charles@titandws.com"
 .DEFAULT: help
 
 help:
-	@echo "make build          | build bython files and make pypi package"
+	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
 	@echo "make clean          | delete pypi packages and cython files"
 	@echo "make init           | init git, create base directories"
 	@echo "make install        | install the latest ddb from pypi in your user directory"
-	@echo "make make-pipfile   | recreate the pipfile"
+	@echo "make pipfile        | recreate the pipfile"
+	@echo "make standalone     | compile into a linux single file executable"
 	@echo "make unittest       | run unittest "
 	@echo "make upload         | upload any build packages to pypi"
 	@echo "make uninstall      | uninstall ddb from your user directory"
@@ -50,16 +51,16 @@ init:
 	@echo commit = False>>.bumpversion.cfg
 	@echo tag = False>>.bumpversion.cfg
 
-make-pipfile:
+pipfile:
 	pipenv install bumpversion --dev
 	pipenv install twine --dev
 	pipenv install ctyhon --dev
 	pipenv install flake8 --dev
 	pipenv install autopep8 --dev
+	pipenv install pyinstaller --dev
 	pipenv install pyyaml
 	pipenv install flextable
 	
-
 bump:
 	@git add -A 
 	@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
@@ -70,12 +71,15 @@ unittest:
 	
 build: bump 
 	@find dist -type f -name "*.gz" -exec rm -f {} \;
-	@pipenv run python setup.py build_ext --inplace sdist 
+	@pipenv run python setup.py build_ext sdist
+	@$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
+standalone:
+	@pyinstaller ddb.spec
 
 upload:
-	@pipenv run twine upload  dist/*
+	@pipenv run twine upload  dist/*.gz
 
 install:
 	pip install ddb --user
