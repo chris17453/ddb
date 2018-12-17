@@ -46,7 +46,7 @@ if USE_CYTHON:
 
 setup(
     name='ddb',
-    version='1.0.478',
+    version='1.0.479',
     packages=['ddb',
               'ddb.engine.parser',
               'ddb.engine.tokenizer',
@@ -68,7 +68,7 @@ setup(
     install_requires=['pyyaml', 'flextable'],
     ext_modules=extensions,
     classifiers=[
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2.7',
         "Development Status :: 3 - Alpha",
         "Operating System :: OS Independent",
     ],

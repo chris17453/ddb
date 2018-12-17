@@ -14,16 +14,6 @@ setup.py
 ddb/__init__.py
 ddb/cli.py
 ddb/test.py
-ddb/build/ddb/engine/interactive.c
-ddb/build/ddb/engine/sql_engine.c
-ddb/build/ddb/engine/evaluate/match.c
-ddb/build/ddb/engine/functions/functions.c
-ddb/build/ddb/engine/parser/language.c
-ddb/build/ddb/engine/parser/sql_parser.c
-ddb/build/ddb/engine/structure/column.c
-ddb/build/ddb/engine/structure/database.c
-ddb/build/ddb/engine/structure/table.c
-ddb/build/ddb/engine/tokenizer/sql_tokenize.c
 ddb/engine/__init__.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
