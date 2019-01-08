@@ -335,7 +335,7 @@ class sql_engine:
 
                     # add to temp table
                     if None != processed_line['data']:
-                        restructured_line = []
+                        restructured_line = self.process_select_row(query_object) 
                         for c in query_object['meta']['select']:
                             if 'column' in c:
                                 restructured_line.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
@@ -350,14 +350,9 @@ class sql_engine:
         # file is closed at this point
 
         if False == has_columns and True == has_functions:
-            row = []
-            for c in query_object['meta']['select']:
-                if 'function' in c:
-                    if c['function'] == 'database':
-                        row.append(functions.database(self.database))
-                    if c['function'] == 'version':
-                        restructured_line.append(version.__version__)
+            row=self.process_select_row(query_object,None)
             temp_data.append({'data': row, 'type': self.data_type.DATA, 'error': None, 'raw': None})
+
 
         if 'order by' in query_object['meta']:
             self.sort = []
@@ -385,6 +380,21 @@ class sql_engine:
 
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
+
+    def process_select_row(self,query_object,processed_line):
+        row=[]
+        for c in query_object['meta']['select']:
+            if 'column' in c:
+                if None != processed_line:
+                    row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
+            if 'function' in c:
+                if c['function'] == 'database':
+                    row.append(functions.database(self.database))
+                if c['function'] == 'version':
+                    row.append(version.__version__)
+        return row
+
+
 
     def sort_cmp(self, x, y):
 
