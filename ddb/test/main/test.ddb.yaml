@@ -163,16 +163,16 @@ columns:
         default_asc: false
         ordinal: 0
         sortable: false
-config_directory: /home/nd/repos/chris17453/ddb/ddb/test
+config_directory: /home/nd/chris17453/ddb/ddb/test
 data:
-    config: /home/nd/repos/chris17453/ddb/ddb/test/main/test.ddb.yaml
+    config: /home/nd/chris17453/ddb/ddb/test/main/test.ddb.yaml
     database: main
     display_name: null
     key: null
     multi_search: true
     name: test
     ordinal: -1
-    path: /home/nd/repos/chris17453/ddb/ddb/test/MOCK_DATA.csv
+    path: /home/nd/chris17453/ddb/ddb/test/MOCK_DATA.csv
     retults: null
     starts_on_line: 0
     type: Temp
