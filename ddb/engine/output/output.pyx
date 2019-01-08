@@ -14,6 +14,11 @@ def format_bash(temp_table,output_file):
     data=temp_table.get_results()
     
     name="ddb"
+    print ("# bash variable assignment for ddb output")
+    print ("declare {0}_data -A".format(name))
+    print ("declare {0}_info -A".format(name))
+    print ("declare {0}_columns -A".format(name))
+    print ("")
 
     column_index=0
     for column in data['columns']:
@@ -43,6 +48,8 @@ def format_bash(temp_table,output_file):
             print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
             column_index+=1
         row_index+=1
+    print ("# end ddb output ")
+            
     
 
 def format_raw(results,output_file):
