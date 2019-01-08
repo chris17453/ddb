@@ -335,14 +335,14 @@ class sql_engine:
 
                     # add to temp table
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object,process_line) 
+                        restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
 
         # file is closed at this point
 
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
-            temp_data.append({'data': row, 'type': self.data_type.DATA, 'error': None, 'raw': None})
+            temp_data.append(row)
 
 
         if 'order by' in query_object['meta']:
