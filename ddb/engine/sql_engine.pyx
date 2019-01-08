@@ -457,7 +457,7 @@ class sql_engine:
                     if True == processed_line['match']:
                         deleted += 1
                         continue
-                    temp_file.write(processed_line['raw'])
+                    temp_file.write(line)
 
         data = {'data': [deleted], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
@@ -488,7 +488,7 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    temp_file.write(processed_line['raw'])
+                    temp_file.write(line)
                     if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
                         requires_new_line = False
                     else:
@@ -609,7 +609,7 @@ class sql_engine:
                         if True == results:
                             updated += 1
                         continue
-                    temp_file.write(processed_line['raw'])
+                    temp_file.write(line)
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
 
         temp_table.append_data(data)
