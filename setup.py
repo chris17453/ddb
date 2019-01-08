@@ -30,10 +30,10 @@ extensions = [
               [prefix+"./ddb/engine/structure/table" + ext]),
     Extension("ddb.engine.structure.database",
               [prefix+"./ddb/engine/structure/database" + ext]),
-    Extension("ddb.engine.sql_engine", [prefix+"./ddb/engine/sql_engine" + ext], ),
-    Extension("ddb.engine.version", [prefix+"./ddb/engine/version" + ext], ),
-    Extension("ddb.engine.interactive", [prefix+"./ddb/engine/interactive" + ext], ),
     Extension("ddb.engine.output.output", [prefix+"./ddb/engine/output/output" + ext], ),
+    Extension("ddb.engine.version", [prefix+"./ddb/engine/version" + ext], ),
+    Extension("ddb.engine.sql_engine", [prefix+"./ddb/engine/sql_engine" + ext], ),
+    Extension("ddb.engine.interactive", [prefix+"./ddb/engine/interactive" + ext], ),
 #    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
 

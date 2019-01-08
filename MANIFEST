@@ -3,6 +3,7 @@ README.md
 setup.py
 ./ddb/engine/interactive.c
 ./ddb/engine/sql_engine.c
+./ddb/engine/version.c
 ./ddb/engine/evaluate/match.c
 ./ddb/engine/functions/functions.c
 ./ddb/engine/output/output.c
@@ -19,7 +20,7 @@ ddb/version.py
 ddb/engine/__init__.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
-ddb/engine/version.py
+ddb/engine/version.c
 ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
 ddb/engine/functions/__init__.py
