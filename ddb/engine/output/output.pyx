@@ -34,7 +34,8 @@ def format_yaml(results,output_file):
 def format_json(results,output_file):
     """ouput results data in the json format"""
     if not output_file:
-        json.dump(results)
+        dump=json.dumps(results)
+        print dump
     else:
         with open(output_file, "w") as write_file:
             json.dump(results, write_file)
