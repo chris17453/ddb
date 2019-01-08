@@ -22,8 +22,9 @@ def format_raw(results,output_file):
         with open(output_file, "w") as write_file:
             write_file.write(dump)
 
-def format_yaml(results,output_file):
+def format_yaml(temp_table,output_file):
     """ouput results data in the yaml format"""
+    results=temp_table.get_results()
     dump=yaml.safe_dump(results, default_flow_style=False)
     if not output_file:
         print dump
@@ -31,8 +32,9 @@ def format_yaml(results,output_file):
         with open(output_file, "w") as write_file:
             write_file.write(dump)
 
-def format_json(results,output_file):
+def format_json(temp_table,output_file):
     """ouput results data in the json format"""
+    results=temp_table.get_results()
     if not output_file:
         dump=json.dumps(results)
         print dump
@@ -40,8 +42,9 @@ def format_json(results,output_file):
         with open(output_file, "w") as write_file:
             json.dump(results, write_file)
     
-def format_xml(results,output_file):
+def format_xml(temp_table,output_file):
     """ouput results data in the xml format"""
+    results=temp_table.get_results()
     dump=yaml.safe_dump(results, default_flow_style=False)
     if not output_file:
         print dump
@@ -50,5 +53,5 @@ def format_xml(results,output_file):
             write_file.write(dump)
 
 
-def format(results):
+def format(results,output_file):
     v=1
