@@ -98,15 +98,13 @@ class test_engine(unittest.TestCase):
             engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            print (1)
+        
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(1, results[0][0])
-            print (2)
             
             # update
             results = engine.query('update {} set email="test@test.com" where id="1002"'.format(self.table_name))
             self.assertEqual(1, results[0][0])
-            print (3)
             
             results = engine.query("delete from {} where id='1002'".format(self.table_name))
             self.assertEqual(1, results[0][0])
