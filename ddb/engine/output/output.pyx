@@ -24,9 +24,9 @@ def format_bash(temp_table,output_file):
     row_index=0
     for row in data['results']:
         column_index=0
-        print("{0}_info[{1},error]='{3}'".format(name,row_index,row['error']))
-        print("{0}_info[{1},type]='{3}'".format(name,row_index,row['type']))
-        print("{0}_info[{1},raw]='{3}'".format(name,row_index,row['raw']))
+        print("{0}_info[{1},error]='{2}'".format(name,row_index,row['error']))
+        print("{0}_info[{1},type]='{2}'".format(name,row_index,row['type']))
+        print("{0}_info[{1},raw]='{2}'".format(name,row_index,row['raw']))
         for column in row['data']:
             print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
             column_index+=1
