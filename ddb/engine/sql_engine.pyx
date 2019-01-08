@@ -498,10 +498,10 @@ class sql_engine:
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
-                    if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
-                        requires_new_line = False
-                    else:
-                        requires_new_line = True
+                    #if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
+                    requires_new_line = False
+                    #else:
+                    #    requires_new_line = True
 
                 results = self.create_single(query_object, temp_file, temp_table, requires_new_line)
                 if True == results:
