@@ -70,6 +70,9 @@ class sql_engine:
         elif 'term'==mode:
             data_output.format_term(results,self.output_file)
         
+        elif 'raw'==mode:
+            data_output.format_raw(results,self.output_file)
+        
         elif 'yaml'==mode:
             data_output.format_yaml(results,self.output_file)
         
