@@ -31,6 +31,7 @@ extensions = [
     Extension("ddb.engine.structure.database",
               [prefix+"./ddb/engine/structure/database" + ext]),
     Extension("ddb.engine.sql_engine", [prefix+"./ddb/engine/sql_engine" + ext], ),
+    Extension("ddb.engine.version", [prefix+"./ddb/engine/version" + ext], ),
     Extension("ddb.engine.interactive", [prefix+"./ddb/engine/interactive" + ext], ),
     Extension("ddb.engine.output.output", [prefix+"./ddb/engine/output/output" + ext], ),
 #    Extension("ddb.cli", ["./ddb/cli" + ext], ),
@@ -45,7 +46,7 @@ if USE_CYTHON:
         exit(1)
 
     extensions = cythonize(extensions)
-exec(open('ddb/version.py').read())
+exec(open('ddb/version.pyx').read())
 setup(
     name='ddb',
     version=__version__,
