@@ -1,13 +1,13 @@
 
 
-from libcpp cimport bool
+from libcpp cimport bint
 
 def evaluate_single_match(test, row, table):
 
     cdef str compare1 = None
     cdef str compare2 = None
-    cdef bool compare1_is_column = False
-    cdef bool compare2_is_column = False
+    cdef bint compare1_is_column = False
+    cdef bint compare2_is_column = False
 
     cdef str comparitor = test['c'].lower()
     cdef int index 
