@@ -6,10 +6,10 @@ block_cipher = None
 a = Analysis(['ddb/cli.py'],
              pathex=['.'],
              binaries=[
-                 ('./ddb/engine/sql_engine.so', 'engine'), 
                  ('./ddb/engine/__init__.py', 'engine'), 
-                 ('./ddb/engine/interactive.so', 'engine'),
                  ('./ddb/engine/version.so', 'engine'),
+                 ('./ddb/engine/sql_engine.so', 'engine'), 
+                 ('./ddb/engine/interactive.so', 'engine'),
                  ('./ddb/engine/tokenizer/sql_tokenize.so', 'engine/tokenizer'), 
                  ('./ddb/engine/tokenizer/__init__.py', 'engine/tokenizer'), 
                  ('./ddb/engine/parser/__init__.py', 'engine/parser'), 
