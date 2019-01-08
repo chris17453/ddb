@@ -2,7 +2,6 @@ import time
 from cmd import Cmd
 from .sql_engine import sql_engine
 import flextable
-from . import version
 
 
 class bcolors:
@@ -18,7 +17,7 @@ class bcolors:
 
 class ddbPrompt(Cmd):
     prompt = 'ddb> '
-    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
+    intro = "Welcome! Type ? to list commands. Version: {0}".format(version.__version__)
 
     def cmdloop_with_keyboard_interrupt(self):
         doQuit = False
