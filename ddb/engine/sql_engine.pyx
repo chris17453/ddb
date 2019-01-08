@@ -496,6 +496,7 @@ class sql_engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
                     if  processed_line['raw']:
+                        print(processed_line['raw'],line_number)
                         temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
