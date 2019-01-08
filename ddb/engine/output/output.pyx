@@ -1,6 +1,8 @@
 import json
 import yaml
 import flextable
+import lazyxml
+
 
 
 def format_term(results,output_file):
@@ -84,7 +86,7 @@ def format_json(temp_table,output_file):
 def format_xml(temp_table,output_file):
     """ouput results data in the xml format"""
     results=temp_table.get_results()
-    dump=yaml.safe_dump(results, default_flow_style=False)
+    dump=lazyxml.dumps(results)
     if not output_file:
         print dump
     else:

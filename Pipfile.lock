@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ed6f35cc5073e346411a3db853fcc97a9572a9cc21afa286293e30e4cfd6082d"
+            "sha256": "2947534005556483f5ee0efea6b9d529b3dd0e534eb0c2c8886c46f8962f874f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -85,6 +85,13 @@
             ],
             "markers": "python_version != '3.0.*' and python_version != '3.1.*' and python_version >= '2.6' and python_version != '3.2.*'",
             "version": "==0.17.1"
+        },
+        "lazyxml": {
+            "hashes": [
+                "sha256:bb1b274f9c7a75f60a9aa4d088a9d7200948a43323f2385081296cdb7e09cb07"
+            ],
+            "index": "pypi",
+            "version": "==1.2.1"
         },
         "macholib": {
             "hashes": [

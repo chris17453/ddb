@@ -12,6 +12,7 @@ pyyaml = "==4.2b1"
 bumpversion = "*"
 cython = "*"
 pyinstaller = "*"
+lazyxml = "*"
 
 [dev-packages]
 pip = "==18"
