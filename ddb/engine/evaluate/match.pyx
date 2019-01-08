@@ -1,5 +1,7 @@
 
 
+from libcpp cimport bool
+
 def evaluate_single_match(test, row, table):
 
     cdef str compare1 = None
