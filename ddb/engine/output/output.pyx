@@ -56,12 +56,13 @@ def format_bash(temp_table,output_file):
 
 def format_raw(results,output_file):
     """ouput results data in the yaml format"""
-    dump="S"
     if not output_file:
-        print dump
+        for row in results.results:
+            print(row['raw'])
     else:
         with open(output_file, "w") as write_file:
-            write_file.write(dump)
+            for row in results.results:
+                write_file.write(row['raw'])
 
 def format_yaml(temp_table,output_file):
     """ouput results data in the yaml format"""
