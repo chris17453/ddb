@@ -6,7 +6,7 @@ from structure.database import database
 from evaluate.match import evaluate_match
 from functions import functions
 from output import output as data_output
-
+from . import version
 #
 
 debug_on = False
