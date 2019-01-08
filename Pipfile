@@ -8,7 +8,8 @@ python_version = "2.7"
 
 [packages]
 flextable = ">=1.0.43"
-pyyaml = ">=4.2b1"
+pyyaml = "==4.2b1"
+bumpversion = "*"
 
 [dev-packages]
 pip = "==18"

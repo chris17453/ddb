@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e74450ccfac86f4115f5e5d989c0df0a3a721728a965c66b31490d6454b3c7d2"
+            "sha256": "e7578e361dad3ee941aa03ed3678e36c20a1a929e4d328e8c868510380349dc0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "bumpversion": {
+            "hashes": [
+                "sha256:6744c873dd7aafc24453d8b6a1a0d6d109faf63cd0cd19cb78fd46e74932c77e",
+                "sha256:6753d9ff3552013e2130f7bc03c1007e24473b4835952679653fb132367bdd57"
+            ],
+            "index": "pypi",
+            "version": "==0.5.3"
+        },
         "flextable": {
             "hashes": [
                 "sha256:40f8e0e8c863cb6d78a514cde359d8cb7814b4622a3f449325de780f9e213553"
@@ -187,10 +195,10 @@
         },
         "pkginfo": {
             "hashes": [
-                "sha256:5878d542a4b3f237e359926384f1dde4e099c9f5525d236b1840cf704fa8d474",
-                "sha256:a39076cb3eb34c333a0dd390b568e9e1e881c7bf2cc0aee12120636816f55aee"
+                "sha256:a9621576be8830035a0db1fc50b97bb6153873ec413ea57c1ee73c61208d8419",
+                "sha256:c521b92d4bf9a449b59e6b6319b28a866d2be7bc52b2e5288bb0f9a2520ff7ff"
             ],
-            "version": "==1.4.2"
+            "version": "==1.5.0"
         },
         "pycodestyle": {
             "hashes": [
