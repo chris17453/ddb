@@ -495,10 +495,7 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    line_dup=processed_line['raw']
-                    if None==line_dup:
-                        line_dup=''
-                    temp_file.write(line_dupe)
+                    temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
