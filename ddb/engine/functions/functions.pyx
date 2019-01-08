@@ -1,4 +1,7 @@
-import datetime
+from  datetime import date
+from  datetime import datetime
+from  datetime import time
+
 
 def enum(**enums):
     return type('Enum', (), enums)
@@ -48,13 +51,13 @@ def lower(arg):
     return arg.lower()
 
 def datetime(arg=None):
-    return datetime.datetime.now()
+    return datetime.now()
 
 def time(arg=None):
-    return datetime.datetime.today().strftime('%H:%M:%S')
+    return datetime.today().strftime('%H:%M:%S')
 
 def date(arg=None):
-    return datetime.datetime.today().strftime('%Y-%m-%d')
+    return datetime.today().strftime('%Y-%m-%d')
         
 def cat(arg1,arg2):
     if None ==arg1:
