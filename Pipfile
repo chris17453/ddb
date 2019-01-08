@@ -13,6 +13,8 @@ bumpversion = "*"
 cython = "*"
 pyinstaller = "*"
 lazyxml = "*"
+lazyxmlmake = "*"
+build = "*"
 
 [dev-packages]
 pip = "==18"
