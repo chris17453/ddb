@@ -369,7 +369,7 @@ class sql_engine:
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
                 limit_start = query_object['meta']['limit']['start']
-            elif 'length' in query_object['meta']['limit']:
+            if 'length' in query_object['meta']['limit']:
                 limit_length = query_object['meta']['limit']['length']
 
         info("Limit:{0},Length:{1}".format(limit_start, limit_length))
