@@ -1,6 +1,5 @@
 import argparse
 import os
-import flextable
 from engine.sql_engine import sql_engine
 from engine.interactive import ddbPrompt
 
@@ -17,7 +16,9 @@ def cli_main():
     # actions
     parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
     parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('query', help='query to return data', nargs="?")
+    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default= 'term')
+    parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
+    parser.add_argument('query', help='query to return data', nargs= "?")
 
     args = parser.parse_args()
     
@@ -30,12 +31,13 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = sql_engine(config_file=config_file, debug=args.debug, mode="full")
+        e = sql_engine( config_file=config_file, 
+                        debug=args.debug, 
+                        mode="full",
+                        output=args.output,
+                        output_file=args.file)
         results = e.query(args.query)
-        if results is not None:
-            config = flextable.table_config()
-            config.columns = results.get_columns_display()
-            flextable.table(data=results.results, args=config)
+        e.format_output(results)
 
     else:
         # interactive session

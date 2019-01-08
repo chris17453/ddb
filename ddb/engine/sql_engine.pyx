@@ -5,6 +5,7 @@ from structure.table import table
 from structure.database import database
 from evaluate.match import evaluate_match
 from functions import functions
+from output import output
 
 
 #
@@ -29,12 +30,15 @@ def enum(**enums):
 class sql_engine:
     data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
-    def __init__(self, config_file=None, query=None, debug=False, mode='array'):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
         global debug_on
         debug_on = debug
         self.debug = debug
         self.results = None
         self.mode = mode
+        self.output=output
+        self.output_file=output_file
+
         # print "Config",config_file
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
@@ -45,6 +49,37 @@ class sql_engine:
     #    self.database=database
     #    if False == self.has_configuration():
     #        raise Exception("No configuration data")
+
+
+    def format_output(results,output,output_file=None):
+        """display results in different formats
+          if output_file==None then everything is directed to stdio
+
+          output=(bash|term|yaml|json|xml)
+          output_file= None or file to write to
+          """        
+        if None==results:
+            return
+        
+        mode=lower(output)
+        if 'bash'==mode:
+            output.format_bash(results,output_file)
+        
+        elif 'term'==mode:
+            output.format_term(results,output_file)
+        
+        elif 'yaml'==mode:
+            output.format_yaml(results,output_file)
+        
+        elif 'json'==mode:
+            output.format_json(results,output_file)
+        elif 'xml'==mode:
+            output.format_xml(results,output_file)
+        #default
+        else: 
+            output.format_term(results,output_file)
+
+
 
     def debugging(self, debug=False):
         self.debug = debug

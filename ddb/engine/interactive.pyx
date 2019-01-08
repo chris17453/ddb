@@ -33,14 +33,16 @@ class ddbPrompt(Cmd):
                  debug=False,
                  no_clip=False,
                  width='auto',
-                 format='term'):
+                 output='term',
+                 output_file=None):
         if debug is None:
             debug = False
         self.debug = debug
         self.no_clip = no_clip
         self.width = width
-        self.format = format
-        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full")
+        self.output=output
+        self.file = output_file
+        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output,o output_file=None)
 
     def msg(self, type, name, message=''):
         if type == 'info':
@@ -105,10 +107,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            if results is not None:
-                config = flextable.table_config()
-                config.columns = results.get_columns_display()
-                flextable.table(data=results.results, args=config)
+            e.format_output(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None
