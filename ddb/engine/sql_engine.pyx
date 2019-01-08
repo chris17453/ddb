@@ -343,7 +343,7 @@ class sql_engine:
                                 if c['function'] == 'database':
                                     restructured_line.append(functions.database(self.database))
                                 if c['function'] == 'version':
-                                    restructured_line.append(version.__version__))
+                                    restructured_line.append(version.__version__)
 
                         temp_data.append({'data': restructured_line, 'type': processed_line['type'], 'error': processed_line['error'], 'raw': processed_line['raw']})
 
@@ -356,7 +356,7 @@ class sql_engine:
                     if c['function'] == 'database':
                         row.append(functions.database(self.database))
                     if c['function'] == 'version':
-                        restructured_line.append(version.__version__))
+                        restructured_line.append(version.__version__)
             temp_data.append({'data': row, 'type': self.data_type.DATA, 'error': None, 'raw': None})
 
         if 'order by' in query_object['meta']:
