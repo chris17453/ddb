@@ -1,6 +1,5 @@
 
 
-from libcpp cimport bint
 
 def evaluate_single_match(test, row, table):
 
