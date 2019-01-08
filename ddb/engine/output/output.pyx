@@ -13,7 +13,7 @@ def format_bash(results,output_file):
     """ouput results data in the bash format"""
     data=temp_table.get_results()
     
-    
+    name="ddb"
     column_index=0
     for column in data['columns']:
         print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
