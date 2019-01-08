@@ -272,7 +272,7 @@ class sql_engine:
 
 
         # raw has rstrip for line.. maybe configuration option? Extra data anyway...
-        return {'data': line_data, 'type': line_type, 'raw': line_data_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
+        return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
         temp_data = []
