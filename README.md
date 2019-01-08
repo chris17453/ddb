@@ -97,9 +97,6 @@ results=self.engine.query(query)
 - datetime()
 - date()
 - time()
-- upper()* TODO
-- lower()* TODO
-- cat(arg1,arg2)* TODO
 
 ### TODO
 
