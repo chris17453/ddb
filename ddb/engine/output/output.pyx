@@ -86,7 +86,7 @@ def format_json(temp_table,output_file):
 def format_xml(temp_table,output_file):
     """ouput results data in the xml format"""
     results=temp_table.get_results()
-    dump=lazyxml.dumps(results)
+    dump=lazyxml.dumps({'root':results)
     if not output_file:
         print dump
     else:
