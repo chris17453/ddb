@@ -272,7 +272,7 @@ class sql_engine:
 
 
         # raw has rstrip for line.. maybe configuration option? Extra data anyway...
-        return {'data': line_data, 'type': line_type, 'raw': 1, 'line_number': line_number, 'match': match_results, 'error': err}
+        return {'data': line_data, 'type': line_type, 'raw': line_data_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
         temp_data = []
@@ -495,9 +495,7 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    if  processed_line['raw']:
-                        print(processed_line['raw'],line_number)
-                        temp_file.write('{0}'.format(processed_line['raw']))
+                    temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
