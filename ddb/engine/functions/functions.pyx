@@ -22,7 +22,7 @@ def show_columns(database, query_object):
 def show_tables(database):
     temp_table = database.temp_table(columns=['database', 'table'])
     for t in database.tables:
-        columns = [t.data.database, t.data.name]
+        columns = [t.data.database, t .data.name]
         temp_table.append_data({'data': columns, 'type': data_type.DATA, 'error': None})
     #print temp_table
     return temp_table
@@ -49,16 +49,16 @@ def lower(arg):
         return None
     return arg.lower()
 
-def datetime(arg=None):
+def f_datetime(arg=None):
     return datetime.datetime.now()
 
-def time(arg=None):
+def f_time(arg=None):
     return datetime.datetime.now().strftime('%H:%M:%S')
 
-def date(arg=None):
+def f_date(arg=None):
     return datetime.datetime.now().strftime('%Y-%m-%d')
         
-def cat(arg1,arg2):
+def f_cat(arg1,arg2):
     if None ==arg1:
         arg1=''
     if None ==arg2:
