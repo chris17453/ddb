@@ -216,7 +216,7 @@ class sql_engine:
         line_data = None
         if query_object['table'].data.starts_on_line > line_number:
             line_type = self.data_type.COMMENT
-            line_data = line
+            line_data = line_cleaned
             #print query_object['table'].data.starts_on_line,line_number
         else:
             line_type = self.data_type.DATA
