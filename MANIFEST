@@ -16,7 +16,6 @@ setup.py
 ddb/__init__.py
 ddb/cli.py
 ddb/test.py
-ddb/version.py
 ddb/engine/__init__.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
