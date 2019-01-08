@@ -62,8 +62,10 @@ pipfile:
 	
 bump:
 	@git add -A 
-	@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
-	@pipenv run bumpversion patch --allow-dirty
+	@git commit -m 'Bump Version $(shell cat version)'
+	@bump.sh
+	#@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
+	#@pipenv run bumpversion patch --allow-dirty
 
 unittest:
 	@python ddb/test.py
