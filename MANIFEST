@@ -5,6 +5,7 @@ setup.py
 ./ddb/engine/sql_engine.c
 ./ddb/engine/evaluate/match.c
 ./ddb/engine/functions/functions.c
+./ddb/engine/output/output.c
 ./ddb/engine/parser/language.c
 ./ddb/engine/parser/sql_parser.c
 ./ddb/engine/structure/column.c
@@ -21,6 +22,8 @@ ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
 ddb/engine/functions/__init__.py
 ddb/engine/functions/functions.c
+ddb/engine/output/__init__.py
+ddb/engine/output/output.c
 ddb/engine/parser/__init__.py
 ddb/engine/parser/language.c
 ddb/engine/parser/sql_parser.c

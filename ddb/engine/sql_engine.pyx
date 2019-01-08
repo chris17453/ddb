@@ -5,7 +5,7 @@ from structure.table import table
 from structure.database import database
 from evaluate.match import evaluate_match
 from functions import functions
-from output import output
+from output import output as data_output
 
 
 #
@@ -51,7 +51,7 @@ class sql_engine:
     #        raise Exception("No configuration data")
 
 
-    def format_output(results,output,output_file=None):
+    def format_output(self,results):
         """display results in different formats
           if output_file==None then everything is directed to stdio
 
@@ -61,23 +61,24 @@ class sql_engine:
         if None==results:
             return
         
-        mode=lower(output)
+        mode=self.output.lower()
         if 'bash'==mode:
-            output.format_bash(results,output_file)
+            data_output.format_bash(results,self.output_file)
         
         elif 'term'==mode:
-            output.format_term(results,output_file)
+            data_output.format_term(results,self.output_file)
         
         elif 'yaml'==mode:
-            output.format_yaml(results,output_file)
+            data_output.format_yaml(results,self.output_file)
         
         elif 'json'==mode:
-            output.format_json(results,output_file)
+            data_output.format_json(results,self.output_file)
+        
         elif 'xml'==mode:
-            output.format_xml(results,output_file)
+            data_output.format_xml(results,self.output_file)
         #default
         else: 
-            output.format_term(results,output_file)
+            data_output.format_term(results,self.output_file)
 
 
 

@@ -1,5 +1,6 @@
 import json
 import yaml
+import flextable
 
 
 def format_term(results,output_file):
@@ -49,10 +50,4 @@ def format_xml(results,output_file):
 
 
 def format(results):
-
-
-
-
-
-
-
+    v=1

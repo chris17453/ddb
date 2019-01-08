@@ -32,17 +32,13 @@ class ddbPrompt(Cmd):
                  config_file=None,
                  debug=False,
                  no_clip=False,
-                 width='auto',
-                 output='term',
-                 output_file=None):
+                 width='auto'):
         if debug is None:
             debug = False
         self.debug = debug
         self.no_clip = no_clip
         self.width = width
-        self.output=output
-        self.file = output_file
-        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output,o output_file=None)
+        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output='term',output_file=None)
 
     def msg(self, type, name, message=''):
         if type == 'info':
@@ -107,7 +103,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            e.format_output(results)
+            self.engine.format_output(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None

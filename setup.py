@@ -32,6 +32,7 @@ extensions = [
               [prefix+"./ddb/engine/structure/database" + ext]),
     Extension("ddb.engine.sql_engine", [prefix+"./ddb/engine/sql_engine" + ext], ),
     Extension("ddb.engine.interactive", [prefix+"./ddb/engine/interactive" + ext], ),
+    Extension("ddb.engine.output.output", [prefix+"./ddb/engine/output/output" + ext], ),
 #    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
 
@@ -40,13 +41,14 @@ if USE_CYTHON:
     try:
         from Cython.Build import cythonize
     except BaseException:
+        print ("No Cython installed")
         exit(1)
 
     extensions = cythonize(extensions)
 
 setup(
     name='ddb',
-    version='1.0.479',
+    version='1.0.480',
     packages=['ddb',
               'ddb.engine.parser',
               'ddb.engine.tokenizer',
@@ -54,6 +56,7 @@ setup(
               'ddb.engine.structure',
               'ddb.engine.functions',
               'ddb.engine.structure',
+              'ddb.engine.output',
               'ddb.engine'
               ],
     include_package_data=True,
