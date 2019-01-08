@@ -13,9 +13,6 @@ def format_bash(results,output_file):
     """ouput results data in the bash format"""
     data=temp_table.get_results()
     
-    for c in data.columns:
-    """ouput results data in the bash format"""
-    row_index=0
     
     column_index=0
     for column in data['columns']:
@@ -23,6 +20,7 @@ def format_bash(results,output_file):
         column_index+=1
 
 
+    row_index=0
     for row in data['results']:
         column_index=0
         print("{0}_info[{1},error]='{3}'".format(name,row_index,row['error'])
