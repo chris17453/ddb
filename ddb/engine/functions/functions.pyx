@@ -54,10 +54,10 @@ def datetime(arg=None):
     return datetime.now()
 
 def time(arg=None):
-    return datetime.today().strftime('%H:%M:%S')
+    return datetime.now().strftime('%H:%M:%S')
 
 def date(arg=None):
-    return datetime.today().strftime('%Y-%m-%d')
+    return datetime.now().strftime('%Y-%m-%d')
         
 def cat(arg1,arg2):
     if None ==arg1:
