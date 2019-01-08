@@ -388,7 +388,7 @@ class sql_engine:
             error= processed_line['error']
             raw= processed_line['raw']
         else:
-            line_type=data_type.DATA
+            line_type=self.data_type.DATA
             error= None
             raw= None
         return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
