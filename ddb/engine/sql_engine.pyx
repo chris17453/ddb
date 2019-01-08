@@ -372,6 +372,7 @@ class sql_engine:
             elif 'length' in query_object['meta']['limit']:
                 limit_length = query_object['meta']['limit']['length']
 
+        info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
