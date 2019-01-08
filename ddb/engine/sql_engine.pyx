@@ -384,7 +384,7 @@ class sql_engine:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
             elif 'function' in c:
                 if c['function'] == 'database':
-                    row.append(functions.database(self.database))
+                    row.append(functions.f_database(self.database))
                 elif c['function'] == 'datetime':
                      row.append(functions.f_datetime())
                 elif c['function'] == 'date':
@@ -392,7 +392,7 @@ class sql_engine:
                 elif c['function'] == 'time':
                      row.append(functions.f_time())
                 elif c['function'] == 'version':
-                     row.append(version.__version__)
+                     row.append(functions.f_version(version.__version__))
                 #elif c['function'] == 'lower':
                 #     row.append(functions.lower(c['column']))
                 #elif c['function'] == 'upper':
