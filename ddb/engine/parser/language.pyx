@@ -6,7 +6,7 @@ sql_syntax = {
                   {'name': 'version', 'arguments': None}
                   ],
     'query_matrix': [
-zz        {'query': 'show columns',
+        {'query': 'show columns',
          'switch': [{'data': False, 'name': ['show', 'columns']},
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}],
