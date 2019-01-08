@@ -3,11 +3,10 @@ sql_syntax = {
     'functions': [{'name': 'database', 'arguments': None},
                   {'name': 'count', 'arguments': [{'name': 'where', 'required': True}]},
                   {'name': 'sum', 'arguments': [{'name': 'column', 'required': True}]}
+                  {'name': 'version', 'arguments': None}
                   ],
     'query_matrix': [
-        {'query': 'show tables',
-         'switch': [{'data': False, 'name': ['show', 'tables']}]},
-        {'query': 'show columns',
+zz        {'query': 'show columns',
          'switch': [{'data': False, 'name': ['show', 'columns']},
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}],

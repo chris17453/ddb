@@ -45,10 +45,10 @@ if USE_CYTHON:
         exit(1)
 
     extensions = cythonize(extensions)
-
+exec(open('ddb/version.py').read())
 setup(
     name='ddb',
-    version='1.0.480',
+    version=__version__,
     packages=['ddb',
               'ddb.engine.parser',
               'ddb.engine.tokenizer',

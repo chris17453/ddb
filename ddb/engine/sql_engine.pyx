@@ -7,7 +7,6 @@ from evaluate.match import evaluate_match
 from functions import functions
 from output import output as data_output
 
-
 #
 
 debug_on = False
@@ -28,6 +27,9 @@ def enum(**enums):
 
 
 class sql_engine:
+    """A serverless flat file database engine"""
+
+
     data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
@@ -340,6 +342,8 @@ class sql_engine:
                             if 'function' in c:
                                 if c['function'] == 'database':
                                     restructured_line.append(functions.database(self.database))
+                                if c['function'] == 'version':
+                                    restructured_line.append(__version__))
 
                         temp_data.append({'data': restructured_line, 'type': processed_line['type'], 'error': processed_line['error'], 'raw': processed_line['raw']})
 
@@ -351,6 +355,8 @@ class sql_engine:
                 if 'function' in c:
                     if c['function'] == 'database':
                         row.append(functions.database(self.database))
+                    if c['function'] == 'version':
+                        restructured_line.append(__version__))
             temp_data.append({'data': row, 'type': self.data_type.DATA, 'error': None, 'raw': None})
 
         if 'order by' in query_object['meta']:

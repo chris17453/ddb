@@ -17,7 +17,7 @@ class bcolors:
 
 class ddbPrompt(Cmd):
     prompt = 'ddb> '
-    intro = "Welcome! Type ? to list commands"
+    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
 
     def cmdloop_with_keyboard_interrupt(self):
         doQuit = False

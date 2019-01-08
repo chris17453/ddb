@@ -45,14 +45,13 @@ init:
 	# and other deps should be in the pipfile
 	@pipenv install 
 	
-	@echo [bumpversion]>.bumpversion.cfg
-	@echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
-	@echo files = setup.py>S>.bumpversion.cfg
-	@echo commit = False>>.bumpversion.cfg
-	@echo tag = False>>.bumpversion.cfg
+	#echo [bumpversion]>.bumpversion.cfg
+	#echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
+	##echo files = setup.py>S>.bumpversion.cfg
+	##echo commit = False>>.bumpversion.cfg
+	#e#cho tag = False>>.bumpversion.cfg
 
 pipfile:
-	pipenv install bumpversion --dev
 	pipenv install twine --dev
 	pipenv install ctyhon --dev
 	pipenv install flake8 --dev

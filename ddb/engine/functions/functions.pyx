@@ -35,3 +35,4 @@ def show_errors(database, table):
 
 def database(database):
     return database.get_curent_database()
+
