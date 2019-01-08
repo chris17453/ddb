@@ -62,6 +62,7 @@ class sql_engine:
           """        
         if None==results:
             return
+        results=results.get_results()
         
         mode=self.output.lower()
         if 'bash'==mode:

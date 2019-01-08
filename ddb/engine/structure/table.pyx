@@ -155,6 +155,10 @@ class table:
                 columns.append(column.data.name)
         return columns
 
+    def.get_results(self):
+        columns=self.get_columns_display()
+        return {'columns':columns,'results':self.results}
+
     def results_length(self):
         """Return the result set length for this table"""
         return len(self.results)
