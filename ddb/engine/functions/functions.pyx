@@ -50,7 +50,7 @@ def datetime(arg):
     return datetime.datetime.now()
 
 def time(arg):
-    return datetime.datetime.today().strftime('%H:%M:%S'))
+    return datetime.datetime.today().strftime('%H:%M:%S')
 
 def date(arg):
     return datetime.datetime.today().strftime('%Y-%m-%d')
