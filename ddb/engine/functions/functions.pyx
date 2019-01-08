@@ -36,15 +36,15 @@ def show_errors(database, table):
     return temp_table
 
 
-def database(database):
+def f_database(database):
     return database.get_curent_database()
 
-def upper(arg):
+def f_upper(arg):
     if not arg:
         return None
     return arg.upper()
 
-def lower(arg):
+def f_lower(arg):
     if not arg:
         return None
     return arg.lower()
@@ -57,6 +57,11 @@ def f_time(arg=None):
 
 def f_date(arg=None):
     return datetime.datetime.now().strftime('%Y-%m-%d')
+
+def f_version(version=None):
+    if None==version:
+        return 'GA.BB.LE'
+    return version
         
 def f_cat(arg1,arg2):
     if None ==arg1:
