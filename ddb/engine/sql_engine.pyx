@@ -384,6 +384,12 @@ class sql_engine:
             elif 'function' in c:
                 if c['function'] == 'database':
                     row.append(functions.database(self.database))
+                elif c['function'] == 'datetime':
+                     row.append(functions.datetime())
+                elif c['function'] == 'date':
+                     row.append(functions.date())
+                elif c['function'] == 'time':
+                     row.append(functions.time())
                 elif c['function'] == 'version':
                      row.append(version.__version__)
                 #elif c['function'] == 'lower':

@@ -45,6 +45,15 @@ def lower(arg):
     if not arg:
         return None
     return arg.lower()
+
+def datetime(arg):
+    return datetime.datetime.now()
+
+def time(arg):
+    return datetime.datetime.today().strftime('%H:%M:%S'))
+
+def date(arg):
+    return datetime.datetime.today().strftime('%Y-%m-%d')
         
 def cat(arg1,arg2):
     if None ==arg1:

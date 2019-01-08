@@ -7,6 +7,9 @@ sql_syntax = {
                   {'name': 'upper', 'arguments': [{'name': 'column', 'required': True}]},
                   {'name': 'lower', 'arguments': [{'name': 'column', 'required': True}]},
                   {'name': 'cat', 'arguments':  [{'name': 'arg1', 'required': True}, {'name': 'arg2', 'required': True}]},
+                  {'name': 'date', 'arguments': None }
+                  {'name': 'time', 'arguments': None }
+                  {'name': 'datetime', 'arguments': None },
                   ],
     'query_matrix': [
         {'query': 'show columns',

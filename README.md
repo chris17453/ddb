@@ -94,8 +94,12 @@ results=self.engine.query(query)
 
 - database()
 - version()
-- upper()
-- lower()
+- datetime()
+- date()
+- time()
+- upper()* TODO
+- lower()* TODO
+- cat(arg1,arg2)* TODO
 
 ### TODO
 
