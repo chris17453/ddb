@@ -155,7 +155,7 @@ class table:
                 columns.append(column.data.name)
         return columns
 
-    def.get_results(self):
+    def get_results(self):
         columns=self.get_columns_display()
         return {'columns':columns,'results':self.results}
 
