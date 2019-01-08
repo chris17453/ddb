@@ -3,7 +3,7 @@ sql_syntax = {
     'functions': [{'name': 'database', 'arguments': None},
                   {'name': 'count', 'arguments': [{'name': 'where', 'required': True}]},
                   {'name': 'sum', 'arguments': [{'name': 'column', 'required': True}]},
-                  {'name': 'version', 'arguments': None},
+                  {'name': 'version', 'arguments': None}
                   ],
     'query_matrix': [
 zz        {'query': 'show columns',
