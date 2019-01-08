@@ -497,7 +497,7 @@ class sql_engine:
                     line_number += 1
                     if  processed_line['raw']:
                         print(processed_line['raw'],line_number)
-                        temp_file.write('{0}'format(processed_line['raw']))
+                        temp_file.write('{0}'.format(processed_line['raw']))
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
