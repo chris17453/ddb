@@ -296,7 +296,7 @@ class sql_engine:
                 table_name = query_object['meta']['from']['table']
                 query_object['table'] = self.database.get(table_name)
                 if None == query_object['table']:
-                    raise Exception("invalid table {}".format(table_name))
+                    raise Exception("Table '{0}' does not exist.".format(table_name))
                 table_columns = query_object['table'].get_columns()
                 parser.expand_columns(query_object, table_columns)
                 column_len = query_object['table'].column_count()
@@ -438,6 +438,9 @@ class sql_engine:
     def delete(self, query_object):
         table_name = query_object['meta']['from']['table']
         query_object['table'] = self.database.get(table_name)
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
+
 
         temp_table = self.database.temp_table()
         temp_table.add_column('deleted')
@@ -473,6 +476,8 @@ class sql_engine:
     def insert(self, query_object):
         table_name = query_object['meta']['into']['table']
         query_object['table'] = self.database.get(table_name)
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
 
         temp_table = self.database.temp_table()
         temp_table.add_column('inserted')
@@ -482,6 +487,7 @@ class sql_engine:
         inserted = 0
         # process file
         requires_new_line = False
+        
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
@@ -489,7 +495,10 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    temp_file.write(processed_line['raw'])
+                    line_dup=processed_line['raw']
+                    if None==line_dup:
+                        line_dup=''
+                    temp_file.write(line_dupe)
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
@@ -593,6 +602,9 @@ class sql_engine:
     def update(self, query_object):
         table_name = query_object['meta']['update']['table']
         query_object['table'] = self.database.get(table_name)
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
+
 
         temp_table = self.database.temp_table()
         temp_table.add_column('updated')
