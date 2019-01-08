@@ -16,7 +16,7 @@ def format_bash(results,output_file):
     
     column_index=0
     for column in data['columns']:
-        print("{0}_columns[{1}]='{2}'".format(name,column_index,column)
+        print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
         column_index+=1
 
 
@@ -27,7 +27,7 @@ def format_bash(results,output_file):
         print("{0}_info[{1},type]='{3}'".format(name,row_index,row['type'])
         print("{0}_info[{1},raw]='{3}'".format(name,row_index,row['raw'])
         for column in row['data']:
-            print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column)
+            print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
             column_index+=1
         row_index+=1
     
