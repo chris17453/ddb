@@ -2,16 +2,18 @@
 
 def evaluate_single_match(test, row, table):
 
-    compare1 = None
-    compare2 = None
-    compare1_is_column = False
-    compare2_is_column = False
+    cdef str compare1 = None
+    cdef str compare2 = None
+    cdef bool compare1_is_column = False
+    cdef bool compare2_is_column = False
 
-    comparitor = test['c'].lower()
+    cdef str comparitor = test['c'].lower()
+    cdef int index 
+    cdef str like = None
+    cdef str data = None
 
     # if None !=comparitor:
     #   comparitor=comparitor.lower()
-
     for column in table.columns:
         #print column.data.name
         if column.data.name == test['e1']:
