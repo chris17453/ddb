@@ -335,17 +335,8 @@ class sql_engine:
 
                     # add to temp table
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object) 
-                        for c in query_object['meta']['select']:
-                            if 'column' in c:
-                                restructured_line.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
-                            if 'function' in c:
-                                if c['function'] == 'database':
-                                    restructured_line.append(functions.database(self.database))
-                                if c['function'] == 'version':
-                                    restructured_line.append(version.__version__)
-
-                        temp_data.append({'data': restructured_line, 'type': processed_line['type'], 'error': processed_line['error'], 'raw': processed_line['raw']})
+                        restructured_line = self.process_select_row(query_object,process_line) 
+                        temp_data.append(restructured_line)
 
         # file is closed at this point
 
@@ -361,7 +352,7 @@ class sql_engine:
                 direction = 1
                 if 'asc' in c:
                     direction = 1
-                if 'desc' in c:
+                elif 'desc' in c:
                     direction = -1
                 self.sort.append([ordinal, direction])
             temp_data = sorted(temp_data, self.sort_cmp)
@@ -375,7 +366,7 @@ class sql_engine:
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
                 limit_start = query_object['meta']['limit']['start']
-            if 'length' in query_object['meta']['limit']:
+            elif 'length' in query_object['meta']['limit']:
                 limit_length = query_object['meta']['limit']['length']
 
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
@@ -387,12 +378,20 @@ class sql_engine:
             if 'column' in c:
                 if None != processed_line:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
-            if 'function' in c:
+            elif 'function' in c:
                 if c['function'] == 'database':
                     row.append(functions.database(self.database))
-                if c['function'] == 'version':
-                    row.append(version.__version__)
-        return row
+                elif c['function'] == 'version':
+                     row.append(version.__version__)
+        if None != processed_line:                    
+            line_type=processed_line['type']
+            error= processed_line['error']
+            raw= processed_line['raw']
+        else:
+            line_type=data_type.DATA
+            error= None
+            raw= None
+        return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
 
 
 
