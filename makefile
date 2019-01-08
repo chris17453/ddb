@@ -72,7 +72,7 @@ unittest:
 	
 build: bump 
 
-	@pipenv run python setup.py build_ext sdist --inplace
+	@pipenv run python setup.py --inplace build_ext sdist 
 	@$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
