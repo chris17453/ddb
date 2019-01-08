@@ -4,6 +4,9 @@ sql_syntax = {
                   {'name': 'count', 'arguments': [{'name': 'where', 'required': True}]},
                   {'name': 'sum', 'arguments': [{'name': 'column', 'required': True}]},
                   {'name': 'version', 'arguments': None}
+                  {'name': 'upper', 'arguments': [{'name': 'column', 'required': True}]},
+                  {'name': 'lower', 'arguments': [{'name': 'column', 'required': True}]},
+                  {'name': 'cat', 'arguments':  [{'name': 'arg1', 'required': True}, [{'name': 'arg2', 'required': True}]},
                   ],
     'query_matrix': [
         {'query': 'show columns',

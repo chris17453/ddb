@@ -383,6 +383,12 @@ class sql_engine:
                     row.append(functions.database(self.database))
                 elif c['function'] == 'version':
                      row.append(version.__version__)
+                #elif c['function'] == 'lower':
+                #     row.append(functions.lower(c['column']))
+                #elif c['function'] == 'upper':
+                #     row.append(functions.upper(c['column']))
+                #elif c['function'] == 'cat':
+                #     row.append(functions.cat(c['arg1'],c['arg2']))
         if None != processed_line:                    
             line_type=processed_line['type']
             error= processed_line['error']

@@ -36,3 +36,20 @@ def show_errors(database, table):
 def database(database):
     return database.get_curent_database()
 
+def upper(arg):
+    if not arg:
+        return None
+    return arg.upper()
+
+def lower(arg):
+    if not arg:
+        return None
+    return arg.lower()
+        
+def cat(arg1,arg2):
+    if None ==arg1:
+        arg1=''
+    if None ==arg2:
+        arg2=''
+    return '{0}{1}'.format(arg1,arg2)
+
