@@ -1,7 +1,6 @@
 import time
 from cmd import Cmd
 from .sql_engine import sql_engine
-import flextable
 from . import version
 
 

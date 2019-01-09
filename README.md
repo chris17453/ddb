@@ -423,7 +423,7 @@ ddb> select * from mock order by id limit 10
 ```
 
 ## CLI Output examples
-You can specify the output type bash/ term / xml /  yaml / json
+You can specify the output type bash / term / xml /  yaml / json
 
 - (ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o raw
 ```bash
