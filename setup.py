@@ -46,7 +46,7 @@ if USE_CYTHON:
         exit(1)
 
     extensions = cythonize(extensions)
-exec(open('version').read())
+exec(open('ddb/engione/version.pyx').read())
 setup(
     name='ddb',
     version=__version__,
