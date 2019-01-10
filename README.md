@@ -4,14 +4,15 @@
 
 
 ## what does it do?
-- ddb gives text files crud access via a sql interface
-- text files do not change format
+- ddb sits top of text files, giving them a database access layer
+- you can read, write, update the file via sql
 
 
 ## what are the human benifits to using ddb?
 - a common interface for all of your flat files
 - multiple points of integration (progromatic and cli)
 - sql is easy to work with, no coding required
+- the text file stays the same
 
 
 ## what are the technical benifits to using ddb?
@@ -22,8 +23,10 @@
 - event logging
 - ansible ready
 - eases the effort of data migration using sql
-- the text file does not change formats. nothing changes but ease of use
+- the text file does not change
+- accessibility of the text file doesnt change
 - ease of automation
+
 
 ## how do i use it?
 - with python [python integration](data/python-integration.md)
