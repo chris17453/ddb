@@ -37,3 +37,4 @@ ddb/engine/structure/database.c
 ddb/engine/structure/table.c
 ddb/engine/tokenizer/__init__.py
 ddb/engine/tokenizer/sql_tokenize.c
+ddb/engine/version.pyx
