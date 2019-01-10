@@ -1,8 +1,9 @@
-## ddb CLI Output examples
+# ddb CLI Output examples
 - ddb has multiple output types (raw,xml,json,yaml,term,bash)
 - from the cli you can specify the type with the '-o' switch
 - progromatically, the deault object is a python object
-- this can be converted to any output types via a function (TODO DOC this)
+- this can be converted to any output type via a function (TODO DOC this)
+- each of these examples use the same data and query, only the output type is different
 
 
 ## RAW output
