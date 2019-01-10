@@ -4,7 +4,7 @@
 
 
 ## What does it do?
-- ddb sits top of text files, giving them a database access layer
+- ddb sits on top of text files, giving them a database access layer
 - you can read, write, update csv's or any type of delimited text file via sql
 
 
