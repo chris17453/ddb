@@ -4,20 +4,22 @@
 - As needed I'll improve the system.
 
 
-## DATABASE commands
+### DATABASE commands
 - [USE](#USE)
-## Data commands
+### Data commands
 - [SELECT](#SELECT)
 - [INSERT](#INSERT)
 - [UPDATE ](#UPDATE)
-- [DELETE FROM](#DELETE-FROM)
-## Table commands
+- [DELETE](#DELETE-FROM)
+### Table commands
 - [DESCRIBE TABLE ](#DESCRIBE-TABLE)
 - [CREATE TABLE](#CREATE-TABLE)
 - [DROP TABLE](#DROP-TABLE)
 - [UPDATE TABLE](#UPDATE-TABLE)
+### INFO Commands
 - [SHOW TABLES](#SHOW-TABLES)
-- [SHOW COLUMNS FROM](#SHOW-COLUMNS-FROM)
+- [SHOW COLUMNS](#SHOW-COLUMNS-FROM)
+
 - [Supported functions](#Supported-functions)
 - [TODO](#TODO)
 
@@ -26,11 +28,13 @@
 
 
 ### USE
+This till change the context the database is operating on. The active table.
 ```sql
  USE database
 ```
 
 ### SELECT
+read data from a table
 - select_expr = { {column | function () } [AS display_name]}
 - order_expression = { ASC | DESC }
 ```sql
@@ -48,11 +52,13 @@ SELECT select_expr [,select_expr ... ]
 ```         
 
 ### INSERT
+insert a row into the table
 ```sql
 INSERT INTO table ({column [,column ...]}) VALUES ({values [,value ...]})
 ```
 
-### DELETE FROM
+### DELETE
+delete a row from the table
 ```sql
 DELETE FROM table 
 [WHERE condition 
@@ -64,18 +70,26 @@ DELETE FROM table
 ```
 
 ### UPDATE 
+change a row in the table
 ```sql
-table SET column=value [WHERE]
+UPDATE table 
+SET column=value [, column=value ...] 
+[WHERE condition 
+    [
+        [AND condition] 
+        [OR condition]
+    ] 
+]
 ```
 
-## TABLE Commands
-
 ### DESCRIBE TABLE 
+display information about a table
 ```sql
 DESCRIBE TABLE table
 ```
 
 ### CREATE TABLE
+create a new table
 ```sql
 CREATE TABLE table 
     ({columns}) 
@@ -88,11 +102,13 @@ CREATE TABLE table
 ```
 
 ### DROP TABLE
+remove a table configuration from the database. data files are not affected.
 ```sql
 DROP TABLE table
 ```
 
 ### UPDATE TABLE
+update a table configuration in the database. data files are not affected.
 ```sql
  UPDATE TABLE table 
     ({columns}) 
@@ -105,18 +121,20 @@ DROP TABLE table
 ```
 
 ### SHOW TABLES
+show all active tables in the database
 ```sql
  SHOW TABLES
 ```
 
 ### SHOW COLUMNS FROM
+display the columns in a given table
  ```sql
 SHOW COLUMNS FROM table
  ```
 
 
 ### Supported functions
-
+these functions can be use as a select expression
 - database(), returns curent db context
 - version(), returns ddb version
 - datetime(), returns datetime
@@ -126,9 +144,5 @@ SHOW COLUMNS FROM table
 
 
 ### TODO
-
-- curses browser for results (wil be built in flextable)
-- output to yaml,json,raw, csv formatted string (should be simple)
-- adding test cases for tokenizing
 - aggregate function support 
 - functions: COUNT, JOIN, SUM, DISTINCT, GROUP BY are all high on the list in that order
