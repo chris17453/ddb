@@ -2,6 +2,7 @@ import os
 import copy
 from .table import table
 import yaml
+import warning
 
 
 class database:
@@ -19,6 +20,8 @@ class database:
                 temp_table=table(table_file, show_config)
                 # dont add inactive tables
                 if temp_table.active==False:
+                    warnings.warn("Table not loaded,{0}:{1}}".format(temp_table.data.name,table_file))
+
                     continue
                 self.tables.append(temp_table)
             return
@@ -225,8 +228,9 @@ class database:
 
         for t in temp_tables:
             temp_table=table(t)
+            # Dont add tables that are inactive...
             if temp_table.active==False:
-                # Dont add tables that are inactive...
+                warnings.warn("Table not loaded,{0}:{1}}".format(temp_table.data.name,table_file))
                 continue
             table_swap.append(temp_table)
 
