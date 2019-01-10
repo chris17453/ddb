@@ -97,11 +97,11 @@ results=self.engine.query(query)
 
 ### Supported functions
 
-- database()
-- version()
-- datetime()
-- date()
-- time()
+- database(), returns curent db context
+- version(), returns ddb version
+- datetime(), returns datetime
+- date(), returns date
+- time(), returns time
 
 ### TODO
 
