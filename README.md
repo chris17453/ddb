@@ -3,12 +3,12 @@
  A serviceless sql interface for flat files written in python
 
 
-## what does it do?
+## What does it do?
 - ddb sits top of text files, giving them a database access layer
 - you can read, write, update csv's or any type of delimited text file via sql
 
 
-## what are the human benifits to using ddb?
+## What are the human benifits to using ddb?
 - a common interface for all of your flat files
 - multiple points of integration (progromatic and cli)
 - sql is easy to work with, no coding required
@@ -16,7 +16,7 @@
 - wont break or affect anything that might use the file
 
 
-## what are the technical benifits to using ddb?
+## What are the technical benifits to using ddb?
 - it does not run as a service, nothing to maintain
 - it can run on any server with python 2.7>
 - low memory foot print. it reads data 1 line at a time
@@ -28,23 +28,23 @@
 - event logging
 
 
-## how do i use it?
+## How do I use it?
 - with python [python integration](data/python-integration.md)
 - from bash [cli](data/cli.md)
 
 
-## where do i get it?
+## Where do I get it?
 - the code -> [github](https://github.com/chris17453/ddb)
 - the offical package -> [Pypi](https://pypi.org/project/ddb/)
 
 
-## how do i install it?
+## How do I install it?
 ```bash
 pip install ddb --user
 ```
 
 
-## getting started
+## Getting started
 - [cli](data/cli.md)
 - [examples](data/examples.md)
 - [walkthrough](data/walkthrough.md)
