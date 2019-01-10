@@ -116,7 +116,7 @@ results=self.engine.query(query)
 - load/reload of database configuration unified, temp table safe
 - failed table configurations pass warnings, and do not trigger a fail
 - sql function: "version()" returns ddb version
-- created output options json/yaml/raw/xml/term
+- created output options json / yaml / raw / xml / term
 - removed bumpversion
 - updated pyyaml
 - pyinstaller creates single file executable for packaging. in dist/
