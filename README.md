@@ -26,6 +26,8 @@
 - ease of automation
 - error handeling for bad data
 - event logging
+- no caching at all, all access is live
+- optimized for speed using cython
 
 
 ## How do I use it?
