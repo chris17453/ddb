@@ -71,6 +71,7 @@ unittest:
 	@python ddb/test.py
 	
 build: bump 
+	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 	@pipenv run python setup.py build_ext --inplace sdist 
 	@$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
