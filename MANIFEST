@@ -22,6 +22,7 @@ ddb/engine/__init__.py
 ddb/engine/interactive.c
 ddb/engine/sql_engine.c
 ddb/engine/version.c
+ddb/engine/version.pyx
 ddb/engine/evaluate/__init__.py
 ddb/engine/evaluate/match.c
 ddb/engine/functions/__init__.py
