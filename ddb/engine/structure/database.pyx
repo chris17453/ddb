@@ -20,7 +20,7 @@ class database:
                 temp_table=table(table_file, show_config)
                 # dont add inactive tables
                 if temp_table.active==False:
-                    warnings.warn("Table not loaded,{0}:{1}}".format(temp_table.data.name,table_file))
+                    warnings.warn("Table not loaded,{0}:{1}}.format(temp_table.data.name,table_file))
 
                     continue
                 self.tables.append(temp_table)
