@@ -28,7 +28,7 @@
 
 
 ### USE
-This till change the context the database is operating on. The active table.
+change the curent context the database is operating on. The active database.
 ```sql
  USE database
 ```

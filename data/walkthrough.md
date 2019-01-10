@@ -1,4 +1,8 @@
 ### ddb Walkthrough
+this is a walkthrough of command line use
+- the db context is changed
+- a new table is created
+- queries are ran against the table
 
 
 ```sql
