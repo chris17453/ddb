@@ -2,7 +2,7 @@ import os
 import copy
 from .table import table
 import yaml
-import warning
+import warnings
 
 
 class database:
