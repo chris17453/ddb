@@ -48,7 +48,8 @@ pip install ddb --user
 
 ## Getting started
 - [cli](data/cli.md)
-- [examples](data/examples.md)
+- [bash examples](data/examples.md)
+- [code example](examples/example.py)
 - [walkthrough](data/walkthrough.md)
 
 
@@ -64,6 +65,9 @@ pip install ddb --user
 Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
 
 
-### Demo
-![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-demo.gif)
+### BASH Demo
+![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-bash-demo.gif)
+
+### Python Demo
+![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-python-demo.gif)
 
