@@ -39,6 +39,7 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
+        self.active=True
         
         self.update(data_file=data_file, 
                     columns=columns, 
@@ -93,7 +94,8 @@ class table:
             yaml.dump(self, sys.stdout, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True)
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
-                raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
+                #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
+                self.active=False
 
     def update(self,
                     columns=None, 

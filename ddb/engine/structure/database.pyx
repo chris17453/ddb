@@ -16,7 +16,11 @@ class database:
             self.config_file = config_file
             tables = self.get_tables()
             for table_file in tables:
-                self.tables.append(table(table_file, show_config))
+                temp_table=table(table_file, show_config)
+                # dont add inactive tables
+                if temp_table.active==False:
+                    continue
+                self.tables.append(temp_table)
             return
 
     def set_database(self, database_name):
@@ -220,7 +224,11 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            table_swap.append(table(t))
+            temp_table=table(t)
+            if temp_table.active==False:
+                # Dont add tables that are inactive...
+                continue
+            table_swap.append(temp_table)
 
         self.tables = table_swap
 
