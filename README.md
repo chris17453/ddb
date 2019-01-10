@@ -60,6 +60,8 @@ pip install ddb --user
 - [notes](data/notes.md)
 - [changelog](data/changelog.md)
 
+## Will you help me?
+Sure, within reason and ability. Just contact [me](chris174543@gmail.com)
 
 
 ### Demo
