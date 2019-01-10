@@ -4,15 +4,31 @@
 - As needed I'll improve the system.
 
 
+## DATABASE commands
+- [USE](###_USE)
+## Data commands
+- [SELECT](###_SELECT)
+- [INSERT](###_INSERT)
+- [UPDATE ](###_UPDATE)
+- [DELETE FROM](###_DELETE_FROM)
+## Table commands
+- [DESCRIBE TABLE ](###_DESCRIBE_TABLE)
+- [CREATE TABLE](###_CREATE_TABLE)
+- [DROP TABLE](###_DROP_TABLE)
+- [UPDATE TABLE](###_UPDATE_TABLE)
+- [SHOW TABLES](###_SHOW_TABLES)
+- [SHOW COLUMNS FROM](###_SHOW_COLUMNS_FROM)
+- [Supported functions](###_Supported_functions)
+- [TODO](###_TODO)
 
-## DATABASE Commands
+
+
+
 
 ### USE
 ```sql
  USE database
 ```
-
-## DATA Commands
 
 ### SELECT
 - select_expr = { {column | function () } [AS display_name]}
@@ -47,7 +63,7 @@ DELETE FROM table
 ]
 ```
 
-###  UPDATE 
+### UPDATE 
 ```sql
 table SET column=value [WHERE]
 ```
@@ -71,7 +87,7 @@ CREATE TABLE table
     [DATA_ON=data_begins_on_line(default=1)]
 ```
 
-### DROP TABLE table
+### DROP TABLE
 ```sql
 DROP TABLE table
 ```
@@ -106,6 +122,8 @@ SHOW COLUMNS FROM table
 - datetime(), returns datetime
 - date(), returns date
 - time(), returns time
+
+
 
 ### TODO
 
