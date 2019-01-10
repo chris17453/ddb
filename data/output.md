@@ -1,10 +1,7 @@
 ## ddb CLI Output examples
 You can specify the output type 
-- bash 
-- term
-- xml
-- yaml
-- json
+
+## RAW output
 
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o raw
@@ -14,6 +11,8 @@ ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 1
 1,n1,n2,sam#sam.com,Male,0.0.0.0
 ```
 
+
+## XML output
 
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o xml
@@ -51,6 +50,8 @@ ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 1
   <columns><![CDATA[ip_address]]></columns>
 </data>
 ```
+
+## JSON Output
 
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o json
@@ -96,6 +97,8 @@ ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 1
 }
 ```
 
+## YAML Output
+
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o yaml
 ```
@@ -130,6 +133,8 @@ results:
   type: 3
   ```
 
+## TERM Output
+
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o term
 ```
@@ -139,6 +144,8 @@ ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 1
 │1      │n1            │n2            │sam#sam.com           │Male      │0.0.0.0         │
 └[id   ]┴[first_name  ]┴[last_name   ]┴[email               ]┴[gender  ]┴[ip_address    ]┘
 ```
+
+## BASH Output
 
 ```bash
 ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o bash
