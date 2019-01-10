@@ -1,24 +1,103 @@
 # ddb query support
 
-- Query support is limited. As needed I'll improve the system.
-- If you're doing vastly comlicated things, it shouldn't be with a flat file.
-- This code is no t fast, but not slow either. It will be refactored, but not until more support is added.
-- compiled with cython gives a 450%+ boost in execution time. 
-- My test record set with 60k records, at first, came back in 1.6 seconds, now comes in at .35 seconds
+- Query support is limited to standard operations
+- As needed I'll improve the system.
 
-### Supported Querys
 
-- USE [DATABASE]
-- SHOW TABLES
-- SHOW COLUMNS FROM [TABLE]
-- CREATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH] delimiter=[FIELD_DELIMITER(default=',')] [WHITESPACE=bool] [ERRORS=bool] [COMMENTS=bool] data_on=[DATA_BEGINS_AT_LINE(default=1)] 
-- DROP TABLE [TABLE]
-- SELECT [[COLUMN [AS COLUMN]]|[FUNCTION(...) [AS COLUMN]]] FROM [TABLE] [WHERE] [AND] [OR] [ORDER BY] [LIMIT]
-- INSERT INTO [TABLE] ([[COLUMNS]]) VALUES ([[VALUES])
-- DELETE FROM [TABLE] [WHERE] [AND] [OR]
-- UPDATE [TABLE] SET [[COLUMN=VALUE]] [WHERE]
-- DESCRIBE TABLE [TABLE]
-- UPDATE TABLE [TABLE] ([COLUMNS]) file=[DATA_FILE_PATH] delimiter=[FIELD_DELIMITER(default=',')] [WHITESPACE=bool] [ERRORS=bool] [COMMENTS=bool] data_on=[DATA_BEGINS_AT_LINE(default=1)] 
+
+## DATABASE Commands
+
+### USE
+```sql
+ USE database
+```
+
+## DATA Commands
+
+### SELECT
+- select_expr = { {column | function () } [AS display_name]}
+- order_expression = { ASC | DESC }
+```sql
+SELECT select_expr [,select_expr ... ]
+[FROM table
+[WHERE condition 
+    [
+        [AND condition] 
+        [OR condition]
+    ]
+]
+[ORDER BY {column_name} order_expression [,{column_name} order_expression ...]] 
+]
+[LIMIT [{offset, }] row_count]
+```         
+
+### INSERT
+```sql
+INSERT INTO table ({column [,column ...]}) VALUES ({values [,value ...]})
+```
+
+### DELETE FROM
+```sql
+DELETE FROM table 
+[WHERE condition 
+    [
+        [AND condition] 
+        [OR condition]
+    ] 
+]
+```
+
+###  UPDATE 
+```sql
+table SET column=value [WHERE]
+```
+
+## TABLE Commands
+
+### DESCRIBE TABLE 
+```sql
+DESCRIBE TABLE table
+```
+
+### CREATE TABLE
+```sql
+CREATE TABLE table 
+    ({columns}) 
+    FILE=data_file_path 
+    [DELIMITER=field_delimiter(default=',')] 
+    [WHITESPACE=bool] 
+    [ERRORS=bool] 
+    [COMMENTS=bool] 
+    [DATA_ON=data_begins_on_line(default=1)]
+```
+
+### DROP TABLE table
+```sql
+DROP TABLE table
+```
+
+### UPDATE TABLE
+```sql
+ UPDATE TABLE table 
+    ({columns}) 
+    FILE=data_file_path 
+    [DELIMITER=field_delimiter(default=',')] 
+    [WHITESPACE=bool] 
+    [ERRORS=bool] 
+    [COMMENTS=bool] 
+    [DATA_ON=data_begins_on_line(default=1)]
+```
+
+### SHOW TABLES
+```sql
+ SHOW TABLES
+```
+
+### SHOW COLUMNS FROM
+ ```sql
+SHOW COLUMNS FROM table
+ ```
+
 
 ### Supported functions
 
