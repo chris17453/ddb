@@ -5,21 +5,21 @@
 
 
 ## DATABASE commands
-- [USE](###_USE)
+- [USE](#USE)
 ## Data commands
-- [SELECT](###_SELECT)
-- [INSERT](###_INSERT)
-- [UPDATE ](###_UPDATE)
-- [DELETE FROM](###_DELETE_FROM)
+- [SELECT](#SELECT)
+- [INSERT](#INSERT)
+- [UPDATE ](#UPDATE)
+- [DELETE FROM](#DELETE_FROM)
 ## Table commands
-- [DESCRIBE TABLE ](###_DESCRIBE_TABLE)
-- [CREATE TABLE](###_CREATE_TABLE)
-- [DROP TABLE](###_DROP_TABLE)
-- [UPDATE TABLE](###_UPDATE_TABLE)
-- [SHOW TABLES](###_SHOW_TABLES)
-- [SHOW COLUMNS FROM](###_SHOW_COLUMNS_FROM)
-- [Supported functions](###_Supported_functions)
-- [TODO](###_TODO)
+- [DESCRIBE TABLE ](#DESCRIBE_TABLE)
+- [CREATE TABLE](#CREATE_TABLE)
+- [DROP TABLE](#DROP_TABLE)
+- [UPDATE TABLE](#UPDATE_TABLE)
+- [SHOW TABLES](#SHOW_TABLES)
+- [SHOW COLUMNS FROM](#SHOW_COLUMNS_FROM)
+- [Supported functions](#Supported_functions)
+- [TODO](#TODO)
 
 
 
