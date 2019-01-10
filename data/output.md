@@ -7,7 +7,7 @@ You can specify the output type
 - json
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o raw
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o raw
 ```
 ```bash
 3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204
@@ -16,21 +16,88 @@ You can specify the output type
 
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o xml
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o xml
 ```
 ```xml
-<?xml version="1.0" encoding="utf-8"?><data><results><raw><![CDATA[3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204]]></raw><type><![CDATA[3]]></type><data><![CDATA[3]]></data><data><![CDATA[Grenville]]></data><data><![CDATA[Buckley]]></data><data><![CDATA[gbuckley2@gizmodo.com]]></data><data><![CDATA[Male]]></data><data><![CDATA[143.223.126.204]]></data><error><![CDATA[]]></error></results><results><raw><![CDATA[1,n1,n2,sam#sam.com,Male,0.0.0.0]]></raw><type><![CDATA[3]]></type><data><![CDATA[1]]></data><data><![CDATA[n1]]></data><data><![CDATA[n2]]></data><data><![CDATA[sam#sam.com]]></data><data><![CDATA[Male]]></data><data><![CDATA[0.0.0.0]]></data><error><![CDATA[]]></error></results><columns><![CDATA[id]]></columns><columns><![CDATA[first_name]]></columns><columns><![CDATA[last_name]]></columns><columns><![CDATA[email]]></columns><columns><![CDATA[gender]]></columns><columns><![CDATA[ip_address]]></columns></data>
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+  <results>
+    <raw><![CDATA[3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204]]></raw>
+    <type><![CDATA[3]]></type>
+    <data><![CDATA[3]]></data>
+    <data><![CDATA[Grenville]]></data>
+    <data><![CDATA[Buckley]]></data>
+    <data><![CDATA[gbuckley2@gizmodo.com]]></data>
+    <data><![CDATA[Male]]></data>
+    <data><![CDATA[143.223.126.204]]></data>
+    <error><![CDATA[]]></error>
+  </results>
+  <results>
+    <raw><![CDATA[1,n1,n2,sam#sam.com,Male,0.0.0.0]]></raw>
+    <type><![CDATA[3]]></type>
+    <data><![CDATA[1]]></data>
+    <data><![CDATA[n1]]></data>
+    <data><![CDATA[n2]]></data>
+    <data><![CDATA[sam#sam.com]]></data>
+    <data><![CDATA[Male]]></data>
+    <data><![CDATA[0.0.0.0]]></data>
+    <error><![CDATA[]]></error>
+  </results>
+  <columns><![CDATA[id]]></columns>
+  <columns><![CDATA[first_name]]></columns>
+  <columns><![CDATA[last_name]]></columns>
+  <columns><![CDATA[email]]></columns>
+  <columns><![CDATA[gender]]></columns>
+  <columns><![CDATA[ip_address]]></columns>
+</data>
 ```
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o json
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o json
 ```
 ```json
-{"results": [{"raw": "3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204", "type": 3, "data": ["3", "Grenville", "Buckley", "gbuckley2@gizmodo.com", "Male", "143.223.126.204"], "error": null}, {"raw": "1,n1,n2,sam#sam.com,Male,0.0.0.0", "type": 3, "data": ["1", "n1", "n2", "sam#sam.com", "Male", "0.0.0.0"], "error": null}], "columns": ["id", "first_name", "last_name", "email", "gender", "ip_address"]}
+{  
+   "results":[  
+      {  
+         "raw":"3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204",
+         "type":3,
+         "data":[  
+            "3",
+            "Grenville",
+            "Buckley",
+            "gbuckley2@gizmodo.com",
+            "Male",
+            "143.223.126.204"
+         ],
+         "error":null
+      },
+      {  
+         "raw":"1,n1,n2,sam#sam.com,Male,0.0.0.0",
+         "type":3,
+         "data":[  
+            "1",
+            "n1",
+            "n2",
+            "sam#sam.com",
+            "Male",
+            "0.0.0.0"
+         ],
+         "error":null
+      }
+   ],
+   "columns":[  
+      "id",
+      "first_name",
+      "last_name",
+      "email",
+      "gender",
+      "ip_address"
+   ]
+}
 ```
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o yaml
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o yaml
 ```
 ```yaml
 columns:
@@ -64,17 +131,17 @@ results:
   ```
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o term
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o term
 ```
 ```bash
-┌┤id                  ├┬┤first_name          ├┬┤last_name           ├┬┤email               ├┬┤gender              ├┬┤ip_address          ├┐
-│3                     │Grenville             │Buckley               │gbuckley2@gizmodo.com │Male                  │143.223.126.204       │
-│1                     │n1                    │n2                    │sam#sam.com           │Male                  │0.0.0.0               │
-└[id                  ]┴[first_name          ]┴[last_name           ]┴[email               ]┴[gender              ]┴[ip_address          ]┘
+┌┤id   ├┬┤first_name  ├┬┤last_name   ├┬┤email               ├┬┤gender  ├┬┤ip_address    ├┐
+│3      │Grenville     │Buckley       │gbuckley2@gizmodo.com │Male      │143.223.126.204 │
+│1      │n1            │n2            │sam#sam.com           │Male      │0.0.0.0         │
+└[id   ]┴[first_name  ]┴[last_name   ]┴[email               ]┴[gender  ]┴[ip_address    ]┘
 ```
 
 ```bash
-(ddb) [nd@nd-dm ddb]$ dist/ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o bash
+ddb 'use test;select * from mock where id='1' or id='3' order by id desc limit 10' -o bash
 ```
 ```bash
 # bash variable assignment for ddb output
