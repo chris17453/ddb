@@ -15,15 +15,8 @@ class database:
         self.config_file = None
         if None != config_file and config_file != False:
             self.config_file = config_file
-            tables = self.get_tables()
-            for table_file in tables:
-                temp_table=table(table_file, show_config)
-                # dont add inactive tables
-                if temp_table.active==False:
-                    warnings.warn("Table not loaded,{0}:{1}".format(temp_table.data.name,table_file))
-
-                    continue
-                self.tables.append(temp_table)
+            # loads the config in a safe way
+            self.reload_config()
             return
 
     def set_database(self, database_name):
