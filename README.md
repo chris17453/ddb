@@ -61,7 +61,7 @@ pip install ddb --user
 - [changelog](data/changelog.md)
 
 ## Will you help me?
-Sure, within reason and ability. Just contact [me](chris174543@gmail.com)
+Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
 
 
 ### Demo
