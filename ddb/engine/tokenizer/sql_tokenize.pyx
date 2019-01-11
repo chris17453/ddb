@@ -1,229 +1,226 @@
-debug_on = False
-
-
-def info(msg, arg1=None, arg2=None, arg3=None):
-    if True == debug_on:
-        if arg3 is None and arg2 is None:
-            print("{} {}".format(msg, arg1))
-            return
-        if arg3 is None:
-            print("{} {} {}".format(msg, arg1, arg2))
-            return
-        if arg2 is None:
-            print("{} {}".format(msg, arg1))
-            return
-
-        print("[{}]".format(msg))
-
-
 # yes, this could be a giant regex, but no.
 # TODO: memory optimization.. maybe not sure how wastefull this is
+class tokenizer():
 
-def tokenize(text, discard_delimiters=False, discard_whitespace=True, debug=False):
-    global debug_on
-    debug_on = debug
-    tokens = []
+    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=False):
+        self.debug_on = debug
+        tokens = []
 
-    # clean leading and trailiong stuff
-    text = text.strip()
-    # visual formatting characters
-    whitespace = {' ', '\t', '\n', '\r'}
-    # these are solid non depth related blocks
-    blocks = [
-        ['\'', '\'', 'quote'],   # string block
-        ['"', '"', 'quote'],   # string block
-        ['[', ']', 'db'],   # mssql column
-        ['`', '`', 'db'],   # mysql column
-    ]
+        # clean leading and trailiong stuff
+        text = text.strip()
+        # visual formatting characters
+        whitespace = {' ', '\t', '\n', '\r'}
+        # these are solid non depth related blocks
+        blocks = [
+            ['\'', '\'', 'quote'],   # string block
+            ['"', '"', 'quote'],   # string block
+            ['[', ']', 'db'],   # mssql column
+            ['`', '`', 'db'],   # mysql column
+        ]
 
-    # blocks that must match depth
-    # nested_block = [
-    #                ['(',')']
-    #              ]
+        # blocks that must match depth
+        # nested_block = [
+        #                ['(',')']
+        #              ]
 
-    # operators # comparitors
-    operators = [
-        '&&',  # and short circuit
-        '||',  # or short circuit
-        '!=',  # Not Equal
-        '<>',  # Not Equal
-        '<=',  # Less than or equal
-        '>=',  # Greater thanbor equal
+        # operators # comparitors
+        operators = [
+            '&&',  # and short circuit
+            '||',  # or short circuit
+            '!=',  # Not Equal
+            '<>',  # Not Equal
+            '<=',  # Less than or equal
+            '>=',  # Greater thanbor equal
 
-        '>',  # Greater than
-        '<',  # Less than
+            '>',  # Greater than
+            '<',  # Less than
 
-        '=',  # Equality
-        '&',  # and
-        '!',  # not
-        '|',  # or
+            '=',  # Equality
+            '&',  # and
+            '!',  # not
+            '|',  # or
 
-        'not',  # not
-        'is',  # equality
-        'like',  # partial match
+            'not',  # not
+            'is',  # equality
+            'like',  # partial match
 
-        '+',  # addition
-        '-',  # subtraction
-        '/',  # divide
-        '*',  # multiple
-        '(',  # left paren   (grouping)
-        ')',  # right paren  (grouping)
-    ]
+            '+',  # addition
+            '-',  # subtraction
+            '/',  # divide
+            '*',  # multiple
+            '(',  # left paren   (grouping)
+            ')',  # right paren  (grouping)
+        ]
 
-    # standard delimiters
-    delimiters = [',', '.', ';']
+        # standard delimiters
+        delimiters = [',', '.', ';']
 
-    for token in whitespace:
-        delimiters.append(token)
+        for token in whitespace:
+            delimiters.append(token)
 
-    for token in operators:
-        delimiters.append(token)
+        for token in operators:
+            delimiters.append(token)
 
-    # add block identifiers to delimiters
-    for b in blocks:
-        if b[0] not in delimiters:
-            delimiters.append(b[0])
-        if b[1] not in delimiters:
-            delimiters.append(b[1])
-
-    delimiters_sorted = sort_array_by_length(delimiters)
-
-    # padding prevents fencpost error
-    #text+=" "
-    text_length = len(text)
-    # c is the incremental pointer to the string
-    word_start = 0
-    tokens = []
-    c = 0
-    #print delimiters_sorted
-    delimter_len = 1
-    in_block = None
-    block = None
-
-    while c < text_length:
-
-        info("-", c)
-        just_crossed_block = False
+        # add block identifiers to delimiters
         for b in blocks:
-            delimter_len = len(b[0])
-            # info(b[0],b[1],c,delimter_len)
-            fragment = text[c:c + delimter_len]
-            # only check for block start if not in one
-            if None == in_block:
-                if True == compare_text_fragment(fragment, b[0]):
+            if b[0] not in delimiters:
+                delimiters.append(b[0])
+            if b[1] not in delimiters:
+                delimiters.append(b[1])
+
+        delimiters_sorted = self.sort_array_by_length(delimiters)
+
+        # padding prevents fencpost error
+        #text+=" "
+        text_length = len(text)
+        # c is the incremental pointer to the string
+        word_start = 0
+        tokens = []
+        c = 0
+        #print delimiters_sorted
+        delimter_len = 1
+        in_block = None
+        block = None
+
+        while c < text_length:
+
+            self.info("-", c)
+            just_crossed_block = False
+            for b in blocks:
+                delimter_len = len(b[0])
+                # info(b[0],b[1],c,delimter_len)
+                fragment = text[c:c + delimter_len]
+                # only check for block start if not in one
+                if None == in_block:
+                    if True == self.compare_text_fragment(fragment, b[0]):
+                        just_crossed_block = True
+                        self.info("IN BLOCK", c)
+                        in_block = b
+                        block = b
+                        c += delimter_len
+                        self.info("IN BLOCK", c)
+                        break
+                # check for block end
+                if True == self.compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
                     just_crossed_block = True
-                    info("IN BLOCK", c)
-                    in_block = b
-                    block = b
+                    self.info("NOT IN BLOCK", c)
+                    in_block = None
                     c += delimter_len
-                    info("IN BLOCK", c)
                     break
-            # check for block end
-            if True == compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
-                just_crossed_block = True
-                info("NOT IN BLOCK", c)
-                in_block = None
-                c += delimter_len
-                break
-        # skip stuff in block
-        if None != in_block:
-            info("in block skip")
-            if not just_crossed_block:
-                c += 1
-            continue
-        #  equal.. greater than. we want the things on the last pass...
-        info("position1", c, text_length)
-        if c > text_length:
-            info("Greater than length of text. exiting")
+            # skip stuff in block
+            if None != in_block:
+                self.info("in block skip")
+                if not just_crossed_block:
+                    c += 1
+                continue
+            #  equal.. greater than. we want the things on the last pass...
+            self.info("position1", c, text_length)
+            if c > text_length:
+                self.info("Greater than length of text. exiting")
 
-            break
-        for d in delimiters_sorted:
-            delimter_len = len(d)
-            fragment = text[c:c + delimter_len]
-            if c >= text_length - 1:
-                info("Last Cycle")
-            if True == compare_text_fragment(fragment, d) or c >= text_length - 1:
-                info("Delemiter found", c, fragment)
-                if c - word_start > 0:
-                    info("Data word found", c - word_start)
-                    word_end = c
-                    if word_end >= text_length:
-                        info("word ends on last character", word_end, text_length)
-                        word_end = text_length
-                    not_delimiter = text[word_start:word_end]
-                    token_type = 'data'
-                    if None != block:
-                        block_left = block[0]
-                        block_right = block[1]
-                        block_type = block[2]
-                        block = None
-                        not_delimiter = not_delimiter[len(block_left):-len(block_right)]
+                break
+            for d in delimiters_sorted:
+                delimter_len = len(d)
+                fragment = text[c:c + delimter_len]
+                if c >= text_length - 1:
+                    self.info("Last Cycle")
+                if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
+                    self.info("Delemiter found", c, fragment)
+                    if c - word_start > 0:
+                        self.info("Data word found", c - word_start)
+                        word_end = c
+                        if word_end >= text_length:
+                            self.info("word ends on last character", word_end, text_length)
+                            word_end = text_length
+                        not_delimiter = text[word_start:word_end]
+                        token_type = 'data'
+                        if None != block:
+                            block_left = block[0]
+                            block_right = block[1]
+                            block_type = block[2]
+                            block = None
+                            not_delimiter = not_delimiter[len(block_left):-len(block_right)]
+                        else:
+                            block_left = None
+                            block_right = None
+                            block_type = None
+                        self.info("POSITION", c, not_delimiter)
+                        # if not not_delimiter:
+                        #    break
+
+                        tokens.append({'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type})
+
+                    self.info("After Data Append, Position", c, 'of', text_length)
+                    # if  c>=text_length-1:
+                    #   info("Break, after end of string",c)
+                    #   break
+
+                    word_start = c + delimter_len
+
+                    if not fragment or fragment == '':
+                        break
+                    if True == discard_whitespace and fragment in whitespace:
+                        break
+
+                    # if True == discard_delimiters:
+                    #     continue
+
+                    delimiter_type = "delimiter"
+                    if fragment in operators:
+                        delimiter_type = 'operator'
                     else:
-                        block_left = None
-                        block_right = None
-                        block_type = None
-                    info("POSITION", c, not_delimiter)
-                    # if not not_delimiter:
-                    #    break
+                        if fragment in whitespace:
+                            delimiter_type = 'whitespace'
 
-                    tokens.append({'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type})
+                    self.info("delemiter c/fragment- ", c, fragment)
+                    tokens.append({'type': delimiter_type, 'data': fragment.lower()})
 
-                info("After Data Append, Position", c, 'of', text_length)
-                # if  c>=text_length-1:
-                #   info("Break, after end of string",c)
-                #   break
-
-                word_start = c + delimter_len
-
-                if not fragment or fragment == '':
                     break
-                if True == discard_whitespace and fragment in whitespace:
-                    break
+            c += delimter_len
 
-                # if True == discard_delimiters:
-                #     continue
-
-                delimiter_type = "delimiter"
-                if fragment in operators:
-                    delimiter_type = 'operator'
-                else:
-                    if fragment in whitespace:
-                        delimiter_type = 'whitespace'
-
-                info("delemiter c/fragment- ", c, fragment)
-                tokens.append({'type': delimiter_type, 'data': fragment.lower()})
-
-                break
-        c += delimter_len
-
-    if True == debug_on:
-        info("-[Tokens]----------------")
-        for t in tokens:
-            info(t)
-        info("-[End-Tokens]------------")
-    return tokens
+        if True == self.debug_on:
+            self.info("-[Tokens]----------------")
+            for t in tokens:
+                self.info(t)
+            self.info("-[End-Tokens]------------")
+        return tokens
 
 
-def compare_text_fragment(x, y):
-    if None == x or None == y:
+    def compare_text_fragment(self,x, y):
+        if None == x or None == y:
+            return False
+        if x == y:
+            return True
         return False
-    if x == y:
-        return True
-    return False
 
 
-def sort_array_by_length(data):
-    max_len = -1
-    for d in data:
-        del_len = len(d)
-        if del_len > max_len:
-            max_len = del_len
-
-    # make a new array, put them in from longest to shortest, remove dupes
-    data_sorted = []
-    for i in reversed(range(1, max_len + 1)):
+    def sort_array_by_length(self,data):
+        max_len = -1
         for d in data:
-            if d not in data_sorted:
-                if len(d) == i:
-                    data_sorted.append(d)
-    return data
+            del_len = len(d)
+            if del_len > max_len:
+                max_len = del_len
+
+        # make a new array, put them in from longest to shortest, remove dupes
+        data_sorted = []
+        for i in reversed(range(1, max_len + 1)):
+            for d in data:
+                if d not in data_sorted:
+                    if len(d) == i:
+                        data_sorted.append(d)
+        return data
+
+    def info(self,msg, arg1=None, arg2=None, arg3=None):
+        if True == self.debug_on:
+            if arg3 is None and arg2 is None:
+                print("{} {}".format(msg, arg1))
+                return
+            if arg3 is None:
+                print("{} {} {}".format(msg, arg1, arg2))
+                return
+            if arg2 is None:
+                print("{} {}".format(msg, arg1))
+                return
+
+            print("[{}]".format(msg))
+

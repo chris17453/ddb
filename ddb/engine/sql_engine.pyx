@@ -3,23 +3,12 @@ import tempfile  # from table import table
 from parser.sql_parser import sql_parser
 from structure.table import table
 from structure.database import database
-from evaluate.match import evaluate_match
-from functions.functions import f_database,f_date,f_datetime,f_show_columns,f_show_tables,f_time,f_version
+from evaluate.match import match
+from functions.functions import functions
 from output.output import format_bash,format_json,format_raw,format_term,format_xml,format_yaml
 from .version import __version__
 #
 
-debug_on = False
-
-
-def info(msg, arg1=None, arg2=None, arg3=None):
-    if True == debug_on:
-        print(msg, arg1, arg2, arg3)
-
-# Fix delete
-# Add insert
-# Fix errors
-# Add Update
 
 
 def enum(**enums):
@@ -28,19 +17,23 @@ def enum(**enums):
 
 class sql_engine:
     """A serverless flat file database engine"""
+    
+    def info(self,msg, arg1=None, arg2=None, arg3=None):
+        if True == self.debug:
+            print(msg, arg1, arg2, arg3)
 
-
+    
     data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
-        global debug_on
-        debug_on = debug
         self.debug = debug
         self.results = None
         self.mode = mode
         self.output=output
         self.output_file=output_file
-
+        self.functions=functions()
+        self.match=match()
+        
         # print "Config",config_file
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
@@ -85,16 +78,16 @@ class sql_engine:
 
         for query_object in parser.query_objects:
 
-            info("Engine: query_object", query_object)
+            self.info("Engine: query_object", query_object)
             #print  query_object
             # exit(9)
             # get columns, doesnt need a table
             #print query_object['mode']
             if query_object['mode'] == "show tables":
 
-                self.results = f_show_tables(self.database)
+                self.results = self.functions.f_show_tables(self.database)
             if query_object['mode'] == "show columns":
-                self.results = f_show_columns(self.database, query_object)
+                self.results = self.functions.f_show_columns(self.database, query_object)
             # if query_object['mode']=="show errors":
             #    self.results=show_errors(self.database,self.table)
             #print query_object
@@ -226,7 +219,7 @@ class sql_engine:
         else:
             # if a where, only return data, comments/whites/space/errors are ignored
             if line_type == self.data_type.DATA:
-                match_results = evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
+                match_results = self.match.evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
             else:
                 match_results = False
         if query_object['table'].visible.whitespace is False and line_type==self.data_type.WHITESPACE:
@@ -248,10 +241,10 @@ class sql_engine:
         has_columns = False
         for c in query_object['meta']['select']:
             if 'function' in c:
-                info("Has functions, doesnt need a table")
+                self.info("Has functions, doesnt need a table")
                 has_functions = True
             if 'column' in c:
-                info("Has columns, needs a table")
+                self.info("Has columns, needs a table")
                 has_columns = True
         if False == has_columns and 'from' in query_object['meta']:
             raise Exception("Invalid FROM, all columns are functions")
@@ -276,13 +269,13 @@ class sql_engine:
             display = None
             if 'display' in column:
                 display = column['display']
-                info("RENAME COLUMN", display)
+                self.info("RENAME COLUMN", display)
 
             if 'column' in column:
-                info("adding data column")
+                self.info("adding data column")
                 temp_table.add_column(column['column'], display)
             if 'function' in column:
-                info("adding function column")
+                self.info("adding function column")
                 temp_table.add_column(column['function'], display)
 
         # TODO Columns with the same name can be renamed, but fail. Key issue?
@@ -338,7 +331,7 @@ class sql_engine:
             if 'length' in query_object['meta']['limit']:
                 limit_length = query_object['meta']['limit']['length']
 
-        info("Limit:{0},Length:{1}".format(limit_start, limit_length))
+        self.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
@@ -350,21 +343,21 @@ class sql_engine:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
             elif 'function' in c:
                 if c['function'] == 'database':
-                    row.append(f_database(self.database))
+                    row.append(self.functions.f_database(self.database))
                 elif c['function'] == 'datetime':
-                     row.append(f_datetime())
+                     row.append(self.functions.f_datetime())
                 elif c['function'] == 'date':
-                     row.append(f_date())
+                     row.append(self.functions.f_date())
                 elif c['function'] == 'time':
-                     row.append(f_time())
+                     row.append(self.functions.f_time())
                 elif c['function'] == 'version':
-                     row.append(f_version(__version__))
+                     row.append(self.functions.f_version(__version__))
                 #elif c['function'] == 'lower':
-                #     row.append(functions.lower(c['column']))
+                #     row.append(self.functions.lower(c['column']))
                 #elif c['function'] == 'upper':
-                #     row.append(functions.upper(c['column']))
+                #     row.append(self.functions.upper(c['column']))
                 #elif c['function'] == 'cat':
-                #     row.append(functions.cat(c['arg1'],c['arg2']))
+                #     row.append(self.functions.cat(c['arg1'],c['arg2']))
         if None != processed_line:                    
             line_type=processed_line['type']
             error= processed_line['error']
@@ -608,7 +601,7 @@ class sql_engine:
             raise Exception("Renaming temp file {} failed".format(temp))
 
     def use(self, query_object):
-        info("Use")
+        self.info("Use")
         target_db = query_object['meta']['use']['table']
         self.database.set_database(target_db)
         temp_table = self.database.temp_table()
@@ -618,7 +611,7 @@ class sql_engine:
         return temp_table
 
     def create_table(self, query_object):
-        info("Create Table")
+        self.info("Create Table")
         temp_table = self.database.temp_table()
 
         columns = []
@@ -627,7 +620,7 @@ class sql_engine:
 
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
-        info("Columns to create", columns)
+        self.info("Columns to create", columns)
         created = 0
         found_delimiter=None
         found_comments=None
@@ -663,7 +656,7 @@ class sql_engine:
         return temp_table
 
     def drop_table(self, query_object):
-        info("Drop Table")
+        self.info("Drop Table")
         temp_table = self.database.temp_table()
         #print "dropping",parser.query_object['meta']['drop']['table']
         dropped = 0
@@ -677,7 +670,7 @@ class sql_engine:
         return temp_table
 
     def update_table(self, query_object):
-        info("Update Table")
+        self.info("Update Table")
         temp_table = self.database.temp_table()
 
         columns = None  
@@ -728,7 +721,7 @@ class sql_engine:
 
 
     def describe_table(self, query_object):
-        info("Describe Table")
+        self.info("Describe Table")
         temp_table = self.database.temp_table()
         table_name=query_object['meta']['describe']['table']
         target_table= self.database.get(table_name)

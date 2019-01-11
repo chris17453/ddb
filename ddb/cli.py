@@ -38,7 +38,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        format_output(results,output=args.output,output_file=args.file)
+        output=format_output(results,output=args.output,output_file=args.file)
 
     else:
         # interactive session

@@ -12,6 +12,13 @@ import yaml
 import warnings
 import datetime
 import tempfile
+import lazyxml
+import time
+import flextable
+from cmd import Cmd
+import argparse
+from os.path import expanduser
+
 
 
 
@@ -2785,3 +2792,304 @@ class sql_engine:
 
 
 
+
+        
+        
+# ############################################################################
+# Module : output
+# File   : ddb/engine/output/output.pyx
+# ############################################################################
+
+
+
+
+
+class format_output():
+
+    def __init__(self,results,output='term',output_file=None):
+            """display results in different formats
+            if output_file==None then everything is directed to stdio
+
+            output=(bash|term|yaml|json|xml)
+            output_file= None or file to write to
+            """        
+            if None==results:
+                return
+            
+            mode=output.lower()
+            if 'bash'==mode:
+                self.format_bash(results,output_file)
+            
+            elif 'term'==mode:
+                self.format_term(results,output_file)
+            
+            elif 'raw'==mode:
+                self.format_raw(results,output_file)
+            
+            elif 'yaml'==mode:
+                self.format_yaml(results,output_file)
+            
+            elif 'json'==mode:
+                self.format_json(results,output_file)
+            
+            elif 'xml'==mode:
+                self.format_xml(results,output_file)
+            else: 
+                self.format_term(results,output_file)
+
+
+    def format_term(self,results,output_file):
+        """ouput results data in the term format"""
+        try:
+            config = flextable.table_config()
+            config.columns = results.get_columns_display()
+            flextable.table(data=results.results, args=config)
+        except:
+            print(results.results)
+
+    def format_bash(self,temp_table,output_file):
+        """ouput results data in the bash format"""
+        data=temp_table.get_results()
+        
+        name="ddb"
+        print ("# bash variable assignment for ddb output")
+        print ("declare {0}_data -A".format(name))
+        print ("declare {0}_info -A".format(name))
+        print ("declare {0}_columns -A".format(name))
+        print ("")
+
+        column_index=0
+        for column in data['columns']:
+            print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
+            column_index+=1
+
+
+        row_index=0
+        for row in data['results']:
+            column_index=0
+            if not row['error']:
+                row_error=''
+            else:
+                row_error=row['error']
+            print("{0}_info[{1},error]='{2}'".format(name,row_index,row_error))
+            if not row['type']:
+                row_type=''
+            else:
+                row_type=row['type']
+            print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
+            if not row['raw']:
+                row_raw=''
+            else:
+                row_raw=row['raw']
+            print("{0}_info[{1},raw]='{2}'".format(name,row_index,row_raw))
+            for column in row['data']:
+                print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
+                column_index+=1
+            row_index+=1
+        print ("# end ddb output ")
+                
+        
+
+    def format_raw(self,results,output_file):
+        """ouput results data in the yaml format"""
+        if not output_file:
+            for row in results.results:
+                print(row['raw'].rstrip())
+        else:
+            with open(output_file, "w") as write_file:
+                for row in results.results:
+                    write_file.write(row['raw'])
+
+    def format_yaml(self,temp_table,output_file):
+        """ouput results data in the yaml format"""
+        results=temp_table.get_results()
+        dump=yaml.safe_dump(results, default_flow_style=False)
+        if not output_file:
+            print dump
+        else:
+            with open(output_file, "w") as write_file:
+                write_file.write(dump)
+
+    def format_json(self,temp_table,output_file):
+        """ouput results data in the json format"""
+        results=temp_table.get_results()
+        if not output_file:
+            dump=json.dumps(results)
+            print dump
+        else:
+            with open(output_file, "w") as write_file:
+                json.dump(results, write_file)
+        
+    def format_xml(self,temp_table,output_file):
+        """ouput results data in the xml format"""
+        results=temp_table.get_results()
+        dump=lazyxml.dumps({'data':results})
+        if not output_file:
+            print dump
+        else:
+            with open(output_file, "w") as write_file:
+                write_file.write(dump)
+        
+        
+# ############################################################################
+# Module : interactive
+# File   : ddb/engine/interactive.pyx
+# ############################################################################
+
+
+
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+class ddbPrompt(Cmd):
+    prompt = 'ddb> '
+    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
+
+    def cmdloop_with_keyboard_interrupt(self):
+        doQuit = False
+        while doQuit != True:
+            try:
+                self.cmdloop()
+                doQuit = True
+            except KeyboardInterrupt:
+                self.help_exit("")
+
+    def set_vars(self,
+                 config_file=None,
+                 debug=False,
+                 no_clip=False,
+                 width='auto'):
+        if debug is None:
+            debug = False
+        self.debug = debug
+        self.no_clip = no_clip
+        self.width = width
+        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output='term',output_file=None)
+
+    def msg(self, type, name, message=''):
+        if type == 'info':
+            color = bcolors.OKGREEN
+        if type == 'warn':
+            color = bcolors.WARNING
+        if type == 'error':
+            color = bcolors.FAIL
+
+        print("{2}>>>{3} {4}{0}{3} {1}".format(name, message, bcolors.OKBLUE, bcolors.ENDC, color))
+
+    def do_exit(self, inp):
+        self.msg("info", "Bye")
+        return True
+
+    def help_exit(self, inp):
+        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
+
+    def do_debug(self, inp):
+        if not self.debug:
+            self.debug = True
+            self.msg("info", "Debugging ON")
+        else:
+            self.debug = False
+            self.msg("info", "Debugging Off")
+        self.engine.debugging(debug=self.debug)
+
+    def help_debug(self, inp):
+        self.msg("info", 'Toggle debugging on or off')
+
+
+    def do_config(self, inp):
+        try:
+            self.msg("info", "configuration_file set to'{}'".format(inp))
+            self.engine = sql_engine(config_file=inp, debug=self.debug)
+        except Exception as ex:
+            self.msg("error", "config", ex)
+
+    def help_config(self):
+        self.msg("info", "Set configuration file.")
+
+
+
+    def default(self, inp):
+        if inp == 'x' or inp == 'q':
+            return self.do_exit("")
+
+        try:
+            if None == self.engine:
+                print ("sql engin gone")
+                return
+            start = time.time()
+            results = self.engine.query(sql_query=inp)
+            end = time.time()
+            output=format_output(results)
+
+            self.msg("info", "executed in {} seconds".format(end - start))
+            inp = None
+        except Exception as ex:
+            self.msg("error", ex)
+
+    def default_exit(self):
+        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
+
+    do_EOF = help_exit
+    help_EOF = help_exit
+
+        
+        
+# ############################################################################
+# Module : cli
+# File   : ddb/cli.py
+# ############################################################################
+
+
+
+
+
+
+
+def cli_main():
+
+
+    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
+                    """, epilog="And that's how you ddb")
+
+    parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
+    parser.add_argument('-c', '--config', help='yaml configuration file')
+    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default= 'term')
+    parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
+    parser.add_argument('query', help='query to return data', nargs= "?")
+
+    args = parser.parse_args()
+    
+    if args.config is not None:
+        config_file = args.config
+    else:
+        home = expanduser("~")
+        config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+    
+    if args.query is not None:
+        e = sql_engine( config_file=config_file, 
+                        debug=args.debug, 
+                        mode="full",
+                        output=args.output,
+                        output_file=args.file)
+        results = e.query(args.query)
+        output=format_output(results,output=args.output,output_file=args.file)
+
+    else:
+        prompt = ddbPrompt()
+        prompt.set_vars(config_file=config_file,
+                        debug=args.debug)
+        prompt.cmdloop_with_keyboard_interrupt()
+
+
+if __name__ == "__main__":
+    cli_main()
