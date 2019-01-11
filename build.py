@@ -13,6 +13,7 @@ def build_standalone():
             {'name':'match','file':'ddb/engine/evaluate/match.pyx'},
             {'name':'functions','file':'ddb/engine/functions/functions.pyx'},
             {'name':'sql_engine','file':'ddb/engine/sql_engine.pyx'},
+            # formatting
             #{'name':'output','file':'ddb/engine/output/output.pyx'},
             # cli stuff
             #{'name':'interactive','file':'ddb/engine/interactive.pyx'},
@@ -49,7 +50,14 @@ def build_standalone():
     with  open('ansible/ddb.py',"w") as target:
         #for item in headers:
         #    target.write(item+"\n")
-        target.write("""import sys
+        target.write("""# ############################################################################
+# 
+# This file is automagically generated
+# dont edit it, because it will be erased next build
+# 
+# ############################################################################
+        
+import sys
 import os
 import json
 import yaml
