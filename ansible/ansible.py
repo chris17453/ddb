@@ -66,7 +66,11 @@ options:
             - the query to run agains the table
             - select, update, insert, delete are all valid queries
             - if an action is taken, exit is true
-            - if an action is not taken exit is false
+            - if a select returns results it it true
+            - if a delete deletes a row it is true
+            - if update changes a row it is true
+            - if insert, inserts a row it is true
+            - if an action is not taken exit is ftrealse
             - such as select from test where id=1
             - if results are present, then exit is true
             - if results are not present, then exit is false
@@ -98,8 +102,7 @@ EXAMPLES = '''
     data_on: 1
     delimiter: ':'
     quoted: '"'
-
-query: 'SELECT id from test WHERE id=1'
+    query: 'SELECT id from test WHERE id=1'
 '''
 
 
@@ -116,9 +119,17 @@ from ansible.module_utils.basic import AnsibleModule
 def run_module():
     # define available arguments/parameters a user can pass to the module
     module_args = dict(
-        name=dict(type='str', required=True),
-        new=dict(type='bool', required=False, default=False)
+        name = dict(type='str', required=True),,
+        src = dict(type='str', required=True, default=False),
+        header_on = dict(type='int', required=False, default=False),
+        data_on = dict(type='int', required=False, default='1'),
+        delimiter = dict(type='char', required=False, default=':'),
+        quoted = dict(type='char', required=False, default='"'),
+        query = dict(type='str', required=True, default='"'),
+                
     )
+
+    ddb.
 
     result = dict(
         changed=False,
