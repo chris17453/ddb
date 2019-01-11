@@ -1,7 +1,8 @@
 import time
 from cmd import Cmd
 from .sql_engine import sql_engine
-from . import version
+from .version import __version__
+from engine.output import format_output
 
 
 class bcolors:
@@ -17,7 +18,7 @@ class bcolors:
 
 class ddbPrompt(Cmd):
     prompt = 'ddb> '
-    intro = "Welcome! Type ? to list commands. Version: {0}".format(version.__version__)
+    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
 
     def cmdloop_with_keyboard_interrupt(self):
         doQuit = False
@@ -103,7 +104,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            self.engine.format_output(results)
+            format_output(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None

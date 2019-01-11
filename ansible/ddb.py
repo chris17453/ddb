@@ -1,376 +1,34 @@
-#!/bin/python
-# functions
-import os
 import sys
-import copy
+import os
 import json
 import yaml
-import datetime
-import lazyxml
+import warnings
 import time
-import tempfile  # from table import table
-import argparse
-import flextable
-from cmd import Cmd
+import datetime
+import tempfile
 from os.path import expanduser
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
-# use the c based parser, or you're going to get massive lag with the python based solution
-
-__version__='1.0.584'
-
-# ################################################################################
-#
-# FUNCTIONS
-#
-# ################################################################################
-
-
-
-def enum(**enums):
-    return type('Enum', (), enums)
-
-
-data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-
-
-def f_show_columns(database, query_object):
-    table = database.get(query_object['meta']['from']['table'])
-    temp_table = database.temp_table(columns=['table', 'column'])
-
-    for c in table.columns:
-        columns = {'data': [table.data.name, c.data.name], 'type': data_type.DATA, 'error': None}
-        temp_table.append_data(columns)
-    return temp_table
-
-
-def f_show_tables(database):
-    temp_table = database.temp_table(columns=['database', 'table'])
-    for t in database.tables:
-        columns = [t.data.database, t .data.name]
-        temp_table.append_data({'data': columns, 'type': data_type.DATA, 'error': None})
-    #print temp_table
-    return temp_table
-
-
-def f_show_errors(database, table):
-    temp_table = database.temp_table(columns=['error'])
-    for e in table.errors:
-        columns = [e]
-        temp_table.append_data({'data': columns, 'type': data_type.DATA, 'error': None})
-    return temp_table
-
-
-def f_database(database):
-    return database.get_curent_database()
-
-def f_upper(arg):
-    if not arg:
-        return None
-    return arg.upper()
-
-def f_lower(arg):
-    if not arg:
-        return None
-    return arg.lower()
-
-def f_datetime(arg=None):
-    return datetime.datetime.now()
-
-def f_time(arg=None):
-    return datetime.datetime.now().strftime('%H:%M:%S')
-
-def f_date(arg=None):
-    return datetime.datetime.now().strftime('%Y-%m-%d')
-
-def f_version(version=None):
-    if None==version:
-        return 'GA.BB.LE'
-    return version
         
-def f_cat(arg1,arg2):
-    if None ==arg1:
-        arg1=''
-    if None ==arg2:
-        arg2=''
-    return '{0}{1}'.format(arg1,arg2)
+        
+# ############################################################################
+# Module : version
+# File   : ddb/engine/version.pyx
+# ############################################################################
 
 
 
-# ################################################################################
-#
-#  Match
-#
-# ################################################################################
+__version__='1.0.602'
+
+        
+        
+# ############################################################################
+# Module : language
+# File   : ddb/engine/parser/language.pyx
+# ############################################################################
 
 
-
-def evaluate_single_match(test, row, table):
-
-    compare1 = None
-    compare2 = None
-    compare1_is_column = False
-    compare2_is_column = False
-
-    comparitor = test['c'].lower()
-    index 
-    like = None
-    data = None
-
-    # if None !=comparitor:
-    #   comparitor=comparitor.lower()
-    for column in table.columns:
-        #print column.data.name
-        if column.data.name == test['e1']:
-            index = table.ordinals[column.data.name]
-            #print "found1", column.data.name
-            compare1 = row[index]  # table.ordinals[].get_data_from_column(column,row)
-            # compare1=table.get_data_from_column(column,row)
-            compare1_is_column = True
-        if column.data.name == test['e2']:
-            index = table.ordinals[column.data.name]
-            #print "found2", column.data.name
-            compare2 = row[index]  # table.get_data_from_column(column,row)
-            # compare2=table.get_data_from_column(column,row)
-            compare2_is_column = True
-        if None != compare1 and None != compare2:
-            break
-
-    if None == compare1:
-        compare1 = test['e1']
-    if None == compare2:
-        compare2 = test['e2']
-    if None == compare1 and None == compare2:
-        raise Exception("Where invalid {}".format(test))
-
-    if comparitor == '=' or comparitor == 'is':
-        if compare1 == compare2:
-            #print compare1,compare2
-            return True
-    if comparitor == 'like':  # paritial match
-
-        if True == compare1_is_column and True == compare2_is_column:
-            raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
-
-        if True == compare1_is_column:
-            like = compare2
-            data = compare1
-        else:
-            like = compare1
-            data = compare2
-
-        if None == like:
-            return False
-        # if len(like)==0:
-        #    return False
-        #print "--"
-        #print compare1,compare2,like
-        if like[0] == '%':
-            like_left = True
-        else:
-            like_left = False
-
-        if like[-1] == '%':
-            like_right = True
-        else:
-            like_right = False
-
-        # compare middle of search
-        if True == like_right and True == like_left:
-            if data.find(like[1:-1]) > -1:
-                return True
-            else:
-                return False
-
-        # if not found at end bail
-        if True == like_left:
-            if data[-(len(like) - 1):] == like[1:]:
-                return True
-            else:
-                return False
-
-        # if not found at start, bail
-        if True == like_right:
-            if data[0:(len(like) - 1)] == like[0:-1]:
-                return True
-            else:
-                return False
-
-        return False
-    if comparitor == '<':
-        if compare1 < compare2:
-            return True
-    if comparitor == '>':
-        if compare1 > compare2:
-            return True
-    if comparitor == '>=':
-        if compare1 >= compare2:
-            return True
-    if comparitor == '<=':
-        if compare1 <= compare2:
-            return True
-    if comparitor == '!=' or comparitor == '<>' or comparitor == 'not':
-        if compare1 != compare2:
-            return True
-
-    return False
-
-
-def evaluate_match(where, row, table):
-    #print where
-    if None == row:
-        return False
-
-    if 0 == len(where):
-        #print "0 len"
-        return True
-    success = None
-    skip_section = False
-    operation = ""
-    for test in where:
-        #print test
-        # if a evaluation chain failed, continue until out of that section
-        if 'and' in test and skip_section:
-            continue
-        else:
-            skip_section = False
-
-        operation = None
-        if 'where' in test:
-            operation = 'where'
-
-        if 'or' in test:
-            operation = 'or'
-            if success:
-                return True
-
-        if 'and' in test:
-
-            operation = 'and'
-            if not success:
-                skip_section = True
-                continue
-
-        test_operation = test[operation]
-        success = evaluate_single_match(test_operation, row, table)
-
-    # never matched anytthing...
-    if success is None:
-        return False
-    return success
-
-
-
-# ################################################################################
-#
-# OUTPUT
-#
-# ################################################################################
-
-
-
-def format_term(results,output_file):
-    """ouput results data in the term format"""
-    config = flextable.table_config()
-    config.columns = results.get_columns_display()
-    flextable.table(data=results.results, args=config)
-
-def format_bash(temp_table,output_file):
-    """ouput results data in the bash format"""
-    data=temp_table.get_results()
-    
-    name="ddb"
-    print ("# bash variable assignment for ddb output")
-    print ("declare {0}_data -A".format(name))
-    print ("declare {0}_info -A".format(name))
-    print ("declare {0}_columns -A".format(name))
-    print ("")
-
-    column_index=0
-    for column in data['columns']:
-        print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
-        column_index+=1
-
-
-    row_index=0
-    for row in data['results']:
-        column_index=0
-        if not row['error']:
-            row_error=''
-        else:
-            row_error=row['error']
-        print("{0}_info[{1},error]='{2}'".format(name,row_index,row_error))
-        if not row['type']:
-            row_type=''
-        else:
-            row_type=row['type']
-        print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
-        if not row['raw']:
-            row_raw=''
-        else:
-            row_raw=row['raw']
-        print("{0}_info[{1},raw]='{2}'".format(name,row_index,row_raw))
-        for column in row['data']:
-            print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
-            column_index+=1
-        row_index+=1
-    print ("# end ddb output ")
-            
-    
-
-def format_raw(results,output_file):
-    """ouput results data in the yaml format"""
-    if not output_file:
-        for row in results.results:
-            print(row['raw'].rstrip())
-    else:
-        with open(output_file, "w") as write_file:
-            for row in results.results:
-                write_file.write(row['raw'])
-
-def format_yaml(temp_table,output_file):
-    """ouput results data in the yaml format"""
-    results=temp_table.get_results()
-    dump=yaml.safe_dump(results, default_flow_style=False)
-    if not output_file:
-        print dump
-    else:
-        with open(output_file, "w") as write_file:
-            write_file.write(dump)
-
-def format_json(temp_table,output_file):
-    """ouput results data in the json format"""
-    results=temp_table.get_results()
-    if not output_file:
-        dump=json.dumps(results)
-        print dump
-    else:
-        with open(output_file, "w") as write_file:
-            json.dump(results, write_file)
-    
-def format_xml(temp_table,output_file):
-    """ouput results data in the xml format"""
-    results=temp_table.get_results()
-    dump=lazyxml.dumps({'data':results})
-    if not output_file:
-        print dump
-    else:
-        with open(output_file, "w") as write_file:
-            write_file.write(dump)
-
-
-
-
-# ################################################################################
-#
-# Language
-#
-# ################################################################################
 
 
 sql_syntax = {
@@ -714,571 +372,23 @@ sql_syntax = {
     ]#query matrix array
 }#sql_syntax
 
-
-# ################################################################################
-#
-# TOKENIZER
-#
-# ################################################################################
-
-
-
-debug_on = False
-
-
-def info(msg, arg1=None, arg2=None, arg3=None):
-    if True == debug_on:
-        if arg3 is None and arg2 is None:
-            print("{} {}".format(msg, arg1))
-            return
-        if arg3 is None:
-            print("{} {} {}".format(msg, arg1, arg2))
-            return
-        if arg2 is None:
-            print("{} {}".format(msg, arg1))
-            return
-
-        print("[{}]".format(msg))
-
-
-# yes, this could be a giant regex, but no.
-# TODO: memory optimization.. maybe not sure how wastefull this is
-
-def tokenize(text, discard_delimiters=False, discard_whitespace=True, debug=False):
-    global debug_on
-    debug_on = debug
-    tokens = []
-
-    # clean leading and trailiong stuff
-    text = text.strip()
-    # visual formatting characters
-    whitespace = {' ', '\t', '\n', '\r'}
-    # these are solid non depth related blocks
-    blocks = [
-        ['\'', '\'', 'quote'],   # string block
-        ['"', '"', 'quote'],   # string block
-        ['[', ']', 'db'],   # mssql column
-        ['`', '`', 'db'],   # mysql column
-    ]
-
-    keywords = ['ACCESSIBLE',
-                'ADD',
-                'ALL',
-                'ALTER'
-                'ANALYZE',
-                'AND',
-                'AS',
-                'ASC',
-                'ASENSITIVE',
-                'BEFORE',
-                'BETWEEN',
-                'BIGINT',
-                'BINARY',
-                'BLOB',
-                'BOTH',
-                'BY',
-                'CALL',
-                'CASCADE',
-                'CASE',
-                'CHANGE',
-                'CHAR',
-                'CHARACTER',
-                'CHECK',
-                'COLLATE',
-                'COLUMN',
-                'CONDITION',
-                'CONSTRAINT',
-                'CONTINUE',
-                'CONVERT',
-                'CREATE',
-                'CROSS',
-                'CURRENT_DATE',
-                'CURRENT_TIME',
-                'CURRENT_TIMESTAMP',
-                'CURRENT_USER',
-                'CURSOR',
-                'DATABASE',
-                'DATABASES',
-                'DAY_HOUR',
-                'DAY_MICROSECOND',
-                'DAY_MINUTE',
-                'DAY_SECOND',
-                'DEC',
-                'DECIMAL',
-                'DECLARE',
-                'DEFAULT',
-                'DELAYED',
-                'DELETE',
-                'DESC',
-                'DESCRIBE',
-                'DETERMINISTIC',
-                'DISTINCT',
-                'DISTINCTROW',
-                'DIV',
-                'DOUBLE',
-                'DROP',
-                'DUAL',
-                'EACH',
-                'ELSE',
-                'ELSEIF',
-                'ENCLOSED',
-                'ESCAPED',
-                'EXCEPT',
-                'EXISTS',
-                'EXIT',
-                'EXPLAIN',
-                'FALSE',
-                'FETCH',
-                'FLOAT',
-                'FLOAT4',
-                'FLOAT8',
-                'FOR',
-                'FORCE',
-                'FOREIGN',
-                'FROM',
-                'FULLTEXT',
-                'GENERAL',
-                'GRANT',
-                'GROUP',
-                'HAVING',
-                'HIGH_PRIORITY',
-                'HOUR_MICROSECOND',
-                'HOUR_MINUTE',
-                'HOUR_SECOND',
-                'IF',
-                'IGNORE',
-                'IGNORE_SERVER_IDS',
-                'IN',
-                'INDEX',
-                'INFILE',
-                'INNER',
-                'INOUT',
-                'INSENSITIVE',
-                'INSERT',
-                'INT',
-                'INT1',
-                'INT2',
-                'INT3',
-                'INT4',
-                'INT8',
-                'INTEGER',
-                'INTERSECT',
-                'INTERVAL',
-                'INTO',
-                'IS',
-                'ITERATE',
-                'JOIN',
-                'KEY',
-                'KEYS',
-                'KILL',
-                'LEADING',
-                'LEAVE',
-                'LEFT',
-                'LIKE',
-                'LIMIT',
-                'LINEAR',
-                'LINES',
-                'LOAD',
-                'LOCALTIME',
-                'LOCALTIMESTAMP',
-                'LOCK',
-                'LONG',
-                'LONGBLOB',
-                'LONGTEXT',
-                'LOOP',
-                'LOW_PRIORITY',
-                'MASTER_HEARTBEAT_PERIOD',
-                'MASTER_SSL_VERIFY_SERVER_CERT',
-                'MATCH',
-                'MAXVALUE',
-                'MEDIUMBLOB',
-                'MEDIUMINT',
-                'MEDIUMTEXT',
-                'MIDDLEINT',
-                'MINUTE_MICROSECOND',
-                'MINUTE_SECOND',
-                'MOD',
-                'MODIFIES',
-                'NATURAL',
-                'NOT',
-                'NO_WRITE_TO_BINLOG',
-                'NULL',
-                'NUMERIC',
-                'ON',
-                'OPTIMIZE',
-                'OPTION',
-                'OPTIONALLY',
-                'OR',
-                'ORDER',
-                'OUT',
-                'OUTER',
-                'OUTFILE',
-                'OVER',
-                'PARTITION',
-                'PRECISION',
-                'PRIMARY',
-                'PROCEDURE',
-                'PURGE',
-                'RANGE',
-                'READ',
-                'READS',
-                'READ_WRITE',
-                'REAL',
-                'RECURSIVE',
-                'REFERENCES',
-                'REGEXP',
-                'RELEASE',
-                'RENAME',
-                'REPEAT',
-                'REPLACE',
-                'REQUIRE',
-                'RESIGNAL',
-                'RESTRICT',
-                'RETURN',
-                'RETURNING',
-                'REVOKE',
-                'RIGHT',
-                'RLIKE',
-                'ROWS',
-                'SCHEMA',
-                'SCHEMAS',
-                'SECOND_MICROSECOND',
-                'SELECT',
-                'SENSITIVE',
-                'SEPARATOR',
-                'SET',
-                'SHOW',
-                'SIGNAL',
-                'SLOW',
-                'SMALLINT',
-                'SPATIAL',
-                'SPECIFIC',
-                'SQL',
-                'SQLEXCEPTION',
-                'SQLSTATE',
-                'SQLWARNING',
-                'SQL_BIG_RESULT',
-                'SQL_CALC_FOUND_ROWS',
-                'SQL_SMALL_RESULT',
-                'SSL',
-                'STARTING',
-                'STRAIGHT_JOIN',
-                'TABLE',
-                'TERMINATED',
-                'THEN',
-                'TINYBLOB',
-                'TINYINT',
-                'TINYTEXT',
-                'TO',
-                'TRAILING',
-                'TRIGGER',
-                'TRUE',
-                'UNDO',
-                'UNION',
-                'UNIQUE',
-                'UNLOCK',
-                'UNSIGNED',
-                'UPDATE',
-                'USAGE',
-                'USE',
-                'USING',
-                'UTC_DATE',
-                'UTC_TIME',
-                'UTC_TIMESTAMP',
-                'VALUES',
-                'VARBINARY',
-                'VARCHAR',
-                'VARCHARACTER',
-                'VARYING',
-                'WHEN',
-                'WHERE',
-                'WHILE',
-                'WINDOW',
-                'WITH',
-                'WRITE',
-                'XOR',
-                'YEAR_MONTH',
-                'ZEROFILL'
-                ]
-
-    # blocks that must match depth
-    # nested_block = [
-    #                ['(',')']
-    #              ]
-
-    # operators # comparitors
-    operators = [
-        '&&',  # and short circuit
-        '||',  # or short circuit
-        '!=',  # Not Equal
-        '<>',  # Not Equal
-        '<=',  # Less than or equal
-        '>=',  # Greater thanbor equal
-
-        '>',  # Greater than
-        '<',  # Less than
-
-        '=',  # Equality
-        '&',  # and
-        '!',  # not
-        '|',  # or
-
-        'not',  # not
-        'is',  # equality
-        'like',  # partial match
-
-        '+',  # addition
-        '-',  # subtraction
-        '/',  # divide
-        '*',  # multiple
-        '(',  # left paren   (grouping)
-        ')',  # right paren  (grouping)
-    ]
-
-    # standard delimiters
-    delimiters = [',', '.', ';']
-
-    for token in whitespace:
-        delimiters.append(token)
-
-    for token in operators:
-        delimiters.append(token)
-
-    # add block identifiers to delimiters
-    for b in blocks:
-        if b[0] not in delimiters:
-            delimiters.append(b[0])
-        if b[1] not in delimiters:
-            delimiters.append(b[1])
-
-    delimiters_sorted = sort_array_by_length(delimiters)
-
-    # padding prevents fencpost error
-    #text+=" "
-    text_length = len(text)
-    # c is the incremental pointer to the string
-    word_start = 0
-    tokens = []
-    c = 0
-    #print delimiters_sorted
-    delimter_len = 1
-    in_block = None
-    block = None
-
-    while c < text_length:
-
-        info("-", c)
-        just_crossed_block = False
-        for b in blocks:
-            delimter_len = len(b[0])
-            # info(b[0],b[1],c,delimter_len)
-            fragment = text[c:c + delimter_len]
-            # only check for block start if not in one
-            if None == in_block:
-                if True == compare_text_fragment(fragment, b[0]):
-                    just_crossed_block = True
-                    info("IN BLOCK", c)
-                    in_block = b
-                    block = b
-                    c += delimter_len
-                    info("IN BLOCK", c)
-                    break
-            # check for block end
-            if True == compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
-                just_crossed_block = True
-                info("NOT IN BLOCK", c)
-                in_block = None
-                c += delimter_len
-                break
-        # skip stuff in block
-        if None != in_block:
-            info("in block skip")
-            if not just_crossed_block:
-                c += 1
-            continue
-        #  equal.. greater than. we want the things on the last pass...
-        info("position1", c, text_length)
-        if c > text_length:
-            info("Greater than length of text. exiting")
-
-            break
-        for d in delimiters_sorted:
-            delimter_len = len(d)
-            fragment = text[c:c + delimter_len]
-            if c >= text_length - 1:
-                info("Last Cycle")
-            if True == compare_text_fragment(fragment, d) or c >= text_length - 1:
-                info("Delemiter found", c, fragment)
-                if c - word_start > 0:
-                    info("Data word found", c - word_start)
-                    word_end = c
-                    if word_end >= text_length:
-                        info("word ends on last character", word_end, text_length)
-                        word_end = text_length
-                    not_delimiter = text[word_start:word_end]
-                    token_type = 'data'
-                    if not_delimiter.upper() in keywords:
-                        token_type = 'keyword'
-                    if None != block:
-                        block_left = block[0]
-                        block_right = block[1]
-                        block_type = block[2]
-                        block = None
-                        not_delimiter = not_delimiter[len(block_left):-len(block_right)]
-                    else:
-                        block_left = None
-                        block_right = None
-                        block_type = None
-                    info("POSITION", c, not_delimiter)
-                    # if not not_delimiter:
-                    #    break
-
-                    tokens.append({'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type})
-
-                info("After Data Append, Position", c, 'of', text_length)
-                # if  c>=text_length-1:
-                #   info("Break, after end of string",c)
-                #   break
-
-                word_start = c + delimter_len
-
-                if not fragment or fragment == '':
-                    break
-                if True == discard_whitespace and fragment in whitespace:
-                    break
-
-                # if True == discard_delimiters:
-                #     continue
-
-                delimiter_type = "delimiter"
-                if fragment in operators:
-                    delimiter_type = 'operator'
-                else:
-                    if fragment in whitespace:
-                        delimiter_type = 'whitespace'
-
-                info("delemiter c/fragment- ", c, fragment)
-                tokens.append({'type': delimiter_type, 'data': fragment.lower()})
-
-                break
-        c += delimter_len
-
-    if True == debug_on:
-        info("-[Tokens]----------------")
-        for t in tokens:
-            info(t)
-        info("-[End-Tokens]------------")
-    return tokens
-
-
-def compare_text_fragment(x, y):
-    if None == x or None == y:
-        return False
-    if x == y:
-        return True
-    return False
-
-
-def sort_array_by_length(data):
-    max_len = -1
-    for d in data:
-        del_len = len(d)
-        if del_len > max_len:
-            max_len = del_len
-
-    # make a new array, put them in from longest to shortest, remove dupes
-    data_sorted = []
-    for i in reversed(range(1, max_len + 1)):
-        for d in data:
-            if d not in data_sorted:
-                if len(d) == i:
-                    data_sorted.append(d)
-    return data
+        
+        
+# ############################################################################
+# Module : parser
+# File   : ddb/engine/parser/sql_parser.pyx
+# ############################################################################
 
 
 
-# ################################################################################
-#
-# parser
-#
-# ################################################################################
-
-
-
-#from .language import sql_syntax
-#from ..tokenizer.sql_tokenize import info, tokenize
 
 debug_on = False
 
 
 class sql_parser:
-    ##
-    #     -- [] denotes array, comma seperated
-    #     -- () denotes optional element
-    #     -- {} denotes a variable element, such as column name
-    #     -- |  denotes a choice
-    #     -- EXPRESSION is a column from the select, a function, or a value
-    #     -- CONDITION  is an evaluation condition   (=,equals,is,!=,<>,not,>,<,>=,<=)
-    #     -- elements must appear in order of index
-
-    #  QUERIES
-    #   1 SHOW
-    #   2    TABLES
-
-    #   1 SHOW
-    #   2    COLUMNS
-    #   3 FROM
-    #   4   {TABLE}
-
-    #  1  SELECT
-    #  2     [{COLUMN}
-    #  3      (AS {DISPLAY_NAME})]
-    #  4  FROM
-    #  5     {TABLE}
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-    #  10   (ORDER BY
-    #  11        [{COLUMN} DIRECTION])
-    #  12  (LIMIT ({START_INDEX},{LENGTH}) | ({LENGTH})
-    #        )
-    #
-    #  1  DELETE
-    #  4  FROM
-    #  5     {TABLE}
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-
-    #  1  UPDATE
-    #  5     {TABLE}
-    #     SET
-    #        [{COLUMN}={EXPRESSION}]
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-
-    # -- BELOW all () are litteral and must appear
-    # -- Column count must match expression count
-    #  1  INSERT
-    #     INTO
-    #  5      {TABLE}
-    #         ([{COLUMN}])
-    #     VALUES
-    #         ({EXPRESSION}])
+   
 
     def __init__(self, query, debug=False):
-        # select * from table where x=y and y=2 order by x,y limit 10,2
-        # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
-        # select top 10 * from table where x=y and y=2 order by x,y
-        # insert into table () values ()
-        # delete from table where x=y and y=2
 
         global debug_on
         self.debug = debug
@@ -1289,7 +399,6 @@ class sql_parser:
         for q in querys:
             info("-----------------------------------")
             tokens = tokenize(q, discard_whitespace=True, debug=debug)
-            # skip 0 length commands such as single ';'
             token_length = 0
             for token in tokens:
                 if token['data'] != '':
@@ -1311,12 +420,9 @@ class sql_parser:
     def parse(self, tokens):
 
         sql_object = []
-        # SOME TODO!
-        # loop through types
         debug = True
         query_object = {}
         for query in sql_syntax['query_matrix']:
-            # loop through switches
             token_index = 0
             info("-----", query['query'])
 
@@ -1367,8 +473,6 @@ class sql_parser:
                     info(keyword_compare)
                     if True == self.single_array_match(keyword_compare, haystack):
                         info("match", keyword_compare, haystack)
-                        # we use name because it may be a list. and its simpler to hash by name
-                        # as long as the compare is good, we dont care
                         curent_object['mode'] = object_id
                         if switch_index == 1:
                             query_mode = query['query']
@@ -1391,13 +495,10 @@ class sql_parser:
 
                 if None == switch['data'] or False == switch['data']:
                     info("No data to match")
-                    # only append object after argument collection is done
-                    # query_object.append(curent_object)
                     if not dispose:
                         info("----------Adding", curent_object['mode'])
                         query_object[curent_object['mode']] = None
 
-                # This is where data colection happens
                 else:
                     in_argument = True
                     argument_index = 0
@@ -1405,9 +506,6 @@ class sql_parser:
 
                         info("---in argument")
 
-                        # DEPENDENCY
-                        # DEPENDENCY
-                        # DEPENDENCY
 
                         if 'depends_on' in switch:
                             depends_on = switch['depends_on']
@@ -1415,14 +513,12 @@ class sql_parser:
                             info("--- Depends on nothing")
                             depends_on = None
 
-                        # if there is a dependency, enforce
                         if None != depends_on:
 
                             depends_oncompare = self.get_sub_array(depends_on)
 
                             dependency_found = False
                             for q_o in query_object:
-                                #info( depends_on,q_o)
                                 haystack = self.get_sub_array(q_o)
                                 if True == self.single_array_match(depends_oncompare, haystack):
                                     dependency_found = True
@@ -1432,7 +528,6 @@ class sql_parser:
                             else:
                                 info("Dependency found", depends_on)
 
-                        # info("data",switch['data'])
                         if 'arguments' in switch:
                             arguments = switch['arguments']
                         else:
@@ -1446,7 +541,6 @@ class sql_parser:
                             signature_compare = self.get_sub_array(sig, 'sig')
                             haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                             if True == self.single_array_match(signature_compare, haystack):
-                                #    info("match", signature_compare,haystack)
                                 if len(signature_compare) > match_len:
                                     match_len = len(signature_compare)
                                     match = signature_compare
@@ -1460,11 +554,9 @@ class sql_parser:
                             for word in match:
                                 variable_data=tokens[token_index + w_index]['data']
                                 if word[0:1] == '{' and word[-1] == '}':
-                                    # if we have definitions
                                     variable=word[1:-1]
                                     variable_type='string'
                                     if 'specs' in switch:
-                                        # if this is in or definitions
                                         if variable in switch['specs']:
                                             if 'type' in switch['specs'][variable]:
                                                 variable_type=switch['specs'][variable]['type']
@@ -1489,7 +581,6 @@ class sql_parser:
                                     elif variable_type=='string':
                                         argument[variable] =variable_data
                                 else:
-                                    # normal keyword
                                     argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
@@ -1498,7 +589,6 @@ class sql_parser:
                             if arguments == 1:
                                 curent_object['arguments'] = argument
                             else:
-                                # add the arguments to curent object
                                 curent_object['arguments'].append(argument)
 
                             info("match", match)
@@ -1547,7 +637,6 @@ class sql_parser:
                                         query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
                                     else:
                                         if None == parent:
-                                            #print curent_object
                                             query_object[curent_object['mode']] = curent_object['arguments']
                                             info("NO APPEND")
 
@@ -1555,14 +644,11 @@ class sql_parser:
                                             info("APPEND")
                                             query_object[parent].append({curent_object['mode']: curent_object['arguments']})
 
-                                # look ahead to see if its a list ","
                                 if len(tokens) > token_index:
                                     info("--looking ahead")
-                                    # if its not exit
                                     info("----", tokens[token_index]['data'])
                                     if tokens[token_index]['data'] != ',':
                                         info("---not list")
-                                        # only append object after argument collection is done
                                         info("----------Adding", curent_object['mode'])
                                         if True == store_array:
                                             if curent_object['mode'] not in query_object:
@@ -1571,7 +657,6 @@ class sql_parser:
                                             query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
                                         else:
                                             if None == parent:
-                                                #print curent_object
                                                 query_object[curent_object['mode']] = curent_object['arguments']
                                                 info("NO APPEND")
 
@@ -1594,12 +679,9 @@ class sql_parser:
                                         info("------more list")
                                         token_index += 1
 
-            # This is where we exit if we reached the end of processing with a full length
-            #print token_index,len(tokens)
             info(switch_index, token_index, len(tokens))
 
             info(curent_object)
-            # so we have run out of text to match and everything is good so far
             if token_index == len(tokens):
                 info("############################think its a match")
 
@@ -1608,7 +690,6 @@ class sql_parser:
                     bad = True
                     break
 
-                # lets make sure the rest are optional
                 if len(query['switch']) >= switch_index:
                     info("still checking")
                     bad = False
@@ -1626,7 +707,6 @@ class sql_parser:
                         break
 
                 info("Query object", query_object)
-                # check to make sure functions are valid
                 if query_mode == 'select':
                     info("Validating Select Functions")
                     if 'select' in query_object:
@@ -1642,7 +722,6 @@ class sql_parser:
                                         if f['arguments'] is not None:
                                             for arg in f['arguments']:
                                                 if arg['required']:
-                                                    # if this argument key is not in the node dict
                                                     if 'argument{}'.format(argindex) not in node:
                                                         info("Missing arguments")
                                                         return False
@@ -1668,8 +747,6 @@ class sql_parser:
                 return sql_object
         return False
 
-    # expand columns
-    # TODO null trapping
     def expand_columns(self, query_object, columns):
         if query_object['mode'] == "select":
             expanded_select = []
@@ -1684,9 +761,7 @@ class sql_parser:
                     expanded_select.append(item)
 
             query_object['meta']['select'] = expanded_select
-        # ?? needed
 
-    # support funcitons
 
     def get_sub_array(self, array, key=None):
         if None == key:
@@ -1699,7 +774,6 @@ class sql_parser:
         else:
             return [array[key]]
 
-    # for tokens ['data']
 
     def get_sub_array_sub_key(self, array, key):
         temp_array = []
@@ -1712,41 +786,245 @@ class sql_parser:
     def single_array_match(self, needles, haystacks):
         """ Match a single or array of strings with with another string or array of strings"""
 
-        # make needels an array, with or without a sub key
         if isinstance(needles, str):
             temp_needles = [needles]
         else:
             temp_needles = needles
 
-        # make haystacks an array
         if isinstance(haystacks, str):
             temp_haystacks = [haystacks]
         else:
             temp_haystacks = haystacks
 
-        # now we have 2 plain array/lists to compare
 
         index = 0
         for needle in temp_needles:
-            # ran out of haystack to test. not a match
             if index >= len(temp_haystacks):
                 return False
             haystack = temp_haystacks[index]
-            # not a match
             if needle[0:1] != '{' and needle[-1] != '}':
                 if needle.lower() != haystack.lower():
                     return False
             index += 1
-        # if we got here it must match
         return True
 
+        
+        
+# ############################################################################
+# Module : tokenize
+# File   : ddb/engine/tokenizer/sql_tokenize.pyx
+# ############################################################################
 
 
-# ################################################################################
-#
-# column
-#
-# ################################################################################
+
+debug_on = False
+
+
+def info(msg, arg1=None, arg2=None, arg3=None):
+    if True == debug_on:
+        if arg3 is None and arg2 is None:
+            print("{} {}".format(msg, arg1))
+            return
+        if arg3 is None:
+            print("{} {} {}".format(msg, arg1, arg2))
+            return
+        if arg2 is None:
+            print("{} {}".format(msg, arg1))
+            return
+
+        print("[{}]".format(msg))
+
+
+
+def tokenize(text, discard_delimiters=False, discard_whitespace=True, debug=False):
+    global debug_on
+    debug_on = debug
+    tokens = []
+
+    text = text.strip()
+    whitespace = {' ', '\t', '\n', '\r'}
+    blocks = [
+        ['\'', '\'', 'quote'],   # string block
+        ['"', '"', 'quote'],   # string block
+        ['[', ']', 'db'],   # mssql column
+        ['`', '`', 'db'],   # mysql column
+    ]
+
+
+    operators = [
+        '&&',  # and short circuit
+        '||',  # or short circuit
+        '!=',  # Not Equal
+        '<>',  # Not Equal
+        '<=',  # Less than or equal
+        '>=',  # Greater thanbor equal
+
+        '>',  # Greater than
+        '<',  # Less than
+
+        '=',  # Equality
+        '&',  # and
+        '!',  # not
+        '|',  # or
+
+        'not',  # not
+        'is',  # equality
+        'like',  # partial match
+
+        '+',  # addition
+        '-',  # subtraction
+        '/',  # divide
+        '*',  # multiple
+        '(',  # left paren   (grouping)
+        ')',  # right paren  (grouping)
+    ]
+
+    delimiters = [',', '.', ';']
+
+    for token in whitespace:
+        delimiters.append(token)
+
+    for token in operators:
+        delimiters.append(token)
+
+    for b in blocks:
+        if b[0] not in delimiters:
+            delimiters.append(b[0])
+        if b[1] not in delimiters:
+            delimiters.append(b[1])
+
+    delimiters_sorted = sort_array_by_length(delimiters)
+
+    text_length = len(text)
+    word_start = 0
+    tokens = []
+    c = 0
+    delimter_len = 1
+    in_block = None
+    block = None
+
+    while c < text_length:
+
+        info("-", c)
+        just_crossed_block = False
+        for b in blocks:
+            delimter_len = len(b[0])
+            fragment = text[c:c + delimter_len]
+            if None == in_block:
+                if True == compare_text_fragment(fragment, b[0]):
+                    just_crossed_block = True
+                    info("IN BLOCK", c)
+                    in_block = b
+                    block = b
+                    c += delimter_len
+                    info("IN BLOCK", c)
+                    break
+            if True == compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
+                just_crossed_block = True
+                info("NOT IN BLOCK", c)
+                in_block = None
+                c += delimter_len
+                break
+        if None != in_block:
+            info("in block skip")
+            if not just_crossed_block:
+                c += 1
+            continue
+        info("position1", c, text_length)
+        if c > text_length:
+            info("Greater than length of text. exiting")
+
+            break
+        for d in delimiters_sorted:
+            delimter_len = len(d)
+            fragment = text[c:c + delimter_len]
+            if c >= text_length - 1:
+                info("Last Cycle")
+            if True == compare_text_fragment(fragment, d) or c >= text_length - 1:
+                info("Delemiter found", c, fragment)
+                if c - word_start > 0:
+                    info("Data word found", c - word_start)
+                    word_end = c
+                    if word_end >= text_length:
+                        info("word ends on last character", word_end, text_length)
+                        word_end = text_length
+                    not_delimiter = text[word_start:word_end]
+                    token_type = 'data'
+                    if None != block:
+                        block_left = block[0]
+                        block_right = block[1]
+                        block_type = block[2]
+                        block = None
+                        not_delimiter = not_delimiter[len(block_left):-len(block_right)]
+                    else:
+                        block_left = None
+                        block_right = None
+                        block_type = None
+                    info("POSITION", c, not_delimiter)
+
+                    tokens.append({'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type})
+
+                info("After Data Append, Position", c, 'of', text_length)
+
+                word_start = c + delimter_len
+
+                if not fragment or fragment == '':
+                    break
+                if True == discard_whitespace and fragment in whitespace:
+                    break
+
+
+                delimiter_type = "delimiter"
+                if fragment in operators:
+                    delimiter_type = 'operator'
+                else:
+                    if fragment in whitespace:
+                        delimiter_type = 'whitespace'
+
+                info("delemiter c/fragment- ", c, fragment)
+                tokens.append({'type': delimiter_type, 'data': fragment.lower()})
+
+                break
+        c += delimter_len
+
+    if True == debug_on:
+        info("-[Tokens]----------------")
+        for t in tokens:
+            info(t)
+        info("-[End-Tokens]------------")
+    return tokens
+
+
+def compare_text_fragment(x, y):
+    if None == x or None == y:
+        return False
+    if x == y:
+        return True
+    return False
+
+
+def sort_array_by_length(data):
+    max_len = -1
+    for d in data:
+        del_len = len(d)
+        if del_len > max_len:
+            max_len = del_len
+
+    data_sorted = []
+    for i in reversed(range(1, max_len + 1)):
+        for d in data:
+            if d not in data_sorted:
+                if len(d) == i:
+                    data_sorted.append(d)
+    return data
+
+        
+        
+# ############################################################################
+# Module : column
+# File   : ddb/engine/structure/column.pyx
+# ############################################################################
+
 
 
 
@@ -1849,7 +1127,6 @@ class column_v1:
         c2.sort   .default = self.sort_default
         c2.sort   .default_asc = self.sort_default_asc
         return c2
-        # not sure what i was doing with options. likely not used.
 
 
 class column_v2:
@@ -1983,13 +1260,19 @@ class column_sort:
             if 'default_asc' in yaml:
                 self.default_asc = yaml['default_asc']
 
+        
+        
+# ############################################################################
+# Module : table
+# File   : ddb/engine/structure/table.pyx
+# ############################################################################
 
 
-# ################################################################################
-#
-# table
-#
-# ################################################################################
+
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
 
 
 
@@ -2021,6 +1304,7 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
+        self.active=True
         
         self.update(data_file=data_file, 
                     columns=columns, 
@@ -2036,7 +1320,6 @@ class table:
                     yaml_data = yaml.load(stream, Loader=Loader)
                     if None == yaml_data:
                         raise Exception("Table configuration empty")
-                    #print yaml_data
                     for key in yaml_data:
                         if 'version' == key:
                             self.version = yaml_data[key]
@@ -2053,21 +1336,13 @@ class table:
                         if 'data' == key:
                             self.data = table_data(yaml=yaml_data[key])
 
-                        # one offs
                         if 'columns' == key:
                             for c in yaml_data['columns']:
-                                # if self.version == 1:
-                                #    cv1=column_v1( c )
-                                #    cv2=cv1.to_v2()
-                                #    self.columns.append( cv2 )
-                                # if self.version == 2:
                                 self.columns.append(column_v2(c))
 
                         if 'active' == key:
                             self.active = yaml_data[key]
 
-                        # attr=getattr(self,key)
-                        # setattr(self,key,yaml_data[key])
 
         self.update_ordinals()
         yaml.emitter.Emitter.process_tag = self.noop
@@ -2075,7 +1350,7 @@ class table:
             yaml.dump(self, sys.stdout, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True)
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
-                raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
+                self.active=False
 
     def update(self,
                     columns=None, 
@@ -2188,8 +1463,6 @@ class table:
             if c.display.visible:
                 temp_columns.append({'data': c.data.ordinal, 'display': c.display.ordinal})
 
-        #L = [(k,v) for (k,v) in temp_columns]
-        # temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
         return temp_columns
 
     def does_data_ordinal_exist(self, ordinal):
@@ -2232,52 +1505,20 @@ class table:
             return
 
         column_count = len(self.columns)
-        #has_ordinal=[i for i in range(column_count)]
 
         self.ordinals = {}
         for k, v in enumerate(self.columns):
             if None == v.data.ordinal or -1 == v.data.ordinal:
 
-                #print (self.columns[k].data.ordinal)
                 self.columns[k].data.ordinal = self.get_lowest_available_ordinal()
                 self.ordinals[v.data.name] = self.columns[k].data.ordinal
             else:
                 self.ordinals[v.data.name] = v.data.ordinal
 
-        # create lookup hash
-        # for i in range (0,column_count):
-        #    has_ordinal[i]=False
-#
-        # index=0
-        # for c in self.columns:
-        #    c.data.ordinal=index
-        #    display_ordinal=c.display.ordinal
-        #    display_visible=c.display.visible
-        #    index+=1
-        #
-        #    if True == display_visible and  -1 < display_ordinal and display_ordinal < column_count:
-        #        has_ordinal[display_ordinal]=True
-        #    else:
-        #        c.display.ordinal=-1;
-#
-        # for oi in range(0,columns_count):
-        # for c in self.columns:
-        #    column=c
-        #    if True == column.display.visible and column.display.ordinal==-1:
-        #        for i in range (0,column_count):
-        #            if False == has_ordinal[i]:
-        #                print(" NEEDS {0,2} - {1} ",format(i,c.data.name))
-        #                c.dispaly.ordinal=i
-        #                has_ordinal[i]=True
-        #                break
-        #    else:
-        #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
 
     def save(self):
-        # if no config dir given, save in users home dir
         if None == self.config_directory:
             home = os.path.expanduser("~")
-            # make app dir
             if not os.path.exists(os.path.join(home, '.ddb')):
                 os.makedirs(os.path.join(home, '.ddb'))
             home = os.path.join(home, '.ddb')
@@ -2392,7 +1633,6 @@ class table_delimiters:
         self.error = "#"
         self.block_quote = None
         self.comment = ["#", ";", "/"]
-        # TODO hard coding this for a moment... must think
         self.new_line = "\n"
         if None != yaml:
             if 'field' in yaml:
@@ -2411,15 +1651,14 @@ class table_delimiters:
                 else:
                     self.block_quote = None
 
+        
+        
+# ############################################################################
+# Module : database
+# File   : ddb/engine/structure/database.pyx
+# ############################################################################
 
 
-
-
-# ################################################################################
-#
-# DATABASE
-#
-# ################################################################################
 
 
 
@@ -2433,13 +1672,10 @@ class database:
         self.config_file = None
         if None != config_file and config_file != False:
             self.config_file = config_file
-            tables = self.get_tables()
-            for table_file in tables:
-                self.tables.append(table(table_file, show_config))
+            self.reload_config()
             return
 
     def set_database(self, database_name):
-        # TODO validate database name
         self.curent_database = database_name
 
     def get(self, table_name, database_name=None):
@@ -2450,20 +1686,11 @@ class database:
             if c.data.name == table_name and database_name == c.data.database:
                 return c
         return None
-        #raise Exception("Error: configs.get -> can't find configuration for table:{}".format(table_name))
 
     def count(self):
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-    def get_clone(self, table_name):
-        """Clone a Table structure in the database."""
-        table = self.get(table_name)
-        if None == table:
-            raise Exception("Table does not exist.{}".format(table_name))
-        temp_table = copy.deepcopy(table)
-        temp_table.columns = []
-        return temp_table
 
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
@@ -2477,7 +1704,6 @@ class database:
                 dirname = os.path.dirname(config_file)
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
-                #print ("Successfully created the directory %s " % path)
             yaml_data = {}
             f = open(config_file, "w")
             yaml.dump(yaml_data, f)
@@ -2500,7 +1726,6 @@ class database:
         if not os.path.exists(self.config_file):
             self.create_config(self.config_file)
 
-        # if we have a file name, lets add it
         if None != table_config:
             print "Adding table config"
             with open(self.config_file, 'r') as stream:
@@ -2519,7 +1744,6 @@ class database:
                 yaml.dump(yaml_data, f)
                 f.close()
 
-        # if we have a table lets save it
         if table is not None:
             with open(self.config_file, 'r') as stream:
                 yaml_data = yaml.load(stream)
@@ -2562,7 +1786,6 @@ class database:
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
-        # it exists. so no dont create it
         if None != exists:
             raise Exception("table already exists")
 
@@ -2588,9 +1811,7 @@ class database:
     def drop_table(self, table_name, database_name=None):
         if None == database_name:
             database_name = self.get_curent_database()
-        #print table_name,database_name
         for index in range(0, len(self.tables)):
-            #print self.tables[index].data.name,self.tables[index].data.database
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
@@ -2619,7 +1840,6 @@ class database:
                     yaml_data[db] = {}
 
                 table_name = config.data.name
-                #print db,table_name
                 if table_name in yaml_data[db]:
                     yaml_data[db].pop(table_name, None)
 
@@ -2633,13 +1853,16 @@ class database:
     def reload_config(self):
         temp_tables = self.get_tables()
         table_swap = []
-        # add temp tables to list
         for t in self.tables:
             if t.data.type == 'Temp':
                 table_swap.append(t)
 
         for t in temp_tables:
-            table_swap.append(table(t))
+            temp_table=table(t)
+            if temp_table.active==False:
+                warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))
+                continue
+            table_swap.append(temp_table)
 
         self.tables = table_swap
 
@@ -2656,7 +1879,6 @@ class database:
 
         with open(self.config_file, 'r') as stream:
             yaml_data = yaml.load(stream)
-            # could be empty
             if  yaml_data != None:
                 for db in yaml_data:
                     if yaml_data[db] !=None:
@@ -2665,135 +1887,237 @@ class database:
 
         return tables
 
+        
+        
+# ############################################################################
+# Module : match
+# File   : ddb/engine/evaluate/match.pyx
+# ############################################################################
 
 
-# ################################################################################
-#
-# INTERACTIVE
-#
-# ################################################################################
 
 
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
+def evaluate_single_match(test, row, table):
 
-class ddbPrompt(Cmd):
-    prompt = 'ddb> '
-    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
+    
+    compare1 = None
+    compare2 = None
+    compare1_is_column = False
+    compare2_is_column = False
 
-    def cmdloop_with_keyboard_interrupt(self):
-        doQuit = False
-        while doQuit != True:
-            try:
-                self.cmdloop()
-                doQuit = True
-            except KeyboardInterrupt:
-                self.help_exit("")
+    comparitor = test['c'].lower()
 
-    def set_vars(self,
-                 config_file=None,
-                 debug=False,
-                 no_clip=False,
-                 width='auto'):
-        if debug is None:
-            debug = False
-        self.debug = debug
-        self.no_clip = no_clip
-        self.width = width
-        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output='term',output_file=None)
+    for column in table.columns:
+        if column.data.name == test['e1']:
+            index = table.ordinals[column.data.name]
+            compare1 = row[index]  # table.ordinals[].get_data_from_column(column,row)
+            compare1_is_column = True
+        if column.data.name == test['e2']:
+            index = table.ordinals[column.data.name]
+            compare2 = row[index]  # table.get_data_from_column(column,row)
+            compare2_is_column = True
+        if None != compare1 and None != compare2:
+            break
 
-    def msg(self, type, name, message=''):
-        if type == 'info':
-            color = bcolors.OKGREEN
-        if type == 'warn':
-            color = bcolors.WARNING
-        if type == 'error':
-            color = bcolors.FAIL
+    if None == compare1:
+        compare1 = test['e1']
+    if None == compare2:
+        compare2 = test['e2']
+    if None == compare1 and None == compare2:
+        raise Exception("Where invalid {}".format(test))
 
-        print("{2}>>>{3} {4}{0}{3} {1}".format(name, message, bcolors.OKBLUE, bcolors.ENDC, color))
+    if comparitor == '=' or comparitor == 'is':
+        if compare1 == compare2:
+            return True
+    if comparitor == 'like':  # paritial match
 
-    ##
-    def do_exit(self, inp):
-        self.msg("info", "Bye")
-        return True
+        if True == compare1_is_column and True == compare2_is_column:
+            raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
 
-    def help_exit(self, inp):
-        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
-
-    ##
-    def do_debug(self, inp):
-        if not self.debug:
-            self.debug = True
-            self.msg("info", "Debugging ON")
+        if True == compare1_is_column:
+            like = compare2
+            data = compare1
         else:
-            self.debug = False
-            self.msg("info", "Debugging Off")
-        self.engine.debugging(debug=self.debug)
+            like = compare1
+            data = compare2
 
-    def help_debug(self, inp):
-        self.msg("info", 'Toggle debugging on or off')
+        if None == like:
+            return False
+        if like[0] == '%':
+            like_left = True
+        else:
+            like_left = False
 
-    ##
+        if like[-1] == '%':
+            like_right = True
+        else:
+            like_right = False
 
-    def do_config(self, inp):
-        try:
-            self.msg("info", "configuration_file set to'{}'".format(inp))
-            self.engine = sql_engine(config_file=inp, debug=self.debug)
-        except Exception as ex:
-            self.msg("error", "config", ex)
+        if True == like_right and True == like_left:
+            if data.find(like[1:-1]) > -1:
+                return True
+            else:
+                return False
 
-    def help_config(self):
-        self.msg("info", "Set configuration file.")
+        if True == like_left:
+            if data[-(len(like) - 1):] == like[1:]:
+                return True
+            else:
+                return False
 
-    ##
-    # def do_show_errors(self, inp):
-    #    self.engine.print_errors()
+        if True == like_right:
+            if data[0:(len(like) - 1)] == like[0:-1]:
+                return True
+            else:
+                return False
 
-    # def help_show_errors(self):
-    #   self.msg("info","Show last error(s) generated")
-    ##
+        return False
+    if comparitor == '<':
+        if compare1 < compare2:
+            return True
+    if comparitor == '>':
+        if compare1 > compare2:
+            return True
+    if comparitor == '>=':
+        if compare1 >= compare2:
+            return True
+    if comparitor == '<=':
+        if compare1 <= compare2:
+            return True
+    if comparitor == '!=' or comparitor == '<>' or comparitor == 'not':
+        if compare1 != compare2:
+            return True
 
-    def default(self, inp):
-        #print inp
-        if inp == 'x' or inp == 'q':
-            return self.do_exit("")
-
-        try:
-            if None == self.engine:
-                print ("sql engin gone")
-                return
-            start = time.time()
-            results = self.engine.query(sql_query=inp)
-            end = time.time()
-            self.engine.format_output(results)
-
-            self.msg("info", "executed in {} seconds".format(end - start))
-            inp = None
-        except Exception as ex:
-            self.msg("error", ex)
-
-    def default_exit(self):
-        self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
-
-    do_EOF = help_exit
-    help_EOF = help_exit
+    return False
 
 
+def evaluate_match(where, row, table):
+    if None == row:
+        return False
 
-# ################################################################################
-#
-# SQL ENGINE
-#
-# ################################################################################
+    if 0 == len(where):
+        return True
+    success = None
+    skip_section = False
+    operation = ""
+    for test in where:
+        if 'and' in test and skip_section:
+            continue
+        else:
+            skip_section = False
+
+        operation = None
+        if 'where' in test:
+            operation = 'where'
+
+        if 'or' in test:
+            operation = 'or'
+            if success:
+                return True
+
+        if 'and' in test:
+
+            operation = 'and'
+            if not success:
+                skip_section = True
+                continue
+
+        test_operation = test[operation]
+        success = evaluate_single_match(test_operation, row, table)
+
+    if success is None:
+        return False
+    return success
+
+        
+        
+# ############################################################################
+# Module : functions
+# File   : ddb/engine/functions/functions.pyx
+# ############################################################################
+
+
+
+
+
+
+def enum(**enums):
+    return type('Enum', (), enums)
+
+
+data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
+
+
+def f_show_columns(database, query_object):
+    table = database.get(query_object['meta']['from']['table'])
+    temp_table = database.temp_table(columns=['table', 'column'])
+
+    for c in table.columns:
+        columns = {'data': [table.data.name, c.data.name], 'type': data_type.DATA, 'error': None}
+        temp_table.append_data(columns)
+    return temp_table
+
+
+def f_show_tables(database):
+    temp_table = database.temp_table(columns=['database', 'table'])
+    for t in database.tables:
+        columns = [t.data.database, t .data.name]
+        temp_table.append_data({'data': columns, 'type': data_type.DATA, 'error': None})
+    return temp_table
+
+
+def f_show_errors(database, table):
+    temp_table = database.temp_table(columns=['error'])
+    for e in table.errors:
+        columns = [e]
+        temp_table.append_data({'data': columns, 'type': data_type.DATA, 'error': None})
+    return temp_table
+
+
+def f_database(database):
+    return database.get_curent_database()
+
+def f_upper(arg):
+    if not arg:
+        return None
+    return arg.upper()
+
+def f_lower(arg):
+    if not arg:
+        return None
+    return arg.lower()
+
+def f_datetime(arg=None):
+    return datetime.datetime.now()
+
+def f_time(arg=None):
+    return datetime.datetime.now().strftime('%H:%M:%S')
+
+def f_date(arg=None):
+    return datetime.datetime.now().strftime('%Y-%m-%d')
+
+def f_version(version=None):
+    if None==version:
+        return 'GA.BB.LE'
+    return version
+        
+def f_cat(arg1,arg2):
+    if None ==arg1:
+        arg1=''
+    if None ==arg2:
+        arg2=''
+    return '{0}{1}'.format(arg1,arg2)
+
+
+        
+        
+# ############################################################################
+# Module : sql_engine
+# File   : ddb/engine/sql_engine.pyx
+# ############################################################################
+
 
 
 
@@ -2804,10 +2128,6 @@ def info(msg, arg1=None, arg2=None, arg3=None):
     if True == debug_on:
         print(msg, arg1, arg2, arg3)
 
-# Fix delete
-# Add insert
-# Fix errors
-# Add Update
 
 
 def enum(**enums):
@@ -2829,49 +2149,10 @@ class sql_engine:
         self.output=output
         self.output_file=output_file
 
-        # print "Config",config_file
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
         if None != query:
             self.query(query)
-
-    # def set_configuration(self,database_instance):
-    #    self.database=database
-    #    if False == self.has_configuration():
-    #        raise Exception("No configuration data")
-
-
-    def format_output(self,results):
-        """display results in different formats
-          if output_file==None then everything is directed to stdio
-
-          output=(bash|term|yaml|json|xml)
-          output_file= None or file to write to
-          """        
-        if None==results:
-            return
-        
-        mode=self.output.lower()
-        if 'bash'==mode:
-            format_bash(results,self.output_file)
-        
-        elif 'term'==mode:
-            format_term(results,self.output_file)
-        
-        elif 'raw'==mode:
-            format_raw(results,self.output_file)
-        
-        elif 'yaml'==mode:
-            format_yaml(results,self.output_file)
-        
-        elif 'json'==mode:
-            format_json(results,self.output_file)
-        
-        elif 'xml'==mode:
-            format_xml(results,self.output_file)
-        #default
-        else: 
-            format_term(results,self.output_file)
 
 
 
@@ -2886,10 +2167,6 @@ class sql_engine:
     def has_configuration(self):
         if None == self.database:
             return False
-        # table count invalid.. we may add some
-        # table_count=self.database.count()
-        # if table_count==0:
-        #    return False
         return True
 
     def query(self, sql_query):
@@ -2897,9 +2174,6 @@ class sql_engine:
             raise Exception("No table found")
         self.results = None
 
-        # update table info...
-        # it may have changed...
-        # self.database.reload_config()
 
         parser = sql_parser(sql_query, self.debug)
         if False == parser.query_objects:
@@ -2908,18 +2182,11 @@ class sql_engine:
         for query_object in parser.query_objects:
 
             info("Engine: query_object", query_object)
-            #print  query_object
-            # exit(9)
-            # get columns, doesnt need a table
-            #print query_object['mode']
             if query_object['mode'] == "show tables":
 
                 self.results = f_show_tables(self.database)
             if query_object['mode'] == "show columns":
                 self.results = f_show_columns(self.database, query_object)
-            # if query_object['mode']=="show errors":
-            #    self.results=show_errors(self.database,self.table)
-            #print query_object
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
 
@@ -2947,12 +2214,10 @@ class sql_engine:
             if query_object['mode'] == 'describe table':
                 self.results = self.describe_table(query_object)
 
-        # only return last command
         if None != self.results:
             if self.mode == 'full':
                 return self.results
 
-            # if the result set it not empty
             if None != self.results.results:
                 if self.mode == 'array':
                     new_array = []
@@ -2990,10 +2255,8 @@ class sql_engine:
 
         data_stream_lenght = len(data_stream)
         if index >= data_stream_lenght:
-            #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
             return []
         if index + length > data_stream_lenght:
-            #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
             length = data_stream_lenght - index
         return data_stream[index:index + length]
 
@@ -3005,7 +2268,6 @@ class sql_engine:
         if query_object['table'].data.starts_on_line > line_number:
             line_type = self.data_type.COMMENT
             line_data = line
-            #print query_object['table'].data.starts_on_line,line_number
         else:
             line_type = self.data_type.DATA
         if not line_cleaned:
@@ -3025,28 +2287,22 @@ class sql_engine:
                         err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, query_object['table'].data.name)
                     else:
                         err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, query_object['table'].data.name)
-                    # query_object['table'].add_error(err)
                     line_type = self.data_type.ERROR
 
-                    # turn error into coment
                     if True == query_object['table'].visible.errors:
                         line_data = line_cleaned
                     else:
                         line_data = None
                     line_type = self.data_type.ERROR
-                # fields are surrounded by something... trim
-                #print self.table.delimiters.block_quote
                 if None != query_object['table'].delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:
                         line_data_cleaned.append(d[1:-1])
                     line_data = line_data_cleaned
 
-        # If no where. return everything
         if 'where' not in query_object['meta']:
             match_results = True
         else:
-            # if a where, only return data, comments/whites/space/errors are ignored
             if line_type == self.data_type.DATA:
                 match_results = evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
             else:
@@ -3059,12 +2315,10 @@ class sql_engine:
             match_results=False
 
 
-        # raw has rstrip for line.. maybe configuration option? Extra data anyway...
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
         temp_data = []
-        # if has columns, then it needs a table
 
         has_functions = False
         has_columns = False
@@ -3078,7 +2332,6 @@ class sql_engine:
         if False == has_columns and 'from' in query_object['meta']:
             raise Exception("Invalid FROM, all columns are functions")
 
-        # if has functions, tables may not be needed
         if True == has_columns:
             if 'from' in query_object['meta']:
                 table_name = query_object['meta']['from']['table']
@@ -3107,11 +2360,8 @@ class sql_engine:
                 info("adding function column")
                 temp_table.add_column(column['function'], display)
 
-        # TODO Columns with the same name can be renamed, but fail. Key issue?
         line_number = 1
 
-        # create temp table structure
-        # process file
         if True == has_columns:
             with open(query_object['table'].data.path, 'r') as content_file:
                 for line in content_file:
@@ -3120,16 +2370,13 @@ class sql_engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
 
-                    #print processed_line
                     if False == processed_line['match']:
                         continue
 
-                    # add to temp table
                     if None != processed_line['data']:
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
 
-        # file is closed at this point
 
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
@@ -3147,12 +2394,9 @@ class sql_engine:
                     direction = -1
                 self.sort.append([ordinal, direction])
             temp_data = sorted(temp_data, self.sort_cmp)
-            #print temp_data
 
         limit_start = 0
         limit_length = None
-        #print query_object['meta']
-        # exit(1)
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
@@ -3181,12 +2425,6 @@ class sql_engine:
                      row.append(f_time())
                 elif c['function'] == 'version':
                      row.append(f_version(__version__))
-                #elif c['function'] == 'lower':
-                #     row.append(lower(c['column']))
-                #elif c['function'] == 'upper':
-                #     row.append(upper(c['column']))
-                #elif c['function'] == 'cat':
-                #     row.append(cat(c['arg1'],c['arg2']))
         if None != processed_line:                    
             line_type=processed_line['type']
             error= processed_line['error']
@@ -3205,10 +2443,7 @@ class sql_engine:
             ordinal = c[0]
             direction = c[1]
 
-            #convert = lambda text: int(text) if text.isdigit() else text
-            #alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
 
-            # %print x[ordinal],y[ordinal],-1
             if x['data'][ordinal] == y['data'][ordinal]:
                 continue
 
@@ -3218,10 +2453,6 @@ class sql_engine:
                 return 1 * direction
         return 0
 
-    # creates a tempfile
-    # puts the raw original lines in temp file
-    # ignores matches
-    # File is as untouched as possible
 
     def delete(self, query_object):
         table_name = query_object['meta']['from']['table']
@@ -3236,7 +2467,6 @@ class sql_engine:
         temp_file_name = "DEL" + next(tempfile._get_candidate_names())
         line_number = 1
         deleted = 0
-        # process file
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
@@ -3244,7 +2474,6 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    # skip matches
                     if True == processed_line['match']:
                         deleted += 1
                         continue
@@ -3256,10 +2485,6 @@ class sql_engine:
         self.swap_files(query_object['table'].data.path, temp_file_name)
         return temp_table
 
-    # creates a tempfile
-    # puts the raw original lines in temp file
-    # File is as untouched as possible
-    # new lines are joined at the end
 
     def insert(self, query_object):
         table_name = query_object['meta']['into']['table']
@@ -3273,7 +2498,6 @@ class sql_engine:
         temp_file_name = "INS_" + next(tempfile._get_candidate_names())
         line_number = 1
         inserted = 0
-        # process file
         requires_new_line = False
         
         with open(query_object['table'].data.path, 'r') as content_file:
@@ -3286,11 +2510,8 @@ class sql_engine:
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
-                    #if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
                     q
                     requires_new_line = False
-                    #else:
-                    #    requires_new_line = True
 
                 results = self.create_single(query_object, temp_file, temp_table, requires_new_line)
                 if True == results:
@@ -3304,8 +2525,6 @@ class sql_engine:
 
     def create_single(self, query_object, temp_file, temp_table, requires_new_line):
         err = False
-        ###
-        # insert new data at end of file
         if len(query_object['meta']['columns']) != query_object['table'].column_count():
             temp_table.add_error("Cannot insert, column count does not match table column count")
         else:
@@ -3314,13 +2533,11 @@ class sql_engine:
             else:
                 new_line = ''
                 err = False
-                #print query_object['meta']['columns']
                 for c in range(0, len(query_object['meta']['columns'])):
                     column_name = query_object['table'].get_column_at_data_ordinal(c)
                     found = False
                     for c2 in range(0, len(query_object['meta']['columns'])):
                         if query_object['meta']['columns'][c2]['column'] == column_name:
-                            #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                             found = True
                             if c > 0:
                                 new_line += '{}'.format(query_object['table'].delimiters.field)
@@ -3330,7 +2547,6 @@ class sql_engine:
                         err = True
                         break
                 if False == err:
-                    #print new_line
                     if True == requires_new_line:
                         temp_file.write(query_object['table'].delimiters.new_line)
                     temp_file.write(new_line)
@@ -3342,18 +2558,13 @@ class sql_engine:
 
     def update_single(self, query_object, temp_file, temp_table, requires_new_line, processed_line):
         err = False
-        ###
-        # insert new data at end of file
         new_line = ''
         err = False
-        #print query_object
 
-        # make sure the inserted columns exist
         for c2 in range(0, len(query_object['meta']['set'])):
             column_name = query_object['meta']['set'][c2]['column']
             if None == query_object['table'].get_column_by_name(column_name):
                 temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
-                #print "no column"
                 err = True
 
         if False == err:
@@ -3361,16 +2572,13 @@ class sql_engine:
                 column_name = query_object['table'].get_column_at_data_ordinal(c)
                 value = processed_line['data'][c]
                 for c2 in range(0, len(query_object['meta']['set'])):
-                    #print column_name,query_object['meta']['set']
                     if query_object['meta']['set'][c2]['column'] == column_name:
-                        #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                         value = query_object['meta']['set'][c2]['expression']
                 if c > 0:
                     new_line += '{}'.format(query_object['table'].delimiters.field)
                 new_line += '{}'.format(value)
 
         if False == err:
-            #print new_line
             if True == requires_new_line:
                 temp_file.write(query_object['table'].delimiters.new_line)
             temp_file.write(new_line)
@@ -3380,10 +2588,6 @@ class sql_engine:
         else:
             return False
 
-    # creates a tempfile
-    # puts the raw original lines in temp file
-    # ignores matches
-    # File is as untouched as possible
 
     def update(self, query_object):
         table_name = query_object['meta']['update']['table']
@@ -3398,7 +2602,6 @@ class sql_engine:
         temp_file_name = "UP_" + next(tempfile._get_candidate_names())
         line_number = 1
         updated = 0
-        # process file
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
@@ -3406,7 +2609,6 @@ class sql_engine:
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
-                    # skip matches
                     if True == processed_line['match']:
                         results = self.update_single(query_object, temp_file, temp_table, False, processed_line)
                         if True == results:
@@ -3487,7 +2689,6 @@ class sql_engine:
     def drop_table(self, query_object):
         info("Drop Table")
         temp_table = self.database.temp_table()
-        #print "dropping",parser.query_object['meta']['drop']['table']
         dropped = 0
         results = self.database.drop_table(table_name=query_object['meta']['drop']['table'])
         if True == results:
@@ -3539,7 +2740,6 @@ class sql_engine:
                             whitespace=found_whitespace,
                             errors=found_errors,
                             data_on=found_data_on)
-        #sace the update to the table
         target_table.save()
         updated=1
 
@@ -3573,53 +2773,139 @@ class sql_engine:
 
 
 
-# ################################################################################
-#
-# CLI
-#
-# ################################################################################
+
+
+        
+        
+# ############################################################################
+# Module : output
+# File   : ddb/engine/output/output.pyx
+# ############################################################################
 
 
 
-def cli_main():
 
 
-    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
-                    """, epilog="And that's how you ddb")
+def format_output(results,output='term',output_file=None):
+        """display results in different formats
+          if output_file==None then everything is directed to stdio
 
-    # actions
-    parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
-    parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default= 'term')
-    parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
-    parser.add_argument('query', help='query to return data', nargs= "?")
+          output=(bash|term|yaml|json|xml)
+          output_file= None or file to write to
+          """        
+        if None==results:
+            return
+        
+        mode=output.lower()
+        if 'bash'==mode:
+            format_bash(results,output_file)
+        
+        elif 'term'==mode:
+            format_term(results,output_file)
+        
+        elif 'raw'==mode:
+            format_raw(results,output_file)
+        
+        elif 'yaml'==mode:
+            format_yaml(results,output_file)
+        
+        elif 'json'==mode:
+            format_json(results,output_file)
+        
+        elif 'xml'==mode:
+            format_xml(results,output_file)
+        else: 
+            format_term(results,output_file)
 
-    args = parser.parse_args()
+
+def format_term(results,output_file):
+    """ouput results data in the term format"""
+    try:
+        config = flextable.table_config()
+        config.columns = results.get_columns_display()
+        flextable.table(data=results.results, args=config)
+    except:
+        print(results.results)
+
+def format_bash(temp_table,output_file):
+    """ouput results data in the bash format"""
+    data=temp_table.get_results()
     
-    # set the config q
-    # file location
-    if args.config is not None:
-        config_file = args.config
-    else:
-        home = expanduser("~")
-        config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+    name="ddb"
+    print ("# bash variable assignment for ddb output")
+    print ("declare {0}_data -A".format(name))
+    print ("declare {0}_info -A".format(name))
+    print ("declare {0}_columns -A".format(name))
+    print ("")
+
+    column_index=0
+    for column in data['columns']:
+        print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
+        column_index+=1
+
+
+    row_index=0
+    for row in data['results']:
+        column_index=0
+        if not row['error']:
+            row_error=''
+        else:
+            row_error=row['error']
+        print("{0}_info[{1},error]='{2}'".format(name,row_index,row_error))
+        if not row['type']:
+            row_type=''
+        else:
+            row_type=row['type']
+        print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
+        if not row['raw']:
+            row_raw=''
+        else:
+            row_raw=row['raw']
+        print("{0}_info[{1},raw]='{2}'".format(name,row_index,row_raw))
+        for column in row['data']:
+            print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
+            column_index+=1
+        row_index+=1
+    print ("# end ddb output ")
+            
     
-    if args.query is not None:
-        e = sql_engine( config_file=config_file, 
-                        debug=args.debug, 
-                        mode="full",
-                        output=args.output,
-                        output_file=args.file)
-        results = e.query(args.query)
-        e.format_output(results)
 
+def format_raw(results,output_file):
+    """ouput results data in the yaml format"""
+    if not output_file:
+        for row in results.results:
+            print(row['raw'].rstrip())
     else:
-        # interactive session
-        prompt = ddbPrompt()
-        prompt.set_vars(config_file=config_file,
-                        debug=args.debug)
-        prompt.cmdloop_with_keyboard_interrupt()
+        with open(output_file, "w") as write_file:
+            for row in results.results:
+                write_file.write(row['raw'])
 
+def format_yaml(temp_table,output_file):
+    """ouput results data in the yaml format"""
+    results=temp_table.get_results()
+    dump=yaml.safe_dump(results, default_flow_style=False)
+    if not output_file:
+        print dump
+    else:
+        with open(output_file, "w") as write_file:
+            write_file.write(dump)
 
-if __name__ == "__main__":
-    cli_main()
+def format_json(temp_table,output_file):
+    """ouput results data in the json format"""
+    results=temp_table.get_results()
+    if not output_file:
+        dump=json.dumps(results)
+        print dump
+    else:
+        with open(output_file, "w") as write_file:
+            json.dump(results, write_file)
+    
+def format_xml(temp_table,output_file):
+    """ouput results data in the xml format"""
+    results=temp_table.get_results()
+    dump=lazyxml.dumps({'data':results})
+    if not output_file:
+        print dump
+    else:
+        with open(output_file, "w") as write_file:
+            write_file.write(dump)

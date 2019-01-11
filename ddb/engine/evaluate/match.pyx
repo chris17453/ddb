@@ -3,15 +3,16 @@
 
 def evaluate_single_match(test, row, table):
 
-    cdef str compare1 = None
-    cdef str compare2 = None
-    cdef bint compare1_is_column = False
-    cdef bint compare2_is_column = False
+    
+    compare1 = None
+    compare2 = None
+    compare1_is_column = False
+    compare2_is_column = False
 
-    cdef str comparitor = test['c'].lower()
-    cdef int index 
-    cdef str like = None
-    cdef str data = None
+    comparitor = test['c'].lower()
+    #cdef int index 
+    #cdef str like = None
+    #cdef str data = None
 
     # if None !=comparitor:
     #   comparitor=comparitor.lower()

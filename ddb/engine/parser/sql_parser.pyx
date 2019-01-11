@@ -5,66 +5,7 @@ debug_on = False
 
 
 class sql_parser:
-    ##
-    #     -- [] denotes array, comma seperated
-    #     -- () denotes optional element
-    #     -- {} denotes a variable element, such as column name
-    #     -- |  denotes a choice
-    #     -- EXPRESSION is a column from the select, a function, or a value
-    #     -- CONDITION  is an evaluation condition   (=,equals,is,!=,<>,not,>,<,>=,<=)
-    #     -- elements must appear in order of index
-
-    #  QUERIES
-    #   1 SHOW
-    #   2    TABLES
-
-    #   1 SHOW
-    #   2    COLUMNS
-    #   3 FROM
-    #   4   {TABLE}
-
-    #  1  SELECT
-    #  2     [{COLUMN}
-    #  3      (AS {DISPLAY_NAME})]
-    #  4  FROM
-    #  5     {TABLE}
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-    #  10   (ORDER BY
-    #  11        [{COLUMN} DIRECTION])
-    #  12  (LIMIT ({START_INDEX},{LENGTH}) | ({LENGTH})
-    #        )
-    #
-    #  1  DELETE
-    #  4  FROM
-    #  5     {TABLE}
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-
-    #  1  UPDATE
-    #  5     {TABLE}
-    #     SET
-    #        [{COLUMN}={EXPRESSION}]
-    #  6   (WHERE
-    #  7           {EXPRESSION} CONDITION {EXPRESSION}
-    #  8     (AND  {EXPRESSION} CONDITION {EXPRESSION})
-    #  9     (OR   {EXPRESSION} CONDITION {EXPRESSION})
-    #     )
-
-    # -- BELOW all () are litteral and must appear
-    # -- Column count must match expression count
-    #  1  INSERT
-    #     INTO
-    #  5      {TABLE}
-    #         ([{COLUMN}])
-    #     VALUES
-    #         ({EXPRESSION}])
+   
 
     def __init__(self, query, debug=False):
         # select * from table where x=y and y=2 order by x,y limit 10,2
