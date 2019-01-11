@@ -4,9 +4,9 @@ from parser.sql_parser import sql_parser
 from structure.table import table
 from structure.database import database
 from evaluate.match import evaluate_match
-from functions import functions
-from output import output as data_output
-from . import version
+from functions.functions import f_database,f_date,f_datetime,f_show_columns,f_show_tables,f_time,f_version
+from output.output import format_bash,format_json,format_raw,format_term,format_xml,format_yaml
+from .version import __version__
 #
 
 debug_on = False
@@ -53,40 +53,6 @@ class sql_engine:
     #        raise Exception("No configuration data")
 
 
-    def format_output(self,results):
-        """display results in different formats
-          if output_file==None then everything is directed to stdio
-
-          output=(bash|term|yaml|json|xml)
-          output_file= None or file to write to
-          """        
-        if None==results:
-            return
-        
-        mode=self.output.lower()
-        if 'bash'==mode:
-            data_output.format_bash(results,self.output_file)
-        
-        elif 'term'==mode:
-            data_output.format_term(results,self.output_file)
-        
-        elif 'raw'==mode:
-            data_output.format_raw(results,self.output_file)
-        
-        elif 'yaml'==mode:
-            data_output.format_yaml(results,self.output_file)
-        
-        elif 'json'==mode:
-            data_output.format_json(results,self.output_file)
-        
-        elif 'xml'==mode:
-            data_output.format_xml(results,self.output_file)
-        #default
-        else: 
-            data_output.format_term(results,self.output_file)
-
-
-
     def debugging(self, debug=False):
         self.debug = debug
 
@@ -126,9 +92,9 @@ class sql_engine:
             #print query_object['mode']
             if query_object['mode'] == "show tables":
 
-                self.results = functions.show_tables(self.database)
+                self.results = f_show_tables(self.database)
             if query_object['mode'] == "show columns":
-                self.results = functions.show_columns(self.database, query_object)
+                self.results = f_show_columns(self.database, query_object)
             # if query_object['mode']=="show errors":
             #    self.results=show_errors(self.database,self.table)
             #print query_object
@@ -384,15 +350,15 @@ class sql_engine:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
             elif 'function' in c:
                 if c['function'] == 'database':
-                    row.append(functions.f_database(self.database))
+                    row.append(f_database(self.database))
                 elif c['function'] == 'datetime':
-                     row.append(functions.f_datetime())
+                     row.append(f_datetime())
                 elif c['function'] == 'date':
-                     row.append(functions.f_date())
+                     row.append(f_date())
                 elif c['function'] == 'time':
-                     row.append(functions.f_time())
+                     row.append(f_time())
                 elif c['function'] == 'version':
-                     row.append(functions.f_version(version.__version__))
+                     row.append(f_version(__version__))
                 #elif c['function'] == 'lower':
                 #     row.append(functions.lower(c['column']))
                 #elif c['function'] == 'upper':
@@ -499,6 +465,7 @@ class sql_engine:
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     #if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
+                    q
                     requires_new_line = False
                     #else:
                     #    requires_new_line = True

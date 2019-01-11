@@ -9,7 +9,7 @@ def enum(**enums):
 data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
 
-def show_columns(database, query_object):
+def f_show_columns(database, query_object):
     table = database.get(query_object['meta']['from']['table'])
     temp_table = database.temp_table(columns=['table', 'column'])
 
@@ -19,7 +19,7 @@ def show_columns(database, query_object):
     return temp_table
 
 
-def show_tables(database):
+def f_show_tables(database):
     temp_table = database.temp_table(columns=['database', 'table'])
     for t in database.tables:
         columns = [t.data.database, t .data.name]
@@ -28,7 +28,7 @@ def show_tables(database):
     return temp_table
 
 
-def show_errors(database, table):
+def f_show_errors(database, table):
     temp_table = database.temp_table(columns=['error'])
     for e in table.errors:
         columns = [e]

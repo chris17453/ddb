@@ -1,5 +1,5 @@
 import os
-import copy
+#import copy
 from .table import table
 import yaml
 import warnings
@@ -37,14 +37,15 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-    def get_clone(self, table_name):
-        """Clone a Table structure in the database."""
-        table = self.get(table_name)
-        if None == table:
-            raise Exception("Table does not exist.{}".format(table_name))
-        temp_table = copy.deepcopy(table)
-        temp_table.columns = []
-        return temp_table
+    # I dont remember why i made this function
+    #def get_clone(self, table_name):
+    #    """Clone a Table structure in the database."""
+    #    table = self.get(table_name)
+    #    if None == table:
+    #        raise Exception("Table does not exist.{}".format(table_name))
+    #    temp_table = copy.deepcopy(table)
+    #    temp_table.columns = []
+    #    return temp_table
 
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""

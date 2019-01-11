@@ -1,15 +1,50 @@
 import json
 import yaml
+import lazyxm
 import flextable
-import lazyxml
 
+
+def format_output(results,output='term',output_file=None):
+        """display results in different formats
+          if output_file==None then everything is directed to stdio
+
+          output=(bash|term|yaml|json|xml)
+          output_file= None or file to write to
+          """        
+        if None==results:
+            return
+        
+        mode=output.lower()
+        if 'bash'==mode:
+            format_bash(results,output_file)
+        
+        elif 'term'==mode:
+            format_term(results,output_file)
+        
+        elif 'raw'==mode:
+            format_raw(results,output_file)
+        
+        elif 'yaml'==mode:
+            format_yaml(results,output_file)
+        
+        elif 'json'==mode:
+            format_json(results,output_file)
+        
+        elif 'xml'==mode:
+            format_xml(results,output_file)
+        #default
+        else: 
+            format_term(results,output_file)
 
 
 def format_term(results,output_file):
     """ouput results data in the term format"""
-    config = flextable.table_config()
-    config.columns = results.get_columns_display()
-    flextable.table(data=results.results, args=config)
+    try:
+        config = flextable.table_config()
+        config.columns = results.get_columns_display()
+        flextable.table(data=results.results, args=config)
+    except:
+        print(results.results)
 
 def format_bash(temp_table,output_file):
     """ouput results data in the bash format"""
@@ -93,7 +128,3 @@ def format_xml(temp_table,output_file):
     else:
         with open(output_file, "w") as write_file:
             write_file.write(dump)
-
-
-def format(results,output_file):
-    v=1
