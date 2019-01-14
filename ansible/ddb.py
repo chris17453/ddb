@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.602'
+__version__='1.0.604'
 
         
         
@@ -124,6 +124,73 @@ sql_syntax = {
 
                               ],
                      'name': 'select'},
+       {'query': 'select distinct',
+         'argument': 1,
+         'switch': [{'arguments': 0,
+                     'data': [{'sig': ['{column}']},
+                              {'sig': ['{column}',
+                                       'as',
+                                       '{display}']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+
+                              ],
+                     'name': 'select distinct'},                     
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
@@ -2200,6 +2267,9 @@ class sql_engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
+            
+            if query_object['mode'] == 'select distinct':
+                self.results = self.select_distinct(query_object, parser)
 
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -2328,8 +2398,9 @@ class sql_engine:
 
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
-    def select(self, query_object, parser):
+    def select(self, query_object, parser,distinct=None):
         temp_data = []
+        hash_dict={}
 
         has_functions = False
         has_columns = False
@@ -2383,8 +2454,16 @@ class sql_engine:
 
                     if False == processed_line['match']:
                         continue
-
+                    temp_hash=0
+                    if distinct:
+                        for x in processed_line['data']:
+                            temp_hash+=hash(a)
+                        if temp_hash in hash_list:
+                            contnue
+                        else:
+                            hash[temp_hash]=1
                     if None != processed_line['data']:
+
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
 
