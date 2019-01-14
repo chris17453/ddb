@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.612'
+__version__='1.0.613'
 
         
         
@@ -2214,9 +2214,6 @@ class sql_engine:
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
             
-            if query_object['mode'] == 'select distinct':
-                self.results = self.select_distinct(query_object, parser)
-
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
 
@@ -2344,7 +2341,12 @@ class sql_engine:
 
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
-    def select(self, query_object, parser,distinct=None):
+    def select(self, query_object, parser):
+        if 'distinct' in query_object:
+            distinct=True
+        else:
+            distinct=None
+            
         temp_data = []
         hash_dict={}
 
@@ -2403,7 +2405,7 @@ class sql_engine:
                     temp_hash=0
                     if distinct:
                         for x in processed_line['data']:
-                            temp_hash+=hash(a)
+                            temp_hash+=hash(x)
                         if temp_hash in hash_dict:
                             continue
                         else:
