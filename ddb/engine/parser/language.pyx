@@ -22,7 +22,13 @@ sql_syntax = {
                     ]},
         {'query': 'select',
          'argument': 1,
-         'switch': [{'arguments': 0,
+         'switch': [
+                    {'arguments': None,
+                     'data': None,
+                     'name': 'distinct',
+                     'optional': True},
+
+                   {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
                                        'as',

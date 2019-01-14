@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.621'
+__version__='1.0.622'
 
         
         
@@ -123,7 +123,7 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},zzzzz
+                     'name': 'select'},
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
