@@ -86,7 +86,7 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},zzzzz
+                     'name': 'select'},
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
