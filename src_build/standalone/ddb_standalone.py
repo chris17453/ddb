@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.615'
+__version__='1.0.616'
 
         
         
@@ -3101,7 +3101,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        output=format_output(results,output=args.output,output_file=args.file)
+        o=format_output(results,output=args.output,output_file=args.file)
 
     else:
         prompt = ddbPrompt()

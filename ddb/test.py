@@ -68,7 +68,8 @@ class test_engine(unittest.TestCase):
             engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-
+            if None == results:
+                raise Exception ("No results returned")
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(10, len(results))
