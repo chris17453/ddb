@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.609'
+__version__='1.0.610'
 
         
         
@@ -2407,7 +2407,7 @@ class sql_engine:
                         if temp_hash in hash_list:
                             contnue
                         else:
-                            hash[temp_hash]=1
+                            hash_list[temp_hash]=1
                     if None != processed_line['data']:
 
                         restructured_line = self.process_select_row(query_object,processed_line) 

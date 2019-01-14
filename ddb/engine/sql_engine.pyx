@@ -303,7 +303,7 @@ class sql_engine:
                         for x in processed_line['data']:
                             temp_hash+=hash(a)
                         if temp_hash in hash_list:
-                            contnue
+                            continue
                         else:
                             hash_list[temp_hash]=1
                     # add to temp table
