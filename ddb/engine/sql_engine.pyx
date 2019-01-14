@@ -233,6 +233,7 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
+        print ("in select")
         if 'distinct' in query_object:
             distinct=True
         else:
