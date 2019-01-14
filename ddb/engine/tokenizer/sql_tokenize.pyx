@@ -40,9 +40,9 @@ class tokenizer():
             '!',  # not
             '|',  # or
 
-            'not',  # not
-            'is',  # equality
-            'like',  # partial match
+            #'not',  # not
+            #'is',  # equality
+            #'like',  # partial match
 
             '+',  # addition
             '-',  # subtraction
@@ -122,8 +122,21 @@ class tokenizer():
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if c >= text_length - 1:
-                    self.info("Last Cycle")
+                #if c>0 and text[c-1:1].isalpha():
+                #    fragment_before_alpha=True
+                #else:
+                #    fragment_before_alpha=False
+
+                #if c+1<text_length and   text[c+1:1].isalpha():
+                #    fragment_after_alpha=True
+                #else:
+                #    fragment_after_alpha=False
+                #    
+                #if c >= text_length - 1:
+                #    self.info("Last Cycle")
+
+                #if fragment_before_alpha==True  and fragment_after_alpha==True:
+
                 if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
