@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.610'
+__version__='1.0.611'
 
         
         
@@ -2405,7 +2405,7 @@ class sql_engine:
                         for x in processed_line['data']:
                             temp_hash+=hash(a)
                         if temp_hash in hash_list:
-                            contnue
+                            continue
                         else:
                             hash_list[temp_hash]=1
                     if None != processed_line['data']:
