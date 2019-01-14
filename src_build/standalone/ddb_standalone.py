@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.619'
+__version__='1.0.620'
 
         
         
@@ -66,13 +66,7 @@ sql_syntax = {
                     ]},
         {'query': 'select',
          'argument': 1,
-         'switch': [
-             
-                    {'arguments': None,
-                     'data': None,
-                     'name': 'sistinct',
-                     'optional': True},
-             {'arguments': 0,
+         'switch': [{'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
                                        'as',
@@ -136,7 +130,7 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},
+                     'name': 'select'},zzzzz
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
