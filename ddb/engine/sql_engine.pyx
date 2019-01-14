@@ -305,7 +305,7 @@ class sql_engine:
                         if temp_hash in hash_list:
                             contnue
                         else:
-                            hash[temp_hash]=1
+                            hash_list[temp_hash]=1
                     # add to temp table
                     if None != processed_line['data']:
 
