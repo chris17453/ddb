@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.613'
+__version__='1.0.614'
 
         
         
@@ -2346,7 +2346,7 @@ class sql_engine:
             distinct=True
         else:
             distinct=None
-            
+
         temp_data = []
         hash_dict={}
 
@@ -2548,7 +2548,6 @@ class sql_engine:
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.new_line)
 
-                    q
                     requires_new_line = False
 
                 results = self.create_single(query_object, temp_file, temp_table, requires_new_line)

@@ -5,7 +5,6 @@ from structure.table import table
 from structure.database import database
 from evaluate.match import match
 from functions.functions import functions
-from output.output import format_bash,format_json,format_raw,format_term,format_xml,format_yaml
 from .version import __version__
 #
 
