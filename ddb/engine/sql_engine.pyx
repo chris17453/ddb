@@ -302,10 +302,10 @@ class sql_engine:
                     if distinct:
                         for x in processed_line['data']:
                             temp_hash+=hash(a)
-                        if temp_hash in hash_list:
+                        if temp_hash in hash_dict:
                             continue
                         else:
-                            hash_list[temp_hash]=1
+                            hash_dict[temp_hash]=1
                     # add to temp table
                     if None != processed_line['data']:
 
