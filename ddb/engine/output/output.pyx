@@ -1,6 +1,6 @@
 import json
 import yaml
-import lazyxm
+import lazyxml
 import flextable
 
 
