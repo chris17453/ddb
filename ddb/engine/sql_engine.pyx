@@ -238,7 +238,7 @@ class sql_engine:
             distinct=True
         else:
             distinct=None
-            
+
         temp_data = []
         hash_dict={}
         # if has columns, then it needs a table
@@ -472,7 +472,6 @@ class sql_engine:
                     temp_file.write(query_object['table'].delimiters.new_line)
 
                     #if processed_line['raw'][-1] == query_object['table'].delimiters.new_line:
-                    q
                     requires_new_line = False
                     #else:
                     #    requires_new_line = True
