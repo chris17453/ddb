@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.604'
+__version__='1.0.605'
 
         
         
@@ -3108,7 +3108,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            output=format_output(results)
+            o=output.format_output(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None
