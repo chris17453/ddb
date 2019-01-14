@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.622'
+__version__='1.0.623'
 
         
         
@@ -66,7 +66,13 @@ sql_syntax = {
                     ]},
         {'query': 'select',
          'argument': 1,
-         'switch': [{'arguments': 0,
+         'switch': [
+                    {'arguments': None,
+                     'data': None,
+                     'name': 'distinct',
+                     'optional': True},
+
+                   {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
                                        'as',
