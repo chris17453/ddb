@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.606'
+__version__='1.0.607'
 
         
         
