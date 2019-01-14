@@ -237,7 +237,7 @@ class sql_engine:
             distinct=True
         else:
             distinct=None
-
+        self.info(query_object)
         temp_data = []
         hash_dict={}
         # if has columns, then it needs a table
