@@ -2,7 +2,7 @@ import argparse
 import os
 from engine.sql_engine import sql_engine
 from engine.interactive import ddbPrompt
-from engine.output import format_output
+from engine.output.output import format_output
 
 
 from os.path import expanduser
@@ -38,7 +38,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        output=format_output(results,output=args.output,output_file=args.file)
+        o=format_output(results,output=args.output,output_file=args.file)
 
     else:
         # interactive session
