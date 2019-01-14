@@ -93,6 +93,9 @@ class sql_engine:
             #print query_object
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
+            
+            if query_object['mode'] == 'select distinct':
+                self.results = self.select_distinct(query_object, parser)
 
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -233,8 +236,9 @@ class sql_engine:
         # raw has rstrip for line.. maybe configuration option? Extra data anyway...
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
-    def select(self, query_object, parser):
+    def select(self, query_object, parser,distinct=None):
         temp_data = []
+        hash_dict={}
         # if has columns, then it needs a table
 
         has_functions = False
@@ -294,9 +298,17 @@ class sql_engine:
                     #print processed_line
                     if False == processed_line['match']:
                         continue
-
+                    temp_hash=0
+                    if distinct:
+                        for x in processed_line['data']:
+                            temp_hash+=hash(a)
+                        if temp_hash in hash_list:
+                            contnue
+                        else:
+                            hash[temp_hash]=1
                     # add to temp table
                     if None != processed_line['data']:
+
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
 
