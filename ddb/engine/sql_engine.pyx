@@ -299,17 +299,16 @@ class sql_engine:
                     #print processed_line
                     if False == processed_line['match']:
                         continue
-                    temp_hash=0
-                    if distinct:
-                        for x in processed_line['data']:
-                            temp_hash+=hash(x)
-                        if temp_hash in hash_dict:
-                            continue
-                        else:
-                            hash_dict[temp_hash]=1
+                    #if distinct:
+                    #    temp_hash=0
+                    #    for x in processed_line['data']:
+                    #        temp_hash+=hash(x)
+                    #    if temp_hash in hash_dict:
+                    #        continue
+                    #    else:
+                    #        hash_dict[temp_hash]=1
                     # add to temp table
                     if None != processed_line['data']:
-
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
 

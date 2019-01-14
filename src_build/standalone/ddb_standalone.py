@@ -31,7 +31,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.616'
+__version__='1.0.617'
 
         
         
@@ -2346,7 +2346,7 @@ class sql_engine:
             distinct=True
         else:
             distinct=None
-
+        self.info(query_object)
         temp_data = []
         hash_dict={}
 
