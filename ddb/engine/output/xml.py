@@ -1,4 +1,7 @@
 
+from pprint import pprint
+
+
 
 class obj_formatter():
     def render_xml(self,obj,root='root',depth=0):
@@ -136,8 +139,19 @@ class obj_formatter():
 
         return fragments
 
-       
-    def yaml_load(self,data,obj={},index=0,indent=0,depth=0):
+    def get_indent(self,line):
+        index_of=line.find('-')
+        if index_of!=-1:
+            str1=list(line)
+            str1[index_of]=' '
+            cleaned_line="".join(str1)
+        else:
+            cleaned_line=line
+        index=len(line)-len(cleaned_line.lstrip())
+        return index
+
+    def yaml_load(self,data,index=0,indent=0,depth=0,list_depth=0):
+        obj={}
         print("Recursion: depth: {0},indent:{1}, index:{2}".format(depth,indent,index))
         if isinstance(data,str):
             lines=data.splitlines()
@@ -153,7 +167,8 @@ class obj_formatter():
         key=""
         self.temp_yaml_index=0
         while index  < line_length:
-            print ("loop: {0}".format(index))
+            print obj
+            #print ("loop: {0}".format(index))
             line=lines[index]
             line_cleaned=line.strip()
             # the beginning
@@ -168,12 +183,18 @@ class obj_formatter():
                 print ("Exit recursion. Explicit EOL")
                 self.temp_yaml_index=index
                 return obj
-
     
             # this is reached after a recursion from a tuple. so no key
             # always make it a list override and ignore all else    
+            
             if line_cleaned[0]=='-':
+                if list_depth>0:
+                    self.temp_yaml_index=index
+                    return obj
                 print("in array")
+                
+                #curent_indent=self.get_indent(line)
+                
                 index_of=line.index('-')
                 str1=list(line)
                 str1[index_of]=' '
@@ -183,17 +204,16 @@ class obj_formatter():
                 line_cleaned=line.strip()
                 if not isinstance(obj,list):
                     obj=[]
-                
+              
                 #index+=01
                 print "KEY",key
-                obj.append(self.yaml_load(lines,index=index,indent=curent_indent+1,depth=depth+1))
-                #index=self.temp_yaml_index
-            #    is_array=True
-            #    obj[key]=yaml_load(lines,index=i+1)
-
-            curent_indent=len(line)-len(line.lstrip())
+                obj.append(self.yaml_load(lines,index=index,indent=curent_indent+1,depth=depth+1,list_depth=list_depth+1))
+                index=self.temp_yaml_index
+                is_array=True
+                continue
+            
+            
             print("depth: {0},indent:{1}, index:{2}: cur_indent:{3}, changed:{4}".format(depth,indent,index,curent_indent,changed))
-
             if indent<curent_indent and changed==0:
                 changed=1
                 indent=curent_indent
@@ -208,37 +228,48 @@ class obj_formatter():
 
 
             if ':' in line_cleaned:
+                curent_indent=self.get_indent(line)
                 print("In tuple")
-                curent_indent=len(line)-len(line.lstrip())
                 index_of=line.index(':')
                 is_object=True
 
                 #print ("tuple",line_cleaned)
                 seperator_index=line_cleaned.index(':')
                 key=line_cleaned[0:seperator_index]
+                print ("O",obj)
                 #print seperator_index,len(line_cleaned)
                 if seperator_index and seperator_index+1<len(line_cleaned):
+                    print("single")
                     data=line_cleaned[seperator_index+1:].strip()
                 else:
+                    print("NOT SINGLE")
                     index+=1
                     print "B",key,index,key
                     print "OBJECT"
+                    print ("24",obj)
                     data=self.yaml_load(lines,index=index,indent=curent_indent+1,depth=depth+1)
+                    print ("33",obj)
                     index=self.temp_yaml_index
                     print "A",key,index
                 if data:
                     print '"{0}"'.format(key)
                     if isinstance(obj,list):
+                        print("Its a list")
                         obj.append(data)
                     elif isinstance(obj,object):
-                        obj[key]=data                     
+                        print("Setting {0}-{1}-{2}".format(key,data,obj))
+                        obj[key]=data
                     
             
             # print "*",key,data,"*"
             # its not an list or object, its a simple element of a list
-            #else:
-            #    if isinstance(obj,list):
-            #        obj.append(data)
+            else:
+                #if isinstance(obj,list):
+                 self.temp_yaml_index=index+1
+                #    print ("Exit recursion. single entity")
+                 #   obj.append(line_cleaned)
+                 return line_cleaned
+                #    return obj
                 #elif isinstance(obj,object):
                 #    obj[key]=data
 
@@ -252,19 +283,21 @@ class obj_formatter():
 
 
 data={}
-data['array']=[0,2,3,4]
-#data['sam']={}
-#data['sam']['fred']=[6,7,8]
-#data['sam']['pete']={}
-#data['sam']['pete']['dave']='beer'
-#data['sam']['pete']['door']=1
-#data['sam']['pete']['float']=1.2
-#data['o']={}
-#data['o']['lo']=[]
-#o={}
-#o['l']=3
-#o['4']=5
-#data['o']['lo'].append(o)
+#data['array']=[0,2,3,4]
+data['sam']={}
+data['sam']['fred']=[6,7,8]
+#data['sam']['sam']=[9,8,7,6,5,4,3,2,1,0,3,4,3]
+data['sam']['pete']={}
+data['sam']['pete']['dave']='beer'
+data['sam']['pete']['door']="1"
+data['sam']['pete']['float']=1.2
+data['lisa']=[]
+o={}
+o['key']='data'
+o['key2']='data2'
+data['lisa'].append(o)
+data['lisa'].append(o)
+
 #data['o']['lo'].append(o)
 
 
@@ -280,4 +313,5 @@ print yaml_data
 
 
 
-print of.yaml_load(yaml_data)
+pprint(of.yaml_load(yaml_data))
+
