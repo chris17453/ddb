@@ -173,15 +173,18 @@ class obj_formatter():
         return None
 
     def yaml_is_array(self,line_cleaned):
+        """determine if a string begins with an array identifyer '- '"""
         if None==line_cleaned:
             return False
-        if len(line_cleaned)>0:
-            if line_cleaned[0]=='-':
+        # we need a dash and a space. double dashes dont work etc...
+        if len(line_cleaned)>1:
+            if line_cleaned[0]=='-' and line_cleaned[1]==' ':
                 return True
         return False
         
     def yaml_strip_array(self,line):
-        index_of=line.find('-')
+        """Strip array elements from string '- '"""
+        index_of=line.find('- ')
         if index_of!=-1:
             str1=list(line)
             str1[index_of]=' '
@@ -189,6 +192,7 @@ class obj_formatter():
         return line
 
     def yaml_get_tuple(self,line):
+        """Get key value pair from string with a colon delimiter"""
         index=line.find(':')
         if index==-1:
             return None
