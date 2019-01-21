@@ -427,7 +427,21 @@ yaml_data = of.render_yaml(data,indent=2)
 #yaml_object=of.yaml_load(yaml_data)
 print "----------X"
 #pprint(yaml_object)
-with open("/home/nd/.ddb/main/vov.ddb.yaml") as content:
+with open("/home/nd/.ddb/main/test.ddb.yaml") as content:
     yaml=content.read()
     yaml_data=of.yaml_load(yaml)
     pprint(yaml_data)
+
+# TODO YAML EMITTER, handle MULTIDIMENTIONAL ARRAYS properly. extra level of recursion
+# TODO tree moon walker to NEVER increment indent, only decrement
+# TODO default element on fail or exception?
+# TODO object return, simple or complex.... for handeling feed me objects
+# TODO handle inline objects.... [ ] , {  }  , "\n"= ','
+# TODO read form file, as part of class
+# TODO add argparse
+# TODO arrad '-' Must have 1 space between it and whatever, else its a string
+# TODO value assignment, double stripping array '-'
+# TODO warnings ( catch, and in info)
+# TODO if string has - : process better. need a lambda
+# TODO STOP TODOING ITS GOING TO TURN INTO A PIPY package...
+
