@@ -160,14 +160,20 @@ class obj_formatter():
         return fragments
 
     def get_indent(self,line):
-        #index_of=line.find('-')
+        index_of=line.find('- ')
         #if index_of!=-1:
         #    str1=list(line)
         #    str1[index_of]=' '
         #    cleaned_line="".join(str1)
-        #else:
+        #    cleaned_line=cleaned_line.lstrip()
+#
+        #    index=len(line)-len(cleaned_line.lstrip())
+    
         cleaned_line=line
         index=len(line)-len(cleaned_line.lstrip())
+        if index_of!=-1:
+            index+=1
+        
         return index
 
     def yaml_is_start(self,line):
@@ -230,8 +236,6 @@ class obj_formatter():
         pprint(yaml_data)
 
     def yaml_load(self,data=None,file=None):
-        print("Loading")
-
         if file:
             with open(file) as content:
                 data=content.read()
@@ -243,77 +247,50 @@ class obj_formatter():
         line_number=1
         obj=root
         hash_map=[{'indent':0,'obj':obj}]
-        feed_me_an_object=None
-        last_tuple=None
         obj_parent=root
+        obj_parent_key=None
+        obj_hash=[]
         for line in lines:
             if self.yaml_is_start(line):
-                print("Starting")
                 continue
             if self.yaml_is_end(line):
-                print("End")
                 break
             indent=self.get_indent(line)
 
-            if feed_me_an_object and last_indent==indent:
-                raise Exception("Empty tuple before: {0}:{1}".format(line_number,line))
-
-            # print("THIS  indent {0}: last indent: {1}".format(indent,last_indent))
-            
             line_cleaned=line
             is_array=self.yaml_is_array(line_cleaned.strip())
             line_cleaned=self.yaml_strip_array(line_cleaned)
             line=line_cleaned
-            pprint(hash_map)
         
             # I handle array creation            
             if  is_array:
                 arr_index=0
-                #indent=self.get_indent(line)
                 while is_array:
-                    print("Looking for ARRAY: {0}, indent:{1}: line: {2}".format(arr_index,indent, line))
-                    #print ("In new array setup")
                     make_new_array=True
-                    
-                    if None ==obj:
-                        print("Updating Object Parent is None")
+                    if None==obj:
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
                         obj_hash['indent']=indent
                         make_new_array=None
-
                     elif arr_index==0 :
                         search_indent=None
                         for index in range(len(hash_map)-1,-1,-1):
-                            print "LOOP: {0}".format(index)
                             # the search can only fall coreward, never grow.
                             if search_indent and hash_map[index]['indent']>search_indent:
-                                print( "Coreward: breaking")
                                 break
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
-                                print("Found {0}".format(indent))
                                 obj=hash_map[index]['obj']
-                            # pprint(obj)
                                 make_new_array=None
-                                in_array=True
                                 break
                             search_indent=hash_map[index]['indent']
                     if make_new_array:
-                        print("Made a new Array")
-                        in_array=True
-                        #print obj
                         if isinstance(obj,list):
-                            print("From a list..")
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
                         else:
-                            print("From an object..")
-                            obj=[]#[last_tuple['key']]=[]
-                            # now the mind warp, take me back to some linked list action here
-                            # repoint the object brah
-                            #obj=obj[last_tuple['key']]
+                            obj=[]
                         hash_map.append({'indent':indent,'obj':obj,'array':1})
                     line_cleaned=line
                     indent=self.get_indent(line)
@@ -321,55 +298,27 @@ class obj_formatter():
                     line_cleaned=self.yaml_strip_array(line_cleaned)
                     line=line_cleaned
                     arr_index+=1
-                    if is_array:
-                        print ("LEVEL 2")
-                    print ("End of loop")
-
                 is_array=True
         
             # I handle indent shrinkage, loading the last indent level object
             # shrinkage requires object location....
-            if 0==0:
-                if last_indent and  last_indent>indent :
-                    print("Dropping Scope {0}->{1}".format(last_indent,indent))
-                    for index in range(len(hash_map)-1,-1,-1):
-                        if is_array:
-                            if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
-                                #print("found list")
-                                pprint(hash_map[index])
-                                #print("Found indent {0}".format(hash_map[index]['indent']))
-                                obj=hash_map[index]['obj']
-                                break
-                        else:
-                            #print("is not array")
-                            if hash_map[index]['indent']<=indent:
-                                #print("Found indent {0}".format(hash_map[index]['indent']))
-                                obj=hash_map[index]['obj']
-                                break
-                    if isinstance(obj,list):
-                        #print("its a list, make array")
-                        in_array=True
-                    else:
-                        #print("its a list, REMOVE array")
-                        in_array=None
-                   
+            if last_indent and  last_indent>indent:
+                for index in range(len(hash_map)-1,-1,-1):
+                    if hash_map[index]['indent']<=indent:
+                        obj=hash_map[index]['obj']
+                        break
+                  
                           
-          # i handle object creation
+            # i handle object creation
             # is it a tuple?
             line_tuple=self.yaml_get_tuple(line_cleaned)
             if line_tuple:
-                print("It's A Tuple")
                 if None == obj:
-                    print("Updating Empty Object in Tuple")
                     obj_parent[obj_parent_key]={}
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
                     obj_hash['indent']=indent
-
-                #print (line_tuple)
-
                 if isinstance(obj,list):
-                    print("Updating List to Object in Tuple")
                     new_obj={}
                     obj.append(new_obj)
                     obj_parent=obj
@@ -380,41 +329,22 @@ class obj_formatter():
 
                 # ok its a tuple... and it has data. lets just add it.
                 if line_tuple['data']:
-                    print("FED")
-                    print (line_tuple['key'])
-
                     obj[line_tuple['key']]=line_tuple['data'].strip()
-                        
-                 #well darn, no data. guess the next object is the data...
+                #well darn, no data. guess the next object is the data...
                 else:
-                    print("FED")
-                    print (line_tuple['key'])
-                #    
                     if  not isinstance(obj,list):
                         obj[line_tuple['key']]=None
                         obj_parent=obj
                         obj_parent_key=line_tuple['key']
                         obj=obj[line_tuple['key']]
-                        print('FEED NEW OBJ EMPTY: {0}'.format(line_tuple['key']))
                         obj_hash={'indent':indent,'obj':obj,'tuple':1}
                         hash_map.append(obj_hash)
-                # update the last chosen key, so we can use it later
-                last_tuple=line_tuple
             else:
-                #print("Not tuple")
                 if isinstance(obj,list):
-                    print("FED list")
-                    #print ("adding thing")
                     obj.append(line_cleaned.strip())
-                #else:
-                    #pprint(hash_map)
-                    #raise Exception("Cant have free standing data with no parent")
-
-
             line_number+=1
             last_indent=indent
-        #pprint( hash_map)
-        print ("Exit recursion. END")
+
         return root
  
 
@@ -423,7 +353,7 @@ data={}
 data['arr']=[]
 data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c']]
 data['array']=['a','b','c','d']
-#data['nested3']=[[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],]]
+data['nested3']=[[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],]]
 data['group']={}
 data['array2']={}
 data['array2']['arr1']=[6,7,8]
@@ -446,10 +376,10 @@ data['list']=[]
 o={}
 o['key']='data'
 o['key2']='data2'
-data['list'].append(o)
-data['list'].append(o)
-data['list'].append(o)
-data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append(o)
 data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
 #
 #data['o']['lo'].append(o)
@@ -461,16 +391,14 @@ of=obj_formatter()
 yaml_data = of.render_yaml(data,indent=1)
 #print json_data
 #print xml_data
-#print yaml_data
-#print "----------X"
-#yaml_object=of.yaml_load(yaml_data)
+print yaml_data
 print "----------X"
-#pprint(yaml_object)
-
 #of.yaml_dump(file="/home/nd/.ddb/main/vov.ddb.yaml") 
-of.yaml_dump(yaml_data)
+yaml_data=yaml.dump(data, default_flow_style=False)
+print of.yaml_dump(yaml_data)
 print (yaml_data)
-#print yaml.dump(yaml.load(yaml_data), default_flow_style=False)
+
+
 # TODO YAML EMITTER, handle MULTIDIMENTIONAL ARRAYS properly. extra level of recursion
 # TODO tree moon walker to NEVER increment indent, only decrement
 # TODO default element on fail or exception?
