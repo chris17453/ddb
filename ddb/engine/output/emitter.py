@@ -75,9 +75,7 @@ class obj_formatter():
 
     def render_yaml(self,obj,depth=0,indent=1):
         """Yaml like output for python objects, very loose"""
-        padding=''
-        for i in range(0,depth*1):
-            padding+=' '
+       
         empty_object_template="{"+"}"
         empty_array_template='[]'
         str_template="{0}"
@@ -90,19 +88,23 @@ class obj_formatter():
         object_template='{0}'
         yaml_template='---\n{0}\n...'
         fragments=[]
-        no_padding=False
+        no_padding=None
         if isinstance(obj,str):
             no_padding=True
-            fragments.append(str_template.format(obj))
+            #fragments.append(
+            return str_template.format(obj)
         elif isinstance(obj,int):
             no_padding=True
-            fragments.append(int_template.format(obj))
+            #fragments.append(
+            return int_template.format(obj)
         elif isinstance(obj,float):
             no_padding=True
-            fragments.append(float_template.format(obj))
+            #fragments.append(
+            return float_template.format(obj)
         elif isinstance(obj,bool):
             no_padding=True
-            fragments.append(bool_template.format(obj))
+            #fragments.append(
+            return bool_template.format(obj)
         elif  isinstance(obj,list):
             if not obj:
                 fragments.append(empty_array_template)
@@ -115,10 +117,10 @@ class obj_formatter():
                         index=0
                         for partial in fragment:
                             if index==0:
-                                fragments.append(array_template.format(partial.lstrip()))
+                                fragments.append(array_template.format(partial))
                                 index+=1
                             else:
-                                fragments.append(array_item_template.format(partial.lstrip()))
+                                fragments.append(array_item_template.format(partial))
                             
         elif isinstance(obj,object):
             #print ("OBJ",obj)
@@ -148,26 +150,19 @@ class obj_formatter():
         if depth==0:
             return yaml_template.format("\n".join(fragments))
 
-        if no_padding==False:
-            padding=""
-            for i in range(0,indent): 
-                padding+=" "
-            padded_fragments=[]
-            for f in fragments:
-                padded_fragments.append(padding+f)
-            return padded_fragments
+        #if no_padding:
+        padding=" "
+        #for i in range(0,indent): 
+        #    padding=" "
+        padded_fragments=[]
+        for f in fragments:
+            padded_fragments.append(padding+f)
+        return padded_fragments
 
         return fragments
 
     def get_indent(self,line):
         index_of=line.find('- ')
-        #if index_of!=-1:
-        #    str1=list(line)
-        #    str1[index_of]=' '
-        #    cleaned_line="".join(str1)
-        #    cleaned_line=cleaned_line.lstrip()
-#
-        #    index=len(line)-len(cleaned_line.lstrip())
     
         cleaned_line=line
         index=len(line)-len(cleaned_line.lstrip())
@@ -214,7 +209,7 @@ class obj_formatter():
         if index==-1:
             return None
         
-        key=line[0:index].strip()
+        key=self.yaml_return_data(line[0:index])
         data_index=index+1
         if data_index<len(line):
             data=line[data_index:].strip()
@@ -222,15 +217,55 @@ class obj_formatter():
             data=None
         return {'key':key,'data':data}
 
-    # initally pass a string,
+    def yaml_is_int(self,data):
+        try:
+            int(data)
+            return True
+        except ValueError:
+            return False
+
+    def yaml_is_float(self,data):
+        try:
+            float(data)
+            return True
+        except ValueError:
+            return False
+    
+    def yaml_is_string(self,data):
+        if not self.yaml_is_int(data) and not self.yaml_is_float(data):
+            return True
+        return False
+
+    def yaml_return_data(self,data):
+        
+        data=data.strip()
+        #maybe its quoted
+        if len(data)>2:
+            quoted=None
+            if data[0]=="'" and data[-1]=="'":
+                quoted=True
+            if data[0]=='"' and data[-1]=='"':
+                quoted=True
+            if quoted:
+                return data[1:-1]
+        try:
+            return int(data)
+        except ValueError:
+            pass
+        try:
+            return float(data)
+        except ValueError:
+            pass
+        return data
+
+        
+    # initally pass a string
     # after which it becomes a dict holding eveything
     
     def yaml_dump(self,data=None,file=None):
         if not isinstance(data,str):
             data=self.render_yaml(data)
-            print("---------------data")
             print(data)
-            print("---------------data")
             
         yaml_data=self.yaml_load(data,file)
         pprint(yaml_data)
@@ -259,11 +294,13 @@ class obj_formatter():
 
             line_cleaned=line
             is_array=self.yaml_is_array(line_cleaned.strip())
-            line_cleaned=self.yaml_strip_array(line_cleaned)
-            line=line_cleaned
         
+            
             # I handle array creation            
             if  is_array:
+                pre_indent=indent
+                line_cleaned=self.yaml_strip_array(line_cleaned)
+                line=line_cleaned
                 arr_index=0
                 while is_array:
                     make_new_array=True
@@ -273,38 +310,45 @@ class obj_formatter():
                         obj_hash['obj']=obj
                         obj_hash['indent']=indent
                         make_new_array=None
-                    elif arr_index==0 :
+                        
+                        # print ("Made List")
+                    elif arr_index==0:
                         search_indent=None
                         for index in range(len(hash_map)-1,-1,-1):
                             # the search can only fall coreward, never grow.
-                            if search_indent and hash_map[index]['indent']>search_indent:
-                                break
+                            #if search_indent and hash_map[index]['indent']>search_indent:
+                            #    break
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
+                                # print ("Found List, {0}-{2} '{1}'".format(indent,line,self.get_indent(line)))
                                 make_new_array=None
                                 break
                             search_indent=hash_map[index]['indent']
                     if make_new_array:
                         if isinstance(obj,list):
+                            #print ("New List")
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
+                            hash_map.append({'indent':indent,'obj':obj,'array':1})
                         else:
+                            print ("HI")
                             obj=[]
-                        hash_map.append({'indent':indent,'obj':obj,'array':1})
                     line_cleaned=line
                     indent=self.get_indent(line)
                     is_array=self.yaml_is_array(line_cleaned.strip())
-                    line_cleaned=self.yaml_strip_array(line_cleaned)
-                    line=line_cleaned
+                    if is_array:
+                        line_cleaned=self.yaml_strip_array(line_cleaned)
+                        line=line_cleaned
                     arr_index+=1
-                is_array=True
+                indent=self.get_indent(line)
         
             # I handle indent shrinkage, loading the last indent level object
             # shrinkage requires object location....
             if last_indent and  last_indent>indent:
                 for index in range(len(hash_map)-1,-1,-1):
                     if hash_map[index]['indent']<=indent:
+                        # print ("Changed object".format(indent))
                         obj=hash_map[index]['obj']
                         break
                   
@@ -318,6 +362,8 @@ class obj_formatter():
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
                     obj_hash['indent']=indent
+                    #print ("Created Empty  object".format(indent))
+
                 if isinstance(obj,list):
                     new_obj={}
                     obj.append(new_obj)
@@ -325,12 +371,14 @@ class obj_formatter():
                     obj_parent_key=len(obj)-1
                     obj=new_obj
                     obj_hash={'indent':indent,'obj':obj,'list_to_object':1}
+                    #print ("Created in tuple  object".format(indent))
                     hash_map.append(obj_hash)
 
                 # ok its a tuple... and it has data. lets just add it.
                 if line_tuple['data']:
-                    obj[line_tuple['key']]=line_tuple['data'].strip()
-                #well darn, no data. guess the next object is the data...
+                    value=self.yaml_return_data(line_tuple['data'])
+                    obj[line_tuple['key']]=value
+                # well darn, no data. guess the next object is the data...
                 else:
                     if  not isinstance(obj,list):
                         obj[line_tuple['key']]=None
@@ -338,22 +386,29 @@ class obj_formatter():
                         obj_parent_key=line_tuple['key']
                         obj=obj[line_tuple['key']]
                         obj_hash={'indent':indent,'obj':obj,'tuple':1}
+                        #print ("made empty No object from tuple")
                         hash_map.append(obj_hash)
             else:
                 if isinstance(obj,list):
-                    obj.append(line_cleaned.strip())
+                    value=self.yaml_return_data(line_cleaned)
+                    obj.append(value)
             line_number+=1
             last_indent=indent
-
+            #pprint(hash_map)
         return root
  
 
 
 data={}
 data['arr']=[]
-data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c']]
+data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c'],['a','b','c'],['a','b','c'],['a','b','c']]
 data['array']=['a','b','c','d']
-data['nested3']=[[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],],[[0,2,3,4],[0,2,3,4],[0,2,3,4],]]
+data['nested3']=[
+        [['R',2,3,4,5,6],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+        [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+        [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+]
+
 data['group']={}
 data['array2']={}
 data['array2']['arr1']=[6,7,8]
@@ -381,21 +436,21 @@ o['key2']='data2'
 #data['list'].append(o)
 #data['list'].append(o)
 data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
-#
-#data['o']['lo'].append(o)
+##
+##data['o']['lo'].append(o)
 
 
 of=obj_formatter()
 #json_data = of.render_json(data)
 #xml_data  = of.render_xml(data,root='object')
-yaml_data = of.render_yaml(data,indent=1)
-#print json_data
-#print xml_data
-print yaml_data
+yaml_data = of.render_yaml(data,indent=0)
+# print json_data
+# print xml_data
+#print yaml_data
 print "----------X"
 #of.yaml_dump(file="/home/nd/.ddb/main/vov.ddb.yaml") 
-yaml_data=yaml.dump(data, default_flow_style=False)
-print of.yaml_dump(yaml_data)
+#yaml_data=yaml.dump(data, default_flow_style=False)
+#print of.yaml_dump(yaml_data)
 print (yaml_data)
 
 
