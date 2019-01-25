@@ -73,7 +73,7 @@ class obj_formatter():
             fragment+=template.format("UNK",obj)
         return fragment
 
-    def render_yaml(self,obj,depth=0,indent=1):
+    def render_yaml_old(self,obj,depth=0,indent=1):
         """Yaml like output for python objects, very loose"""
        
         empty_object_template="{"+"}"
@@ -160,6 +160,149 @@ class obj_formatter():
         return padded_fragments
 
         return fragments
+    
+    def yaml_walk_path(self,path,root):
+        obj=root
+
+        # walk the path
+        if path and len(path)>0:
+            for trail in path:
+                obj=obj[trail]
+        return obj
+        
+    
+    def yaml_get_next_obj_path(self,path,root):
+        obj=self.yaml_walk_path(path,root)
+
+        #last_path=path.pop()
+        # get next object in path
+        if isinstance(obj,list):
+            for i,value in enumerate(obj):
+                path.append(i)
+                return value
+
+        elif isinstance(obj,dict):
+            for i in obj:
+                path.append(i)
+                return obj[i]
+            
+
+        # is this a simple entity?
+        # if so, backup 1 level, and proceed to the next item
+        #remove this last bit of path
+        while len(path)>0:
+            last_path=path.pop()
+            
+            if len(path)==0:
+                temp_obj=root
+            else:
+                temp_obj=self.yaml_walk_path(path,root)
+            # get the next path
+            grab_next=None
+            if isinstance(temp_obj,list):
+                for i,value in enumerate(temp_obj):
+                    if grab_next:
+                        if grab_next=="list":
+                            path.append(i)
+                            return obj
+                        elif grab_next=="dict":
+                            path.append(i)
+                            return obj
+
+                    if i==last_path:
+                        if isinstance(temp_obj,list):
+                            grab_next="list"
+                        elif isinstance(temp_obj,dict):
+                            grab_next="dict"
+
+
+            elif isinstance(temp_obj,dict):
+                for i in temp_obj:
+                    value=temp_obj[i]
+                    if grab_next:
+                        if grab_next=="list":
+                            path.append(i)
+                            return obj
+                        elif grab_next=="dict":
+                            path.append(i)
+                            return obj
+
+                    if i==last_path:
+                        if isinstance(temp_obj,list):
+                            grab_next="list"
+                        elif isinstance(temp_obj,dict):
+                            grab_next="dict"
+        return None
+
+    def yaml_padding(self,indent):
+        padding=""
+        for i in range(0,indent):
+            padding+=" "
+        return padding
+
+    def render_yaml(self,data_obj,indent=0):
+        obj=data_obj
+        root=data_obj
+        o=[]
+        path=[]
+        is_list=None
+        is_dict=None
+        if isinstance(obj,list):
+            is_list=True
+        elif isinstance(obj,dict):
+            is_dict=True
+        line=""
+        init=True
+        while obj!=None:
+            shadow_is_list=is_list
+            shadow_is_dict=is_dict
+            is_list=None
+            is_dict=None
+            obj=self.yaml_get_next_obj_path(path,root)
+            if len(path)==1:
+                init=True
+            if isinstance(obj,list):
+                is_list=True
+            elif isinstance(obj,dict):
+                is_dict=True            
+            if len(path)>0:
+                trail=path[-1]
+            else:
+                trail=""
+            
+            
+            if is_list != shadow_is_list or is_dict!=shadow_is_dict:
+                line+="\n{0}".format(self.yaml_padding(len(path)))
+            
+            if init:            
+                line+="{0}:".format(trail)
+
+            if is_list:
+                line+="{0}- ".format("")
+            elif is_dict:
+                line+="{0}: ".format(trail)
+            else:
+                line+="{0}".format(obj)
+            if init:
+                init=None
+
+            #if shadow_is_dict:
+            #    line+="\n{0}{1}: ".format(self.yaml_padding(len(path)),trail)
+            #if is_list:
+            #    line+="- "
+            #elif not is_dict:
+            #    line+="{0}".format(obj)
+            #    o.append(line)
+            #    line=""
+            
+        o.append(line)
+        
+        
+        return "\r\n".join(o)
+
+
+
+
 
     def get_indent(self,line):
         index_of=line.find('- ')
@@ -174,13 +317,11 @@ class obj_formatter():
     def yaml_is_start(self,line):
         # the beginning
         if line=='---':
-            print("New object")
             return True
         return None
 
     def yaml_is_end(self,line):
         if line=='...':
-            print ("Exit recursion. Explicit EOL")
             return True
         return None
 
@@ -217,25 +358,6 @@ class obj_formatter():
             data=None
         return {'key':key,'data':data}
 
-    def yaml_is_int(self,data):
-        try:
-            int(data)
-            return True
-        except ValueError:
-            return False
-
-    def yaml_is_float(self,data):
-        try:
-            float(data)
-            return True
-        except ValueError:
-            return False
-    
-    def yaml_is_string(self,data):
-        if not self.yaml_is_int(data) and not self.yaml_is_float(data):
-            return True
-        return False
-
     def yaml_return_data(self,data):
         
         data=data.strip()
@@ -257,11 +379,7 @@ class obj_formatter():
         except ValueError:
             pass
         return data
-
-        
-    # initally pass a string
-    # after which it becomes a dict holding eveything
-    
+       
     def yaml_dump(self,data=None,file=None):
         if not isinstance(data,str):
             data=self.render_yaml(data)
@@ -279,7 +397,6 @@ class obj_formatter():
         
         root={}
         last_indent=None
-        line_number=1
         obj=root
         hash_map=[{'indent':0,'obj':obj}]
         obj_parent=root
@@ -311,28 +428,23 @@ class obj_formatter():
                         obj_hash['indent']=indent
                         make_new_array=None
                         
-                        # print ("Made List")
                     elif arr_index==0:
                         search_indent=None
                         for index in range(len(hash_map)-1,-1,-1):
                             # the search can only fall coreward, never grow.
-                            #if search_indent and hash_map[index]['indent']>search_indent:
-                            #    break
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
-                                # print ("Found List, {0}-{2} '{1}'".format(indent,line,self.get_indent(line)))
                                 make_new_array=None
                                 break
                             search_indent=hash_map[index]['indent']
                     if make_new_array:
                         if isinstance(obj,list):
-                            #print ("New List")
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
                             hash_map.append({'indent':indent,'obj':obj,'array':1})
+                        # TODO this may never happen. 
                         else:
-                            print ("HI")
                             obj=[]
                     line_cleaned=line
                     indent=self.get_indent(line)
@@ -348,7 +460,6 @@ class obj_formatter():
             if last_indent and  last_indent>indent:
                 for index in range(len(hash_map)-1,-1,-1):
                     if hash_map[index]['indent']<=indent:
-                        # print ("Changed object".format(indent))
                         obj=hash_map[index]['obj']
                         break
                   
@@ -362,7 +473,6 @@ class obj_formatter():
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
                     obj_hash['indent']=indent
-                    #print ("Created Empty  object".format(indent))
 
                 if isinstance(obj,list):
                     new_obj={}
@@ -370,8 +480,7 @@ class obj_formatter():
                     obj_parent=obj
                     obj_parent_key=len(obj)-1
                     obj=new_obj
-                    obj_hash={'indent':indent,'obj':obj,'list_to_object':1}
-                    #print ("Created in tuple  object".format(indent))
+                    obj_hash={'indent':indent,'obj':obj}
                     hash_map.append(obj_hash)
 
                 # ok its a tuple... and it has data. lets just add it.
@@ -385,16 +494,13 @@ class obj_formatter():
                         obj_parent=obj
                         obj_parent_key=line_tuple['key']
                         obj=obj[line_tuple['key']]
-                        obj_hash={'indent':indent,'obj':obj,'tuple':1}
-                        #print ("made empty No object from tuple")
+                        obj_hash={'indent':indent,'obj':obj}
                         hash_map.append(obj_hash)
             else:
                 if isinstance(obj,list):
                     value=self.yaml_return_data(line_cleaned)
                     obj.append(value)
             line_number+=1
-            last_indent=indent
-            #pprint(hash_map)
         return root
  
 
