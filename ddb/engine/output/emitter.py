@@ -172,19 +172,19 @@ class obj_formatter():
         
     
     def yaml_get_next_obj_path(self,path,root):
-        obj=self.yaml_walk_path(path,root)
-
+        fragment=self.yaml_walk_path(path,root)
+        
         #last_path=path.pop()
         # get next object in path
-        if isinstance(obj,list):
-            for i,value in enumerate(obj):
+        if isinstance(fragment,list):
+            for i,value in enumerate(fragment):
                 path.append(i)
-                return value
+                return {'key':i,'type':'list','obj':value,'depth':len(path)}
 
-        elif isinstance(obj,dict):
-            for i in obj:
+        elif isinstance(fragment,dict):
+            for i in fragment:
                 path.append(i)
-                return obj[i]
+                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
             
 
         # is this a simple entity?
@@ -197,108 +197,86 @@ class obj_formatter():
                 temp_obj=root
             else:
                 temp_obj=self.yaml_walk_path(path,root)
+            
             # get the next path
             grab_next=None
             if isinstance(temp_obj,list):
                 for i,value in enumerate(temp_obj):
                     if grab_next:
-                        if grab_next=="list":
-                            path.append(i)
-                            return obj
-                        elif grab_next=="dict":
-                            path.append(i)
-                            return obj
+                        path.append(i)
+                        return {'key':i,'type':'list','obj':value,'depth':len(path)}
 
                     if i==last_path:
-                        if isinstance(temp_obj,list):
-                            grab_next="list"
-                        elif isinstance(temp_obj,dict):
-                            grab_next="dict"
+                        grab_next=True
 
 
             elif isinstance(temp_obj,dict):
                 for i in temp_obj:
                     value=temp_obj[i]
                     if grab_next:
-                        if grab_next=="list":
-                            path.append(i)
-                            return obj
-                        elif grab_next=="dict":
-                            path.append(i)
-                            return obj
+                        path.append(i)
+                        return {'key':i,'type':'dict','obj':value,'depth':len(path)}
 
                     if i==last_path:
-                        if isinstance(temp_obj,list):
-                            grab_next="list"
-                        elif isinstance(temp_obj,dict):
-                            grab_next="dict"
+                        grab_next=True
         return None
 
-    def yaml_padding(self,indent):
+    def yaml_padding(self,indent,indent_spacing,array_depth=0):
         padding=""
-        for i in range(0,indent):
+        for i in range(0,indent*indent_spacing+array_depth):
             padding+=" "
         return padding
 
     def render_yaml(self,data_obj,indent=0):
         obj=data_obj
         root=data_obj
-        o=[]
         path=[]
-        is_list=None
-        is_dict=None
-        if isinstance(obj,list):
-            is_list=True
-        elif isinstance(obj,dict):
-            is_dict=True
         line=""
-        init=True
+        last_fragment=False
+        arr_depth=0
         while obj!=None:
-            shadow_is_list=is_list
-            shadow_is_dict=is_dict
-            is_list=None
-            is_dict=None
-            obj=self.yaml_get_next_obj_path(path,root)
-            if len(path)==1:
-                init=True
-            if isinstance(obj,list):
-                is_list=True
-            elif isinstance(obj,dict):
-                is_dict=True            
-            if len(path)>0:
-                trail=path[-1]
-            else:
-                trail=""
-            
-            
-            if is_list != shadow_is_list or is_dict!=shadow_is_dict:
-                line+="\n{0}".format(self.yaml_padding(len(path)))
-            
-            if init:            
-                line+="{0}:".format(trail)
+            fragment=self.yaml_get_next_obj_path(path,root)
+            if None ==fragment:
+                obj=None
+                continue
+            obj=fragment['obj']
+            if fragment['type']=='dict':
+                line+="\n"+self.yaml_padding(len(path),arr_depth,indent)
 
-            if is_list:
-                line+="{0}- ".format("")
-            elif is_dict:
-                line+="{0}: ".format(trail)
-            else:
-                line+="{0}".format(obj)
-            if init:
-                init=None
+                line+="{0}: ".format(fragment['key'])
+            if last_fragment:
+                if  last_fragment['type']!='list':
+                    arr_depth=0
+                if last_fragment['depth']!=fragment['depth']:
+                    if  fragment['type']>'list':
+                        arr_depth+=1
+                    if  fragment['type']<'list':
+                        arr_depth-=1
 
-            #if shadow_is_dict:
-            #    line+="\n{0}{1}: ".format(self.yaml_padding(len(path)),trail)
-            #if is_list:
-            #    line+="- "
-            #elif not is_dict:
-            #    line+="{0}".format(obj)
-            #    o.append(line)
-            #    line=""
+
+            else:
+                arr_depth=0
             
-        o.append(line)
-        
-        
-        return "\r\n".join(o)
+            if fragment['type']=='list':
+                #after first pointer
+                #if  last_fragment['depth']>fragment['depth'] :#and not  last_fragment['type']=='list' : #and not isinstance(obj,list)
+                line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""
+
+                #Welif  last_fragment['type']!='list' : #and not isinstance(obj,list)
+                #    line+="\n"+self.yaml_padding(len(path),arr_depth)+"- "
+                #elif  last_fragment['type']=='list' : #and not isinstance(obj,list)
+                #    line+="- "
+                
+                #else:
+                line+="- "
+
+            
+            if not isinstance(obj,list) and not  isinstance(obj,dict):
+                line+="{0}\n".format(obj)
+                #if not last_fragment['depth']<fragment['depth']:
+                #    line+="\n"+self.yaml_padding(len(path),arr_depth)
+            last_fragment=fragment
+        return line
 
 
 
@@ -344,7 +322,16 @@ class obj_formatter():
             line="".join(str1)
         return line
 
+    def yaml_is_comment(self,line):
+        cleaned=line.lstrip()
+        if len(cleaned)>0:
+            if cleaned[0]=='#':
+                return True
+        return False
+
     def yaml_get_tuple(self,line):
+        if self.yaml_is_comment(line):
+            return None
         """Get key value pair from string with a colon delimiter"""
         index=line.find(':')
         if index==-1:
@@ -415,7 +402,6 @@ class obj_formatter():
             
             # I handle array creation            
             if  is_array:
-                pre_indent=indent
                 line_cleaned=self.yaml_strip_array(line_cleaned)
                 line=line_cleaned
                 arr_index=0
@@ -429,20 +415,18 @@ class obj_formatter():
                         make_new_array=None
                         
                     elif arr_index==0:
-                        search_indent=None
                         for index in range(len(hash_map)-1,-1,-1):
                             # the search can only fall coreward, never grow.
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
                                 make_new_array=None
                                 break
-                            search_indent=hash_map[index]['indent']
                     if make_new_array:
                         if isinstance(obj,list):
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
-                            hash_map.append({'indent':indent,'obj':obj,'array':1})
+                            hash_map.append({'indent':indent,'obj':obj})
                         # TODO this may never happen. 
                         else:
                             obj=[]
@@ -497,10 +481,14 @@ class obj_formatter():
                         obj_hash={'indent':indent,'obj':obj}
                         hash_map.append(obj_hash)
             else:
+                # skip comments
+                if self.yaml_is_comment(line):
+                    continue
+
                 if isinstance(obj,list):
                     value=self.yaml_return_data(line_cleaned)
                     obj.append(value)
-            line_number+=1
+
         return root
  
 
@@ -537,26 +525,23 @@ data['list']=[]
 o={}
 o['key']='data'
 o['key2']='data2'
-#data['list'].append(o)
-#data['list'].append(o)
-#data['list'].append(o)
-#data['list'].append(o)
+data['list'].append(o)
+data['list'].append(o)
+data['list'].append(o)
+data['list'].append(o)
 data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
-##
-##data['o']['lo'].append(o)
-
 
 of=obj_formatter()
 #json_data = of.render_json(data)
 #xml_data  = of.render_xml(data,root='object')
-yaml_data = of.render_yaml(data,indent=0)
+yaml_data = of.render_yaml(data,indent=2)
 # print json_data
 # print xml_data
 #print yaml_data
 print "----------X"
 #of.yaml_dump(file="/home/nd/.ddb/main/vov.ddb.yaml") 
 #yaml_data=yaml.dump(data, default_flow_style=False)
-#print of.yaml_dump(yaml_data)
+print of.yaml_dump(yaml_data)
 print (yaml_data)
 
 
@@ -571,5 +556,3 @@ print (yaml_data)
 # TODO value assignment, double stripping array '-'
 # TODO warnings ( catch, and in info)
 # TODO if string has - : process better. need a lambda
-
-
