@@ -170,7 +170,29 @@ class obj_formatter():
                 obj=obj[trail]
         return obj
         
-    
+    def yaml_get_parent_obj(self,path,root):
+        if len(path)<2:
+            return None
+        sub_path=path[0:-1]
+        #print (".".join([str(i) for i in sub_path]),"--",".".join([str(i) for i in path]))
+        fragment=self.yaml_walk_path(sub_path,root)
+
+        if isinstance(fragment,list):
+            if len(sub_path)<1:
+                return None
+            sub_path=sub_path[0:-1]
+            #print (".".join([str(i) for i in sub_path]),"--",".".join([str(i) for i in path]))
+            fragment=self.yaml_walk_path(sub_path,root)
+
+
+        key=""#sub_path[-1]
+        if isinstance(fragment,list):
+                    return {'key':key,'type':'list','obj':fragment,'depth':len(sub_path)}
+        elif isinstance(fragment,dict):
+                    return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
+        return None        
+            
+        
     def yaml_get_next_obj_path(self,path,root):
         fragment=self.yaml_walk_path(path,root)
         
@@ -232,10 +254,12 @@ class obj_formatter():
         root=data_obj
         path=[]
         line=""
-        last_fragment=False
+        last_fragment=None
         arr_depth=0
         while obj!=None:
             fragment=self.yaml_get_next_obj_path(path,root)
+            parent_fragment=self.yaml_get_parent_obj(path,root)
+            
             if None ==fragment:
                 obj=None
                 continue
@@ -244,10 +268,13 @@ class obj_formatter():
                 line+="\n"+self.yaml_padding(len(path),arr_depth,indent)
 
                 line+="{0}: ".format(fragment['key'])
+            
+            
             if last_fragment:
                 if  last_fragment['type']!='list':
                     arr_depth=0
                 if last_fragment['depth']!=fragment['depth']:
+                    
                     if  fragment['type']>'list':
                         arr_depth+=1
                     if  fragment['type']<'list':
@@ -260,7 +287,13 @@ class obj_formatter():
             if fragment['type']=='list':
                 #after first pointer
                 #if  last_fragment['depth']>fragment['depth'] :#and not  last_fragment['type']=='list' : #and not isinstance(obj,list)
-                line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""
+                print (parent_fragment['key'],parent_fragment['type'],fragment['key'],fragment['type'])
+                if parent_fragment and fragment:
+                    if parent_fragment['type']!='list' and  fragment['key']==0:
+                        line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""
+
+                    elif  fragment['key']!=0:
+                        line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""+str(arr_depth)
 
                 #Welif  last_fragment['type']!='list' : #and not isinstance(obj,list)
                 #    line+="\n"+self.yaml_padding(len(path),arr_depth)+"- "
@@ -495,41 +528,41 @@ class obj_formatter():
 
 data={}
 data['arr']=[]
-data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c'],['a','b','c'],['a','b','c'],['a','b','c']]
-data['array']=['a','b','c','d']
-data['nested3']=[
-        [['R',2,3,4,5,6],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-        [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-        [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-]
-
-data['group']={}
-data['array2']={}
-data['array2']['arr1']=[6,7,8]
-data['array2']['arr2']=[9,8,7,6,"number",4,3,2,1,0,3,4,3]
-op={}
-op['sddc']='roc'
-op['vcenter']="1"
-op['cloudgw']=1.2
-d={}
-d['v2']=3
-d['ve']=3
-op['versions']=[1.2,1.3,d,5,{'1':{'l':1}},7]
-data['group']['operations']=op
-data['arr3']=[{'l':3}]
-data['arr4']=[{'l':3},{'l':5}]
+#data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c'],['a','b','c'],['a','b','c'],['a','b','c']]
+#data['array']=['a','b','c','d']
+#data['nested3']=[
+#        [['R',2,3,4,5,6],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+#        [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+#        [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+#]
+#
+#data['group']={}
+#data['array2']={}
+#data['array2']['arr1']=[6,7,8]
+#data['array2']['arr2']=[9,8,7,6,"number",4,3,2,1,0,3,4,3]
+#op={}
+#op['sddc']='roc'
+#op['vcenter']="1"
+#op['cloudgw']=1.2
+#d={}
+#d['v2']=3
+#d['ve']=3
+#op['versions']=[1.2,1.3,d,5,{'1':{'l':1}},7]
+#data['group']['operations']=op
+#data['arr3']=[{'l':3}]
+#data['arr4']=[{'l':3},{'l':5}]
 data['arr'].append([2,3,4])
 data['arr'].append([5,6,7])
-data['arr'].append([8,9,0])
-data['list']=[]
-o={}
-o['key']='data'
-o['key2']='data2'
-data['list'].append(o)
-data['list'].append(o)
-data['list'].append(o)
-data['list'].append(o)
-data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
+#data['arr'].append([8,9,0])
+#data['list']=[]
+#o={}
+#o['key']='data'
+#o['key2']='data2'
+#data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append(o)
+#data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
 
 of=obj_formatter()
 #json_data = of.render_json(data)
