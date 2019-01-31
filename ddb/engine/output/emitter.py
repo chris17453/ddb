@@ -245,7 +245,14 @@ class obj_formatter():
 
     def yaml_padding(self,indent,indent_spacing,array_depth=0):
         padding=""
-        for i in range(0,indent*indent_spacing+array_depth):
+        indent=indent-1
+        if indent_spacing<=0:
+            indent_spacing=1
+        column_indent=(indent-array_depth)
+        if column_indent<0:
+            column_indent=0
+        pad_len=column_indent*indent_spacing+array_depth*2
+        for i in range(0,pad_len):
             padding+=" "
         return padding
 
@@ -265,21 +272,17 @@ class obj_formatter():
                 continue
             obj=fragment['obj']
             if fragment['type']=='dict':
-                line+="\n"+self.yaml_padding(len(path),arr_depth,indent)
+                line+="\n"+self.yaml_padding(len(path),indent,arr_depth)
 
                 line+="{0}: ".format(fragment['key'])
             
             
-            if last_fragment:
-                if  last_fragment['type']!='list':
+            if parent_fragment:
+                if  parent_fragment['type']!='list':
                     arr_depth=0
-                if last_fragment['depth']!=fragment['depth']:
-                    
-                    if  fragment['type']>'list':
-                        arr_depth+=1
-                    if  fragment['type']<'list':
-                        arr_depth-=1
-
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']!=fragment['depth']:
+                    arr_depth+=1
+                
 
             else:
                 arr_depth=0
@@ -287,13 +290,13 @@ class obj_formatter():
             if fragment['type']=='list':
                 #after first pointer
                 #if  last_fragment['depth']>fragment['depth'] :#and not  last_fragment['type']=='list' : #and not isinstance(obj,list)
-                print (parent_fragment['key'],parent_fragment['type'],fragment['key'],fragment['type'])
+                #print (parent_fragment['key'],parent_fragment['type'],fragment['key'],fragment['type'])
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
-                        line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""
+                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
 
                     elif  fragment['key']!=0:
-                        line+="\n"+self.yaml_padding(len(path),arr_depth,indent)+""+str(arr_depth)
+                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
 
                 #Welif  last_fragment['type']!='list' : #and not isinstance(obj,list)
                 #    line+="\n"+self.yaml_padding(len(path),arr_depth)+"- "
@@ -521,20 +524,22 @@ class obj_formatter():
                 if isinstance(obj,list):
                     value=self.yaml_return_data(line_cleaned)
                     obj.append(value)
-
+            last_indent=indent
         return root
  
 
 
 data={}
 data['arr']=[]
-#data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c'],['a','b','c'],['a','b','c'],['a','b','c']]
-#data['array']=['a','b','c','d']
-#data['nested3']=[
-#        [['R',2,3,4,5,6],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-#        [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-#        [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
-#]
+data['arr'].append([2,3,4])
+data['arr'].append([5,6,7])
+data['nested2']=[[1,2,3],[4,5,6],[7,8,9],['a','b','c'],['a','b','c'],['a','b','c'],['a','b','c']]
+data['array']=['a','b','c','d']
+data['nested3']=[
+        [['R',2,3,4,5,6],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+        [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+        [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
+]
 #
 #data['group']={}
 #data['array2']={}
@@ -551,8 +556,6 @@ data['arr']=[]
 #data['group']['operations']=op
 #data['arr3']=[{'l':3}]
 #data['arr4']=[{'l':3},{'l':5}]
-data['arr'].append([2,3,4])
-data['arr'].append([5,6,7])
 #data['arr'].append([8,9,0])
 #data['list']=[]
 #o={}
@@ -567,7 +570,7 @@ data['arr'].append([5,6,7])
 of=obj_formatter()
 #json_data = of.render_json(data)
 #xml_data  = of.render_xml(data,root='object')
-yaml_data = of.render_yaml(data,indent=2)
+yaml_data = of.render_yaml(data,indent=0)
 # print json_data
 # print xml_data
 #print yaml_data
@@ -575,7 +578,7 @@ print "----------X"
 #of.yaml_dump(file="/home/nd/.ddb/main/vov.ddb.yaml") 
 #yaml_data=yaml.dump(data, default_flow_style=False)
 print of.yaml_dump(yaml_data)
-print (yaml_data)
+#print (yaml_data)
 
 
 # TODO YAML EMITTER, handle MULTIDIMENTIONAL ARRAYS properly. extra level of recursion
