@@ -2,7 +2,7 @@ import time
 from cmd import Cmd
 from .sql_engine import sql_engine
 from .version import __version__
-from engine.output import output
+from engine.output.output import output_factory
 
 
 class bcolors:
@@ -104,7 +104,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            o=output.format_output(results)
+            o=output_factory(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None

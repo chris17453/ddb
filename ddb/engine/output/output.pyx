@@ -1,10 +1,10 @@
-import json
-import yaml
-import lazyxml
+from factory_json import factory_json
+from factory_yaml import factory_yaml
+from factory_xml import factory_xml
 import flextable
 
 
-class format_output():
+class output_factory:
 
     def __init__(self,results,output='term',output_file=None):
             """display results in different formats
