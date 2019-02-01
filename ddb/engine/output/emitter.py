@@ -191,8 +191,7 @@ class obj_formatter():
         elif isinstance(fragment,dict):
                     return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
         return None        
-            
-        
+                  
     def yaml_get_next_obj_path(self,path,root):
         fragment=self.yaml_walk_path(path,root)
         
@@ -263,6 +262,7 @@ class obj_formatter():
         line=""
         last_fragment=None
         arr_depth=0
+        newline=False
         while obj!=None:
             fragment=self.yaml_get_next_obj_path(path,root)
             parent_fragment=self.yaml_get_parent_obj(path,root)
@@ -270,53 +270,42 @@ class obj_formatter():
             if None ==fragment:
                 obj=None
                 continue
-            obj=fragment['obj']
-            if fragment['type']=='dict':
-                line+="\n"+self.yaml_padding(len(path),indent,arr_depth)
 
-                line+="{0}: ".format(fragment['key'])
-            
-            
+            if  fragment['type']!='list':
+                arr_depth=0
             if parent_fragment:
                 if  parent_fragment['type']!='list':
                     arr_depth=0
-                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']!=fragment['depth']:
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
                     arr_depth+=1
-                
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
+                    arr_depth-=1
 
-            else:
-                arr_depth=0
-            
+            obj=fragment['obj']
+            if fragment['type']=='dict':
+                if newline==0:
+                    line+="\n"
+                    line+=self.yaml_padding(len(path),indent,arr_depth)
+                else:
+                    newline=0
+                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                
             if fragment['type']=='list':
-                #after first pointer
-                #if  last_fragment['depth']>fragment['depth'] :#and not  last_fragment['type']=='list' : #and not isinstance(obj,list)
-                #print (parent_fragment['key'],parent_fragment['type'],fragment['key'],fragment['type'])
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
-                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
                     elif  fragment['key']!=0:
-                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                        line+="\n"+self.yaml_padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
-                #Welif  last_fragment['type']!='list' : #and not isinstance(obj,list)
-                #    line+="\n"+self.yaml_padding(len(path),arr_depth)+"- "
-                #elif  last_fragment['type']=='list' : #and not isinstance(obj,list)
-                #    line+="- "
-                
-                #else:
                 line+="- "
-
+                newline=1
             
             if not isinstance(obj,list) and not  isinstance(obj,dict):
                 line+="{0}\n".format(obj)
-                #if not last_fragment['depth']<fragment['depth']:
-                #    line+="\n"+self.yaml_padding(len(path),arr_depth)
+                newline=0
             last_fragment=fragment
         return line
-
-
-
-
 
     def get_indent(self,line):
         index_of=line.find('- ')
@@ -540,37 +529,37 @@ data['nested3']=[
         [['A',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
         [['B',2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4],],
 ]
-#
-#data['group']={}
-#data['array2']={}
-#data['array2']['arr1']=[6,7,8]
-#data['array2']['arr2']=[9,8,7,6,"number",4,3,2,1,0,3,4,3]
-#op={}
-#op['sddc']='roc'
-#op['vcenter']="1"
-#op['cloudgw']=1.2
-#d={}
-#d['v2']=3
-#d['ve']=3
-#op['versions']=[1.2,1.3,d,5,{'1':{'l':1}},7]
-#data['group']['operations']=op
-#data['arr3']=[{'l':3}]
-#data['arr4']=[{'l':3},{'l':5}]
-#data['arr'].append([8,9,0])
-#data['list']=[]
-#o={}
-#o['key']='data'
-#o['key2']='data2'
-#data['list'].append(o)
-#data['list'].append(o)
-#data['list'].append(o)
-#data['list'].append(o)
-#data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
+
+data['group']={}
+data['array2']={}
+data['array2']['arr1']=[6,7,8]
+data['array2']['arr2']=[9,8,7,6,"number",4,3,2,1,0,3,4,3]
+op={}
+op['sddc']='roc'
+op['vcenter']="1"
+op['cloudgw']=1.2
+d={}
+d['v2']=3
+d['ve']=3
+op['versions']=[1.2,1.3,d,5,{'1':{'l':1}},7]
+data['group']['operations']=op
+data['arr3']=[{'l':3}]
+data['arr4']=[{'l':3},{'l':5}]
+data['arr'].append([8,9,0])
+data['list']=[]
+o={}
+o['key']='data'
+o['key2']='data2'
+data['list'].append(o)
+data['list'].append(o)
+data['list'].append(o)
+data['list'].append(o)
+data['list'].append({'pixxa':[6,7,8,{"d":"3"},0,0,'o']})
 
 of=obj_formatter()
 #json_data = of.render_json(data)
 #xml_data  = of.render_xml(data,root='object')
-yaml_data = of.render_yaml(data,indent=0)
+yaml_data = of.render_yaml(data,indent=2)
 # print json_data
 # print xml_data
 #print yaml_data
@@ -578,7 +567,7 @@ print "----------X"
 #of.yaml_dump(file="/home/nd/.ddb/main/vov.ddb.yaml") 
 #yaml_data=yaml.dump(data, default_flow_style=False)
 print of.yaml_dump(yaml_data)
-#print (yaml_data)
+print (yaml_data)
 
 
 # TODO YAML EMITTER, handle MULTIDIMENTIONAL ARRAYS properly. extra level of recursion
