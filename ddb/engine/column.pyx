@@ -1,7 +1,5 @@
 
 class column_v1:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.name = None
