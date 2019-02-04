@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.669'
+__version__='1.0.670'
 
         
         
@@ -59,7 +59,7 @@ sql_syntax = {
         {'query': 'select',
          'argument': 1,
          'switch': [
-                    {'data': False,
+                    {'data': None,
                      'name': 'distinct',
                      'optional': True},
 
@@ -2171,7 +2171,6 @@ class sql_engine:
         for query_object in parser.query_objects:
 
             self.info("Engine: query_object", query_object)
-            print query_object['mode']
             if query_object['mode'] == "show tables":
 
                 self.results = self.functions.f_show_tables(self.database)
@@ -2308,7 +2307,6 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
-        print ("in select")
         if 'distinct' in query_object:
             distinct=True
         else:
