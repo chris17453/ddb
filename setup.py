@@ -15,7 +15,7 @@ extensions = [
     Extension("ddb.functions.functions",           [prefix+"./ddb/functions/functions" + ext]),
     Extension("ddb.lexer.language",                [prefix+"./ddb/lexer/language" + ext]),
     Extension("ddb.lexer.tokenize",                [prefix+"./ddb/lexer/tokenize" + ext]),
-    Extension("ddb.lexer.parser",                  [prefix+"./ddb/lexer/parser" + ext],
+    Extension("ddb.lexer.lexer",                   [prefix+"./ddb/lexer/lexer" + ext],
                                       include_dirs=[prefix+'./ddb/structure/'],
               ),
     Extension("ddb.structure.column",              [prefix+"./ddb/structure/column" + ext]),

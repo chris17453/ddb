@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.689'
+__version__='1.0.690'
 
         
         
@@ -2172,7 +2172,7 @@ class engine:
         self.results = None
 
 
-        parser = sql_parser(sql_query, self.debug)
+        parser = parser(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
