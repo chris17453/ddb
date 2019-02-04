@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.626'
+__version__='1.0.627'
 
         
         
@@ -3366,6 +3366,7 @@ class factory_json:
 
     def render(self,obj,depth=0):
         """json like output for python objects, very loose"""
+        unk_template='"???{0}???"'
         str_template='"{0}"'
         int_template="{0}"
         float_template="{0}"
@@ -3401,7 +3402,7 @@ class factory_json:
             if len(partial)>0:
                 fragment+=object_template.format(",".join(map(str, partial))) 
         else:
-            fragment+=template.format("UNK",obj)
+            fragment+=unk_template.format("UNK",obj)
         return fragment
 
 
@@ -3559,6 +3560,7 @@ def cli_main():
                         output_file=args.file)
         results = e.query(args.query)
         o=output_factory(results,output=args.output,output_file=args.file)
+        print(o)
 
     else:
         prompt = ddbPrompt()
