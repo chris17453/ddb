@@ -1,8 +1,8 @@
 import argparse
 import os
-from engine.sql_engine import sql_engine
-from engine.interactive import ddbPrompt
-from engine.output.output import output_factory
+from .engine.sql_engine import sql_engine
+from .engine.interactive import ddbPrompt
+from .engine.output.output import output_factory
 
 
 from os.path import expanduser
