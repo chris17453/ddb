@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.643'
+__version__='1.0.644'
 
         
         
@@ -3041,6 +3041,7 @@ class factory_yaml:
         last_fragment=None
         arr_depth=0
         newline=False
+        fragment=True
         while fragment!=None:
             fragment=self.get_next_obj_path(path,root)
             parent_fragment=self.get_parent_obj(path,root)

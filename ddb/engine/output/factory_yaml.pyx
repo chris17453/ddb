@@ -128,6 +128,7 @@ class factory_yaml:
         root=data_obj
         path=[]
         line=""
+        lines=[]
         last_fragment=None
         arr_depth=0
         newline=False
@@ -153,28 +154,37 @@ class factory_yaml:
             obj=fragment['obj']
             if fragment['type']=='dict':
                 if newline==0:
-                    line+="\n"
-                    line+=self.padding(len(path),indent,arr_depth)
+                    if len(line)>0:
+                       lines.append(line)
+                    line=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+="{0}: ".format(fragment['key'])+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
-                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
                     elif  fragment['key']!=0:
-                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
                 line+="- "
                 newline=1
             
             if not isinstance(obj,list) and not  isinstance(obj,dict):
-                line+="{0}\n".format(obj)
+                line+="{0}".format(obj)
+                if len(line)>0:
+                    lines.append(line)
+                line=""
                 newline=0
             last_fragment=fragment
-        return line
+
+        return '\n'.join(lines)
 
 
     # ##########################################################################
