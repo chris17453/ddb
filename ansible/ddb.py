@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.670'
+__version__='1.0.671'
 
         
         
@@ -59,10 +59,7 @@ sql_syntax = {
         {'query': 'select',
          'argument': 1,
          'switch': [
-                    {'data': None,
-                     'name': 'distinct',
-                     'optional': True},
-
+            
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
