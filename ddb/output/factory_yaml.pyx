@@ -15,6 +15,14 @@ def yamlf_dumps(data=None,file=None):
     return result
 
 class factory_yaml:
+    debug=False
+    def __init__(self,debug=None):
+        self.debug=debug
+    
+    def info(self,data,msg):
+        if self.debug:
+            print("{0} : {1}".format(msg,data))
+
     # ##########################################################################
     # Encode Yaml
     # ##########################################################################
@@ -334,14 +342,14 @@ class factory_yaml:
             
             # I handle array creation            
             if  is_array:
-                print("Is Array")
+                self.info("Encode","Create Array Index")
                 line_cleaned=self.strip_array(line_cleaned)
                 line=line_cleaned
                 arr_index=0
                 while is_array:
                     make_new_array=True
                     if None==obj:
-                        print("made a new object at start (root index) @ {0}".format(len(hash_map)))
+                        self.info("Encode-Array","made a new object at start (root index) @ {0}".format(len(hash_map)))
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
@@ -354,12 +362,12 @@ class factory_yaml:
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
                                 make_new_array=None
-                                print("Found  object")
+                                self.info("Encode-Array","Found  object")
                         
                                 break
                     if make_new_array:
                         if isinstance(obj,list):
-                            print("Made a new object")
+                            self.info("Encode","Made a new object")
                         
                             new_list=[]
                             obj.append(new_list)
@@ -384,12 +392,11 @@ class factory_yaml:
                     for index in range(len(hash_map)-1,-1,-1):
                         if hash_map[index]['indent']<=indent:
                             obj=hash_map[index]['obj']
-                            print("Found it: {0}".format(index))
-                            # print (obj)
+                            self.info("Encode","Found it: {0}".format(index))
                             found=True
                             break
                     if None==found:
-                        pprint("Didn't Find it")
+                        self.info("Encode","Didn't Find it")
                 
                     
                             
@@ -397,9 +404,9 @@ class factory_yaml:
             # is it a tuple?
             line_tuple=self.get_tuple(line_cleaned)
             if line_tuple:
-                print("In Tuple :{0}".format(line_tuple['key']))
+                self.info("Encode","In Tuple :{0}".format(line_tuple['key']))
                 if None == obj:
-                    print("OBJ needs ")
+                    self.info("Encode","OBJ needs ")
                     obj_parent[obj_parent_key]={}
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
@@ -421,7 +428,7 @@ class factory_yaml:
                 # well darn, no data. guess the next object is the data...
                 else:
                     if  not isinstance(obj,list):
-                        print ("no tuble value")
+                        self.info("Encode","no tuble value")
                         obj[line_tuple['key']]=None
                         obj_parent=obj
                         obj_parent_key=line_tuple['key']
@@ -437,7 +444,6 @@ class factory_yaml:
                     value=self.return_data(line_cleaned)
                     obj.append(value)
             last_indent=indent
-            #print hash_map
         return root
 
 
