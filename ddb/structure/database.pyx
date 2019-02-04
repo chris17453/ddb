@@ -202,7 +202,7 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            temp_table=table(t)
+            temp_table=table(table_config_file=t)
             # Dont add tables that are inactive...
             if temp_table.active==False:
                 warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))

@@ -1,6 +1,6 @@
 import unittest
 import os
-from engine.sql_engine import sql_engine
+from .. import ddb
 
 
 class test_engine(unittest.TestCase):
@@ -23,14 +23,14 @@ class test_engine(unittest.TestCase):
         try:
             # single db change from default
             self.cleanup()
-            engine = sql_engine(config_file=False)
+            engine = ddb.engine(config_file=False)
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
             results = engine.query("select database()")
             self.assertEqual(results[0][0], test_db_name)
 
             # default context check
-            engine = sql_engine(config_file=False)
+            engine = ddb.engine(config_file=False)
             results = engine.query("select database()")
             self.assertEqual("main", results[0][0])
         except Exception as ex:
@@ -39,7 +39,7 @@ class test_engine(unittest.TestCase):
     def test_create_table(self):
         """Test creating a table"""
         self.cleanup()
-        engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
         # new on existing table
         results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(1, results[0][0])
@@ -51,7 +51,7 @@ class test_engine(unittest.TestCase):
     def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
-        engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
         results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         # fail on existing table
         results = engine.query('drop table {}'.format(self.table_name))
@@ -65,7 +65,7 @@ class test_engine(unittest.TestCase):
         """Test selecting results using various clauses a table"""
         try:
             self.cleanup()
-            engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             if None == results:
@@ -96,7 +96,7 @@ class test_engine(unittest.TestCase):
         """Update a row in the test file"""
         try:
             self.cleanup()
-            engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         
@@ -117,7 +117,7 @@ class test_engine(unittest.TestCase):
         """Insert a row in the test file"""
         try:
             self.cleanup()
-            engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             self.cleanup()
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
@@ -136,7 +136,7 @@ class test_engine(unittest.TestCase):
         """Delete a test row in the test file"""
         self.cleanup()
         try:
-            engine = sql_engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
 
