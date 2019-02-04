@@ -1,6 +1,6 @@
-from factory_json import factory_json
-from factory_yaml import factory_yaml
-from factory_xml import factory_xml
+from .factory_json.pyx import factory_json
+from .factory_yaml import factory_yaml
+from .factory_xml import factory_xml
 import flextable
 
 
@@ -104,7 +104,8 @@ class output_factory:
     def format_yaml(self,temp_table,output_file):
         """ouput results data in the yaml format"""
         results=temp_table.get_results()
-        dump=yaml.safe_dump(results, default_flow_style=False)
+        factory=factory_yaml()
+        dump=factory.dumps(results)
         if not output_file:
             print dump
         else:
@@ -114,17 +115,19 @@ class output_factory:
     def format_json(self,temp_table,output_file):
         """ouput results data in the json format"""
         results=temp_table.get_results()
+        factory=factory_json()
+        dump=factory.dumps(results)
         if not output_file:
-            dump=json.dumps(results)
             print dump
         else:
             with open(output_file, "w") as write_file:
-                json.dump(results, write_file)
+                write_file.write(dump)
         
     def format_xml(self,temp_table,output_file):
         """ouput results data in the xml format"""
         results=temp_table.get_results()
-        dump=lazyxml.dumps({'data':results})
+        factory=factory_xml()
+        dump=factory.dumps({'data':results})
         if not output_file:
             print dump
         else:
