@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.677'
+__version__='1.0.678'
 
         
         
@@ -3248,7 +3248,7 @@ class factory_yaml:
                 while is_array:
                     make_new_array=True
                     if None==obj:
-                        print("Need to make a new object")
+                        print("made a new object at start (root index) @ {0}".format(len(hash_map)))
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
@@ -3281,17 +3281,17 @@ class factory_yaml:
                         line=line_cleaned
                     arr_index+=1
                 indent=self.get_indent(line)
-        
-            if last_indent and  last_indent>indent:
-                found=None
-                for index in range(len(hash_map)-1,-1,-1):
-                    if hash_map[index]['indent']<=indent:
-                        obj=hash_map[index]['obj']
-                        print("Found it: {0}".format(index))
-                        found=True
-                        break
-                if None==found:
-                    pprint("Didn't Find it")
+            else:
+                if last_indent and  last_indent>indent:
+                    found=None
+                    for index in range(len(hash_map)-1,-1,-1):
+                        if hash_map[index]['indent']<=indent:
+                            obj=hash_map[index]['obj']
+                            print("Found it: {0}".format(index))
+                            found=True
+                            break
+                    if None==found:
+                        pprint("Didn't Find it")
                 
                     
                             
@@ -3342,7 +3342,7 @@ class factory_yaml:
 
 
 
-pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
+
         
         
 # ############################################################################
