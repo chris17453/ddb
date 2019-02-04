@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.654'
+__version__='1.0.655'
 
         
         
@@ -2633,12 +2633,14 @@ class sql_engine:
     def use(self, query_object):
         self.info("Use")
         target_db = query_object['meta']['use']['table']
-        self.database.set_database(target_db)
-        temp_table = self.database.temp_table()
-        temp_table.add_column('changed_db')
-        data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
-        temp_table.append_data(data)
-        return temp_table
+        if self.database.get_curent_database()!=target_db:
+            self.database.set_database(target_db)
+            temp_table = self.database.temp_table()
+            temp_table.add_column('changed_db')
+            data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
+            temp_table.append_data(data)
+            return temp_table
+        return None
 
     def create_table(self, query_object):
         self.info("Create Table")
