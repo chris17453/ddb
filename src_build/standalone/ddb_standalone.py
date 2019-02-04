@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.690'
+__version__='1.0.691'
 
         
         
@@ -392,7 +392,7 @@ sql_syntax = {
         
 # ############################################################################
 # Module : lexer-parse
-# File   : ddb/lexer/parser.pyx
+# File   : ddb/lexer/lexer.pyx
 # ############################################################################
 
 
@@ -2172,7 +2172,7 @@ class engine:
         self.results = None
 
 
-        parser = parser(sql_query, self.debug)
+        parser = lexer(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
