@@ -93,6 +93,7 @@ class output_factory:
 
     def format_raw(self,results,output_file):
         """ouput results data in the yaml format"""
+        print(results)
         if not output_file:
             for row in results.results:
                 if 'raw' in row:

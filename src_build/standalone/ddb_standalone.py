@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.649'
+__version__='1.0.650'
 
         
         
@@ -2875,7 +2875,8 @@ class output_factory:
         """ouput results data in the yaml format"""
         if not output_file:
             for row in results.results:
-                print(row['raw'].rstrip())
+                if 'raw' in row:
+                    print(row['raw'].rstrip())
         else:
             with open(output_file, "w") as write_file:
                 for row in results.results:
