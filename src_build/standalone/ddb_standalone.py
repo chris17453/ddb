@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.674'
+__version__='1.0.675'
 
         
         
@@ -2936,10 +2936,16 @@ def yamlf_dump(data=None,file=None):
 
 def yamlf_dumps(data=None,file=None):
     factory=factory_yaml()
-    factory.dumps(data=data,file=file)
+    result=factory.dumps(data=data,file=file)
+    return result
 
 class factory_yaml:
     def dumps(self,data=None,file=None):
+        if None == data:
+            data_obj=self.load(data=None,file=file)
+            output_string=self.render(data_obj)
+            return output_string
+
         if not isinstance(data,str):
             output_string=self.render(data)
             return output_string
@@ -3194,9 +3200,9 @@ class factory_yaml:
         if data=="null" or data== 'Null':
             return None
         if data=="[]":
-            return []
+            return None
         if data=="{}":
-            return {}
+            return None
         return data
         
     def dump(self,data=None,file=None):
@@ -3212,7 +3218,6 @@ class factory_yaml:
                 data=content.read()
 
         lines=data.splitlines()
-        
         root={}
         last_indent=None
         obj=root
@@ -3319,8 +3324,7 @@ class factory_yaml:
 
 
 
-if __name__ == "__main__":
-    yamlf_dumps(file="/home/nd/.ddb/etmeta/addresses.ddb.yaml")
+print( yamlf_dumps(file="/home/nd/.ddb/etmeta/addresses.ddb.yaml"))
         
         
 # ############################################################################
