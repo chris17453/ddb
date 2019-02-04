@@ -1,6 +1,6 @@
 import os
 import tempfile  # from table import table
-from .lexer.parser import parser
+from .lexer.lexer import lexer
 from .structure.table import table
 from .structure.database import database
 from .evaluate.match import match
@@ -71,7 +71,7 @@ class engine:
         # it may have changed...
         # self.database.reload_config()
 
-        parser = parser(sql_query, self.debug)
+        parser = lexer(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
