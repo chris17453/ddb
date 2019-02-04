@@ -8,7 +8,6 @@
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
@@ -30,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.666'
+__version__='1.0.667'
 
         
         

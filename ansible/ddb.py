@@ -8,7 +8,6 @@
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
@@ -24,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.666'
+__version__='1.0.667'
 
         
         
