@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.661'
+__version__='1.0.662'
 
         
         
@@ -2178,6 +2178,7 @@ class sql_engine:
         for query_object in parser.query_objects:
 
             self.info("Engine: query_object", query_object)
+            print query_object['mode']
             if query_object['mode'] == "show tables":
 
                 self.results = self.functions.f_show_tables(self.database)

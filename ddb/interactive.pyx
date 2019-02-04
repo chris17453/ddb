@@ -2,7 +2,7 @@ import time
 from cmd import Cmd
 from .sql_engine import sql_engine
 from .version import __version__
-from .output.output import output_factory
+from .output.factory import output_factory
 
 
 class bcolors:

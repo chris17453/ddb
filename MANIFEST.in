@@ -2,10 +2,10 @@ include README.md
 recursive-include ddb *.c
 recursive-include ddb *.py
 include ddb/__init__.py
-include ddb/engine/__init__.py
-include ddb/engine/parser/__init__.py
-include ddb/engine/evaluate/__init__.py
-include ddb/engine/structure/__init__.py
-include ddb/engine/tokenizer/__init__.py
-include ddb/engine/functions/__init__.py
-include ddb/engine/version.pyx
+include ddb/parser/__init__.py
+include ddb/output/__init__.py
+include ddb/evaluate/__init__.py
+include ddb/structure/__init__.py
+include ddb/tokenizer/__init__.py
+include ddb/functions/__init__.py
+include ddb/version.pyx

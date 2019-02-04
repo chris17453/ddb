@@ -2,7 +2,7 @@ from cli import cli_main
 import os
 
 
-from .engine.sql_engine import sql_engine
+from .sql_engine import sql_engine
 
 # main import
 

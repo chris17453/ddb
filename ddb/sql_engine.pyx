@@ -1,11 +1,11 @@
 import os
 import tempfile  # from table import table
-from parser.sql_parser import sql_parser
-from structure.table import table
-from structure.database import database
-from evaluate.match import match
-from functions.functions import functions
-from version import __version__
+from .parser.sql_parser import sql_parser
+from .structure.table import table
+from .structure.database import database
+from .evaluate.match import match
+from .functions.functions import functions
+from .version import __version__
 #
 
 
