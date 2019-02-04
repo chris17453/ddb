@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.652'
+__version__='1.0.653'
 
         
         
@@ -2858,7 +2858,7 @@ class output_factory:
             else:
                 row_type=row['type']
             print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
-            if not row['raw']:
+            if 'raw' not in  row:
                 row_raw=''
             else:
                 row_raw=row['raw']
@@ -2881,7 +2881,8 @@ class output_factory:
         else:
             with open(output_file, "w") as write_file:
                 for row in results.results:
-                    write_file.write(row['raw'])
+                    if 'raw' in row row:
+                        write_file.write(row['raw'])
 
     def format_yaml(self,temp_table,output_file):
         """ouput results data in the yaml format"""
@@ -3573,6 +3574,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
+        print(results)
         output_factory(results,output=args.output,output_file=args.file)
 
     else:

@@ -101,7 +101,7 @@ class output_factory:
         else:
             with open(output_file, "w") as write_file:
                 for row in results.results:
-                    if 'raw' in row row:
+                    if 'raw' in row:
                         write_file.write(row['raw'])
 
     def format_yaml(self,temp_table,output_file):
