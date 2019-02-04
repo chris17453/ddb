@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.637'
+__version__='1.0.638'
 
         
         
@@ -1876,7 +1876,6 @@ class database:
             raise Exception("db config invalid")
 
         yaml_data = yamlf_load(file=self.config_file)
-        print yaml_data
         if  yaml_data != None:
             for db in yaml_data:
                 if yaml_data[db] !=None:
@@ -2887,6 +2886,7 @@ class output_factory:
         results=temp_table.get_results()
         factory=factory_yaml()
         dump=factory.dumps(results)
+        print ("in yaml")
         if not output_file:
             print dump
         else:
@@ -3558,8 +3558,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        o=output_factory(results,output=args.output,output_file=args.file)
-        print(o)
+        output_factory(results,output=args.output,output_file=args.file)
 
     else:
         prompt = ddbPrompt()
