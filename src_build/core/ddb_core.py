@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.628'
+__version__='1.0.629'
 
         
         
@@ -1674,7 +1674,6 @@ class table_delimiters:
 
 
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 class database:
