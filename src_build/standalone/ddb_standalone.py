@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.640'
+__version__='1.0.641'
 
         
         
@@ -3066,15 +3066,15 @@ class factory_yaml:
                     line+=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                line+="{0}: ".format(fragment['key'])+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
-                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
                     elif  fragment['key']!=0:
-                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
                 line+="- "
                 newline=1
