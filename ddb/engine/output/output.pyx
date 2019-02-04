@@ -78,7 +78,7 @@ class output_factory:
             else:
                 row_type=row['type']
             print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
-            if not row['raw']:
+            if 'raw' not in  row:
                 row_raw=''
             else:
                 row_raw=row['raw']
@@ -101,7 +101,8 @@ class output_factory:
         else:
             with open(output_file, "w") as write_file:
                 for row in results.results:
-                    write_file.write(row['raw'])
+                    if 'raw' in row row:
+                        write_file.write(row['raw'])
 
     def format_yaml(self,temp_table,output_file):
         """ouput results data in the yaml format"""
