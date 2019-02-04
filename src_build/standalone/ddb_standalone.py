@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.672'
+__version__='1.0.673'
 
         
         
@@ -3319,8 +3319,8 @@ class factory_yaml:
 
 
 
-
-
+if __name__=='__main__':
+    yamlf_dumps("/home/nd/.ddb/etmeta/addresses.ddb.yaml")
         
         
 # ############################################################################
