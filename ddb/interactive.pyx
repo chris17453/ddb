@@ -1,6 +1,6 @@
 import time
 from cmd import Cmd
-from .sql_engine import sql_engine
+from .engine import engine
 from .version import __version__
 from .output.factory import output_factory
 

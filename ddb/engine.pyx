@@ -1,6 +1,6 @@
 import os
 import tempfile  # from table import table
-from .parser.sql_parser import sql_parser
+from .lexer.parser import parser
 from .structure.table import table
 from .structure.database import database
 from .evaluate.match import match
@@ -14,7 +14,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-class sql_engine:
+class engine:
     """A serverless flat file database engine"""
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
