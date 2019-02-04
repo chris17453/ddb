@@ -136,6 +136,7 @@ class factory_yaml:
             parent_fragment=self.get_parent_obj(path,root)
             
             if None ==fragment:
+                print("EXIT")
                 obj=None
                 continue
 
