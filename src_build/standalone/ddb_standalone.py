@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.695'
+__version__='1.0.696'
 
         
         
@@ -399,7 +399,7 @@ sql_syntax = {
 
 
 
-class parser:
+class lexer:
    
 
     def __init__(self, query, debug=False):
