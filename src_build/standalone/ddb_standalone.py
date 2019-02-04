@@ -25,18 +25,18 @@ from os.path import expanduser
         
 # ############################################################################
 # Module : version
-# File   : ddb/engine/version.pyx
+# File   : ddb/version.pyx
 # ############################################################################
 
 
 
-__version__='1.0.662'
+__version__='1.0.666'
 
         
         
 # ############################################################################
 # Module : language
-# File   : ddb/engine/parser/language.pyx
+# File   : ddb/parser/language.pyx
 # ############################################################################
 
 
@@ -392,7 +392,7 @@ sql_syntax = {
         
 # ############################################################################
 # Module : parser
-# File   : ddb/engine/parser/sql_parser.pyx
+# File   : ddb/parser/sql_parser.pyx
 # ############################################################################
 
 
@@ -839,7 +839,7 @@ class sql_parser:
         
 # ############################################################################
 # Module : tokenize
-# File   : ddb/engine/tokenizer/sql_tokenize.pyx
+# File   : ddb/tokenizer/sql_tokenize.pyx
 # ############################################################################
 
 
@@ -1044,7 +1044,7 @@ class tokenizer():
         
 # ############################################################################
 # Module : column
-# File   : ddb/engine/structure/column.pyx
+# File   : ddb/structure/column.pyx
 # ############################################################################
 
 
@@ -1284,7 +1284,7 @@ class column_sort:
         
 # ############################################################################
 # Module : table
-# File   : ddb/engine/structure/table.pyx
+# File   : ddb/structure/table.pyx
 # ############################################################################
 
 
@@ -1664,7 +1664,7 @@ class table_delimiters:
         
 # ############################################################################
 # Module : database
-# File   : ddb/engine/structure/database.pyx
+# File   : ddb/structure/database.pyx
 # ############################################################################
 
 
@@ -1857,7 +1857,7 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            temp_table=table(t)
+            temp_table=table(table_config_file=t)
             if temp_table.active==False:
                 warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))
                 continue
@@ -1889,7 +1889,7 @@ class database:
         
 # ############################################################################
 # Module : match
-# File   : ddb/engine/evaluate/match.pyx
+# File   : ddb/evaluate/match.pyx
 # ############################################################################
 
 
@@ -2034,7 +2034,7 @@ class match():
         
 # ############################################################################
 # Module : functions
-# File   : ddb/engine/functions/functions.pyx
+# File   : ddb/functions/functions.pyx
 # ############################################################################
 
 
@@ -2114,7 +2114,7 @@ class functions():
         
 # ############################################################################
 # Module : sql_engine
-# File   : ddb/engine/sql_engine.pyx
+# File   : ddb/sql_engine.pyx
 # ############################################################################
 
 
@@ -2784,7 +2784,7 @@ class sql_engine:
         
 # ############################################################################
 # Module : output
-# File   : ddb/engine/output/output.pyx
+# File   : ddb/output/factory.pyx
 # ############################################################################
 
 
@@ -2926,7 +2926,7 @@ class output_factory:
         
 # ############################################################################
 # Module : factory_yaml
-# File   : ddb/engine/output/factory_yaml.pyx
+# File   : ddb/output/factory_yaml.pyx
 # ############################################################################
 
 
@@ -3333,7 +3333,7 @@ class factory_yaml:
         
 # ############################################################################
 # Module : factory_xml
-# File   : ddb/engine/output/factory_xml.pyx
+# File   : ddb/output/factory_xml.pyx
 # ############################################################################
 
 
@@ -3379,7 +3379,7 @@ class factory_xml:
         
 # ############################################################################
 # Module : factory_json
-# File   : ddb/engine/output/factory_json.pyx
+# File   : ddb/output/factory_json.pyx
 # ############################################################################
 
 
@@ -3435,7 +3435,7 @@ class factory_json:
         
 # ############################################################################
 # Module : interactive
-# File   : ddb/engine/interactive.pyx
+# File   : ddb/interactive.pyx
 # ############################################################################
 
 
