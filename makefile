@@ -57,7 +57,6 @@ pipfile:
 	pipenv install flake8 --dev
 	pipenv install autopep8 --dev
 	pipenv install pyinstaller --dev
-	pipenv install pyyaml
 	pipenv install flextable
 	
 bump:
@@ -68,7 +67,7 @@ bump:
 	#@pipenv run bumpversion patch --allow-dirty
 
 unittest:
-	@python ddb/test.py
+	@python test/test.py
 	
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
