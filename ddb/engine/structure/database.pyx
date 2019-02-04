@@ -1,6 +1,6 @@
 import os
 #import copy
-from table import table
+from .table import table
 #import yaml
 import warnings
 import sys
