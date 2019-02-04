@@ -5,8 +5,8 @@ def src_build():
         # base class
         {'name':'version','file':'ddb/version.pyx'},
         {'name':'lexer-language','file':'ddb/lexer/language.pyx'},
-        {'name':'lexer-parse','file':'ddb/lexer/sql_parser.pyx'},
-        {'name':'lexer-token','file':'ddb/lexer/sql_tokenize.pyx'},
+        {'name':'lexer-parse','file':'ddb/lexer/parser.pyx'},
+        {'name':'lexer-token','file':'ddb/lexer/tokenize.pyx'},
         {'name':'column','file':'ddb/structure/column.pyx'},
         {'name':'table','file':'ddb/structure/table.pyx'},
         {'name':'database','file':'ddb/structure/database.pyx'},
@@ -23,8 +23,8 @@ def src_build():
         # base class
         {'name':'version','file':'ddb/version.pyx'},
         {'name':'lexer-language','file':'ddb/lexer/language.pyx'},
-        {'name':'lexer-parse','file':'ddb/lexer/sql_parser.pyx'},
-        {'name':'lexer-token','file':'ddb/lexer/sql_tokenize.pyx'},
+        {'name':'lexer-parse','file':'ddb/lexer/parser.pyx'},
+        {'name':'lexer-token','file':'ddb/lexer/tokenize.pyx'},
         {'name':'column','file':'ddb/structure/column.pyx'},
         {'name':'table','file':'ddb/structure/table.pyx'},
         {'name':'database','file':'ddb/structure/database.pyx'},
