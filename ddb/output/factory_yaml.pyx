@@ -334,12 +334,14 @@ class factory_yaml:
             
             # I handle array creation            
             if  is_array:
+                print("Is Array")
                 line_cleaned=self.strip_array(line_cleaned)
                 line=line_cleaned
                 arr_index=0
                 while is_array:
                     make_new_array=True
                     if None==obj:
+                        print("Need to make a new object")
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
@@ -352,9 +354,13 @@ class factory_yaml:
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
                                 make_new_array=None
+                                print("Found  object")
+                        
                                 break
                     if make_new_array:
                         if isinstance(obj,list):
+                            print("Made a new object")
+                        
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
@@ -374,17 +380,26 @@ class factory_yaml:
             # I handle indent shrinkage, loading the last indent level object
             # shrinkage requires object location....
             if last_indent and  last_indent>indent:
+                found=None
                 for index in range(len(hash_map)-1,-1,-1):
                     if hash_map[index]['indent']<=indent:
                         obj=hash_map[index]['obj']
+                        print("Found it: {0}".format(index))
+                        # print (obj)
+                        found=True
                         break
+                if None==found:
+                    pprint("Didn't Find it")
+                
                     
                             
             # i handle object creation
             # is it a tuple?
             line_tuple=self.get_tuple(line_cleaned)
             if line_tuple:
+                print("In Tuple :{0}".format(line_tuple['key']))
                 if None == obj:
+                    print("OBJ needs ")
                     obj_parent[obj_parent_key]={}
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
@@ -406,6 +421,7 @@ class factory_yaml:
                 # well darn, no data. guess the next object is the data...
                 else:
                     if  not isinstance(obj,list):
+                        print ("no tuble value")
                         obj[line_tuple['key']]=None
                         obj_parent=obj
                         obj_parent_key=line_tuple['key']
@@ -421,6 +437,7 @@ class factory_yaml:
                     value=self.return_data(line_cleaned)
                     obj.append(value)
             last_indent=indent
+            #print hash_map
         return root
 
 
@@ -429,6 +446,6 @@ class factory_yaml:
 
 
 
-
+from pprint import pprint
 #if __name__ == "__main__":
-print( yamlf_dumps(file="/home/nd/.ddb/etmeta/addresses.ddb.yaml"))
+pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
