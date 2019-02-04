@@ -42,7 +42,7 @@ if USE_CYTHON:
         exit(1)
 
     extensions = cythonize(extensions)
-exec(open('ddb/engine/version.pyx').read())
+exec(open('ddb/version.pyx').read())
 setup(
     name='ddb',
     version=__version__,
