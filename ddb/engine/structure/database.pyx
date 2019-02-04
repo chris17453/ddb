@@ -1,10 +1,7 @@
 import os
-#import copy
 from .table import table
-#import yaml
 import warnings
 import sys
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from ..output.factory_yaml import yamlf_load,yamlf_dump,yamlf_dumps
 
 
@@ -40,16 +37,7 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-    # I dont remember why i made this function
-    #def get_clone(self, table_name):
-    #    """Clone a Table structure in the database."""
-    #    table = self.get(table_name)
-    #    if None == table:
-    #        raise Exception("Table does not exist.{}".format(table_name))
-    #    temp_table = copy.deepcopy(table)
-    #    temp_table.columns = []
-    #    return temp_table
-
+   
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:

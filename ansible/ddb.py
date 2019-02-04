@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.634'
+__version__='1.0.635'
 
         
         
@@ -1882,6 +1882,7 @@ class database:
             raise Exception("db config invalid")
 
         yaml_data = yamlf_load(file=self.config_file)
+        print yaml_data
         if  yaml_data != None:
             for db in yaml_data:
                 if yaml_data[db] !=None:
