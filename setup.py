@@ -11,13 +11,12 @@ ext = '.pyx' if USE_CYTHON else '.c'
 prefix='' if USE_CYTHON else ''
 
 extensions = [
-    Extension("ddb.parser.language",               [prefix+"./ddb/parser/language" + ext]),
-    Extension("ddb.tokenizer.sql_tokenize",        [prefix+"./ddb/tokenizer/sql_tokenize" + ext]),
     Extension("ddb.evaluate.match",                [prefix+"./ddb/evaluate/match" + ext]),
     Extension("ddb.functions.functions",           [prefix+"./ddb/functions/functions" + ext]),
-    Extension("ddb.parser.sql_parser",             [prefix+"./ddb/parser/sql_parser" + ext],
-                                      include_dirs=[prefix+'./ddb/tokenizer/',
-                                                    prefix+'./ddb/language/',
+    Extension("ddb.lexer.language",                [prefix+"./ddb/lexer/language" + ext]),
+    Extension("ddb.lexer.tokenize",                [prefix+"./ddb/lexer/tokenize" + ext]),
+    Extension("ddb.lexer.parser",                  [prefix+"./ddb/lexer/parser" + ext],
+                                      include_dirs=[prefix+'./ddb/lexer/',
                                                     prefix+'./ddb/structure/'],
               ),
     Extension("ddb.structure.column",              [prefix+"./ddb/structure/column" + ext]),
@@ -28,7 +27,7 @@ extensions = [
     Extension("ddb.output.factory_xml",            [prefix+"./ddb/output/factory_xml" + ext], ),
     Extension("ddb.output.factory_json",           [prefix+"./ddb/output/factory_json" + ext], ),
     Extension("ddb.version",                       [prefix+"./ddb/version" + ext], ),
-    Extension("ddb.sql_engine",                    [prefix+"./ddb/sql_engine" + ext], ),
+    Extension("ddb.engine",                        [prefix+"./ddb/engine" + ext], ),
     Extension("ddb.interactive",                   [prefix+"./ddb/interactive" + ext], ),
 #    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
@@ -47,8 +46,7 @@ setup(
     name='ddb',
     version=__version__,
     packages=['ddb',
-              'ddb.parser',
-              'ddb.tokenizer',
+              'ddb.lexer',
               'ddb.evaluate',
               'ddb.structure',
               'ddb.functions',
