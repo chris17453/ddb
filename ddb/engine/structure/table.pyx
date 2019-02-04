@@ -23,6 +23,7 @@ class table:
                     errors=None,
                     data_on=None
     ):
+        print("in table")
         self.version = 1
         self.ownership = table_ownership()
         self.delimiters = table_delimiters()
@@ -44,7 +45,7 @@ class table:
                     errors=errors,
                     data_on=data_on)
 
-        if None != file:
+        if None != table_config_file:
             if os.path.exists(table_config_file):
                 yaml_data = yamlf_load(file=table_config_file)
                 if None == yaml_data:
