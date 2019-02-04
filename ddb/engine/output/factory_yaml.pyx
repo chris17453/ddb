@@ -1,6 +1,18 @@
 
 
 
+def yamlf_load(data=None,file=None):
+    factory=factory_yaml()
+    return factory.load(data=data,file=file)
+
+def yamlf_dump(data=None,file=None):
+    factory=factory_yaml()
+    factory.dump(data=data,file=file)
+
+def yamlf_dumps(data=None,file=None):
+    factory=factory_yaml()
+    factory.dumps(data=data,file=file)
+
 class factory_yaml:
     # ##########################################################################
     # Encode Yaml
