@@ -106,6 +106,7 @@ class output_factory:
         results=temp_table.get_results()
         factory=factory_yaml()
         dump=factory.dumps(results)
+        print ("in yaml")
         if not output_file:
             print dump
         else:
