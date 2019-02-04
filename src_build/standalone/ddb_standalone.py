@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.635'
+__version__='1.0.636'
 
         
         
@@ -1289,10 +1289,6 @@ class column_sort:
 
 
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
 
@@ -1301,7 +1297,6 @@ class table:
         pass
 
     def __init__(self, file=None, 
-                    show_config=False, 
                     database=None, 
                     columns=None, 
                     name=None, 
@@ -1336,38 +1331,34 @@ class table:
 
         if None != file:
             if os.path.exists(file):
-                with open(file, 'r') as stream:
-                    yaml_data = yaml.load(stream, Loader=Loader)
-                    if None == yaml_data:
-                        raise Exception("Table configuration empty")
-                    for key in yaml_data:
-                        if 'version' == key:
-                            self.version = yaml_data[key]
+                yaml_data = yamlf_load(file=file)
+                if None == yaml_data:
+                    raise Exception("Table configuration empty")
+                for key in yaml_data:
+                    if 'version' == key:
+                        self.version = yaml_data[key]
 
-                        if 'ownership' == key:
-                            self.ownership = table_ownership(yaml=yaml_data[key])
+                    if 'ownership' == key:
+                        self.ownership = table_ownership(yaml=yaml_data[key])
 
-                        if 'delimiters' == key:
-                            self.delimiters = table_delimiters(yaml=yaml_data[key])
+                    if 'delimiters' == key:
+                        self.delimiters = table_delimiters(yaml=yaml_data[key])
 
-                        if 'visible' == key:
-                            self.visible = table_visible_attributes(yaml=yaml_data[key])
+                    if 'visible' == key:
+                        self.visible = table_visible_attributes(yaml=yaml_data[key])
 
-                        if 'data' == key:
-                            self.data = table_data(yaml=yaml_data[key])
+                    if 'data' == key:
+                        self.data = table_data(yaml=yaml_data[key])
 
-                        if 'columns' == key:
-                            for c in yaml_data['columns']:
-                                self.columns.append(column_v2(c))
+                    if 'columns' == key:
+                        for c in yaml_data['columns']:
+                            self.columns.append(column_v2(c))
 
-                        if 'active' == key:
-                            self.active = yaml_data[key]
+                    if 'active' == key:
+                        self.active = yaml_data[key]
 
 
         self.update_ordinals()
-        yaml.emitter.Emitter.process_tag = self.noop
-        if True == show_config:
-            yaml.dump(self, sys.stdout, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True)
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
                 self.active=False
@@ -1558,10 +1549,7 @@ class table:
         if None == self.data.config:
             self.data.config = os.path.join(home, "{}.ddb.yaml".format(self.data.name))
 
-        with open(self.data.config, 'w') as stream:
-            yaml.emitter.Emitter.process_tag = self.noop
-            yaml.dump(self, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True, stream=stream)
-            stream.close()
+        yamlf_dump(data=self,file=self.data.config)
 
 
 class table_visible_attributes:
@@ -1711,7 +1699,7 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-
+   
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:
