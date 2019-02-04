@@ -8,6 +8,9 @@ class factory_xml:
         """xml like output for python objects, very loose"""
         template="""<{0}>{1}</{0}>"""
         fragment=""
+        if None==obj:
+            return fragment
+
         if isinstance(obj,str):
             fragment+=template.format(root,obj)
 
@@ -21,10 +24,10 @@ class factory_xml:
             fragment+=template.format(root,obj)
         elif  isinstance(obj,list):
             for item in obj:
-                fragment+=self.render_xml(item,root=root,depth=depth+1)
+                fragment+=self.render(item,root=root,depth=depth+1)
         elif isinstance(obj,object):
             for item in obj:
-                fragment+=self.render_xml(obj[item],root=item,depth=depth+1)
+                fragment+=self.render(obj[item],root=item,depth=depth+1)
         else:
             fragment+=template.format("UNK",obj)
 

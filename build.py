@@ -33,6 +33,9 @@ def src_build():
         {'name':'sql_engine','file':'ddb/engine/sql_engine.pyx'},
         # formatting
         {'name':'output','file':'ddb/engine/output/output.pyx'},
+        {'name':'factory_yaml','file':'ddb/engine/output/factory_yaml.pyx'},
+        {'name':'factory_xml','file':'ddb/engine/output/factory_xml.pyx'},
+        {'name':'factory_json','file':'ddb/engine/output/factory_json.pyx'},
         # cli stuff
         {'name':'interactive','file':'ddb/engine/interactive.pyx'},
         {'name':'cli','file':'ddb/cli.py'},
@@ -68,7 +71,6 @@ import yaml
 import warnings
 import datetime
 import tempfile
-import lazyxml
 import time
 import flextable
 from cmd import Cmd

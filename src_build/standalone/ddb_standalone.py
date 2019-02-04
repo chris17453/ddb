@@ -12,7 +12,6 @@ import yaml
 import warnings
 import datetime
 import tempfile
-import lazyxml
 import time
 import flextable
 from cmd import Cmd
@@ -1052,8 +1051,6 @@ class tokenizer():
 
 
 class column_v1:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.name = None
@@ -1683,6 +1680,7 @@ class table_delimiters:
 
 
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 class database:
@@ -2339,7 +2337,6 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
-        print ("in select")
         if 'distinct' in query_object:
             distinct=True
         else:
@@ -2812,7 +2809,7 @@ class sql_engine:
 
 
 
-class format_output():
+class output_factory:
 
     def __init__(self,results,output='term',output_file=None):
             """display results in different formats
@@ -2911,7 +2908,8 @@ class format_output():
     def format_yaml(self,temp_table,output_file):
         """ouput results data in the yaml format"""
         results=temp_table.get_results()
-        dump=yaml.safe_dump(results, default_flow_style=False)
+        factory=factory_yaml()
+        dump=factory.dumps(results)
         if not output_file:
             print dump
         else:
@@ -2921,22 +2919,492 @@ class format_output():
     def format_json(self,temp_table,output_file):
         """ouput results data in the json format"""
         results=temp_table.get_results()
-        if not output_file:
-            dump=json.dumps(results)
-            print dump
-        else:
-            with open(output_file, "w") as write_file:
-                json.dump(results, write_file)
-        
-    def format_xml(self,temp_table,output_file):
-        """ouput results data in the xml format"""
-        results=temp_table.get_results()
-        dump=lazyxml.dumps({'data':results})
+        factory=factory_json()
+        dump=factory.dumps(results)
         if not output_file:
             print dump
         else:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
+        
+    def format_xml(self,temp_table,output_file):
+        """ouput results data in the xml format"""
+        results=temp_table.get_results()
+        factory=factory_xml()
+        dump=factory.dumps({'data':results})
+        if not output_file:
+            print dump
+        else:
+            with open(output_file, "w") as write_file:
+                write_file.write(dump)
+        
+        
+# ############################################################################
+# Module : factory_yaml
+# File   : ddb/engine/output/factory_yaml.pyx
+# ############################################################################
+
+
+
+
+
+
+class factory_yaml:
+    def dumps(self,data=None,file=None):
+        if not isinstance(data,str):
+            output_string=self.render(data)
+            return output_string
+        else:  
+            data_obj=self.load(data,file)
+            output_string=self.render(data_obj)
+            return output_string
+
+
+    def walk_path(self,path,root):
+        obj=root
+
+        if path and len(path)>0:
+            for trail in path:
+                obj=obj[trail]
+        return obj
+        
+    def get_parent_obj(self,path,root):
+        if len(path)<2:
+            return None
+        sub_path=path[0:-1]
+        fragment=self.walk_path(sub_path,root)
+
+        if isinstance(fragment,list):
+            if len(sub_path)<1:
+                return None
+            sub_path=sub_path[0:-1]
+            fragment=self.walk_path(sub_path,root)
+
+
+        key=""#sub_path[-1]
+        if isinstance(fragment,list):
+                    return {'key':key,'type':'list','obj':fragment,'depth':len(sub_path)}
+        elif isinstance(fragment,dict):
+                    return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
+        return None        
+                    
+    def get_next_obj_path(self,path,root):
+        fragment=self.walk_path(path,root)
+        
+        if isinstance(fragment,list):
+            for i,value in enumerate(fragment):
+                path.append(i)
+                return {'key':i,'type':'list','obj':value,'depth':len(path)}
+
+        elif isinstance(fragment,dict):
+            for i in fragment:
+                path.append(i)
+                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
+            
+
+        while len(path)>0:
+            last_path=path.pop()
+            
+            if len(path)==0:
+                temp_obj=root
+            else:
+                temp_obj=self.walk_path(path,root)
+            
+            grab_next=None
+            if isinstance(temp_obj,list):
+                for i,value in enumerate(temp_obj):
+                    if grab_next:
+                        path.append(i)
+                        return {'key':i,'type':'list','obj':value,'depth':len(path)}
+
+                    if i==last_path:
+                        grab_next=True
+
+
+            elif isinstance(temp_obj,dict):
+                for i in temp_obj:
+                    value=temp_obj[i]
+                    if grab_next:
+                        path.append(i)
+                        return {'key':i,'type':'dict','obj':value,'depth':len(path)}
+
+                    if i==last_path:
+                        grab_next=True
+        return None
+
+    def padding(self,indent,indent_spacing,array_depth=0):
+        padding=""
+        indent=indent-1
+        if indent_spacing<=0:
+            indent_spacing=1
+        column_indent=(indent-array_depth)
+        if column_indent<0:
+            column_indent=0
+        pad_len=column_indent*indent_spacing+array_depth*2
+        for i in range(0,pad_len):
+            padding+=" "
+        return padding
+
+    def render(self,data_obj,indent=0):
+        obj=data_obj
+        root=data_obj
+        path=[]
+        line=""
+        last_fragment=None
+        arr_depth=0
+        newline=False
+        while obj!=None:
+            fragment=self.get_next_obj_path(path,root)
+            parent_fragment=self.get_parent_obj(path,root)
+            
+            if None ==fragment:
+                obj=None
+                continue
+
+            if  fragment['type']!='list':
+                arr_depth=0
+            if parent_fragment:
+                if  parent_fragment['type']!='list':
+                    arr_depth=0
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
+                    arr_depth+=1
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
+                    arr_depth-=1
+
+            obj=fragment['obj']
+            if fragment['type']=='dict':
+                if newline==0:
+                    line+="\n"
+                    line+=self.padding(len(path),indent,arr_depth)
+                else:
+                    newline=0
+                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                
+            if fragment['type']=='list':
+                if parent_fragment and fragment:
+                    if parent_fragment['type']!='list' and  fragment['key']==0:
+                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+
+                    elif  fragment['key']!=0:
+                        line+="\n"+self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+
+                line+="- "
+                newline=1
+            
+            if not isinstance(obj,list) and not  isinstance(obj,dict):
+                line+="{0}\n".format(obj)
+                newline=0
+            last_fragment=fragment
+        return line
+
+
+
+
+    def get_indent(self,line):
+        index_of=line.find('- ')
+
+        cleaned_line=line
+        index=len(line)-len(cleaned_line.lstrip())
+        if index_of!=-1:
+            index+=1
+        
+        return index
+
+    def is_start(self,line):
+        if line=='---':
+            return True
+        return None
+
+    def is_end(self,line):
+        if line=='...':
+            return True
+        return None
+
+    def is_array(self,line_cleaned):
+        """determine if a string begins with an array identifyer '- '"""
+        if None==line_cleaned:
+            return False
+        if len(line_cleaned)>1:
+            if line_cleaned[0]=='-' and line_cleaned[1]==' ':
+                return True
+        return False
+        
+    def strip_array(self,line):
+        """Strip array elements from string '- '"""
+        index_of=line.find('- ')
+        if index_of!=-1:
+            str1=list(line)
+            str1[index_of]=' '
+            line="".join(str1)
+        return line
+
+    def is_comment(self,line):
+        cleaned=line.lstrip()
+        if len(cleaned)>0:
+            if cleaned[0]=='#':
+                return True
+        return False
+
+    def get_tuple(self,line):
+        if self.is_comment(line):
+            return None
+        """Get key value pair from string with a colon delimiter"""
+        index=line.find(':')
+        if index==-1:
+            return None
+        
+        key=self.return_data(line[0:index])
+        data_index=index+1
+        if data_index<len(line):
+            data=line[data_index:].strip()
+        else:
+            data=None
+        return {'key':key,'data':data}
+
+    def return_data(self,data):
+        
+        data=data.strip()
+        if len(data)>2:
+            quoted=None
+            if data[0]=="'" and data[-1]=="'":
+                quoted=True
+            if data[0]=='"' and data[-1]=='"':
+                quoted=True
+            if quoted:
+                return data[1:-1]
+        try:
+            return int(data)
+        except ValueError:
+            pass
+        try:
+            return float(data)
+        except ValueError:
+            pass
+        return data
+        
+    def dump(self,data=None,file=None):
+        if not isinstance(data,str):
+            data=self.render(data)
+        else:  
+            data=self.load(data,file)
+        print(data)
+
+    def load(self,data=None,file=None):
+        if file:
+            with open(file) as content:
+                data=content.read()
+
+        lines=data.splitlines()
+        
+        root={}
+        last_indent=None
+        obj=root
+        hash_map=[{'indent':0,'obj':obj}]
+        obj_parent=root
+        obj_parent_key=None
+        obj_hash=[]
+        for line in lines:
+            if self.is_start(line):
+                continue
+            if self.is_end(line):
+                break
+            indent=self.get_indent(line)
+
+            line_cleaned=line
+            is_array=self.is_array(line_cleaned.strip())
+        
+            
+            if  is_array:
+                line_cleaned=self.strip_array(line_cleaned)
+                line=line_cleaned
+                arr_index=0
+                while is_array:
+                    make_new_array=True
+                    if None==obj:
+                        obj_parent[obj_parent_key]=[]
+                        obj=obj_parent[obj_parent_key]
+                        obj_hash['obj']=obj
+                        obj_hash['indent']=indent
+                        make_new_array=None
+                        
+                    elif arr_index==0:
+                        for index in range(len(hash_map)-1,-1,-1):
+                            if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
+                                obj=hash_map[index]['obj']
+                                make_new_array=None
+                                break
+                    if make_new_array:
+                        if isinstance(obj,list):
+                            new_list=[]
+                            obj.append(new_list)
+                            obj=new_list
+                            hash_map.append({'indent':indent,'obj':obj})
+                        else:
+                            obj=[]
+                    line_cleaned=line
+                    indent=self.get_indent(line)
+                    is_array=self.is_array(line_cleaned.strip())
+                    if is_array:
+                        line_cleaned=self.strip_array(line_cleaned)
+                        line=line_cleaned
+                    arr_index+=1
+                indent=self.get_indent(line)
+        
+            if last_indent and  last_indent>indent:
+                for index in range(len(hash_map)-1,-1,-1):
+                    if hash_map[index]['indent']<=indent:
+                        obj=hash_map[index]['obj']
+                        break
+                    
+                            
+            line_tuple=self.get_tuple(line_cleaned)
+            if line_tuple:
+                if None == obj:
+                    obj_parent[obj_parent_key]={}
+                    obj=obj_parent[obj_parent_key]
+                    obj_hash['obj']=obj
+                    obj_hash['indent']=indent
+
+                if isinstance(obj,list):
+                    new_obj={}
+                    obj.append(new_obj)
+                    obj_parent=obj
+                    obj_parent_key=len(obj)-1
+                    obj=new_obj
+                    obj_hash={'indent':indent,'obj':obj}
+                    hash_map.append(obj_hash)
+
+                if line_tuple['data']:
+                    value=self.return_data(line_tuple['data'])
+                    obj[line_tuple['key']]=value
+                else:
+                    if  not isinstance(obj,list):
+                        obj[line_tuple['key']]=None
+                        obj_parent=obj
+                        obj_parent_key=line_tuple['key']
+                        obj=obj[line_tuple['key']]
+                        obj_hash={'indent':indent,'obj':obj}
+                        hash_map.append(obj_hash)
+            else:
+                if self.is_comment(line):
+                    continue
+
+                if isinstance(obj,list):
+                    value=self.return_data(line_cleaned)
+                    obj.append(value)
+            last_indent=indent
+        return root
+
+
+
+
+
+
+
+
+
+
+        
+        
+# ############################################################################
+# Module : factory_xml
+# File   : ddb/engine/output/factory_xml.pyx
+# ############################################################################
+
+
+
+class factory_xml:
+
+    def dumps(self,data):
+        output_string=self.render(data)
+        return output_string
+
+    def render(self,obj,root='root',depth=0):
+        """xml like output for python objects, very loose"""
+        template="""<{0}>{1}</{0}>"""
+        fragment=""
+        if None==obj:
+            return fragment
+
+        if isinstance(obj,str):
+            fragment+=template.format(root,obj)
+
+        elif isinstance(obj,int):
+            fragment+=template.format(root,obj)
+
+        elif isinstance(obj,float):
+            fragment+=template.format(root,obj)
+        
+        elif isinstance(obj,bool):
+            fragment+=template.format(root,obj)
+        elif  isinstance(obj,list):
+            for item in obj:
+                fragment+=self.render(item,root=root,depth=depth+1)
+        elif isinstance(obj,object):
+            for item in obj:
+                fragment+=self.render(obj[item],root=item,depth=depth+1)
+        else:
+            fragment+=template.format("UNK",obj)
+
+        if depth==0:
+            fragment=template.format("root",fragment)
+        return fragment
+
+        
+        
+# ############################################################################
+# Module : factory_json
+# File   : ddb/engine/output/factory_json.pyx
+# ############################################################################
+
+
+
+class factory_json:
+    def dumps(self,data):
+        output_string=self.render(data)
+        return output_string
+
+    def render(self,obj,depth=0):
+        """json like output for python objects, very loose"""
+        str_template='"{0}"'
+        int_template="{0}"
+        float_template="{0}"
+        bool_template="{0}"
+        array_template='['+'{0}'+']'
+        tuple_template='"{0}":{1}'
+        object_template='{{'+'{0}'+'}}'
+        fragment=""
+        if None == obj:
+            return fragment
+
+        if isinstance(obj,str):
+            fragment+=str_template.format(obj)
+
+        elif isinstance(obj,int):
+            fragment+=int_template.format(obj)
+
+        elif isinstance(obj,float):
+            fragment+=float_template.format(obj)
+        
+        elif isinstance(obj,bool):
+            fragment+=bool_template.format(obj)
+        elif  isinstance(obj,list):
+            partial=[]
+            for item in obj:
+                partial.append(self.render(item,depth=depth+1))
+            if len(partial)>0:
+                fragment+=array_template.format(",".join(map(str, partial)))
+        elif isinstance(obj,object):
+            partial=[]
+            for item in obj:
+                partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
+            if len(partial)>0:
+                fragment+=object_template.format(",".join(map(str, partial))) 
+        else:
+            fragment+=template.format("UNK",obj)
+        return fragment
+
+
         
         
 # ############################################################################
@@ -3037,7 +3505,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            o=output.format_output(results)
+            o=output_factory(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None
@@ -3090,7 +3558,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        o=format_output(results,output=args.output,output_file=args.file)
+        o=output_factory(results,output=args.output,output_file=args.file)
 
     else:
         prompt = ddbPrompt()
