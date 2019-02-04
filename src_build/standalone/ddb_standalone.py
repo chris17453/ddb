@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.627'
+__version__='1.0.628'
 
         
         
@@ -1726,9 +1726,8 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            f = open(config_file, "w")
-            yaml.dump(yaml_data, f)
-            f.close()
+            
+            yamlf_dump(yaml_data,file=config_file)
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -1749,38 +1748,32 @@ class database:
 
         if None != table_config:
             print "Adding table config"
-            with open(self.config_file, 'r') as stream:
-                config = table(table_config)
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            config = table(table_config)
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
+            yamlf_dump(yaml_data,file=self.config_file)
 
         if table is not None:
-            with open(self.config_file, 'r') as stream:
-                yaml_data = yaml.load(stream)
-                if None == yaml_data:
-                    yaml_data = {}
-                db = table.data.database
-                if None == db:
-                    db = self.get_default_database()
+            yaml_data = yamlf_load(file=self.config_file)
+            if None == yaml_data:
+                yaml_data = {}
+            db = table.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
+            yamlf_dump(yaml_data,file=self.config_file)
         return True
 
     def get_default_database(self):
@@ -1847,27 +1840,24 @@ class database:
         try:
             if not os.path.exists(self.config_file):
                 self.create_config(self.config_file)
-            with open(self.config_file, 'r') as stream:
-                if table_object is None:
-                    config = table(table_config)
-                else:
-                    config = table_object
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
+            if table_object is None:
+                config = table(table_config)
+            else:
+                config = table_object
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                table_name = config.data.name
-                if table_name in yaml_data[db]:
-                    yaml_data[db].pop(table_name, None)
+            table_name = config.data.name
+            if table_name in yaml_data[db]:
+                yaml_data[db].pop(table_name, None)
 
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
-                return True
+            yamlf_dump(yaml_data,file=self.config_file)
+            return True
         except Exception as ex:
             raise Exception("failed to remove table from db configuration")
 
@@ -1898,13 +1888,12 @@ class database:
         if False == os.path.exists(self.config_file):
             raise Exception("db config invalid")
 
-        with open(self.config_file, 'r') as stream:
-            yaml_data = yaml.load(stream)
-            if  yaml_data != None:
-                for db in yaml_data:
-                    if yaml_data[db] !=None:
-                        for table in yaml_data[db]:
-                            tables.append(yaml_data[db][table]['path'])
+        yaml_data = yamlf_load(file=self.config_file)
+        if  yaml_data != None:
+            for db in yaml_data:
+                if yaml_data[db] !=None:
+                    for table in yaml_data[db]:
+                        tables.append(yaml_data[db][table]['path'])
 
         return tables
 
@@ -2948,6 +2937,18 @@ class output_factory:
 
 
 
+
+def yamlf_load(data=None,file=None):
+    factory=factory_yaml()
+    return factory.load(data=data,file=file)
+
+def yamlf_dump(data=None,file=None):
+    factory=factory_yaml()
+    factory.dump(data=data,file=file)
+
+def yamlf_dumps(data=None,file=None):
+    factory=factory_yaml()
+    factory.dumps(data=data,file=file)
 
 class factory_yaml:
     def dumps(self,data=None,file=None):

@@ -4,7 +4,7 @@ from .table import table
 #import yaml
 import warnings
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from ..output.factory_yaml import yamlf_load,yamlf_dump,yamlf_dumps
 
 

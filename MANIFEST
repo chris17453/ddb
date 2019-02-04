@@ -6,6 +6,9 @@ setup.py
 ./ddb/engine/version.c
 ./ddb/engine/evaluate/match.c
 ./ddb/engine/functions/functions.c
+./ddb/engine/output/factory_json.c
+./ddb/engine/output/factory_xml.c
+./ddb/engine/output/factory_yaml.c
 ./ddb/engine/output/output.c
 ./ddb/engine/parser/language.c
 ./ddb/engine/parser/sql_parser.c
@@ -26,6 +29,9 @@ ddb/engine/evaluate/match.c
 ddb/engine/functions/__init__.py
 ddb/engine/functions/functions.c
 ddb/engine/output/__init__.py
+ddb/engine/output/factory_json.c
+ddb/engine/output/factory_xml.c
+ddb/engine/output/factory_yaml.c
 ddb/engine/output/output.c
 ddb/engine/parser/__init__.py
 ddb/engine/parser/language.c
