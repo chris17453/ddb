@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.639'
+__version__='1.0.640'
 
         
         
@@ -2885,7 +2885,6 @@ class output_factory:
         """ouput results data in the yaml format"""
         results=temp_table.get_results()
         factory=factory_yaml()
-        print(results)
         dump=factory.dumps(results)
         if not output_file:
             print dump
@@ -3175,10 +3174,6 @@ class factory_yaml:
             return False
         if data=="null" or data== 'Null':
             return None
-        if data=="[]":
-            return []
-        if data=="{}":
-            return {}
         return data
         
     def dump(self,data=None,file=None):
