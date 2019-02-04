@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.675'
+__version__='1.0.676'
 
         
         
@@ -65,6 +65,10 @@ sql_syntax = {
         {'query': 'select',
          'argument': 1,
          'switch': [
+                  {  'name':'distinct'
+                     'data':False,
+                     'optional': True
+                  },
             
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
@@ -3237,12 +3241,14 @@ class factory_yaml:
         
             
             if  is_array:
+                print("Is Array")
                 line_cleaned=self.strip_array(line_cleaned)
                 line=line_cleaned
                 arr_index=0
                 while is_array:
                     make_new_array=True
                     if None==obj:
+                        print("Need to make a new object")
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
@@ -3254,9 +3260,13 @@ class factory_yaml:
                             if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
                                 obj=hash_map[index]['obj']
                                 make_new_array=None
+                                print("Found  object")
+                        
                                 break
                     if make_new_array:
                         if isinstance(obj,list):
+                            print("Made a new object")
+                        
                             new_list=[]
                             obj.append(new_list)
                             obj=new_list
@@ -3273,15 +3283,23 @@ class factory_yaml:
                 indent=self.get_indent(line)
         
             if last_indent and  last_indent>indent:
+                found=None
                 for index in range(len(hash_map)-1,-1,-1):
                     if hash_map[index]['indent']<=indent:
                         obj=hash_map[index]['obj']
+                        print("Found it: {0}".format(index))
+                        found=True
                         break
+                if None==found:
+                    pprint("Didn't Find it")
+                
                     
                             
             line_tuple=self.get_tuple(line_cleaned)
             if line_tuple:
+                print("In Tuple :{0}".format(line_tuple['key']))
                 if None == obj:
+                    print("OBJ needs ")
                     obj_parent[obj_parent_key]={}
                     obj=obj_parent[obj_parent_key]
                     obj_hash['obj']=obj
@@ -3301,6 +3319,7 @@ class factory_yaml:
                     obj[line_tuple['key']]=value
                 else:
                     if  not isinstance(obj,list):
+                        print ("no tuble value")
                         obj[line_tuple['key']]=None
                         obj_parent=obj
                         obj_parent_key=line_tuple['key']
@@ -3323,8 +3342,7 @@ class factory_yaml:
 
 
 
-
-print( yamlf_dumps(file="/home/nd/.ddb/etmeta/addresses.ddb.yaml"))
+pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
         
         
 # ############################################################################
