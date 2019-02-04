@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.658'
+__version__='1.0.659'
 
         
         
@@ -1303,7 +1303,6 @@ class table:
                     errors=None,
                     data_on=None
     ):
-        print("in table")
         self.version = 1
         self.ownership = table_ownership()
         self.delimiters = table_delimiters()
@@ -1328,6 +1327,7 @@ class table:
         if None != table_config_file:
             if os.path.exists(table_config_file):
                 yaml_data = yamlf_load(file=table_config_file)
+                print (yaml_data)
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
                 for key in yaml_data:
