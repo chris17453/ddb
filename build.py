@@ -12,7 +12,7 @@ def src_build():
         {'name':'database','file':'ddb/structure/database.pyx'},
         {'name':'match','file':'ddb/evaluate/match.pyx'},
         {'name':'functions','file':'ddb/functions/functions.pyx'},
-        {'name':'sql_engine','file':'ddb/sql_engine.pyx'},
+        {'name':'sql_engine','file':'ddb/engine.pyx'},
         # formatting
         #{'name':'output','file':'ddb/output/factory.pyx'},
         # cli stuff
@@ -30,7 +30,7 @@ def src_build():
         {'name':'database','file':'ddb/structure/database.pyx'},
         {'name':'match','file':'ddb/evaluate/match.pyx'},
         {'name':'functions','file':'ddb/functions/functions.pyx'},
-        {'name':'sql_engine','file':'ddb/sql_engine.pyx'},
+        {'name':'sql_engine','file':'ddb/engine.pyx'},
         # formatting
         {'name':'output','file':'ddb/output/factory.pyx'},
         {'name':'factory_yaml','file':'ddb/output/factory_yaml.pyx'},
