@@ -50,7 +50,6 @@ def src_build():
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
@@ -67,7 +66,6 @@ import tempfile
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
