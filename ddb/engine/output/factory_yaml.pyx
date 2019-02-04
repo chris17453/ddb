@@ -131,13 +131,12 @@ class factory_yaml:
         last_fragment=None
         arr_depth=0
         newline=False
-        while obj!=None:
+        while fragment!=None:
             fragment=self.get_next_obj_path(path,root)
             parent_fragment=self.get_parent_obj(path,root)
-            
+
+            # end of decoding            
             if None ==fragment:
-                print("EXIT")
-                obj=None
                 continue
 
             if  fragment['type']!='list':

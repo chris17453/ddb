@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.641'
+__version__='1.0.642'
 
         
         
@@ -3046,6 +3046,7 @@ class factory_yaml:
             parent_fragment=self.get_parent_obj(path,root)
             
             if None ==fragment:
+                print("EXIT")
                 obj=None
                 continue
 
