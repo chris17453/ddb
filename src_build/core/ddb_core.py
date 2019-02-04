@@ -23,13 +23,13 @@ import tempfile
 
 
 
-__version__='1.0.681'
+__version__='1.0.685'
 
         
         
 # ############################################################################
-# Module : language
-# File   : ddb/parser/language.pyx
+# Module : lexer-language
+# File   : ddb/lexer/language.pyx
 # ############################################################################
 
 
@@ -385,15 +385,15 @@ sql_syntax = {
         
         
 # ############################################################################
-# Module : parser
-# File   : ddb/parser/sql_parser.pyx
+# Module : lexer-parse
+# File   : ddb/lexer/parser.pyx
 # ############################################################################
 
 
 
 
 
-class sql_parser:
+class parser:
    
 
     def __init__(self, query, debug=False):
@@ -832,8 +832,8 @@ class sql_parser:
         
         
 # ############################################################################
-# Module : tokenize
-# File   : ddb/tokenizer/sql_tokenize.pyx
+# Module : lexer-token
+# File   : ddb/lexer/tokenize.pyx
 # ############################################################################
 
 
@@ -2109,7 +2109,7 @@ class functions():
         
 # ############################################################################
 # Module : sql_engine
-# File   : ddb/sql_engine.pyx
+# File   : ddb/engine.pyx
 # ############################################################################
 
 
@@ -2121,7 +2121,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-class sql_engine:
+class engine:
     """A serverless flat file database engine"""
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
