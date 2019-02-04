@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.636'
+__version__='1.0.637'
 
         
         
@@ -3169,6 +3169,16 @@ class factory_yaml:
             return float(data)
         except ValueError:
             pass
+        if data=="true" or data== 'True':
+            return True
+        if data=="false" or data== 'False':
+            return False
+        if data=="null" or data== 'Null':
+            return None
+        if data=="[]":
+            return []
+        if data=="{}":
+            return {}
         return data
         
     def dump(self,data=None,file=None):

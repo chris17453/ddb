@@ -38,8 +38,7 @@ def cli_main():
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        o=output_factory(results,output=args.output,output_file=args.file)
-        print(o)
+        output_factory(results,output=args.output,output_file=args.file)
 
     else:
         # interactive session
