@@ -233,7 +233,7 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
-        #print ("in select")
+        print ("in select")
         if 'distinct' in query_object:
             distinct=True
         else:
@@ -312,9 +312,10 @@ class sql_engine:
                     if None != processed_line['data']:
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
+                    print("loop")
 
         # file is closed at this point
-
+        print("looped")
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
             temp_data.append(row)

@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.659'
+__version__='1.0.660'
 
         
         
@@ -3199,6 +3199,10 @@ class factory_yaml:
             return False
         if data=="null" or data== 'Null':
             return None
+        if data=="[]":
+            return []
+        if data=="{}":
+            return {}
         return data
         
     def dump(self,data=None,file=None):
