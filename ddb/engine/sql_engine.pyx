@@ -5,7 +5,7 @@ from structure.table import table
 from structure.database import database
 from evaluate.match import match
 from functions.functions import functions
-from .version import __version__
+from version import __version__
 #
 
 

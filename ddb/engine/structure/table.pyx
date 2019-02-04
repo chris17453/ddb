@@ -1,7 +1,6 @@
 import sys
 import yaml
 import os
-import os
 from .column import column_v2
 try:
     from yaml import CLoader as Loader
