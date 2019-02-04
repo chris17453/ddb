@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.671'
+__version__='1.0.672'
 
         
         
@@ -2373,9 +2373,7 @@ class sql_engine:
                     if None != processed_line['data']:
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
-                    print("loop")
 
-        print("looped")
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
             temp_data.append(row)

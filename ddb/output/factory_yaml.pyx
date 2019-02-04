@@ -425,4 +425,5 @@ class factory_yaml:
 
 
 
-
+if __name__=='__main__':
+    yamlf_dumps("/home/nd/.ddb/etmeta/addresses.ddb.yaml")
