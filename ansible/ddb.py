@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.660'
+__version__='1.0.661'
 
         
         
@@ -1327,7 +1327,6 @@ class table:
         if None != table_config_file:
             if os.path.exists(table_config_file):
                 yaml_data = yamlf_load(file=table_config_file)
-                print (yaml_data)
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
                 for key in yaml_data:
@@ -2309,6 +2308,7 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
+        print ("in select")
         if 'distinct' in query_object:
             distinct=True
         else:
@@ -2372,8 +2372,9 @@ class sql_engine:
                     if None != processed_line['data']:
                         restructured_line = self.process_select_row(query_object,processed_line) 
                         temp_data.append(restructured_line)
+                    print("loop")
 
-
+        print("looped")
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
             temp_data.append(row)

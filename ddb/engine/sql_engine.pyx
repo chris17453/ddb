@@ -81,7 +81,7 @@ class sql_engine:
             #print  query_object
             # exit(9)
             # get columns, doesnt need a table
-            #print query_object['mode']
+            print query_object['mode']
             if query_object['mode'] == "show tables":
 
                 self.results = self.functions.f_show_tables(self.database)
