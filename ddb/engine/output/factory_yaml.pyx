@@ -183,7 +183,8 @@ class factory_yaml:
                     line+="True"
                 elif obj==False:
                     line+="False"
-                else line+="{0}".format(obj)
+                else:
+                    line+="{0}".format(obj)
 
                 if len(line)>0:
                     lines.append(line)
