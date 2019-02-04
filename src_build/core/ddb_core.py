@@ -24,7 +24,7 @@ import tempfile
 
 
 
-__version__='1.0.655'
+__version__='1.0.656'
 
         
         
@@ -1290,7 +1290,8 @@ class table:
     def noop(self, *args, **kw):
         pass
 
-    def __init__(self, file=None, 
+    def __init__(self,
+                    table_config_file=None, 
                     database=None, 
                     columns=None, 
                     name=None, 
@@ -1324,8 +1325,8 @@ class table:
                     data_on=data_on)
 
         if None != file:
-            if os.path.exists(file):
-                yaml_data = yamlf_load(file=file)
+            if os.path.exists(table_config_file):
+                yaml_data = yamlf_load(file=table_config_file)
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
                 for key in yaml_data:
