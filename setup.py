@@ -3,7 +3,7 @@ from distutils.core import setup
 from distutils.extension import Extension
 
 
-USE_CYTHON = os.path.exists('ddb/sql_engine.pyx')
+USE_CYTHON = os.path.exists('ddb/engine.pyx')
 # print("USE_CYTHON",USE_CYTHON)
 
 
