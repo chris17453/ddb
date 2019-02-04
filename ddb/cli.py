@@ -1,6 +1,6 @@
 import argparse
 import os
-from .sql_engine import sql_engine
+from .engine import engine
 from .interactive import ddbPrompt
 from .output.factory import output_factory
 

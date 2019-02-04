@@ -2,7 +2,7 @@ from .language import sql_syntax
 from .tokenize import tokenizer
 
 
-class parser:
+class lexer:
    
 
     def __init__(self, query, debug=False):
