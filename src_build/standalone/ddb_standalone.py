@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.650'
+__version__='1.0.651'
 
         
         
@@ -2873,6 +2873,7 @@ class output_factory:
 
     def format_raw(self,results,output_file):
         """ouput results data in the yaml format"""
+        print(results)
         if not output_file:
             for row in results.results:
                 if 'raw' in row:
