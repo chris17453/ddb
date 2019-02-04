@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.693'
+__version__='1.0.694'
 
         
         
