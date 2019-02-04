@@ -71,7 +71,7 @@ class engine:
         # it may have changed...
         # self.database.reload_config()
 
-        parser = sql_parser(sql_query, self.debug)
+        parser = parser(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
