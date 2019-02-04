@@ -30,7 +30,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.647'
+__version__='1.0.648'
 
         
         
@@ -3092,7 +3092,8 @@ class factory_yaml:
                     line+="True"
                 elif obj==False:
                     line+="False"
-                else line+="{0}".format(obj)
+                else:
+                    line+="{0}".format(obj)
 
                 if len(line)>0:
                     lines.append(line)
