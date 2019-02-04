@@ -31,7 +31,6 @@ ddb/output/factory.c
 ddb/output/factory_json.c
 ddb/output/factory_xml.c
 ddb/output/factory_yaml.c
-ddb/output/output.c
 ddb/parser/__init__.py
 ddb/parser/language.c
 ddb/parser/sql_parser.c
