@@ -1,4 +1,4 @@
-from .factory_json.pyx import factory_json
+from .factory_json import factory_json
 from .factory_yaml import factory_yaml
 from .factory_xml import factory_xml
 import flextable
