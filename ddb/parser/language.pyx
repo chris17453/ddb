@@ -23,7 +23,7 @@ sql_syntax = {
         {'query': 'select',
          'argument': 1,
          'switch': [
-                    {'data': False,
+                    {'data': None,
                      'name': 'distinct',
                      'optional': True},
 
