@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.699'
+__version__='1.0.700'
 
         
         
@@ -1874,7 +1874,10 @@ class database:
 
         tables = []
 
-        if False == os.path.exists(self.config_file):
+        if self.config_file:
+            if False == os.path.exists(self.config_file):
+                return tables
+        else:
             return tables
 
         yaml_data = yamlf_load(file=self.config_file)

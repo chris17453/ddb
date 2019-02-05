@@ -287,6 +287,7 @@ class table:
 
     def save(self):
         # if no config dir given, save in users home dir
+        print self.config_directory
         if None == self.config_directory:
             home = os.path.expanduser("~")
             # make app dir
@@ -308,7 +309,7 @@ class table:
         home = os.path.join(home, self.data.database)
         if None == self.data.config:
             self.data.config = os.path.join(home, "{}.ddb.yaml".format(self.data.name))
-
+        print ("dump")
         yamlf_dump(data=self,file=self.data.config)
 
 
