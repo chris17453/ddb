@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.703'
+__version__='1.0.704'
 
         
         
@@ -1544,7 +1544,7 @@ class table:
             os.makedirs(dest_dir)
 
         if None == self.data.config:
-            self.data.config = os.path.joindest_dir, "{0}.ddb.yaml".format(self.data.name))
+            self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
         print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
 
