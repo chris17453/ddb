@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.701'
+__version__='1.0.702'
 
         
         
@@ -1523,6 +1523,12 @@ class table:
 
 
     def save(self):
+        if None == self.data.name:
+            raise Exception("Cannot save a table without a name")
+
+        if None == self.data.database:
+            raise Exception("Cannot save a table without a database name")
+
         print self.config_directory
         if None == self.config_directory:
             home = os.path.expanduser("~")
@@ -1532,19 +1538,14 @@ class table:
         else:
             home = self.config_directory
 
-        if None == self.data.name:
-            raise Exception("Cannot save a table without a name")
+        dest_dir=os.path.join(home, self.data.database)      
+        if not os.path.exists(dest_dir):
+            print("Making dest dir {0}".format())
+            os.makedirs(dest_dir)
 
-        if None == self.data.database:
-            raise Exception("Cannot save a table without a database name")
-
-        if not os.path.exists(os.path.join(home, self.data.database)):
-            os.makedirs(os.path.join(home, self.data.database))
-
-        home = os.path.join(home, self.data.database)
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{}.ddb.yaml".format(self.data.name))
-        print ("dump")
+            self.data.config = os.path.joindest_dir, "{0}.ddb.yaml".format(self.data.name))
+        print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
 
 
