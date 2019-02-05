@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.697'
+__version__='1.0.698'
 
         
         
@@ -1867,8 +1867,9 @@ class database:
             self.create_config(self.config_file)
 
         tables = []
+
         if False == os.path.exists(self.config_file):
-            raise Exception("db config invalid")
+            return tables[]
 
         yaml_data = yamlf_load(file=self.config_file)
         print (yaml_data)
