@@ -221,9 +221,12 @@ class database:
         tables = []
 
         # if the file doesnt exist.. then just chill...
-        if False == os.path.exists(self.config_file):
+        if self.config_file:
+            if False == os.path.exists(self.config_file):
+                return tables
+            #    raise Exception("db config invalid")
+        else:
             return tables
-        #    raise Exception("db config invalid")
 
         yaml_data = yamlf_load(file=self.config_file)
         print (yaml_data)
