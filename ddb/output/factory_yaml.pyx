@@ -87,8 +87,10 @@ class factory_yaml:
             
             for key in fragment.__dict__.keys():
                 self.info("Yaml","Class:{0}".format(key))
+                value=getattr(fragment,key)
+
                 path.append(key)
-                return {'key':key,'type':'class','obj': getattr(fragment,key),'depth':len(path)}
+                return {'key':key,'type':'class','obj': value,'depth':len(path)}
 
         # is this a simple entity?
         # if so, backup 1 level, and proceed to the next item
@@ -224,7 +226,7 @@ class factory_yaml:
                 line+="- "
                 newline=1
             #else:
-            if not isinstance(obj,list) and not  isinstance(obj,dict):
+            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
@@ -513,9 +515,14 @@ class factory_yaml:
 #        self.s4=sub()
 #        self.a3=sub()
 #        self.aouse="domo"
-#print "--"
-#pprint(test().__dict__)
-#
-#
-#print yamlf_dump(data=test())
+##print "--"
+##pprint(test().__dict__)
+##
+##
+#data={}
+#data['arr']=[1,2,3,4]
+#data['arr2']=[[1,2,3,4],[5,6,7,8]]
+#data['dict']=[{'sam':'bob'}]
+#data['class']=test()
+#print yamlf_dump(data=data)
 

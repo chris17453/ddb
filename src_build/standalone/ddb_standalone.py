@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.726'
+__version__='1.0.727'
 
         
         
@@ -3142,7 +3142,7 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
-            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
+            if not isinstance(obj,list) and not  isinstance(obj,dict):
                 if obj==None:
                     line+="null"
                 elif obj==True:
@@ -3156,7 +3156,6 @@ class factory_yaml:
                     lines.append(line)
                 line=""
                 newline=0
-            line+="{0}".format(obj)
             last_fragment=fragment
         if line: 
             lines.append(line)
