@@ -60,8 +60,7 @@ class factory_yaml:
             return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
         elif hasattr(fragment, '__dict__'):
             self.info("Yaml-Get Parent Object","In Class")
-            #obj=getattr(fragment,key),
-            return {'key':key,'type':'dict','obj':fragment,'depth':len(path)}
+            return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
             
         return None        
                     
@@ -234,7 +233,7 @@ class factory_yaml:
                 line=""
                 newline=0
             last_fragment=fragment
-
+        print(root)
         return '\n'.join(lines)
 
 

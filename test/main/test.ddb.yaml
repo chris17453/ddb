@@ -1,0 +1,7 @@
+errors: 
+config_directory: /home/nd/repos/chris17453/ddb/test
+delimiters: 
+ comment: 
+ - #
+ - ;
+ - /
