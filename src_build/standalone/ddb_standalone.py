@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.717'
+__version__='1.0.718'
 
         
         
@@ -2937,7 +2937,6 @@ class output_factory:
 
 
 
-
 def yamlf_load(data=None,file=None):
     factory=factory_yaml()
     return factory.load(data=data,in_file=file)
@@ -2998,11 +2997,10 @@ class factory_yaml:
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
 
-        elif isinstance(fragment,object):
-            for attr in dir(fragment):
-             if not callable(getattr(fragment, attr)) and not attr.startswith("__"):
+        elif inspect.isclass(fragment):
+            for attr in fragment._dict.keys():
                 path.append(attr)
-                return {'key':attr,'type':'dict','obj':attr,'depth':len(path)}
+                return {'key':attr,'type':'dict','obj':fragment[attr],'depth':len(path)}
             
 
         while len(path)>0:
