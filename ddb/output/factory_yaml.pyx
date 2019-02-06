@@ -238,6 +238,7 @@ class factory_yaml:
                     lines.append(line)
                 line=""
                 newline=0
+            line+="{0}".format(obj)
             last_fragment=fragment
         if line: 
             lines.append(line)
