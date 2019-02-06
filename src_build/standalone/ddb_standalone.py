@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.719'
+__version__='1.0.720'
 
         
         
@@ -1293,9 +1293,6 @@ class column_sort:
 
 
 class table:
-    def noop(self, *args, **kw):
-        pass
-
     def __init__(self,
                     table_config_file=None, 
                     database=None, 
@@ -2990,8 +2987,7 @@ class factory_yaml:
             return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
         elif hasattr(fragment, '__dict__'):
             self.info("Yaml-Get Parent Object","In Class")
-            obj=getattr(fragment,key),
-            return {'key':key,'type':'dict','obj':obj,'depth':len(path)}
+            return {'key':key,'type':'dict','obj':fragmenmt,'depth':len(path)}
             
         return None        
                     
