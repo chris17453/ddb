@@ -292,7 +292,7 @@ class factory_yaml:
     def dump(self,data=None,out_file=None):
         if isinstance(data,str):
             raise Exception ("yaml dump requires an object, not a string")
-            yaml_data=self.render(data)
+        yaml_data=self.render(data)
 
         if out_file:
             with open(out_file, 'w') as yaml_file:
