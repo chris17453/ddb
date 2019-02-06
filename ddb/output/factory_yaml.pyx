@@ -68,6 +68,11 @@ class factory_yaml:
             for i in fragment:
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
+
+        elif isinstance(fragment,class):
+            for i in fragment:
+                path.append(i)
+                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
             
 
         # is this a simple entity?
