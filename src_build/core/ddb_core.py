@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.711'
+__version__='1.0.712'
 
         
         
@@ -1540,7 +1540,7 @@ class table:
 
         dest_dir=os.path.join(home, self.data.database)      
         if not os.path.exists(dest_dir):
-            print("Making dest dir {0}".format())
+            print("Making dest dir {0}".format(dest_dir))
             os.makedirs(dest_dir)
 
         if None == self.data.config:
