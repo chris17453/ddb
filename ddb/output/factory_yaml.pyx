@@ -70,7 +70,8 @@ class factory_yaml:
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
 
         elif isinstance(fragment,object):
-            for i in fragment:
+            for attr in dir(fragment):
+             if not callable(getattr(fragment, attr)) and not attr.startswith("__"):
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
             
