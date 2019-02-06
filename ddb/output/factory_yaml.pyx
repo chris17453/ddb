@@ -36,7 +36,7 @@ class factory_yaml:
 
         return obj
         
-    def get_parent_obj(self,path,root):
+    def get_parent_obj(self,path,root): 
         if len(path)<2:
             return None
         sub_path=path[0:-1]
