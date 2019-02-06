@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.706'
+__version__='1.0.707'
 
         
         
@@ -1716,8 +1716,9 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            
+            print ("Creating neew db config")
             yamlf_dump(yaml_data,file=config_file)
+            print ("Created new db config")
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
