@@ -241,8 +241,9 @@ class factory_yaml:
             last_fragment=fragment
         if line: 
             lines.append(line)
-        #print(root)
-        return '\n'.join(lines)
+        document='\n'.join(lines)
+        print(document)
+        return document
 
 
     # ##########################################################################

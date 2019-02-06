@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.723'
+__version__='1.0.724'
 
         
         
@@ -3120,7 +3120,7 @@ class factory_yaml:
                     newline=0
                 line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
 
-            elif fragment['type']=='dict':
+            if fragment['type']=='dict':
                 if newline==0:
                     if len(line)>0:
                        lines.append(line)
@@ -3129,7 +3129,7 @@ class factory_yaml:
                     newline=0
                 line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
-            elif fragment['type']=='list':
+            if fragment['type']=='list':
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
                         if len(line)>0:
@@ -3143,7 +3143,7 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
-            else:
+            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
