@@ -235,7 +235,7 @@ class factory_yaml:
                     line+="False"
                 elif isinstance(obj,str):
 
-                    line+="'{0}''".format(re.escape(obj))
+                    line+="'{0}'".format(re.escape(obj))
                 else:
                     line+="{0}".format(obj)
 
@@ -247,7 +247,7 @@ class factory_yaml:
         if line: 
             lines.append(line)
         document='\n'.join(lines)
-        print(document)
+        #print(document)
         return document
 
 
