@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.724'
+__version__='1.0.725'
 
         
         
@@ -1881,7 +1881,6 @@ class database:
             return tables
 
         yaml_data = yamlf_load(file=self.config_file)
-        print (yaml_data)
         if  yaml_data != None:
             for db in yaml_data:
                 if yaml_data[db] !=None:
@@ -3160,7 +3159,9 @@ class factory_yaml:
             last_fragment=fragment
         if line: 
             lines.append(line)
-        return '\n'.join(lines)
+        document='\n'.join(lines)
+        print(document)
+        return document
 
 
 
