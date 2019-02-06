@@ -231,7 +231,7 @@ class database:
             return tables
 
         yaml_data = yamlf_load(file=self.config_file)
-        print (yaml_data)
+        #print (yaml_data)
         # could be empty
         if  yaml_data != None:
             for db in yaml_data:
