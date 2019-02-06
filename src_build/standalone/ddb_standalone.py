@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.727'
+__version__='1.0.728'
 
         
         
@@ -3011,8 +3011,10 @@ class factory_yaml:
             
             for key in fragment.__dict__.keys():
                 self.info("Yaml","Class:{0}".format(key))
+                value=getattr(fragment,key)
+
                 path.append(key)
-                return {'key':key,'type':'class','obj': getattr(fragment,key),'depth':len(path)}
+                return {'key':key,'type':'class','obj': value,'depth':len(path)}
 
         self.info("Yaml","Cant go deeper")
         while len(path)>0:
@@ -3142,7 +3144,7 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
-            if not isinstance(obj,list) and not  isinstance(obj,dict):
+            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:

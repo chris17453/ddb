@@ -6,7 +6,7 @@ def yamlf_load(data=None,file=None):
     return factory.load(data=data,in_file=file)
 
 def yamlf_dump(data=None,file=None):
-    factory=factory_yaml(True)
+    factory=factory_yaml()
     return factory.dump(data=data,out_file=file)
 
 class factory_yaml:
@@ -501,28 +501,29 @@ class factory_yaml:
 ##if __name__ == "__main__":
 #pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
 
-#class sub:
-#    def __init__(self):
-#        self.su1=1
-#        self.s2=1
-#        self.s3="domo"
-#        
-#class test:
+class sub:
+    def __init__(self):
+        self.su1=1
+        self.s2=1
+        self.s3="domo"
+        
+class test:
+
+    def __init__(self):
+        self.pizza=1
+        self.beer=1
+        self.s4=sub()
+        self.a3=sub()
+        self.aouse="domo"
+#print "--"
+#pprint(test().__dict__)
 #
-#    def __init__(self):
-#        self.pizza=1
-#        self.beer=1
-#        self.s4=sub()
-#        self.a3=sub()
-#        self.aouse="domo"
-##print "--"
-##pprint(test().__dict__)
-##
-##
-#data={}
-#data['arr']=[1,2,3,4]
-#data['arr2']=[[1,2,3,4],[5,6,7,8]]
-#data['dict']=[{'sam':'bob'}]
-#data['class']=test()
-#print yamlf_dump(data=data)
+#
+data={}
+data['arr']=[1,2,3,4]
+data['arr2']=[[1,2,3,4],[5,6,7,8]]
+data['dict']=[{'sam':'bob'}]
+data['class']=test()
+print yamlf_dump(data=data)
+print yamlf_dump(data=test())
 
