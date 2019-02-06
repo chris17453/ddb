@@ -73,7 +73,7 @@ class factory_yaml:
             for attr in dir(fragment):
              if not callable(getattr(fragment, attr)) and not attr.startswith("__"):
                 path.append(attr)
-                return {'key':attr,'type':'dict','obj':fragment[attr],'depth':len(path)}
+                return {'key':attr,'type':'dict','obj':attr,'depth':len(path)}
             
 
         # is this a simple entity?

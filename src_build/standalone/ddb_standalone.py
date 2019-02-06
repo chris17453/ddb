@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.715'
+__version__='1.0.716'
 
         
         
@@ -3001,8 +3001,8 @@ class factory_yaml:
         elif isinstance(fragment,object):
             for attr in dir(fragment):
              if not callable(getattr(fragment, attr)) and not attr.startswith("__"):
-                path.append(i)
-                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
+                path.append(attr)
+                return {'key':attr,'type':'dict','obj':fragment[attr],'depth':len(path)}
             
 
         while len(path)>0:
