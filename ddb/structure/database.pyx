@@ -52,8 +52,9 @@ class database:
                     os.makedirs(dirname)
                 #print ("Successfully created the directory %s " % path)
             yaml_data = {}
-            
+            print ("Creating neew db config")
             yamlf_dump(yaml_data,file=config_file)
+            print ("Created new db config")
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
