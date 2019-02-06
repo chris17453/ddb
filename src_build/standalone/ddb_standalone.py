@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.705'
+__version__='1.0.706'
 
         
         
@@ -1738,7 +1738,7 @@ class database:
 
         if None != table_config:
             print "Adding table config"
-
+            self.create_config(self.config_file)
             config = table(table_config)
             yaml_data = yamlf_load(file=self.config_file)
             db = config.data.database
