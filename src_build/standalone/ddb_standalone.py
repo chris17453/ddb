@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.721'
+__version__='1.0.722'
 
         
         
@@ -2987,7 +2987,7 @@ class factory_yaml:
             return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
         elif hasattr(fragment, '__dict__'):
             self.info("Yaml-Get Parent Object","In Class")
-            return {'key':key,'type':'dict','obj':fragment,'depth':len(path)}
+            return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
             
         return None        
                     
@@ -3153,7 +3153,7 @@ class factory_yaml:
                 line=""
                 newline=0
             last_fragment=fragment
-
+        print(root)
         return '\n'.join(lines)
 
 
