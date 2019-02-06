@@ -209,30 +209,36 @@ class factory_yaml:
                     line=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                if not fragment['key']:
+                    line+="{0}: {1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                else:
+                    line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
-                if parent_fragment and fragment:
-                    if parent_fragment['type']!='list' and  fragment['key']==0:
-                        if len(line)>0:
-                            lines.append(line)
-                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                if len(fragment['obj'])==0:
+                    lines.append(line+ "[]")
+                else:
+                    if parent_fragment and fragment:
+                        if parent_fragment['type']!='list' and  fragment['key']==0:
+                            if len(line)>0:
+                                lines.append(line)
+                            line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
-                    elif  fragment['key']!=0:
-                        if len(line)>0:
-                            lines.append(line)
-                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                        elif  fragment['key']!=0:
+                            if len(line)>0:
+                                lines.append(line)
+                            line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
-                line+="- "
+                    line+="- "
                 newline=1
             #else:
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
-                    line+="True"
+                    line+="true"
                 elif obj==False:
-                    line+="False"
+                    line+="false"
                 elif isinstance(obj,str):
 
                     line+="'{0}'".format(re.escape(obj))
@@ -339,11 +345,11 @@ class factory_yaml:
             return float(data)
         except ValueError:
             pass
-        if data=="true" or data== 'True':
+        if data=="true" or  or data== 'yes' or data== 'Yes':
             return True
-        if data=="false" or data== 'False':
+        if data=="false" or data== 'no' or data== 'No':
             return False
-        if data=="null" or data== 'Null':
+        if data=="null":
             return None
         if data=="[]":
             return None
