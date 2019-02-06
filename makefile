@@ -67,7 +67,7 @@ bump:
 	#@pipenv run bumpversion patch --allow-dirty
 
 unittest:
-	@python test/test.py
+	@python -m test.test
 	
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
