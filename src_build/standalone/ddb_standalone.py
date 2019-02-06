@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.725'
+__version__='1.0.726'
 
         
         
@@ -3156,6 +3156,7 @@ class factory_yaml:
                     lines.append(line)
                 line=""
                 newline=0
+            line+="{0}".format(obj)
             last_fragment=fragment
         if line: 
             lines.append(line)
