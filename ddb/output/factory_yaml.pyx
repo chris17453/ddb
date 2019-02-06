@@ -26,6 +26,7 @@ class factory_yaml:
     # ##########################################################################
     # Encode Yaml
     # ##########################################################################
+    TODO So got dump and dumps wrong fix so file either loads or saves.....
     def dumps(self,data=None,file=None):
         if None == data:
             data_obj=self.load(data=None,file=file)
@@ -314,7 +315,7 @@ class factory_yaml:
             data=self.render(data)
         else:  
             data=self.load(data,file)
-        print(data)
+        #print(data)
 
     def load(self,data=None,file=None):
         if file:
