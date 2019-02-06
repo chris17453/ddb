@@ -14,7 +14,7 @@ class factory_yaml:
     def __init__(self,debug=None):
         self.debug=debug
     
-    def info(self,data,msg):
+    def info(self,msg,data):
         if self.debug:
             print("{0} : {1}".format(msg,data))
 
@@ -67,16 +67,18 @@ class factory_yaml:
     def get_next_obj_path(self,path,root):
         self.info("Yaml","Walking")
         fragment=self.walk_path(path,root)
-        
+        self.info("Path", ".".join([ str(arr) for arr in path]))
         #last_path=path.pop()
         # get next object in path
         if isinstance(fragment,list):
             for i,value in enumerate(fragment):
+                self.info("Yaml","List:{0}".format(i))
                 path.append(i)
                 return {'key':i,'type':'list','obj':value,'depth':len(path)}
 
         elif isinstance(fragment,dict):
             for i in fragment:
+                self.info("Yaml","Dict:{0}".format(i))
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
 
@@ -84,7 +86,7 @@ class factory_yaml:
             self.info("Yaml","In Class")
             
             for key in fragment.__dict__.keys():
-                self.info("Yaml","Attr:{0}".format(key))
+                self.info("Yaml","Class:{0}".format(key))
                 path.append(key)
                 return {'key':key,'type':'class','obj': getattr(fragment,key),'depth':len(path)}
 
@@ -93,7 +95,7 @@ class factory_yaml:
         #remove this last bit of path
         self.info("Yaml","Cant go deeper")
         while len(path)>0:
-            self.info("Yaml","loop")
+            self.info("Yaml","loop - looking {0}".format(len(path)))
         
             last_path=path.pop()
             
@@ -105,6 +107,7 @@ class factory_yaml:
             # get the next path
             grab_next=None
             if isinstance(temp_obj,list):
+                self.info("Yaml","Next - In List")
                 for i,value in enumerate(temp_obj):
                     if grab_next:
                         path.append(i)
@@ -115,6 +118,7 @@ class factory_yaml:
 
 
             elif isinstance(temp_obj,dict):
+                self.info("Yaml","Next - In Dict")
                 for i in temp_obj:
                     value=temp_obj[i]
                     if grab_next:
@@ -126,7 +130,7 @@ class factory_yaml:
 
 
             elif hasattr(temp_obj, '__dict__'):
-                self.info("Yaml","In Class")
+                self.info("Yaml","Next - In Class")
                 
                 for key in temp_obj.__dict__.keys():
                     self.info("Yaml","Attr:{0}".format(key))
@@ -138,7 +142,8 @@ class factory_yaml:
 
                     if key==last_path:
                         grab_next=True
-            return None
+            self.info("Yaml","Didnt find it")
+        return None
 
     def padding(self,indent,indent_spacing,array_depth=0):
         padding=""
@@ -171,6 +176,7 @@ class factory_yaml:
 
             # end of decoding            
             if None ==fragment:
+                self.info("Yaml-Render","NONE skipping")
                 continue
 
             if  fragment['type']!='list':
@@ -194,7 +200,7 @@ class factory_yaml:
                     newline=0
                 line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
 
-            if fragment['type']=='dict':
+            elif fragment['type']=='dict':
                 if newline==0:
                     if len(line)>0:
                        lines.append(line)
@@ -203,7 +209,7 @@ class factory_yaml:
                     newline=0
                 line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
-            if fragment['type']=='list':
+            elif fragment['type']=='list':
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
                         if len(line)>0:
@@ -217,8 +223,8 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
-            
-            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
+            else:
+            #if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
@@ -233,7 +239,9 @@ class factory_yaml:
                 line=""
                 newline=0
             last_fragment=fragment
-        print(root)
+        if line: 
+            lines.append(line)
+        #print(root)
         return '\n'.join(lines)
 
 
@@ -489,14 +497,24 @@ class factory_yaml:
 #from pprint import pprint
 ##if __name__ == "__main__":
 #pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
+
+#class sub:
+#    def __init__(self):
+#        self.su1=1
+#        self.s2=1
+#        self.s3="domo"
+#        
 #class test:
-#    temp=1
-#    top=3
-#    sam="bob"
+#
 #    def __init__(self):
 #        self.pizza=1
 #        self.beer=1
-#        self.house="domo"
-
+#        self.s4=sub()
+#        self.a3=sub()
+#        self.aouse="domo"
+#print "--"
+#pprint(test().__dict__)
+#
+#
 #print yamlf_dump(data=test())
 
