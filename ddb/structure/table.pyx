@@ -7,9 +7,6 @@ from ..output.factory_yaml import yamlf_load,yamlf_dump
 
 
 class table:
-    def noop(self, *args, **kw):
-        pass
-
     def __init__(self,
                     table_config_file=None, 
                     database=None, 
