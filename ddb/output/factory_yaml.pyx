@@ -233,6 +233,9 @@ class factory_yaml:
                     line+="True"
                 elif obj==False:
                     line+="False"
+                elif isinstance(obj,str):
+
+                    line+="'{0}''".format(re.escape(obj))
                 else:
                     line+="{0}".format(obj)
 
