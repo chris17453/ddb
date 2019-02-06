@@ -210,12 +210,12 @@ class factory_yaml:
                 else:
                     newline=0
                 if not fragment['key']:
-                    line+="{0}: {1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 else:
                     line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
-                if len(fragment['obj'])==0:
+                if not fragment['obj']:
                     lines.append(line+ "[]")
                 else:
                     if parent_fragment and fragment:
@@ -529,6 +529,8 @@ class test:
 #
 #
 data={}
+data['arr_empty']=[]
+data['dict_empty']={}
 data['arr']=[1,2,3,4]
 data['arr2']=[[1,2,3,4],[5,6,7,8]]
 data['dict']=[{'sam':'bob'}]

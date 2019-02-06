@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.733'
+__version__='1.0.734'
 
         
         
@@ -3256,7 +3256,7 @@ class factory_yaml:
             return float(data)
         except ValueError:
             pass
-        if data=="true" or  or data== 'yes' or data== 'Yes':
+        if data=="true" or data== 'yes' or data== 'Yes':
             return True
         if data=="false" or data== 'no' or data== 'No':
             return False
