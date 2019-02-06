@@ -1,7 +1,7 @@
 import sys
 import os
 from .column import column_v2
-from ..output.factory_yaml import yamlf_load,yamlf_dump,yamlf_dumps
+from ..output.factory_yaml import yamlf_load,yamlf_dump
 
 # use the c based parser, or you're going to get massive lag with the python based solution
 

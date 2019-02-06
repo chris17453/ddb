@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.707'
+__version__='1.0.708'
 
         
         
@@ -2960,6 +2960,7 @@ class factory_yaml:
         if self.debug:
             print("{0} : {1}".format(msg,data))
 
+    TODO So got dump and dumps wrong fix so file either loads or saves.....
     def dumps(self,data=None,file=None):
         if None == data:
             data_obj=self.load(data=None,file=file)
@@ -3132,7 +3133,7 @@ class factory_yaml:
 
 
 
-
+ 
     def get_indent(self,line):
         index_of=line.find('- ')
 
@@ -3230,7 +3231,6 @@ class factory_yaml:
             data=self.render(data)
         else:  
             data=self.load(data,file)
-        print(data)
 
     def load(self,data=None,file=None):
         if file:

@@ -2,7 +2,7 @@ import os
 from .table import table
 import warnings
 import sys
-from ..output.factory_yaml import yamlf_load,yamlf_dump,yamlf_dumps
+from ..output.factory_yaml import yamlf_load,yamlf_dump
 
 
 class database:

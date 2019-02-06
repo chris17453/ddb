@@ -3,16 +3,11 @@
 
 def yamlf_load(data=None,file=None):
     factory=factory_yaml()
-    return factory.load(data=data,file=file)
+    return factory.load(data=data,in_file=file)
 
 def yamlf_dump(data=None,file=None):
     factory=factory_yaml()
-    factory.dump(data=data,file=file)
-
-def yamlf_dumps(data=None,file=None):
-    factory=factory_yaml()
-    result=factory.dumps(data=data,file=file)
-    return result
+    factory.dump(data=data,out_file=file)
 
 class factory_yaml:
     debug=False
@@ -26,22 +21,6 @@ class factory_yaml:
     # ##########################################################################
     # Encode Yaml
     # ##########################################################################
-    TODO So got dump and dumps wrong fix so file either loads or saves.....
-    def dumps(self,data=None,file=None):
-        if None == data:
-            data_obj=self.load(data=None,file=file)
-            output_string=self.render(data_obj)
-            return output_string
-
-        # pass an object, return yaml string
-        if not isinstance(data,str):
-            output_string=self.render(data)
-            return output_string
-        else:  
-            # pass a string, decode to an object, re-encode to yaml string
-            data_obj=self.load(data,file)
-            output_string=self.render(data_obj)
-            return output_string
 
 
     def walk_path(self,path,root):
@@ -310,16 +289,22 @@ class factory_yaml:
             return None
         return data
         
-    def dump(self,data=None,file=None):
-        if not isinstance(data,str):
-            data=self.render(data)
-        else:  
-            data=self.load(data,file)
+    def dump(self,data=None,out_file=None):
+        if isinstance(data,str):
+            raise Exception ("yaml dump requires an object, not a string")
+            yaml_data=self.render(data)
+
+         if out_file:
+            with open(out_file, 'w') as yaml_file:
+                yaml_file.write(yaml_data)
+         else:
+            return yaml_data
+
         #print(data)
 
-    def load(self,data=None,file=None):
+    def load(self,data=None,in_file=None):
         if file:
-            with open(file) as content:
+            with open(in_file) as content:
                 data=content.read()
 
         lines=data.splitlines()
