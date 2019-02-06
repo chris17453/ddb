@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.712'
+__version__='1.0.713'
 
         
         
@@ -2994,6 +2994,11 @@ class factory_yaml:
                 return {'key':i,'type':'list','obj':value,'depth':len(path)}
 
         elif isinstance(fragment,dict):
+            for i in fragment:
+                path.append(i)
+                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
+
+        elif isinstance(fragment,class):
             for i in fragment:
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
