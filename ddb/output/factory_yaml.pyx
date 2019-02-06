@@ -60,8 +60,8 @@ class factory_yaml:
             return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
         elif hasattr(fragment, '__dict__'):
             self.info("Yaml-Get Parent Object","In Class")
-            obj=getattr(fragment,key),
-            return {'key':key,'type':'dict','obj':obj,'depth':len(path)}
+            #obj=getattr(fragment,key),
+            return {'key':key,'type':'dict','obj':fragmenmt,'depth':len(path)}
             
         return None        
                     
