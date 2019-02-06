@@ -69,7 +69,7 @@ class factory_yaml:
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
 
-        elif isinstance(fragment,class):
+        elif isinstance(fragment,object):
             for i in fragment:
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
