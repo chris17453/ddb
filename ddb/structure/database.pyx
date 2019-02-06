@@ -75,7 +75,8 @@ class database:
         # if we have a file name, lets add it
         if None != table_config:
             print "Adding table config"
-
+            # if the file doesnt exist. create it
+            self.create_config(self.config_file)
             config = table(table_config)
             yaml_data = yamlf_load(file=self.config_file)
             db = config.data.database
