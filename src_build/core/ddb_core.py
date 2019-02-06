@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.719'
+__version__='1.0.720'
 
         
         
@@ -1287,9 +1287,6 @@ class column_sort:
 
 
 class table:
-    def noop(self, *args, **kw):
-        pass
-
     def __init__(self,
                     table_config_file=None, 
                     database=None, 
