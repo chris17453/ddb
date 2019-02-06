@@ -294,10 +294,10 @@ class factory_yaml:
             raise Exception ("yaml dump requires an object, not a string")
             yaml_data=self.render(data)
 
-         if out_file:
+        if out_file:
             with open(out_file, 'w') as yaml_file:
                 yaml_file.write(yaml_data)
-         else:
+        else:
             return yaml_data
 
         #print(data)
