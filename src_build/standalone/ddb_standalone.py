@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.729'
+__version__='1.0.730'
 
         
         
@@ -3151,6 +3151,9 @@ class factory_yaml:
                     line+="True"
                 elif obj==False:
                     line+="False"
+                elif isinstance(obj,str):
+
+                    line+="'{0}''".format(re.escape(obj))
                 else:
                     line+="{0}".format(obj)
 

@@ -1,4 +1,4 @@
-import inspect
+import re
 
 
 def yamlf_load(data=None,file=None):
