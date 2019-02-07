@@ -357,7 +357,7 @@ class lexer:
 
                 self.info("Query object", query_object)
                 # check to make sure functions are valid
-                if query_mode == 'select':
+                if query_mode == 'select' or query_mode=='select distinct':
                     self.info("Validating Select Functions")
                     if 'select' in query_object:
                         for node in query_object['select']:

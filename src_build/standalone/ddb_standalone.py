@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.766'
+__version__='1.0.767'
 
         
         
@@ -63,7 +63,7 @@ sql_syntax = {
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
 
-        {'query': 'select distinct',
+        {'query': 'select',
          'arguments':1,
          'switch': [
                    {'arguments': 0,
@@ -2484,7 +2484,6 @@ class engine:
     def select(self, query_object, parser):
         if 'distinct' in query_object:
             distinct=True
-            query_object['meta']['select']=query_object['meta']['select distinct']
         else:
             distinct=None
         self.info(query_object)
