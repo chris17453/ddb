@@ -52,9 +52,9 @@ class database:
                     os.makedirs(dirname)
                 #print ("Successfully created the directory %s " % path)
             yaml_data = {}
-            print ("Creating new db config")
+            #print ("Creating new db config")
             yamlf_dump(yaml_data,file=config_file)
-            print ("Created new db config")
+            #print ("Created new db config")
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -75,7 +75,7 @@ class database:
 
         # if we have a file name, lets add it
         if None != table_config:
-            print "Adding table config"
+            #print "Adding table config"
             # if the file doesnt exist. create it
             self.create_config(self.config_file)
             config = table(table_config)
