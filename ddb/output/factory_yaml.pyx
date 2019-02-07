@@ -1,4 +1,4 @@
-import inspect
+import re
 
 
 def yamlf_load(data=None,file=None):
@@ -70,7 +70,11 @@ class factory_yaml:
         self.info("Path", ".".join([ str(arr) for arr in path]))
         #last_path=path.pop()
         # get next object in path
+        # this is where we walk forward
         if isinstance(fragment,list):
+            #if len(fragment)==0:
+            #    path.append(None)
+            #    return {'key':None,'type':'list','obj':[],'depth':len(path)}
             for i,value in enumerate(fragment):
                 self.info("Yaml","List:{0}".format(i))
                 path.append(i)
@@ -91,7 +95,8 @@ class factory_yaml:
 
                 path.append(key)
                 return {'key':key,'type':'class','obj': value,'depth':len(path)}
-
+        
+        # this is where we back up
         # is this a simple entity?
         # if so, backup 1 level, and proceed to the next item
         #remove this last bit of path
@@ -209,7 +214,10 @@ class factory_yaml:
                     line=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                if not fragment['key']:
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                else:
+                    line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
                 if parent_fragment and fragment:
@@ -225,14 +233,24 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
+            # can't handle in object walker because the container is empty
+            if isinstance(obj,list) and len(obj)==0:
+               line+="[]"
+            if isinstance(obj,dict) and not obj:
+               line+="{}"
             #else:
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
-                    line+="True"
+                    line+="true"
                 elif obj==False:
-                    line+="False"
+                    line+="false"
+                elif isinstance(obj,str):
+                    obj=obj.replace("'","''")
+                    obj=obj.replace("\"","\\\"")
+                    
+                    line+="'{0}'".format(obj)
                 else:
                     line+="{0}".format(obj)
 
@@ -244,7 +262,7 @@ class factory_yaml:
         if line: 
             lines.append(line)
         document='\n'.join(lines)
-        print(document)
+        #print(document)
         return document
 
 
@@ -336,16 +354,16 @@ class factory_yaml:
             return float(data)
         except ValueError:
             pass
-        if data=="true" or data== 'True':
+        if data=="true" or data== 'yes' or data== 'Yes':
             return True
-        if data=="false" or data== 'False':
+        if data=="false" or data== 'no' or data== 'No':
             return False
-        if data=="null" or data== 'Null':
+        if data=="null":
             return None
         if data=="[]":
-            return None
+            return []
         if data=="{}":
-            return None
+            return {}
         return data
         
     def dump(self,data=None,out_file=None):
@@ -362,7 +380,7 @@ class factory_yaml:
         #print(data)
 
     def load(self,data=None,in_file=None):
-        if file:
+        if in_file:
             with open(in_file) as content:
                 data=content.read()
 
@@ -497,33 +515,39 @@ class factory_yaml:
 
 
 
+
+
+
+
 #from pprint import pprint
 ##if __name__ == "__main__":
 #pprint( yamlf_load(file="/home/nd/.ddb/main/test.ddb.yaml"))
 
-class sub:
-    def __init__(self):
-        self.su1=1
-        self.s2=1
-        self.s3="domo"
-        
-class test:
-
-    def __init__(self):
-        self.pizza=1
-        self.beer=1
-        self.s4=sub()
-        self.a3=sub()
-        self.aouse="domo"
+#class sub:
+#    def __init__(self):
+#        self.su1=1
+#        self.s2=1
+#        self.s3="domo"
+#        
+#class test:
+#
+#    def __init__(self):
+#        self.pizza=1
+#        self.beer=1
+#        self.s4=sub()
+#        self.a3=sub()
+#        self.aouse="domo"
 #print "--"
 #pprint(test().__dict__)
 #
 #
-data={}
-data['arr']=[1,2,3,4]
-data['arr2']=[[1,2,3,4],[5,6,7,8]]
-data['dict']=[{'sam':'bob'}]
-data['class']=test()
-print yamlf_dump(data=data)
-print yamlf_dump(data=test())
+#data={}
+#data['arr_empty']=[]
+#data['dict_empty']={}
+#data['arr']=[1,2,3,4]
+#data['arr2']=[[1,2,3,4],[5,6,7,8]]
+#data['dict']=[{'sam':'bob'}]
+#data['class']=test()
+#yaml_data=yamlf_dump(data=data)
+#pprint( yamlf_load(data=yaml_data))
 

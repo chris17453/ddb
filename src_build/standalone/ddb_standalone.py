@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.729'
+__version__='1.0.767'
 
         
         
@@ -62,14 +62,10 @@ sql_syntax = {
         {'query': 'show tables',
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
+
         {'query': 'select',
-         'argument': 1,
+         'arguments':1,
          'switch': [
-                  {  'name':'distinct',
-                     'data':False,
-                     'optional': True
-                  },
-            
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
@@ -134,7 +130,8 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},
+                     'name': ['select','distinct']},
+
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
@@ -220,6 +217,167 @@ sql_syntax = {
 
                      'name': 'limit',
                      'optional': True}]},
+
+
+
+        {'query': 'select',
+         'arguments':1,
+         'switch': [
+                   {'arguments': 0,
+                     'data': [{'sig': ['{column}']},
+                              {'sig': ['{column}',
+                                       'as',
+                                       '{display}']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+
+                              ],
+                     'name': 'select'},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'left join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'right join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'full join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'name': 'on',
+                     'optional': True,
+                     'depends_on': 'join',
+                     'store_array': True},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'on',
+                     'jump': 'on',
+                     'name': 'and',
+                     'optional': True,
+                     'parent': 'on'},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'on',
+                     'jump': 'on',
+                     'name': 'or',
+                     'optional': True,
+                     'parent': 'on'},
+
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'name': 'where',
+                     'optional': True,
+                     'depends_on': 'from',
+                     'store_array': True},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'and',
+                     'optional': True,
+                     'parent': 'where'},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'or',
+                     'optional': True,
+                     'parent': 'where'},
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']},
+                              {'sig': ['{column}', 'asc']},
+                              {'sig': ['{column}', 'desc']}],
+                     'name': ['order', 'by'],
+                     'optional': True},
+                    {'data': [{'sig': ['{length}']},
+                              {'sig': ['{start}',
+                                       ',',
+                                       '{length}']}],
+                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}},
+
+                     'name': 'limit',
+                     'optional': True}]},
+
+
+
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -1532,7 +1690,6 @@ class table:
         if None == self.data.database:
             raise Exception("Cannot save a table without a database name")
 
-        print self.config_directory
         if None == self.config_directory:
             home = os.path.expanduser("~")
             if not os.path.exists(os.path.join(home, '.ddb')):
@@ -1543,12 +1700,10 @@ class table:
 
         dest_dir=os.path.join(home, self.data.database)      
         if not os.path.exists(dest_dir):
-            print("Making dest dir {0}".format(dest_dir))
             os.makedirs(dest_dir)
 
         if None == self.data.config:
             self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
-        print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
 
 
@@ -1658,6 +1813,15 @@ class table_delimiters:
                         self.block_quote = None
                 else:
                     self.block_quote = None
+    
+    def get_new_line(self):
+        '''Return the correct line ending for the file format'''
+        if self.new_line=='UNIX':
+            return '\n'
+        elif self.new_line=='WINDOWS':
+            return '\r\n'
+        else:
+            return '\n'
 
         
         
@@ -1713,9 +1877,7 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            print ("Creating neew db config")
             yamlf_dump(yaml_data,file=config_file)
-            print ("Created new db config")
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -1735,7 +1897,6 @@ class database:
             self.create_config(self.config_file)
 
         if None != table_config:
-            print "Adding table config"
             self.create_config(self.config_file)
             config = table(table_config)
             yaml_data = yamlf_load(file=self.config_file)
@@ -1879,7 +2040,6 @@ class database:
                 return tables
         else:
             return tables
-
         yaml_data = yamlf_load(file=self.config_file)
         if  yaml_data != None:
             for db in yaml_data:
@@ -2189,6 +2349,10 @@ class engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
+
+            if query_object['mode'] == 'select distinct':
+                query_object['distinct']=True
+                self.results = self.select(query_object, parser)
             
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -2402,6 +2566,21 @@ class engine:
         limit_start = 0
         limit_length = None
 
+        if distinct:
+            group=[]
+            for item in temp_data:
+                no_item=True
+                for group_item in group:
+                    
+                    if self.compare_dictionaries(group_item['data'],item['data']):
+                        no_item=None
+                        break
+                if no_item:
+                    group.append(item)
+
+            temp_data=group
+            print group
+
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
                 limit_start = query_object['meta']['limit']['start']
@@ -2411,6 +2590,22 @@ class engine:
         self.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
+
+    def compare_dictionaries(self,dict1, dict2):
+        if dict1 is None or dict2 is None:
+            return False
+
+        if (not isinstance(dict1, dict)) or (not isinstance(dict2, dict)):
+            return False
+
+        shared_keys = set(dict2.keys()) & set(dict2.keys())
+        if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
+            return False
+
+        dicts_are_equal = True
+        for key in dict1.keys():
+             dicts_are_equal = dicts_are_equal and (dict1[key] == dict2[key])
+        return dicts_are_equal
 
     def process_select_row(self,query_object,processed_line):
         row=[]
@@ -2482,7 +2677,7 @@ class engine:
                         deleted += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
         data = {'data': [deleted], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
@@ -2512,7 +2707,7 @@ class engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
                     requires_new_line = False
 
@@ -2551,9 +2746,9 @@ class engine:
                         break
                 if False == err:
                     if True == requires_new_line:
-                        temp_file.write(query_object['table'].delimiters.new_line)
+                        temp_file.write(query_object['table'].delimiters.get_new_line())
                     temp_file.write(new_line)
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2583,9 +2778,9 @@ class engine:
 
         if False == err:
             if True == requires_new_line:
-                temp_file.write(query_object['table'].delimiters.new_line)
+                temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.write(new_line)
-            temp_file.write(query_object['table'].delimiters.new_line)
+            temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2618,7 +2813,7 @@ class engine:
                             updated += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
 
         temp_table.append_data(data)
@@ -3015,7 +3210,7 @@ class factory_yaml:
 
                 path.append(key)
                 return {'key':key,'type':'class','obj': value,'depth':len(path)}
-
+        
         self.info("Yaml","Cant go deeper")
         while len(path)>0:
             self.info("Yaml","loop - looking {0}".format(len(path)))
@@ -3128,7 +3323,10 @@ class factory_yaml:
                     line=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                if not fragment['key']:
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                else:
+                    line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
                 if parent_fragment and fragment:
@@ -3144,13 +3342,22 @@ class factory_yaml:
 
                 line+="- "
                 newline=1
+            if isinstance(obj,list) and len(obj)==0:
+               line+="[]"
+            if isinstance(obj,dict) and not obj:
+               line+="{}"
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
                 elif obj==True:
-                    line+="True"
+                    line+="true"
                 elif obj==False:
-                    line+="False"
+                    line+="false"
+                elif isinstance(obj,str):
+                    obj=obj.replace("'","''")
+                    obj=obj.replace("\"","\\\"")
+                    
+                    line+="'{0}'".format(obj)
                 else:
                     line+="{0}".format(obj)
 
@@ -3162,7 +3369,6 @@ class factory_yaml:
         if line: 
             lines.append(line)
         document='\n'.join(lines)
-        print(document)
         return document
 
 
@@ -3248,16 +3454,16 @@ class factory_yaml:
             return float(data)
         except ValueError:
             pass
-        if data=="true" or data== 'True':
+        if data=="true" or data== 'yes' or data== 'Yes':
             return True
-        if data=="false" or data== 'False':
+        if data=="false" or data== 'no' or data== 'No':
             return False
-        if data=="null" or data== 'Null':
+        if data=="null":
             return None
         if data=="[]":
-            return None
+            return []
         if data=="{}":
-            return None
+            return {}
         return data
         
     def dump(self,data=None,out_file=None):
@@ -3273,7 +3479,7 @@ class factory_yaml:
 
 
     def load(self,data=None,in_file=None):
-        if file:
+        if in_file:
             with open(in_file) as content:
                 data=content.read()
 
@@ -3399,27 +3605,10 @@ class factory_yaml:
 
 
 
-class sub:
-    def __init__(self):
-        self.su1=1
-        self.s2=1
-        self.s3="domo"
-        
-class test:
 
-    def __init__(self):
-        self.pizza=1
-        self.beer=1
-        self.s4=sub()
-        self.a3=sub()
-        self.aouse="domo"
-data={}
-data['arr']=[1,2,3,4]
-data['arr2']=[[1,2,3,4],[5,6,7,8]]
-data['dict']=[{'sam':'bob'}]
-data['class']=test()
-print yamlf_dump(data=data)
-print yamlf_dump(data=test())
+
+
+
 
 
         
@@ -3671,7 +3860,7 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = sql_engine( config_file=config_file, 
+        e = engine( config_file=config_file, 
                         debug=args.debug, 
                         mode="full",
                         output=args.output,
