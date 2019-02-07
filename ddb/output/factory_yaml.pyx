@@ -249,6 +249,7 @@ class factory_yaml:
                 elif isinstance(obj,str):
                     obj=obj.replace("'","''")
                     obj=obj.replace("\"","\\\"")
+                    
                     line+="'{0}'".format(obj)
                 else:
                     line+="{0}".format(obj)
