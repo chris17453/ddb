@@ -356,6 +356,7 @@ class engine:
                     group.append(item)
 
             temp_data=group
+            print group
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
