@@ -22,7 +22,7 @@ sql_syntax = {
                     ]},
 
         {'query': 'select distinct',
-         'arguments':,
+         'arguments':1,
          'switch': [
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
@@ -179,7 +179,7 @@ sql_syntax = {
 
 
         {'query': 'select',
-         'arguments':,
+         'arguments':1,
          'switch': [
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},

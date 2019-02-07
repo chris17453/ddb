@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.751'
+__version__='1.0.752'
 
         
         
@@ -56,22 +56,10 @@ sql_syntax = {
         {'query': 'show tables',
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
-        {'query': 'select',
+
+        {'query': 'select distinct',
+         'arguments':,
          'switch': [
-                  
-                 {    
-                     'arguments':None,
-                     'name':'select',
-                     'data':None,
-                     'optional': False,
-                  },
-                 {    
-                     'arguments':None,
-                     'name':'distinct',
-                     'data':None,
-                     'optional': True,
-                  },
-            
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
@@ -136,7 +124,8 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},
+                     'name': ['select','distinct']},
+
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
@@ -222,6 +211,167 @@ sql_syntax = {
 
                      'name': 'limit',
                      'optional': True}]},
+
+
+
+        {'query': 'select',
+         'arguments':,
+         'switch': [
+                   {'arguments': 0,
+                     'data': [{'sig': ['{column}']},
+                              {'sig': ['{column}',
+                                       'as',
+                                       '{display}']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')']},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+                              {'sig': ['{function}',
+                                       '(',
+                                       '{argument1}',
+                                       ',',
+                                       '{argument2}',
+                                       ',',
+                                       '{argument3}',
+                                       ')',
+                                       'as',
+                                       '{display}'
+                                       ]},
+
+                              ],
+                     'name': 'select'},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'left join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'right join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+                     'name': 'full join',
+                     'depends_on': 'from',
+                     'optional': True},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'name': 'on',
+                     'optional': True,
+                     'depends_on': 'join',
+                     'store_array': True},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'on',
+                     'jump': 'on',
+                     'name': 'and',
+                     'optional': True,
+                     'parent': 'on'},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'on',
+                     'jump': 'on',
+                     'name': 'or',
+                     'optional': True,
+                     'parent': 'on'},
+
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'name': 'where',
+                     'optional': True,
+                     'depends_on': 'from',
+                     'store_array': True},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'and',
+                     'optional': True,
+                     'parent': 'where'},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'or',
+                     'optional': True,
+                     'parent': 'where'},
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']},
+                              {'sig': ['{column}', 'asc']},
+                              {'sig': ['{column}', 'desc']}],
+                     'name': ['order', 'by'],
+                     'optional': True},
+                    {'data': [{'sig': ['{length}']},
+                              {'sig': ['{start}',
+                                       ',',
+                                       '{length}']}],
+                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}},
+
+                     'name': 'limit',
+                     'optional': True}]},
+
+
+
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
