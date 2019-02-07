@@ -240,7 +240,7 @@ class engine:
         # print ("in select")
         if 'distinct' in query_object:
             distinct=True
-            query_object['meta']['select']=query_object['meta']['select distinct']
+           # query_object['meta']['select']=query_object['meta']['select distinct']
         else:
             distinct=None
         self.info(query_object)
