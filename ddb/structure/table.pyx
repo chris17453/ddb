@@ -290,7 +290,7 @@ class table:
             raise Exception("Cannot save a table without a database name")
 
         # if no config dir given, save in users home dir
-        print self.config_directory
+        #print self.config_directory
         if None == self.config_directory:
             home = os.path.expanduser("~")
             # make app dir
@@ -302,12 +302,12 @@ class table:
 
         dest_dir=os.path.join(home, self.data.database)      
         if not os.path.exists(dest_dir):
-            print("Making dest dir {0}".format(dest_dir))
+            #print("Making dest dir {0}".format(dest_dir))
             os.makedirs(dest_dir)
 
         if None == self.data.config:
             self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
-        print ("dump:{0}".format(self.data.config))
+        #print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
 
 
