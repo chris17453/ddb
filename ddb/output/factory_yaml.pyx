@@ -247,8 +247,16 @@ class factory_yaml:
                 elif obj==False:
                     line+="false"
                 elif isinstance(obj,str):
-
-                    line+="'{0}'".format(re.escape(obj))
+                    has_single_quote=obj.find("'")
+                    has_double_quote=obj.find("\"")
+                    if has_double_quote and has_single_quote:
+                        line+="'''{0}'''".format(obj)
+                    elif has_single_quote>-1:
+                        line+="\"{0}\"".format(obj)
+                    elif has_double_quote>-1:
+                        line+="'{0}'".format(obj)
+                    else:
+                        line+="'{0}'".format(obj)
                 else:
                     line+="{0}".format(obj)
 
