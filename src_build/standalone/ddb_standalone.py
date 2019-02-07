@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.744'
+__version__='1.0.745'
 
         
         
@@ -3658,7 +3658,7 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = sql_engine( config_file=config_file, 
+        e = engine( config_file=config_file, 
                         debug=args.debug, 
                         mode="full",
                         output=args.output,
