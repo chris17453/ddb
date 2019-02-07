@@ -24,8 +24,14 @@ sql_syntax = {
          #'arguments':2,
          'switch': [
                   
-                {    
-                     'arguments':1,
+                 {    
+                     'arguments':None,
+                     'name':'select',
+                     'data':None,
+                     'optional': False,
+                  },
+                 {    
+                     'arguments':None,
                      'name':'distinct',
                      'data':None,
                      'optional': True,
