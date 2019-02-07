@@ -1,4 +1,4 @@
 main: 
  test: 
-  path: '\/home\/nd\/repos\/chris17453\/ddb\/test\/main\/test\.ddb\.yaml'
-  name: 'test'
+  path: '''/home/nd/repos/chris17453/ddb/test/main/test.ddb.yaml'''
+  name: '''test'''

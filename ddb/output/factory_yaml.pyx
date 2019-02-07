@@ -247,16 +247,9 @@ class factory_yaml:
                 elif obj==False:
                     line+="false"
                 elif isinstance(obj,str):
-                    has_single_quote=obj.find("'")
-                    has_double_quote=obj.find("\"")
-                    if has_double_quote and has_single_quote:
-                        line+="'''{0}'''".format(obj)
-                    elif has_single_quote>-1:
-                        line+="\"{0}\"".format(obj)
-                    elif has_double_quote>-1:
-                        line+="'{0}'".format(obj)
-                    else:
-                        line+="'{0}'".format(obj)
+                    obj=obj.replace("'","''")
+                    obj=obj.replace("\"","\\\"")
+                    line+="'{0}'".format(obj)
                 else:
                     line+="{0}".format(obj)
 
@@ -351,7 +344,7 @@ class factory_yaml:
             if data[0]=='"' and data[-1]=='"':
                 quoted=True
             if quoted:
-                return data[1:-1].decode('string_escape')
+                return data[1:-1]
         try:
             return int(data)
         except ValueError:
