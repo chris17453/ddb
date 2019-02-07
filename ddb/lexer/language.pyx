@@ -21,7 +21,7 @@ sql_syntax = {
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
         {'query': 'select',
-         'arguments': 1,
+         'arguments':2,
          'switch': [
                   {  'name':'distinct',
                      'data':False,
