@@ -240,10 +240,9 @@ class engine:
         # print ("in select")
         if 'distinct' in query_object:
             distinct=True
-            query_name='select distinct'
+            query_object['meta']['select']=query_object['meta']['select distinct']
         else:
             distinct=None
-            query_name='select'
         self.info(query_object)
         temp_data = []
         hash_dict={}
@@ -251,7 +250,7 @@ class engine:
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta'][query_name]:
+        for c in query_object['meta']['select']:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
@@ -277,7 +276,7 @@ class engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta'][query_name]:
+        for column in query_object['meta']['select']:
             display = None
             if 'display' in column:
                 display = column['display']

@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.762'
+__version__='1.0.763'
 
         
         
@@ -2513,7 +2513,7 @@ class engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta']['select']:
+        for column in query_object['meta'][query_name]:
             display = None
             if 'display' in column:
                 display = column['display']
