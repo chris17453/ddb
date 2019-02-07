@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.764'
+__version__='1.0.765'
 
         
         
@@ -2574,6 +2574,7 @@ class engine:
                     group.append(item)
 
             temp_data=group
+            print group
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
