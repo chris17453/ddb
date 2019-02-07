@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.761'
+__version__='1.0.762'
 
         
         
@@ -2484,15 +2484,17 @@ class engine:
     def select(self, query_object, parser):
         if 'distinct' in query_object:
             distinct=True
+            query_name='select distinct'
         else:
             distinct=None
+            query_name='select'
         self.info(query_object)
         temp_data = []
         hash_dict={}
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta']['select']:
+        for c in query_object['meta'][query_name]:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
