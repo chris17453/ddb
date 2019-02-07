@@ -24,7 +24,7 @@ sql_syntax = {
          #'arguments':2,
          'switch': [
                   {  'name':'distinct',
-                     'data':False,
+                     'data':None,
                      'optional': True,
                   },
             
