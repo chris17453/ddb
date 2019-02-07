@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.755'
+__version__='1.0.756'
 
         
         
@@ -2349,6 +2349,10 @@ class engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
+
+            if query_object['mode'] == 'select distinct':
+                query_object['distinct']=True
+                self.results = self.select(query_object, parser)
             
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -2562,6 +2566,20 @@ class engine:
         limit_start = 0
         limit_length = None
 
+        if distinct:
+            group=[]
+            for item in temp_data:
+                no_item=True
+                for group_item in group:
+                    
+                    if self.compare_dictionaries(group_item['data'],item['data']):
+                        no_item=None
+                        break
+                if no_item:
+                    group.append(item)
+
+            temp_data=group
+
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
                 limit_start = query_object['meta']['limit']['start']
@@ -2571,6 +2589,25 @@ class engine:
         self.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
+
+    def compare_dictionaries(dict1, dict2):
+        if dict1 is None or dict2 is None:
+            return False
+
+        if (not isinstance(dict1, dict)) or (not isinstance(dict2, dict)):
+            return False
+
+        shared_keys = set(dict2.keys()) & set(dict2.keys())
+        if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
+            return False
+
+        dicts_are_equal = True
+        for key in dict1.keys():
+            if isinstance(dict1[key], dict) or isinstance(dict2[key], dict):
+                dicts_are_equal = dicts_are_equal and compare_dictionaries(dict1[key], dict2[key])
+            else:
+                dicts_are_equal = dicts_are_equal and all(atleast_1d(dict1[key] == dict2[key]))
+        return dicts_are_equal
 
     def process_select_row(self,query_object,processed_line):
         row=[]
@@ -2642,7 +2679,7 @@ class engine:
                         deleted += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
         data = {'data': [deleted], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
@@ -2672,7 +2709,7 @@ class engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
                     requires_new_line = False
 
@@ -2711,9 +2748,9 @@ class engine:
                         break
                 if False == err:
                     if True == requires_new_line:
-                        temp_file.write(query_object['table'].delimiters.new_line)
+                        temp_file.write(query_object['table'].delimiters.get_new_line())
                     temp_file.write(new_line)
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2743,9 +2780,9 @@ class engine:
 
         if False == err:
             if True == requires_new_line:
-                temp_file.write(query_object['table'].delimiters.new_line)
+                temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.write(new_line)
-            temp_file.write(query_object['table'].delimiters.new_line)
+            temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2778,7 +2815,7 @@ class engine:
                             updated += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
 
         temp_table.append_data(data)
