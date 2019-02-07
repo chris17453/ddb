@@ -8,7 +8,6 @@
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
@@ -19,18 +18,18 @@ import tempfile
         
 # ############################################################################
 # Module : version
-# File   : ddb/engine/version.pyx
+# File   : ddb/version.pyx
 # ############################################################################
 
 
 
-__version__='1.0.602'
+__version__='1.0.767'
 
         
         
 # ############################################################################
-# Module : language
-# File   : ddb/engine/parser/language.pyx
+# Module : lexer-language
+# File   : ddb/lexer/language.pyx
 # ############################################################################
 
 
@@ -57,9 +56,20 @@ sql_syntax = {
         {'query': 'show tables',
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
+
         {'query': 'select',
-         'argument': 1,
-         'switch': [{'arguments': 0,
+         'arguments':1,
+         'switch': [
+                   { 'data':None,
+                     'name': 'select',
+                     'optional':False
+                   },
+                   { 'data':None,
+                     'name': 'distinct',
+                     'optional':True
+                   },
+        
+                   {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
                                        'as',
@@ -123,7 +133,12 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},
+                     'name': 'columns',
+                     'no_keyword': True,
+
+                     'depends_on':'select'
+                     },
+
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
@@ -195,6 +210,13 @@ sql_syntax = {
                      'name': 'or',
                      'optional': True,
                      'parent': 'where'},
+
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']}],
+                     'name': ['group', 'by'],
+                     'optional': True},
+
+
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}', 'asc']},
@@ -209,6 +231,10 @@ sql_syntax = {
 
                      'name': 'limit',
                      'optional': True}]},
+
+
+
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -380,15 +406,15 @@ sql_syntax = {
         
         
 # ############################################################################
-# Module : parser
-# File   : ddb/engine/parser/sql_parser.pyx
+# Module : lexer-parse
+# File   : ddb/lexer/lexer.pyx
 # ############################################################################
 
 
 
 
 
-class sql_parser:
+class lexer:
    
 
     def __init__(self, query, debug=False):
@@ -710,8 +736,8 @@ class sql_parser:
                 self.info("Query object", query_object)
                 if query_mode == 'select':
                     self.info("Validating Select Functions")
-                    if 'select' in query_object:
-                        for node in query_object['select']:
+                    if 'columns' in query_object:
+                        for node in query_object['columns']:
                             valid_function_name = False
                             is_function = False
                             if 'function' in node:
@@ -749,9 +775,9 @@ class sql_parser:
         return False
 
     def expand_columns(self, query_object, columns):
-        if query_object['mode'] == "select":
+        if 'columns' in query_object['meta']:
             expanded_select = []
-            for item in query_object['meta']['select']:
+            for item in query_object['meta']['columns']:
                 if 'column' in item:
                     if item['column'] == '*':
                         for column in columns:
@@ -761,7 +787,7 @@ class sql_parser:
                 if 'function' in item:
                     expanded_select.append(item)
 
-            query_object['meta']['select'] = expanded_select
+            query_object['meta']['columns'] = expanded_select
 
 
     def get_sub_array(self, array, key=None):
@@ -827,8 +853,8 @@ class sql_parser:
         
         
 # ############################################################################
-# Module : tokenize
-# File   : ddb/engine/tokenizer/sql_tokenize.pyx
+# Module : lexer-token
+# File   : ddb/lexer/tokenize.pyx
 # ############################################################################
 
 
@@ -865,9 +891,6 @@ class tokenizer():
             '!',  # not
             '|',  # or
 
-            'not',  # not
-            'is',  # equality
-            'like',  # partial match
 
             '+',  # addition
             '-',  # subtraction
@@ -936,8 +959,9 @@ class tokenizer():
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if c >= text_length - 1:
-                    self.info("Last Cycle")
+
+
+
                 if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
@@ -1035,15 +1059,13 @@ class tokenizer():
         
 # ############################################################################
 # Module : column
-# File   : ddb/engine/structure/column.pyx
+# File   : ddb/structure/column.pyx
 # ############################################################################
 
 
 
 
 class column_v1:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.name = None
@@ -1277,24 +1299,17 @@ class column_sort:
         
 # ############################################################################
 # Module : table
-# File   : ddb/engine/structure/table.pyx
+# File   : ddb/structure/table.pyx
 # ############################################################################
 
 
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
 
 class table:
-    def noop(self, *args, **kw):
-        pass
-
-    def __init__(self, file=None, 
-                    show_config=False, 
+    def __init__(self,
+                    table_config_file=None, 
                     database=None, 
                     columns=None, 
                     name=None, 
@@ -1327,40 +1342,36 @@ class table:
                     errors=errors,
                     data_on=data_on)
 
-        if None != file:
-            if os.path.exists(file):
-                with open(file, 'r') as stream:
-                    yaml_data = yaml.load(stream, Loader=Loader)
-                    if None == yaml_data:
-                        raise Exception("Table configuration empty")
-                    for key in yaml_data:
-                        if 'version' == key:
-                            self.version = yaml_data[key]
+        if None != table_config_file:
+            if os.path.exists(table_config_file):
+                yaml_data = yamlf_load(file=table_config_file)
+                if None == yaml_data:
+                    raise Exception("Table configuration empty")
+                for key in yaml_data:
+                    if 'version' == key:
+                        self.version = yaml_data[key]
 
-                        if 'ownership' == key:
-                            self.ownership = table_ownership(yaml=yaml_data[key])
+                    if 'ownership' == key:
+                        self.ownership = table_ownership(yaml=yaml_data[key])
 
-                        if 'delimiters' == key:
-                            self.delimiters = table_delimiters(yaml=yaml_data[key])
+                    if 'delimiters' == key:
+                        self.delimiters = table_delimiters(yaml=yaml_data[key])
 
-                        if 'visible' == key:
-                            self.visible = table_visible_attributes(yaml=yaml_data[key])
+                    if 'visible' == key:
+                        self.visible = table_visible_attributes(yaml=yaml_data[key])
 
-                        if 'data' == key:
-                            self.data = table_data(yaml=yaml_data[key])
+                    if 'data' == key:
+                        self.data = table_data(yaml=yaml_data[key])
 
-                        if 'columns' == key:
-                            for c in yaml_data['columns']:
-                                self.columns.append(column_v2(c))
+                    if 'columns' == key:
+                        for c in yaml_data['columns']:
+                            self.columns.append(column_v2(c))
 
-                        if 'active' == key:
-                            self.active = yaml_data[key]
+                    if 'active' == key:
+                        self.active = yaml_data[key]
 
 
         self.update_ordinals()
-        yaml.emitter.Emitter.process_tag = self.noop
-        if True == show_config:
-            yaml.dump(self, sys.stdout, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True)
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
                 self.active=False
@@ -1530,6 +1541,12 @@ class table:
 
 
     def save(self):
+        if None == self.data.name:
+            raise Exception("Cannot save a table without a name")
+
+        if None == self.data.database:
+            raise Exception("Cannot save a table without a database name")
+
         if None == self.config_directory:
             home = os.path.expanduser("~")
             if not os.path.exists(os.path.join(home, '.ddb')):
@@ -1538,23 +1555,13 @@ class table:
         else:
             home = self.config_directory
 
-        if None == self.data.name:
-            raise Exception("Cannot save a table without a name")
+        dest_dir=os.path.join(home, self.data.database)      
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
 
-        if None == self.data.database:
-            raise Exception("Cannot save a table without a database name")
-
-        if not os.path.exists(os.path.join(home, self.data.database)):
-            os.makedirs(os.path.join(home, self.data.database))
-
-        home = os.path.join(home, self.data.database)
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{}.ddb.yaml".format(self.data.name))
-
-        with open(self.data.config, 'w') as stream:
-            yaml.emitter.Emitter.process_tag = self.noop
-            yaml.dump(self, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True, stream=stream)
-            stream.close()
+            self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
+        yamlf_dump(data=self,file=self.data.config)
 
 
 class table_visible_attributes:
@@ -1663,12 +1670,21 @@ class table_delimiters:
                         self.block_quote = None
                 else:
                     self.block_quote = None
+    
+    def get_new_line(self):
+        '''Return the correct line ending for the file format'''
+        if self.new_line=='UNIX':
+            return '\n'
+        elif self.new_line=='WINDOWS':
+            return '\r\n'
+        else:
+            return '\n'
 
         
         
 # ############################################################################
 # Module : database
-# File   : ddb/engine/structure/database.pyx
+# File   : ddb/structure/database.pyx
 # ############################################################################
 
 
@@ -1704,7 +1720,7 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-
+   
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:
@@ -1718,9 +1734,7 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            f = open(config_file, "w")
-            yaml.dump(yaml_data, f)
-            f.close()
+            yamlf_dump(yaml_data,file=config_file)
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -1740,39 +1754,32 @@ class database:
             self.create_config(self.config_file)
 
         if None != table_config:
-            print "Adding table config"
-            with open(self.config_file, 'r') as stream:
-                config = table(table_config)
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
+            self.create_config(self.config_file)
+            config = table(table_config)
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
-
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
+            yamlf_dump(yaml_data,file=self.config_file)
 
         if table is not None:
-            with open(self.config_file, 'r') as stream:
-                yaml_data = yaml.load(stream)
-                if None == yaml_data:
-                    yaml_data = {}
-                db = table.data.database
-                if None == db:
-                    db = self.get_default_database()
+            yaml_data = yamlf_load(file=self.config_file)
+            if None == yaml_data:
+                yaml_data = {}
+            db = table.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
+            yamlf_dump(yaml_data,file=self.config_file)
         return True
 
     def get_default_database(self):
@@ -1839,27 +1846,24 @@ class database:
         try:
             if not os.path.exists(self.config_file):
                 self.create_config(self.config_file)
-            with open(self.config_file, 'r') as stream:
-                if table_object is None:
-                    config = table(table_config)
-                else:
-                    config = table_object
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
+            if table_object is None:
+                config = table(table_config)
+            else:
+                config = table_object
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                table_name = config.data.name
-                if table_name in yaml_data[db]:
-                    yaml_data[db].pop(table_name, None)
+            table_name = config.data.name
+            if table_name in yaml_data[db]:
+                yaml_data[db].pop(table_name, None)
 
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
-                return True
+            yamlf_dump(yaml_data,file=self.config_file)
+            return True
         except Exception as ex:
             raise Exception("failed to remove table from db configuration")
 
@@ -1871,7 +1875,7 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            temp_table=table(t)
+            temp_table=table(table_config_file=t)
             if temp_table.active==False:
                 warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))
                 continue
@@ -1887,16 +1891,18 @@ class database:
             self.create_config(self.config_file)
 
         tables = []
-        if False == os.path.exists(self.config_file):
-            raise Exception("db config invalid")
 
-        with open(self.config_file, 'r') as stream:
-            yaml_data = yaml.load(stream)
-            if  yaml_data != None:
-                for db in yaml_data:
-                    if yaml_data[db] !=None:
-                        for table in yaml_data[db]:
-                            tables.append(yaml_data[db][table]['path'])
+        if self.config_file:
+            if False == os.path.exists(self.config_file):
+                return tables
+        else:
+            return tables
+        yaml_data = yamlf_load(file=self.config_file)
+        if  yaml_data != None:
+            for db in yaml_data:
+                if yaml_data[db] !=None:
+                    for table in yaml_data[db]:
+                        tables.append(yaml_data[db][table]['path'])
 
         return tables
 
@@ -1904,7 +1910,7 @@ class database:
         
 # ############################################################################
 # Module : match
-# File   : ddb/engine/evaluate/match.pyx
+# File   : ddb/evaluate/match.pyx
 # ############################################################################
 
 
@@ -2049,7 +2055,7 @@ class match():
         
 # ############################################################################
 # Module : functions
-# File   : ddb/engine/functions/functions.pyx
+# File   : ddb/functions/functions.pyx
 # ############################################################################
 
 
@@ -2129,7 +2135,7 @@ class functions():
         
 # ############################################################################
 # Module : sql_engine
-# File   : ddb/engine/sql_engine.pyx
+# File   : ddb/engine.pyx
 # ############################################################################
 
 
@@ -2141,7 +2147,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-class sql_engine:
+class engine:
     """A serverless flat file database engine"""
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
@@ -2186,7 +2192,7 @@ class sql_engine:
         self.results = None
 
 
-        parser = sql_parser(sql_query, self.debug)
+        parser = lexer(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
@@ -2200,7 +2206,7 @@ class sql_engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
-
+            
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
 
@@ -2329,11 +2335,17 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
+        if 'distinct' in query_object['meta']:
+            distinct=True
+        else:
+            distinct=None
+        self.info(query_object)
         temp_data = []
+        hash_dict={}
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
@@ -2358,7 +2370,7 @@ class sql_engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta']['select']:
+        for column in query_object['meta']['columns']:
             display = None
             if 'display' in column:
                 display = column['display']
@@ -2383,11 +2395,8 @@ class sql_engine:
 
                     if False == processed_line['match']:
                         continue
-
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object,processed_line) 
-                        temp_data.append(restructured_line)
-
+                        temp_data.append( processed_line)
 
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
@@ -2404,10 +2413,30 @@ class sql_engine:
                 elif 'desc' in c:
                     direction = -1
                 self.sort.append([ordinal, direction])
+            self.info(self.sort)
             temp_data = sorted(temp_data, self.sort_cmp)
-
         limit_start = 0
         limit_length = None
+        
+        restructured_data=[]
+        for line in temp_data:
+            restructured_line = self.process_select_row(query_object,line) 
+            restructured_data.append(restructured_line)
+        temp_data=restructured_data
+
+        if distinct:
+            group=[]
+            for item in temp_data:
+                no_item=True
+                for group_item in group:
+                    if self.compare_data(group_item['data'],item['data']):
+                        no_item=None
+                        break
+                if no_item:
+                    group.append(item)
+            temp_data=group
+
+       
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
@@ -2419,9 +2448,29 @@ class sql_engine:
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
+    def compare_data(self,data1, data2):
+        if data1 is None or data2 is None:
+            return None
+        if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
+            if len(data1)!=len(data2):
+                return None;
+            for index in range(0,len(data1)):
+                if data1[index]!=data2[index]:
+                    return None
+        else:
+            shared_keys = set(data2.keys()) & set(data2.keys())
+            if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+                return None
+
+            dicts_are_equal = True
+            for key in data1.keys():
+                if data1[key] != data2[key]:
+                    return None
+        return True
+
     def process_select_row(self,query_object,processed_line):
         row=[]
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'column' in c:
                 if None != processed_line:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
@@ -2489,7 +2538,7 @@ class sql_engine:
                         deleted += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
         data = {'data': [deleted], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
@@ -2519,9 +2568,8 @@ class sql_engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
-                    q
                     requires_new_line = False
 
                 results = self.create_single(query_object, temp_file, temp_table, requires_new_line)
@@ -2559,9 +2607,9 @@ class sql_engine:
                         break
                 if False == err:
                     if True == requires_new_line:
-                        temp_file.write(query_object['table'].delimiters.new_line)
+                        temp_file.write(query_object['table'].delimiters.get_new_line())
                     temp_file.write(new_line)
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2591,9 +2639,9 @@ class sql_engine:
 
         if False == err:
             if True == requires_new_line:
-                temp_file.write(query_object['table'].delimiters.new_line)
+                temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.write(new_line)
-            temp_file.write(query_object['table'].delimiters.new_line)
+            temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2626,7 +2674,7 @@ class sql_engine:
                             updated += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
 
         temp_table.append_data(data)
@@ -2645,12 +2693,14 @@ class sql_engine:
     def use(self, query_object):
         self.info("Use")
         target_db = query_object['meta']['use']['table']
-        self.database.set_database(target_db)
-        temp_table = self.database.temp_table()
-        temp_table.add_column('changed_db')
-        data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
-        temp_table.append_data(data)
-        return temp_table
+        if self.database.get_curent_database()!=target_db:
+            self.database.set_database(target_db)
+            temp_table = self.database.temp_table()
+            temp_table.add_column('changed_db')
+            data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
+            temp_table.append_data(data)
+            return temp_table
+        return None
 
     def create_table(self, query_object):
         self.info("Create Table")

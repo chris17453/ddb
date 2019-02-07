@@ -60,6 +60,15 @@ sql_syntax = {
         {'query': 'select',
          'arguments':1,
          'switch': [
+                   { 'data':None,
+                     'name': 'select',
+                     'optional':False
+                   },
+                   { 'data':None,
+                     'name': 'distinct',
+                     'optional':True
+                   },
+        
                    {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
@@ -124,7 +133,11 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': ['select','distinct']},
+                     'name': 'columns',
+                     'no_keyword': True,
+
+                     'depends_on':'select'
+                     },
 
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
@@ -197,163 +210,13 @@ sql_syntax = {
                      'name': 'or',
                      'optional': True,
                      'parent': 'where'},
+
                     {'arguments': 0,
-                     'data': [{'sig': ['{column}']},
-                              {'sig': ['{column}', 'asc']},
-                              {'sig': ['{column}', 'desc']}],
-                     'name': ['order', 'by'],
-                     'optional': True},
-                    {'data': [{'sig': ['{length}']},
-                              {'sig': ['{start}',
-                                       ',',
-                                       '{length}']}],
-                     'specs':{'length':{'type': 'int','default': 0},'start':{'type': 'int','default': 0}},
-
-                     'name': 'limit',
-                     'optional': True}]},
-
-
-
-        {'query': 'select',
-         'arguments':1,
-         'switch': [
-                   {'arguments': 0,
-                     'data': [{'sig': ['{column}']},
-                              {'sig': ['{column}',
-                                       'as',
-                                       '{display}']},
-                              {'sig': ['{function}',
-                                       '(',
-                                       ')']},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ')'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ',',
-                                       '{argument2}',
-                                       ')'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ',',
-                                       '{argument2}',
-                                       ',',
-                                       '{argument3}',
-                                       ')'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       ')',
-                                       'as',
-                                       '{display}'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ')',
-                                       'as',
-                                       '{display}'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ',',
-                                       '{argument2}',
-                                       ')',
-                                       'as',
-                                       '{display}'
-                                       ]},
-                              {'sig': ['{function}',
-                                       '(',
-                                       '{argument1}',
-                                       ',',
-                                       '{argument2}',
-                                       ',',
-                                       '{argument3}',
-                                       ')',
-                                       'as',
-                                       '{display}'
-                                       ]},
-
-                              ],
-                     'name': 'select'},
-
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-                     'name': 'from',
+                     'data': [{'sig': ['{column}']}],
+                     'name': ['group', 'by'],
                      'optional': True},
 
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-                     'name': 'join',
-                     'depends_on': 'from',
-                     'optional': True},
 
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-                     'name': 'left join',
-                     'depends_on': 'from',
-                     'optional': True},
-
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-                     'name': 'right join',
-                     'depends_on': 'from',
-                     'optional': True},
-
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-                     'name': 'full join',
-                     'depends_on': 'from',
-                     'optional': True},
-
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'name': 'on',
-                     'optional': True,
-                     'depends_on': 'join',
-                     'store_array': True},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'on',
-                     'jump': 'on',
-                     'name': 'and',
-                     'optional': True,
-                     'parent': 'on'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'on',
-                     'jump': 'on',
-                     'name': 'or',
-                     'optional': True,
-                     'parent': 'on'},
-
-
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'name': 'where',
-                     'optional': True,
-                     'depends_on': 'from',
-                     'store_array': True},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'and',
-                     'optional': True,
-                     'parent': 'where'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'or',
-                     'optional': True,
-                     'parent': 'where'},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}', 'asc']},
@@ -873,8 +736,8 @@ class lexer:
                 self.info("Query object", query_object)
                 if query_mode == 'select':
                     self.info("Validating Select Functions")
-                    if 'select' in query_object:
-                        for node in query_object['select']:
+                    if 'columns' in query_object:
+                        for node in query_object['columns']:
                             valid_function_name = False
                             is_function = False
                             if 'function' in node:
@@ -912,9 +775,9 @@ class lexer:
         return False
 
     def expand_columns(self, query_object, columns):
-        if query_object['mode'] == "select":
+        if 'columns' in query_object['meta']:
             expanded_select = []
-            for item in query_object['meta']['select']:
+            for item in query_object['meta']['columns']:
                 if 'column' in item:
                     if item['column'] == '*':
                         for column in columns:
@@ -924,7 +787,7 @@ class lexer:
                 if 'function' in item:
                     expanded_select.append(item)
 
-            query_object['meta']['select'] = expanded_select
+            query_object['meta']['columns'] = expanded_select
 
 
     def get_sub_array(self, array, key=None):
@@ -2343,10 +2206,6 @@ class engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
-
-            if query_object['mode'] == 'select distinct':
-                query_object['distinct']=True
-                self.results = self.select(query_object, parser)
             
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -2476,7 +2335,7 @@ class engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
-        if 'distinct' in query_object:
+        if 'distinct' in query_object['meta']:
             distinct=True
         else:
             distinct=None
@@ -2486,7 +2345,7 @@ class engine:
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
@@ -2511,7 +2370,7 @@ class engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta']['select']:
+        for column in query_object['meta']['columns']:
             display = None
             if 'display' in column:
                 display = column['display']
@@ -2537,8 +2396,7 @@ class engine:
                     if False == processed_line['match']:
                         continue
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object,processed_line) 
-                        temp_data.append(restructured_line)
+                        temp_data.append( processed_line)
 
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
@@ -2555,25 +2413,30 @@ class engine:
                 elif 'desc' in c:
                     direction = -1
                 self.sort.append([ordinal, direction])
+            self.info(self.sort)
             temp_data = sorted(temp_data, self.sort_cmp)
-
         limit_start = 0
         limit_length = None
+        
+        restructured_data=[]
+        for line in temp_data:
+            restructured_line = self.process_select_row(query_object,line) 
+            restructured_data.append(restructured_line)
+        temp_data=restructured_data
 
         if distinct:
             group=[]
             for item in temp_data:
                 no_item=True
                 for group_item in group:
-                    
-                    if self.compare_dictionaries(group_item['data'],item['data']):
+                    if self.compare_data(group_item['data'],item['data']):
                         no_item=None
                         break
                 if no_item:
                     group.append(item)
-
             temp_data=group
-            print group
+
+       
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
@@ -2585,25 +2448,29 @@ class engine:
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
-    def compare_dictionaries(self,dict1, dict2):
-        if dict1 is None or dict2 is None:
-            return False
+    def compare_data(self,data1, data2):
+        if data1 is None or data2 is None:
+            return None
+        if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
+            if len(data1)!=len(data2):
+                return None;
+            for index in range(0,len(data1)):
+                if data1[index]!=data2[index]:
+                    return None
+        else:
+            shared_keys = set(data2.keys()) & set(data2.keys())
+            if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+                return None
 
-        if (not isinstance(dict1, dict)) or (not isinstance(dict2, dict)):
-            return False
-
-        shared_keys = set(dict2.keys()) & set(dict2.keys())
-        if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
-            return False
-
-        dicts_are_equal = True
-        for key in dict1.keys():
-             dicts_are_equal = dicts_are_equal and (dict1[key] == dict2[key])
-        return dicts_are_equal
+            dicts_are_equal = True
+            for key in data1.keys():
+                if data1[key] != data2[key]:
+                    return None
+        return True
 
     def process_select_row(self,query_object,processed_line):
         row=[]
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'column' in c:
                 if None != processed_line:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))

@@ -79,8 +79,8 @@ from os.path import expanduser
 
 """
     build_standalone(core_files,core_headers,'ansible/ddb.py')
-    build_standalone(core_files,core_headers,'src_build/core/ddb_core.py')
-    build_standalone(standalone_files,standalone_headers,'src_build/standalone/ddb_standalone.py')
+    build_standalone(core_files,core_headers,'src_build/python/core/ddb_core.py')
+    build_standalone(standalone_files,standalone_headers,'src_build/python/standalone/ddb_standalone.py')
 
 
 def build_standalone(files,headers,dest_file):

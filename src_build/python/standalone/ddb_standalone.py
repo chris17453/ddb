@@ -8,11 +8,9 @@
 import sys
 import os
 import json
-import yaml
 import warnings
 import datetime
 import tempfile
-import lazyxml
 import time
 import flextable
 from cmd import Cmd
@@ -26,18 +24,18 @@ from os.path import expanduser
         
 # ############################################################################
 # Module : version
-# File   : ddb/engine/version.pyx
+# File   : ddb/version.pyx
 # ############################################################################
 
 
 
-__version__='1.0.602'
+__version__='1.0.767'
 
         
         
 # ############################################################################
-# Module : language
-# File   : ddb/engine/parser/language.pyx
+# Module : lexer-language
+# File   : ddb/lexer/language.pyx
 # ############################################################################
 
 
@@ -64,9 +62,20 @@ sql_syntax = {
         {'query': 'show tables',
          'switch': [{'data': False, 'name': ['show', 'tables']},
                     ]},
+
         {'query': 'select',
-         'argument': 1,
-         'switch': [{'arguments': 0,
+         'arguments':1,
+         'switch': [
+                   { 'data':None,
+                     'name': 'select',
+                     'optional':False
+                   },
+                   { 'data':None,
+                     'name': 'distinct',
+                     'optional':True
+                   },
+        
+                   {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}',
                                        'as',
@@ -130,7 +139,12 @@ sql_syntax = {
                                        ]},
 
                               ],
-                     'name': 'select'},
+                     'name': 'columns',
+                     'no_keyword': True,
+
+                     'depends_on':'select'
+                     },
+
                     {'arguments': 1,
                      'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
                      'name': 'from',
@@ -202,6 +216,13 @@ sql_syntax = {
                      'name': 'or',
                      'optional': True,
                      'parent': 'where'},
+
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']}],
+                     'name': ['group', 'by'],
+                     'optional': True},
+
+
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']},
                               {'sig': ['{column}', 'asc']},
@@ -216,6 +237,10 @@ sql_syntax = {
 
                      'name': 'limit',
                      'optional': True}]},
+
+
+
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -387,15 +412,15 @@ sql_syntax = {
         
         
 # ############################################################################
-# Module : parser
-# File   : ddb/engine/parser/sql_parser.pyx
+# Module : lexer-parse
+# File   : ddb/lexer/lexer.pyx
 # ############################################################################
 
 
 
 
 
-class sql_parser:
+class lexer:
    
 
     def __init__(self, query, debug=False):
@@ -717,8 +742,8 @@ class sql_parser:
                 self.info("Query object", query_object)
                 if query_mode == 'select':
                     self.info("Validating Select Functions")
-                    if 'select' in query_object:
-                        for node in query_object['select']:
+                    if 'columns' in query_object:
+                        for node in query_object['columns']:
                             valid_function_name = False
                             is_function = False
                             if 'function' in node:
@@ -756,9 +781,9 @@ class sql_parser:
         return False
 
     def expand_columns(self, query_object, columns):
-        if query_object['mode'] == "select":
+        if 'columns' in query_object['meta']:
             expanded_select = []
-            for item in query_object['meta']['select']:
+            for item in query_object['meta']['columns']:
                 if 'column' in item:
                     if item['column'] == '*':
                         for column in columns:
@@ -768,7 +793,7 @@ class sql_parser:
                 if 'function' in item:
                     expanded_select.append(item)
 
-            query_object['meta']['select'] = expanded_select
+            query_object['meta']['columns'] = expanded_select
 
 
     def get_sub_array(self, array, key=None):
@@ -834,8 +859,8 @@ class sql_parser:
         
         
 # ############################################################################
-# Module : tokenize
-# File   : ddb/engine/tokenizer/sql_tokenize.pyx
+# Module : lexer-token
+# File   : ddb/lexer/tokenize.pyx
 # ############################################################################
 
 
@@ -872,9 +897,6 @@ class tokenizer():
             '!',  # not
             '|',  # or
 
-            'not',  # not
-            'is',  # equality
-            'like',  # partial match
 
             '+',  # addition
             '-',  # subtraction
@@ -943,8 +965,9 @@ class tokenizer():
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if c >= text_length - 1:
-                    self.info("Last Cycle")
+
+
+
                 if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
@@ -1042,15 +1065,13 @@ class tokenizer():
         
 # ############################################################################
 # Module : column
-# File   : ddb/engine/structure/column.pyx
+# File   : ddb/structure/column.pyx
 # ############################################################################
 
 
 
 
 class column_v1:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.name = None
@@ -1284,24 +1305,17 @@ class column_sort:
         
 # ############################################################################
 # Module : table
-# File   : ddb/engine/structure/table.pyx
+# File   : ddb/structure/table.pyx
 # ############################################################################
 
 
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
 
 
 
 class table:
-    def noop(self, *args, **kw):
-        pass
-
-    def __init__(self, file=None, 
-                    show_config=False, 
+    def __init__(self,
+                    table_config_file=None, 
                     database=None, 
                     columns=None, 
                     name=None, 
@@ -1334,40 +1348,36 @@ class table:
                     errors=errors,
                     data_on=data_on)
 
-        if None != file:
-            if os.path.exists(file):
-                with open(file, 'r') as stream:
-                    yaml_data = yaml.load(stream, Loader=Loader)
-                    if None == yaml_data:
-                        raise Exception("Table configuration empty")
-                    for key in yaml_data:
-                        if 'version' == key:
-                            self.version = yaml_data[key]
+        if None != table_config_file:
+            if os.path.exists(table_config_file):
+                yaml_data = yamlf_load(file=table_config_file)
+                if None == yaml_data:
+                    raise Exception("Table configuration empty")
+                for key in yaml_data:
+                    if 'version' == key:
+                        self.version = yaml_data[key]
 
-                        if 'ownership' == key:
-                            self.ownership = table_ownership(yaml=yaml_data[key])
+                    if 'ownership' == key:
+                        self.ownership = table_ownership(yaml=yaml_data[key])
 
-                        if 'delimiters' == key:
-                            self.delimiters = table_delimiters(yaml=yaml_data[key])
+                    if 'delimiters' == key:
+                        self.delimiters = table_delimiters(yaml=yaml_data[key])
 
-                        if 'visible' == key:
-                            self.visible = table_visible_attributes(yaml=yaml_data[key])
+                    if 'visible' == key:
+                        self.visible = table_visible_attributes(yaml=yaml_data[key])
 
-                        if 'data' == key:
-                            self.data = table_data(yaml=yaml_data[key])
+                    if 'data' == key:
+                        self.data = table_data(yaml=yaml_data[key])
 
-                        if 'columns' == key:
-                            for c in yaml_data['columns']:
-                                self.columns.append(column_v2(c))
+                    if 'columns' == key:
+                        for c in yaml_data['columns']:
+                            self.columns.append(column_v2(c))
 
-                        if 'active' == key:
-                            self.active = yaml_data[key]
+                    if 'active' == key:
+                        self.active = yaml_data[key]
 
 
         self.update_ordinals()
-        yaml.emitter.Emitter.process_tag = self.noop
-        if True == show_config:
-            yaml.dump(self, sys.stdout, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True)
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
                 self.active=False
@@ -1537,6 +1547,12 @@ class table:
 
 
     def save(self):
+        if None == self.data.name:
+            raise Exception("Cannot save a table without a name")
+
+        if None == self.data.database:
+            raise Exception("Cannot save a table without a database name")
+
         if None == self.config_directory:
             home = os.path.expanduser("~")
             if not os.path.exists(os.path.join(home, '.ddb')):
@@ -1545,23 +1561,13 @@ class table:
         else:
             home = self.config_directory
 
-        if None == self.data.name:
-            raise Exception("Cannot save a table without a name")
+        dest_dir=os.path.join(home, self.data.database)      
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
 
-        if None == self.data.database:
-            raise Exception("Cannot save a table without a database name")
-
-        if not os.path.exists(os.path.join(home, self.data.database)):
-            os.makedirs(os.path.join(home, self.data.database))
-
-        home = os.path.join(home, self.data.database)
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{}.ddb.yaml".format(self.data.name))
-
-        with open(self.data.config, 'w') as stream:
-            yaml.emitter.Emitter.process_tag = self.noop
-            yaml.dump(self, indent=4, default_flow_style=False, allow_unicode=True, explicit_start=True, explicit_end=True, stream=stream)
-            stream.close()
+            self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
+        yamlf_dump(data=self,file=self.data.config)
 
 
 class table_visible_attributes:
@@ -1670,12 +1676,21 @@ class table_delimiters:
                         self.block_quote = None
                 else:
                     self.block_quote = None
+    
+    def get_new_line(self):
+        '''Return the correct line ending for the file format'''
+        if self.new_line=='UNIX':
+            return '\n'
+        elif self.new_line=='WINDOWS':
+            return '\r\n'
+        else:
+            return '\n'
 
         
         
 # ############################################################################
 # Module : database
-# File   : ddb/engine/structure/database.pyx
+# File   : ddb/structure/database.pyx
 # ############################################################################
 
 
@@ -1711,7 +1726,7 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-
+   
     def temp_table(self, name=None, columns=[],delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:
@@ -1725,9 +1740,7 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            f = open(config_file, "w")
-            yaml.dump(yaml_data, f)
-            f.close()
+            yamlf_dump(yaml_data,file=config_file)
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -1747,39 +1760,32 @@ class database:
             self.create_config(self.config_file)
 
         if None != table_config:
-            print "Adding table config"
-            with open(self.config_file, 'r') as stream:
-                config = table(table_config)
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
+            self.create_config(self.config_file)
+            config = table(table_config)
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
-
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
+            yamlf_dump(yaml_data,file=self.config_file)
 
         if table is not None:
-            with open(self.config_file, 'r') as stream:
-                yaml_data = yaml.load(stream)
-                if None == yaml_data:
-                    yaml_data = {}
-                db = table.data.database
-                if None == db:
-                    db = self.get_default_database()
+            yaml_data = yamlf_load(file=self.config_file)
+            if None == yaml_data:
+                yaml_data = {}
+            db = table.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
+            yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
+            yamlf_dump(yaml_data,file=self.config_file)
         return True
 
     def get_default_database(self):
@@ -1846,27 +1852,24 @@ class database:
         try:
             if not os.path.exists(self.config_file):
                 self.create_config(self.config_file)
-            with open(self.config_file, 'r') as stream:
-                if table_object is None:
-                    config = table(table_config)
-                else:
-                    config = table_object
-                yaml_data = yaml.load(stream)
-                db = config.data.database
-                if None == db:
-                    db = self.get_default_database()
+            if table_object is None:
+                config = table(table_config)
+            else:
+                config = table_object
+            yaml_data = yamlf_load(file=self.config_file)
+            db = config.data.database
+            if None == db:
+                db = self.get_default_database()
 
-                if db not in yaml_data:
-                    yaml_data[db] = {}
+            if db not in yaml_data:
+                yaml_data[db] = {}
 
-                table_name = config.data.name
-                if table_name in yaml_data[db]:
-                    yaml_data[db].pop(table_name, None)
+            table_name = config.data.name
+            if table_name in yaml_data[db]:
+                yaml_data[db].pop(table_name, None)
 
-                f = open(self.config_file, "w")
-                yaml.dump(yaml_data, f)
-                f.close()
-                return True
+            yamlf_dump(yaml_data,file=self.config_file)
+            return True
         except Exception as ex:
             raise Exception("failed to remove table from db configuration")
 
@@ -1878,7 +1881,7 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            temp_table=table(t)
+            temp_table=table(table_config_file=t)
             if temp_table.active==False:
                 warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))
                 continue
@@ -1894,16 +1897,18 @@ class database:
             self.create_config(self.config_file)
 
         tables = []
-        if False == os.path.exists(self.config_file):
-            raise Exception("db config invalid")
 
-        with open(self.config_file, 'r') as stream:
-            yaml_data = yaml.load(stream)
-            if  yaml_data != None:
-                for db in yaml_data:
-                    if yaml_data[db] !=None:
-                        for table in yaml_data[db]:
-                            tables.append(yaml_data[db][table]['path'])
+        if self.config_file:
+            if False == os.path.exists(self.config_file):
+                return tables
+        else:
+            return tables
+        yaml_data = yamlf_load(file=self.config_file)
+        if  yaml_data != None:
+            for db in yaml_data:
+                if yaml_data[db] !=None:
+                    for table in yaml_data[db]:
+                        tables.append(yaml_data[db][table]['path'])
 
         return tables
 
@@ -1911,7 +1916,7 @@ class database:
         
 # ############################################################################
 # Module : match
-# File   : ddb/engine/evaluate/match.pyx
+# File   : ddb/evaluate/match.pyx
 # ############################################################################
 
 
@@ -2056,7 +2061,7 @@ class match():
         
 # ############################################################################
 # Module : functions
-# File   : ddb/engine/functions/functions.pyx
+# File   : ddb/functions/functions.pyx
 # ############################################################################
 
 
@@ -2136,7 +2141,7 @@ class functions():
         
 # ############################################################################
 # Module : sql_engine
-# File   : ddb/engine/sql_engine.pyx
+# File   : ddb/engine.pyx
 # ############################################################################
 
 
@@ -2148,7 +2153,7 @@ def enum(**enums):
     return type('Enum', (), enums)
 
 
-class sql_engine:
+class engine:
     """A serverless flat file database engine"""
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
@@ -2193,7 +2198,7 @@ class sql_engine:
         self.results = None
 
 
-        parser = sql_parser(sql_query, self.debug)
+        parser = lexer(sql_query, self.debug)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
@@ -2207,7 +2212,7 @@ class sql_engine:
                 self.results = self.functions.f_show_columns(self.database, query_object)
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
-
+            
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
 
@@ -2336,11 +2341,17 @@ class sql_engine:
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
     def select(self, query_object, parser):
+        if 'distinct' in query_object['meta']:
+            distinct=True
+        else:
+            distinct=None
+        self.info(query_object)
         temp_data = []
+        hash_dict={}
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
@@ -2365,7 +2376,7 @@ class sql_engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta']['select']:
+        for column in query_object['meta']['columns']:
             display = None
             if 'display' in column:
                 display = column['display']
@@ -2390,11 +2401,8 @@ class sql_engine:
 
                     if False == processed_line['match']:
                         continue
-
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object,processed_line) 
-                        temp_data.append(restructured_line)
-
+                        temp_data.append( processed_line)
 
         if False == has_columns and True == has_functions:
             row=self.process_select_row(query_object,None)
@@ -2411,10 +2419,30 @@ class sql_engine:
                 elif 'desc' in c:
                     direction = -1
                 self.sort.append([ordinal, direction])
+            self.info(self.sort)
             temp_data = sorted(temp_data, self.sort_cmp)
-
         limit_start = 0
         limit_length = None
+        
+        restructured_data=[]
+        for line in temp_data:
+            restructured_line = self.process_select_row(query_object,line) 
+            restructured_data.append(restructured_line)
+        temp_data=restructured_data
+
+        if distinct:
+            group=[]
+            for item in temp_data:
+                no_item=True
+                for group_item in group:
+                    if self.compare_data(group_item['data'],item['data']):
+                        no_item=None
+                        break
+                if no_item:
+                    group.append(item)
+            temp_data=group
+
+       
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
@@ -2426,9 +2454,29 @@ class sql_engine:
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
+    def compare_data(self,data1, data2):
+        if data1 is None or data2 is None:
+            return None
+        if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
+            if len(data1)!=len(data2):
+                return None;
+            for index in range(0,len(data1)):
+                if data1[index]!=data2[index]:
+                    return None
+        else:
+            shared_keys = set(data2.keys()) & set(data2.keys())
+            if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+                return None
+
+            dicts_are_equal = True
+            for key in data1.keys():
+                if data1[key] != data2[key]:
+                    return None
+        return True
+
     def process_select_row(self,query_object,processed_line):
         row=[]
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'column' in c:
                 if None != processed_line:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
@@ -2496,7 +2544,7 @@ class sql_engine:
                         deleted += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
         data = {'data': [deleted], 'type': self.data_type.DATA, 'error': None}
         temp_table.append_data(data)
@@ -2526,9 +2574,8 @@ class sql_engine:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
-                    q
                     requires_new_line = False
 
                 results = self.create_single(query_object, temp_file, temp_table, requires_new_line)
@@ -2566,9 +2613,9 @@ class sql_engine:
                         break
                 if False == err:
                     if True == requires_new_line:
-                        temp_file.write(query_object['table'].delimiters.new_line)
+                        temp_file.write(query_object['table'].delimiters.get_new_line())
                     temp_file.write(new_line)
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2598,9 +2645,9 @@ class sql_engine:
 
         if False == err:
             if True == requires_new_line:
-                temp_file.write(query_object['table'].delimiters.new_line)
+                temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.write(new_line)
-            temp_file.write(query_object['table'].delimiters.new_line)
+            temp_file.write(query_object['table'].delimiters.get_new_line())
         if False == err:
             return True
         else:
@@ -2633,7 +2680,7 @@ class sql_engine:
                             updated += 1
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.new_line)
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
         data = {'data': [updated], 'type': self.data_type.DATA, 'error': None}
 
         temp_table.append_data(data)
@@ -2652,12 +2699,14 @@ class sql_engine:
     def use(self, query_object):
         self.info("Use")
         target_db = query_object['meta']['use']['table']
-        self.database.set_database(target_db)
-        temp_table = self.database.temp_table()
-        temp_table.add_column('changed_db')
-        data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
-        temp_table.append_data(data)
-        return temp_table
+        if self.database.get_curent_database()!=target_db:
+            self.database.set_database(target_db)
+            temp_table = self.database.temp_table()
+            temp_table.add_column('changed_db')
+            data = {'data': [target_db], 'type': self.data_type.DATA, 'error': None}
+            temp_table.append_data(data)
+            return temp_table
+        return None
 
     def create_table(self, query_object):
         self.info("Create Table")
@@ -2797,14 +2846,14 @@ class sql_engine:
         
 # ############################################################################
 # Module : output
-# File   : ddb/engine/output/output.pyx
+# File   : ddb/output/factory.pyx
 # ############################################################################
 
 
 
 
 
-class format_output():
+class output_factory:
 
     def __init__(self,results,output='term',output_file=None):
             """display results in different formats
@@ -2877,7 +2926,7 @@ class format_output():
             else:
                 row_type=row['type']
             print("{0}_info[{1},type]='{2}'".format(name,row_index,row_type))
-            if not row['raw']:
+            if 'raw' not in  row:
                 row_raw=''
             else:
                 row_raw=row['raw']
@@ -2892,18 +2941,22 @@ class format_output():
 
     def format_raw(self,results,output_file):
         """ouput results data in the yaml format"""
+        print(results.results)
         if not output_file:
             for row in results.results:
-                print(row['raw'].rstrip())
+                if 'raw' in row:
+                    print(row['raw'].rstrip())
         else:
             with open(output_file, "w") as write_file:
                 for row in results.results:
-                    write_file.write(row['raw'])
+                    if 'raw' in row:
+                        write_file.write(row['raw'])
 
     def format_yaml(self,temp_table,output_file):
         """ouput results data in the yaml format"""
         results=temp_table.get_results()
-        dump=yaml.safe_dump(results, default_flow_style=False)
+        factory=factory_yaml()
+        dump=factory.dumps(results)
         if not output_file:
             print dump
         else:
@@ -2913,17 +2966,19 @@ class format_output():
     def format_json(self,temp_table,output_file):
         """ouput results data in the json format"""
         results=temp_table.get_results()
+        factory=factory_json()
+        dump=factory.dumps(results)
         if not output_file:
-            dump=json.dumps(results)
             print dump
         else:
             with open(output_file, "w") as write_file:
-                json.dump(results, write_file)
+                write_file.write(dump)
         
     def format_xml(self,temp_table,output_file):
         """ouput results data in the xml format"""
         results=temp_table.get_results()
-        dump=lazyxml.dumps({'data':results})
+        factory=factory_xml()
+        dump=factory.dumps({'data':results})
         if not output_file:
             print dump
         else:
@@ -2932,8 +2987,604 @@ class format_output():
         
         
 # ############################################################################
+# Module : factory_yaml
+# File   : ddb/output/factory_yaml.pyx
+# ############################################################################
+
+
+
+
+
+def yamlf_load(data=None,file=None):
+    factory=factory_yaml()
+    return factory.load(data=data,in_file=file)
+
+def yamlf_dump(data=None,file=None):
+    factory=factory_yaml()
+    return factory.dump(data=data,out_file=file)
+
+class factory_yaml:
+    debug=True
+    def __init__(self,debug=None):
+        self.debug=debug
+    
+    def info(self,msg,data):
+        if self.debug:
+            print("{0} : {1}".format(msg,data))
+
+
+
+    def walk_path(self,path,root):
+        obj=root
+
+        if path and len(path)>0:
+            for trail in path:
+                if hasattr(obj, '__dict__'):
+                    obj=getattr(obj,trail)
+                else:
+                    obj=obj[trail]
+
+        return obj
+        
+    def get_parent_obj(self,path,root): 
+        if len(path)<2:
+            return None
+        sub_path=path[0:-1]
+        fragment=self.walk_path(sub_path,root)
+
+        if isinstance(fragment,list):
+            if len(sub_path)<1:
+                return None
+            sub_path=sub_path[0:-1]
+            fragment=self.walk_path(sub_path,root)
+
+
+        key=""#sub_path[-1]
+        if isinstance(fragment,list):
+            self.info("Yaml-Get Parent Object","In List")
+            return {'key':key,'type':'list','obj':fragment,'depth':len(sub_path)}
+        elif isinstance(fragment,dict):
+            self.info("Yaml-Get Parent Object","In Dict")
+            return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
+        elif hasattr(fragment, '__dict__'):
+            self.info("Yaml-Get Parent Object","In Class")
+            return {'key':key,'type':'dict','obj':fragment,'depth':len(sub_path)}
+            
+        return None        
+                    
+    def get_next_obj_path(self,path,root):
+        self.info("Yaml","Walking")
+        fragment=self.walk_path(path,root)
+        self.info("Path", ".".join([ str(arr) for arr in path]))
+        if isinstance(fragment,list):
+            for i,value in enumerate(fragment):
+                self.info("Yaml","List:{0}".format(i))
+                path.append(i)
+                return {'key':i,'type':'list','obj':value,'depth':len(path)}
+
+        elif isinstance(fragment,dict):
+            for i in fragment:
+                self.info("Yaml","Dict:{0}".format(i))
+                path.append(i)
+                return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
+
+        elif hasattr(fragment, '__dict__'):
+            self.info("Yaml","In Class")
+            
+            for key in fragment.__dict__.keys():
+                self.info("Yaml","Class:{0}".format(key))
+                value=getattr(fragment,key)
+
+                path.append(key)
+                return {'key':key,'type':'class','obj': value,'depth':len(path)}
+        
+        self.info("Yaml","Cant go deeper")
+        while len(path)>0:
+            self.info("Yaml","loop - looking {0}".format(len(path)))
+        
+            last_path=path.pop()
+            
+            if len(path)==0:
+                temp_obj=root
+            else:
+                temp_obj=self.walk_path(path,root)
+            
+            grab_next=None
+            if isinstance(temp_obj,list):
+                self.info("Yaml","Next - In List")
+                for i,value in enumerate(temp_obj):
+                    if grab_next:
+                        path.append(i)
+                        return {'key':i,'type':'list','obj':value,'depth':len(path)}
+
+                    if i==last_path:
+                        grab_next=True
+
+
+            elif isinstance(temp_obj,dict):
+                self.info("Yaml","Next - In Dict")
+                for i in temp_obj:
+                    value=temp_obj[i]
+                    if grab_next:
+                        path.append(i)
+                        return {'key':i,'type':'dict','obj':value,'depth':len(path)}
+
+                    if i==last_path:
+                        grab_next=True
+
+
+            elif hasattr(temp_obj, '__dict__'):
+                self.info("Yaml","Next - In Class")
+                
+                for key in temp_obj.__dict__.keys():
+                    self.info("Yaml","Attr:{0}".format(key))
+                    value=getattr(temp_obj,key)
+
+                    if grab_next:
+                        path.append(key)
+                        return {'key':key,'type':'class','obj':value,'depth':len(path)}
+
+                    if key==last_path:
+                        grab_next=True
+            self.info("Yaml","Didnt find it")
+        return None
+
+    def padding(self,indent,indent_spacing,array_depth=0):
+        padding=""
+        indent=indent-1
+        if indent_spacing<=0:
+            indent_spacing=1
+        column_indent=(indent-array_depth)
+        if column_indent<0:
+            column_indent=0
+        pad_len=column_indent*indent_spacing+array_depth*2
+        for i in range(0,pad_len):
+            padding+=" "
+        return padding
+
+    def render(self,data_obj,indent=0):
+        obj=data_obj
+        root=data_obj
+        path=[]
+        line=""
+        lines=[]
+        last_fragment=None
+        arr_depth=0
+        newline=False
+        fragment=True
+        while fragment!=None:
+            self.info("Yaml-Render","Start Loop")
+
+            fragment=self.get_next_obj_path(path,root)
+            parent_fragment=self.get_parent_obj(path,root)
+
+            if None ==fragment:
+                self.info("Yaml-Render","NONE skipping")
+                continue
+
+            if  fragment['type']!='list':
+                arr_depth=0
+            if parent_fragment:
+                if  parent_fragment['type']!='list':
+                    arr_depth=0
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
+                    arr_depth+=1
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
+                    arr_depth-=1
+
+            obj=fragment['obj']
+            if fragment['type']=='class':
+                self.info("Yaml-Render",'Its a class')
+                if newline==0:
+                    if len(line)>0:
+                       lines.append(line)
+                    line=self.padding(len(path),indent,arr_depth)
+                else:
+                    newline=0
+                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+
+            if fragment['type']=='dict':
+                if newline==0:
+                    if len(line)>0:
+                       lines.append(line)
+                    line=self.padding(len(path),indent,arr_depth)
+                else:
+                    newline=0
+                if not fragment['key']:
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                else:
+                    line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                
+            if fragment['type']=='list':
+                if parent_fragment and fragment:
+                    if parent_fragment['type']!='list' and  fragment['key']==0:
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+
+                    elif  fragment['key']!=0:
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+
+                line+="- "
+                newline=1
+            if isinstance(obj,list) and len(obj)==0:
+               line+="[]"
+            if isinstance(obj,dict) and not obj:
+               line+="{}"
+            if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
+                if obj==None:
+                    line+="null"
+                elif obj==True:
+                    line+="true"
+                elif obj==False:
+                    line+="false"
+                elif isinstance(obj,str):
+                    obj=obj.replace("'","''")
+                    obj=obj.replace("\"","\\\"")
+                    
+                    line+="'{0}'".format(obj)
+                else:
+                    line+="{0}".format(obj)
+
+                if len(line)>0:
+                    lines.append(line)
+                line=""
+                newline=0
+            last_fragment=fragment
+        if line: 
+            lines.append(line)
+        document='\n'.join(lines)
+        return document
+
+
+
+ 
+    def get_indent(self,line):
+        index_of=line.find('- ')
+
+        cleaned_line=line
+        index=len(line)-len(cleaned_line.lstrip())
+        if index_of!=-1:
+            index+=1
+        
+        return index
+
+    def is_start(self,line):
+        if line=='---':
+            return True
+        return None
+
+    def is_end(self,line):
+        if line=='...':
+            return True
+        return None
+
+    def is_array(self,line_cleaned):
+        """determine if a string begins with an array identifyer '- '"""
+        if None==line_cleaned:
+            return False
+        if len(line_cleaned)>1:
+            if line_cleaned[0]=='-' and line_cleaned[1]==' ':
+                return True
+        return False
+        
+    def strip_array(self,line):
+        """Strip array elements from string '- '"""
+        index_of=line.find('- ')
+        if index_of!=-1:
+            str1=list(line)
+            str1[index_of]=' '
+            line="".join(str1)
+        return line
+
+    def is_comment(self,line):
+        cleaned=line.lstrip()
+        if len(cleaned)>0:
+            if cleaned[0]=='#':
+                return True
+        return False
+
+    def get_tuple(self,line):
+        if self.is_comment(line):
+            return None
+        """Get key value pair from string with a colon delimiter"""
+        index=line.find(':')
+        if index==-1:
+            return None
+        
+        key=self.return_data(line[0:index])
+        data_index=index+1
+        if data_index<len(line):
+            data=line[data_index:].strip()
+        else:
+            data=None
+        return {'key':key,'data':data}
+
+    def return_data(self,data):
+        
+        data=data.strip()
+        if len(data)>2:
+            quoted=None
+            if data[0]=="'" and data[-1]=="'":
+                quoted=True
+            if data[0]=='"' and data[-1]=='"':
+                quoted=True
+            if quoted:
+                return data[1:-1]
+        try:
+            return int(data)
+        except ValueError:
+            pass
+        try:
+            return float(data)
+        except ValueError:
+            pass
+        if data=="true" or data== 'yes' or data== 'Yes':
+            return True
+        if data=="false" or data== 'no' or data== 'No':
+            return False
+        if data=="null":
+            return None
+        if data=="[]":
+            return []
+        if data=="{}":
+            return {}
+        return data
+        
+    def dump(self,data=None,out_file=None):
+        if isinstance(data,str):
+            raise Exception ("yaml dump requires an object, not a string")
+        yaml_data=self.render(data)
+
+        if out_file:
+            with open(out_file, 'w') as yaml_file:
+                yaml_file.write(yaml_data)
+        else:
+            return yaml_data
+
+
+    def load(self,data=None,in_file=None):
+        if in_file:
+            with open(in_file) as content:
+                data=content.read()
+
+        lines=data.splitlines()
+        root={}
+        last_indent=None
+        obj=root
+        hash_map=[{'indent':0,'obj':obj}]
+        obj_parent=root
+        obj_parent_key=None
+        obj_hash=[]
+        for line in lines:
+            if self.is_start(line):
+                continue
+            if self.is_end(line):
+                break
+            indent=self.get_indent(line)
+
+            line_cleaned=line
+            is_array=self.is_array(line_cleaned.strip())
+        
+            
+            if  is_array:
+                self.info("Encode","Create Array Index")
+                line_cleaned=self.strip_array(line_cleaned)
+                line=line_cleaned
+                arr_index=0
+                while is_array:
+                    make_new_array=True
+                    if None==obj:
+                        self.info("Encode-Array","made a new object at start (root index) @ {0}".format(len(hash_map)))
+                        obj_parent[obj_parent_key]=[]
+                        obj=obj_parent[obj_parent_key]
+                        obj_hash['obj']=obj
+                        obj_hash['indent']=indent
+                        make_new_array=None
+                        
+                    elif arr_index==0:
+                        for index in range(len(hash_map)-1,-1,-1):
+                            if hash_map[index]['indent']==indent and isinstance(hash_map[index]['obj'],list):
+                                obj=hash_map[index]['obj']
+                                make_new_array=None
+                                self.info("Encode-Array","Found  object")
+                        
+                                break
+                    if make_new_array:
+                        if isinstance(obj,list):
+                            self.info("Encode","Made a new object")
+                        
+                            new_list=[]
+                            obj.append(new_list)
+                            obj=new_list
+                            hash_map.append({'indent':indent,'obj':obj})
+                        else:
+                            obj=[]
+                    line_cleaned=line
+                    indent=self.get_indent(line)
+                    is_array=self.is_array(line_cleaned.strip())
+                    if is_array:
+                        line_cleaned=self.strip_array(line_cleaned)
+                        line=line_cleaned
+                    arr_index+=1
+                indent=self.get_indent(line)
+            else:
+                if last_indent and  last_indent>indent:
+                    found=None
+                    for index in range(len(hash_map)-1,-1,-1):
+                        if hash_map[index]['indent']<=indent:
+                            obj=hash_map[index]['obj']
+                            self.info("Encode","Found it: {0}".format(index))
+                            found=True
+                            break
+                    if None==found:
+                        self.info("Encode","Didn't Find it")
+                
+                    
+                            
+            line_tuple=self.get_tuple(line_cleaned)
+            if line_tuple:
+                self.info("Encode","In Tuple :{0}".format(line_tuple['key']))
+                if None == obj:
+                    self.info("Encode","OBJ needs ")
+                    obj_parent[obj_parent_key]={}
+                    obj=obj_parent[obj_parent_key]
+                    obj_hash['obj']=obj
+                    obj_hash['indent']=indent
+
+                if isinstance(obj,list):
+                    new_obj={}
+                    obj.append(new_obj)
+                    obj_parent=obj
+                    obj_parent_key=len(obj)-1
+                    obj=new_obj
+                    obj_hash={'indent':indent,'obj':obj}
+                    hash_map.append(obj_hash)
+
+                if line_tuple['data']:
+                    value=self.return_data(line_tuple['data'])
+                    obj[line_tuple['key']]=value
+                else:
+                    if  not isinstance(obj,list):
+                        self.info("Encode","no tuble value")
+                        obj[line_tuple['key']]=None
+                        obj_parent=obj
+                        obj_parent_key=line_tuple['key']
+                        obj=obj[line_tuple['key']]
+                        obj_hash={'indent':indent,'obj':obj}
+                        hash_map.append(obj_hash)
+            else:
+                if self.is_comment(line):
+                    continue
+
+                if isinstance(obj,list):
+                    value=self.return_data(line_cleaned)
+                    obj.append(value)
+            last_indent=indent
+        return root
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+# ############################################################################
+# Module : factory_xml
+# File   : ddb/output/factory_xml.pyx
+# ############################################################################
+
+
+
+class factory_xml:
+
+    def dumps(self,data):
+        output_string=self.render(data)
+        return output_string
+
+    def render(self,obj,root='root',depth=0):
+        """xml like output for python objects, very loose"""
+        template="""<{0}>{1}</{0}>"""
+        fragment=""
+        if None==obj:
+            return fragment
+
+        if isinstance(obj,str):
+            fragment+=template.format(root,obj)
+
+        elif isinstance(obj,int):
+            fragment+=template.format(root,obj)
+
+        elif isinstance(obj,float):
+            fragment+=template.format(root,obj)
+        
+        elif isinstance(obj,bool):
+            fragment+=template.format(root,obj)
+        elif  isinstance(obj,list):
+            for item in obj:
+                fragment+=self.render(item,root=root,depth=depth+1)
+        elif isinstance(obj,object):
+            for item in obj:
+                fragment+=self.render(obj[item],root=item,depth=depth+1)
+        else:
+            fragment+=template.format("UNK",obj)
+
+        if depth==0:
+            fragment=template.format("root",fragment)
+        return fragment
+
+        
+        
+# ############################################################################
+# Module : factory_json
+# File   : ddb/output/factory_json.pyx
+# ############################################################################
+
+
+
+class factory_json:
+    def dumps(self,data):
+        output_string=self.render(data)
+        return output_string
+
+    def render(self,obj,depth=0):
+        """json like output for python objects, very loose"""
+        unk_template='"???{0}???"'
+        str_template='"{0}"'
+        int_template="{0}"
+        float_template="{0}"
+        bool_template="{0}"
+        array_template='['+'{0}'+']'
+        tuple_template='"{0}":{1}'
+        object_template='{{'+'{0}'+'}}'
+        fragment=""
+        if None == obj:
+            return fragment
+
+        if isinstance(obj,str):
+            fragment+=str_template.format(obj)
+
+        elif isinstance(obj,int):
+            fragment+=int_template.format(obj)
+
+        elif isinstance(obj,float):
+            fragment+=float_template.format(obj)
+        
+        elif isinstance(obj,bool):
+            fragment+=bool_template.format(obj)
+        elif  isinstance(obj,list):
+            partial=[]
+            for item in obj:
+                partial.append(self.render(item,depth=depth+1))
+            if len(partial)>0:
+                fragment+=array_template.format(",".join(map(str, partial)))
+        elif isinstance(obj,object):
+            partial=[]
+            for item in obj:
+                partial.append(tuple_template.format(item,self.render(obj[item],depth=depth+1)))
+            if len(partial)>0:
+                fragment+=object_template.format(",".join(map(str, partial))) 
+        else:
+            fragment+=unk_template.format("UNK",obj)
+        return fragment
+
+
+        
+        
+# ############################################################################
 # Module : interactive
-# File   : ddb/engine/interactive.pyx
+# File   : ddb/interactive.pyx
 # ############################################################################
 
 
@@ -2974,7 +3625,7 @@ class ddbPrompt(Cmd):
         self.debug = debug
         self.no_clip = no_clip
         self.width = width
-        self.engine = sql_engine(config_file=config_file, debug=self.debug, mode="full",output='term',output_file=None)
+        self.engine = engine(config_file=config_file, debug=self.debug, mode="full",output='term',output_file=None)
 
     def msg(self, type, name, message=''):
         if type == 'info':
@@ -3009,7 +3660,7 @@ class ddbPrompt(Cmd):
     def do_config(self, inp):
         try:
             self.msg("info", "configuration_file set to'{}'".format(inp))
-            self.engine = sql_engine(config_file=inp, debug=self.debug)
+            self.engine = engine(config_file=inp, debug=self.debug)
         except Exception as ex:
             self.msg("error", "config", ex)
 
@@ -3029,7 +3680,7 @@ class ddbPrompt(Cmd):
             start = time.time()
             results = self.engine.query(sql_query=inp)
             end = time.time()
-            output=format_output(results)
+            o=output_factory(results)
 
             self.msg("info", "executed in {} seconds".format(end - start))
             inp = None
@@ -3076,13 +3727,14 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = sql_engine( config_file=config_file, 
+        e = engine( config_file=config_file, 
                         debug=args.debug, 
                         mode="full",
                         output=args.output,
                         output_file=args.file)
         results = e.query(args.query)
-        output=format_output(results,output=args.output,output_file=args.file)
+        print(results)
+        output_factory(results,output=args.output,output_file=args.file)
 
     else:
         prompt = ddbPrompt()
