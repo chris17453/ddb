@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.741'
+__version__='1.0.742'
 
         
         
@@ -1532,7 +1532,6 @@ class table:
         if None == self.data.database:
             raise Exception("Cannot save a table without a database name")
 
-        print self.config_directory
         if None == self.config_directory:
             home = os.path.expanduser("~")
             if not os.path.exists(os.path.join(home, '.ddb')):
@@ -1543,12 +1542,10 @@ class table:
 
         dest_dir=os.path.join(home, self.data.database)      
         if not os.path.exists(dest_dir):
-            print("Making dest dir {0}".format(dest_dir))
             os.makedirs(dest_dir)
 
         if None == self.data.config:
             self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
-        print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
 
 
