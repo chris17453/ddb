@@ -356,11 +356,11 @@ class lexer:
                         break
 
                 self.info("Query object", query_object)
-                # check to make sure functions are valid
-                if query_mode == 'select' or query_mode=='select distinct':
+                if query_mode == 'select':
+                    # check to make sure functions are valid
                     self.info("Validating Select Functions")
-                    if 'select' in query_object:
-                        for node in query_object['select']:
+                    if 'columns' in query_object:
+                        for node in query_object['columns']:
                             valid_function_name = False
                             is_function = False
                             if 'function' in node:
@@ -394,6 +394,8 @@ class lexer:
                         return False
 
                 self.info("SUCCESS")
+                #from pprint import pprint
+                #pprint( sql_object)
                 sql_object = {'mode': query_mode, 'meta': query_object}
                 return sql_object
         return False
@@ -401,9 +403,9 @@ class lexer:
     # expand columns
     # TODO null trapping
     def expand_columns(self, query_object, columns):
-        if query_object['mode'] == "select":
+        if 'columns' in query_object['meta']:
             expanded_select = []
-            for item in query_object['meta']['select']:
+            for item in query_object['meta']['columns']:
                 if 'column' in item:
                     if item['column'] == '*':
                         for column in columns:
@@ -413,7 +415,7 @@ class lexer:
                 if 'function' in item:
                     expanded_select.append(item)
 
-            query_object['meta']['select'] = expanded_select
+            query_object['meta']['columns'] = expanded_select
         # ?? needed
 
     # support funcitons

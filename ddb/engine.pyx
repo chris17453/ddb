@@ -92,10 +92,6 @@ class engine:
             #print query_object
             if query_object['mode'] == 'select':
                 self.results = self.select(query_object, parser)
-
-            if query_object['mode'] == 'select distinct':
-                query_object['distinct']=True
-                self.results = self.select(query_object, parser)
             
             if query_object['mode'] == 'insert':
                 self.results = self.insert(query_object)
@@ -238,7 +234,7 @@ class engine:
 
     def select(self, query_object, parser):
         # print ("in select")
-        if 'distinct' in query_object:
+        if 'distinct' in query_object['meta']:
             distinct=True
            # query_object['meta']['select']=query_object['meta']['select distinct']
         else:
@@ -250,7 +246,7 @@ class engine:
 
         has_functions = False
         has_columns = False
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'function' in c:
                 self.info("Has functions, doesnt need a table")
                 has_functions = True
@@ -276,7 +272,7 @@ class engine:
                 raise Exception("Missing FROM in select")
 
         temp_table = self.database.temp_table()
-        for column in query_object['meta']['select']:
+        for column in query_object['meta']['columns']:
             display = None
             if 'display' in column:
                 display = column['display']
@@ -305,18 +301,9 @@ class engine:
                     #print processed_line
                     if False == processed_line['match']:
                         continue
-                    #if distinct:
-                    #    temp_hash=0
-                    #    for x in processed_line['data']:
-                    #        temp_hash+=hash(x)
-                    #    if temp_hash in hash_dict:
-                    #        continue
-                    #    else:
-                    #        hash_dict[temp_hash]=1
-                    # add to temp table
+                    # line is added as is
                     if None != processed_line['data']:
-                        restructured_line = self.process_select_row(query_object,processed_line) 
-                        temp_data.append(restructured_line)
+                        temp_data.append( processed_line)
 
         # file is closed at this point
         if False == has_columns and True == has_functions:
@@ -334,13 +321,20 @@ class engine:
                 elif 'desc' in c:
                     direction = -1
                 self.sort.append([ordinal, direction])
+            self.info(self.sort)
             temp_data = sorted(temp_data, self.sort_cmp)
             #print temp_data
-
         limit_start = 0
         limit_length = None
         #print query_object['meta']
         # exit(1)
+        
+        # now convert the columns into the correct format/order as in the select
+        restructured_data=[]
+        for line in temp_data:
+            restructured_line = self.process_select_row(query_object,line) 
+            restructured_data.append(restructured_line)
+        temp_data=restructured_data
 
         # grouping happens after ordering and before limiting
         if distinct:
@@ -348,15 +342,27 @@ class engine:
             for item in temp_data:
                 no_item=True
                 for group_item in group:
-                    
-                    if self.compare_dictionaries(group_item['data'],item['data']):
+                    if self.compare_data(group_item['data'],item['data']):
                         no_item=None
                         break
                 if no_item:
                     group.append(item)
-
             temp_data=group
-            print group
+
+        ## TODO grouping happens after ordering and before limiting
+        #if 'group by' in query_object['meta']:
+        #    group=[]
+        #    for item in temp_data:
+        #        no_item=True
+        #        for group_item in group:
+        #            if self.compare_data(group_item['data'],item['data']):
+        #                no_item=None
+        #                break
+        #        if no_item:
+        #            group.append(item)
+        #    temp_data=group
+       #
+       
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
@@ -368,25 +374,29 @@ class engine:
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
-    def compare_dictionaries(self,dict1, dict2):
-        if dict1 is None or dict2 is None:
-            return False
+    def compare_data(self,data1, data2):
+        if data1 is None or data2 is None:
+            return None
+        if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
+            if len(data1)!=len(data2):
+                return None;
+            for index in range(0,len(data1)):
+                if data1[index]!=data2[index]:
+                    return None
+        else:
+            shared_keys = set(data2.keys()) & set(data2.keys())
+            if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+                return None
 
-        if (not isinstance(dict1, dict)) or (not isinstance(dict2, dict)):
-            return False
-
-        shared_keys = set(dict2.keys()) & set(dict2.keys())
-        if not ( len(shared_keys) == len(dict1.keys()) and len(shared_keys) == len(dict2.keys())):
-            return False
-
-        dicts_are_equal = True
-        for key in dict1.keys():
-             dicts_are_equal = dicts_are_equal and (dict1[key] == dict2[key])
-        return dicts_are_equal
+            dicts_are_equal = True
+            for key in data1.keys():
+                if data1[key] != data2[key]:
+                    return None
+        return True
 
     def process_select_row(self,query_object,processed_line):
         row=[]
-        for c in query_object['meta']['select']:
+        for c in query_object['meta']['columns']:
             if 'column' in c:
                 if None != processed_line:
                     row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
