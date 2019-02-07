@@ -12,11 +12,11 @@ class test_engine(unittest.TestCase):
 
     def cleanup(self):
         # print ("#--->Fresh init")
-        config_dir = os.path.join(self.basedir, self.temp_config)
-        #f os.path.exists(config_dir):
-            # print "Config dir: {}".format(config_dir)
-            #os.remove(config_dir)
-        if os.path.exists(config_dir):
+        config_file = os.path.join(self.basedir, self.temp_config)
+        if os.path.exists(config_file):
+           print "Config file: {}".format(config_file)
+           os.remove(config_file)
+        if os.path.exists(config_file):
             print("Still here")
 
     def test_use(self):
