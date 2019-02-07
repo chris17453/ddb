@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.754'
+__version__='1.0.755'
 
         
         
@@ -1815,7 +1815,7 @@ class table_delimiters:
                     self.block_quote = None
     
     def get_new_line(self):
-        """"Return the correct line ending for the file format""""
+        '''Return the correct line ending for the file format'''
         if self.new_line=='UNIX':
             return '\n'
         elif self.new_line=='WINDOWS':
