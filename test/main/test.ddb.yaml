@@ -1,207 +1,207 @@
-errors: 
-config_directory: /home/nd/repos/chris17453/ddb/test
+errors: []
+config_directory: '/home/nd/repos/chris17453/ddb/test'
 delimiters: 
  comment: 
- - #
- - ;
- - /
- field: ,
- error: #
+ - '#'
+ - ';'
+ - '/'
+ field: ','
+ error: '#'
  block_quote: null
- array: |
- new_line: 
-
-results: 
+ array: '|'
+ new_line: '
+'
+results: []
 ordinals: 
- first_name: True
+ first_name: true
  last_name: 2
  gender: 4
  email: 3
  ip_address: 5
- id: False
+ id: false
 visible: 
- errors: True
- whitespace: False
- comments: False
-version: True
+ errors: true
+ whitespace: false
+ comments: false
+version: true
 ownership: 
  group: null
  location: null
  entity: null
-active: True
+active: true
 data: 
- starts_on_line: False
+ starts_on_line: false
  ordinal: -1
  display_name: null
- name: test
- multi_search: True
- database: main
- config: /home/nd/repos/chris17453/ddb/test/main/test.ddb.yaml
+ name: 'test'
+ multi_search: true
+ database: 'main'
+ config: '/home/nd/repos/chris17453/ddb/test/main/test.ddb.yaml'
  key: null
- path: /home/nd/repos/chris17453/ddb/test/MOCK_DATA.csv
+ path: '/home/nd/repos/chris17453/ddb/test/MOCK_DATA.csv'
  retults: null
- type: Temp
+ type: 'Temp'
  uid: null
 columns: 
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: id
-   is_array: False
+   has_default: false
+   name: 'id'
+   is_array: false
    regex: null
-   ordinal: False
-   export: False
-   type: string
+   ordinal: false
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: first_name
-   is_array: False
+   has_default: false
+   name: 'first_name'
+   is_array: false
    regex: null
-   ordinal: True
-   export: False
-   type: string
+   ordinal: true
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: last_name
-   is_array: False
+   has_default: false
+   name: 'last_name'
+   is_array: false
    regex: null
    ordinal: 2
-   export: False
-   type: string
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: email
-   is_array: False
+   has_default: false
+   name: 'email'
+   is_array: false
    regex: null
    ordinal: 3
-   export: False
-   type: string
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: gender
-   is_array: False
+   has_default: false
+   name: 'gender'
+   is_array: false
    regex: null
    ordinal: 4
-   export: False
-   type: string
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
 - sort: 
-   ordinal: False
-   default: False
-   default_asc: False
-   sortable: False
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
   search: 
-   multi_search: False
-   searchable: False
+   multi_search: false
+   searchable: false
   data: 
    default_value: null
-   has_default: False
-   name: ip_address
-   is_array: False
+   has_default: false
+   name: 'ip_address'
+   is_array: false
    regex: null
    ordinal: 5
-   export: False
-   type: string
+   export: false
+   type: 'string'
   display: 
    ordinal: -1
-   fixed_width: True
+   fixed_width: true
    name: null
    width: 100
-   max_width: False
-   visible: True
-   min_width: False
-   overflow: False
-  options: 
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
