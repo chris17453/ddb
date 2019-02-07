@@ -366,7 +366,7 @@ class engine:
         temp_table.results = self.limit(temp_data, limit_start, limit_length)
         return temp_table
 
-    def compare_dictionaries(dict1, dict2):
+    def compare_dictionaries(self,dict1, dict2):
         if dict1 is None or dict2 is None:
             return False
 
