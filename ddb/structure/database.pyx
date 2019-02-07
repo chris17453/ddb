@@ -229,16 +229,16 @@ class database:
             #    raise Exception("db config invalid")
         else:
             return tables
-        print("Loading config file: {0}".format(self.config_file))
+        #print("Loading config file: {0}".format(self.config_file))
         yaml_data = yamlf_load(file=self.config_file)
         #print (yaml_data)
         # could be empty
         if  yaml_data != None:
             for db in yaml_data:
                 if yaml_data[db] !=None:
-                    print("Loading database: {0}".format(db))
+                    #print("Loading database: {0}".format(db))
                     for table in yaml_data[db]:
-                        print("Loading table: {0},{1}".format(table,yaml_data[db][table]['path']))
+                        #print("Loading table: {0},{1}".format(table,yaml_data[db][table]['path']))
                         tables.append(yaml_data[db][table]['path'])
 
         return tables
