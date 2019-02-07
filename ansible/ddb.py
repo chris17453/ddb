@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.757'
+__version__='1.0.758'
 
         
         
@@ -2601,7 +2601,7 @@ class engine:
                 dicts_are_equal = dicts_are_equal and compare_dictionaries(dict1[key], dict2[key])
             else:
                 
-                dicts_are_equal = dicts_are_equal and all(dict1[key] == dict2[key)
+                dicts_are_equal = dicts_are_equal and all(dict1[key] == dict2[key])
         return dicts_are_equal
 
     def process_select_row(self,query_object,processed_line):
