@@ -14,7 +14,7 @@ class test_engine(unittest.TestCase):
         # print ("#--->Fresh init")
         config_file = os.path.join(self.basedir, self.temp_config)
         if os.path.exists(config_file):
-           print "Config file: {}".format(config_file)
+           #print "Config file: {}".format(config_file)
            os.remove(config_file)
         if os.path.exists(config_file):
             print("Still here")
