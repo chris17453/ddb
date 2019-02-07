@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.734'
+__version__='1.0.735'
 
         
         
@@ -1641,7 +1641,7 @@ class table_delimiters:
         self.error = "#"
         self.block_quote = None
         self.comment = ["#", ";", "/"]
-        self.new_line = "\n"
+        self.new_line = "UNIX"
         if None != yaml:
             if 'field' in yaml:
                 self.field = yaml['field']
@@ -3015,7 +3015,7 @@ class factory_yaml:
 
                 path.append(key)
                 return {'key':key,'type':'class','obj': value,'depth':len(path)}
-
+        
         self.info("Yaml","Cant go deeper")
         while len(path)>0:
             self.info("Yaml","loop - looking {0}".format(len(path)))
@@ -3129,27 +3129,28 @@ class factory_yaml:
                 else:
                     newline=0
                 if not fragment['key']:
-                    line+="{0}: {1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 else:
                     line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 
             if fragment['type']=='list':
-                if len(fragment['obj'])==0:
-                    lines.append(line+ "[]")
-                else:
-                    if parent_fragment and fragment:
-                        if parent_fragment['type']!='list' and  fragment['key']==0:
-                            if len(line)>0:
-                                lines.append(line)
-                            line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                if parent_fragment and fragment:
+                    if parent_fragment['type']!='list' and  fragment['key']==0:
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
-                        elif  fragment['key']!=0:
-                            if len(line)>0:
-                                lines.append(line)
-                            line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
+                    elif  fragment['key']!=0:
+                        if len(line)>0:
+                            lines.append(line)
+                        line=self.padding(len(path)-1,indent,arr_depth)#+"("+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)+")"
 
-                    line+="- "
+                line+="- "
                 newline=1
+            if isinstance(obj,list) and len(obj)==0:
+               line+="[]"
+            if isinstance(obj,dict) and not obj:
+               line+="{}"
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
@@ -3247,7 +3248,7 @@ class factory_yaml:
             if data[0]=='"' and data[-1]=='"':
                 quoted=True
             if quoted:
-                return data[1:-1]
+                return data[1:-1].decode('string_escape')
         try:
             return int(data)
         except ValueError:
@@ -3263,9 +3264,9 @@ class factory_yaml:
         if data=="null":
             return None
         if data=="[]":
-            return None
+            return []
         if data=="{}":
-            return None
+            return {}
         return data
         
     def dump(self,data=None,out_file=None):
@@ -3281,7 +3282,7 @@ class factory_yaml:
 
 
     def load(self,data=None,in_file=None):
-        if file:
+        if in_file:
             with open(in_file) as content:
                 data=content.read()
 
@@ -3407,27 +3408,10 @@ class factory_yaml:
 
 
 
-class sub:
-    def __init__(self):
-        self.su1=1
-        self.s2=1
-        self.s3="domo"
-        
-class test:
 
-    def __init__(self):
-        self.pizza=1
-        self.beer=1
-        self.s4=sub()
-        self.a3=sub()
-        self.aouse="domo"
-data={}
-data['arr']=[1,2,3,4]
-data['arr2']=[[1,2,3,4],[5,6,7,8]]
-data['dict']=[{'sam':'bob'}]
-data['class']=test()
-print yamlf_dump(data=data)
-print yamlf_dump(data=test())
+
+
+
 
 
         

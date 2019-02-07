@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.734'
+__version__='1.0.735'
 
         
         
@@ -1635,7 +1635,7 @@ class table_delimiters:
         self.error = "#"
         self.block_quote = None
         self.comment = ["#", ";", "/"]
-        self.new_line = "\n"
+        self.new_line = "UNIX"
         if None != yaml:
             if 'field' in yaml:
                 self.field = yaml['field']
