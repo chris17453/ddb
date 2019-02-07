@@ -29,7 +29,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.742'
+__version__='1.0.743'
 
         
         
@@ -67,7 +67,8 @@ sql_syntax = {
          'switch': [
                   {  'name':'distinct',
                      'data':False,
-                     'optional': True
+                     'optional': True,
+                     'arguments': 1,
                   },
             
                    {'arguments': 0,
