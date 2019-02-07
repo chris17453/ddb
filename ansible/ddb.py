@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.739'
+__version__='1.0.740'
 
         
         
@@ -1707,9 +1707,7 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            print ("Creating new db config")
             yamlf_dump(yaml_data,file=config_file)
-            print ("Created new db config")
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
@@ -1729,7 +1727,6 @@ class database:
             self.create_config(self.config_file)
 
         if None != table_config:
-            print "Adding table config"
             self.create_config(self.config_file)
             config = table(table_config)
             yaml_data = yamlf_load(file=self.config_file)
