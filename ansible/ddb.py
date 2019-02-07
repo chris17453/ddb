@@ -23,7 +23,7 @@ import tempfile
 
 
 
-__version__='1.0.748'
+__version__='1.0.749'
 
         
         
@@ -58,7 +58,10 @@ sql_syntax = {
                     ]},
         {'query': 'select',
          'switch': [
-                  {  'name':'distinct',
+                  
+                {    
+                     'arguments':1,
+                     'name':'distinct',
                      'data':None,
                      'optional': True,
                   },
