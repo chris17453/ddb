@@ -1,15 +1,15 @@
 errors: []
-config_directory: '\/home\/nd\/repos\/chris17453\/ddb\/test'
+config_directory: '''/home/nd/repos/chris17453/ddb/test'''
 delimiters: 
  comment: 
- - '\#'
- - '\;'
- - '\/'
- field: '\,'
- error: '\#'
+ - '''#'''
+ - ''';'''
+ - '''/'''
+ field: ''','''
+ error: '''#'''
  block_quote: null
- array: '\|'
- new_line: 'UNIX'
+ array: '''|'''
+ new_line: '''UNIX'''
 results: []
 ordinals: 
  first_name: true
@@ -32,14 +32,14 @@ data:
  starts_on_line: false
  ordinal: -1
  display_name: null
- name: 'test'
+ name: '''test'''
  multi_search: true
- database: 'main'
- config: '\/home\/nd\/repos\/chris17453\/ddb\/test\/main\/test\.ddb\.yaml'
+ database: '''main'''
+ config: '''/home/nd/repos/chris17453/ddb/test/main/test.ddb.yaml'''
  key: null
- path: '\/home\/nd\/repos\/chris17453\/ddb\/test\/MOCK\_DATA\.csv'
+ path: '''/home/nd/repos/chris17453/ddb/test/MOCK_DATA.csv'''
  retults: null
- type: 'Temp'
+ type: '''Temp'''
  uid: null
 columns: 
 - sort: 
@@ -53,12 +53,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'id'
+   name: '''id'''
    is_array: false
    regex: null
    ordinal: false
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
@@ -80,12 +80,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'first\_name'
+   name: '''first_name'''
    is_array: false
    regex: null
    ordinal: true
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
@@ -107,12 +107,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'last\_name'
+   name: '''last_name'''
    is_array: false
    regex: null
    ordinal: 2
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
@@ -134,12 +134,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'email'
+   name: '''email'''
    is_array: false
    regex: null
    ordinal: 3
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
@@ -161,12 +161,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'gender'
+   name: '''gender'''
    is_array: false
    regex: null
    ordinal: 4
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
@@ -188,12 +188,12 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'ip\_address'
+   name: '''ip_address'''
    is_array: false
    regex: null
    ordinal: 5
    export: false
-   type: 'string'
+   type: '''string'''
   display: 
    ordinal: -1
    fixed_width: true
