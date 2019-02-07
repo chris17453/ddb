@@ -401,7 +401,7 @@ class table_delimiters:
         self.block_quote = None
         self.comment = ["#", ";", "/"]
         # TODO hard coding this for a moment... must think
-        self.new_line = "\n"
+        self.new_line = "UNIX"
         if None != yaml:
             if 'field' in yaml:
                 self.field = yaml['field']
