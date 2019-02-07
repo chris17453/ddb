@@ -9,7 +9,8 @@ delimiters:
  error: '#'
  block_quote: null
  array: '|'
- new_line: 'UNIX'
+ new_line: '
+'
 results: []
 ordinals: 
  first_name: true
