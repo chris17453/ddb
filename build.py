@@ -44,7 +44,13 @@ def src_build():
         {'name':'cli','file':'ddb/cli.py'},
     ]    
     core_headers="""# ############################################################################
-# 
+#  ██████╗ ██████╗ ██████╗ 
+#  ██╔══██╗██╔══██╗██╔══██╗
+#  ██║  ██║██║  ██║██████╔╝
+#  ██║  ██║██║  ██║██╔══██╗
+#  ██████╔╝██████╔╝██████╔╝
+#  ╚═════╝ ╚═════╝ ╚═════╝ 
+# Author: Charles Watkins
 # This file is automagically generated
 # dont edit it, because it will be erased next build
 # 
@@ -64,7 +70,13 @@ except Exception as ex:
 
 """
     standalone_headers="""# ############################################################################
-# 
+#  ██████╗ ██████╗ ██████╗ 
+#  ██╔══██╗██╔══██╗██╔══██╗
+#  ██║  ██║██║  ██║██████╔╝
+#  ██║  ██║██║  ██║██╔══██╗
+#  ██████╔╝██████╔╝██████╔╝
+#  ╚═════╝ ╚═════╝ ╚═════╝ 
+# Author: Charles Watkins
 # This file is automagically generated
 # dont edit it, because it will be erased next build
 # 

@@ -45,8 +45,8 @@ if USE_CYTHON:
     except BaseException:
         print ("No Cython installed")
         exit(1)
-
     extensions = cythonize(extensions)
+
 exec(open('ddb/version.py').read())
 setup(
     name='ddb',
@@ -64,7 +64,6 @@ setup(
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-
     author='Charles Watkins',
     author_email='charles@titandws.com',
     description='A serviceless sql interface for flat files written in python',
