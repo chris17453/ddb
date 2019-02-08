@@ -12,10 +12,13 @@ import warnings
 import datetime
 import tempfile
 import time
-import flextable
 from cmd import Cmd
 import argparse
 from os.path import expanduser
+try:
+    import flextable
+except Exception as ex:
+    pass
 
 
 
@@ -29,7 +32,7 @@ from os.path import expanduser
 
 
 
-__version__='1.0.768'
+__version__='1.0.769'
 
         
         
@@ -2851,6 +2854,10 @@ class engine:
 
 
 
+try:
+    import flextable
+except Exception as ex:
+    pass
 
 
 class output_factory:
@@ -2990,8 +2997,6 @@ class output_factory:
 # Module : factory_yaml
 # File   : ddb/output/factory_yaml.pyx
 # ############################################################################
-
-
 
 
 
