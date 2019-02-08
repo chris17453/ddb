@@ -3,12 +3,14 @@ from distutils.core import setup
 from distutils.extension import Extension
 
 
-USE_CYTHON = os.path.exists('ddb/engine.pyx')
-# print("USE_CYTHON",USE_CYTHON)
+if "--USE_CYTHON" in sys.argv:
+    ext = '.c'
+    prefix=''
+    print("Using Cython")
+else:
+    ext = '.py'
+    prefix='' 
 
-
-ext = '.pyx' if USE_CYTHON else '.c'
-prefix='' if USE_CYTHON else ''
 
 extensions = [
     Extension("ddb.evaluate.match",                [prefix+"./ddb/evaluate/match" + ext]),
@@ -40,7 +42,7 @@ if USE_CYTHON:
         exit(1)
 
     extensions = cythonize(extensions)
-exec(open('ddb/version.pyx').read())
+exec(open('ddb/version.py').read())
 setup(
     name='ddb',
     version=__version__,

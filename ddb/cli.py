@@ -1,8 +1,8 @@
 import argparse
 import os
-from engine import engine
-from interactive import ddbPrompt
-from output.factory import output_factory
+from .engine import engine
+from .interactive import ddbPrompt
+from .output.factory import output_factory
 
 
 from os.path import expanduser
