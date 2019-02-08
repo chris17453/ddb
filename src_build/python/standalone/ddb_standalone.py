@@ -32,7 +32,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.770'
+__version__='1.0.771'
 
         
         

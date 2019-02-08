@@ -5,6 +5,6 @@ v=$(cat version)
 echo "${v%.*}.$((${v##*.}+1))">version
 
 #update the version in the py file
-echo "__version__='${v%.*}.$((${v##*.}+1))'">ddb/version.pyx
+echo "__version__='${v%.*}.$((${v##*.}+1))'">ddb/version.py
 
  
