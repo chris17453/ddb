@@ -1,7 +1,10 @@
 from .factory_json import factory_json
 from .factory_yaml import factory_yaml
 from .factory_xml import factory_xml
-import flextable
+try:
+    import flextable
+except Exception as ex:
+    pass
 
 
 class output_factory:

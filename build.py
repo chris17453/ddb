@@ -14,7 +14,10 @@ def src_build():
         {'name':'functions','file':'ddb/functions/functions.pyx'},
         {'name':'sql_engine','file':'ddb/engine.pyx'},
         # formatting
-        #{'name':'output','file':'ddb/output/factory.pyx'},
+        {'name':'output','file':'ddb/output/factory.pyx'},
+        {'name':'factory_yaml','file':'ddb/output/factory_yaml.pyx'},
+        {'name':'factory_xml','file':'ddb/output/factory_xml.pyx'},
+        {'name':'factory_json','file':'ddb/output/factory_json.pyx'},
         # cli stuff
         #{'name':'interactive','file':'ddb/interactive.pyx'},
         #{'name':'cli','file':'ddb/cli.py'},
@@ -53,6 +56,10 @@ import json
 import warnings
 import datetime
 import tempfile
+try:
+    import flextable
+except Exception as ex:
+    pass
 
 
 """
@@ -70,10 +77,13 @@ import warnings
 import datetime
 import tempfile
 import time
-import flextable
 from cmd import Cmd
 import argparse
 from os.path import expanduser
+try:
+    import flextable
+except Exception as ex:
+    pass
 
 
 

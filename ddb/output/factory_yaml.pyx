@@ -1,6 +1,3 @@
-import re
-
-
 def yamlf_load(data=None,file=None):
     factory=factory_yaml()
     return factory.load(data=data,in_file=file)
