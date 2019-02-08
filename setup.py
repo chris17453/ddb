@@ -8,9 +8,11 @@ if "--USE_CYTHON" in sys.argv:
     ext = '.c'
     prefix=''
     print("Using Cython")
+    USE_CYTHON=True
 else:
     ext = '.py'
     prefix='' 
+    USE_CYTHON=None
 
 
 extensions = [
