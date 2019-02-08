@@ -1,10 +1,12 @@
 import os
 import sys
-from distutils.core import setup
+from distutils.core import setup, Command
 from distutils.extension import Extension
 
 
-if "--USE_CYTHON" in sys.argv:
+if '--USE_CYTHON' in sys.argv:
+    index = sys.argv.index('--foo')
+    sys.argv.pop(index)  # Removes the '--foo'
     ext = '.c'
     prefix=''
     print("Using Cython")
@@ -78,6 +80,9 @@ setup(
         ddb = ddb.cli:cli_main
         """,
     compiler_directives={"language_level": "2"},
+    cmdclass={
+        'install': InstallCommand,
+    }
 
 
 )
