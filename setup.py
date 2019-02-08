@@ -68,7 +68,7 @@ setup(
     author='Charles Watkins',
     author_email='charles@titandws.com',
     description='A serviceless sql interface for flat files written in python',
-    install_requires=['pyyaml','lazyxml', 'flextable'],
+    #install_requires=['flextable'],
     ext_modules=extensions,
     classifiers=[
         'Programming Language :: Python :: 2.7',
