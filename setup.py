@@ -4,8 +4,8 @@ from distutils.core import setup, Command
 from distutils.extension import Extension
 
 
-if '--USE_CYTHON' in sys.argv:
-    index = sys.argv.index('--foo')
+if '--use-cython' in sys.argv:
+    index = sys.argv.index('--use-cython')
     sys.argv.pop(index)  # Removes the '--foo'
     ext = '.c'
     prefix=''
