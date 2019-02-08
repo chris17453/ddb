@@ -38,7 +38,7 @@ read data from a table
 - select_expr = { {column | function () } [AS display_name]}
 - order_expression = { ASC | DESC }
 ```sql
-SELECT select_expr [,select_expr ... ]
+SELECT [DISTINCT] select_expr [,select_expr ... ]
 [FROM table
 [WHERE condition 
     [
