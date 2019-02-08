@@ -1,6 +1,11 @@
 include README.md
-recursive-include ddb *.c
-recursive-include ddb *.py
+include ddb/__init__.py
+include ddb/functions/__init__.py
+include ddb/lexer/__init__.py
+include ddb/evaluate/__init__.py
+include ddb/output/__init__.py
+include ddb/structure/__init__.py
+recursive-include ddb/ *.py
 recursive-include ddb/functions *.py
 recursive-include ddb/lexer *.py
 recursive-include ddb/evaluate *.py
