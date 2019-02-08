@@ -75,7 +75,7 @@ build: bump
 	@python build.py
 	@pipenv run python setup.py build_ext --inplace sdist
 	# build_ext  --use-cython
-	@$(MAKE) -f $(THIS_FILE) standalone
+	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
 standalone:

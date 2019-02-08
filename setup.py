@@ -50,7 +50,14 @@ else:
     prefix='' 
     USE_CYTHON=None
     extensions=None
-    packages=['ddb']
+    packages=['ddb',
+              'ddb.lexer',
+              'ddb.evaluate',
+              'ddb.structure',
+              'ddb.functions',
+              'ddb.structure',
+              'ddb.output',
+              ]
 
 
 
