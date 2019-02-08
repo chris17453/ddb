@@ -80,9 +80,7 @@ setup(
         ddb = ddb.cli:cli_main
         """,
     compiler_directives={"language_level": "2"},
-    cmdclass={
-        'install': InstallCommand,
-    }
+    
 
 
 )
