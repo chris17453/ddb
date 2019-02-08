@@ -83,6 +83,8 @@ SELECT * FROM TEST LIMIT 10
 SELECT * from test limit 5,10
 SELECT id,first_name from test order by id limit 15,10
 SELECT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE 'Ma%' or id=1  ORDER BY gender,id desc LIMIT 0,1000
+SELECT DISTINCT *,id AS ID2,database() AS db_name FROM test WHERE id >990 AND gender LIKE 'Ma%' or id=1  ORDER BY gender,id desc LIMIT 0,1000
+
 ┌┤id  ├┬┤first_nam├┬┤last_name├┬┤email    ├┬┤gender   ├┬┤ip_addres├┬┤ID2    ├┬┤db_name   ├┐
 │999   │Karlik     │Terrett    │kterrettrq@│Male       │55.93.204.4│999      │main        │
 │998   │Calvin     │Hedger     │chedgerrp@g│Male       │171.110.129│998      │main        │

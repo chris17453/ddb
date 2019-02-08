@@ -1,5 +1,7 @@
 ### ddb Recent additions
-
+- language prep for GROUP BY, *not implimented*
+- added support for DISTINCT
+- removed pyyaml and libxml support
 - load/reload of database configuration unified, temp table safe
 - failed table configurations pass warnings, and do not trigger a fail
 - sql function: "version()" returns ddb version
