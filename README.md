@@ -48,26 +48,26 @@ pip install ddb --user
 
 ## Getting started
 - [cli](data/cli.md)
-- [bash examples](data/examples.md)
+- [bash examples](docs/examples.md)
 - [code example](examples/example.py)
-- [walkthrough](data/walkthrough.md)
+- [walkthrough](docs/walkthrough.md)
 
 
 ## dev stuff
-- [query support](data/query-support.md)
-- [data output](data/output.md)
-- [python integration](data/python-integration.md)
-- [build](data/build.md)
-- [notes](data/notes.md)
-- [changelog](data/changelog.md)
+- [query support](docs/query-support.md)
+- [data output](docs/output.md)
+- [python integration](docs/python-integration.md)
+- [build](docs/build.md)
+- [notes](docs/notes.md)
+- [changelog](docs/changelog.md)
 
 ## Will you help me?
 Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
 
 
 ### BASH Demo
-![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-bash-demo.gif)
+![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-bash-demo.gif)
 
 ### Python Demo
-![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/data/ddb-python-demo.gif)
+![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-python-demo.gif)
 
