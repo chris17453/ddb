@@ -99,7 +99,7 @@ class ddbPrompt(Cmd):
 
         try:
             if None == self.engine:
-                print ("sql engin gone")
+                print ("sql engine gone")
                 return
             start = time.time()
             results = self.engine.query(sql_query=inp)
