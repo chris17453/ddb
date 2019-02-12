@@ -3,11 +3,11 @@
 block_cipher = None
 
 
-a = Analysis(['src_build/python/standalone/ddb_standalone.py'],
+a = Analysis(['./builds/standalone/ddb.py'],
              pathex=['.'],
              binaries=[ ],
              datas=[],
-             hiddenimports=['nt', 'os2', 'ce', 'riscos', 'riscospath', 'riscosenviron', 'msvcrt', 'subprocess',  'flextable'],
+             hiddenimports=['subprocess',  'flextable'],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],

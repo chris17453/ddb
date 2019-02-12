@@ -1,47 +1,48 @@
 
 
 def src_build():
+    source_dir='./source'
     core_files=[
         # base class
-        {'name':'version','file':'ddb/version.py'},
-        {'name':'lexer-language','file':'ddb/lexer/language.py'},
-        {'name':'lexer-parse','file':'ddb/lexer/lexer.py'},
-        {'name':'lexer-token','file':'ddb/lexer/tokenize.py'},
-        {'name':'column','file':'ddb/structure/column.py'},
-        {'name':'table','file':'ddb/structure/table.py'},
-        {'name':'database','file':'ddb/structure/database.py'},
-        {'name':'match','file':'ddb/evaluate/match.py'},
-        {'name':'functions','file':'ddb/functions/functions.py'},
-        {'name':'sql_engine','file':'ddb/engine.py'},
+        {'name':'version','file':source_dir+'/ddb/version.py'},
+        {'name':'lexer-language','file':source_dir+'/ddb/lexer/language.py'},
+        {'name':'lexer-parse','file':source_dir+'/ddb/lexer/lexer.py'},
+        {'name':'lexer-token','file':source_dir+'/ddb/lexer/tokenize.py'},
+        {'name':'column','file':source_dir+'/ddb/structure/column.py'},
+        {'name':'table','file':source_dir+'/ddb/structure/table.py'},
+        {'name':'database','file':source_dir+'/ddb/structure/database.py'},
+        {'name':'match','file':source_dir+'/ddb/evaluate/match.py'},
+        {'name':'functions','file':source_dir+'/ddb/functions/functions.py'},
+        {'name':'sql_engine','file':source_dir+'/ddb/engine.py'},
         # formatting
-        {'name':'output','file':'ddb/output/factory.py'},
-        {'name':'factory_yaml','file':'ddb/output/factory_yaml.py'},
-        {'name':'factory_xml','file':'ddb/output/factory_xml.py'},
-        {'name':'factory_json','file':'ddb/output/factory_json.py'},
+        {'name':'output','file':source_dir+'/ddb/output/factory.py'},
+        {'name':'factory_yaml','file':source_dir+'/ddb/output/factory_yaml.py'},
+        {'name':'factory_xml','file':source_dir+'/ddb/output/factory_xml.py'},
+        {'name':'factory_json','file':source_dir+'/ddb/output/factory_json.py'},
         # cli stuff
-        #{'name':'interactive','file':'ddb/interactive.py'},
-        #{'name':'cli','file':'ddb/cli.py'},
+        #{'name':'interactive','file':source_dir+'/ddb/interactive.py'},
+        #{'name':'cli','file':source_dir+'/ddb/cli.py'},
     ]
     standalone_files=[
         # base class
-        {'name':'version','file':'ddb/version.py'},
-        {'name':'lexer-language','file':'ddb/lexer/language.py'},
-        {'name':'lexer-parse','file':'ddb/lexer/lexer.py'},
-        {'name':'lexer-token','file':'ddb/lexer/tokenize.py'},
-        {'name':'column','file':'ddb/structure/column.py'},
-        {'name':'table','file':'ddb/structure/table.py'},
-        {'name':'database','file':'ddb/structure/database.py'},
-        {'name':'match','file':'ddb/evaluate/match.py'},
-        {'name':'functions','file':'ddb/functions/functions.py'},
-        {'name':'sql_engine','file':'ddb/engine.py'},
+        {'name':'version','file':source_dir+'/ddb/version.py'},
+        {'name':'lexer-language','file':source_dir+'/ddb/lexer/language.py'},
+        {'name':'lexer-parse','file':source_dir+'/ddb/lexer/lexer.py'},
+        {'name':'lexer-token','file':source_dir+'/ddb/lexer/tokenize.py'},
+        {'name':'column','file':source_dir+'/ddb/structure/column.py'},
+        {'name':'table','file':source_dir+'/ddb/structure/table.py'},
+        {'name':'database','file':source_dir+'/ddb/structure/database.py'},
+        {'name':'match','file':source_dir+'/ddb/evaluate/match.py'},
+        {'name':'functions','file':source_dir+'/ddb/functions/functions.py'},
+        {'name':'sql_engine','file':source_dir+'/ddb/engine.py'},
         # formatting
-        {'name':'output','file':'ddb/output/factory.py'},
-        {'name':'factory_yaml','file':'ddb/output/factory_yaml.py'},
-        {'name':'factory_xml','file':'ddb/output/factory_xml.py'},
-        {'name':'factory_json','file':'ddb/output/factory_json.py'},
+        {'name':'output','file':source_dir+'/ddb/output/factory.py'},
+        {'name':'factory_yaml','file':source_dir+'/ddb/output/factory_yaml.py'},
+        {'name':'factory_xml','file':source_dir+'/ddb/output/factory_xml.py'},
+        {'name':'factory_json','file':source_dir+'/ddb/output/factory_json.py'},
         # cli stuff
-        {'name':'interactive','file':'ddb/interactive.py'},
-        {'name':'cli','file':'ddb/cli.py'},
+        {'name':'interactive','file':source_dir+'/ddb/interactive.py'},
+        {'name':'cli','file':source_dir+'/ddb/cli.py'},
     ]    
     core_headers="""# ############################################################################
 # :########::'########::'########::
@@ -106,9 +107,8 @@ except Exception as ex:
 
 
 """
-    build_standalone(core_files,core_headers,'ansible/ddb.py')
-    build_standalone(core_files,core_headers,'src_build/python/core/ddb_core.py')
-    build_standalone(standalone_files,standalone_headers,'src_build/python/standalone/ddb_standalone.py')
+    build_standalone(core_files,core_headers,'dist/ansible/ddb.py')
+    build_standalone(standalone_files,standalone_headers,'dist/python/ddb.py')
 
 
 def build_standalone(files,headers,dest_file):

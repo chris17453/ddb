@@ -13,6 +13,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 git_username="Charles Watkins"
 git_email="charles@titandws.com"
+conf_dir="source/conf"
 
 .DEFAULT: help
 
@@ -54,26 +55,23 @@ init:
 pipfile:
 	pipenv install twine --dev
 	pipenv install ctyhon --dev
-	pipenv install flake8 --dev
-	pipenv install autopep8 --dev
+	# for binary executable
 	pipenv install pyinstaller --dev
 	pipenv install flextable
 	
 bump:
 	@git add -A 
 	@git commit -m 'Bump Version $(shell cat version)'
-	@./bump.sh
-	#@git commit -m 'Bump Version $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'"))'
-	#@pipenv run bumpversion patch --allow-dirty
+	@./$(conf_dir)/bump.sh
 
 unittest:
-	@python -m test.test
+	@python -m source.test.test
 	
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
     # makes ansible single script
-	@python build.py
-	@pipenv run python setup.py build_ext --inplace sdist
+	@python $(conf_dir)/build.py
+	@pipenv run python source/setup.py build_ext --inplace sdist
 	# build_ext  --use-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
@@ -82,7 +80,7 @@ standalone:
 	@pyinstaller ddb.spec
 
 upload:
-	@pipenv run twine upload  dist/*.gz
+	@pipenv run twine upload  builds/pypi/*.gz
 
 install:
 	pip install ddb --user
