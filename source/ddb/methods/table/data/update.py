@@ -1,3 +1,5 @@
+from ..core import *
+
 def update_single(context, query_object, temp_file, temp_table, requires_new_line, processed_line):
     err = False
     ###
