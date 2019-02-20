@@ -2154,7 +2154,6 @@ class engine:
         self.mode = mode
         self.output=output
         self.output_file=output_file
-        self.functions=functions()
         self.match=match()
         
         self.database = database(config_file=config_file)

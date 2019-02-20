@@ -1,3 +1,5 @@
+from ....functions.functions import *
+
 def method_select(context, query_object, parser):
         # print ("in select")
         if 'distinct' in query_object['meta']:
@@ -149,15 +151,15 @@ def process_select_row(context,query_object,processed_line):
                 row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
         elif 'function' in c:
             if c['function'] == 'database':
-                row.append(context.functions.f_database(context.database))
+                row.append(f_database(context.database))
             elif c['function'] == 'datetime':
-                    row.append(context.functions.f_datetime())
+                    row.append(f_datetime(context))
             elif c['function'] == 'date':
-                    row.append(context.functions.f_date())
+                    row.append(f_date(context))
             elif c['function'] == 'time':
-                    row.append(context.functions.f_time())
+                    row.append(f_time(context))
             elif c['function'] == 'version':
-                    row.append(context.functions.f_version(__version__))
+                    row.append(f_version(context,__version__))
             #elif c['function'] == 'lower':
             #     row.append(context.functions.lower(c['column']))
             #elif c['function'] == 'upper':
