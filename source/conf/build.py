@@ -131,8 +131,8 @@ except Exception as ex:
 
 
 """
-    build_standalone(core_files,core_headers,'dist/ansible/ddb.py')
-    build_standalone(standalone_files,standalone_headers,'dist/python/ddb.py')
+    build_standalone(core_files,core_headers,'builds/standalone/ddb-core.py')
+    build_standalone(standalone_files,standalone_headers,'builds/standalone/ddb.py')
 
 
 def build_standalone(files,headers,dest_file):
