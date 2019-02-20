@@ -74,7 +74,7 @@ else:
 
 
 
-exec(open('ddb/version.py').read())
+exec(open('source/ddb/version.py').read())
 setup(
     name='ddb',
     version=__version__,
