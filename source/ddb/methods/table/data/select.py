@@ -62,7 +62,7 @@ def method_select(context, query_object, parser):
         if True == has_columns:
             with open(query_object['table'].data.path, 'r') as content_file:
                 for line in content_file:
-                    processed_line = context.process_line(query_object, line, line_number)
+                    processed_line = process_line(query_object, line, line_number)
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
@@ -76,7 +76,7 @@ def method_select(context, query_object, parser):
 
         # file is closed at this point
         if False == has_columns and True == has_functions:
-            row=context.process_select_row(query_object,None)
+            row=process_select_row(query_object,None)
             temp_data.append(row)
 
 
@@ -101,7 +101,7 @@ def method_select(context, query_object, parser):
         # now convert the columns into the correct format/order as in the select
         restructured_data=[]
         for line in temp_data:
-            restructured_line = context.process_select_row(query_object,line) 
+            restructured_line = process_select_row(query_object,line) 
             restructured_data.append(restructured_line)
         temp_data=restructured_data
 
@@ -111,7 +111,7 @@ def method_select(context, query_object, parser):
             for item in temp_data:
                 no_item=True
                 for group_item in group:
-                    if context.compare_data(group_item['data'],item['data']):
+                    if compare_data(group_item['data'],item['data']):
                         no_item=None
                         break
                 if no_item:
@@ -140,7 +140,7 @@ def method_select(context, query_object, parser):
                 limit_length = query_object['meta']['limit']['length']
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
-        temp_table.results = context.limit(temp_data, limit_start, limit_length)
+        temp_table.results = limit(temp_data, limit_start, limit_length)
         return temp_table
 
 
