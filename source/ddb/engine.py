@@ -6,7 +6,9 @@ from .structure.database import database
 from .evaluate.match import match
 from .functions.functions import functions
 from .version import __version__
- 
+
+#methods -> actions
+
 # database level data methods
 from .methods.database.use import method_use
 
@@ -21,6 +23,8 @@ from .methods.table.data.insert import method_insert
 from .methods.table.data.select import method_select
 from .methods.table.data.update import method_update
 from .methods.table.data.delete import method_delete
+from .methods.table.data.show_tables import method_show_tables
+from .methods.table.data.show_columns import method_show_columns
 
 
 
@@ -98,13 +102,13 @@ class engine:
             # get columns, doesnt need a table
             # print query_object['mode']
             if query_object['mode'] == "show tables":
-
-                self.results = self.functions.f_show_tables(self.database)
+                self.results = method_show_tables(self,self.database)
             if query_object['mode'] == "show columns":
-                self.results = self.functions.f_show_columns(self.database, query_object)
-            # if query_object['mode']=="show errors":
-            #    self.results=show_errors(self.database,self.table)
-            #print query_object
+                self.results = method_show_columns(self,self.database, query_object)
+            
+            if query_object['mode']=="show errors":
+                self.results=show_errors(self,self.database,self.table)
+            
             if query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)
             
