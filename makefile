@@ -61,7 +61,7 @@ pipfile:
 	
 bump:
 	@git add -A 
-	@git commit -m 'Bump Version $(shell cat version)'
+	@git commit -m 'Bump Version $(shell cat source/conf/version)'
 	@./$(conf_dir)/bump.sh
 
 unittest:
