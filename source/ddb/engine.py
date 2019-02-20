@@ -4,6 +4,7 @@ from .lexer.lexer import lexer
 from .structure.table import table
 from .structure.database import database
 from .evaluate.match import match
+from .functions.functions import functions
 from .version import __version__
 
 #methods -> actions
@@ -35,16 +36,12 @@ def enum(**enums):
 class engine:
     """A serverless flat file database engine"""
     
-    COMMENT=1
-    ERROR=2
-    DATA=3
-    WHITESPACE=4
-
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             print(msg, arg1, arg2, arg3)
 
     
+    data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
         self.debug = debug
@@ -52,6 +49,7 @@ class engine:
         self.mode = mode
         self.output=output
         self.output_file=output_file
+        self.functions=functions()
         self.match=match()
         
         # print "Config",config_file
