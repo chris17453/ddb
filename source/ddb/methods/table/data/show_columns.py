@@ -1,5 +1,5 @@
 
-def f_show_columns(context,database, query_object):
+def method_show_columns(context,database, query_object):
     table = database.get(query_object['meta']['from']['table'])
     temp_table = database.temp_table(columns=['table', 'column'])
 
