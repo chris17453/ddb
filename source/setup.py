@@ -66,12 +66,15 @@ else:
               'ddb.structure',
               'ddb.output',
               'ddb.methods',
+              'ddb.methods.database',
+              'ddb.methods.table.data',
+              'ddb.methods.table.structure',
               ]
 
 
 
 
-exec(open('ddb/version.py').read())
+exec(open('source/ddb/version.py').read())
 setup(
     name='ddb',
     version=__version__,
