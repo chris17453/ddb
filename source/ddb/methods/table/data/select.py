@@ -140,7 +140,7 @@ def method_select(context, query_object, parser):
                 limit_length = query_object['meta']['limit']['length']
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
-        temp_table.results = limit(temp_data, limit_start, limit_length)
+        temp_table.results = limit(context,temp_data, limit_start, limit_length)
         return temp_table
 
 
