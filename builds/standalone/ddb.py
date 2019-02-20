@@ -253,7 +253,7 @@ sql_syntax = {
 
 
 
-        {'query': 'set'
+        {'query': 'set',
          'switch':[{
             'name':'set',
             'arguments': 0,
