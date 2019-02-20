@@ -4,7 +4,7 @@ from .lexer.lexer import lexer
 from .structure.table import table
 from .structure.database import database
 from .evaluate.match import match
-from .functions.functions import functions
+from .functions.functions import *
 from .version import __version__
 
 #methods -> actions
@@ -49,7 +49,6 @@ class engine:
         self.mode = mode
         self.output=output
         self.output_file=output_file
-        self.functions=functions()
         self.match=match()
         
         # print "Config",config_file
