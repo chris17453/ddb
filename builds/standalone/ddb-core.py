@@ -2561,7 +2561,7 @@ def method_select(context, query_object, parser):
         if True == has_columns:
             with open(query_object['table'].data.path, 'r') as content_file:
                 for line in content_file:
-                    processed_line = process_line(query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
                         temp_table.add_error(processed_line['error'])
                     line_number += 1
@@ -2572,7 +2572,7 @@ def method_select(context, query_object, parser):
                         temp_data.append( processed_line)
 
         if False == has_columns and True == has_functions:
-            row=process_select_row(query_object,None)
+            row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
 
@@ -2587,13 +2587,13 @@ def method_select(context, query_object, parser):
                     direction = -1
                 context.sort.append([ordinal, direction])
             context.info(context.sort)
-            temp_data = sorted(temp_data, context.sort_cmp)
+            temp_data = sorted(context,temp_data, context.sort_cmp)
         limit_start = 0
         limit_length = None
         
         restructured_data=[]
         for line in temp_data:
-            restructured_line = process_select_row(query_object,line) 
+            restructured_line = process_select_row(context,query_object,line) 
             restructured_data.append(restructured_line)
         temp_data=restructured_data
 
@@ -2602,7 +2602,7 @@ def method_select(context, query_object, parser):
             for item in temp_data:
                 no_item=True
                 for group_item in group:
-                    if compare_data(group_item['data'],item['data']):
+                    if compare_data(context,group_item['data'],item['data']):
                         no_item=None
                         break
                 if no_item:
