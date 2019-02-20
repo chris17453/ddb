@@ -198,7 +198,15 @@ sql_syntax = {
 
 
 
+        {'query': 'set'
+         'switch':[{
+            'name':'set',
+            'arguments': 0,
+            'data': [{'sig': ['{variable}', '=', '{value}']}],
+            },
 
+        }]
+        },
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,

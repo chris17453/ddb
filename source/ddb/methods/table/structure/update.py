@@ -1,0 +1,50 @@
+def method_update_table(context, query_object):
+    context.info("Update Table")
+    temp_table = context.database.temp_table()
+
+    columns = None  
+    if 'columns'  in  query_object['meta'] :
+        columns = []
+        for c in query_object['meta']['columns']:
+            columns.append(c['column'])
+    
+    table_name=query_object['meta']['update']['table']
+
+    updated = 0
+    found_delimiter=None
+    found_comments=None
+    found_whitespace=None
+    found_data_on=None
+    found_file=None
+    found_errors=None
+    
+    if 'delimiter' in query_object['meta']:
+        found_delimiter= query_object['meta']['delimiter']['field']
+    if 'whitespace' in query_object['meta']:
+        found_whitespace= query_object['meta']['whitespace']['whitespace']
+    if 'comments' in query_object['meta']:
+        found_comments= query_object['meta']['comments']['comments']
+    if 'errors' in query_object['meta']:
+        found_errors= query_object['meta']['errors']['errors']
+    if 'data_starts_on' in query_object['meta']:
+        found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
+    if 'file' in query_object['meta']:
+        found_file=query_object['meta']['file']['file']
+
+    target_table= context.database.get(table_name)
+    target_table.update(columns=columns,
+                        data_file=found_file,
+                        field_delimiter=found_delimiter,
+                        comments=found_comments,
+                        whitespace=found_whitespace,
+                        errors=found_errors,
+                        data_on=found_data_on)
+    #sace the update to the table
+    target_table.save()
+    updated=1
+
+    temp_table.add_column('update table')
+    data = {'data': [updated], 'type': context.data_type.DATA, 'error': None}
+    temp_table.append_data(data)
+    return temp_table
+
