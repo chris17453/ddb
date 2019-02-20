@@ -2437,6 +2437,7 @@ def create_single(context, query_object, temp_file, temp_table, requires_new_lin
 
 
 
+
 def method_select(context, query_object, parser):
         if 'distinct' in query_object['meta']:
             distinct=True
@@ -2560,15 +2561,15 @@ def process_select_row(context,query_object,processed_line):
                 row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
         elif 'function' in c:
             if c['function'] == 'database':
-                row.append(context.functions.f_database(context.database))
+                row.append(f_database(context.database))
             elif c['function'] == 'datetime':
-                    row.append(context.functions.f_datetime())
+                    row.append(f_datetime(context))
             elif c['function'] == 'date':
-                    row.append(context.functions.f_date())
+                    row.append(f_date(context))
             elif c['function'] == 'time':
-                    row.append(context.functions.f_time())
+                    row.append(f_time(context))
             elif c['function'] == 'version':
-                    row.append(context.functions.f_version(__version__))
+                    row.append(f_version(context,__version__))
     if None != processed_line:                    
         line_type=processed_line['type']
         error= processed_line['error']
