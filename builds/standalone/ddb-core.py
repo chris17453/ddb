@@ -2141,12 +2141,16 @@ def enum(**enums):
 class engine:
     """A serverless flat file database engine"""
     
+    COMMENT=1
+    ERROR=2
+    DATA=3
+    WHITESPACE=4
+
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             print(msg, arg1, arg2, arg3)
 
     
-    data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
         self.debug = debug
