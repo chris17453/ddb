@@ -141,91 +141,91 @@ def method_select(context, query_object, parser):
         return temp_table
 
 
-    def process_select_row(context,query_object,processed_line):
-        row=[]
-        for c in query_object['meta']['columns']:
-            if 'column' in c:
-                if None != processed_line:
-                    row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
-            elif 'function' in c:
-                if c['function'] == 'database':
-                    row.append(context.functions.f_database(context.database))
-                elif c['function'] == 'datetime':
-                     row.append(context.functions.f_datetime())
-                elif c['function'] == 'date':
-                     row.append(context.functions.f_date())
-                elif c['function'] == 'time':
-                     row.append(context.functions.f_time())
-                elif c['function'] == 'version':
-                     row.append(context.functions.f_version(__version__))
-                #elif c['function'] == 'lower':
-                #     row.append(context.functions.lower(c['column']))
-                #elif c['function'] == 'upper':
-                #     row.append(context.functions.upper(c['column']))
-                #elif c['function'] == 'cat':
-                #     row.append(context.functions.cat(c['arg1'],c['arg2']))
-        if None != processed_line:                    
-            line_type=processed_line['type']
-            error= processed_line['error']
-            raw= processed_line['raw']
+def process_select_row(context,query_object,processed_line):
+    row=[]
+    for c in query_object['meta']['columns']:
+        if 'column' in c:
+            if None != processed_line:
+                row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
+        elif 'function' in c:
+            if c['function'] == 'database':
+                row.append(context.functions.f_database(context.database))
+            elif c['function'] == 'datetime':
+                    row.append(context.functions.f_datetime())
+            elif c['function'] == 'date':
+                    row.append(context.functions.f_date())
+            elif c['function'] == 'time':
+                    row.append(context.functions.f_time())
+            elif c['function'] == 'version':
+                    row.append(context.functions.f_version(__version__))
+            #elif c['function'] == 'lower':
+            #     row.append(context.functions.lower(c['column']))
+            #elif c['function'] == 'upper':
+            #     row.append(context.functions.upper(c['column']))
+            #elif c['function'] == 'cat':
+            #     row.append(context.functions.cat(c['arg1'],c['arg2']))
+    if None != processed_line:                    
+        line_type=processed_line['type']
+        error= processed_line['error']
+        raw= processed_line['raw']
+    else:
+        line_type=context.data_type.DATA
+        error= None
+        raw= None
+    return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
+
+
+def sort_cmp(context, x, y):
+
+    for c in context.sort:
+        ordinal = c[0]
+        direction = c[1]
+
+        #convert = lambda text: int(text) if text.isdigit() else text
+        #alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
+
+        # %print x[ordinal],y[ordinal],-1
+        if x['data'][ordinal] == y['data'][ordinal]:
+            continue
+
+        if x['data'][ordinal] < y['data'][ordinal]:
+            return -1 * direction
         else:
-            line_type=context.data_type.DATA
-            error= None
-            raw= None
-        return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
+            return 1 * direction
+    return 0
+def limit(context, data_stream, index, length):
+    if None == index:
+        index = 0
+    if None == length:
+        length = len(data_stream) - index
 
+    data_stream_lenght = len(data_stream)
+    if index >= data_stream_lenght:
+        #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
+        return []
+    if index + length > data_stream_lenght:
+        #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
+        length = data_stream_lenght - index
+    return data_stream[index:index + length]
 
-    def sort_cmp(context, x, y):
-
-        for c in context.sort:
-            ordinal = c[0]
-            direction = c[1]
-
-            #convert = lambda text: int(text) if text.isdigit() else text
-            #alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
-
-            # %print x[ordinal],y[ordinal],-1
-            if x['data'][ordinal] == y['data'][ordinal]:
-                continue
-
-            if x['data'][ordinal] < y['data'][ordinal]:
-                return -1 * direction
-            else:
-                return 1 * direction
-        return 0
-    def limit(context, data_stream, index, length):
-        if None == index:
-            index = 0
-        if None == length:
-            length = len(data_stream) - index
-
-        data_stream_lenght = len(data_stream)
-        if index >= data_stream_lenght:
-            #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
-            return []
-        if index + length > data_stream_lenght:
-            #print("Length is out of range for query. {} of {}".format(length,data_stream_lenght))
-            length = data_stream_lenght - index
-        return data_stream[index:index + length]
-
-   def compare_data(context,data1, data2):
-        if data1 is None or data2 is None:
-            return None
-        if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
-            if len(data1)!=len(data2):
-                return None;
-            for index in range(0,len(data1)):
-                if data1[index]!=data2[index]:
-                    return None
-        else:
-            shared_keys = set(data2.keys()) & set(data2.keys())
-            if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+def compare_data(context,data1, data2):
+    if data1 is None or data2 is None:
+        return None
+    if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
+        if len(data1)!=len(data2):
+            return None;
+        for index in range(0,len(data1)):
+            if data1[index]!=data2[index]:
                 return None
+    else:
+        shared_keys = set(data2.keys()) & set(data2.keys())
+        if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
+            return None
 
-            dicts_are_equal = True
-            for key in data1.keys():
-                if data1[key] != data2[key]:
-                    return None
-        return True
+        dicts_are_equal = True
+        for key in data1.keys():
+            if data1[key] != data2[key]:
+                return None
+    return True
 
 
