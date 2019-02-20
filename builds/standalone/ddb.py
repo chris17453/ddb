@@ -258,8 +258,6 @@ sql_syntax = {
             'name':'set',
             'arguments': 0,
             'data': [{'sig': ['{variable}', '=', '{value}']}],
-            },
-
         }]
         },
         {'query': 'delete',
