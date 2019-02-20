@@ -1,3 +1,4 @@
+from ..core import *
 
 def method_delete(context, query_object):
     table_name = query_object['meta']['from']['table']

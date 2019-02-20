@@ -1,3 +1,5 @@
+from ..core import *
+
 def method_insert(context, query_object):
     table_name = query_object['meta']['into']['table']
     query_object['table'] = context.database.get(table_name)
