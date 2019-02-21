@@ -71,9 +71,7 @@ build: bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
     # makes ansible single script
 	@python $(conf_dir)/build.py
-	@cd source
-	@python setup.py build_ext --inplace sdist
-	@cd ..
+	@cd source; python setup.py build_ext --inplace sdist
 	# build_ext  --use-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
