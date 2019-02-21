@@ -138,6 +138,9 @@ class engine:
             if query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
 
+        if ! isinstance(self.results,table):
+            return self.results
+
         # only return last command
         if None != self.results:
             if self.mode == 'full':

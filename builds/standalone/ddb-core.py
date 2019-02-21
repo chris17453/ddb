@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.773'
+__version__='1.0.774'
 
         
         
@@ -1580,7 +1580,7 @@ class table:
         if None == self.data.config:
             self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
         yamlf_dump(data=self,file=self.data.config)
-
+        return True
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
@@ -2819,7 +2819,7 @@ def method_create_table(context, query_object):
     for c in query_object['meta']['columns']:
         columns.append(c['column'])
     context.info("Columns to create", columns)
-    created = 0
+
     found_delimiter=None
     found_comments=None
     found_whitespace=None
@@ -2845,11 +2845,7 @@ def method_create_table(context, query_object):
                                             whitespace=found_whitespace,
                                             data_on=found_data_on
                                             )
-    if True == results:
-        created += 1
-
-    
-    return created
+    return results
 
         
         
@@ -2898,13 +2894,8 @@ def method_describe_table(context, query_object):
 
 def method_drop_table(context, query_object):
     context.info("Drop Table")
-    temp_table = context.database.temp_table()
-    dropped = 0
     results = context.database.drop_table(table_name=query_object['meta']['drop']['table'])
-    if True == results:
-        dropped += 1
-
-    return dropped
+    return results
 
         
         
