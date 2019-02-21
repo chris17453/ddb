@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.777'
+__version__='1.0.778'
 
         
         
@@ -2949,11 +2949,9 @@ def method_update_table(context, query_object):
                         whitespace=found_whitespace,
                         errors=found_errors,
                         data_on=found_data_on)
-    target_table.save()
-    updated=1
-
+    results=target_table.save()
    
-    return updated
+    return results
 
 
         
