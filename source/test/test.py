@@ -39,11 +39,14 @@ class test_engine(unittest.TestCase):
 
     def test_create_table(self):
         """Test creating a table"""
-        self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-        # new on existing table
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-        self.assertEqual(1, results[0][0])
+        try:
+            self.cleanup()
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            # new on existing table
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results)
+        except Exception as ex:
+            self.fail(ex)
 
         # fail on existing table
         with self.assertRaises(Exception):
@@ -54,9 +57,11 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
         results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        self.assertEqual(True, results)
+        
         # fail on existing table
         results = engine.query('drop table {}'.format(self.table_name))
-        self.assertEqual(1, results[0][0])
+        self.assertEqual(True, results)
 
         # fail on dropping non existant table
         with self.assertRaises(Exception):
@@ -69,8 +74,6 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            if None == results:
-                raise Exception ("No results returned")
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(10, len(results))
@@ -100,16 +103,17 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results)
         
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
             
             # update
             results = engine.query('update {} set email="test@test.com" where id="1002"'.format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
             
             results = engine.query("delete from {} where id='1002'".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
 
         except Exception as ex:
             self.fail(ex)
@@ -122,13 +126,14 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results)
 
             # update
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
             # Delete
             results = engine.query("delete from {} where id='1001'".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
 
         except Exception as ex:
             self.fail(ex)
@@ -140,17 +145,18 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
 
             # delete just inserted
             results = engine.query("delete from {} where id='1003'".format(self.table_name))
-            self.assertEqual(1, results[0][0])
+            self.assertEqual(True, results)
 
             # delete non existing
             results = engine.query("delete from {} where email like 'bop@%'".format(self.table_name))
-            self.assertEqual(0, results[0][0])
+            self.assertEqual(True, results)
         except Exception as ex:
             self.fail(ex)
 

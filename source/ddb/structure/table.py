@@ -309,7 +309,7 @@ class table:
             self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
         #print ("dump:{0}".format(self.data.config))
         yamlf_dump(data=self,file=self.data.config)
-
+        return True
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
