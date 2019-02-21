@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.774'
+__version__='1.0.775'
 
         
         
@@ -2233,6 +2233,9 @@ class engine:
 
             if query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
+
+        if ! isinstance(self.results,table):
+            return self.results
 
         if None != self.results:
             if self.mode == 'full':
