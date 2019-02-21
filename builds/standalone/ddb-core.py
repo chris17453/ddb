@@ -2195,7 +2195,7 @@ class engine:
                 self.results = method_show_columns(self,self.database, query_object)
             
             if query_object['mode']=="show errors":
-                self.results=show_errors(self,self.database,self.table)
+                self.results=method_show_errors(self,self.database,self.table)
             
             if query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)
@@ -2274,6 +2274,7 @@ class engine:
 
 
 
+
 def process_line(context, query_object, line, line_number=0):
         err = None
         column_len = query_object['table'].column_count()
@@ -2332,7 +2333,7 @@ def process_line(context, query_object, line, line_number=0):
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
   
-def swap_files(context, target, temp):
+def swap_files(target, temp):
     os.remove(target)
     if os.path.exists(target):
         raise Exception("Deleting target file {} failed".format(target))
@@ -2394,18 +2395,17 @@ def method_delete(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
 
-    temp_table = context.database.temp_table()
-    temp_table.add_column('deleted')
-
-    temp_file_name = "DEL" + next(tempfile._get_candidate_names())
     line_number = 1
     deleted = 0
+
+    temp_file_name = "del_" + next(tempfile._get_candidate_names())
+
     with open(query_object['table'].data.path, 'r') as content_file:
         with open(temp_file_name, 'w') as temp_file:
             for line in content_file:
                 processed_line = context.process_line(query_object, line, line_number)
                 if None != processed_line['error']:
-                    temp_table.add_error(processed_line['error'])
+                    context.add_error(processed_line['error'])
                 line_number += 1
                 if True == processed_line['match']:
                     deleted += 1
@@ -2413,10 +2413,8 @@ def method_delete(context, query_object):
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
 
-    data = {'data': [deleted], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    context.swap_files(query_object['table'].data.path, temp_file_name)
-    return temp_table
+    swap_files(query_object['table'].data.path, temp_file_name)
+    return deleted
 
         
         
@@ -2434,43 +2432,38 @@ def method_insert(context, query_object):
     if None == query_object['table']:
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
-    temp_table = context.database.temp_table()
-    temp_table.add_column('inserted')
-
-    temp_file_name = "INS_" + next(tempfile._get_candidate_names())
     line_number = 1
     inserted = 0
     requires_new_line = False
-    
+    temp_file_name = "INS_" + next(tempfile._get_candidate_names())
+ 
     with open(query_object['table'].data.path, 'r') as content_file:
         with open(temp_file_name, 'w') as temp_file:
             for line in content_file:
-                processed_line = context.process_line(query_object, line, line_number)
+                processed_line = process_line(query_object, line, line_number)
                 if None != processed_line['error']:
-                    temp_table.add_error(processed_line['error'])
+                    context.add_error(processed_line['error'])
                 line_number += 1
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
 
                 requires_new_line = False
 
-            results = context.create_single(query_object, temp_file, temp_table, requires_new_line)
+            results = create_single(context,query_object, temp_file, requires_new_line)
             if True == results:
                 inserted += 1
 
-    data = {'data': [inserted], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    context.swap_files(query_object['table'].data.path, temp_file_name)
+    swap_files(query_object['table'].data.path, temp_file_name)
 
-    return temp_table
+    return inserted
 
-def create_single(context, query_object, temp_file, temp_table, requires_new_line):
+def create_single(context, query_object, temp_file, requires_new_line):
     err = False
     if len(query_object['meta']['columns']) != query_object['table'].column_count():
-        temp_table.add_error("Cannot insert, column count does not match table column count")
+        context.add_error("Cannot insert, column count does not match table column count")
     else:
         if len(query_object['meta']['values']) != query_object['table'].column_count():
-            temp_table.add_error("Cannot insert, column value count does not match table column count")
+            context.add_error("Cannot insert, column value count does not match table column count")
         else:
             new_line = ''
             err = False
@@ -2514,7 +2507,6 @@ def method_select(context, query_object, parser):
             distinct=None
         context.info(query_object)
         temp_data = []
-        hash_dict={}
 
         has_functions = False
         has_columns = False
@@ -2665,6 +2657,7 @@ def sort_cmp(context, x, y):
         else:
             return 1 * direction
     return 0
+    
 def limit(context, data_stream, index, length):
     if None == index:
         index = 0
@@ -2683,7 +2676,7 @@ def compare_data(context,data1, data2):
         return None
     if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
         if len(data1)!=len(data2):
-            return None;
+            return None
         for index in range(0,len(data1)):
             if data1[index]!=data2[index]:
                 return None
@@ -2692,7 +2685,6 @@ def compare_data(context,data1, data2):
         if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
             return None
 
-        dicts_are_equal = True
         for key in data1.keys():
             if data1[key] != data2[key]:
                 return None
@@ -2745,7 +2737,7 @@ def method_show_tables(context,database):
 
 
 
-def update_single(context, query_object, temp_file, temp_table, requires_new_line, processed_line):
+def update_single(context,query_object, temp_file, requires_new_line, processed_line):
     err = False
     new_line = ''
     err = False
@@ -2753,7 +2745,7 @@ def update_single(context, query_object, temp_file, temp_table, requires_new_lin
     for c2 in range(0, len(query_object['meta']['set'])):
         column_name = query_object['meta']['set'][c2]['column']
         if None == query_object['table'].get_column_by_name(column_name):
-            temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
+            context.add_error("column in update statement does not exist in table: {}".format(column_name))
             err = True
 
     if False == err:
@@ -2784,32 +2776,28 @@ def method_update(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
 
-    temp_table = context.database.temp_table()
-    temp_table.add_column('updated')
-
+ 
     temp_file_name = "UP_" + next(tempfile._get_candidate_names())
     line_number = 1
     updated = 0
     with open(query_object['table'].data.path, 'r') as content_file:
         with open(temp_file_name, 'w') as temp_file:
             for line in content_file:
-                processed_line = context.process_line(query_object, line, line_number)
+                processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
-                    temp_table.add_error(processed_line['error'])
+                    context.add_error(processed_line['error'])
                 line_number += 1
                 if True == processed_line['match']:
-                    results = context.update_single(query_object, temp_file, temp_table, False, processed_line)
+                    results = update_single(context,query_object, temp_file,  False, processed_line)
                     if True == results:
                         updated += 1
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
-    data = {'data': [updated], 'type': context.data_type.DATA, 'error': None}
+ 
+    swap_files(query_object['table'].data.path, temp_file_name)
 
-    temp_table.append_data(data)
-    context.swap_files(query_object['table'].data.path, temp_file_name)
-
-    return temp_table
+    return updated
 
 
         
@@ -2823,7 +2811,6 @@ def method_update(context, query_object):
 
 def method_create_table(context, query_object):
     context.info("Create Table")
-    temp_table = context.database.temp_table()
 
     columns = []
     if 'columns' not in  query_object['meta'] :
@@ -2861,10 +2848,8 @@ def method_create_table(context, query_object):
     if True == results:
         created += 1
 
-    temp_table.add_column('create table')
-    data = {'data': [created], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+    
+    return created
 
         
         
@@ -2876,6 +2861,8 @@ def method_create_table(context, query_object):
 
 
 def method_describe_table(context, query_object):
+    """Populates metadata related to a table
+    returns: table"""
     context.info("Describe Table")
     temp_table = context.database.temp_table()
     table_name=query_object['meta']['describe']['table']
@@ -2917,10 +2904,7 @@ def method_drop_table(context, query_object):
     if True == results:
         dropped += 1
 
-    temp_table.add_column('dropped')
-    data = {'data': [dropped], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+    return dropped
 
         
         
@@ -2933,7 +2917,6 @@ def method_drop_table(context, query_object):
 
 def method_update_table(context, query_object):
     context.info("Update Table")
-    temp_table = context.database.temp_table()
 
     columns = None  
     if 'columns'  in  query_object['meta'] :
@@ -2975,10 +2958,8 @@ def method_update_table(context, query_object):
     target_table.save()
     updated=1
 
-    temp_table.add_column('update table')
-    data = {'data': [updated], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+   
+    return updated
 
 
         
@@ -3099,7 +3080,7 @@ class output_factory:
         """ouput results data in the yaml format"""
         results=temp_table.get_results()
         factory=factory_yaml()
-        dump=factory.dumps(results)
+        dump=factory.dump(results)
         if not output_file:
             print dump
         else:
