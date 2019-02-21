@@ -2714,7 +2714,7 @@ def method_show_columns(context,database, query_object):
     temp_table = database.temp_table(columns=['table', 'column'])
 
     for c in table.columns:
-        columns = {'data': [table.data.name, c.data.name], 'type': context.DATA, 'error': None}
+        columns = {'data': [table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
         temp_table.append_data(columns)
     return temp_table
 
@@ -2731,7 +2731,7 @@ def method_show_tables(context,database):
     temp_table = database.temp_table(columns=['database', 'table'])
     for t in database.tables:
         columns = [t.data.database, t .data.name]
-        temp_table.append_data({'data': columns, 'type': context.DATA, 'error': None})
+        temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
     return temp_table
 
         
