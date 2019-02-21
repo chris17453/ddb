@@ -39,9 +39,7 @@ def method_update_table(context, query_object):
                         errors=found_errors,
                         data_on=found_data_on)
     #sace the update to the table
-    target_table.save()
-    updated=1
-
+    results=target_table.save()
    
-    return updated
+    return results
 
