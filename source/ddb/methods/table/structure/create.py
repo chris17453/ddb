@@ -8,7 +8,7 @@ def method_create_table(context, query_object):
     for c in query_object['meta']['columns']:
         columns.append(c['column'])
     context.info("Columns to create", columns)
-    created = 0
+
     found_delimiter=None
     found_comments=None
     found_whitespace=None
@@ -34,8 +34,4 @@ def method_create_table(context, query_object):
                                             whitespace=found_whitespace,
                                             data_on=found_data_on
                                             )
-    if True == results:
-        created += 1
-
-    
-    return created
+    return results
