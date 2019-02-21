@@ -2,7 +2,7 @@
 raw_version_file='./source/conf/version'
 python_version_file='./source/ddb/version.py'
 
-v=$(cat ./source/conf/$raw_version_file)
+v=$(cat $raw_version_file)
 
 echo "VERION="$v
 exit
