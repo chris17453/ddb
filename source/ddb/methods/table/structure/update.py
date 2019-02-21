@@ -1,6 +1,5 @@
 def method_update_table(context, query_object):
     context.info("Update Table")
-    temp_table = context.database.temp_table()
 
     columns = None  
     if 'columns'  in  query_object['meta'] :
@@ -43,8 +42,6 @@ def method_update_table(context, query_object):
     target_table.save()
     updated=1
 
-    temp_table.add_column('update table')
-    data = {'data': [updated], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+   
+    return updated
 

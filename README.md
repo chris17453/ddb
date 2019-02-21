@@ -41,6 +41,7 @@
 
 
 ## How do I install it?
+The github repo is where I work. Stable releases should be downloaded from pypi.
 ```bash
 pip install ddb --user
 ```

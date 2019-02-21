@@ -1,4 +1,6 @@
 def method_describe_table(context, query_object):
+    """Populates metadata related to a table
+    returns: table"""
     context.info("Describe Table")
     temp_table = context.database.temp_table()
     table_name=query_object['meta']['describe']['table']

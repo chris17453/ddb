@@ -1,6 +1,7 @@
+import tempfile  # from table import table
 from ..core import *
 
-def update_single(context, query_object, temp_file, temp_table, requires_new_line, processed_line):
+def update_single(context,query_object, temp_file, requires_new_line, processed_line):
     err = False
     ###
     # insert new data at end of file
@@ -12,7 +13,7 @@ def update_single(context, query_object, temp_file, temp_table, requires_new_lin
     for c2 in range(0, len(query_object['meta']['set'])):
         column_name = query_object['meta']['set'][c2]['column']
         if None == query_object['table'].get_column_by_name(column_name):
-            temp_table.add_error("column in update statement does not exist in table: {}".format(column_name))
+            context.add_error("column in update statement does not exist in table: {}".format(column_name))
             #print "no column"
             err = True
 
@@ -47,9 +48,7 @@ def method_update(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
 
-    temp_table = context.database.temp_table()
-    temp_table.add_column('updated')
-
+ 
     temp_file_name = "UP_" + next(tempfile._get_candidate_names())
     line_number = 1
     updated = 0
@@ -57,22 +56,20 @@ def method_update(context, query_object):
     with open(query_object['table'].data.path, 'r') as content_file:
         with open(temp_file_name, 'w') as temp_file:
             for line in content_file:
-                processed_line = context.process_line(query_object, line, line_number)
+                processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
-                    temp_table.add_error(processed_line['error'])
+                    context.add_error(processed_line['error'])
                 line_number += 1
                 # skip matches
                 if True == processed_line['match']:
-                    results = context.update_single(query_object, temp_file, temp_table, False, processed_line)
+                    results = update_single(context,query_object, temp_file,  False, processed_line)
                     if True == results:
                         updated += 1
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
-    data = {'data': [updated], 'type': context.data_type.DATA, 'error': None}
+ 
+    swap_files(query_object['table'].data.path, temp_file_name)
 
-    temp_table.append_data(data)
-    context.swap_files(query_object['table'].data.path, temp_file_name)
-
-    return temp_table
+    return updated
 

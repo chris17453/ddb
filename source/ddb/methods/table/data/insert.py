@@ -1,3 +1,4 @@
+import tempfile  # from table import table
 from ..core import *
 
 def method_insert(context, query_object):
@@ -6,21 +7,18 @@ def method_insert(context, query_object):
     if None == query_object['table']:
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
-    temp_table = context.database.temp_table()
-    temp_table.add_column('inserted')
-
-    temp_file_name = "INS_" + next(tempfile._get_candidate_names())
     line_number = 1
     inserted = 0
     # process file
     requires_new_line = False
-    
+    temp_file_name = "INS_" + next(tempfile._get_candidate_names())
+ 
     with open(query_object['table'].data.path, 'r') as content_file:
         with open(temp_file_name, 'w') as temp_file:
             for line in content_file:
-                processed_line = context.process_line(query_object, line, line_number)
+                processed_line = process_line(query_object, line, line_number)
                 if None != processed_line['error']:
-                    temp_table.add_error(processed_line['error'])
+                    context.add_error(processed_line['error'])
                 line_number += 1
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
@@ -30,25 +28,23 @@ def method_insert(context, query_object):
                 #else:
                 #    requires_new_line = True
 
-            results = context.create_single(query_object, temp_file, temp_table, requires_new_line)
+            results = create_single(context,query_object, temp_file, requires_new_line)
             if True == results:
                 inserted += 1
 
-    data = {'data': [inserted], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    context.swap_files(query_object['table'].data.path, temp_file_name)
+    swap_files(query_object['table'].data.path, temp_file_name)
 
-    return temp_table
+    return inserted
 
-def create_single(context, query_object, temp_file, temp_table, requires_new_line):
+def create_single(context, query_object, temp_file, requires_new_line):
     err = False
     ###
     # insert new data at end of file
     if len(query_object['meta']['columns']) != query_object['table'].column_count():
-        temp_table.add_error("Cannot insert, column count does not match table column count")
+        context.add_error("Cannot insert, column count does not match table column count")
     else:
         if len(query_object['meta']['values']) != query_object['table'].column_count():
-            temp_table.add_error("Cannot insert, column value count does not match table column count")
+            context.add_error("Cannot insert, column value count does not match table column count")
         else:
             new_line = ''
             err = False
