@@ -1,5 +1,4 @@
 import os
-import tempfile  # from table import table
 from .lexer.lexer import lexer
 from .structure.table import table
 from .structure.database import database
@@ -10,6 +9,8 @@ from .version import __version__
 
 # database level data methods
 from .methods.database.use import method_use
+from .methods.database.set import method_set
+from .methods.database.show_errors import method_show_errors
 
 # table level structure methods
 from .methods.table.structure.create import method_create_table
@@ -105,7 +106,7 @@ class engine:
                 self.results = method_show_columns(self,self.database, query_object)
             
             if query_object['mode']=="show errors":
-                self.results=show_errors(self,self.database,self.table)
+                self.results=method_show_errors(self,self.database,self.table)
             
             if query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)

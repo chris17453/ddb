@@ -10,7 +10,6 @@ def method_select(context, query_object, parser):
             distinct=None
         context.info(query_object)
         temp_data = []
-        hash_dict={}
         # if has columns, then it needs a table
 
         has_functions = False
@@ -196,6 +195,7 @@ def sort_cmp(context, x, y):
         else:
             return 1 * direction
     return 0
+    
 def limit(context, data_stream, index, length):
     if None == index:
         index = 0
@@ -216,7 +216,7 @@ def compare_data(context,data1, data2):
         return None
     if (not isinstance(data1, dict)) or (not isinstance(data2, dict)):
         if len(data1)!=len(data2):
-            return None;
+            return None
         for index in range(0,len(data1)):
             if data1[index]!=data2[index]:
                 return None
@@ -225,7 +225,6 @@ def compare_data(context,data1, data2):
         if not ( len(shared_keys) == len(data1.keys()) and len(shared_keys) == len(data2.keys())):
             return None
 
-        dicts_are_equal = True
         for key in data1.keys():
             if data1[key] != data2[key]:
                 return None

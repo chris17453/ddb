@@ -8,7 +8,4 @@ def method_drop_table(context, query_object):
     if True == results:
         dropped += 1
 
-    temp_table.add_column('dropped')
-    data = {'data': [dropped], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+    return dropped

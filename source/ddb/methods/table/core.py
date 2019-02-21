@@ -1,3 +1,5 @@
+import os
+
 def process_line(context, query_object, line, line_number=0):
         err = None
         column_len = query_object['table'].column_count()
@@ -64,7 +66,7 @@ def process_line(context, query_object, line, line_number=0):
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
   
-def swap_files(context, target, temp):
+def swap_files(target, temp):
     os.remove(target)
     if os.path.exists(target):
         raise Exception("Deleting target file {} failed".format(target))

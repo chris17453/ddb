@@ -1,6 +1,5 @@
 def method_create_table(context, query_object):
     context.info("Create Table")
-    temp_table = context.database.temp_table()
 
     columns = []
     if 'columns' not in  query_object['meta'] :
@@ -38,7 +37,5 @@ def method_create_table(context, query_object):
     if True == results:
         created += 1
 
-    temp_table.add_column('create table')
-    data = {'data': [created], 'type': context.data_type.DATA, 'error': None}
-    temp_table.append_data(data)
-    return temp_table
+    
+    return created
