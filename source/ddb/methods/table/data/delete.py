@@ -2,17 +2,16 @@ import tempfile  # from table import table
 from ..core import process_line, swap_files, query_results
 
 def method_delete(context, query_object):
-    table_name = query_object['meta']['from']['table']
-    query_object['table'] = context.database.get(table_name)
-
-    if None == query_object['table']:
-        raise Exception("Table '{0}' does not exist.".format(table_name))
-
-
-    line_number = 1
-    affected_rows = 0
-    temp_file_name = "del_" + next(tempfile._get_candidate_names())
     try:
+        table_name = query_object['meta']['from']['table']
+        query_object['table'] = context.database.get(table_name)
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
+
+
+        line_number = 1
+        affected_rows = 0
+        temp_file_name = "del_" + next(tempfile._get_candidate_names())
         # process file
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
