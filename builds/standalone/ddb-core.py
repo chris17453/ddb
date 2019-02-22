@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.813'
+__version__='1.0.814'
 
         
         
@@ -2262,7 +2262,12 @@ class engine:
                                 new_dict[columns[i]] = line['data'][i]
                             new_array.append(new_dict)
                         self.results.data=new_array
-                        
+            else:
+                if self.mode == 'array':
+                    self.results.data=[]
+                if self.mode == 'object':
+                    self.results.data={}
+
             return self.results
 
         return None
