@@ -1,5 +1,5 @@
 from ....functions.functions import *
-from ..core import *
+from ..core import process_line, swap_files, query_results
 from ....version import __version__
 
 def method_select(context, query_object, parser):
@@ -141,9 +141,9 @@ def method_select(context, query_object, parser):
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = limit(context,temp_data, limit_start, limit_length)
-        return {'rows_affected':0,'success':True, 'data':temp_table}
+        return query_results(affected_rows=0,success=True,data=temp_table)
     except Exception as ex:
-        return{'rows_affected':0,'success':False }   
+        return query_results(success=False,error=ex)   
 
 
 def process_select_row(context,query_object,processed_line):

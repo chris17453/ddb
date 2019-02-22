@@ -1,5 +1,5 @@
 import tempfile  # from table import table
-from ..core import *
+from ..core import process_line, swap_files, query_results
 
 def method_insert(context, query_object):
     table_name = query_object['meta']['into']['table']
@@ -8,7 +8,7 @@ def method_insert(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
     line_number = 1
-    rows_affected = 0
+    affected_rows = 0
     # process file
     requires_new_line = False
     temp_file_name = "INS_" + next(tempfile._get_candidate_names())
@@ -31,11 +31,11 @@ def method_insert(context, query_object):
 
                 results = create_single(context,query_object, temp_file, requires_new_line)
                 if True == results:
-                    rows_affected += 1
+                    affected_rows += 1
         swap_files(query_object['table'].data.path, temp_file_name)
-        return {'rows_affected':rows_affected,'success':True}
+        return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        return {'rows_affected':0,'success':False, 'error': ex}
+        return query_results(success=False, error=ex)
     
         
 

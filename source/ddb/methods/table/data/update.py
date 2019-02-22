@@ -1,5 +1,5 @@
 import tempfile  # from table import table
-from ..core import *
+from ..core import process_line, swap_files, query_results
 
 def update_single(context,query_object, temp_file, requires_new_line, processed_line):
     err = False
@@ -52,7 +52,7 @@ def method_update(context, query_object):
     
         temp_file_name = "UP_" + next(tempfile._get_candidate_names())
         line_number = 1
-        rows_affected = 0
+        affected_rows = 0
         # process file
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
@@ -65,15 +65,15 @@ def method_update(context, query_object):
                     if True == processed_line['match']:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
                         if True == results:
-                            rows_affected += 1
+                            affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
     
         swap_files(query_object['table'].data.path, temp_file_name)
-        return {'rows_affected':rows_affected,'success':True}
+        return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        return {'rows_affected':0,'success':False}
+        return query_results(success=False,error=ex)
 
 
 
