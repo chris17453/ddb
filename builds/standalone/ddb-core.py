@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.856'
+__version__='1.0.857'
 
         
         
@@ -2520,6 +2520,7 @@ def create_single(context, query_object, temp_file, requires_new_line):
 context_sort=[]
 
 def method_select(context, query_object, parser):
+    global context_sort
     try:
         if 'distinct' in query_object['meta']:
             distinct=True
