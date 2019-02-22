@@ -89,7 +89,6 @@ class test_engine(unittest.TestCase):
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
            
             self.assertEqual(True, results.success)
-            print ("54")
             self.assertEqual(0, len(results.data))
 
             # WHERE/LIMIT
