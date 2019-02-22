@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.852'
+__version__='1.0.853'
 
         
         
@@ -2241,33 +2241,11 @@ class engine:
             if query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
 
-        if self.results:
-            if self.results.data:
-                if self.results.data.results:
                     
-                    if self.mode == 'object':
-                        columns = self.results.get_columns()
-                        len_col = len(columns)
-                        for line in self.results.data.results:
-                            new_dict = {}
-                            for i in range(0, len_col):
-                                if len(line['data']) < i:
-                                    break
-                                new_dict[columns[i]] = line['data'][i]
-                            line['data']=new_dict
-
 
                 print ("DATA")
-                            
-            else:
-                if self.mode == 'array':
-                    self.results.data=[]
-                if self.mode == 'object':
-                    self.results.data={}
-
-            return self.results
-
-        return None
+         
+        return self.results
 
     def change_database(self, database_name):
         query = "use {}".format(database_name)
