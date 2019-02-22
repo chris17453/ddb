@@ -80,5 +80,8 @@ class query_results:
         self.affected_rows=affected_rows
         self.data=data
         self.error=None
+        self.data_length=0
+        if data:
+            self.data_length=len(data)
         #pprint(data)
         #print("Success: {0} Error:{1}".format(success,error))
