@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.825'
+__version__='1.0.826'
 
         
         
@@ -2622,7 +2622,7 @@ def method_select(context, query_object, parser):
                     direction = -1
                 context.sort.append([ordinal, direction])
             context.info(context.sort)
-            temp_data = sorted(context,temp_data, context.sort_cmp)
+            temp_data = sorted(context,temp_data, sort_cmp)
         limit_start = 0
         limit_length = None
         
