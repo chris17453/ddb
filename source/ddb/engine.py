@@ -143,14 +143,15 @@ class engine:
             # if the result set it not empty
             if None != self.results.data:
                 if None != self.results.data.results:
-                    if self.mode == 'array':
-                        new_array = []
-                        for line in self.results.data.results:
-                            new_array.append(line['data'])
-                        self.results.data=new_array
+                    self.columns= self.results.data.get_columns_display()
+            
+                     # if self.mode == 'array':
+                     #   new_array = []
+                     #   for line in self.results.data.results:
+                     #       new_array.append(line['data'])
+                     #   self.results.data=
 
                     if self.mode == 'object':
-                        new_array = []
                         columns = self.results.get_columns()
                         len_col = len(columns)
                         for line in self.results.data.results:
@@ -159,8 +160,8 @@ class engine:
                                 if len(line['data']) < i:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
-                            new_array.append(new_dict)
-                        self.results.data=new_array
+                            line['data']=new_dict
+                            
             else:
                 if self.mode == 'array':
                     self.results.data=[]

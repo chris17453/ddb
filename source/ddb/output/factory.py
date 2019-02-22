@@ -9,14 +9,14 @@ except Exception as ex:
 
 class output_factory:
 
-    def __init__(self,results,output='term',output_file=None):
+    def __init__(self,query_results,output='term',output_file=None):
             """display results in different formats
             if output_file==None then everything is directed to stdio
 
             output=(bash|term|yaml|json|xml)
             output_file= None or file to write to
             """        
-            if None==results:
+            if None==query_results:
                 return
             
             mode=output.lower()
@@ -42,18 +42,18 @@ class output_factory:
                 self.format_term(results,output_file)
 
 
-    def format_term(self,results,output_file):
+    def format_term(self,query_results,output_file):
         """ouput results data in the term format"""
         try:
             config = flextable.table_config()
-            config.columns = results.get_columns_display()
-            flextable.table(data=results.results, args=config)
+            config.columns = query_results.columns
+            flextable.table(data=query_results.data, args=config)
         except:
             print(results.results)
 
-    def format_bash(self,temp_table,output_file):
+    def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
-        data=temp_table.get_results()
+        data=query_results.data
         
         name="ddb"
         print ("# bash variable assignment for ddb output")
@@ -63,7 +63,7 @@ class output_factory:
         print ("")
 
         column_index=0
-        for column in data['columns']:
+        for column in query_results.columns:
             print("{0}_columns[{1}]='{2}'".format(name,column_index,column))
             column_index+=1
 
