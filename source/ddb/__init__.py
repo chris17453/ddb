@@ -7,7 +7,7 @@ from .engine import engine as ddb_engine
 # main import
 
 
-def engine(config_file=None, mode='array'):
+def engine(config_file=None, mode='full'):
 
     if config_file is None:
         home = os.path.expanduser("~")
