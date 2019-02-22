@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.854'
+__version__='1.0.855'
 
         
         
@@ -2588,6 +2588,7 @@ def method_select(context, query_object, parser):
             temp_data.append(row)
 
         if 'order by' in query_object['meta']:
+            print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
@@ -2599,6 +2600,8 @@ def method_select(context, query_object, parser):
                 context_sort.append([ordinal, direction])
             context.info(context_sort)
             temp_data = sorted(temp_data, sort_cmp)
+        else:
+            print ("NO ORDER BY")
         limit_start = 0
         limit_length = None
         
@@ -2664,6 +2667,7 @@ def process_select_row(context,query_object,processed_line):
 
 
 def sort_cmp( x, y):
+    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]

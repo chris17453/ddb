@@ -187,7 +187,7 @@ def process_select_row(context,query_object,processed_line):
 
 
 def sort_cmp( x, y):
-    print("Sort", context_sort)
+    #print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
