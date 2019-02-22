@@ -7,6 +7,7 @@ from ....version import __version__
 context_sort=[]
 
 def method_select(context, query_object, parser):
+    global context_sort
     try:
         # print ("in select")
         if 'distinct' in query_object['meta']:
