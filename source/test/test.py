@@ -17,7 +17,7 @@ class test_engine(unittest.TestCase):
            #print "Config file: {}".format(config_file)
            os.remove(config_file)
         if os.path.exists(config_file):
-            print("Still here")
+            #print("Still here")
 
     def test_use(self):
         """Test changing database context"""
@@ -79,7 +79,7 @@ class test_engine(unittest.TestCase):
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
-            pprint (results)
+            pprint (results.data)
             self.assertEqual(10, len(results.data))
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
             self.assertEqual(True, results.success)
