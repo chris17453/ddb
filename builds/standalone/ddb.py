@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.837'
+__version__='1.0.838'
 
         
         
@@ -3048,24 +3048,24 @@ class output_factory:
             
             mode=output.lower()
             if 'bash'==mode:
-                self.format_bash(results,output_file)
+                self.format_bash(query_results,output_file)
             
             elif 'term'==mode:
-                self.format_term(results,output_file)
+                self.format_term(query_results,output_file)
             
             elif 'raw'==mode:
-                self.format_raw(results,output_file)
+                self.format_raw(query_results,output_file)
             
             elif 'yaml'==mode:
-                self.format_yaml(results,output_file)
+                self.format_yaml(query_results,output_file)
             
             elif 'json'==mode:
-                self.format_json(results,output_file)
+                self.format_json(query_results,output_file)
             
             elif 'xml'==mode:
-                self.format_xml(results,output_file)
+                self.format_xml(query_results,output_file)
             else: 
-                self.format_term(results,output_file)
+                self.format_term(query_results,output_file)
 
 
     def format_term(self,query_results,output_file):
@@ -3075,7 +3075,7 @@ class output_factory:
             config.columns = query_results.columns
             flextable.table(data=query_results.data, args=config)
         except:
-            print(results.results)
+            print(query_results.data)
 
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""

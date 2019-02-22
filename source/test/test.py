@@ -81,30 +81,30 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             #pprint (results.data)
            
-            self.assertEqual(10, len(results.data))
+            self.assertEqual(10, results.data_length)
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
            
             self.assertEqual(True, results.success)
-            self.assertEqual(1, len(results.data))
+            self.assertEqual(1, results.data_length)
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
            
             self.assertEqual(True, results.success)
-            self.assertEqual(0, len(results.data))
+            self.assertEqual(0, results.data_length)
 
             # WHERE/LIMIT
             results = engine.query('select * from {} where id="1" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
-            self.assertEqual(1, len(results.data))
+            self.assertEqual(1, results.data_length)
             
             # WHERE AND/LIMIT
             results = engine.query('select * from {} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
-            self.assertEqual(1, len(results.data))
+            self.assertEqual(1, results.data_length)
 
             # WHERE / AND / OR/LIMIT
             results = engine.query('select * from {} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
-            self.assertEqual(2, len(results.data))
+            self.assertEqual(2, results.data_length)
         except Exception as ex:
             self.fail(ex)
 
