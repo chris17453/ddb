@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.801'
+__version__='1.0.802'
 
         
         
@@ -2241,9 +2241,6 @@ class engine:
             if query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
 
-        if not isinstance(self.results,table):
-            return self.results
-
         if None != self.results:
             if self.mode == 'full':
                 return self.results
@@ -2251,22 +2248,24 @@ class engine:
             if None != self.results.results:
                 if self.mode == 'array':
                     new_array = []
-                    for line in self.results.results:
+                    for line in self.results.data.results:
                         new_array.append(line['data'])
-                    return new_array
+                    self.results.data=new_array
 
                 if self.mode == 'object':
                     new_array = []
                     columns = self.results.get_columns()
                     len_col = len(columns)
-                    for line in self.results.results:
+                    for line in self.results.data.results:
                         new_dict = {}
                         for i in range(0, len_col):
                             if len(line['data']) < i:
                                 break
                             new_dict[columns[i]] = line['data'][i]
                         new_array.append(new_dict)
-                    return new_array
+                    self.results.data=new_array
+                    
+            return self.results
 
         return None
 
