@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.844'
+__version__='1.0.845'
 
         
         
@@ -2255,6 +2255,7 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+
                     self.reesults.data=self.results.data.results
 
                             
