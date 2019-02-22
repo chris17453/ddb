@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.809'
+__version__='1.0.810'
 
         
         
@@ -2242,7 +2242,7 @@ class engine:
                 self.results = method_describe_table(self,query_object)
 
         if None != self.results:
-            if None != self.results.results:
+            if None != self.results.data.results:
                 if self.mode == 'array':
                     new_array = []
                     for line in self.results.data.results:

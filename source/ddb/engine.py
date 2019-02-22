@@ -141,26 +141,27 @@ class engine:
         # only return last command
         if None != self.results:
             # if the result set it not empty
-            if None != self.results.data.results:
-                if self.mode == 'array':
-                    new_array = []
-                    for line in self.results.data.results:
-                        new_array.append(line['data'])
-                    self.results.data=new_array
+            if if None != self.results.data:
+                if None != self.results.data.results:
+                    if self.mode == 'array':
+                        new_array = []
+                        for line in self.results.data.results:
+                            new_array.append(line['data'])
+                        self.results.data=new_array
 
-                if self.mode == 'object':
-                    new_array = []
-                    columns = self.results.get_columns()
-                    len_col = len(columns)
-                    for line in self.results.data.results:
-                        new_dict = {}
-                        for i in range(0, len_col):
-                            if len(line['data']) < i:
-                                break
-                            new_dict[columns[i]] = line['data'][i]
-                        new_array.append(new_dict)
-                    self.results.data=new_array
-                    
+                    if self.mode == 'object':
+                        new_array = []
+                        columns = self.results.get_columns()
+                        len_col = len(columns)
+                        for line in self.results.data.results:
+                            new_dict = {}
+                            for i in range(0, len_col):
+                                if len(line['data']) < i:
+                                    break
+                                new_dict[columns[i]] = line['data'][i]
+                            new_array.append(new_dict)
+                        self.results.data=new_array
+                        
             return self.results
 
         return None
