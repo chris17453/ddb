@@ -2,6 +2,10 @@ from ....functions.functions import *
 from ..core import process_line, swap_files, query_results
 from ....version import __version__
 
+
+#used for orderby 
+context_sort=[]
+
 def method_select(context, query_object, parser):
     try:
         # print ("in select")
@@ -80,9 +84,8 @@ def method_select(context, query_object, parser):
             row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
-        print "Hi"
         if 'order by' in query_object['meta']:
-            context.sort = []
+            context_sort = []
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
                 direction = 1
@@ -90,8 +93,8 @@ def method_select(context, query_object, parser):
                     direction = 1
                 elif 'desc' in c:
                     direction = -1
-                context.sort.append([ordinal, direction])
-            context.info(context.sort)
+                context_sort.append([ordinal, direction])
+            context.info(context_sort)
             temp_data = sorted(temp_data, sort_cmp)
             #print temp_data
         limit_start = 0
@@ -180,8 +183,8 @@ def process_select_row(context,query_object,processed_line):
     return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
 
 
-def sort_cmp(context, x, y):
-    for c in context.sort:
+def sort_cmp( x, y):
+    for c in context_sort:
         ordinal = c[0]
         direction = c[1]
 
