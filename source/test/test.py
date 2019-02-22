@@ -155,10 +155,11 @@ class test_engine(unittest.TestCase):
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             print( results.success)
             self.assertEqual(False, results.success)
-
+            print "hi:"
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
-
+            print "hi:"     
+            
             # delete just inserted
             results = engine.query("delete from {} where id='1003'".format(self.table_name))
             self.assertEqual(True, results.success)
