@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.846'
+__version__='1.0.847'
 
         
         
@@ -2260,6 +2260,7 @@ class engine:
 
                             
             else:
+                print ("NO DATA")
                 if self.mode == 'array':
                     self.results.data=[]
                 if self.mode == 'object':
