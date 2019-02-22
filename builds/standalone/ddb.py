@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.848'
+__version__='1.0.849'
 
         
         
@@ -2248,9 +2248,9 @@ class engine:
             if query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
 
-        if None != self.results:
-            if None != self.results.data:
-                if None != self.results.data.results:
+        if self.results:
+            if self.results.data:
+                if self.results.data.results:
                     
                     if self.mode == 'object':
                         columns = self.results.get_columns()
@@ -2265,9 +2265,9 @@ class engine:
 
                     self.results.data=self.results.data.results
 
+                print ("DATA")
                             
             else:
-                print ("NO DATA")
                 if self.mode == 'array':
                     self.results.data=[]
                 if self.mode == 'object':
