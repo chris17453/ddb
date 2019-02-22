@@ -139,40 +139,32 @@ class engine:
                 self.results = method_describe_table(self,query_object)
 
         # only return last command
-        if self.results:
-            # if the result set it not empty
-            if self.results.data:
-                if self.results.data.results:
+        #if self.results:
+        #    # if the result set it not empty
+        #    if self.results.data:
+        #        if self.results.data.results:
                      # if self.mode == 'array':
                      #   new_array = []
                      #   for line in self.results.data.results:
                      #       new_array.append(line['data'])
                      #   self.results.data=
                     
-                    if self.mode == 'object':
-                        columns = self.results.get_columns()
-                        len_col = len(columns)
-                        for line in self.results.data.results:
-                            new_dict = {}
-                            for i in range(0, len_col):
-                                if len(line['data']) < i:
-                                    break
-                                new_dict[columns[i]] = line['data'][i]
-                            line['data']=new_dict
-
+                   # if self.mode == 'object':
+                   #     columns = self.results.get_columns()
+                   #     len_col = len(columns)
+                   #     for line in self.results.data.results:
+                   #         new_dict = {}
+                   #         for i in range(0, len_col):
+                   #             if len(line['data']) < i:
+                   #                 break
+                   #             new_dict[columns[i]] = line['data'][i]
+                   #         line['data']=new_dict
+#
                     #self.results.data=self.results.data.results
 
                 print ("DATA")
-                            
-            else:
-                if self.mode == 'array':
-                    self.results.data=[]
-                if self.mode == 'object':
-                    self.results.data={}
-
-            return self.results
-
-        return None
+         
+        return self.results
 
     def change_database(self, database_name):
         query = "use {}".format(database_name)
