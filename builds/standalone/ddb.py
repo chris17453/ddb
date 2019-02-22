@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.808'
+__version__='1.0.809'
 
         
         
@@ -2249,9 +2249,6 @@ class engine:
                 self.results = method_describe_table(self,query_object)
 
         if None != self.results:
-            if self.mode == 'full':
-                return self.results
-
             if None != self.results.results:
                 if self.mode == 'array':
                     new_array = []
@@ -2411,9 +2408,8 @@ class query_results:
         self.success=success
         self.affected_rows=affected_rows
         self.data=data
-        print(data)
         self.error=None
-        print("Success: {0} Error:{1}".format(success,error))
+
         
         
 # ############################################################################
