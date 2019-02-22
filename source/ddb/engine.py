@@ -160,7 +160,7 @@ class engine:
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
 
-                    self.reesults.data=self.results.data.results
+                    self.results.data=self.results.data.results
 
                             
             else:
