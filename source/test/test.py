@@ -28,7 +28,8 @@ class test_engine(unittest.TestCase):
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
             results = engine.query("select database()")
-            self.assertEqual(results[0][0], test_db_name)
+            self.assertEqual(True, results.success)
+            self.assertEqual(results.data[0][0], test_db_name)
 
             # default context check
             engine = ddb.engine(config_file=False)
