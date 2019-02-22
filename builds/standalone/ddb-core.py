@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.841'
+__version__='1.0.842'
 
         
         
@@ -2244,8 +2244,6 @@ class engine:
         if None != self.results:
             if None != self.results.data:
                 if None != self.results.data.results:
-                    self.columns= self.results.data.get_columns_display()
-            
 
                     if self.mode == 'object':
                         columns = self.results.get_columns()
@@ -2364,8 +2362,11 @@ class query_results:
         self.data=data
         self.error=None
         self.data_length=0
+        self.columns=[]
         if data:
             self.data_length=len(data)
+            self.columns= data.get_columns_display()
+
 
         
         
