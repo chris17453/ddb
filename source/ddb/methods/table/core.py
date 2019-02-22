@@ -78,13 +78,14 @@ class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
         self.success=success
         self.affected_rows=affected_rows
-        self.data=data
+        self.data=[]
         self.error=None
         self.data_length=0
         self.columns=[]
-        if data:
-            self.data_length=len(data)
-            self.columns= data.get_columns_display()
+        if data and data.results:
+            self.data=data.results
+            self.data_length=len(data.results)
+            self.columns = data.get_columns_display()
 
         #pprint(data)
         #print("Success: {0} Error:{1}".format(success,error))
