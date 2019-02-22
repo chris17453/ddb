@@ -140,9 +140,6 @@ class engine:
 
         # only return last command
         if None != self.results:
-            if self.mode == 'full':
-                return self.results
-
             # if the result set it not empty
             if None != self.results.results:
                 if self.mode == 'array':

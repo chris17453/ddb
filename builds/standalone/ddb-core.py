@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.807'
+__version__='1.0.808'
 
         
         
@@ -2364,6 +2364,7 @@ class query_results:
         self.success=success
         self.affected_rows=affected_rows
         self.data=data
+        print(data)
         self.error=None
         print("Success: {0} Error:{1}".format(success,error))
         
