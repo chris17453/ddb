@@ -79,6 +79,7 @@ class test_engine(unittest.TestCase):
             # test results length
             print ("@Q")
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
+            pprint(results.data)
             self.assertEqual(True, results.success)
             #pprint (results.data)
             print("F")
