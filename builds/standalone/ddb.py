@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.824'
+__version__='1.0.825'
 
         
         
@@ -2339,7 +2339,6 @@ def method_use(context, query_object):
 # Module : methods-table
 # File   : ./source/ddb/methods/table/core.py
 # ############################################################################
-
 
 
 

@@ -92,7 +92,7 @@ def method_select(context, query_object, parser):
                     direction = -1
                 context.sort.append([ordinal, direction])
             context.info(context.sort)
-            temp_data = sorted(context,temp_data, context.sort_cmp)
+            temp_data = sorted(context,temp_data, sort_cmp)
             #print temp_data
         limit_start = 0
         limit_length = None
