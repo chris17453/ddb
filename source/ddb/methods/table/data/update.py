@@ -42,34 +42,38 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
         return False
 
 def method_update(context, query_object):
-    table_name = query_object['meta']['update']['table']
-    query_object['table'] = context.database.get(table_name)
-    if None == query_object['table']:
-        raise Exception("Table '{0}' does not exist.".format(table_name))
+    try:
+        table_name = query_object['meta']['update']['table']
+        query_object['table'] = context.database.get(table_name)
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
 
 
- 
-    temp_file_name = "UP_" + next(tempfile._get_candidate_names())
-    line_number = 1
-    updated = 0
-    # process file
-    with open(query_object['table'].data.path, 'r') as content_file:
-        with open(temp_file_name, 'w') as temp_file:
-            for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number)
-                if None != processed_line['error']:
-                    context.add_error(processed_line['error'])
-                line_number += 1
-                # skip matches
-                if True == processed_line['match']:
-                    results = update_single(context,query_object, temp_file,  False, processed_line)
-                    if True == results:
-                        updated += 1
-                    continue
-                temp_file.write(processed_line['raw'])
-                temp_file.write(query_object['table'].delimiters.get_new_line())
- 
-    swap_files(query_object['table'].data.path, temp_file_name)
+    
+        temp_file_name = "UP_" + next(tempfile._get_candidate_names())
+        line_number = 1
+        rows_affected = 0
+        # process file
+        with open(query_object['table'].data.path, 'r') as content_file:
+            with open(temp_file_name, 'w') as temp_file:
+                for line in content_file:
+                    processed_line = process_line(context,query_object, line, line_number)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
+                    line_number += 1
+                    # skip matches
+                    if True == processed_line['match']:
+                        results = update_single(context,query_object, temp_file,  False, processed_line)
+                        if True == results:
+                            rows_affected += 1
+                        continue
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
+    
+        swap_files(query_object['table'].data.path, temp_file_name)
+        return {'rows_affected':rows_affected,'success':True}
+    except Exception as ex:
+        return {'rows_affected':0,'success':False}
 
-    return updated
+
 

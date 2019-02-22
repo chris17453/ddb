@@ -30,7 +30,7 @@ ddb/methods/table/structure/create.py
 ddb/methods/table/structure/describe.py
 ddb/methods/table/structure/drop.py
 ddb/methods/table/structure/update.py
-ddb/output/__init__.py 
+ddb/output/__init__.py
 ddb/output/factory.py
 ddb/output/factory_json.py
 ddb/output/factory_xml.py

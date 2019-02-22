@@ -8,33 +8,36 @@ def method_insert(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
     line_number = 1
-    inserted = 0
+    rows_affected = 0
     # process file
     requires_new_line = False
     temp_file_name = "INS_" + next(tempfile._get_candidate_names())
- 
-    with open(query_object['table'].data.path, 'r') as content_file:
-        with open(temp_file_name, 'w') as temp_file:
-            for line in content_file:
-                processed_line = process_line(query_object, line, line_number)
-                if None != processed_line['error']:
-                    context.add_error(processed_line['error'])
-                line_number += 1
-                temp_file.write(processed_line['raw'])
-                temp_file.write(query_object['table'].delimiters.get_new_line())
+    
+    try:
+        with open(query_object['table'].data.path, 'r') as content_file:
+            with open(temp_file_name, 'w') as temp_file:
+                for line in content_file:
+                    processed_line = process_line(query_object, line, line_number)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
+                    line_number += 1
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(query_object['table'].delimiters.get_new_line())
 
-                #if processed_line['raw'][-1] == query_object['table'].delimiters.get_new_line():
-                requires_new_line = False
-                #else:
-                #    requires_new_line = True
+                    #if processed_line['raw'][-1] == query_object['table'].delimiters.get_new_line():
+                    requires_new_line = False
+                    #else:
+                    #    requires_new_line = True
 
-            results = create_single(context,query_object, temp_file, requires_new_line)
-            if True == results:
-                inserted += 1
-
-    swap_files(query_object['table'].data.path, temp_file_name)
-
-    return inserted
+                results = create_single(context,query_object, temp_file, requires_new_line)
+                if True == results:
+                    rows_affected += 1
+        swap_files(query_object['table'].data.path, temp_file_name)
+        return {'rows_affected':rows_affected,'success':True}
+    except Exception as ex:
+        return {'rows_affected':0,'success':False, 'error': ex}
+    
+        
 
 def create_single(context, query_object, temp_file, requires_new_line):
     err = False
@@ -60,7 +63,7 @@ def create_single(context, query_object, temp_file, requires_new_line):
                             new_line += '{}'.format(query_object['table'].delimiters.field)
                         new_line += '{}'.format(query_object['meta']['values'][c2]['value'])
                 if False == found:
-                    temp_table.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
+                    context.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
                     err = True
                     break
             if False == err:

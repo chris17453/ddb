@@ -105,8 +105,8 @@ class engine:
             if query_object['mode'] == "show columns":
                 self.results = method_show_columns(self,self.database, query_object)
             
-            if query_object['mode']=="show errors":
-                self.results=method_show_errors(self,self.database,self.table)
+            #if query_object['mode']=="show errors":
+            #    self.results=method_show_errors(self,self.database,self.table)
             
             if query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)
@@ -175,7 +175,9 @@ class engine:
         if None == results:
             return False
         return True
-
+        
+    def add_error(self,error):
+        self.info(error)
     
 
     
