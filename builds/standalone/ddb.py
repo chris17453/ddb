@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.838'
+__version__='1.0.839'
 
         
         
@@ -2410,6 +2410,9 @@ class query_results:
         self.affected_rows=affected_rows
         self.data=data
         self.error=None
+        self.data_length=0
+        if data:
+            self.data_length=len(data)
 
         
         
