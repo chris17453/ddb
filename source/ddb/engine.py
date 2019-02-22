@@ -139,10 +139,10 @@ class engine:
                 self.results = method_describe_table(self,query_object)
 
         # only return last command
-        if None != self.results:
+        if self.results:
             # if the result set it not empty
-            if None != self.results.data:
-                if None != self.results.data.results:
+            if self.results.data:
+                if self.results.data.results:
                      # if self.mode == 'array':
                      #   new_array = []
                      #   for line in self.results.data.results:
@@ -162,9 +162,9 @@ class engine:
 
                     self.results.data=self.results.data.results
 
+                print ("DATA")
                             
             else:
-                print ("NO DATA")
                 if self.mode == 'array':
                     self.results.data=[]
                 if self.mode == 'object':
