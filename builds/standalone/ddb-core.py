@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.843'
+__version__='1.0.844'
 
         
         
@@ -2244,7 +2244,7 @@ class engine:
         if None != self.results:
             if None != self.results.data:
                 if None != self.results.data.results:
-
+                    
                     if self.mode == 'object':
                         columns = self.results.get_columns()
                         len_col = len(columns)
@@ -2255,6 +2255,8 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+                    self.reesults.data=self.results.data.results
+
                             
             else:
                 if self.mode == 'array':
