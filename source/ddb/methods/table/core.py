@@ -73,3 +73,10 @@ def swap_files(target, temp):
     os.rename(temp, target)
     if os.path.exists(temp):
         raise Exception("Renaming temp file {} failed".format(temp))
+
+class query_results:
+    def __init__(self,success=False,affected_rows=0,data=None,error=None):
+        self.success=success
+        self.affected_rows=affected_rows
+        self.data=data
+        self.error=None

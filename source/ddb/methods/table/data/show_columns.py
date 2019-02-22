@@ -1,3 +1,4 @@
+from ..core import  query_results
 
 def method_show_columns(context,database, query_object):
     try:
@@ -8,7 +9,7 @@ def method_show_columns(context,database, query_object):
             columns = {'data': [table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(columns)
         
-        return {'rows_affected':0,'success':True, 'data':temp_table}
+        return query_results(success=True,data=temp_table)
     except Exception as ex:
-        return {'rows_affected':0,'success':False}
+        return query_results(success=False,error=ex)
 
