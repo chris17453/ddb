@@ -1,5 +1,5 @@
 import os
-
+from pprint import pprint
 def process_line(context, query_object, line, line_number=0):
         err = None
         column_len = query_object['table'].column_count()
