@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.778'
+__version__='1.0.779'
 
         
         
@@ -2082,34 +2082,50 @@ class match():
 
 
 
-def f_database(context,database):
-    return database.get_curent_database()
+def f_database(context):
+    if None==context:
+        raise Exception("No database instance. ")
+    return context.database.get_curent_database()
 
 def f_upper(context,arg):
+    if None==context:
+        raise Exception("No database instance. ")
     if not arg:
         return None
     return arg.upper()
 
 def f_lower(context,arg):
+    if None==context:
+        raise Exception("No database instance. ")
     if not arg:
         return None
     return arg.lower()
 
 def f_datetime(context,arg=None):
+    if None==context:
+        raise Exception("No database instance. ")
     return datetime.datetime.now()
 
 def f_time(context,arg=None):
+    if None==context:
+        raise Exception("No database instance. ")
     return datetime.datetime.now().strftime('%H:%M:%S')
 
 def f_date(context,arg=None):
+    if None==context:
+        raise Exception("No database instance. ")
     return datetime.datetime.now().strftime('%Y-%m-%d')
 
 def f_version(context,version=None):
+    if None==context:
+        raise Exception("No database instance. ")
     if None==version:
         return 'GA.BB.LE'
     return version
         
 def f_cat(context,arg1,arg2):
+    if None==context:
+        raise Exception("No database instance. ")
     if None ==arg1:
         arg1=''
     if None ==arg2:
@@ -2625,7 +2641,7 @@ def process_select_row(context,query_object,processed_line):
                 row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
         elif 'function' in c:
             if c['function'] == 'database':
-                row.append(f_database(context.database))
+                row.append(f_database(context))
             elif c['function'] == 'datetime':
                     row.append(f_datetime(context))
             elif c['function'] == 'date':
