@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.781'
+__version__='1.0.782'
 
         
         
@@ -2360,6 +2360,12 @@ def swap_files(target, temp):
     if os.path.exists(temp):
         raise Exception("Renaming temp file {} failed".format(temp))
 
+class query_results:
+    def __init__(self,success=False,affected_rows=0,data=None,error=None):
+        self.success=success
+        self.affected_rows=affected_rows
+        self.data=data
+        self.error=None
         
         
 # ############################################################################
@@ -2416,11 +2422,8 @@ def method_delete(context, query_object):
 
 
     line_number = 1
-    rows_affected = 0
-
+    affected_rows = 0
     temp_file_name = "del_" + next(tempfile._get_candidate_names())
-
-
     try:
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
@@ -2430,14 +2433,14 @@ def method_delete(context, query_object):
                         context.add_error(processed_line['error'])
                     line_number += 1
                     if True == processed_line['match']:
-                        rows_affected += 1
+                        affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
         swap_files(query_object['table'].data.path, temp_file_name)
-        return  {'rows_affected':rows_affected,'success':True}
+        return  query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        return  {'rows_affected':0,'success':False, 'error': ex}
+        return  query_results(success=False, error=ex)
 
     
         
@@ -2457,7 +2460,7 @@ def method_insert(context, query_object):
         raise Exception("Table '{0}' does not exist.".format(table_name))
 
     line_number = 1
-    rows_affected = 0
+    affected_rows = 0
     requires_new_line = False
     temp_file_name = "INS_" + next(tempfile._get_candidate_names())
     
@@ -2476,11 +2479,11 @@ def method_insert(context, query_object):
 
                 results = create_single(context,query_object, temp_file, requires_new_line)
                 if True == results:
-                    rows_affected += 1
+                    affected_rows += 1
         swap_files(query_object['table'].data.path, temp_file_name)
-        return {'rows_affected':rows_affected,'success':True}
+        return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        return {'rows_affected':0,'success':False, 'error': ex}
+        return query_results(success=False, error=ex)
     
         
 
@@ -2639,9 +2642,9 @@ def method_select(context, query_object, parser):
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = limit(context,temp_data, limit_start, limit_length)
-        return {'rows_affected':0,'success':True, 'data':temp_table}
+        return query_results(affected_rows=0,success=True,data=temp_table)
     except Exception as ex:
-        return{'rows_affected':0,'success':False }   
+        return query_results(success=False,error=ex)   
 
 
 def process_select_row(context,query_object,processed_line):
@@ -2741,9 +2744,9 @@ def method_show_columns(context,database, query_object):
             columns = {'data': [table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(columns)
         
-        return {'rows_affected':0,'success':True, 'data':temp_table}
+        return query_results(success=True,data=temp_table)
     except Exception as ex:
-        return {'rows_affected':0,'success':False}
+        return query_results(success=False,error=ex)
 
 
         
@@ -2755,15 +2758,16 @@ def method_show_columns(context,database, query_object):
 
 
 
+
 def method_show_tables(context,database):
     try:
         temp_table = database.temp_table(columns=['database', 'table'])
         for t in database.tables:
             columns = [t.data.database, t .data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
-        return {'rows_affected':0,'success':True, 'data':temp_table}
+        return query_results(success=True,data=temp_table)
     except Exception as ex:
-        return {'rows_affected':0,'success':False}
+        return query_results(success=False,error=ex)
 
         
         
@@ -2818,7 +2822,7 @@ def method_update(context, query_object):
     
         temp_file_name = "UP_" + next(tempfile._get_candidate_names())
         line_number = 1
-        rows_affected = 0
+        affected_rows = 0
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
@@ -2829,15 +2833,15 @@ def method_update(context, query_object):
                     if True == processed_line['match']:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
                         if True == results:
-                            rows_affected += 1
+                            affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
     
         swap_files(query_object['table'].data.path, temp_file_name)
-        return {'rows_affected':rows_affected,'success':True}
+        return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        return {'rows_affected':0,'success':False}
+        return query_results(success=False,error=ex)
 
 
 
