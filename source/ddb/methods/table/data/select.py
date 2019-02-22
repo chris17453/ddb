@@ -85,6 +85,7 @@ def method_select(context, query_object, parser):
             temp_data.append(row)
 
         if 'order by' in query_object['meta']:
+            print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
@@ -97,6 +98,8 @@ def method_select(context, query_object, parser):
             context.info(context_sort)
             temp_data = sorted(temp_data, sort_cmp)
             #print temp_data
+        else:
+            print ("NO ORDER BY")
         limit_start = 0
         limit_length = None
         #print query_object['meta']
@@ -184,6 +187,7 @@ def process_select_row(context,query_object,processed_line):
 
 
 def sort_cmp( x, y):
+    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
