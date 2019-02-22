@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.829'
+__version__='1.0.830'
 
         
         
@@ -2606,6 +2606,7 @@ def method_select(context, query_object, parser):
         print "Hi"
         if 'order by' in query_object['meta']:
             context.sort = []
+            print(query_object['meta']['order by'])
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
                 direction = 1
@@ -2618,7 +2619,6 @@ def method_select(context, query_object, parser):
             temp_data = sorted(context,temp_data, sort_cmp)
         limit_start = 0
         limit_length = None
-        print "Yo"
         
         restructured_data=[]
         for line in temp_data:
