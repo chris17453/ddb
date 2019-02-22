@@ -143,8 +143,6 @@ class engine:
             # if the result set it not empty
             if None != self.results.data:
                 if None != self.results.data.results:
-                    self.columns= self.results.data.get_columns_display()
-            
                      # if self.mode == 'array':
                      #   new_array = []
                      #   for line in self.results.data.results:
