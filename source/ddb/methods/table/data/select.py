@@ -143,7 +143,7 @@ def method_select(context, query_object, parser):
                 limit_length = query_object['meta']['limit']['length']
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
-        temp_table.results = limit(context,temp_data, limit_start, limit_length)
+        temp_table.results = limit(temp_data, limit_start, limit_length)
         return query_results(affected_rows=0,success=True,data=temp_table)
     except Exception as ex:
         return query_results(success=False,error=ex)   
@@ -187,10 +187,8 @@ def sort_cmp( x, y):
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
-
         #convert = lambda text: int(text) if text.isdigit() else text
         #alphanum_key = lambda key: [convert(c) for c in re.split('([0-9]+)', key)]
-
         # %print x[ordinal],y[ordinal],-1
         if x['data'][ordinal] == y['data'][ordinal]:
             continue
@@ -201,7 +199,7 @@ def sort_cmp( x, y):
             return 1 * direction
     return 0
     
-def limit(context, data_stream, index, length):
+def limit( data_stream, index, length):
     if None == index:
         index = 0
     if None == length:

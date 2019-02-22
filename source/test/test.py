@@ -82,7 +82,7 @@ class test_engine(unittest.TestCase):
             pprint(results.data)
             self.assertEqual(True, results.success)
             #pprint (results.data)
-            print("F")
+            print("g")
             self.assertEqual(10, results.data_length)
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
             print("r")
