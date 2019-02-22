@@ -80,7 +80,7 @@ def method_select(context, query_object, parser):
             row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
-
+        print "Hi"
         if 'order by' in query_object['meta']:
             context.sort = []
             for c in query_object['meta']['order by']:
@@ -98,6 +98,7 @@ def method_select(context, query_object, parser):
         limit_length = None
         #print query_object['meta']
         # exit(1)
+        print "Yo"
         
         # now convert the columns into the correct format/order as in the select
         restructured_data=[]
@@ -181,7 +182,6 @@ def process_select_row(context,query_object,processed_line):
 
 
 def sort_cmp(context, x, y):
-    pprint(context.sort)
     for c in context.sort:
         ordinal = c[0]
         direction = c[1]
