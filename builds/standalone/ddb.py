@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.798'
+__version__='1.0.799'
 
         
         
@@ -2438,7 +2438,7 @@ def method_delete(context, query_object):
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
-                    processed_line = context.process_line(query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
@@ -2478,7 +2478,7 @@ def method_insert(context, query_object):
         with open(query_object['table'].data.path, 'r') as content_file:
             with open(temp_file_name, 'w') as temp_file:
                 for line in content_file:
-                    processed_line = process_line(query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
