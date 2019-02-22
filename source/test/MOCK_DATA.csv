@@ -1,4 +1,5 @@
 id,first_name,last_name,email,gender,ip_address
+1,Redford,Ornils,rornils1@amazon.co,Male,25.42.166.00
 2,Redford,Ornils,rornils1@amazon.co.uk,Male,24.42.186.82
 3,Grenville,Buckley,gbuckley2@gizmodo.com,Male,143.223.126.204
 4,Thalia,Badrock,tbadrock3@xinhuanet.com,Female,113.57.179.78
@@ -998,5 +999,3 @@ id,first_name,last_name,email,gender,ip_address
 998,Calvin,Hedger,chedgerrp@geocities.com,Male,171.110.129.104
 999,Karlik,Terrett,kterrettrq@vimeo.com,Male,55.93.204.45
 1000,Curcio,Kemm,ckemmrr@irs.gov,Male,14.143.73.253
-10003,test_name1,test_lname,sam@bob.com,male,0.0.0.0
-1,n1,n2,sam#sam.com,Male,0.0.0.0
