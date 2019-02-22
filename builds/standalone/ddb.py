@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.831'
+__version__='1.0.832'
 
         
         
@@ -2542,6 +2542,9 @@ def create_single(context, query_object, temp_file, requires_new_line):
 
 
 
+
+context_sort=[]
+
 def method_select(context, query_object, parser):
     try:
         if 'distinct' in query_object['meta']:
@@ -2610,9 +2613,8 @@ def method_select(context, query_object, parser):
             row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
-        print "Hi"
         if 'order by' in query_object['meta']:
-            context.sort = []
+            context_sort = []
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
                 direction = 1
@@ -2620,8 +2622,8 @@ def method_select(context, query_object, parser):
                     direction = 1
                 elif 'desc' in c:
                     direction = -1
-                context.sort.append([ordinal, direction])
-            context.info(context.sort)
+                context_sort.append([ordinal, direction])
+            context.info(context_sort)
             temp_data = sorted(temp_data, sort_cmp)
         limit_start = 0
         limit_length = None
@@ -2687,8 +2689,8 @@ def process_select_row(context,query_object,processed_line):
     return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
 
 
-def sort_cmp(context, x, y):
-    for c in context.sort:
+def sort_cmp( x, y):
+    for c in context_sort:
         ordinal = c[0]
         direction = c[1]
 
