@@ -83,6 +83,7 @@ def method_select(context, query_object, parser):
         print "Hi"
         if 'order by' in query_object['meta']:
             context.sort = []
+            print(query_object['meta']['order by'])
             for c in query_object['meta']['order by']:
                 ordinal = query_object['table'].get_ordinal_by_name(c['column'])
                 direction = 1
@@ -98,7 +99,6 @@ def method_select(context, query_object, parser):
         limit_length = None
         #print query_object['meta']
         # exit(1)
-        print "Yo"
         
         # now convert the columns into the correct format/order as in the select
         restructured_data=[]
