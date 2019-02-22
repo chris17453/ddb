@@ -164,6 +164,7 @@ class engine:
 
                             
             else:
+                print ("NO DATA")
                 if self.mode == 'array':
                     self.results.data=[]
                 if self.mode == 'object':
