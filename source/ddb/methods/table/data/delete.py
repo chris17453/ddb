@@ -30,13 +30,9 @@ def method_delete(context, query_object):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
-        
+        swap_files(query_object['table'].data.path, temp_file_name)
+        return  {'rows_affected':rows_affected,'success':True}
     except Exception as ex:
-        results={'rows_affected':0,'success':False, 'error': ex}
-        return results
+        return  {'rows_affected':0,'success':False, 'error': ex}
 
-
-    swap_files(query_object['table'].data.path, temp_file_name)
-    results={'rows_affected':rows_affected,'success':False}
-    return context.temp_table(results)
     

@@ -1,7 +1,9 @@
 from ....functions.functions import *
 from ..core import *
+from ....version import __version__
 
 def method_select(context, query_object, parser):
+    try:
         # print ("in select")
         if 'distinct' in query_object['meta']:
             distinct=True
@@ -129,7 +131,6 @@ def method_select(context, query_object, parser):
         #        if no_item:
         #            group.append(item)
         #    temp_data=group
-       #
        
 
         if 'limit' in query_object['meta']:
@@ -140,7 +141,9 @@ def method_select(context, query_object, parser):
 
         context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
         temp_table.results = limit(context,temp_data, limit_start, limit_length)
-        return temp_table
+        return {'rows_affected':0,'success':True, 'data':temp_table}
+    except Exception as ex:
+        return{'rows_affected':0,'success':False }   
 
 
 def process_select_row(context,query_object,processed_line):

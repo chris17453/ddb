@@ -1,5 +1,5 @@
 errors: []
-config_directory: '/home/nd/chris17453/ddb/source/test'
+config_directory: '/home/nd/repos/chris17453/ddb/source/test'
 delimiters: 
  comment: 
  - '#'
@@ -36,9 +36,9 @@ data:
  name: 'test'
  multi_search: true
  database: 'main'
- config: '/home/nd/chris17453/ddb/source/test/main/test.ddb.yaml'
+ config: '/home/nd/repos/chris17453/ddb/source/test/main/test.ddb.yaml'
  key: null
- path: '/home/nd/chris17453/ddb/source/test/MOCK_DATA.csv'
+ path: '/home/nd/repos/chris17453/ddb/source/test/MOCK_DATA.csv'
  retults: null
  type: 'Temp'
  uid: null
