@@ -111,7 +111,7 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(False, results.success)
+            self.assertEqual(True, results.success)
         
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
@@ -134,7 +134,7 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(False, results.success)
+            self.assertEqual(True, results.success)
 
             # update
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -156,10 +156,8 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            print ("Insert")
             self.assertEqual(True, results.success)
             
-            print ("Delete")
             # delete just inserted
             results = engine.query("delete from {} where id='1003'".format(self.table_name))
             self.assertEqual(True, results.success)
