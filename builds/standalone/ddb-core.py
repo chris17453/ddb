@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.810'
+__version__='1.0.811'
 
         
         
@@ -2242,26 +2242,27 @@ class engine:
                 self.results = method_describe_table(self,query_object)
 
         if None != self.results:
-            if None != self.results.data.results:
-                if self.mode == 'array':
-                    new_array = []
-                    for line in self.results.data.results:
-                        new_array.append(line['data'])
-                    self.results.data=new_array
+            if if None != self.results.data:
+                if None != self.results.data.results:
+                    if self.mode == 'array':
+                        new_array = []
+                        for line in self.results.data.results:
+                            new_array.append(line['data'])
+                        self.results.data=new_array
 
-                if self.mode == 'object':
-                    new_array = []
-                    columns = self.results.get_columns()
-                    len_col = len(columns)
-                    for line in self.results.data.results:
-                        new_dict = {}
-                        for i in range(0, len_col):
-                            if len(line['data']) < i:
-                                break
-                            new_dict[columns[i]] = line['data'][i]
-                        new_array.append(new_dict)
-                    self.results.data=new_array
-                    
+                    if self.mode == 'object':
+                        new_array = []
+                        columns = self.results.get_columns()
+                        len_col = len(columns)
+                        for line in self.results.data.results:
+                            new_dict = {}
+                            for i in range(0, len_col):
+                                if len(line['data']) < i:
+                                    break
+                                new_dict[columns[i]] = line['data'][i]
+                            new_array.append(new_dict)
+                        self.results.data=new_array
+                        
             return self.results
 
         return None
