@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.826'
+__version__='1.0.827'
 
         
         
@@ -2688,7 +2688,7 @@ def process_select_row(context,query_object,processed_line):
 
 
 def sort_cmp(context, x, y):
-
+    pprint(context.sort)
     for c in context.sort:
         ordinal = c[0]
         direction = c[1]
