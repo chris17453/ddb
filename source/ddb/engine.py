@@ -141,7 +141,7 @@ class engine:
         # only return last command
         if None != self.results:
             # if the result set it not empty
-            if None != self.results.results:
+            if None != self.results.data.results:
                 if self.mode == 'array':
                     new_array = []
                     for line in self.results.data.results:
