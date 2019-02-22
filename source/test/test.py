@@ -89,21 +89,18 @@ class test_engine(unittest.TestCase):
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
            
             self.assertEqual(True, results.success)
+            print ("54")
             self.assertEqual(0, len(results.data))
 
             # WHERE/LIMIT
             results = engine.query('select * from {} where id="1" order by id LIMIT 100;'.format(self.table_name))
             print ("55")
             self.assertEqual(True, results.success)
-            print ("55")
             self.assertEqual(1, len(results.data))
-            print ("54")
-
+            
             # WHERE AND/LIMIT
             results = engine.query('select * from {} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
-            print ("66")
             self.assertEqual(True, results.success)
-            print ("75")
             self.assertEqual(1, len(results.data))
 
             # WHERE / AND / OR/LIMIT
