@@ -148,7 +148,7 @@ class engine:
                      #   for line in self.results.data.results:
                      #       new_array.append(line['data'])
                      #   self.results.data=
-
+                    
                     if self.mode == 'object':
                         columns = self.results.get_columns()
                         len_col = len(columns)
@@ -159,6 +159,8 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+                    self.reesults.data=self.results.data.results
+
                             
             else:
                 if self.mode == 'array':
