@@ -81,7 +81,10 @@ class query_results:
         self.data=data
         self.error=None
         self.data_length=0
+        self.columns=[]
         if data:
             self.data_length=len(data)
+            self.columns= data.get_columns_display()
+
         #pprint(data)
         #print("Success: {0} Error:{1}".format(success,error))
