@@ -2,7 +2,7 @@ import unittest
 import os
 import sys
 from .context import  ddb
-
+from pprint import pprint
 
 class test_engine(unittest.TestCase):
     temp_config = 'temp_config.yaml'
@@ -79,6 +79,7 @@ class test_engine(unittest.TestCase):
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
+            pprint (results)
             self.assertEqual(10, len(results.data))
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
             self.assertEqual(True, results.success)
