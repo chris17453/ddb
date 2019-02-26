@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.857'
+__version__='1.0.858'
 
         
         
@@ -1334,18 +1334,18 @@ class column_sort:
 
 class table:
     def __init__(self,
-                    table_config_file=None, 
-                    database=None, 
-                    columns=None, 
-                    name=None, 
-                    data_file=None, 
-                    field_delimiter=None, 
-                    config_directory=None,
-                    comments=None,
-                    whitespace=None,
-                    errors=None,
-                    data_on=None
-    ):
+                 table_config_file=None,
+                 database=None,
+                 columns=None,
+                 name=None,
+                 data_file=None,
+                 field_delimiter=None,
+                 config_directory=None,
+                 comments=None,
+                 whitespace=None,
+                 errors=None,
+                 data_on=None
+                 ):
         self.version = 1
         self.ownership = table_ownership()
         self.delimiters = table_delimiters()
@@ -1357,11 +1357,11 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
-        self.active=True
-        
-        self.update(data_file=data_file, 
-                    columns=columns, 
-                    field_delimiter=field_delimiter, 
+        self.active = True
+
+        self.update(data_file=data_file,
+                    columns=columns,
+                    field_delimiter=field_delimiter,
                     comments=comments,
                     whitespace=whitespace,
                     errors=errors,
@@ -1383,7 +1383,8 @@ class table:
                         self.delimiters = table_delimiters(yaml=yaml_data[key])
 
                     if 'visible' == key:
-                        self.visible = table_visible_attributes(yaml=yaml_data[key])
+                        self.visible = table_visible_attributes(
+                            yaml=yaml_data[key])
 
                     if 'data' == key:
                         self.data = table_data(yaml=yaml_data[key])
@@ -1399,28 +1400,27 @@ class table:
         self.update_ordinals()
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
-                self.active=False
+                self.active = False
 
     def update(self,
-                    columns=None, 
-                    data_file=None, 
-                    field_delimiter=None, 
-                    comments=None,
-                    whitespace=None,
-                    errors=None,
-                    data_on=None):
+               columns=None,
+               data_file=None,
+               field_delimiter=None,
+               comments=None,
+               whitespace=None,
+               errors=None,
+               data_on=None):
         if None != data_on:
-            self.data.starts_on_line=int(data_on)
-        
+            self.data.starts_on_line = int(data_on)
+
         if None != comments:
-            self.visible.comments=comments
+            self.visible.comments = comments
 
         if None != whitespace:
-            self.visible.whitespace=whitespace
+            self.visible.whitespace = whitespace
 
         if None != errors:
-            self.visible.errors=errors
-
+            self.visible.errors = errors
 
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
@@ -1429,7 +1429,7 @@ class table:
             self.data.path = data_file
 
         if None != columns:
-            self.columns=[]
+            self.columns = []
             for column in columns:
                 self.add_column(column)
 
@@ -1462,8 +1462,8 @@ class table:
         return columns
 
     def get_results(self):
-        columns=self.get_columns_display()
-        return {'columns':columns,'results':self.results}
+        columns = self.get_columns_display()
+        return {'columns': columns, 'results': self.results}
 
     def results_length(self):
         """Return the result set length for this table"""
@@ -1510,7 +1510,8 @@ class table:
         temp_columns = []
         for c in self.columns:
             if c.display.visible:
-                temp_columns.append({'data': c.data.ordinal, 'display': c.display.ordinal})
+                temp_columns.append(
+                    {'data': c.data.ordinal, 'display': c.display.ordinal})
 
         return temp_columns
 
@@ -1571,7 +1572,7 @@ class table:
 
         if None == self.data.database:
             raise Exception("Cannot save a table without a database name")
-
+        self.data.type = "LOCAL"
         if None == self.config_directory:
             home = os.path.expanduser("~")
             if not os.path.exists(os.path.join(home, '.ddb')):
@@ -1580,14 +1581,16 @@ class table:
         else:
             home = self.config_directory
 
-        dest_dir=os.path.join(home, self.data.database)      
+        dest_dir = os.path.join(home, self.data.database)
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
 
         if None == self.data.config:
-            self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
-        yamlf_dump(data=self,file=self.data.config)
+            self.data.config = os.path.join(
+                dest_dir, "{0}.ddb.yaml".format(self.data.name))
+        yamlf_dump(data=self, file=self.data.config)
         return True
+
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
@@ -1695,12 +1698,12 @@ class table_delimiters:
                         self.block_quote = None
                 else:
                     self.block_quote = None
-    
+
     def get_new_line(self):
         '''Return the correct line ending for the file format'''
-        if self.new_line=='UNIX':
+        if self.new_line == 'UNIX':
             return '\n'
-        elif self.new_line=='WINDOWS':
+        elif self.new_line == 'WINDOWS':
             return '\r\n'
         else:
             return '\n'
@@ -1745,12 +1748,11 @@ class database:
         """Return a count ot tables in the database"""
         return len(self.tables)
 
-   
-    def temp_table(self, name=None, columns=[],delimiter=None):
+    def temp_table(self, name=None, columns=[], delimiter=None):
         """Create a temporary table to preform operations in"""
         if None == name:
             name = "#table_temp"  # TODO make unique random name
-        return table(name=name, columns=columns, database=self.get_curent_database(),field_delimiter=delimiter)
+        return table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
 
     def create_config(self, config_file):
         try:
@@ -1759,16 +1761,17 @@ class database:
                 if False == os.path.exists(dirname):
                     os.makedirs(dirname)
             yaml_data = {}
-            yamlf_dump(yaml_data,file=config_file)
+            yamlf_dump(yaml_data, file=config_file)
             return
         except Exception as ex:
             print "Cant create configuration file: {}".format(ex)
 
-    def create_table_config(self, name, db, columns,delimiter=None):
+    def create_table_config(self, name, db, columns, delimiter=None):
         if None == self.config_file:
             raise Exception("Not using a config file")
 
-        t = table(name=name, database=db, columns=columns,field_delimiter=delimiter)
+        t = table(name=name, database=db, columns=columns,
+                  field_delimiter=delimiter)
         t.save()
         self.add_config(t.data.path)
 
@@ -1789,8 +1792,9 @@ class database:
             if db not in yaml_data:
                 yaml_data[db] = {}
 
-            yaml_data[db][config.data.name] = {'name': config.data.name, 'path': table_config}
-            yamlf_dump(yaml_data,file=self.config_file)
+            yaml_data[db][config.data.name] = {
+                'name': config.data.name, 'path': table_config}
+            yamlf_dump(yaml_data, file=self.config_file)
 
         if table is not None:
             yaml_data = yamlf_load(file=self.config_file)
@@ -1803,8 +1807,9 @@ class database:
             if db not in yaml_data:
                 yaml_data[db] = {}
 
-            yaml_data[db][table.data.name] = {'name': table.data.name, 'path': table.data.config}
-            yamlf_dump(yaml_data,file=self.config_file)
+            yaml_data[db][table.data.name] = {
+                'name': table.data.name, 'path': table.data.config}
+            yamlf_dump(yaml_data, file=self.config_file)
         return True
 
     def get_default_database(self):
@@ -1816,38 +1821,45 @@ class database:
             return self.get_default_database()
         return self.curent_database
 
-    def create_table(self, table_name, columns, data_file, 
-                                            database_name=None,
-                                            delimiter=None,
-                                            comments=None,
-                                            errors=None,
-                                            whitespace=None,
-                                            data_on=None):
-        if None == self.config_file:
-            raise Exception("Not using a config file")
-        if False == os.path.isfile(data_file):
-            raise Exception("Data file does not exist")
-
+    def create_table(self, table_name, columns, data_file,
+                     database_name=None,
+                     delimiter=None,
+                     comments=None,
+                     errors=None,
+                     whitespace=None,
+                     data_on=None,
+                     temporary=None):
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
         if None != exists:
             raise Exception("table already exists")
 
-        config_directory = os.path.dirname(self.config_file)
-        t = table(  name=table_name, 
-                    database=database_name, 
-                    columns=columns, 
-                    config_directory=config_directory,
-                    field_delimiter=delimiter,
-                    data_on=data_on,
-                    comments=comments,
-                    whitespace=whitespace,
-                    errors=errors)
+        if False == os.path.isfile(data_file):
+            raise Exception("Data file does not exist")
+
+        if not temporary:
+            if None == self.config_file:
+                raise Exception("Not using a config file")
+            config_directory = os.path.dirname(self.config_file)
+        else:
+            config_directory = None
+
+        t = table(name=table_name,
+                  database=database_name,
+                  columns=columns,
+                  config_directory=config_directory,
+                  field_delimiter=delimiter,
+                  data_on=data_on,
+                  comments=comments,
+                  whitespace=whitespace,
+                  errors=errors)
         t.data.path = data_file
-        res = t.save()
-        if False == res:
-            raise Exception("Couldn't save table configuation")
+
+        if not temporary:
+            res = t.save()
+            if False == res:
+                raise Exception("Couldn't save table configuation")
         self.add_config(table=t)
 
         self.reload_config()
@@ -1887,7 +1899,7 @@ class database:
             if table_name in yaml_data[db]:
                 yaml_data[db].pop(table_name, None)
 
-            yamlf_dump(yaml_data,file=self.config_file)
+            yamlf_dump(yaml_data, file=self.config_file)
             return True
         except Exception as ex:
             raise Exception("failed to remove table from db configuration")
@@ -1900,9 +1912,10 @@ class database:
                 table_swap.append(t)
 
         for t in temp_tables:
-            temp_table=table(table_config_file=t)
-            if temp_table.active==False:
-                warnings.warn("Table not loaded {0}.{1}".format(temp_table.data.database,temp_table.data.name))
+            temp_table = table(table_config_file=t)
+            if temp_table.active == False:
+                warnings.warn("Table not loaded {0}.{1}".format(
+                    temp_table.data.database, temp_table.data.name))
                 continue
             table_swap.append(temp_table)
 
@@ -1923,9 +1936,9 @@ class database:
         else:
             return tables
         yaml_data = yamlf_load(file=self.config_file)
-        if  yaml_data != None:
+        if yaml_data != None:
             for db in yaml_data:
-                if yaml_data[db] !=None:
+                if yaml_data[db] != None:
                     for table in yaml_data[db]:
                         tables.append(yaml_data[db][table]['path'])
 
@@ -2852,7 +2865,7 @@ def method_update(context, query_object):
 
 
 
-def method_create_table(context, query_object):
+def method_create_table(context, query_object,temporary=None):
     context.info("Create Table")
     try:
         columns = []
@@ -2886,7 +2899,8 @@ def method_create_table(context, query_object):
                                                 comments=found_comments,
                                                 errors=found_errors,
                                                 whitespace=found_whitespace,
-                                                data_on=found_data_on
+                                                data_on=found_data_on,
+                                                temporary=temporary
                                                 )
         
         return query_results(success=results)
