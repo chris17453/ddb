@@ -1,25 +1,25 @@
 import sys
 import os
 from .column import column_v2
-from ..output.factory_yaml import yamlf_load,yamlf_dump
+from ..output.factory_yaml import yamlf_load, yamlf_dump
 
 # use the c based parser, or you're going to get massive lag with the python based solution
 
 
 class table:
     def __init__(self,
-                    table_config_file=None, 
-                    database=None, 
-                    columns=None, 
-                    name=None, 
-                    data_file=None, 
-                    field_delimiter=None, 
-                    config_directory=None,
-                    comments=None,
-                    whitespace=None,
-                    errors=None,
-                    data_on=None
-    ):
+                 table_config_file=None,
+                 database=None,
+                 columns=None,
+                 name=None,
+                 data_file=None,
+                 field_delimiter=None,
+                 config_directory=None,
+                 comments=None,
+                 whitespace=None,
+                 errors=None,
+                 data_on=None
+                 ):
         self.version = 1
         self.ownership = table_ownership()
         self.delimiters = table_delimiters()
@@ -31,11 +31,11 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
-        self.active=True
-        
-        self.update(data_file=data_file, 
-                    columns=columns, 
-                    field_delimiter=field_delimiter, 
+        self.active = True
+
+        self.update(data_file=data_file,
+                    columns=columns,
+                    field_delimiter=field_delimiter,
                     comments=comments,
                     whitespace=whitespace,
                     errors=errors,
@@ -59,7 +59,8 @@ class table:
                         self.delimiters = table_delimiters(yaml=yaml_data[key])
 
                     if 'visible' == key:
-                        self.visible = table_visible_attributes(yaml=yaml_data[key])
+                        self.visible = table_visible_attributes(
+                            yaml=yaml_data[key])
 
                     if 'data' == key:
                         self.data = table_data(yaml=yaml_data[key])
@@ -84,28 +85,27 @@ class table:
         if None != self.data.path:
             if False == os.path.exists(self.data.path):
                 #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
-                self.active=False
+                self.active = False
 
     def update(self,
-                    columns=None, 
-                    data_file=None, 
-                    field_delimiter=None, 
-                    comments=None,
-                    whitespace=None,
-                    errors=None,
-                    data_on=None):
+               columns=None,
+               data_file=None,
+               field_delimiter=None,
+               comments=None,
+               whitespace=None,
+               errors=None,
+               data_on=None):
         if None != data_on:
-            self.data.starts_on_line=int(data_on)
-        
+            self.data.starts_on_line = int(data_on)
+
         if None != comments:
-            self.visible.comments=comments
+            self.visible.comments = comments
 
         if None != whitespace:
-            self.visible.whitespace=whitespace
+            self.visible.whitespace = whitespace
 
         if None != errors:
-            self.visible.errors=errors
-
+            self.visible.errors = errors
 
         if None != field_delimiter:
             self.set_field_delimiter(field_delimiter)
@@ -114,7 +114,7 @@ class table:
             self.data.path = data_file
 
         if None != columns:
-            self.columns=[]
+            self.columns = []
             for column in columns:
                 self.add_column(column)
 
@@ -147,8 +147,8 @@ class table:
         return columns
 
     def get_results(self):
-        columns=self.get_columns_display()
-        return {'columns':columns,'results':self.results}
+        columns = self.get_columns_display()
+        return {'columns': columns, 'results': self.results}
 
     def results_length(self):
         """Return the result set length for this table"""
@@ -195,7 +195,8 @@ class table:
         temp_columns = []
         for c in self.columns:
             if c.display.visible:
-                temp_columns.append({'data': c.data.ordinal, 'display': c.display.ordinal})
+                temp_columns.append(
+                    {'data': c.data.ordinal, 'display': c.display.ordinal})
 
         #L = [(k,v) for (k,v) in temp_columns]
         # temp_columns=sorted(L,key=lambda (k,v): v['display'])  # change to data to sort by data
@@ -288,7 +289,7 @@ class table:
 
         if None == self.data.database:
             raise Exception("Cannot save a table without a database name")
-
+        self.data.type = "LOCAL"
         # if no config dir given, save in users home dir
         #print self.config_directory
         if None == self.config_directory:
@@ -300,16 +301,18 @@ class table:
         else:
             home = self.config_directory
 
-        dest_dir=os.path.join(home, self.data.database)      
+        dest_dir = os.path.join(home, self.data.database)
         if not os.path.exists(dest_dir):
             #print("Making dest dir {0}".format(dest_dir))
             os.makedirs(dest_dir)
 
         if None == self.data.config:
-            self.data.config = os.path.join(dest_dir, "{0}.ddb.yaml".format(self.data.name))
+            self.data.config = os.path.join(
+                dest_dir, "{0}.ddb.yaml".format(self.data.name))
         #print ("dump:{0}".format(self.data.config))
-        yamlf_dump(data=self,file=self.data.config)
+        yamlf_dump(data=self, file=self.data.config)
         return True
+
 
 class table_visible_attributes:
     def noop(self, *args, **kw):
@@ -418,12 +421,12 @@ class table_delimiters:
                         self.block_quote = None
                 else:
                     self.block_quote = None
-    
+
     def get_new_line(self):
         '''Return the correct line ending for the file format'''
-        if self.new_line=='UNIX':
+        if self.new_line == 'UNIX':
             return '\n'
-        elif self.new_line=='WINDOWS':
+        elif self.new_line == 'WINDOWS':
             return '\r\n'
         else:
             return '\n'

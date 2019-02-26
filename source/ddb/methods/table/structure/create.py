@@ -1,6 +1,6 @@
 from ..core import process_line, swap_files, query_results
 
-def method_create_table(context, query_object):
+def method_create_table(context, query_object,temporary=None):
     context.info("Create Table")
     try:
         columns = []
@@ -34,7 +34,8 @@ def method_create_table(context, query_object):
                                                 comments=found_comments,
                                                 errors=found_errors,
                                                 whitespace=found_whitespace,
-                                                data_on=found_data_on
+                                                data_on=found_data_on,
+                                                temporary=temporary
                                                 )
         
         return query_results(success=results)
