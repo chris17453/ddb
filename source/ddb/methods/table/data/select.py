@@ -77,8 +77,10 @@ def method_select(context, query_object, parser):
                     if False == processed_line['match']:
                         continue
                     # line is added as is
+                    
                     if None != processed_line['data']:
-                        temp_data.append( processed_line)
+                        restructured_line = process_select_row(context,query_object,processed_line) 
+                        temp_data.append(restructured_line)
 
         # file is closed at this point
         if False == has_columns and True == has_functions:
@@ -106,12 +108,12 @@ def method_select(context, query_object, parser):
         #print query_object['meta']
         # exit(1)
         
-        # now convert the columns into the correct format/order as in the select
-        restructured_data=[]
-        for line in temp_data:
-            restructured_line = process_select_row(context,query_object,line) 
-            restructured_data.append(restructured_line)
-        temp_data=restructured_data
+        ## now convert the columns into the correct format/order as in the select
+        #restructured_data=[]
+        #for line in temp_data:
+        #    restructured_line = process_select_row(context,query_object,line) 
+        #    restructured_data.append(restructured_line)
+        #temp_data=restructured_data
 
         # grouping happens after ordering and before limiting
         if distinct:

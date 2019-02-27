@@ -5,6 +5,10 @@ ddb/cli.py
 ddb/engine.py
 ddb/interactive.py
 ddb/version.py
+ddb/configuration/__init__.py
+ddb/configuration/column.py
+ddb/configuration/database.py
+ddb/configuration/table.py
 ddb/evaluate/__init__.py
 ddb/evaluate/match.py
 ddb/functions/__init__.py
@@ -35,8 +39,4 @@ ddb/output/factory.py
 ddb/output/factory_json.py
 ddb/output/factory_xml.py
 ddb/output/factory_yaml.py
-ddb/structure/__init__.py
-ddb/structure/column.py
-ddb/structure/database.py
-ddb/structure/table.py
 test/test.py

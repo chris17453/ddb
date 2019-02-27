@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.921'
+__version__='1.0.922'
 
         
         
@@ -1119,7 +1119,7 @@ class tokenizer():
         
 # ############################################################################
 # Module : column
-# File   : ./source/ddb/structure/column.py
+# File   : ./source/ddb/configuration/column.py
 # ############################################################################
 
 
@@ -1359,7 +1359,7 @@ class column_sort:
         
 # ############################################################################
 # Module : table
-# File   : ./source/ddb/structure/table.py
+# File   : ./source/ddb/configuration/table.py
 # ############################################################################
 
 
@@ -1749,7 +1749,7 @@ class table_delimiters:
         
 # ############################################################################
 # Module : database
-# File   : ./source/ddb/structure/database.py
+# File   : ./source/ddb/configuration/database.py
 # ############################################################################
 
 
