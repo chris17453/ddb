@@ -107,9 +107,9 @@ class output_factory:
                     if 'raw' in row:
                         write_file.write(row['raw'])
 
-    def format_yaml(self,temp_table,output_file):
+    def format_yaml(self,query_results,output_file):
         """ouput results data in the yaml format"""
-        results=temp_table.get_results()
+        results=results.data
         factory=factory_yaml()
         dump=factory.dump(results)
         if not output_file:
@@ -118,9 +118,9 @@ class output_factory:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
 
-    def format_json(self,temp_table,output_file):
+    def format_json(self,query_results,output_file):
         """ouput results data in the json format"""
-        results=temp_table.get_results()
+        results=results.data
         factory=factory_json()
         dump=factory.dumps(results)
         if not output_file:
@@ -129,9 +129,9 @@ class output_factory:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
         
-    def format_xml(self,temp_table,output_file):
+    def format_xml(self,query_results,output_file):
         """ouput results data in the xml format"""
-        results=temp_table.get_results()
+        results=results.data
         factory=factory_xml()
         dump=factory.dumps({'data':results})
         if not output_file:
