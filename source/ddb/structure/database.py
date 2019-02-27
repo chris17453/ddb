@@ -153,17 +153,13 @@ class database:
                   whitespace=whitespace,
                   errors=errors)
         t.data.path = data_file
-
+        self.tables.append(t)
         if not temporary:
             res = t.save()
             if False == res:
                 raise Exception("Couldn't save table configuation")
-        #else:
-        #   print("Not saving temporary table")
-        print( "33")
-        self.add_config(table=t)
-        print( "SS")
-        self.reload_config()
+            #self.add_config(table=t)
+            #self.reload_config()
         return True
 
     def drop_table(self, table_name, database_name=None):
