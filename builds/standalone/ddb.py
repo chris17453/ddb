@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.882'
+__version__='1.0.883'
 
         
         
@@ -1880,6 +1880,8 @@ class database:
             res = t.save()
             if False == res:
                 raise Exception("Couldn't save table configuation")
+        else:
+            print("Not saving temporary table")
         self.add_config(table=t)
 
         self.reload_config()
