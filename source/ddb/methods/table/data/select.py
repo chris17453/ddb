@@ -118,6 +118,7 @@ def method_select(context, query_object, parser):
                     direction = -1
                 context_sort.append([ordinal, direction])
             context.info(context_sort)
+            print (context_sort)
             temp_data = sorted(temp_data, sort_cmp)
             #print temp_data
         else:
