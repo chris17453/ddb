@@ -301,7 +301,7 @@ sql_syntax = {
               },
              {'arguments': 1,
               'data': [{'sig': ['{table}']}],
-              
+              'type':'single'
               'name': 'table'},
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
