@@ -1,6 +1,6 @@
 from ..core import process_line, swap_files, query_results
 
-def method_create_table(context, query_object,temporary=None):
+def method_create_table(context, query_object):
     context.info("Create Table")
     try:
         columns = []
@@ -10,6 +10,12 @@ def method_create_table(context, query_object,temporary=None):
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         context.info("Columns to create", columns)
+
+        if 'temporary' in query_object['meta']:
+            temporary=True
+            context.info("Creating temporary table")
+        else:
+            temporary=None
 
         found_delimiter=None
         found_comments=None
