@@ -34,7 +34,7 @@ def method_create_table(context, query_object):
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
 
-        results = context.database.create_table(table_name=query_object['meta']['create']['table'],
+        results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 columns=columns,
                                                 data_file=query_object['meta']['file']['file'],
                                                 delimiter=found_delimiter,
