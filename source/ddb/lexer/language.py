@@ -291,11 +291,11 @@ sql_syntax = {
         {'query': 'create',
          'switch': [
 
-             {'data': None,
+             {'data': False,
               'name': 'create',
               'optional': False
               },
-             {'data': None,
+             {'data': False,
               'name': 'temporary',
               'optional': True
               },
