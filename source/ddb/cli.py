@@ -6,6 +6,7 @@ from .output.factory import output_factory
 
 
 from os.path import expanduser
+import atexit
 
 
 def cli_main():
@@ -32,14 +33,26 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = engine( config_file=config_file, 
-                        debug=args.debug, 
-                        mode="full",
-                        output=args.output,
-                        output_file=args.file)
-        results = e.query(args.query)
-        #print(results)
-        output_factory(results,output=args.output,output_file=args.file)
+        try:
+            e = engine( config_file=config_file, 
+                            debug=args.debug, 
+                            mode="full",
+                            output=args.output,
+                            output_file=args.file)
+            results = e.query(args.query)
+            if results.success==True:
+                #print(results)
+                output_factory(results,output=args.output,output_file=args.file)
+            
+            if None==results:
+                exit_code=1
+            elif results.success==True:
+                exit_code=0
+            elif results.success==False:
+                exit_code=1
+            atexit.register(exit_code)
+        except Exception as ex:
+            print(ex)
 
     else:
         # interactive session
