@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.947'
+__version__='1.0.948'
 
         
         
@@ -1993,7 +1993,6 @@ class database:
 class match():
 
     def evaluate_single_match(self,test, row, table):
-
         
         compare1 = None
         compare2 = None
@@ -2676,11 +2675,13 @@ def method_select(context, query_object, parser):
             temp_data.append(row)
 
      
+        print("ORD",ordinals)
 
         if 'order by' in query_object['meta']:
+            print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
-                if c['column'] not in  query_object['meta']['ordinals']:
+                if c['column'] not in query_object['meta']['ordinals']:
                     raise Exception ("ORDER BY column not present in the result set")
                 ordinal = query_object['meta']['ordinals'][c['column']]
                 direction = 1
