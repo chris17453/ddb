@@ -29,7 +29,7 @@ class database:
             database_name = self.get_curent_database()
         print("Matching  {0}".format(database_name))
         for c in self.tables:
-            print("Using {0}.{1} matching {2}.{3}".format(c.data.name, c.data.database,database_name,table_name))
+            print("Using {0}.{1} matching {2}.{3}".format(c.data.database,c.data.name, database_name,table_name))
             if c.data.name == table_name and database_name == c.data.database:
                 return c
         return None
