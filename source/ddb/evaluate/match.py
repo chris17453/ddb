@@ -34,6 +34,10 @@ class match():
             if None != compare1 and None != compare2:
                 break
 
+        if not compare1_is_column and not compare2_is_column:
+            raise Exception("expression invalid {}".format(test))
+                
+
         if None == compare1:
             compare1 = test['e1']
         if None == compare2:
@@ -114,8 +118,10 @@ class match():
         return False
 
 
-    def evaluate_match(self,where, row, table):
+    def evaluate_match(self,query_object, row):
         #print where
+        table=query_object['table']
+        where=query_object['meta']['where']
         if None == row:
             return False
 
