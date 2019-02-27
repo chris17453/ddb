@@ -11,6 +11,7 @@ def method_create_table(context, query_object):
             columns.append(c['column'])
         context.info("Columns to create", columns)
 
+        print (query_object)
         if 'temporary' in query_object['meta']:
             temporary=True
             context.info("Creating temporary table")
