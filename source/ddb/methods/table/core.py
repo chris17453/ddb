@@ -51,7 +51,7 @@ def process_line(context, query_object, line, line_number=0):
         else:
             # if a where, only return data, comments/whites/space/errors are ignored
             if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
+                match_results = context.match.evaluate_match(query_object, line_data,)
             else:
                 match_results = False
         if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:

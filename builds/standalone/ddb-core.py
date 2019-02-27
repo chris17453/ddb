@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.945'
+__version__='1.0.946'
 
         
         
@@ -2224,7 +2224,7 @@ class engine:
         self.current_database = self.database.get_default_database()
         if None != query:
             self.query(query)
-
+        
 
 
     def debugging(self, debug=False):
