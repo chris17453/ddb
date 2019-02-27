@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.883'
+__version__='1.0.884'
 
         
         
@@ -1842,6 +1842,7 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None):
+        print("Creating table")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
@@ -2249,36 +2250,37 @@ class engine:
             if query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)
             
-            if query_object['mode'] == 'insert':
+            elif query_object['mode'] == 'insert':
                 self.results = method_insert(self,query_object)
 
-            if query_object['mode'] == 'update':
+            elif query_object['mode'] == 'update':
                 self.results = method_update(self,query_object)
 
-            if query_object['mode'] == 'delete':
+            elif query_object['mode'] == 'delete':
                 self.results = method_delete(self,query_object)
 
-            if query_object['mode'] == 'use':
+            elif query_object['mode'] == 'use':
                 self.results = method_use(self,query_object)
 
-            if query_object['mode'] == 'set':
+            elif query_object['mode'] == 'set':
                 self.results = method_set(self,query_object)
 
-            if query_object['mode'] == 'drop':
+            elif query_object['mode'] == 'drop':
                 self.results = method_drop_table(self,query_object)
 
-            if query_object['mode'] == 'create':
+            elif query_object['mode'] == 'create':
                 self.results = method_create_table(self,query_object)
 
 
 
 
-            if query_object['mode'] == 'update table':
+            elif query_object['mode'] == 'update table':
                 self.results = method_update_table(self,query_object)
 
-            if query_object['mode'] == 'describe table':
+            elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
-
+            else:
+                print ("Unknown SQL")
                     
 
                 print ("DATA")
