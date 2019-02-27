@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.902'
+__version__='1.0.903'
 
         
         
@@ -1647,6 +1647,8 @@ class table_data:
             self.database = database
 
         if None != yaml:
+            if 'type' in yaml:
+                self.type = yaml['type']
             if 'name' in yaml:
                 self.name = yaml['name']
             if 'database' in yaml:
@@ -1752,7 +1754,9 @@ class database:
         """Get a Table structure in the database."""
         if None == database_name:
             database_name = self.get_curent_database()
+        print("Matching  {0}".format(database_name))
         for c in self.tables:
+            print("Using {0}.{1} matching {2}.{3}".format(c.data.name, c.data.database,database_name,table_name))
             if c.data.name == table_name and database_name == c.data.database:
                 return c
         return None
