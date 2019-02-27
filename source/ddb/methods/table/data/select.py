@@ -92,12 +92,19 @@ def method_select(context, query_object, parser):
         index=0
         for column in query_object['meta']['columns']:
             print(column)
+            if 'display' in column:
+                name=column['display']
+            elif  'function' in column:
+                name=column['function']
+            elif 'column' in column:
+                name=column['column']
+                
             ordinals[column]=index
             index+=1
         query_object['meta']['ordinals']=ordinals
         
 
-        if 'order by' in query_object['meta']:
+        if '3order by' in query_object['meta']:
             print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
