@@ -288,7 +288,7 @@ sql_syntax = {
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
                      'name': 'drop'}]},
-        {'query': 'create table',
+        {'query': 'create',
          'switch': [
 
              {'data': None,
