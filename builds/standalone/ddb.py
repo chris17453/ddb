@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.915'
+__version__='1.0.916'
 
         
         
@@ -369,7 +369,7 @@ sql_syntax = {
               'type':'single',
               'name': 'file'},
              {'arguments': 1,
-              'data': [{'sig': ['=', '{field}']}],
+              'data': [{'sig': ['=', '{delimiter}']}],
               'type':'single',
               'optional': True,
               'specs':{'field': {'type': 'char', 'default': ','}},
