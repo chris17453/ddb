@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.933'
+__version__='1.0.934'
 
         
         
@@ -2656,7 +2656,7 @@ def method_select(context, query_object, parser):
         
 
         if 'order by' in query_object['meta']:
-            print ("Order by")
+            print ("Order by",query_object['meta']['ordinals'])
             context_sort = []
             for c in query_object['meta']['order by']:
                 ordinal = query_object['meta']['ordinals'][c['column']]
