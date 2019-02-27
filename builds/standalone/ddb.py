@@ -22,6 +22,8 @@ import warnings
 import datetime
 import tempfile
 import time
+import atexit
+
 from cmd import Cmd
 import argparse
 from os.path import expanduser
@@ -42,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.950'
+__version__='1.0.951'
 
         
         
