@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.907'
+__version__='1.0.908'
 
         
         
@@ -1846,6 +1846,7 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None):
+        print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
