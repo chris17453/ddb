@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.938'
+__version__='1.0.939'
 
         
         
@@ -2659,6 +2659,7 @@ def method_select(context, query_object, parser):
                 ordinals[name]=index                
             else:
                 continue
+            ordinals['{0}'.format(index)]=index
             index+=1
 
         query_object['meta']['ordinals']=ordinals
