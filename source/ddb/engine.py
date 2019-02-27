@@ -141,7 +141,7 @@ class engine:
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
             else:
-                print ("Unknown SQL")
+                print (query_object)
         # only return last command
         #if self.results:
         #    # if the result set it not empty
