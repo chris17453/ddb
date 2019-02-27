@@ -127,7 +127,7 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None):
-        print("Creating table..")
+        #print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
@@ -145,7 +145,7 @@ class database:
         else:
             config_directory = None
 
-        print("Creating {0}.{1}".format(database_name,table_name))
+        #print("Creating {0}.{1}".format(database_name,table_name))
 
         t = table(name=table_name,
                   database=database_name,
