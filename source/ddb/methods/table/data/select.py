@@ -87,7 +87,7 @@ def method_select(context, query_object, parser):
             row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
-        if 'order by' in query_object['meta']:
+        if '3order by' in query_object['meta']:
             print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
