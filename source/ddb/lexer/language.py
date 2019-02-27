@@ -295,7 +295,7 @@ sql_syntax = {
               'name': 'create',
               'optional': False
               },
-              {'data': None,
+             {'data': None,
               'name': 'temporary',
               'optional': True
               },

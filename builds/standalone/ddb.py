@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.866'
+__version__='1.0.867'
 
         
         
@@ -339,25 +339,25 @@ sql_syntax = {
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']}],
                      'name': 'use'}]},
-        {'query': 'drop table',
+        {'query': 'drop',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
                      'name': 'drop'}]},
         {'query': 'create',
          'switch': [
 
-             {'data': False,
+             {'data': None,
               'name': 'create',
               'optional': False
               },
-             {'data': False,
+              {'data': None,
               'name': 'temporary',
               'optional': True
               },
 
              {'arguments': 1,
               'data': [{'sig': ['table', '{table}']}],
-              'optional': False,
+              
               'name': 'table'},
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
@@ -2270,7 +2270,7 @@ class engine:
             if query_object['mode'] == 'set':
                 self.results = method_set(self,query_object)
 
-            if query_object['mode'] == 'drop table':
+            if query_object['mode'] == 'drop':
                 self.results = method_drop_table(self,query_object)
 
             if query_object['mode'] == 'create':
