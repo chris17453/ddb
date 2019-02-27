@@ -103,6 +103,7 @@ def method_select(context, query_object, parser):
             else:
                 # TODO ERROR
                 continue
+            ordinals['{0}'.format(index)]=index
             index+=1
 
         query_object['meta']['ordinals']=ordinals
