@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.865'
+__version__='1.0.866'
 
         
         
@@ -339,11 +339,11 @@ sql_syntax = {
         {'query': 'create',
          'switch': [
 
-             {'data': None,
+             {'data': False,
               'name': 'create',
               'optional': False
               },
-             {'data': None,
+             {'data': False,
               'name': 'temporary',
               'optional': True
               },

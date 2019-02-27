@@ -126,7 +126,7 @@ class engine:
             if query_object['mode'] == 'set':
                 self.results = method_set(self,query_object)
 
-            if query_object['mode'] == 'drop table':
+            if query_object['mode'] == 'drop':
                 self.results = method_drop_table(self,query_object)
 
             if query_object['mode'] == 'create':
