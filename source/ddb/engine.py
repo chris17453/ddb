@@ -56,7 +56,7 @@ class engine:
         self.current_database = self.database.get_default_database()
         if None != query:
             self.query(query)
-
+        
     # def set_configuration(self,database_instance):
     #    self.database=database
     #    if False == self.has_configuration():
