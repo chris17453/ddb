@@ -91,6 +91,7 @@ def method_select(context, query_object, parser):
         ordinals={}
         index=0
         for column in query_object['meta']['columns']:
+            print(column)
             ordinals[column]=index
             index+=1
         query_object['meta']['ordinals']=ordinals

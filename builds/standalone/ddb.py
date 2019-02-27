@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.926'
+__version__='1.0.927'
 
         
         
@@ -2644,11 +2644,20 @@ def method_select(context, query_object, parser):
             row=process_select_row(context,query_object,None)
             temp_data.append(row)
 
-        if '3order by' in query_object['meta']:
+     
+        ordinals={}
+        index=0
+        for column in query_object['meta']['columns']:
+            ordinals[column]=index
+            index+=1
+        query_object['meta']['ordinals']=ordinals
+        
+
+        if 'order by' in query_object['meta']:
             print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
-                ordinal = query_object['table'].get_ordinal_by_name(c['column'])
+                ordinal = query_object['meta']['ordinals'][c['column']]
                 direction = 1
                 if 'asc' in c:
                     direction = 1
@@ -2676,6 +2685,8 @@ def method_select(context, query_object, parser):
             temp_data=group
 
        
+
+     
 
         if 'limit' in query_object['meta']:
             if 'start' in query_object['meta']['limit']:
