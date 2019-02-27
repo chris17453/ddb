@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.890'
+__version__='1.0.891'
 
         
         
@@ -2277,11 +2277,8 @@ class engine:
 
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
-            else:
-                print (query_object)
                     
 
-                print ("DATA")
          
         return self.results
 
@@ -2894,7 +2891,6 @@ def method_create_table(context, query_object):
             columns.append(c['column'])
         context.info("Columns to create", columns)
 
-        print (query_object)
         if 'temporary' in query_object['meta']:
             temporary=True
             context.info("Creating temporary table")
@@ -2930,7 +2926,6 @@ def method_create_table(context, query_object):
         
         return query_results(success=results)
     except Exception  as ex:
-        print ("WTF",ex)
         return query_results(success=False,error=ex)
 
         
