@@ -95,21 +95,21 @@ def method_select(context, query_object, parser):
                 name=column['display']
                 if name in ordinals:
                     raise Exception("ambigious column {0}".format(name))
-                ordinals[name]=index
+                ordinals['{0}'.format(name)]=index                
             if  'function' in column:
                 name=column['function']
                 if name in ordinals:
                     raise Exception("ambigious column {0}".format(name))
-                ordinals[name]=index                
+                ordinals['{0}'.format(name)]=index                
             if 'column' in column:
                 name=column['column']
                 if name in ordinals:
                     raise Exception("ambigious column {0}".format(name))
-                ordinals[name]=index                
+                ordinals['{0}'.format(name)]=index                
             else:
                 # TODO ERROR
                 continue
-            ordinals['{0}'.format(index)]=index
+            ordinals['{0}'.format(name)]=index                
             index+=1
 
         query_object['meta']['ordinals']=ordinals
