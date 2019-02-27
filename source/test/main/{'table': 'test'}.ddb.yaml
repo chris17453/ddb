@@ -1,0 +1,208 @@
+errors: []
+config_directory: '/home/cwatkin1/repos/chris17453/ddb/source/test'
+delimiters: 
+ comment: 
+ - '#'
+ - ';'
+ - '/'
+ field: ','
+ error: '#'
+ block_quote: null
+ array: '|'
+ new_line: '
+'
+results: []
+ordinals: 
+ first_name: true
+ last_name: 2
+ gender: 4
+ email: 3
+ ip_address: 5
+ id: false
+visible: 
+ errors: true
+ whitespace: false
+ comments: false
+version: true
+ownership: 
+ group: null
+ location: null
+ entity: null
+active: true
+data: 
+ starts_on_line: false
+ ordinal: -1
+ display_name: null
+ name: 
+  table: 'test'
+ multi_search: true
+ database: 'main'
+ config: '/home/cwatkin1/repos/chris17453/ddb/source/test/main/{''table'': ''test''}.ddb.yaml'
+ key: null
+ path: '/home/cwatkin1/repos/chris17453/ddb/source/test/MOCK_DATA.csv'
+ retults: null
+ type: 'LOCAL'
+ uid: null
+columns: 
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'id'
+   is_array: false
+   regex: null
+   ordinal: false
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'first_name'
+   is_array: false
+   regex: null
+   ordinal: true
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'last_name'
+   is_array: false
+   regex: null
+   ordinal: 2
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'email'
+   is_array: false
+   regex: null
+   ordinal: 3
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'gender'
+   is_array: false
+   regex: null
+   ordinal: 4
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}
+- sort: 
+   ordinal: false
+   default: false
+   default_asc: false
+   sortable: false
+  search: 
+   multi_search: false
+   searchable: false
+  data: 
+   default_value: null
+   has_default: false
+   name: 'ip_address'
+   is_array: false
+   regex: null
+   ordinal: 5
+   export: false
+   type: 'string'
+  display: 
+   ordinal: -1
+   fixed_width: true
+   name: null
+   width: 100
+   max_width: false
+   visible: true
+   min_width: false
+   overflow: false
+  options: {}

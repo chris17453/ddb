@@ -125,7 +125,7 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None):
-        print("Creating table")
+        #print("Creating table")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
@@ -158,10 +158,11 @@ class database:
             res = t.save()
             if False == res:
                 raise Exception("Couldn't save table configuation")
-        else:
-            print("Not saving temporary table")
+        #else:
+        #   print("Not saving temporary table")
+        print( "33")
         self.add_config(table=t)
-
+        print( "SS")
         self.reload_config()
         return True
 
