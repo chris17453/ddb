@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.929'
+__version__='1.0.930'
 
         
         
@@ -2655,8 +2655,8 @@ def method_select(context, query_object, parser):
                 name=column['function']
             elif 'column' in column:
                 name=column['column']
-                
-            ordinals[column]=index
+
+            ordinals[name]=index
             index+=1
         query_object['meta']['ordinals']=ordinals
         
