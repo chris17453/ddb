@@ -93,12 +93,18 @@ def method_select(context, query_object, parser):
         for column in query_object['meta']['columns']:
             if 'display' in column:
                 name=column['display']
+                if name in ordinals:
+                    raise Exception("ambigious column {0}".format(name))
                 ordinals[name]=index
             if  'function' in column:
                 name=column['function']
+                if name in ordinals:
+                    raise Exception("ambigious column {0}".format(name))
                 ordinals[name]=index                
             if 'column' in column:
                 name=column['column']
+                if name in ordinals:
+                    raise Exception("ambigious column {0}".format(name))
                 ordinals[name]=index                
             else:
                 # TODO ERROR
@@ -107,12 +113,13 @@ def method_select(context, query_object, parser):
             index+=1
 
         query_object['meta']['ordinals']=ordinals
-        
+        # DONE TODO Unique column names, no ambiguious index, name, alias,functions
 
         if 'order by' in query_object['meta']:
-            print ("Order by",query_object['meta']['ordinals'])
             context_sort = []
             for c in query_object['meta']['order by']:
+                if c['column'] not in  query_object['meta']['ordinals']
+                    raise Exception ("ORDER BY column not present in the result set")
                 ordinal = query_object['meta']['ordinals'][c['column']]
                 direction = 1
                 if 'asc' in c:
@@ -121,11 +128,7 @@ def method_select(context, query_object, parser):
                     direction = -1
                 context_sort.append([ordinal, direction])
             context.info(context_sort)
-            print (context_sort)
             temp_data = sorted(temp_data, sort_cmp)
-            #print temp_data
-        else:
-            print ("NO ORDER BY")
         limit_start = 0
         limit_length = None
         #print query_object['meta']
