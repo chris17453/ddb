@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.946'
+__version__='1.0.947'
 
         
         
@@ -2007,6 +2007,10 @@ class match():
             if None != compare1 and None != compare2:
                 break
 
+        if not compare1_is_column and not compare2_is_column:
+            raise Exception("expression invalid {}".format(test))
+                
+
         if None == compare1:
             compare1 = test['e1']
         if None == compare2:
@@ -2079,7 +2083,9 @@ class match():
         return False
 
 
-    def evaluate_match(self,where, row, table):
+    def evaluate_match(self,query_object, row):
+        table=query_object['table']
+        where=query_object['meta']['where']
         if None == row:
             return False
 
@@ -2360,7 +2366,7 @@ def process_line(context, query_object, line, line_number=0):
             match_results = True
         else:
             if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(query_object['meta']['where'], line_data, query_object['table'])
+                match_results = context.match.evaluate_match(query_object, line_data,)
             else:
                 match_results = False
         if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:

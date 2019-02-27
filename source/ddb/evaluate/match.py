@@ -3,7 +3,6 @@
 class match():
 
     def evaluate_single_match(self,test, row, table):
-
         
         compare1 = None
         compare2 = None
