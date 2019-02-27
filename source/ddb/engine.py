@@ -1,7 +1,7 @@
 import os
 from .lexer.lexer import lexer
-from .structure.table import table
-from .structure.database import database
+from .configuration.table import table
+from .configuration.database import database
 from .evaluate.match import match
 from .version import __version__
 
