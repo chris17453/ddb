@@ -356,6 +356,8 @@ class table_data:
             self.database = database
 
         if None != yaml:
+            if 'type' in yaml:
+                self.type = yaml['type']
             if 'name' in yaml:
                 self.name = yaml['name']
             if 'database' in yaml:
