@@ -157,6 +157,8 @@ class database:
             res = t.save()
             if False == res:
                 raise Exception("Couldn't save table configuation")
+        else:
+            print("Not saving temporary table")
         self.add_config(table=t)
 
         self.reload_config()
