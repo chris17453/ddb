@@ -23,19 +23,19 @@ def method_create_table(context, query_object):
         found_data_on=None
         found_errors=None
         if 'delimiter' in query_object['meta']:
-            found_delimiter= query_object['meta']['delimiter']['field']
+            found_delimiter= query_object['meta']['delimiter']
         if 'whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['whitespace']['whitespace']
+            found_whitespace= query_object['meta']['whitespace']
         if 'comments' in query_object['meta']:
-            found_comments= query_object['meta']['comments']['comments']
+            found_comments= query_object['meta']['comments']
         if 'errors' in query_object['meta']:
-            found_errors= query_object['meta']['errors']['errors']
+            found_errors= query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
-            found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
+            found_data_on= query_object['meta']['data_starts_on']
 
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 columns=columns,
-                                                data_file=query_object['meta']['file']['file'],
+                                                data_file=query_object['meta']['file'],
                                                 delimiter=found_delimiter,
                                                 comments=found_comments,
                                                 errors=found_errors,

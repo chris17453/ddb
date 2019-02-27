@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.913'
+__version__='1.0.914'
 
         
         
@@ -677,7 +677,7 @@ class lexer:
                                         if None == parent:
                                             if meta_type=='single':
                                                 for arg_key in curent_object['arguments']:
-                                                    query_object['arguments'][arg_key] = curent_object[arg_key]
+                                                    query_object[arg_key] = curent_object['arguments'][arg_key]
                                             else:    
                                                 query_object[curent_object['mode']] = curent_object['arguments']
                                             self.info("NO APPEND")
