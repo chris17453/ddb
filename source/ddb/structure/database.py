@@ -145,6 +145,8 @@ class database:
         else:
             config_directory = None
 
+        print("Creating {0}.{1}".format(database_name.table_name))
+
         t = table(name=table_name,
                   database=database_name,
                   columns=columns,
