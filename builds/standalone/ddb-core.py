@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.863'
+__version__='1.0.864'
 
         
         
@@ -336,7 +336,7 @@ sql_syntax = {
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
                      'name': 'drop'}]},
-        {'query': 'create table',
+        {'query': 'create',
          'switch': [
 
              {'data': None,
@@ -2266,8 +2266,11 @@ class engine:
             if query_object['mode'] == 'drop table':
                 self.results = method_drop_table(self,query_object)
 
-            if query_object['mode'] == 'create table':
+            if query_object['mode'] == 'create':
                 self.results = method_create_table(self,query_object)
+
+
+
 
             if query_object['mode'] == 'update table':
                 self.results = method_update_table(self,query_object)
