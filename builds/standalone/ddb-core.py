@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.922'
+__version__='1.0.923'
 
         
         
@@ -2628,8 +2628,10 @@ def method_select(context, query_object, parser):
 
                     if False == processed_line['match']:
                         continue
+                    
                     if None != processed_line['data']:
-                        temp_data.append( processed_line)
+                        restructured_line = process_select_row(context,query_object,processed_line) 
+                        temp_data.append(restructured_line)
 
         if False == has_columns and True == has_functions:
             row=process_select_row(context,query_object,None)
@@ -2653,11 +2655,6 @@ def method_select(context, query_object, parser):
         limit_start = 0
         limit_length = None
         
-        restructured_data=[]
-        for line in temp_data:
-            restructured_line = process_select_row(context,query_object,line) 
-            restructured_data.append(restructured_line)
-        temp_data=restructured_data
 
         if distinct:
             group=[]
