@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.900'
+__version__='1.0.901'
 
         
         
@@ -2497,6 +2497,7 @@ def method_insert(context, query_object):
         swap_files(query_object['table'].data.path, temp_file_name)
         return query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
+        print(ex)
         return query_results(success=False, error=ex)
     
         
