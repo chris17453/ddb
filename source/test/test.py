@@ -169,6 +169,7 @@ class test_engine(unittest.TestCase):
             results = engine.query("delete from {} where email like 'bop@%'".format(self.table_name))
             self.assertEqual(True, results.success)
         except Exception as ex:
+            print(ex)
             self.fail(ex)
 
 
