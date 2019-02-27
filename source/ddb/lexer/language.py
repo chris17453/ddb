@@ -284,25 +284,25 @@ sql_syntax = {
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']}],
                      'name': 'use'}]},
-        {'query': 'drop table',
+        {'query': 'drop',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
                      'name': 'drop'}]},
         {'query': 'create',
          'switch': [
 
-             {'data': False,
+             {'data': None,
               'name': 'create',
               'optional': False
               },
-             {'data': False,
+              {'data': None,
               'name': 'temporary',
               'optional': True
               },
 
              {'arguments': 1,
               'data': [{'sig': ['table', '{table}']}],
-              'optional': False,
+              
               'name': 'table'},
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
