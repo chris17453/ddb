@@ -47,4 +47,5 @@ def method_create_table(context, query_object):
         
         return query_results(success=results)
     except Exception  as ex:
+        print ("WTF",ex)
         return query_results(success=False,error=ex)
