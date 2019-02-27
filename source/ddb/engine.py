@@ -137,8 +137,9 @@ class engine:
 
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
-            else:
-                print (query_object)
+            #else:
+            # TODO uncaught    
+            #    print (query_object)
         # only return last command
         #if self.results:
         #    # if the result set it not empty
@@ -163,7 +164,6 @@ class engine:
 #
                     #self.results.data=self.results.data.results
 
-                print ("DATA")
          
         return self.results
 
