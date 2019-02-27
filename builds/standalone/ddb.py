@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.862'
+__version__='1.0.863'
 
         
         
@@ -345,8 +345,8 @@ sql_syntax = {
                      'name': 'drop'}]},
         {'query': 'create table',
          'switch': [
-             
-              {'data': None,
+
+             {'data': None,
               'name': 'create',
               'optional': False
               },
@@ -354,47 +354,47 @@ sql_syntax = {
               'name': 'temporary',
               'optional': True
               },
-             
+
              {'arguments': 1,
-                'data': [{'sig': ['table', '{table}']}],
-                'optional': False
-                'name': 'table'},
-                {'data': False, 'dispose': True, 'name': '('},
-                {'arguments': 0,
-                    'data': [{'sig': ['{column}']}],
-                    'name': 'columns',
-                    'no_keyword': True},
-                {'data': False, 'dispose': True, 'name': ')'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{file}']}],
-                    'name': 'file'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{field}']}],
-                    'optional': True,
-                    'specs':{'field': {'type': 'char', 'default': ','}},
-                    'name': 'delimiter'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{whitespace}']}],
-                    'optional': True,
-                    'specs':{'whitespace': {'type': 'bool'}},
-                    'name': 'whitespace'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{errors}']}],
-                    'optional': True,
-                    'specs':{'errors': {'type': 'bool'}},
-                    'name': 'errors'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{comments}']}],
-                    'optional': True,
-                    'specs':{'comments': {'type': 'bool'}},
-                    'name': 'comments'},
-                {'arguments': 1,
-                    'data': [{'sig': ['=', '{data_starts_on}']}],
-                    'optional': True,
-                    'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
-                    'name': 'data_starts_on'}, ]},
-      
-        
+              'data': [{'sig': ['table', '{table}']}],
+              'optional': False,
+              'name': 'table'},
+             {'data': False, 'dispose': True, 'name': '('},
+             {'arguments': 0,
+              'data': [{'sig': ['{column}']}],
+              'name': 'columns',
+              'no_keyword': True},
+             {'data': False, 'dispose': True, 'name': ')'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{file}']}],
+              'name': 'file'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{field}']}],
+              'optional': True,
+              'specs':{'field': {'type': 'char', 'default': ','}},
+              'name': 'delimiter'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{whitespace}']}],
+              'optional': True,
+              'specs':{'whitespace': {'type': 'bool'}},
+              'name': 'whitespace'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{errors}']}],
+              'optional': True,
+              'specs':{'errors': {'type': 'bool'}},
+              'name': 'errors'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{comments}']}],
+              'optional': True,
+              'specs':{'comments': {'type': 'bool'}},
+              'name': 'comments'},
+             {'arguments': 1,
+              'data': [{'sig': ['=', '{data_starts_on}']}],
+              'optional': True,
+              'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
+              'name': 'data_starts_on'}, ]},
+
+
         {'query': 'update table',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
