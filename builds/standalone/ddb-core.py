@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.949'
+__version__='1.0.950'
 
         
         
@@ -2668,14 +2668,12 @@ def method_select(context, query_object, parser):
             temp_data.append(row)
 
      
-        print("ORD",ordinals)
 
         if 'order by' in query_object['meta']:
             print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
                 if c['column'] not in query_object['meta']['ordinals']:
-                    print ("ORDER BY column not present in the result set")
                     raise Exception ("ORDER BY column not present in the result set")
                 ordinal = query_object['meta']['ordinals'][c['column']]
                 direction = 1

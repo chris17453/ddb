@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.949'
+__version__='1.0.950'
 
         
         
@@ -2675,14 +2675,12 @@ def method_select(context, query_object, parser):
             temp_data.append(row)
 
      
-        print("ORD",ordinals)
 
         if 'order by' in query_object['meta']:
             print ("Order by")
             context_sort = []
             for c in query_object['meta']['order by']:
                 if c['column'] not in query_object['meta']['ordinals']:
-                    print ("ORDER BY column not present in the result set")
                     raise Exception ("ORDER BY column not present in the result set")
                 ordinal = query_object['meta']['ordinals'][c['column']]
                 direction = 1
@@ -3981,13 +3979,25 @@ def cli_main():
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
     if args.query is not None:
-        e = engine( config_file=config_file, 
-                        debug=args.debug, 
-                        mode="full",
-                        output=args.output,
-                        output_file=args.file)
-        results = e.query(args.query)
-        output_factory(results,output=args.output,output_file=args.file)
+        try:
+            e = engine( config_file=config_file, 
+                            debug=args.debug, 
+                            mode="full",
+                            output=args.output,
+                            output_file=args.file)
+            results = e.query(args.query)
+            if results.success==True:
+                output_factory(results,output=args.output,output_file=args.file)
+            
+            if None==results:
+                exit_code=1
+            elif results.success==True:
+                exit_code=0
+            elif results.success==False:
+                exit_code=1
+            atexit.register(exit_code)
+        except Exception as ex:
+            print(ex)
 
     else:
         prompt = ddbPrompt()
