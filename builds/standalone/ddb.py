@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.914'
+__version__='1.0.915'
 
         
         
@@ -366,29 +366,35 @@ sql_syntax = {
              {'data': False, 'dispose': True, 'name': ')'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{file}']}],
+              'type':'single',
               'name': 'file'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{field}']}],
+              'type':'single',
               'optional': True,
               'specs':{'field': {'type': 'char', 'default': ','}},
               'name': 'delimiter'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{whitespace}']}],
+              'type':'single',
               'optional': True,
               'specs':{'whitespace': {'type': 'bool'}},
               'name': 'whitespace'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{errors}']}],
+              'type':'single',
               'optional': True,
               'specs':{'errors': {'type': 'bool'}},
               'name': 'errors'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{comments}']}],
+              'type':'single',
               'optional': True,
               'specs':{'comments': {'type': 'bool'}},
               'name': 'comments'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{data_starts_on}']}],
+              'type':'single',
               'optional': True,
               'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
               'name': 'data_starts_on'}, ]},
@@ -2920,19 +2926,19 @@ def method_create_table(context, query_object):
         found_data_on=None
         found_errors=None
         if 'delimiter' in query_object['meta']:
-            found_delimiter= query_object['meta']['delimiter']['field']
+            found_delimiter= query_object['meta']['delimiter']
         if 'whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['whitespace']['whitespace']
+            found_whitespace= query_object['meta']['whitespace']
         if 'comments' in query_object['meta']:
-            found_comments= query_object['meta']['comments']['comments']
+            found_comments= query_object['meta']['comments']
         if 'errors' in query_object['meta']:
-            found_errors= query_object['meta']['errors']['errors']
+            found_errors= query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
-            found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
+            found_data_on= query_object['meta']['data_starts_on']
 
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 columns=columns,
-                                                data_file=query_object['meta']['file']['file'],
+                                                data_file=query_object['meta']['file'],
                                                 delimiter=found_delimiter,
                                                 comments=found_comments,
                                                 errors=found_errors,

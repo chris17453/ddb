@@ -314,7 +314,7 @@ sql_syntax = {
               'type':'single',
               'name': 'file'},
              {'arguments': 1,
-              'data': [{'sig': ['=', '{field}']}],
+              'data': [{'sig': ['=', '{delimiter}']}],
               'type':'single',
               'optional': True,
               'specs':{'field': {'type': 'char', 'default': ','}},
