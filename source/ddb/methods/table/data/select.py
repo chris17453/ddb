@@ -186,7 +186,7 @@ def process_select_row(context,query_object,processed_line):
         line_type=context.data_type.DATA
         error= None
         raw= None
-    return {'data': row, 'type': line_type, 'error': error, 'raw': raw}
+    return {'data': row, 'type': line_type, 'error': error} #TODO RAW?
 
 
 def sort_cmp( x, y):
