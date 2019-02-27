@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.916'
+__version__='1.0.917'
 
         
         
@@ -1885,7 +1885,7 @@ class database:
         else:
             config_directory = None
 
-        print("Creating {0}.{1}".format(database_name.table_name))
+        print("Creating {0}.{1}".format(database_name,table_name))
 
         t = table(name=table_name,
                   database=database_name,
