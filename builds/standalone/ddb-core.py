@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.880'
+__version__='1.0.881'
 
         
         
@@ -3144,22 +3144,22 @@ class output_factory:
                 
         
 
-    def format_raw(self,results,output_file):
+    def format_raw(self,query_results,output_file):
         """ouput results data in the yaml format"""
-        print(results.results)
+        print(query_results.data)
         if not output_file:
-            for row in results.results:
+            for row in query_results.data:
                 if 'raw' in row:
                     print(row['raw'].rstrip())
         else:
             with open(output_file, "w") as write_file:
-                for row in results.results:
+                for row in query_results.data:
                     if 'raw' in row:
                         write_file.write(row['raw'])
 
     def format_yaml(self,query_results,output_file):
         """ouput results data in the yaml format"""
-        results=results.data
+        results=query_results.data
         factory=factory_yaml()
         dump=factory.dump(results)
         if not output_file:
@@ -3170,7 +3170,7 @@ class output_factory:
 
     def format_json(self,query_results,output_file):
         """ouput results data in the json format"""
-        results=results.data
+        results=query_results.data
         factory=factory_json()
         dump=factory.dumps(results)
         if not output_file:
@@ -3181,7 +3181,7 @@ class output_factory:
         
     def format_xml(self,query_results,output_file):
         """ouput results data in the xml format"""
-        results=results.data
+        results=query_results.data
         factory=factory_xml()
         dump=factory.dumps({'data':results})
         if not output_file:
