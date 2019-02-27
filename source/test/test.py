@@ -157,6 +157,7 @@ class test_engine(unittest.TestCase):
             print("Create")
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
+
             results = engine.query("show tables")
             print(results.data,results.success,results.error)
             
