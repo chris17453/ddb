@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.910'
+__version__='1.0.911'
 
         
         
@@ -349,7 +349,7 @@ sql_syntax = {
               },
              {'arguments': 1,
               'data': [{'sig': ['{table}']}],
-              'type':'single'
+              'type':'single',
               'name': 'table'},
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
