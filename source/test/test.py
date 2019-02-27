@@ -160,14 +160,14 @@ class test_engine(unittest.TestCase):
             print ("insert")
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
-            
+            print("Delete")
             # delete just inserted
             results = engine.query("delete from {} where id='1003'".format(self.table_name))
             self.assertEqual(True, results.success)
 
             # delete non existing
             results = engine.query("delete from {} where email like 'bop@%'".format(self.table_name))
-            self.assertEqual(True, results.success)
+            self.assertEqual(False, results.success)
         except Exception as ex:
             print(ex)
             print ("HI")
