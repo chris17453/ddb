@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.881'
+__version__='1.0.882'
 
         
         
@@ -2899,6 +2899,7 @@ def method_create_table(context, query_object):
             columns.append(c['column'])
         context.info("Columns to create", columns)
 
+        print (query_object)
         if 'temporary' in query_object['meta']:
             temporary=True
             context.info("Creating temporary table")
