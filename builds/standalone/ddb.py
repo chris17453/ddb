@@ -42,7 +42,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.884'
+__version__='1.0.885'
 
         
         
@@ -2287,7 +2287,7 @@ class engine:
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
             else:
-                print ("Unknown SQL")
+                print (query_object)
                     
 
                 print ("DATA")

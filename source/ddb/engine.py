@@ -102,13 +102,13 @@ class engine:
             # print query_object['mode']
             if query_object['mode'] == "show tables":
                 self.results = method_show_tables(self,self.database)
-            if query_object['mode'] == "show columns":
+            elif query_object['mode'] == "show columns":
                 self.results = method_show_columns(self,self.database, query_object)
             
             #if query_object['mode']=="show errors":
             #    self.results=method_show_errors(self,self.database,self.table)
             
-            if query_object['mode'] == 'select':
+            elif query_object['mode'] == 'select':
                 self.results = method_select(self,query_object, parser)
             
             elif query_object['mode'] == 'insert':
@@ -131,9 +131,6 @@ class engine:
 
             elif query_object['mode'] == 'create':
                 self.results = method_create_table(self,query_object)
-
-
-
 
             elif query_object['mode'] == 'update table':
                 self.results = method_update_table(self,query_object)
