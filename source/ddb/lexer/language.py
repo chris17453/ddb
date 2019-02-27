@@ -295,10 +295,12 @@ sql_syntax = {
               'name': 'create',
               'optional': False
               },
-
-
+             {'data': None,
+              'name': 'temporary',
+              'optional': True
+              },
              {'arguments': 1,
-              'data': [{'sig': ['table', '{table}']}],
+              'data': [{'sig': ['{table}']}],
               
               'name': 'table'},
              {'data': False, 'dispose': True, 'name': '('},
