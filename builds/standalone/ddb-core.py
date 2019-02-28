@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.964'
+__version__='1.0.965'
 
         
         
@@ -2612,7 +2612,7 @@ def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
     file_path = query_object['table'].data.path
     line_number = 1
-
+    data=[]
     if True == has_columns:
         with open(file_path, 'r') as content_file:
             for line in content_file:
