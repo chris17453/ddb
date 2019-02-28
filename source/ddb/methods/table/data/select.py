@@ -121,17 +121,17 @@ def select_validate_columns_and_from(context,query_object):
 
 
 def select_has_columns(context,query_object):
-      for c in query_object['meta']['columns']:
-            if 'column' in c:
-                context.info("Has columns, needs a table")
-                return  True
+    for c in query_object['meta']['columns']:
+        if 'column' in c:
+            context.info("Has columns, needs a table")
+            return  True
     return False
             
 def select_has_functions(context,query_object):
-      for c in query_object['meta']['columns']:
-            if 'function' in c:
-                context.info("Has functions, doesnt need a table")
-                return True
+    for c in query_object['meta']['columns']:
+        if 'function' in c:
+            context.info("Has functions, doesnt need a table")
+            return True
     return False
 
 

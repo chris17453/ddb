@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.955'
+__version__='1.0.956'
 
         
         
@@ -2578,154 +2578,190 @@ context_sort=[]
 def method_select(context, query_object, parser):
     global context_sort
     try:
-        if 'distinct' in query_object['meta']:
-            distinct=True
-        else:
-            distinct=None
         context.info(query_object)
-        temp_data = []
 
-        has_functions = False
-        has_columns = False
-        for c in query_object['meta']['columns']:
-            if 'function' in c:
-                context.info("Has functions, doesnt need a table")
-                has_functions = True
-            if 'column' in c:
-                context.info("Has columns, needs a table")
-                has_columns = True
-        if False == has_columns and 'from' in query_object['meta']:
-            raise Exception("Invalid FROM, all columns are functions")
-
-        if 'database' in query_object['meta']['from']:
-            context.info('Database specified')
-            database_name=query_object['meta']['from']['database']
-        else:
-            context.info('Using curent database context')
-            database_name=context.database.get_curent_database()
-
-        if True == has_columns:
-            if 'from' in query_object['meta']:
-                table_name = query_object['meta']['from']['table']
-                query_object['table'] = context.database.get(table_name,database_name)
-                if None == query_object['table']:
-                    raise Exception("Table '{0}' does not exist.".format(table_name))
-                table_columns = query_object['table'].get_columns()
-                parser.expand_columns(query_object, table_columns)
-                column_len = query_object['table'].column_count()
-                if column_len == 0:
-                    raise Exception("No defined columns in configuration")
-            else:
-                raise Exception("Missing FROM in select")
+        
+        select_validate_columns_and_from(context,query_object)
 
         temp_table = context.database.temp_table()
-        for column in query_object['meta']['columns']:
-            display = None
-            if 'display' in column:
-                display = column['display']
-                context.info("RENAME COLUMN", display)
-
-            if 'column' in column:
-                context.info("adding data column")
-                temp_table.add_column(column['column'], display)
-            if 'function' in column:
-                context.info("adding function column")
-                temp_table.add_column(column['function'], display)
-       
-        ordinals={}
-        index=0
-        for column in query_object['meta']['columns']:
-            if 'display' in column:
-                name=column['display']
-                if '{0}'.format(name) in ordinals:
-                    raise Exception("ambigious column {0}".format(name))
-                ordinals['{0}'.format(name)]=index                
-            if  'function' in column:
-                name=column['function']
-                if '{0}'.format(name) in ordinals:
-                    raise Exception("ambigious column {0}".format(name))
-                ordinals['{0}'.format(name)]=index                
-            if 'column' in column:
-                name=column['column']
-                if '{0}'.format(name) in ordinals:
-                    raise Exception("ambigious column {0}".format(name))
-                ordinals['{0}'.format(name)]=index                
-            else:
-                continue
-            ordinals['{0}'.format(name)]=index                
-            index+=1
-
-        query_object['meta']['ordinals']=ordinals
-
-        line_number = 1
-
-        if True == has_columns:
-            with open(query_object['table'].data.path, 'r') as content_file:
-                for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number)
-                    if None != processed_line['error']:
-                        temp_table.add_error(processed_line['error'])
-                    line_number += 1
-
-                    if False == processed_line['match']:
-                        continue
-                    
-                    if None != processed_line['data']:
-                        restructured_line = process_select_row(context,query_object,processed_line) 
-                        temp_data.append(restructured_line)
-
-        if False == has_columns and True == has_functions:
-            row=process_select_row(context,query_object,None)
-            temp_data.append(row)
-
-     
-
-        if 'order by' in query_object['meta']:
-            print ("Order by")
-            context_sort = []
-            for c in query_object['meta']['order by']:
-                if c['column'] not in query_object['meta']['ordinals']:
-                    raise Exception ("ORDER BY column not present in the result set")
-                ordinal = query_object['meta']['ordinals'][c['column']]
-                direction = 1
-                if 'asc' in c:
-                    direction = 1
-                elif 'desc' in c:
-                    direction = -1
-                context_sort.append([ordinal, direction])
-            context.info(context_sort)
-            temp_data = sorted(temp_data, sort_cmp)
-        limit_start = 0
-        limit_length = None
         
-
-        if distinct:
-            group=[]
-            for item in temp_data:
-                no_item=True
-                for group_item in group:
-                    if compare_data(context,group_item['data'],item['data']):
-                        no_item=None
-                        break
-                if no_item:
-                    group.append(item)
-            temp_data=group
-
+        add_table_columns(context,query_object,temp_table)
        
+        set_ordinals(context,query_object)
 
-     
 
-        if 'limit' in query_object['meta']:
-            if 'start' in query_object['meta']['limit']:
-                limit_start = query_object['meta']['limit']['start']
-            if 'length' in query_object['meta']['limit']:
-                limit_length = query_object['meta']['limit']['length']
+        temp_data=process_file(context,query_object)
 
-        context.info("Limit:{0},Length:{1}".format(limit_start, limit_length))
-        temp_table.results = limit(temp_data, limit_start, limit_length)
-        return query_results(affected_rows=0,success=True,data=temp_table)
+
+        temp_data=order_by(context,query_object,temp_data)
+
+        temp_data=distinct(context,query_object,temp_data)
+        
+        
+        temp_data = limit(context, query_object, temp_data)
+
+        temp_table.results=temp_data
+
+        return query_results(success=True,data=temp_table)
     except Exception as ex:
         return query_results(success=False,error=ex)   
+
+
+def process_file(context,query_object):
+    has_columns = select_has_columns(context,query_object)
+    file_path = query_object['table'].data.path
+    line_number = 1
+
+    if True == has_columns:
+        with open(file_path, 'r') as content_file:
+            for line in content_file:
+                processed_line = process_line(context,query_object, line, line_number)
+
+                if False == processed_line['match']:
+                    continue
+                
+                if None != processed_line['data']:
+                    restructured_line = process_select_row(context,query_object,processed_line) 
+                    data.append(restructured_line)
+
+                line_number += 1
+
+    if False == has_columns and True == has_functions:
+        row=process_select_row(context,query_object,None)
+        data.append(row)
+
+    return data
+
+
+
+def select_validate_columns_and_from(context,query_object):
+    has_functions = select_has_functions(context,query_object)
+    has_columns = select_has_columns(context,query_object)
+
+    if False == has_columns and 'from' in query_object['meta']:
+        raise Exception("Invalid FROM, all columns are functions")
+
+    if False == has_columns and False == has_functions:
+        raise Exception("no columns defined in query")
+
+
+    if True == has_columns:
+        if 'from' in query_object['meta']:
+            if 'database' in query_object['meta']['from']:
+                context.info('Database specified')
+                database_name=query_object['meta']['from']['database']
+            else:
+                context.info('Using curent database context')
+                database_name=context.database.get_curent_database()
+
+            table_name = query_object['meta']['from']['table']
+            query_object['table'] = context.database.get(table_name,database_name)
+            if None == query_object['table']:
+                raise Exception("Table '{0}' does not exist.".format(table_name))
+            table_columns = query_object['table'].get_columns()
+            parser.expand_columns(query_object, table_columns)
+            column_len = query_object['table'].column_count()
+            if column_len == 0:
+                raise Exception("No defined columns in configuration")
+        else:
+            raise Exception("Missing FROM in select")
+
+
+
+def select_has_columns(context,query_object):
+      for c in query_object['meta']['columns']:
+            if 'column' in c:
+                context.info("Has columns, needs a table")
+                return  True
+    return False
+            
+def select_has_functions(context,query_object):
+      for c in query_object['meta']['columns']:
+            if 'function' in c:
+                context.info("Has functions, doesnt need a table")
+                return True
+    return False
+
+
+def add_table_columns(context,query_object,temp_table):
+    for column in query_object['meta']['columns']:
+        display = None
+        if 'display' in column:
+            display = column['display']
+            context.info("RENAME COLUMN", display)
+
+        if 'column' in column:
+            context.info("adding data column")
+            temp_table.add_column(column['column'], display)
+        if 'function' in column:
+            context.info("adding function column")
+            temp_table.add_column(column['function'], display)    
+
+def set_ordinals(context,query_object):
+    ordinals={}
+    index=0
+    for column in query_object['meta']['columns']:
+        if 'display' in column:
+            name=column['display']
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
+        if  'function' in column:
+            name=column['function']
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
+        if 'column' in column:
+            name=column['column']
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
+        else:
+            continue
+        ordinals['{0}'.format(name)]=index                
+        index+=1
+    query_object['meta']['ordinals']=ordinals
+
+def order_by(context,query_object,data):
+    if 'order by' is not in query_object['meta']:
+        return data
+
+    context.info("Select has Order By")
+    context_sort = []
+    for c in query_object['meta']['order by']:
+        if c['column'] not in query_object['meta']['ordinals']:
+            raise Exception ("ORDER BY column not present in the result set")
+        ordinal = query_object['meta']['ordinals'][c['column']]
+        direction = 1
+        if 'asc' in c:
+            direction = 1
+        elif 'desc' in c:
+            direction = -1
+        context_sort.append([ordinal, direction])
+    
+    context.info(context_sort)
+    ordered_data = sorted(data, sort_cmp)
+    return ordered_data
+
+
+def group(context,data):
+       
+
+def distinct(context,query_object,data):
+    if 'distinct' is not in query_object['meta']:
+        return data
+
+    context.info("Select has Distinct")
+    group=[]
+    for item in data:
+        no_item=True
+        for group_item in group:
+            if compare_data(context,group_item['data'],item['data']):
+                no_item=None
+                break
+        if no_item:
+            group.append(item)
+    return group    
 
 
 def process_select_row(context,query_object,processed_line):
@@ -2769,18 +2805,28 @@ def sort_cmp( x, y):
             return 1 * direction
     return 0
     
-def limit( data_stream, index, length):
+def limit(context, query_object, data):
+    index = 0
+    length = None
+
+    if 'limit' in query_object['meta']:
+        if 'start' in query_object['meta']['limit']:
+            index = query_object['meta']['limit']['start']
+        if 'length' in query_object['meta']['limit']:
+            length = query_object['meta']['limit']['length']
+
+    context.info("Limit:{0},Length:{1}".format(index, length))    
     if None == index:
         index = 0
     if None == length:
-        length = len(data_stream) - index
+        length = len(data) - index
 
-    data_stream_lenght = len(data_stream)
-    if index >= data_stream_lenght:
+    data_length = len(data)
+    if index >= data_length:
         return []
-    if index + length > data_stream_lenght:
-        length = data_stream_lenght - index
-    return data_stream[index:index + length]
+    if index + length > data_length:
+        length = data_length - index
+    return data[index:index + length]
 
 def compare_data(context,data1, data2):
     if data1 is None or data2 is None:
