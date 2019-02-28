@@ -22,7 +22,6 @@ import warnings
 import datetime
 import tempfile
 import time
-import atexit
 
 from cmd import Cmd
 import argparse
@@ -44,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.953'
+__version__='1.0.954'
 
         
         
@@ -4001,7 +4000,7 @@ def cli_main():
                 exit_code=0
             elif results.success==False:
                 exit_code=1
-            atexit.register(exit_code)
+            sys.exit(exit_code)
         except Exception as ex:
             print(ex)
 
