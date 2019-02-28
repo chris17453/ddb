@@ -109,7 +109,11 @@ sql_syntax = {
               },
 
              {'arguments': 1,
-              'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
+              'data': [ {'sig': ['{table}']},
+                        {'sig': ['{table}', 'as', '{display}']}
+                        {'sig': ['{database}','.','{table}']},
+                        {'sig': ['{database}','.','{table}', 'as', '{display}']},
+                        ],
               'name': 'from',
               'optional': True},
 
