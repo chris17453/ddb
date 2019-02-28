@@ -28,7 +28,7 @@ def method_select(context, query_object, parser):
         # TODO Columns with the same name can be renamed, but fail. Key issue?
 
         # scan the table for matches and collect the data
-        temp_data=process_file(context,query_object)
+        temp_data=select_process_file(context,query_object)
 
         # TODO Join code here.....
 
@@ -54,7 +54,7 @@ def method_select(context, query_object, parser):
         return query_results(success=False,error=ex)   
 
 
-def process_file(context,query_object):
+def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
     file_path = query_object['table'].data.path
     line_number = 1

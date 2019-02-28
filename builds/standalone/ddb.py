@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.960'
+__version__='1.0.961'
 
         
         
@@ -2612,6 +2612,7 @@ def method_select(context, query_object, parser):
 
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)   
 
 
