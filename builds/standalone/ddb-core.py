@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.962'
+__version__='1.0.963'
 
         
         
@@ -2581,7 +2581,7 @@ def method_select(context, query_object, parser):
         context.info(query_object)
 
         
-        select_validate_columns_and_from(context,query_object)
+        select_validate_columns_and_from(context,query_object,parser)
 
         temp_table = context.database.temp_table()
         
@@ -2635,7 +2635,7 @@ def select_process_file(context,query_object):
 
 
 
-def select_validate_columns_and_from(context,query_object):
+def select_validate_columns_and_from(context,query_object. parser):
     has_functions = select_has_functions(context,query_object)
     has_columns = select_has_columns(context,query_object)
 
