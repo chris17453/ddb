@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.958'
+__version__='1.0.959'
 
         
         
@@ -2753,6 +2753,7 @@ def order_by(context,query_object,data):
 
 
 def group(context,data):
+    return data
        
 
 def distinct(context,query_object,data):
