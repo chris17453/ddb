@@ -210,6 +210,7 @@ def group(context,data):
         #        if no_item:
         #            group.append(item)
         #    temp_data=group
+    return data
        
 
 def distinct(context,query_object,data):
