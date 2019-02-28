@@ -3,7 +3,7 @@ from ..core import process_line, swap_files, query_results
 from ....version import __version__
 
 
-#used for orderby 
+#used for order by a HACK to be fixed
 context_sort=[]
 
 def method_select(context, query_object, parser):
@@ -50,6 +50,7 @@ def method_select(context, query_object, parser):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         # something blew up. Bail!
+        print ex
         return query_results(success=False,error=ex)   
 
 

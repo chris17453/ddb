@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.959'
+__version__='1.0.960'
 
         
         
@@ -2749,7 +2749,7 @@ def group(context,data):
        
 
 def distinct(context,query_object,data):
-    if 'distinct' is not in query_object['meta']:
+    if 'distinct' not in query_object['meta']:
         return data
 
     context.info("Select has Distinct")
