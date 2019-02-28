@@ -6,7 +6,7 @@ from .output.factory import output_factory
 
 
 from os.path import expanduser
-import atexit
+import sys
 
 
 def cli_main():
@@ -50,7 +50,7 @@ def cli_main():
                 exit_code=0
             elif results.success==False:
                 exit_code=1
-            atexit.register(exit_code)
+            sys.exit(exit_code)
         except Exception as ex:
             print(ex)
 
