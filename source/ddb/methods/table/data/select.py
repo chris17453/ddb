@@ -7,7 +7,6 @@ from ....version import __version__
 context_sort=[]
 
 def method_select(context, query_object, parser):
-    global context_sort
     try:
         context.info(query_object)
 
@@ -177,9 +176,10 @@ def set_ordinals(context,query_object):
     query_object['meta']['ordinals']=ordinals
 
 def order_by(context,query_object,data):
+    global context_sort
+
     if 'order by' not in query_object['meta']:
         return data
-
     context.info("Select has Order By")
     context_sort = []
     for c in query_object['meta']['order by']:
