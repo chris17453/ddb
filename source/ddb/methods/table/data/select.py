@@ -176,7 +176,7 @@ def set_ordinals(context,query_object):
     query_object['meta']['ordinals']=ordinals
 
 def order_by(context,query_object,data):
-    if 'order by' is not in query_object['meta']:
+    if 'order by' not in query_object['meta']:
         return data
 
     context.info("Select has Order By")
