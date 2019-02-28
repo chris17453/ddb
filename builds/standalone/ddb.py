@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.954'
+__version__='1.0.955'
 
         
         
@@ -2605,10 +2605,17 @@ def method_select(context, query_object, parser):
         if False == has_columns and 'from' in query_object['meta']:
             raise Exception("Invalid FROM, all columns are functions")
 
+        if 'database' in query_object['meta']['from']:
+            context.info('Database specified')
+            database_name=query_object['meta']['from']['database']
+        else:
+            context.info('Using curent database context')
+            database_name=context.database.get_curent_database()
+
         if True == has_columns:
             if 'from' in query_object['meta']:
                 table_name = query_object['meta']['from']['table']
-                query_object['table'] = context.database.get(table_name)
+                query_object['table'] = context.database.get(table_name,database_name)
                 if None == query_object['table']:
                     raise Exception("Table '{0}' does not exist.".format(table_name))
                 table_columns = query_object['table'].get_columns()
