@@ -122,7 +122,6 @@ import warnings
 import datetime
 import tempfile
 import time
-import atexit
 
 from cmd import Cmd
 import argparse
