@@ -56,7 +56,7 @@ class output_factory:
         data=query_results.data
         
         name="ddb"
-        print ("# bash variable assignment for ddb output")
+        #print ("# bash variable assignment for ddb output")
         print ("declare {0}_data -A".format(name))
         print ("declare {0}_info -A".format(name))
         print ("declare {0}_columns -A".format(name))
@@ -91,7 +91,7 @@ class output_factory:
                 print("{0}_data[{1},{2}]='{3}'".format(name,row_index,column_index,column))
                 column_index+=1
             row_index+=1
-        print ("# end ddb output ")
+        #print ("# end ddb output ")
                 
         
 
