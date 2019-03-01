@@ -307,6 +307,15 @@ sql_syntax = {
               'data': [{'sig': ['{table}']}],
               'type':'single',
               'name': 'table'},
+
+             {'arguments': 1,
+              'data': [ {'sig': ['{table}']},
+                        {'sig': ['{database}','.','{table}']},
+                        ],
+              'name': 'table',
+              'type': 'single',
+              'optional': False },
+
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],

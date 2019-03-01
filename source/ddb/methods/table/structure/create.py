@@ -3,6 +3,14 @@ from ..core import process_line, swap_files, query_results
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
+
+        if 'database' in query_object['meta']:
+            context.info('Database specified')
+            database_name=query_object['meta']['database']
+        else:
+            context.info('Using curent database context')
+            database_name=context.database.get_curent_database()
+
         columns = []
         if 'columns' not in  query_object['meta'] :
             raise Exception ("Missing columns, cannot create table")
@@ -32,8 +40,9 @@ def method_create_table(context, query_object):
             found_errors= query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']
-
+        database_name=
         results = context.database.create_table(table_name=query_object['meta']['table'],
+                                                database=database_name,
                                                 columns=columns,
                                                 data_file=query_object['meta']['file'],
                                                 delimiter=found_delimiter,
