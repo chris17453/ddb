@@ -10,15 +10,12 @@ def method_select(context, query_object, parser):
     try:
         context.info(query_object)
 
-        print("1")
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,query_object,parser)
 
-        print("2")
         #create data destinaton
         temp_table = context.database.temp_table()
         
-        print("4")
         # add columns, as renamed
         add_table_columns(context,query_object,temp_table)
        
@@ -34,9 +31,12 @@ def method_select(context, query_object, parser):
 
         # TODO Join code here.....
 
+        print("554")
         # order the data by columns, aliases or indexes
         temp_data=order_by(context,query_object,temp_data)
 
+        print("777")
+        
         # Distinct, a custom grouping
         temp_data=distinct(context,query_object,temp_data)
         
