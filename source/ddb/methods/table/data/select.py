@@ -43,9 +43,11 @@ def method_select(context, query_object, parser):
         # Grouping
         # group(context, data)
         
+        print("8888")
         # Limit / Filter the data
         temp_data = limit(context, query_object, temp_data)
 
+        print("9999")
         # assign matched and transformed data to temp table
         temp_table.results=temp_data
 
