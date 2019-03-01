@@ -54,6 +54,7 @@ def method_select(context, query_object, parser):
 
 def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
+    has_functions = select_has_functions(context,query_object)
     
     line_number = 1
     data=[]

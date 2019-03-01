@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.992'
+__version__='1.0.993'
 
         
         
@@ -2581,7 +2581,7 @@ context_sort=[]
 def method_select(context, query_object, parser):
     try:
         context.info(query_object)
-
+        print ("START")
         select_validate_columns_and_from(context,query_object,parser)
 
         temp_table = context.database.temp_table()
