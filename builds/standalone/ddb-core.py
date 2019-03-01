@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.969'
+__version__='1.0.970'
 
         
         
@@ -2987,47 +2987,48 @@ def method_update(context, query_object):
 
 
 
+
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
 
         if 'database' in query_object['meta']:
             context.info('Database specified')
-            database_name=query_object['meta']['database']
+            database_name = query_object['meta']['database']
         else:
             context.info('Using curent database context')
-            database_name=context.database.get_curent_database()
+            database_name = context.database.get_curent_database()
 
         columns = []
-        if 'columns' not in  query_object['meta'] :
-            raise Exception ("Missing columns, cannot create table")
+        if 'columns' not in query_object['meta']:
+            raise Exception("Missing columns, cannot create table")
 
         for c in query_object['meta']['columns']:
             columns.append(c['column'])
         context.info("Columns to create", columns)
 
         if 'temporary' in query_object['meta']:
-            temporary=True
+            temporary = True
             context.info("Creating temporary table")
         else:
-            temporary=None
+            temporary = None
 
-        found_delimiter=None
-        found_comments=None
-        found_whitespace=None
-        found_data_on=None
-        found_errors=None
+        found_delimiter = None
+        found_comments = None
+        found_whitespace = None
+        found_data_on = None
+        found_errors = None
         if 'delimiter' in query_object['meta']:
-            found_delimiter= query_object['meta']['delimiter']
+            found_delimiter = query_object['meta']['delimiter']
         if 'whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['whitespace']
+            found_whitespace = query_object['meta']['whitespace']
         if 'comments' in query_object['meta']:
-            found_comments= query_object['meta']['comments']
+            found_comments = query_object['meta']['comments']
         if 'errors' in query_object['meta']:
-            found_errors= query_object['meta']['errors']
+            found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
-            found_data_on= query_object['meta']['data_starts_on']
-        
+            found_data_on = query_object['meta']['data_starts_on']
+
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 database=database_name,
                                                 columns=columns,
@@ -3039,10 +3040,10 @@ def method_create_table(context, query_object):
                                                 data_on=found_data_on,
                                                 temporary=temporary
                                                 )
-        
+
         return query_results(success=results)
-    except Exception  as ex:
-        return query_results(success=False,error=ex)
+    except Exception as ex:
+        return query_results(success=False, error=ex)
 
         
         
