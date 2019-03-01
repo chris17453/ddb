@@ -11,6 +11,7 @@ def method_use(context, query_object):
             data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(data)
         # TODO so.. is this how we want to handle actions not preformed?
+        print "success"
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         print ex
