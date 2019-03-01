@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1013'
+__version__='1.0.1014'
 
         
         
@@ -3244,7 +3244,7 @@ class output_factory:
 
         row_index=0
         for row in data:
-            print('Declare {0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])))
+            print('{0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])))
                 
         
 
