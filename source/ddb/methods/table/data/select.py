@@ -232,8 +232,10 @@ def distinct(context,query_object,data):
 
 def process_select_row(context,query_object,processed_line):
     row=[]
+    has_columns = select_has_columns(context,query_object)
+
     for c in query_object['meta']['columns']:
-        if 'column' in c:
+        if has_columns and 'column' in c:
             if None != processed_line:
                 row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
         elif 'function' in c:
