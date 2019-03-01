@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.984'
+__version__='1.0.985'
 
         
         
@@ -2311,7 +2311,7 @@ class engine:
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
                     
-
+        print("Next")
          
         return self.results
 
@@ -2601,22 +2601,16 @@ def method_select(context, query_object, parser):
         set_ordinals(context,query_object)
 
 
-        print("6")
         temp_data=select_process_file(context,query_object)
 
 
-        print("554")
         temp_data=order_by(context,query_object,temp_data)
 
-        print("777")
-        
         temp_data=distinct(context,query_object,temp_data)
         
         
-        print("8888")
         temp_data = limit(context, query_object, temp_data)
 
-        print("9999")
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table)
