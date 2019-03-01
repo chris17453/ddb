@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.966'
+__version__='1.0.967'
 
         
         
@@ -355,6 +355,15 @@ sql_syntax = {
               'data': [{'sig': ['{table}']}],
               'type':'single',
               'name': 'table'},
+
+             {'arguments': 1,
+              'data': [ {'sig': ['{table}']},
+                        {'sig': ['{database}','.','{table}']},
+                        ],
+              'name': 'table',
+              'type': 'single',
+              'optional': False },
+
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
@@ -2985,6 +2994,14 @@ def method_update(context, query_object):
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
+
+        if 'database' in query_object['meta']:
+            context.info('Database specified')
+            database_name=query_object['meta']['database']
+        else:
+            context.info('Using curent database context')
+            database_name=context.database.get_curent_database()
+
         columns = []
         if 'columns' not in  query_object['meta'] :
             raise Exception ("Missing columns, cannot create table")
@@ -3014,8 +3031,9 @@ def method_create_table(context, query_object):
             found_errors= query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']
-
+        database_name=
         results = context.database.create_table(table_name=query_object['meta']['table'],
+                                                database=database_name,
                                                 columns=columns,
                                                 data_file=query_object['meta']['file'],
                                                 delimiter=found_delimiter,
