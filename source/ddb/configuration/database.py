@@ -145,7 +145,7 @@ class database:
         else:
             config_directory = None
 
-        #print("Creating {0}.{1}".format(database_name,table_name))
+        # print("Creating {0}.{1}".format(database_name,table_name))
 
         t = table(name=table_name,
                   database=database_name,
@@ -157,7 +157,7 @@ class database:
                   whitespace=whitespace,
                   errors=errors)
         t.data.path = data_file
-        print("Appending table")
+        # print("Appending table")
         self.tables.append(t)
         if not temporary:
             res = t.save()

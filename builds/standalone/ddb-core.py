@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.974'
+__version__='1.0.975'
 
         
         
@@ -3031,7 +3031,7 @@ def method_create_table(context, query_object):
             found_data_on = query_object['meta']['data_starts_on']
 
         results = context.database.create_table(table_name=query_object['meta']['table'],
-                                                database=database_name,
+                                                database_name=database_name,
                                                 columns=columns,
                                                 data_file=query_object['meta']['file'],
                                                 delimiter=found_delimiter,
