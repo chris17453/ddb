@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.990'
+__version__='1.0.991'
 
         
         
@@ -2773,9 +2773,8 @@ def process_select_row(context,query_object,processed_line):
     has_columns = select_has_columns(context,query_object)
 
     for c in query_object['meta']['columns']:
-        if has_columns and 'column' in c:
-            if None != processed_line:
-                row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
+        if 'column' in c:
+            s=4
         elif 'function' in c:
             if c['function'] == 'database':
                 row.append(f_database(context))
