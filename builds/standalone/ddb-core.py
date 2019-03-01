@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.977'
+__version__='1.0.978'
 
         
         
@@ -2447,6 +2447,7 @@ def method_use(context, query_object):
             temp_table.add_column('changed_db')
             data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(data)
+        print "success"
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         print ex
