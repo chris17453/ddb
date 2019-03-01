@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.982'
+__version__='1.0.983'
 
         
         
@@ -2592,13 +2592,10 @@ def method_select(context, query_object, parser):
     try:
         context.info(query_object)
 
-        print("1")
         select_validate_columns_and_from(context,query_object,parser)
 
-        print("2")
         temp_table = context.database.temp_table()
         
-        print("4")
         add_table_columns(context,query_object,temp_table)
        
         set_ordinals(context,query_object)
@@ -2608,8 +2605,11 @@ def method_select(context, query_object, parser):
         temp_data=select_process_file(context,query_object)
 
 
+        print("554")
         temp_data=order_by(context,query_object,temp_data)
 
+        print("777")
+        
         temp_data=distinct(context,query_object,temp_data)
         
         
