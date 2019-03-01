@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.986'
+__version__='1.0.987'
 
         
         
@@ -2266,7 +2266,6 @@ class engine:
         if False == self.has_configuration():
             raise Exception("No table found")
         self.results = None
-        print ("Start")
 
         parser = lexer(sql_query, self.debug)
         if False == parser.query_objects:
@@ -2311,7 +2310,6 @@ class engine:
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
                     
-        print("Next")
          
         return self.results
 
