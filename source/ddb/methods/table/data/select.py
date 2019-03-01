@@ -9,7 +9,6 @@ context_sort=[]
 def method_select(context, query_object, parser):
     try:
         context.info(query_object)
-        print ("START")
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,query_object,parser)
 
