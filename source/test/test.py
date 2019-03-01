@@ -28,7 +28,6 @@ class test_engine(unittest.TestCase):
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
             self.assertEqual(True, results.success)
-            print ("Hi")
             results = engine.query("select database()")
             self.assertEqual(True, results.success)
         except Exception as ex:
@@ -63,7 +62,6 @@ class test_engine(unittest.TestCase):
         # fail on dropping non existant table
         results=engine.query('drop table {}'.format(self.table_name))
         self.assertEqual(False, results.success)
-
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
