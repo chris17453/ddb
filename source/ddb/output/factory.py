@@ -82,10 +82,11 @@ class output_factory:
             else:
                 row_type=row['type']
             print("{0}_info['{1}_type']='{2}'".format(name,row_index,row_type))
-            for column in row['data']: 
-                print("{0}_data['{1}_{2}']='{3}'".format(name,row_index,column_index,column))
-                column_index+=1
-            row_index+=1
+            print('Declare {0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])
+            #for column in row['data']: 
+            #    print("{0}_data[{1}][{2}]='{3}'".format(name,row_index,column_index,column))
+            #    column_index+=1
+            #row_index+=1
         #print ("# end ddb output ")
                 
         
