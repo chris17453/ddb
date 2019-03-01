@@ -71,17 +71,17 @@ class output_factory:
 
         row_index=0
         for row in data:
-            column_index=0
-            if not row['error']:
-                row_error=''
-            else:
-                row_error=row['error']
-            print("{0}_info['{1}_error']='{2}'".format(name,row_index,row_error))
-            if not row['type']:
-                row_type=''
-            else:
-                row_type=row['type']
-            print("{0}_info['{1}_type']='{2}'".format(name,row_index,row_type))
+            #column_index=0
+            #if not row['error']:
+            #    row_error=''
+            #else:
+            #    row_error=row['error']
+            #print("{0}_info['{1}_error']='{2}'".format(name,row_index,row_error))
+            #if not row['type']:
+            #    row_type=''
+            #else:
+            #    row_type=row['type']
+            #print("{0}_info['{1}_type']='{2}'".format(name,row_index,row_type))
             print('Declare {0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])))
             #for column in row['data']: 
             #    print("{0}_data[{1}][{2}]='{3}'".format(name,row_index,column_index,column))
