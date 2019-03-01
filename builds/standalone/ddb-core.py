@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.983'
+__version__='1.0.984'
 
         
         
@@ -2605,8 +2605,10 @@ def method_select(context, query_object, parser):
         temp_data=distinct(context,query_object,temp_data)
         
         
+        print("8888")
         temp_data = limit(context, query_object, temp_data)
 
+        print("9999")
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table)
