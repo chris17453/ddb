@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.981'
+__version__='1.0.982'
 
         
         
@@ -2592,16 +2592,19 @@ def method_select(context, query_object, parser):
     try:
         context.info(query_object)
 
-        
+        print("1")
         select_validate_columns_and_from(context,query_object,parser)
 
+        print("2")
         temp_table = context.database.temp_table()
         
+        print("4")
         add_table_columns(context,query_object,temp_table)
        
         set_ordinals(context,query_object)
 
 
+        print("6")
         temp_data=select_process_file(context,query_object)
 
 
@@ -2667,7 +2670,7 @@ def select_validate_columns_and_from(context, query_object, parser):
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
 
-            table_name = query_object['meta']['table']
+            table_name = query_object['meta']['from']['table']
             query_object['table'] = context.database.get(table_name,database_name)
             if None == query_object['table']:
                 raise Exception("Table '{0}' does not exist.".format(table_name))
