@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.965'
+__version__='1.0.966'
 
         
         
@@ -2576,7 +2576,6 @@ def create_single(context, query_object, temp_file, requires_new_line):
 context_sort=[]
 
 def method_select(context, query_object, parser):
-    global context_sort
     try:
         context.info(query_object)
 
@@ -2724,9 +2723,10 @@ def set_ordinals(context,query_object):
     query_object['meta']['ordinals']=ordinals
 
 def order_by(context,query_object,data):
+    global context_sort
+
     if 'order by' not in query_object['meta']:
         return data
-
     context.info("Select has Order By")
     context_sort = []
     for c in query_object['meta']['order by']:
