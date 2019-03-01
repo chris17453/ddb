@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.975'
+__version__='1.0.976'
 
         
         
@@ -1903,7 +1903,6 @@ class database:
                   whitespace=whitespace,
                   errors=errors)
         t.data.path = data_file
-        print("Appending table")
         self.tables.append(t)
         if not temporary:
             res = t.save()
