@@ -28,6 +28,7 @@ class test_engine(unittest.TestCase):
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
             self.assertEqual(True, results.success)
+            print ("Hi")
             results = engine.query("select database()")
             self.assertEqual(True, results.success)
         except Exception as ex:
