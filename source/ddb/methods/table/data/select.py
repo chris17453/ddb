@@ -25,29 +25,23 @@ def method_select(context, query_object, parser):
         # TODO Unique column names, no ambiguious index, name, alias,functions
         # TODO Columns with the same name can be renamed, but fail. Key issue?
 
-        print("6")
         # scan the table for matches and collect the data
         temp_data=select_process_file(context,query_object)
 
         # TODO Join code here.....
 
-        print("554")
         # order the data by columns, aliases or indexes
         temp_data=order_by(context,query_object,temp_data)
 
-        print("777")
-        
         # Distinct, a custom grouping
         temp_data=distinct(context,query_object,temp_data)
         
         # Grouping
         # group(context, data)
         
-        print("8888")
         # Limit / Filter the data
         temp_data = limit(context, query_object, temp_data)
 
-        print("9999")
         # assign matched and transformed data to temp table
         temp_table.results=temp_data
 
