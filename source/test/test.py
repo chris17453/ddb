@@ -27,11 +27,7 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=False)
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
-            results = engine.query("select database()")
             self.assertEqual(True, results.success)
-
-            # default context check
-            engine = ddb.engine(config_file=False)
             results = engine.query("select database()")
             self.assertEqual(True, results.success)
         except Exception as ex:
