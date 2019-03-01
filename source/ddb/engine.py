@@ -84,7 +84,6 @@ class engine:
         if False == self.has_configuration():
             raise Exception("No table found")
         self.results = None
-        print ("Start")
         # update table info...
         # it may have changed...
         # self.database.reload_config()
@@ -163,7 +162,6 @@ class engine:
                    #         line['data']=new_dict
 #
                     #self.results.data=self.results.data.results
-        print("Next")
          
         return self.results
 
