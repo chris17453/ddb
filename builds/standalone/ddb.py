@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.980'
+__version__='1.0.981'
 
         
         
@@ -2667,7 +2667,7 @@ def select_validate_columns_and_from(context, query_object, parser):
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
 
-            table_name = query_object['meta']['from']['table']
+            table_name = query_object['meta']['table']
             query_object['table'] = context.database.get(table_name,database_name)
             if None == query_object['table']:
                 raise Exception("Table '{0}' does not exist.".format(table_name))

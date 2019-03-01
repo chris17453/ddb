@@ -10,13 +10,15 @@ def method_select(context, query_object, parser):
     try:
         context.info(query_object)
 
-        
+        print("1")
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,query_object,parser)
 
+        print("2")
         #create data destinaton
         temp_table = context.database.temp_table()
         
+        print("4")
         # add columns, as renamed
         add_table_columns(context,query_object,temp_table)
        
@@ -26,6 +28,7 @@ def method_select(context, query_object, parser):
         # TODO Unique column names, no ambiguious index, name, alias,functions
         # TODO Columns with the same name can be renamed, but fail. Key issue?
 
+        print("6")
         # scan the table for matches and collect the data
         temp_data=select_process_file(context,query_object)
 
@@ -106,7 +109,7 @@ def select_validate_columns_and_from(context, query_object, parser):
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
 
-            table_name = query_object['meta']['table']
+            table_name = query_object['meta']['from']['table']
             query_object['table'] = context.database.get(table_name,database_name)
             if None == query_object['table']:
                 raise Exception("Table '{0}' does not exist.".format(table_name))
