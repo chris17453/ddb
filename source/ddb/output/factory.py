@@ -69,7 +69,7 @@ class output_factory:
 
 
         row_index=0
-        for row in data['results']:
+        for row in data:
             column_index=0
             if not row['error']:
                 row_error=''
