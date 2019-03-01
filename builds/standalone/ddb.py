@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.995'
+__version__='1.0.996'
 
         
         
