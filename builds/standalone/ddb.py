@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.993'
+__version__='1.0.994'
 
         
         
@@ -2619,6 +2619,7 @@ def method_select(context, query_object, parser):
 
 def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
+    has_functions = select_has_functions(context,query_object)
     
     line_number = 1
     data=[]
