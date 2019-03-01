@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.991'
+__version__='1.0.992'
 
         
         
@@ -2611,10 +2611,14 @@ def method_select(context, query_object, parser):
 
 def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
-    file_path = query_object['table'].data.path
+    
     line_number = 1
     data=[]
     if True == has_columns:
+        if 'table' in  query_object:
+            file_path = query_object['table'].data.path
+        else:
+            raise Exception ('table configuration has no data file')
         with open(file_path, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
@@ -2774,7 +2778,8 @@ def process_select_row(context,query_object,processed_line):
 
     for c in query_object['meta']['columns']:
         if 'column' in c:
-            s=4
+            if None != processed_line:
+                row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
         elif 'function' in c:
             if c['function'] == 'database':
                 row.append(f_database(context))
