@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1005'
+__version__='1.0.1006'
 
         
         
@@ -3233,9 +3233,6 @@ class output_factory:
         data=query_results.data
         
         name="ddb"
-        print ("declare {0}_data -A".format(name))
-        print ("declare {0}_info -A".format(name))
-        print ("declare {0}_columns -A".format(name))
         print ("{0}_length={1}".format(name,len(data)))
         print ("")
 
