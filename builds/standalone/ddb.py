@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.967'
+__version__='1.0.968'
 
         
         
@@ -3039,7 +3039,7 @@ def method_create_table(context, query_object):
             found_errors= query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on= query_object['meta']['data_starts_on']
-        database_name=
+        
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 database=database_name,
                                                 columns=columns,

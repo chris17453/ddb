@@ -303,10 +303,6 @@ sql_syntax = {
               'name': 'temporary',
               'optional': True
               },
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']}],
-              'type':'single',
-              'name': 'table'},
 
              {'arguments': 1,
               'data': [ {'sig': ['{table}']},
