@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.976'
+__version__='1.0.977'
 
         
         
@@ -2449,6 +2449,7 @@ def method_use(context, query_object):
             temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
         
         
