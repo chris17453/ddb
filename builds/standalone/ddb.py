@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1003'
+__version__='1.0.1004'
 
         
         
@@ -3237,6 +3237,7 @@ class output_factory:
         print ("declare {0}_data -A".format(name))
         print ("declare {0}_info -A".format(name))
         print ("declare {0}_columns -A".format(name))
+        print ("{0}_length={1}".format(name,len(data)))
         print ("")
 
         column_index=0
