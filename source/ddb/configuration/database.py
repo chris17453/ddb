@@ -157,6 +157,7 @@ class database:
                   whitespace=whitespace,
                   errors=errors)
         t.data.path = data_file
+        print("Appending table")
         self.tables.append(t)
         if not temporary:
             res = t.save()
