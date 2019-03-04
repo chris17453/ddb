@@ -58,10 +58,14 @@ class test_engine(unittest.TestCase):
         # fail on existing table
         results = engine.query('drop table {}'.format(self.table_name))
         self.assertEqual(True, results.success)
-
-        # fail on dropping non existant table
-        results=engine.query('drop table {}'.format(self.table_name))
-        self.assertEqual(False, results.success)
+        try:
+            # fail on dropping non existant table
+            results=engine.query('drop table {}'.format(self.table_name))
+            self.assertEqual(False, results.success)
+        except Exception as ex:
+            print ex
+            self.fail(ex)
+        
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
