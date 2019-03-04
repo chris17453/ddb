@@ -29,9 +29,11 @@ def src_build():
         {'name':'methods-table-structure-update','file':source_dir+'/ddb/methods/table/structure/update.py'},
         # formatting
         {'name':'output','file':source_dir+'/ddb/output/factory.py'},
+        {'name':'factory_term','file':source_dir+'/ddb/output/factory_term.py'},
         {'name':'factory_yaml','file':source_dir+'/ddb/output/factory_yaml.py'},
         {'name':'factory_xml','file':source_dir+'/ddb/output/factory_xml.py'},
         {'name':'factory_json','file':source_dir+'/ddb/output/factory_json.py'},
+
         # cli stuff
         #{'name':'interactive','file':source_dir+'/ddb/interactive.py'},
         #{'name':'cli','file':source_dir+'/ddb/cli.py'},
@@ -63,6 +65,7 @@ def src_build():
         {'name':'methods-table-structure-update','file':source_dir+'/ddb/methods/table/structure/update.py'},
         # formatting
         {'name':'output','file':source_dir+'/ddb/output/factory.py'},
+        {'name':'factory_term','file':source_dir+'/ddb/output/factory_term.py'},
         {'name':'factory_yaml','file':source_dir+'/ddb/output/factory_yaml.py'},
         {'name':'factory_xml','file':source_dir+'/ddb/output/factory_xml.py'},
         {'name':'factory_json','file':source_dir+'/ddb/output/factory_json.py'},
@@ -87,7 +90,6 @@ def src_build():
         
 import sys
 import os
-import json
 import warnings
 import datetime
 import tempfile
@@ -117,7 +119,6 @@ except Exception as ex:
         
 import sys
 import os
-import json
 import warnings
 import datetime
 import tempfile

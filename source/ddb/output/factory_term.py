@@ -1,6 +1,4 @@
 import sys
-#import os
-#import curses
 
 class flextable:
 
@@ -227,7 +225,6 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
-        if style=='single':
 
 
         if self.column_width==-1:
@@ -429,5 +426,3 @@ class flextable:
             index+=1
         if self.footer==True:
             self.output(footer,encode)
-
-
