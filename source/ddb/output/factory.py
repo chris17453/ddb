@@ -1,10 +1,7 @@
+from .factory_term import flextable
 from .factory_json import factory_json
 from .factory_yaml import factory_yaml
 from .factory_xml import factory_xml
-try:
-    import flextable
-except Exception as ex:
-    pass
 
 
 class output_factory:
@@ -45,9 +42,7 @@ class output_factory:
     def format_term(self,query_results,output_file):
         """ouput results data in the term format"""
         try:
-            config = flextable.table_config()
-            config.columns = query_results.columns
-            flextable.table(data=query_results.data, args=config)
+            flextable(data=query_results.data,columns=query_results.columns)
         except:
             print(query_results.data)
 
