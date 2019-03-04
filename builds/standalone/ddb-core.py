@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1052'
+__version__='1.0.1053'
 
         
         
@@ -3463,7 +3463,7 @@ class flextable:
                 self.right  = color(text=r,default=default,foreground='White') #╞
                 self.center = color(text=c,default=default,foreground='green')
 
-        def __init__(self,default=None,style):
+        def __init__(self,default=None,style='single'):
             if style=='single':
                 single=True
             else:
