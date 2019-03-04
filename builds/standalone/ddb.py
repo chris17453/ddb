@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1017'
+__version__='1.0.1018'
 
         
         
@@ -819,14 +819,14 @@ class lexer:
                                         if f['arguments'] is not None:
                                             for arg in f['arguments']:
                                                 if arg['required']:
-                                                    if 'argument{}'.format(argindex) not in node:
+                                                    if 'argument{0}'.format(argindex) not in node:
                                                         self.info("Missing arguments")
                                                         return False
                                                 argindex += 1
 
                                         else:
                                             argindex = 0
-                                        if 'argument{}'.format(argindex + 1) in node:
+                                        if 'argument{0}'.format(argindex + 1) in node:
                                             self.info("Too many arguments")
                                             return False
 
@@ -908,16 +908,16 @@ class lexer:
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             if arg3 is None and arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
             if arg3 is None:
-                print("{} {} {}".format(msg, arg1, arg2))
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
             if arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
 
-            print("[{}]".format(msg))
+            print("[{0}]".format(msg))
 
 
         

@@ -34,7 +34,7 @@ class match():
                 break
 
         if not compare1_is_column and not compare2_is_column:
-            raise Exception("expression invalid {}".format(test))
+            raise Exception("expression invalid {0}".format(test))
                 
 
         if None == compare1:
@@ -42,7 +42,7 @@ class match():
         if None == compare2:
             compare2 = test['e2']
         if None == compare1 and None == compare2:
-            raise Exception("Where invalid {}".format(test))
+            raise Exception("Where invalid {0}".format(test))
 
         if comparitor == '=' or comparitor == 'is':
             if compare1 == compare2:
@@ -51,7 +51,7 @@ class match():
         if comparitor == 'like':  # paritial match
 
             if True == compare1_is_column and True == compare2_is_column:
-                raise Exception("Where invalid {}, like cant be between 2 columns".format(test))
+                raise Exception("Where invalid {0}, like cant be between 2 columns".format(test))
 
             if True == compare1_is_column:
                 like = compare2
