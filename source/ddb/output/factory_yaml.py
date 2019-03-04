@@ -234,7 +234,7 @@ class factory_yaml:
             if isinstance(obj,list) and len(obj)==0:
                line+="[]"
             if isinstance(obj,dict) and not obj:
-               line+="{}"
+               line+="{0}"
             #else:
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:

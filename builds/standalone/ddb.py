@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1019'
+__version__='1.0.1020'
 
         
         
@@ -2314,7 +2314,7 @@ class engine:
         return self.results
 
     def change_database(self, database_name):
-        query = "use {}".format(database_name)
+        query = "use {0}".format(database_name)
         results = self.query(query)
         if None == results:
             return False
@@ -2437,10 +2437,10 @@ def process_line(context, query_object, line, line_number=0):
 def swap_files(target, temp):
     os.remove(target)
     if os.path.exists(target):
-        raise Exception("Deleting target file {} failed".format(target))
+        raise Exception("Deleting target file {0} failed".format(target))
     os.rename(temp, target)
     if os.path.exists(temp):
-        raise Exception("Renaming temp file {} failed".format(temp))
+        raise Exception("Renaming temp file {0} failed".format(temp))
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
@@ -2557,10 +2557,10 @@ def create_single(context, query_object, temp_file, requires_new_line):
                     if query_object['meta']['columns'][c2]['column'] == column_name:
                         found = True
                         if c > 0:
-                            new_line += '{}'.format(query_object['table'].delimiters.field)
-                        new_line += '{}'.format(query_object['meta']['values'][c2]['value'])
+                            new_line += '{0}'.format(query_object['table'].delimiters.field)
+                        new_line += '{0}'.format(query_object['meta']['values'][c2]['value'])
                 if False == found:
-                    context.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
+                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
                     err = True
                     break
             if False == err:
@@ -2929,7 +2929,7 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
     for c2 in range(0, len(query_object['meta']['set'])):
         column_name = query_object['meta']['set'][c2]['column']
         if None == query_object['table'].get_column_by_name(column_name):
-            context.add_error("column in update statement does not exist in table: {}".format(column_name))
+            context.add_error("column in update statement does not exist in table: {0}".format(column_name))
             err = True
 
     if False == err:
@@ -2940,8 +2940,8 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
                 if query_object['meta']['set'][c2]['column'] == column_name:
                     value = query_object['meta']['set'][c2]['expression']
             if c > 0:
-                new_line += '{}'.format(query_object['table'].delimiters.field)
-            new_line += '{}'.format(value)
+                new_line += '{0}'.format(query_object['table'].delimiters.field)
+            new_line += '{0}'.format(value)
 
     if False == err:
         if True == requires_new_line:
