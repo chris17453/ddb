@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1016'
+__version__='1.0.1017'
 
         
         
@@ -1105,16 +1105,16 @@ class tokenizer():
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug_on:
             if arg3 is None and arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
             if arg3 is None:
-                print("{} {} {}".format(msg, arg1, arg2))
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
             if arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
 
-            print("[{}]".format(msg))
+            print("[{0}]".format(msg))
 
 
         
@@ -3225,6 +3225,7 @@ class output_factory:
         data=query_results.data
         
         name="ddb"
+
         print ("{0}_row_length={1}".format(name,len(data)))
         print ("{0}_column_length={1}".format(name,len(query_results.columns)))
         print ("")
@@ -3240,7 +3241,6 @@ class output_factory:
             for column_index in range(0,len(query_results.columns)):
                 print('{0}_data[{1}][{2}]="{3}"'.format(name,row_index,column_index,row['data'][column_index]))
             row_index+=1
-                
         
 
     def format_raw(self,query_results,output_file):
