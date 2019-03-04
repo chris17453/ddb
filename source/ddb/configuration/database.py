@@ -58,7 +58,7 @@ class database:
             #print ("Created new db config")
             return
         except Exception as ex:
-            print "Cant create configuration file: {}".format(ex)
+            print "Cant create configuration file: {0}".format(ex)
 
     def create_table_config(self, name, db, columns, delimiter=None):
         if None == self.config_file:
