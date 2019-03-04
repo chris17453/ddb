@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1036'
+__version__='1.0.1037'
 
         
         
@@ -3102,7 +3102,9 @@ def method_describe_table(context, query_object):
 def method_drop_table(context, query_object):
     context.info("Drop Table")
     try:
-        results = context.database.drop_table(table_name=query_object['meta']['drop']['table'])
+        table_name=query_object['meta']['drop']['table']
+        print (table_name)
+        results = context.database.drop_table(table_name=table_name)
         return query_results(success=results)
     except Exception as ex:
         print("EHG",ex)
