@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1014'
+__version__='1.0.1015'
 
         
         
@@ -3233,7 +3233,8 @@ class output_factory:
         data=query_results.data
         
         name="ddb"
-        print ("{0}_length={1}".format(name,len(data)))
+        print ("{0}_row_length={1}".format(name,len(data)))
+        print ("{0}_column_length={1}".format(name,len(query_results.columns)))
         print ("")
 
         column_index=0
@@ -3244,7 +3245,9 @@ class output_factory:
 
         row_index=0
         for row in data:
-            print('{0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])))
+            for column_index in range(0,len(query_results.columns)):
+                print('{0}_data[{1}][{2}]="$3"'.format(name,row_index,column_index,row['data'][column_index]))
+            row_index+=1
                 
         
 

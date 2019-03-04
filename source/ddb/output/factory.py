@@ -73,7 +73,7 @@ class output_factory:
         row_index=0
         for row in data:
             for column_index in range(0,len(query_results.columns)):
-                print('{0}_data[{1}][{2}]="$3"'.format(name,row_index,column_index,row['data'][column_index]))
+                print('{0}_data[{1}][{2}]="{3}"'.format(name,row_index,column_index,row['data'][column_index]))
             row_index+=1
         #print ("# end ddb output ")
                 
