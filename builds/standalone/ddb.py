@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1035'
+__version__='1.0.1036'
 
         
         
@@ -1915,10 +1915,6 @@ class database:
             database_name = self.get_curent_database()
         for index in range(0, len(self.tables)):
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
-                if self.tables[index].data.type=="Temp":
-                    self.tables.pop(index)
-                    self.reload_config()
-                    return True
 
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
