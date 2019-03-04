@@ -1,0 +1,66 @@
+# this is the default style file
+# you can copy this and edit as you wish
+# empty data will default
+#  [TL] [ColL] [Col] [ColR] [T]  [TC]  [T]  [TR]
+#  [ L]                     [W]  [ V]  [W]  [ R]
+#  [LC]                     [H]  [ C]  [H]  [RC]
+#  [ L]                     [W]  [ V]  [W]  [ R]
+#  [BL]                     [B]  [BC]  [B]  [BR]
+---
+style:
+  name: Default
+  formatting:
+    whitespace: ''
+    line-ending: LRCF
+
+characters:
+  intersection: 
+    center: '╬'
+    left-center: '╠'
+    right-center: '╣'
+    top-center: '╦'
+    bottom-center: '╩'
+  walls:
+    left: '║'
+    right: '║'
+    top: '═'
+    bottom: '═'
+  corners:
+    top-left: '╔'
+    top-right: '╗'
+    bottom-left: '╚'
+    bottom-right: '╝'
+  titles:
+    columns:
+      left: '╡'
+      right: '╞'
+      center:' '
+
+  color:
+    default: 
+        fg: white
+        bg: blue    
+    error: 
+        fg: red
+    comment: 
+        fg: yellow 
+    data:
+        fg: green
+    active:
+        fg: white 
+    edit:
+        fg: white
+    disabled:
+        fg: gray
+  
+
+#U+250x	─	━	│	┃	┄	┅	┆	┇	┈	┉	┊	┋	┌	┍	┎	┏
+#U+251x	┐	┑	┒	┓	└	┕	┖	┗	┘	┙	┚	┛	├	┝	┞	┟
+#U+252x	┠	┡	┢	┣	┤	┥	┦	┧	┨	┩	┪	┫	┬	┭	┮	┯
+#U+253x	┰	┱	┲	┳	┴	┵	┶	┷	┸	┹	┺	┻	┼	┽	┾	┿
+#U+254x	╀	╁	╂	╃	╄	╅	╆	╇	╈	╉	╊	╋	╌	╍	╎	╏
+#U+255x	═	║	╒	╓	╔	╕	╖	╗	╘	╙	╚	╛	╜	╝	╞	╟
+#U+256x	╠	╡	╢	╣	╤	╥	╦	╧	╨	╩	╪	╫	╬	╭	╮	╯
+#U+257x	╰	╱	╲	╳	╴	╵	╶	╷	╸	╹	╺	╻	╼	╽	╾	╿
+#U+258x	▀	▁	▂	▃	▄	▅	▆	▇	█	▉	▊	▋	▌	▍	▎	▏
+#U+259x	▐	░	▒	▓	▔	▕	▖	▗	▘	▙	▚	▛	▜	▝	▞	▟

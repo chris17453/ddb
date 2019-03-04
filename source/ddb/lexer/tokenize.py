@@ -226,14 +226,14 @@ class tokenizer():
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug_on:
             if arg3 is None and arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
             if arg3 is None:
-                print("{} {} {}".format(msg, arg1, arg2))
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
             if arg2 is None:
-                print("{} {}".format(msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
 
-            print("[{}]".format(msg))
+            print("[{0}]".format(msg))
 
