@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1025'
+__version__='1.0.1026'
 
         
         
@@ -1922,6 +1922,7 @@ class database:
 
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
+                    print("NOOO")
                     raise Exception("Failed to remove configuration for table")
                 self.tables.pop(index)
                 self.reload_config()
