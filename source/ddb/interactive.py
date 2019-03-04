@@ -76,7 +76,7 @@ class ddbPrompt(Cmd):
 
     def do_config(self, inp):
         try:
-            self.msg("info", "configuration_file set to'{}'".format(inp))
+            self.msg("info", "configuration_file set to'{0}'".format(inp))
             self.engine = engine(config_file=inp, debug=self.debug)
         except Exception as ex:
             self.msg("error", "config", ex)
@@ -106,7 +106,7 @@ class ddbPrompt(Cmd):
             end = time.time()
             o=output_factory(results)
 
-            self.msg("info", "executed in {} seconds".format(end - start))
+            self.msg("info", "executed in {0} seconds".format(end - start))
             inp = None
         except Exception as ex:
             self.msg("error", ex)
