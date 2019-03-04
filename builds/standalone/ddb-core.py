@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1033'
+__version__='1.0.1034'
 
         
         
@@ -1919,7 +1919,6 @@ class database:
                 self.reload_config()
                 return True
                 break
-        print("EXIST?")
         raise Exception("Failed to drop table. Does not exist")
 
     def remove_config(self, table_config=None, table_object=None):
@@ -3110,6 +3109,7 @@ def method_drop_table(context, query_object):
         results = context.database.drop_table(table_name=query_object['meta']['drop']['table'])
         return query_results(success=results)
     except Exception as ex:
+        print("EHG",ex)
         return query_results(success=False,error=ex)
 
         

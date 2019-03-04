@@ -174,7 +174,7 @@ class database:
         for index in range(0, len(self.tables)):
             #print self.tables[index].data.name,self.tables[index].data.database
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
-                if tables.data.type=="Temp":
+                if self.tables[index].data.type=="Temp":
                     self.tables.pop(index)
                     self.reload_config()
                     return True
