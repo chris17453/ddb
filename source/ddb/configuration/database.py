@@ -183,7 +183,7 @@ class database:
                 if False == res:
                     raise Exception("Failed to remove configuration for table")
                 self.tables.pop(index)
-                self.reload_config()
+                #self.reload_config()
                 return True
                 break
         raise Exception("Failed to drop table. Does not exist")
