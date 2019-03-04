@@ -172,7 +172,7 @@ class flextable:
                 self.right  = color(text=r,default=default,foreground='White') #╞
                 self.center = color(text=c,default=default,foreground='green')
 
-        def __init__(self,default=None,style):
+        def __init__(self,default=None,style='single'):
             if style=='single':
                 single=True
             else:
