@@ -8,5 +8,4 @@ def method_drop_table(context, query_object):
         results = context.database.drop_table(table_name=table_name)
         return query_results(success=results)
     except Exception as ex:
-        print("EHG",ex)
         return query_results(success=False,error=ex)

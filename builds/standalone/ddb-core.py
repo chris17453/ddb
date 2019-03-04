@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1047'
+__version__='1.0.1048'
 
         
         
@@ -1929,7 +1929,6 @@ class database:
             else:
                 config = table_object
             yaml_data = yamlf_load(file=self.config_file)
-            print (self.config_file)
             db = config.data.database
             if None == db:
                 db = self.get_default_database()
