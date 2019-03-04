@@ -179,9 +179,9 @@ class database:
                 #    self.reload_config()
                 #    return True
 
-                res = self.remove_config(table_object=self.tables[index])
-                if False == res:
-                    raise Exception("Failed to remove configuration for table")
+                #res = self.remove_config(table_object=self.tables[index])
+                #if False == res:
+                #    raise Exception("Failed to remove configuration for table")
                 self.tables.pop(index)
                 #self.reload_config()
                 return True

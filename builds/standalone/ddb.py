@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1037'
+__version__='1.0.1038'
 
         
         
@@ -1920,7 +1920,6 @@ class database:
                 if False == res:
                     raise Exception("Failed to remove configuration for table")
                 self.tables.pop(index)
-                self.reload_config()
                 return True
                 break
         raise Exception("Failed to drop table. Does not exist")
@@ -3111,7 +3110,7 @@ def method_drop_table(context, query_object):
     context.info("Drop Table")
     try:
         table_name=query_object['meta']['drop']['table']
-        print (table_name)
+         
         results = context.database.drop_table(table_name=table_name)
         return query_results(success=results)
     except Exception as ex:
