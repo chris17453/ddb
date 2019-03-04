@@ -61,7 +61,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             
             # fail on dropping non existant table
-            with pytest.raises(Exception):
+            with unittest.raises(Exception):
                 results=engine.query('drop table {}'.format(self.table_name))
         except Exception as ex:
             print(" HI",ex)
