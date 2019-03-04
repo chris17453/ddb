@@ -60,7 +60,8 @@ class output_factory:
         #print ("declare {0}_data -A".format(name))
         #print ("declare {0}_info -A".format(name))
         #print ("declare {0}_columns -A".format(name))
-        print ("{0}_length={1}".format(name,len(data)))
+        print ("{0}_row_length={1}".format(name,len(data)))
+        print ("{0}_column_length={1}".format(name,len(query_results.columns)))
         print ("")
 
         column_index=0
@@ -71,22 +72,9 @@ class output_factory:
 
         row_index=0
         for row in data:
-            #column_index=0
-            #if not row['error']:
-            #    row_error=''
-            #else:
-            #    row_error=row['error']
-            #print("{0}_info['{1}_error']='{2}'".format(name,row_index,row_error))
-            #if not row['type']:
-            #    row_type=''
-            #else:
-            #    row_type=row['type']
-            #print("{0}_info['{1}_type']='{2}'".format(name,row_index,row_type))
-            print('{0}_data[{1}]=({2})'.format(name,row_index,",".join(row['data'])))
-            #for column in row['data']: 
-            #    print("{0}_data[{1}][{2}]='{3}'".format(name,row_index,column_index,column))
-            #    column_index+=1
-            #row_index+=1
+            for column_index in range(0,len(query_results.columns)):
+                print('{0}_data[{1}][{2}]="$3"'.format(name,row_index,column_index,row['data'][column_index]))
+            row_index+=1
         #print ("# end ddb output ")
                 
         
