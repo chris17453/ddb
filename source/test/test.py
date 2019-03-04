@@ -54,12 +54,12 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
         results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(True, results.success)
-        
-        # fail on existing table
-        results = engine.query('drop table {}'.format(self.table_name))
-        self.assertEqual(True, results.success)
         try:
-            # fail on dropping non existant table
+        
+            # fail on existing table
+            results = engine.query('drop table {}'.format(self.table_name))
+            self.assertEqual(True, results.success)
+                # fail on dropping non existant table
             results=engine.query('drop table {}'.format(self.table_name))
             self.assertEqual(False, results.success)
         except Exception as ex:
