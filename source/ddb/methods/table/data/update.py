@@ -13,7 +13,7 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
     for c2 in range(0, len(query_object['meta']['set'])):
         column_name = query_object['meta']['set'][c2]['column']
         if None == query_object['table'].get_column_by_name(column_name):
-            context.add_error("column in update statement does not exist in table: {}".format(column_name))
+            context.add_error("column in update statement does not exist in table: {0}".format(column_name))
             #print "no column"
             err = True
 
@@ -27,8 +27,8 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
                     #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                     value = query_object['meta']['set'][c2]['expression']
             if c > 0:
-                new_line += '{}'.format(query_object['table'].delimiters.field)
-            new_line += '{}'.format(value)
+                new_line += '{0}'.format(query_object['table'].delimiters.field)
+            new_line += '{0}'.format(value)
 
     if False == err:
         #print new_line

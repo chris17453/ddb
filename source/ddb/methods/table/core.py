@@ -69,10 +69,10 @@ def process_line(context, query_object, line, line_number=0):
 def swap_files(target, temp):
     os.remove(target)
     if os.path.exists(target):
-        raise Exception("Deleting target file {} failed".format(target))
+        raise Exception("Deleting target file {0} failed".format(target))
     os.rename(temp, target)
     if os.path.exists(temp):
-        raise Exception("Renaming temp file {} failed".format(temp))
+        raise Exception("Renaming temp file {0} failed".format(temp))
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):

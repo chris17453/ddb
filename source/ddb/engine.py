@@ -166,7 +166,7 @@ class engine:
         return self.results
 
     def change_database(self, database_name):
-        query = "use {}".format(database_name)
+        query = "use {0}".format(database_name)
         results = self.query(query)
         if None == results:
             return False

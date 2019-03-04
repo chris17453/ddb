@@ -61,10 +61,10 @@ def create_single(context, query_object, temp_file, requires_new_line):
                         #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                         found = True
                         if c > 0:
-                            new_line += '{}'.format(query_object['table'].delimiters.field)
-                        new_line += '{}'.format(query_object['meta']['values'][c2]['value'])
+                            new_line += '{0}'.format(query_object['table'].delimiters.field)
+                        new_line += '{0}'.format(query_object['meta']['values'][c2]['value'])
                 if False == found:
-                    context.add_error("Cannot insert, column in query not found in table: {}".format(column_name))
+                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
                     err = True
                     break
             if False == err:
