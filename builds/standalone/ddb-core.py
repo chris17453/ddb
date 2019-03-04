@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1020'
+__version__='1.0.1021'
 
         
         
@@ -3514,7 +3514,7 @@ class factory_yaml:
             if isinstance(obj,list) and len(obj)==0:
                line+="[]"
             if isinstance(obj,dict) and not obj:
-               line+="{}"
+               line+="{0}"
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
