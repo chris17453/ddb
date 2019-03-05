@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1054'
+__version__='1.0.1055'
 
         
         
@@ -111,7 +111,7 @@ sql_syntax = {
                                 '{argument1}',
                                 ',',
                                 '{argument2}',
-                                ',',
+                                ',', 
                                 '{argument3}',
                                 ')'
                                 ]},
