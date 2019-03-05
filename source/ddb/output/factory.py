@@ -1,4 +1,4 @@
-from .factory_term import flextable
+from .factory_term import factory_term
 from .factory_json import factory_json
 from .factory_yaml import factory_yaml
 from .factory_xml import factory_xml
