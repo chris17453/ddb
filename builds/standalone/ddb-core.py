@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1058'
+__version__='1.0.1059'
 
         
         
@@ -3620,7 +3620,7 @@ class flextable:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
     
     def __init__(self,      data,
-                            style='single',
+                            display_style='single',
                             column_count=0,
                             hide_comments=False,
                             hide_errors=False,
@@ -3674,7 +3674,7 @@ class flextable:
         if self.line>-1:
             self.starts_on=line
 
-        self.style=style()
+        self.style=style(style=display_style)
         self.results=[]
         self.data=data
         self.format()
