@@ -63,7 +63,7 @@ sql_syntax = {
                                 '{argument1}',
                                 ',',
                                 '{argument2}',
-                                ',',
+                                ',', 
                                 '{argument3}',
                                 ')'
                                 ]},
