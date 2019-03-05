@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1059'
+__version__='1.0.1060'
 
         
         
@@ -3447,7 +3447,7 @@ class flextable:
         return color
 
 
-    class style:
+    class flextable_style:
         def __init__(self,style='single'):
             self.whitespace=''
             self.line_ending='LRCF'
@@ -3682,7 +3682,7 @@ class flextable:
         if self.line>-1:
             self.starts_on=line
 
-        self.style=style(style=display_style)
+        self.style=self.flextable_style(style=display_style)
         self.results=[]
         self.data=data
         self.format()
