@@ -3,8 +3,15 @@ from ..core import process_line, swap_files, query_results
 
 def method_insert(context, query_object):
     try:
+        if 'database' in query_object['meta']['into']:
+            context.info('Database specified')
+            database_name = query_object['meta']['into']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
         table_name = query_object['meta']['into']['table']
-        query_object['table'] = context.database.get(table_name)
+        query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
