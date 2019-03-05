@@ -43,8 +43,15 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
 
 def method_update(context, query_object):
     try:
+        if 'database' in query_object['meta']['update']:
+            context.info('Database specified')
+            database_name = query_object['meta']['update']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
         table_name = query_object['meta']['update']['table']
-        query_object['table'] = context.database.get(table_name)
+        query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
