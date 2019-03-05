@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1061'
+__version__='1.0.1062'
 
         
         
@@ -288,9 +288,12 @@ sql_syntax = {
                      'parent': 'where'}]},
         {'query': 'insert',
          'switch': [{'data': False, 'name': 'insert'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
-                     'name': 'into'},
+                        {'arguments': 1,
+                        'data': [ {'sig': ['{table}']},
+                                    {'sig': ['{database}','.','{table}']},
+                                    ],
+                        'name': 'into',
+                        },
                     {'data': False, 'dispose': True, 'name': '('},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']}],
@@ -308,7 +311,9 @@ sql_syntax = {
                     {'data': False, 'dispose': True, 'name': ')'}]},
         {'query': 'update',
          'switch': [{'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
+                     'data': [{'sig': ['{table}']},
+                                {'sig': ['{database}','.','{table}']},
+                     ],
                      'name': 'update'},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
@@ -2503,8 +2508,15 @@ def method_delete(context, query_object):
 
 def method_insert(context, query_object):
     try:
+        if 'database' in query_object['meta']['into']:
+            context.info('Database specified')
+            database_name = query_object['meta']['into']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
         table_name = query_object['meta']['into']['table']
-        query_object['table'] = context.database.get(table_name)
+        query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
@@ -2951,8 +2963,15 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
 
 def method_update(context, query_object):
     try:
+        if 'database' in query_object['meta']['update']:
+            context.info('Database specified')
+            database_name = query_object['meta']['update']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
         table_name = query_object['meta']['update']['table']
-        query_object['table'] = context.database.get(table_name)
+        query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
