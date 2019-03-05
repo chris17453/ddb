@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.0.1057'
+__version__='1.0.1058'
 
         
         
@@ -3216,7 +3216,7 @@ class output_factory:
     def format_term(self,query_results,output_file):
         """ouput results data in the term format"""
         try:
-            factory_term.flextable(data=query_results.data,columns=query_results.columns)
+            flextable(data=query_results.data,columns=query_results.columns)
         except Exception as ex:
             print(ex)
             print(query_results.data)
