@@ -8,23 +8,23 @@ from .version import __version__
 #methods -> actions
 
 # database level data methods
-from .methods.database.use import method_use
-from .methods.database.set import method_set
-from .methods.database.show_errors import method_show_errors
+from .methods.database_use import method_use
+from .methods.database_set import method_set
+from .methods.database_show_errors import method_show_errors
 
 # table level structure methods
-from .methods.table.structure.create import method_create_table
-from .methods.table.structure.update import method_update_table
-from .methods.table.structure.describe import method_describe_table
-from .methods.table.structure.drop import method_drop_table
+from .methods.table_create import method_create_table
+from .methods.table_update import method_update_table
+from .methods.table_describe import method_describe_table
+from .methods.table_drop import method_drop_table
 
 # table level data methods
-from .methods.table.data.insert import method_insert 
-from .methods.table.data.select import method_select
-from .methods.table.data.update import method_update
-from .methods.table.data.delete import method_delete
-from .methods.table.data.show_tables import method_show_tables
-from .methods.table.data.show_columns import method_show_columns
+from .methods.records_insert import method_insert 
+from .methods.records_select import method_select
+from .methods.records_update import method_update
+from .methods.records_delete import method_delete
+from .methods.records_show_tables import method_show_tables
+from .methods.records_show_columns import method_show_columns
 
 
 
