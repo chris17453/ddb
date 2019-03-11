@@ -1,4 +1,5 @@
 import os
+import time
 from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
@@ -92,8 +93,8 @@ class engine:
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
+        start = time.clock()
         for query_object in parser.query_objects:
-
             self.info("Engine: query_object", query_object)
             #print  query_object
             # exit(9)
@@ -162,6 +163,10 @@ class engine:
                    #         line['data']=new_dict
 #
                     #self.results.data=self.results.data.results
+        end = time.clock()
+        self.results.start_time=start
+        self.results.end_time=end
+        self.results.time=end-start
          
         return self.results
 

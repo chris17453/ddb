@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.19'
+__version__='1.1.20'
 
         
         
@@ -3490,7 +3490,7 @@ class flextable:
                 if None == bold:
                     bold=default.bold
                     
-            self.color=colors(foreground=foreground,background=background,dim=dim,bold=bold)
+            self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
             if None !=text:
                 if text.rstrip()=='':
                     text=None
@@ -3788,7 +3788,7 @@ class flextable:
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color)
                         
                     if len(line['data']) < self.column_count:
-                        wall_color=bcolors.OKBLUE
+                        wall_color=flextable.bg.LIGHT_BLUE
                         for c in range(len(line['data']),self.column_count):
                             columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
