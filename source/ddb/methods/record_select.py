@@ -1,6 +1,6 @@
-from ....functions.functions import *
+from ..functions.functions import *
 from .record_core import process_line, swap_files, query_results
-from ....version import __version__
+from ..version import __version__
 
 
 #used for order by a HACK to be fixed
