@@ -23,6 +23,8 @@ ddb/methods/database/__init__.py
 ddb/methods/database/set.py
 ddb/methods/database/show_errors.py
 ddb/methods/database/use.py
+ddb/methods/table/__init__.py
+ddb/methods/table/core.py
 ddb/methods/table/data/__init__.py
 ddb/methods/table/data/delete.py
 ddb/methods/table/data/insert.py
