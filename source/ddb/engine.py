@@ -19,12 +19,12 @@ from .methods.table_describe import method_describe_table
 from .methods.table_drop import method_drop_table
 
 # table level data methods
-from .methods.records_insert import method_insert 
-from .methods.records_select import method_select
-from .methods.records_update import method_update
-from .methods.records_delete import method_delete
-from .methods.records_show_tables import method_show_tables
-from .methods.records_show_columns import method_show_columns
+from .methods.record_insert import method_insert 
+from .methods.record_select import method_select
+from .methods.record_update import method_update
+from .methods.record_delete import method_delete
+from .methods.record_show_tables import method_show_tables
+from .methods.record_show_columns import method_show_columns
 
 
 
