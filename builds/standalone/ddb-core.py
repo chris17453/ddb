@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.18'
+__version__='1.1.19'
 
         
         
@@ -3381,80 +3381,80 @@ class flextable:
     def colors(foreground,background,dim=None,bold=None):
         color=''
         if dim !=None:
-            color+=attributes.DIM
+            color+=flextable.attributes.DIM
         if bold !=None:
-            color+=attributes.BOLD
+            color+=flextable.attributes.BOLD
             
         if None != foreground:
             if foreground.upper() == 'DEFAULT' :
-                color+=fg.DEFAULT
+                color+=flextable.fg.DEFAULT
             if foreground.upper() == 'BLACK' :
-                color+=fg.BLACK
+                color+=flextable.fg.BLACK
             if foreground.upper() == 'RED' :
-                color+=fg.RED
+                color+=flextable.fg.RED
             if foreground.upper() == 'GREEN' :
-                color+=fg.GREEN
+                color+=flextable.fg.GREEN
             if foreground.upper() == 'YELLOW' :
-                color+=fg.YELLOW
+                color+=flextable.fg.YELLOW
             if foreground.upper() == 'BLUE' :
-                color+=fg.BLUE
+                color+=flextable.fg.BLUE
             if foreground.upper() == 'MAGENTA' :
-                color+=fg.MAGENTA
+                color+=flextable.fg.MAGENTA
             if foreground.upper() == 'CYAN' :
-                color+=fg.CYAN
+                color+=flextable.fg.CYAN
             if foreground.upper() == 'LIGHT GRAY' :
-                color+=fg.LIGHT_GRAY
+                color+=flextable.fg.LIGHT_GRAY
             if foreground.upper() == 'DARK GRAY' :
-                color+=fg.DARK_GRAY
+                color+=flextable.fg.DARK_GRAY
             if foreground.upper() == 'LIGHT RED' :
-                color+=fg.LIGHT_RED
+                color+=flextable.fg.LIGHT_RED
             if foreground.upper() == 'LIGHT GREEN' :
-                color+=fg.LIGHT_GREEN
+                color+=flextable.fg.LIGHT_GREEN
             if foreground.upper() == 'LIGHT YELLOW' :
-                color+=fg.LIGHT_YELLOW
+                color+=flextable.fg.LIGHT_YELLOW
             if foreground.upper() == 'LIGHT BLUE' :
-                color+=fg.LIGHT_BLUE
+                color+=flextable.fg.LIGHT_BLUE
             if foreground.upper() == 'LIGHT MAGENTA' :
-                color+=fg.LIGHT_MAGENTA
+                color+=flextable.fg.LIGHT_MAGENTA
             if foreground.upper() == 'LIGHT CYAN' :
-                color+=fg.LIGHT_CYAN
+                color+=flextable.fg.LIGHT_CYAN
             if foreground.upper() == 'WHITE' :
-                color+=fg.WHITE
+                color+=flextable.fg.WHITE
         if None != background:
             if  background.upper() == 'DEFAULT' :
-                color+=bg.DEFAULT
+                color+=flextable.bg.DEFAULT
             if  background.upper() == 'BLACK' :
-                color+=bg.BLACK
+                color+=flextable.bg.BLACK
             if  background.upper() == 'RED' :
-                color+=bg.RED
+                color+=flextable.bg.RED
             if  background.upper() == 'GREEN' :
-                color+=bg.GREEN
+                color+=flextable.bg.GREEN
             if  background.upper() == 'YELLOW' :
-                color+=bg.YELLOW
+                color+=flextable.bg.YELLOW
             if  background.upper() == 'BLUE' :
-                color+=bg.BLUE
+                color+=flextable.bg.BLUE
             if  background.upper() == 'MAGENTA' :
-                color+=bg.MAGENTA
+                color+=flextable.bg.MAGENTA
             if  background.upper() == 'CYAN' :
-                color+=bg.CYAN
+                color+=flextable.bg.CYAN
             if  background.upper() == 'LIGHT GRAY' :
-                color+=bg.LIGHT_GRAY
+                color+=flextable.bg.LIGHT_GRAY
             if  background.upper() == 'DARK GRAY' :
-                color+=bg.DARK_GRAY
+                color+=flextable.bg.DARK_GRAY
             if  background.upper() == 'LIGHT RED' :
-                color+=bg.LIGHT_RED
+                color+=flextable.bg.LIGHT_RED
             if  background.upper() == 'LIGHT GREEN' :
-                color+=bg.LIGHT_GREEN
+                color+=flextable.bg.LIGHT_GREEN
             if  background.upper() == 'LIGHT YELLOW' :
-                color+=bg.LIGHT_YELLOW
+                color+=flextable.bg.LIGHT_YELLOW
             if  background.upper() == 'LIGHT BLUE' :
-                color+=bg.LIGHT_BLUE
+                color+=flextable.bg.LIGHT_BLUE
             if  background.upper() == 'LIGHT MAGENTA' :
-                color+=bg.LIGHT_MAGENTA
+                color+=flextable.bg.LIGHT_MAGENTA
             if  background.upper() == 'LIGHT CYAN' :
-                color+=bg.LIGHT_CYAN
+                color+=flextable.bg.LIGHT_CYAN
             if  background.upper() == 'WHITE' :
-                color+=bg.WHITE
+                color+=flextable.bg.WHITE
         return color
 
 
@@ -3471,7 +3471,7 @@ class flextable:
             self.background=background
             self.dim=dim
             self.bold=bold
-            self.reset=reset.ALL
+            self.reset=flextable.reset.ALL
             if None != default :
                 if None== foreground:
                     foreground=default.foreground

@@ -169,7 +169,7 @@ class flextable:
                     bold=default.bold
                     
             #print foreground,background,dim,bold
-            self.color=colors(foreground=foreground,background=background,dim=dim,bold=bold)
+            self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
             if None !=text:
                 if text.rstrip()=='':
                     text=None
@@ -489,7 +489,7 @@ class flextable:
                         
                     #only happend if we allow errored rows            
                     if len(line['data']) < self.column_count:
-                        wall_color=bcolors.OKBLUE
+                        wall_color=flextable.bg.LIGHT_BLUE
                         for c in range(len(line['data']),self.column_count):
                             columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
