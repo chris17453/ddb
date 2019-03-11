@@ -60,9 +60,6 @@ else:
               'ddb.functions',
               'ddb.output',
               'ddb.methods',
-              'ddb.methods.database',
-              'ddb.methods.table.data',
-              'ddb.methods.table.structure',
               ]
 
 
