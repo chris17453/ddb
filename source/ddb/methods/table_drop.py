@@ -1,4 +1,4 @@
-from ..core import query_results
+from .records_core import query_results
 
 def method_drop_table(context, query_object):
     context.info("Drop Table")
