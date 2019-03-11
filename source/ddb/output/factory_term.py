@@ -61,7 +61,7 @@ class flextable:
                 LIGHT_CYAN   =escape(106),
                 WHITE        =escape(107))
 
-
+    @staticmethod
     def colors(foreground,background,dim=None,bold=None):
         color=''
         if dim !=None:
@@ -368,7 +368,6 @@ class flextable:
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty size', 'r').read().split()
-
         #auto name columns
         if column_count>-1 and columns == None:
             self.columns=[]
@@ -395,22 +394,24 @@ class flextable:
     def calculate_limits(self):
         tty_min_column_width=1
         # doesnt work with pipes. ugh
-        # tty_rows, tty_columnstty_columns = os.popen('stty size', 'r').read().split()
+        tty_rows, tty_columns = os.popen('stty size', 'r').read().split() 
         # tty_rows=int(tty_rows)
         # tty_columns=int(tty_columns)
         # dev size
         # tty_rows=30
         # tty_columns=80
+        self.column_width=tty_columns
 
         
-        data_column_count=self.column_count
+        data_column_count=len(self.columns)
+
         pad=data_column_count+1
         # no columns to return
         if data_column_count==0:
             self.column_character_width=-1
         else:
             if self.column_width!=-1:
-                self.column_character_width=int(int(self.column_width-1-pad)/data_column_count)
+                self.column_character_width=int((int(self.column_width)-1-pad)/data_column_count)
                 if self.column_character_width<tty_min_column_width:
                     self.column_character_width=tty_min_column_width
             #@else:
@@ -465,7 +466,7 @@ class flextable:
                         header+=base.center.render(use_color=self.render_color)
                 index+=1
         header+=base.right.render(use_color=self.render_color)
-        header+=u'{0}'.format(reset.ALL)
+        header+=u'{0}'.format(flextable.reset.ALL)
 
 
         return header
@@ -511,7 +512,7 @@ class flextable:
                     columns=u"{0}{1}{2}".format( left,
                                                 center,
                                                 right)
-                columns+=u'{}'.format(reset.ALL)
+                columns+=u'{}'.format(flextable.reset.ALL)
 
                 rows.append(columns)
                 index+=1
@@ -542,7 +543,7 @@ class flextable:
         header=self.build_header()
         mid_header=self.build_header(mid=True)
         footer=self.build_header(footer=True)
-        rows=self.build_rows(buffer)
+        rows=self.build_rows(self.data)
         
         index=1
 

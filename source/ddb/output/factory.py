@@ -43,9 +43,11 @@ class output_factory:
         """ouput results data in the term format"""
         try:
             flextable(data=query_results.data,columns=query_results.columns)
+            print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+
         except Exception as ex:
             print(ex)
-            print(query_results.data)
+            #print(query_results.data)
 
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
