@@ -171,7 +171,7 @@ class flextable:
             #print foreground,background,dim,bold
             self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
             if None !=text:
-                if text.rstrip()=='':
+                if text.rstrip()=='': 
                     text=None
             self.text=text
                     
