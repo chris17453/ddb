@@ -1,4 +1,3 @@
-import time
 from cmd import Cmd
 from .engine import engine
 from .version import __version__
@@ -101,12 +100,8 @@ class ddbPrompt(Cmd):
             if None == self.engine:
                 print ("sql engine gone")
                 return
-            start = time.time()
             results = self.engine.query(sql_query=inp)
-            end = time.time()
             o=output_factory(results)
-
-            self.msg("info", "executed in {0} seconds".format(end - start))
             inp = None
         except Exception as ex:
             self.msg("error", ex)

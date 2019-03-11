@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.20'
+__version__='1.1.21'
 
         
         
@@ -2272,8 +2272,8 @@ class engine:
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
+        start = time.clock()
         for query_object in parser.query_objects:
-
             self.info("Engine: query_object", query_object)
             if query_object['mode'] == "show tables":
                 self.results = method_show_tables(self,self.database)
@@ -2311,6 +2311,10 @@ class engine:
             elif query_object['mode'] == 'describe table':
                 self.results = method_describe_table(self,query_object)
                     
+        end = time.clock()
+        self.results.start_time=start
+        self.results.end_time=end
+        self.results.time=end-start
          
         return self.results
 
@@ -2411,10 +2415,14 @@ class query_results:
         self.error=None
         self.data_length=0
         self.columns=[]
+
         if data and data.results:
             self.data=data.results
             self.data_length=len(data.results)
+
+        if data:
             self.columns = data.get_columns_display()
+            
 
 
         
@@ -2875,6 +2883,7 @@ def method_show_tables(context,database):
         for t in database.tables:
             columns = [t.data.database, t .data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
+       
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -3236,9 +3245,10 @@ class output_factory:
         """ouput results data in the term format"""
         try:
             flextable(data=query_results.data,columns=query_results.columns)
+            print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+
         except Exception as ex:
             print(ex)
-            print(query_results.data)
 
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
@@ -3377,7 +3387,7 @@ class flextable:
                 LIGHT_CYAN   =escape(106),
                 WHITE        =escape(107))
 
-
+    @staticmethod
     def colors(foreground,background,dim=None,bold=None):
         color=''
         if dim !=None:
@@ -3484,7 +3494,7 @@ class flextable:
                     
             self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
             if None !=text:
-                if text.rstrip()=='':
+                if text.rstrip()=='': 
                     text=None
             self.text=text
                     
@@ -3678,7 +3688,6 @@ class flextable:
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty size', 'r').read().split()
-
         if column_count>-1 and columns == None:
             self.columns=[]
             for n in range(0,self.column_count):
@@ -3702,15 +3711,18 @@ class flextable:
 
     def calculate_limits(self):
         tty_min_column_width=1
+        tty_rows, tty_columns = os.popen('stty size', 'r').read().split() 
+        self.column_width=tty_columns
 
         
-        data_column_count=self.column_count
+        data_column_count=len(self.columns)
+
         pad=data_column_count+1
         if data_column_count==0:
             self.column_character_width=-1
         else:
             if self.column_width!=-1:
-                self.column_character_width=int(int(self.column_width-1-pad)/data_column_count)
+                self.column_character_width=int((int(self.column_width)-1-pad)/data_column_count)
                 if self.column_character_width<tty_min_column_width:
                     self.column_character_width=tty_min_column_width
 
@@ -3759,7 +3771,7 @@ class flextable:
                         header+=base.center.render(use_color=self.render_color)
                 index+=1
         header+=base.right.render(use_color=self.render_color)
-        header+=u'{0}'.format(reset.ALL)
+        header+=u'{0}'.format(flextable.reset.ALL)
 
 
         return header
@@ -3802,7 +3814,7 @@ class flextable:
                     columns=u"{0}{1}{2}".format( left,
                                                 center,
                                                 right)
-                columns+=u'{}'.format(reset.ALL)
+                columns+=u'{}'.format(flextable.reset.ALL)
 
                 rows.append(columns)
                 index+=1
@@ -3827,7 +3839,7 @@ class flextable:
         header=self.build_header()
         mid_header=self.build_header(mid=True)
         footer=self.build_header(footer=True)
-        rows=self.build_rows(buffer)
+        rows=self.build_rows(self.data)
         
         index=1
 
