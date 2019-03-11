@@ -1,4 +1,4 @@
-from .records_core import query_results
+from .record_core import query_results
 
 def method_set(context, query_object):
     context.info("set")

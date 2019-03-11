@@ -1,4 +1,4 @@
-from .records_core import  process_line, swap_files, query_results
+from .record_core import  process_line, swap_files, query_results
 
 
 def method_create_table(context, query_object):

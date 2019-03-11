@@ -1,4 +1,4 @@
-from .records_core import query_results
+from .record_core import query_results
 
 def method_show_tables(context,database):
     try:
