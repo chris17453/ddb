@@ -1,5 +1,5 @@
 from ....functions.functions import *
-from ..core import process_line, swap_files, query_results
+from .records_core import process_line, swap_files, query_results
 from ....version import __version__
 
 

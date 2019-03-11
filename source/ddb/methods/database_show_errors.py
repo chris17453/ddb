@@ -1,7 +1,7 @@
-from ..table.core import query_results
+from .records_core import query_results
 
-def method_set(context, query_object):
-    context.info("set")
+def method_show_errors(context, query_object):
+    context.info("Use")
     try:
         return query_results(success=True)
     except Exception as ex:

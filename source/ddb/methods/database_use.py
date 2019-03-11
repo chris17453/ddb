@@ -1,4 +1,4 @@
-from ..table.core import query_results
+from .records_core import query_results
 
 def method_use(context, query_object):
     context.info("Use")
