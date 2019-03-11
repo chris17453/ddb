@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.8'
+__version__='1.1.12'
 
         
         
@@ -2339,48 +2339,8 @@ class engine:
         
         
 # ############################################################################
-# Module : methods-database-set
-# File   : ./source/ddb/methods/database/set.py
-# ############################################################################
-
-
-
-
-def method_set(context, query_object):
-    context.info("set")
-    try:
-        return query_results(success=True)
-    except Exception as ex:
-        return query_results(success=False,error=ex)
-
-        
-        
-# ############################################################################
-# Module : methods-database-use
-# File   : ./source/ddb/methods/database/use.py
-# ############################################################################
-
-
-
-
-def method_use(context, query_object):
-    context.info("Use")
-    try:
-        target_db = query_object['meta']['use']['table']
-        if context.database.get_curent_database()!=target_db:
-            context.database.set_database(target_db)
-            temp_table = context.database.temp_table()
-            temp_table.add_column('changed_db')
-            data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(data)
-        return query_results(success=True,data=temp_table)
-    except Exception as ex:
-        return query_results(success=False,error=ex)
-        
-        
-# ############################################################################
-# Module : methods-table
-# File   : ./source/ddb/methods/table/core.py
+# Module : methods-records_core
+# File   : ./source/ddb/methods/record_core.py
 # ############################################################################
 
 
@@ -2468,8 +2428,8 @@ class query_results:
         
         
 # ############################################################################
-# Module : methods-table-data-delete
-# File   : ./source/ddb/methods/table/data/delete.py
+# Module : methods-records-delete
+# File   : ./source/ddb/methods/record_delete.py
 # ############################################################################
 
 
@@ -2507,8 +2467,8 @@ def method_delete(context, query_object):
         
         
 # ############################################################################
-# Module : methods-table-data-insert
-# File   : ./source/ddb/methods/table/data/insert.py
+# Module : methods-records-insert
+# File   : ./source/ddb/methods/record_insert.py
 # ############################################################################
 
 
@@ -2592,8 +2552,8 @@ def create_single(context, query_object, temp_file, requires_new_line):
         
         
 # ############################################################################
-# Module : methods-table-data-select
-# File   : ./source/ddb/methods/table/data/select.py
+# Module : methods-records-select
+# File   : ./source/ddb/methods/record_select.py
 # ############################################################################
 
 
@@ -2886,8 +2846,8 @@ def compare_data(context,data1, data2):
         
         
 # ############################################################################
-# Module : methods-table-data-show-columns
-# File   : ./source/ddb/methods/table/data/show_columns.py
+# Module : methods-records-show-columns
+# File   : ./source/ddb/methods/record_show_columns.py
 # ############################################################################
 
 
@@ -2910,8 +2870,8 @@ def method_show_columns(context,database, query_object):
         
         
 # ############################################################################
-# Module : methods-table-data-show-tables
-# File   : ./source/ddb/methods/table/data/show_tables.py
+# Module : methods-records-show-tables
+# File   : ./source/ddb/methods/record_show_tables.py
 # ############################################################################
 
 
@@ -2930,8 +2890,8 @@ def method_show_tables(context,database):
         
         
 # ############################################################################
-# Module : methods-table-data-update
-# File   : ./source/ddb/methods/table/data/update.py
+# Module : methods-records-update
+# File   : ./source/ddb/methods/record_update.py
 # ############################################################################
 
 
@@ -3014,8 +2974,48 @@ def method_update(context, query_object):
         
         
 # ############################################################################
+# Module : methods-database-set
+# File   : ./source/ddb/methods/database_set.py
+# ############################################################################
+
+
+
+
+def method_set(context, query_object):
+    context.info("set")
+    try:
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-database-use
+# File   : ./source/ddb/methods/database_use.py
+# ############################################################################
+
+
+
+
+def method_use(context, query_object):
+    context.info("Use")
+    try:
+        target_db = query_object['meta']['use']['table']
+        if context.database.get_curent_database()!=target_db:
+            context.database.set_database(target_db)
+            temp_table = context.database.temp_table()
+            temp_table.add_column('changed_db')
+            data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
+            temp_table.append_data(data)
+        return query_results(success=True,data=temp_table)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+        
+        
+# ############################################################################
 # Module : methods-table-structure-create
-# File   : ./source/ddb/methods/table/structure/create.py
+# File   : ./source/ddb/methods/table_create.py
 # ############################################################################
 
 
@@ -3083,7 +3083,7 @@ def method_create_table(context, query_object):
         
 # ############################################################################
 # Module : methods-table-structure-describe
-# File   : ./source/ddb/methods/table/structure/describe.py
+# File   : ./source/ddb/methods/table_describe.py
 # ############################################################################
 
 
@@ -3123,7 +3123,7 @@ def method_describe_table(context, query_object):
         
 # ############################################################################
 # Module : methods-table-structure-drop
-# File   : ./source/ddb/methods/table/structure/drop.py
+# File   : ./source/ddb/methods/table_drop.py
 # ############################################################################
 
 
@@ -3143,7 +3143,7 @@ def method_drop_table(context, query_object):
         
 # ############################################################################
 # Module : methods-table-structure-update
-# File   : ./source/ddb/methods/table/structure/update.py
+# File   : ./source/ddb/methods/table_update.py
 # ############################################################################
 
 
