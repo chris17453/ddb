@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.56'
+__version__='1.1.57'
 
         
         
@@ -3803,7 +3803,7 @@ class flextable:
 
 
         if self.column_width==-1:
-            self.row_height,self.column_width = os.popen('stty size', 'r').read().split()
+            self.row_height,self.column_width =os.get_terminal_size(0)
         if column_count>-1 and columns == None:
             self.columns=[]
             for n in range(0,self.column_count):
@@ -3827,9 +3827,8 @@ class flextable:
 
     def calculate_limits(self):
         tty_min_column_width=1
-        tty_rows, tty_columns = os.popen('stty size', 'r').read().split() 
-        self.column_width=tty_columns
-
+        
+        
         
         data_column_count=len(self.columns)
 
