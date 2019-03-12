@@ -276,8 +276,8 @@ sql_syntax = {
 
              {'arguments': 0,
               'data': [{'sig': ['{column}']},
-                       {'sig': ['{column}', 'asc']},
-                       {'sig': ['{column}', 'desc']}],
+                       {{'vars':{'direction':1},{'sig': ['{column}', 'asc']},
+                       {{'vars':{'direction':-1},'sig': ['{column}', 'desc']}],
               'name': ['order', 'by'],
               'optional': True},
              {'data': [{'sig': ['{length}']},
