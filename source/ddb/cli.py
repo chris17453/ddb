@@ -34,14 +34,18 @@ def cli_main():
         home = expanduser("~")
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
-    if args.query is not None:
+    if args.query is not None or not sys.stdin.isatty():
         try:
+            if  not sys.stdin.isatty():
+                query=fileinput.input():
+            else:
+                query=args.query
             e = engine( config_file=config_file, 
                             debug=args.debug, 
                             mode="full",
                             output=args.output,
                             output_file=args.file)
-            results = e.query(args.query)
+            results = e.query(query)
             if results.success==True:
                 #print(results)
                 output_factory(results,output=args.output,output_file=args.file)
@@ -57,10 +61,6 @@ def cli_main():
             print(ex)
 
     # is there something in stdin.. a pipe?
-    elif not sys.stdin.isatty():
-        for line in fileinput.input():
-            print("READ",line)
-        
     else:
         # interactive session
         prompt = ddbPrompt()
