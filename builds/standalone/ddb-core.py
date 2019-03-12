@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.136'
+__version__='1.1.137'
 
         
         
@@ -3343,6 +3343,7 @@ def method_system_set(context, query_object):
     try:
         variable=query_object['meta']['set']['variable']
         value=query_object['meta']['set']['value']
+        print(context.system,variable,value)
         if variable in context.system:
             context.system[variable]=value
         else:

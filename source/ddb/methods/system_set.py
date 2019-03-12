@@ -12,4 +12,5 @@ def method_system_set(context, query_object):
             raise Exception("Cannot set {0}, not a system variable".format(variable))
         return query_results(success=True)
     except Exception as ex:
+        print(ex)
         return query_results(success=False,error=ex)
