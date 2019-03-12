@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.53'
+__version__='1.1.54'
 
         
         
@@ -4718,7 +4718,7 @@ def cli_main():
         try:
             if not sys.stdin.isatty():
                 print("reading stdin")
-                new_stdin = os.fdopen(sys.stdin.fileno(), 'r', buffer_size)
+                new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 for c in new_stdin:
                     print(c)
             else:
