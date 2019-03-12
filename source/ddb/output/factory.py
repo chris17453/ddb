@@ -44,7 +44,10 @@ class output_factory:
         try:
             if query_results.data and query_results.columns:
                 flextable(data=query_results.data,columns=query_results.columns)
-            print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+            if True == query.results.success:
+                print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+            else:
+                print("Query Failed")
 
         except Exception as ex:
             print(ex)
