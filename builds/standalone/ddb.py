@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.48'
+__version__='1.1.49'
 
         
         
@@ -4714,14 +4714,18 @@ def cli_main():
         home = expanduser("~")
         config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
-    if args.query is not None:
+    if args.query is not None or not sys.stdin.isatty():
         try:
+            if  not sys.stdin.isatty():
+                query=fileinput.input():
+            else:
+                query=args.query
             e = engine( config_file=config_file, 
                             debug=args.debug, 
                             mode="full",
                             output=args.output,
                             output_file=args.file)
-            results = e.query(args.query)
+            results = e.query(query)
             if results.success==True:
                 output_factory(results,output=args.output,output_file=args.file)
             
@@ -4735,10 +4739,6 @@ def cli_main():
         except Exception as ex:
             print(ex)
 
-    elif not sys.stdin.isatty():
-        for line in fileinput.input():
-            print("READ",line)
-        
     else:
         prompt = ddbPrompt()
         prompt.set_vars(config_file=config_file,
