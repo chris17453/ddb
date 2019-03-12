@@ -13,12 +13,7 @@ delimiters:
 '
 results: []
 ordinals: 
- first_name: true
- last_name: 2
- gender: 4
- email: 3
  ip_address: 5
- id: false
 visible: 
  errors: true
  whitespace: false
@@ -54,7 +49,7 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'id'
+   name: 'ip_address'
    is_array: false
    regex: null
    ordinal: false
@@ -81,7 +76,7 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'first_name'
+   name: 'ip_address'
    is_array: false
    regex: null
    ordinal: true
@@ -108,7 +103,7 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'last_name'
+   name: 'ip_address'
    is_array: false
    regex: null
    ordinal: 2
@@ -135,7 +130,7 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'email'
+   name: 'ip_address'
    is_array: false
    regex: null
    ordinal: 3
@@ -162,7 +157,7 @@ columns:
   data: 
    default_value: null
    has_default: false
-   name: 'gender'
+   name: 'ip_address'
    is_array: false
    regex: null
    ordinal: 4
