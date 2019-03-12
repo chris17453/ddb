@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.118'
+__version__='1.1.119'
 
         
         
@@ -2455,17 +2455,18 @@ class engine:
         
         if self.results:
             if self.results.data:
-                    
-                    if self.mode == 'object':
-                        columns = self.results.columns
-                        len_col = len(columns)
-                        for line in self.results.data:
+                if self.mode == 'object':
+                    columns = self.results.columns
+                    len_col = len(columns)
+                    for line in self.results.data:
+                        if self.results.data['type']==self.data_type.DATA:
                             new_dict = {}
                             for i in range(0, len_col):
                                 if len(line['data']) < i:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+
         end = time.clock()
         self.results.start_time=start
         self.results.end_time=end

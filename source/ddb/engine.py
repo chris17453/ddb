@@ -36,7 +36,7 @@ def enum(**enums):
 
 class engine:
     """A serverless flat file database engine"""
-    AUTOCOMMIT=0
+    
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
@@ -53,6 +53,13 @@ class engine:
         self.output=output
         self.output_file=output_file
         self.match=match()
+        self.system={}
+        # variables that can be set by the system
+        self.system['AUTOCOMMIT']=0
+        self.system['OUTPUT']='TERM'
+        self.system['TERM_OUTPUT_HEADER']=True
+        self.system['TERM_OUTPUT_MID']=False
+        self.system['TERM_OUTPUT_FOOTER']=True
         
         # print "Config",config_file
         self.database = database(config_file=config_file)
@@ -127,8 +134,6 @@ class engine:
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-            elif mode == 'set':
-                self.results = method_set(self,query_object)
 
             elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
@@ -139,14 +144,17 @@ class engine:
             elif mode == 'update table':
                 self.results = method_update_table(self,query_object)
 
-            #elif mode == 'begin':
-            #    self.results = system_begin(self,query_object)
-#
-            #elif mode == 'rollback':
-            #    self.results = system_rollback(self,query_object)
-#
-            #elif mode == 'commit':
-            #    self.results = system_commit(self,query_object)
+            elif mode == 'set':
+                self.results = sytstem_set(self,query_object)
+
+            elif mode == 'begin':
+                self.results = system_begin(self,query_object)
+
+            elif mode == 'rollback':
+                self.results = system_rollback(self,query_object)
+
+            elif mode == 'commit':
+                self.results = system_commit(self,query_object)
             #else:
             # TODO uncaught    
             #    print (query_object)
