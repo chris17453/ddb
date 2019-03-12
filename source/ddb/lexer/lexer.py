@@ -194,12 +194,12 @@ class lexer:
                             self.info("No match")
                             break
                         else:
-                                            # add the static vars
+                            # add the static vars
                             base_argument={}
                             if 'vars' in signature:
                                 for var_name in signature['vars']:
                                     self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
-                                    base_argument[var_name]=switch['data']['vars'][var_name]
+                                    base_argument[var_name]=signature['vars'][var_name]
 
                             w_index = 0
                             argument = base_argument
