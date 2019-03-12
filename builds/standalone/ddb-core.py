@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.78'
+__version__='1.1.79'
 
         
         
@@ -416,7 +416,7 @@ sql_syntax = {
         {'query': 'drop',
          'switch': [{'arguments': 1,
                      'data': [ {'sig': ['{table}']},
-                               {'sig': ['{database}','.','{table}']}]
+                               {'sig': ['{database}','.','{table}']}],
 
                      'name': 'drop'}]},
         {'query': 'create',
