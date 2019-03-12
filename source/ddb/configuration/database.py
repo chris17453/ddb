@@ -160,8 +160,8 @@ class database:
         # print("Appending table")
         self.tables.append(t)
         if not temporary:
-            print("Sacing")
             res = t.save()
+            self.add_config(table=t)
             if False == res:
                 raise Exception("Couldn't save table configuation")
             #self.add_config(table=t)
