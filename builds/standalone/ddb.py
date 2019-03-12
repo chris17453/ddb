@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.80'
+__version__='1.1.81'
 
         
         
@@ -392,7 +392,7 @@ sql_syntax = {
         {'query': 'update',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']},
-                                {'sig': ['{database}','.','{table}']},
+                              {'sig': ['{database}','.','{table}']},
                      ],
                      'name': 'update'},
                     {'arguments': 0,
@@ -423,8 +423,8 @@ sql_syntax = {
                      'name': 'use'}]},
         {'query': 'drop',
          'switch': [{'arguments': 1,
-                     'data': [ {'sig': ['{table}']},
-                               {'sig': ['{database}','.','{table}']}],
+                     'data': [ {'sig': ['table','{table}']},
+                               {'sig': ['table','{database}','.','{table}']}],
 
                      'name': 'drop'}]},
         {'query': 'create',
