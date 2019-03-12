@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.116'
+__version__='1.1.117'
 
         
         
@@ -342,6 +342,30 @@ sql_syntax = {
              'data': [{'sig': ['{variable}', '=', '{value}']}],
          }]
          },
+        {'query': 'begin',
+         'switch': [{
+             'name': 'begin',
+             'arguments': None,
+             'data': None,
+         }]
+         },
+        {'query': 'commit',
+         'switch': [{
+             'name': 'commit',
+             'arguments': None,
+             'data': None,
+             'depends_on':'begin'
+         }]
+         },
+        {'query': 'rollback',
+         'switch': [{
+             'name': 'rollback',
+             'arguments': None,
+             'data': None,
+             'depends_on':'begin'
+         }]
+         },
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -2343,6 +2367,8 @@ def enum(**enums):
 
 class engine:
     """A serverless flat file database engine"""
+    AUTOCOMMIT=0
+
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
@@ -2391,41 +2417,41 @@ class engine:
         start = time.clock()
         for query_object in parser.query_objects:
             self.info("Engine: query_object", query_object)
-            if query_object['mode'] == "show tables":
+            mode=query_object['mode']
+            
+            if mode == "show tables":
                 self.results = method_show_tables(self,self.database)
-            elif query_object['mode'] == "show columns":
+            elif mode == "show columns":
                 self.results = method_show_columns(self,self.database, query_object)
             
             
-            elif query_object['mode'] == 'select':
+            elif mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
-            elif query_object['mode'] == 'insert':
+            elif mode == 'insert':
                 self.results = method_insert(self,query_object)
 
-            elif query_object['mode'] == 'update':
+            elif mode == 'update':
                 self.results = method_update(self,query_object)
 
-            elif query_object['mode'] == 'delete':
+            elif mode == 'delete':
                 self.results = method_delete(self,query_object)
 
-            elif query_object['mode'] == 'use':
+            elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-            elif query_object['mode'] == 'set':
+            elif mode == 'set':
                 self.results = method_set(self,query_object)
 
-            elif query_object['mode'] == 'drop':
+            elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
 
-            elif query_object['mode'] == 'create':
+            elif mode == 'create':
                 self.results = method_create_table(self,query_object)
 
-            elif query_object['mode'] == 'update table':
+            elif mode == 'update table':
                 self.results = method_update_table(self,query_object)
 
-            elif query_object['mode'] == 'describe table':
-                self.results = method_describe_table(self,query_object)
                     
         end = time.clock()
         self.results.start_time=start

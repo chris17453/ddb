@@ -151,9 +151,10 @@ class engine:
             # TODO uncaught    
             #    print (query_object)
         # only return last command
-        #if self.results:
+        
+        if self.results:
         #    # if the result set it not empty
-        #    if self.results.data:
+            if self.results.data:
         #        if self.results.data.results:
                      # if self.mode == 'array':
                      #   new_array = []
@@ -161,16 +162,16 @@ class engine:
                      #       new_array.append(line['data'])
                      #   self.results.data=
                     
-                   # if self.mode == 'object':
-                   #     columns = self.results.get_columns()
-                   #     len_col = len(columns)
-                   #     for line in self.results.data.results:
-                   #         new_dict = {}
-                   #         for i in range(0, len_col):
-                   #             if len(line['data']) < i:
-                   #                 break
-                   #             new_dict[columns[i]] = line['data'][i]
-                   #         line['data']=new_dict
+                    if self.mode == 'object':
+                        columns = self.results.columns
+                        len_col = len(columns)
+                        for line in self.results.data:
+                            new_dict = {}
+                            for i in range(0, len_col):
+                                if len(line['data']) < i:
+                                    break
+                                new_dict[columns[i]] = line['data'][i]
+                            line['data']=new_dict
 #
                     #self.results.data=self.results.data.results
         end = time.clock()
