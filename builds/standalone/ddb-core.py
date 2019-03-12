@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.73'
+__version__='1.1.74'
 
         
         
@@ -312,8 +312,8 @@ sql_syntax = {
 
              {'arguments': 0,
               'data': [{'sig': ['{column}']},
-                       {{'vars':{'direction':1},{'sig': ['{column}', 'asc']},
-                       {{'vars':{'direction':-1},'sig': ['{column}', 'desc']}],
+                       {'vars':{'direction':1},'sig': ['{column}', 'asc']},
+                       {'vars':{'direction':-1},'sig': ['{column}', 'desc']}],
               'name': ['order', 'by'],
               'optional': True},
              {'data': [{'sig': ['{length}']},
