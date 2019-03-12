@@ -11,8 +11,6 @@ def method_drop_table(context, query_object):
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-             
-         
         results = context.database.drop_table(table_name=table_name,database_name=database_name)
         return query_results(success=results)
     except Exception as ex:
