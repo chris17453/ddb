@@ -117,15 +117,8 @@ class engine:
             # print query_object['mode']
             mode=query_object['mode']
             
-            if mode == "show tables":
-                self.results = method_show_tables(self,self.database)
-            elif mode == "show columns":
-                self.results = method_show_columns(self,self.database, query_object)
             
-            #if mode=="show errors":
-            #    self.results=method_show_errors(self,self.database,self.table)
-            
-            elif mode == 'select':
+            if mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
             elif mode == 'insert':
@@ -161,6 +154,18 @@ class engine:
 
             elif mode == 'commit':
                 self.results = system_commit(self,query_object)
+
+            elif mode == "show tables":
+                self.results = system_show_tables(self,self.database)
+
+            elif mode == "show columns":
+                self.results = system_show_columns(self,self.database, query_object)
+
+            elif mode == "show variables":
+                self.results = system_show_variables(self,self.database, query_object)
+            
+            #if mode=="show errors":
+            #    self.results=method_show_errors(self,self.database,self.table)
             #else:
             # TODO uncaught    
             #    print (query_object)
