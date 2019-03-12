@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.119'
+__version__='1.1.123'
 
         
         
@@ -2361,13 +2361,14 @@ def f_cat(context,arg1,arg2):
 
 
 
+
 def enum(**enums):
     return type('Enum', (), enums)
 
 
 class engine:
     """A serverless flat file database engine"""
-    AUTOCOMMIT=0
+    
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
@@ -2384,6 +2385,12 @@ class engine:
         self.output=output
         self.output_file=output_file
         self.match=match()
+        self.system={}
+        self.system['AUTOCOMMIT']=0
+        self.system['OUTPUT']='TERM'
+        self.system['TERM_OUTPUT_HEADER']=True
+        self.system['TERM_OUTPUT_MID']=False
+        self.system['TERM_OUTPUT_FOOTER']=True
         
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
@@ -2440,8 +2447,6 @@ class engine:
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-            elif mode == 'set':
-                self.results = method_set(self,query_object)
 
             elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
@@ -2452,6 +2457,17 @@ class engine:
             elif mode == 'update table':
                 self.results = method_update_table(self,query_object)
 
+            elif mode == 'set':
+                self.results = sytstem_set(self,query_object)
+
+            elif mode == 'begin':
+                self.results = system_begin(self,query_object)
+
+            elif mode == 'rollback':
+                self.results = system_rollback(self,query_object)
+
+            elif mode == 'commit':
+                self.results = system_commit(self,query_object)
         
         if self.results:
             if self.results.data:
@@ -3150,23 +3166,6 @@ def method_update(context, query_object):
         
         
 # ############################################################################
-# Module : methods-database-set
-# File   : ./source/ddb/methods/database_set.py
-# ############################################################################
-
-
-
-
-def method_set(context, query_object):
-    context.info("set")
-    try:
-        return query_results(success=True)
-    except Exception as ex:
-        return query_results(success=False,error=ex)
-
-        
-        
-# ############################################################################
 # Module : methods-database-use
 # File   : ./source/ddb/methods/database_use.py
 # ############################################################################
@@ -3376,6 +3375,80 @@ def method_update_table(context, query_object):
     except Exception as ex:
         return query_object(success=False,error=ex)
 
+
+        
+        
+# ############################################################################
+# Module : methods-system-set
+# File   : ./source/ddb/methods/system_set.py
+# ############################################################################
+
+
+
+
+def method_system_set(context, query_object):
+    context.info("set")
+    try:
+        variable=query_object['meta']['set']['variable']
+        value=query_object['meta']['set']['value']
+        if variable in context.system:
+            context.system[variable]=value
+        else:
+            raise Exception("Cannot set {0}, not a system variable".format(variable))
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-system-begin
+# File   : ./source/ddb/methods/system_begin.py
+# ############################################################################
+
+
+
+
+def method_system_begin(context, query_object):
+    context.info("set")
+    try:
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-system-commit
+# File   : ./source/ddb/methods/system_commit.py
+# ############################################################################
+
+
+
+
+def method_system_commit(context, query_object):
+    context.info("set")
+    try:
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-system-rollback
+# File   : ./source/ddb/methods/system_rollback.py
+# ############################################################################
+
+
+
+
+def method_system_rollback(context, query_object):
+    context.info("set")
+    try:
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
 
         
         

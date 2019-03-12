@@ -19,7 +19,6 @@ ddb/lexer/language.py
 ddb/lexer/lexer.py
 ddb/lexer/tokenize.py
 ddb/methods/__init__.py
-ddb/methods/database_set.py
 ddb/methods/database_show_errors.py
 ddb/methods/database_use.py
 ddb/methods/record_core.py
@@ -29,6 +28,10 @@ ddb/methods/record_select.py
 ddb/methods/record_show_columns.py
 ddb/methods/record_show_tables.py
 ddb/methods/record_update.py
+ddb/methods/system_begin.py
+ddb/methods/system_commit.py
+ddb/methods/system_rollback.py
+ddb/methods/system_set.py
 ddb/methods/table_create.py
 ddb/methods/table_describe.py
 ddb/methods/table_drop.py

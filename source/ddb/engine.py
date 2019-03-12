@@ -9,10 +9,10 @@ from .version import __version__
 #methods -> actions
 
 # system level commands
-from .methods.system_set import system_set
-from .methods.system_begin import system_begin
-from .methods.system_commit import system_commit
-from .methods.system_rollback import system_rollback
+from .methods.system_set import method_system_set
+from .methods.system_begin import method_system_begin
+from .methods.system_commit import method_system_commit
+from .methods.system_rollback import method_system_rollback
 
 # database level data methods
 from .methods.database_use import method_use
