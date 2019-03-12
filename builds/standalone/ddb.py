@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.47'
+__version__='1.1.48'
 
         
         
@@ -4736,7 +4736,7 @@ def cli_main():
             print(ex)
 
     elif not sys.stdin.isatty():
-        for line in fileinput.input(sys.stdin):
+        for line in fileinput.input():
             print("READ",line)
         
     else:
