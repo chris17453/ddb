@@ -38,12 +38,10 @@ def cli_main():
     if args.query is not None or not sys.stdin.isatty():
         try:
             if not sys.stdin.isatty():
-                print("reading stdin")
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 query=""
                 for c in new_stdin:
                     query+=c
-                print("DONE")
                 #query=sys.stdin.read()
             else:
                 query=args.query
