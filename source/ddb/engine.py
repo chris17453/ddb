@@ -117,7 +117,7 @@ class engine:
             # print query_object['mode']
             mode=query_object['mode']
             
-            
+            # RECORDS
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
@@ -126,13 +126,14 @@ class engine:
 
             elif mode == 'update':
                 self.results = method_update(self,query_object)
-
+            
             elif mode == 'delete':
                 self.results = method_delete(self,query_object)
 
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
+            # TABLE 
             elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
 
@@ -142,8 +143,9 @@ class engine:
             elif mode == 'update table':
                 self.results = method_update_table(self,query_object)
 
+            # SYSTEM 
             elif mode == 'set':
-                self.results = method_sytstem_set(self,query_object)
+                self.results = method_system_set(self,query_object)
 
             elif mode == 'begin':
                 self.results = method_system_begin(self,query_object)
