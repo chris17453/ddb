@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.24'
+__version__='1.1.25'
 
         
         
@@ -866,6 +866,9 @@ class lexer:
             self.info(switch_index, token_index, len(tokens))
 
             self.info(curent_object)
+            if token_index == len(tokens):
+                break
+
         
         
         result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
