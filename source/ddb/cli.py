@@ -39,7 +39,7 @@ def cli_main():
         try:
             if not sys.stdin.isatty():
                 print("reading stdin")
-                new_stdin = os.fdopen(sys.stdin.fileno(), 'r', buffer_size)
+                new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 for c in new_stdin:
                     print(c)
                 #query=sys.stdin.read()
