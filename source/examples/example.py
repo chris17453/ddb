@@ -12,7 +12,7 @@ def example1():
                         database_name='test_db',
                         field_delimiter=',',
                         columns=['id','first_name','last_name','email','gender','ip_address'],
-                        data_file='/home/cwatkin1/repos/chris17453/ddb/source/test/MOCK_DATA.csv')
+                        data_file='/home/nd/chris17453/ddb/source/test/MOCK_DATA.csv')
 
 
 
