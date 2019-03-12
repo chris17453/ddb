@@ -367,7 +367,7 @@ class flextable:
 
 
         if self.column_width==-1:
-            self.row_height,self.column_width = os.popen('stty -F /dev/stdin size', 'r').read().split()
+            self.row_height,self.column_width = os.popen('stty -F /dev/stdout size', 'r').read().split()
         #auto name columns
         if column_count>-1 and columns == None:
             self.columns=[]
