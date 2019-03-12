@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.128'
+__version__='1.1.129'
 
         
         
@@ -2450,25 +2450,25 @@ class engine:
                 self.results = method_update_table(self,query_object)
 
             elif mode == 'set':
-                self.results = sytstem_set(self,query_object)
+                self.results = method_sytstem_set(self,query_object)
 
             elif mode == 'begin':
-                self.results = system_begin(self,query_object)
+                self.results = method_system_begin(self,query_object)
 
             elif mode == 'rollback':
-                self.results = system_rollback(self,query_object)
+                self.results = method_system_rollback(self,query_object)
 
             elif mode == 'commit':
-                self.results = system_commit(self,query_object)
+                self.results = method_system_commit(self,query_object)
 
             elif mode == "show tables":
-                self.results = system_show_tables(self,self.database)
+                self.results = method_system_show_tables(self,self.database)
 
             elif mode == "show columns":
-                self.results = system_show_columns(self,self.database, query_object)
+                self.results = method_system_show_columns(self,self.database, query_object)
 
             elif mode == "show variables":
-                self.results = system_show_variables(self,self.database, query_object)
+                self.results = method_system_show_variables(self,self.database, query_object)
             
         
         if self.results:
