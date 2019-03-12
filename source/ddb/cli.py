@@ -43,7 +43,7 @@ def cli_main():
                 query=""
                 for c in new_stdin:
                     query+=c
-                    
+                print("DONE")
                 #query=sys.stdin.read()
             else:
                 query=args.query
