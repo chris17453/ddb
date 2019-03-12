@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.95'
+__version__='1.1.96'
 
         
         
@@ -1563,9 +1563,7 @@ class table:
                errors=None,
                data_on=None):
         if None != data_on:
-            self.data.starts_on_line = int(data_on)
-        else:
-            print("NO data_on")
+            self.data.starts_on_line = data_on
         if None != comments:
             self.visible.comments = comments
 
