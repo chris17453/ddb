@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.23'
+__version__='1.1.24'
 
         
         
@@ -865,6 +865,9 @@ class lexer:
 
             self.info(switch_index, token_index, len(tokens))
 
+            self.info(curent_object)
+        
+        
         result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
         return result
 
@@ -880,7 +883,7 @@ class lexer:
             if 'arguments' not in curent_object and 'arguments' in switch:
                 self.info("Missing argument in last element")
                 bad = True
-                break
+                return False
 
             if len(query['switch']) >= switch_index:
                 self.info("still checking")
@@ -888,15 +891,16 @@ class lexer:
                 for t in range(switch_index, len(query['switch'])):
                     if 'optional' not in query['switch'][t]:
                         bad = True
-                        break
+                        return False
+
                     else:
                         if not query['switch'][t]['optional']:
                             bad = True
-                            break
+                            return False
 
                 if True == bad:
                     self.info("Not successful. required arguments missing")
-                    break
+                    return False
 
             self.info("Query object", query_object)
             if query_mode == 'select':
