@@ -9,7 +9,7 @@ def process_line(context, query_object, line, line_number=0):
     if query_object['table'].data.starts_on_line >= line_number:
         line_type = context.data_type.COMMENT
         line_data = line
-        match=None
+        match=True
         #print query_object['table'].data.starts_on_line,line_number
     else:
         line_type = context.data_type.DATA
@@ -68,7 +68,12 @@ def process_line(context, query_object, line, line_number=0):
 
 
     # raw has rstrip for line.. maybe configuration option? Extra data anyway...
-    return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
+    return {'data': line_data, 
+            'type': line_type, 
+            'raw': line_cleaned, 
+            'line_number': line_number, 
+            'match': match_results, 
+            'error': err}
 
   
 def swap_files(target, temp):
