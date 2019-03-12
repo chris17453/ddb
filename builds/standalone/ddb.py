@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.90'
+__version__='1.1.91'
 
         
         
@@ -2030,10 +2030,12 @@ class database:
         return True
 
     def drop_table(self, table_name, database_name=None):
+        print("Database.drop table")
         if None == database_name:
             database_name = self.get_curent_database()
         for index in range(0, len(self.tables)):
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
+                print("Found table")
                 if self.tables[index].data.type=="Temp":
                     self.tables.pop(index)
                     return True
