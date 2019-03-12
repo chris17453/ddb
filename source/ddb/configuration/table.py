@@ -32,8 +32,7 @@ class table:
         self.results = []
         self.config_directory = config_directory
         self.active = True
-        print("NEW TABLE")
-        print("UPDATE")
+
         self.update(data_file=data_file,
                     columns=columns,
                     field_delimiter=field_delimiter,
@@ -97,7 +96,7 @@ class table:
                errors=None,
                data_on=None):
         if None != data_on:
-            print("SETTING DATA INT",data_on,int(data_on))
+            #print("SETTING DATA INT",data_on,int(data_on))
             self.data.starts_on_line = int(data_on)
         else:
             print("NO data_on")
