@@ -128,7 +128,7 @@ class lexer:
                 if 'vars' in switch:
                     for var_name in switch['vars']:
                         self.info("var: {0}-{1}".format(var_name,))
-                            curent_object[var_name]=switch['vars'][var_name]
+                        curent_object[var_name]=switch['vars'][var_name]
 
                 if None == switch['data'] or False == switch['data']:
                     self.info("No data to match")
