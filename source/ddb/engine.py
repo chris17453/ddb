@@ -13,6 +13,9 @@ from .methods.system_set import method_system_set
 from .methods.system_begin import method_system_begin
 from .methods.system_commit import method_system_commit
 from .methods.system_rollback import method_system_rollback
+from .methods.system_show_variables  import method_system_show_variables
+from .methods.system_show_tables import method_system_show_tables
+from .methods.system_show_columns import method_system_show_columns
 
 # database level data methods
 from .methods.database_use import method_use
@@ -29,8 +32,6 @@ from .methods.record_insert import method_insert
 from .methods.record_select import method_select
 from .methods.record_update import method_update
 from .methods.record_delete import method_delete
-from .methods.record_show_tables import method_show_tables
-from .methods.record_show_columns import method_show_columns
 
 
 
@@ -172,7 +173,7 @@ class engine:
                     len_col = len(columns)
                     for line in self.results.data:
                         # dont expand things that arn't data
-                        if self.results.data['type']==self.data_type.DATA:
+                        if line['type']==self.data_type.DATA:
                             new_dict = {}
                             for i in range(0, len_col):
                                 if len(line['data']) < i:

@@ -1,10 +1,10 @@
 from .record_core import query_results
 
-def method_system_set(context, query_object):
-    context.info("set")
+def method_system_show_variables(context, query_object):
+    context.info("show variables")
     try:
-        variable=query_object['meta']['set']['variable']
-        value=query_object['meta']['set']['value']
+        variable=query_object['meta']['variable']
+        value=query_object['meta']['value']
         if variable in context.system:
             context.system[variable]=value
         else:

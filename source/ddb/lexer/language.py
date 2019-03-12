@@ -37,10 +37,13 @@ sql_syntax = {
         {'query': 'show columns',
          'switch': [{'data': False, 'name': ['show', 'columns']},
                     {'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
+                        'data': [ {'sig': ['{table}']},
+                                  {'sig': ['{database}','.','{table}']},
+                                ],
                      'name': 'from'}]},
         {'query': 'show tables',
-         'switch': [{'data': False, 'name': ['show', 'tables']},
+         'switch': [
+             {'data': False, 'name': ['show', 'tables']},
                     ]},
 
         {'query': 'select',
@@ -288,9 +291,6 @@ sql_syntax = {
 
               'name': 'limit',
               'optional': True}]},
-
-
-
         {'query': 'set',
          'switch': [{
              'name': 'set',
@@ -321,7 +321,6 @@ sql_syntax = {
              'depends_on':'begin'
          }]
          },
-
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -350,8 +349,8 @@ sql_syntax = {
          'switch': [{'data': False, 'name': 'insert'},
                         {'arguments': 1,
                         'data': [ {'sig': ['{table}']},
-                                    {'sig': ['{database}','.','{table}']},
-                                    ],
+                                  {'sig': ['{database}','.','{table}']},
+                                ],
                         'name': 'into',
                         },
                     {'data': False, 'dispose': True, 'name': '('},
@@ -467,8 +466,6 @@ sql_syntax = {
               'optional': True,
               'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
               'name': 'data_starts_on'}, ]},
-
-
         {'query': 'update table',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
