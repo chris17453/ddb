@@ -58,7 +58,7 @@ def cli_main():
 
     # is there something in stdin.. a pipe?
     elif not sys.stdin.isatty():
-        for line in fileinput.input(sys.stdin):
+        for line in fileinput.input():
             print("READ",line)
         
     else:
