@@ -69,7 +69,7 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
 - sort: 
    ordinal: 0
    default: False
@@ -96,7 +96,7 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
 - sort: 
    ordinal: 0
    default: False
@@ -123,7 +123,7 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
 - sort: 
    ordinal: 0
    default: False
@@ -150,7 +150,7 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
 - sort: 
    ordinal: 0
    default: False
@@ -177,7 +177,7 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
 - sort: 
    ordinal: 0
    default: False
@@ -204,4 +204,4 @@ columns:
    visible: True
    min_width: 0
    overflow: False
-  options: {0}
+  options: {}
