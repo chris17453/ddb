@@ -239,6 +239,8 @@ class factory_yaml:
             if not isinstance(obj,list) and not  isinstance(obj,dict) and not hasattr(obj,'__dict__'):
                 if obj==None:
                     line+="null"
+                elif isinstance(obj,int):
+                    line+="{0}".format(obj)
                 elif obj==True:
                     line+="true"
                 elif obj==False:
