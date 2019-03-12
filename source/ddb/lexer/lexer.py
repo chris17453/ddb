@@ -356,7 +356,7 @@ class lexer:
                 # add the static vars
                 if 'vars' in signature:
                     for var_name in signature['vars']:
-                        self.info("var: {0}-{1}".format(var_name,signature['vars'][var_name]))
+                        self.info("var: '{0}'='{1}'".format(var_name,signature['vars'][var_name]))
                         argument[var_name]=switch['data']['vars'][var_name]
 
 
