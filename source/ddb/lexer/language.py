@@ -380,7 +380,7 @@ sql_syntax = {
         {'query': 'drop',
          'switch': [{'arguments': 1,
                      'data': [ {'sig': ['{table}']},
-                               {'sig': ['{database}','.','{table}']}]
+                               {'sig': ['{database}','.','{table}']}],
 
                      'name': 'drop'}]},
         {'query': 'create',
