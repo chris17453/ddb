@@ -36,7 +36,7 @@ def example1():
         '''
         [ddb]$ python examples/example.py 
         Page: 2
-        ID: 118 Email: ybeste39@weibo.com
+        ID: 118 Email: ybeste39@weibo.com 
         ID: 328 Email: ybeelby93@sciencedaily.com
         ID: 232 Email: xwhitmarsh6f@zdnet.com
         ID: 578 Email: xroslingg1@skyrock.com
