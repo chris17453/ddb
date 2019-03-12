@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.30'
+__version__='1.1.31'
 
         
         
@@ -665,7 +665,7 @@ class lexer:
                 if 'vars' in switch:
                     for var_name in switch['vars']:
                         self.info("var: {0}-{1}".format(var_name,))
-                            curent_object[var_name]=switch['vars'][var_name]
+                        curent_object[var_name]=switch['vars'][var_name]
 
                 if None == switch['data'] or False == switch['data']:
                     self.info("No data to match")
