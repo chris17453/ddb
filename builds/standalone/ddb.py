@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.135'
+__version__='1.1.136'
 
         
         
@@ -2428,7 +2428,6 @@ class engine:
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
             
-            
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
@@ -2437,7 +2436,7 @@ class engine:
 
             elif mode == 'update':
                 self.results = method_update(self,query_object)
-
+            
             elif mode == 'delete':
                 self.results = method_delete(self,query_object)
 
@@ -2454,7 +2453,7 @@ class engine:
                 self.results = method_update_table(self,query_object)
 
             elif mode == 'set':
-                self.results = method_sytstem_set(self,query_object)
+                self.results = method_system_set(self,query_object)
 
             elif mode == 'begin':
                 self.results = method_system_begin(self,query_object)
