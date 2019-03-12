@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.126'
+__version__='1.1.127'
 
         
         
@@ -73,10 +73,13 @@ sql_syntax = {
         {'query': 'show columns',
          'switch': [{'data': False, 'name': ['show', 'columns']},
                     {'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
+                        'data': [ {'sig': ['{table}']},
+                                  {'sig': ['{database}','.','{table}']},
+                                ],
                      'name': 'from'}]},
         {'query': 'show tables',
-         'switch': [{'data': False, 'name': ['show', 'tables']},
+         'switch': [
+             {'data': False, 'name': ['show', 'tables']},
                     ]},
 
         {'query': 'select',
@@ -324,9 +327,6 @@ sql_syntax = {
 
               'name': 'limit',
               'optional': True}]},
-
-
-
         {'query': 'set',
          'switch': [{
              'name': 'set',
@@ -357,7 +357,6 @@ sql_syntax = {
              'depends_on':'begin'
          }]
          },
-
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
@@ -386,8 +385,8 @@ sql_syntax = {
          'switch': [{'data': False, 'name': 'insert'},
                         {'arguments': 1,
                         'data': [ {'sig': ['{table}']},
-                                    {'sig': ['{database}','.','{table}']},
-                                    ],
+                                  {'sig': ['{database}','.','{table}']},
+                                ],
                         'name': 'into',
                         },
                     {'data': False, 'dispose': True, 'name': '('},
@@ -503,8 +502,6 @@ sql_syntax = {
               'optional': True,
               'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
               'name': 'data_starts_on'}, ]},
-
-
         {'query': 'update table',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['table', '{table}']}],
@@ -2467,7 +2464,7 @@ class engine:
                     columns = self.results.columns
                     len_col = len(columns)
                     for line in self.results.data:
-                        if self.results.data['type']==self.data_type.DATA:
+                        if line['type']==self.data_type.DATA:
                             new_dict = {}
                             for i in range(0, len_col):
                                 if len(line['data']) < i:
@@ -3459,11 +3456,11 @@ def method_system_show_tables(context,database):
 
 
 
-def method_system_set(context, query_object):
-    context.info("set")
+def method_system_show_variables(context, query_object):
+    context.info("show variables")
     try:
-        variable=query_object['meta']['set']['variable']
-        value=query_object['meta']['set']['value']
+        variable=query_object['meta']['variable']
+        value=query_object['meta']['value']
         if variable in context.system:
             context.system[variable]=value
         else:
