@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.89'
+__version__='1.1.90'
 
         
         
@@ -2029,7 +2029,7 @@ class database:
                 if self.tables[index].data.type=="Temp":
                     self.tables.pop(index)
                     return True
-
+                print("Removing Tabls from config")
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
                     raise Exception("Failed to remove configuration for table")
