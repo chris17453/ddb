@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.77'
+__version__='1.1.78'
 
         
         
@@ -423,7 +423,9 @@ sql_syntax = {
                      'name': 'use'}]},
         {'query': 'drop',
          'switch': [{'arguments': 1,
-                     'data': [{'sig': ['table', '{table}']}],
+                     'data': [ {'sig': ['{table}']},
+                               {'sig': ['{database}','.','{table}']}]
+
                      'name': 'drop'}]},
         {'query': 'create',
          'switch': [
@@ -3250,8 +3252,16 @@ def method_drop_table(context, query_object):
     context.info("Drop Table")
     try:
         table_name=query_object['meta']['drop']['table']
+        if 'database' in query_object['meta']:
+            context.info('Database specified')
+            database_name = query_object['meta']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
+             
          
-        results = context.database.drop_table(table_name=table_name)
+        results = context.database.drop_table(table_name=table_name,database_name=database_name)
         return query_results(success=results)
     except Exception as ex:
         return query_results(success=False,error=ex)
