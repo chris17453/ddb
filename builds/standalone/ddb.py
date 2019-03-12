@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.38'
+__version__='1.1.39'
 
         
         
@@ -663,14 +663,6 @@ class lexer:
                     curent_object['mode'] = object_id
 
                 base_argument={}
-                if 'data' in  switch:
-                    if switch['data']!=None:
-                        print (switch['data'])
-                        if 'vars' in switch['data']:
-                            print ("DATA IS HERE")
-                            for var_name in switch['data']['vars']:
-                                self.info("var: {0}-{1}".format(var_name,))
-                                base_argument[var_name]=switch['data']['vars'][var_name]
 
                 if None == switch['data'] or False == switch['data']:
                     self.info("No data to match")
@@ -723,6 +715,7 @@ class lexer:
                                 if len(signature_compare) > match_len:
                                     match_len = len(signature_compare)
                                     match = signature_compare
+                                    signature=sig
                                     self.info("Best Match", match_len)
                         if None == match:
                             self.info("No match")
@@ -875,6 +868,13 @@ class lexer:
 
             self.info(curent_object)
             if token_index == len(tokens):
+                if 'vars' in signature:
+                    print ("DATA IS HERE")
+                    for var_name in signature['vars']:
+                        self.info("var: {0}-{1}".format(var_name,))
+                        argument[var_name]=switch['data']['vars'][var_name]
+
+
                 result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
                 if False == result:
                     break

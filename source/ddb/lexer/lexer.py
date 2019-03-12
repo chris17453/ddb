@@ -354,6 +354,7 @@ class lexer:
             self.info(curent_object)
             if token_index == len(tokens):
                 # add the static vars
+                print ("SIGNATURE",signature)
                 if 'vars' in signature:
                     print ("DATA IS HERE")
                     for var_name in signature['vars']:
