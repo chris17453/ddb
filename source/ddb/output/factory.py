@@ -51,7 +51,7 @@ class output_factory:
                 print("Query Failed")
 
         except Exception as ex:
-            print(ex)
+            print("TERM Formatting: {0}".format(ex))
             #print(query_results.data)
 
     def format_bash(self,query_results,output_file):

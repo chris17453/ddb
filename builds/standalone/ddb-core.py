@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.68'
+__version__='1.1.69'
 
         
         
@@ -2424,7 +2424,7 @@ class engine:
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
-         
+        print ("ESH")
         return self.results
 
     def change_database(self, database_name):
