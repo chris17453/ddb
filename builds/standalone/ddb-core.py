@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.131'
+__version__='1.1.132'
 
         
         
@@ -2464,7 +2464,7 @@ class engine:
                 self.results = method_system_show_columns(self,self.database, query_object)
 
             elif mode == "show variables":
-                self.results = method_system_show_variables(self,self.database, query_object)
+                self.results = method_system_show_variables(self, query_object)
             
         
         if self.results:
