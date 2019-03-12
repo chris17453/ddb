@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.28'
+__version__='1.1.29'
 
         
         
@@ -718,11 +718,6 @@ class lexer:
                             self.info("No match")
                             break
                         else:
-                            if 'vars' in switch:
-                                for var_name in switch['vars']:
-                                    self.info("var: {0}-{1}".format(var_name,switch['vars'][var_name]))
-                                    curent_object[var_name]=switch['vars'][var_name]
-
                             w_index = 0
                             argument = {}
                             for word in match:
@@ -868,11 +863,15 @@ class lexer:
 
             self.info(curent_object)
             if token_index == len(tokens):
-                break
+                result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
+                if False == result:
+                    break
+                else:
+                    return result
 
         
-        result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
-        return result
+        
+        return False
 
 
 
