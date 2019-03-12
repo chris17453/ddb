@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.104'
+__version__='1.1.105'
 
         
         
@@ -2726,13 +2726,15 @@ def select_process_file(context,query_object):
                 processed_line = process_line(context,query_object, line, line_number)
 
                 if False == processed_line['match']:
+                    line_number += 1
                     continue
+
                 
                 if None != processed_line['data']:
                     restructured_line = process_select_row(context,query_object,processed_line) 
                     data.append(restructured_line)
-
                 line_number += 1
+
 
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
