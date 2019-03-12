@@ -6,6 +6,7 @@ from .engine import engine
 from .interactive import ddbPrompt
 from .output.factory import output_factory
 
+from subprocess import Popen, PIPE
 
 from os.path import expanduser
 import sys
@@ -38,7 +39,10 @@ def cli_main():
         try:
             if not sys.stdin.isatty():
                 print("reading stdin")
-                query=sys.stdin.read()
+                new_stdin = os.fdopen(sys.stdin.fileno(), 'r', buffer_size)
+                for c in new_stdin:
+                    print(c)
+                #query=sys.stdin.read()
             else:
                 query=args.query
             e = engine( config_file=config_file, 

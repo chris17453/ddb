@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.51'
+__version__='1.1.52'
 
         
         
@@ -4717,6 +4717,7 @@ def cli_main():
     if args.query is not None or not sys.stdin.isatty():
         try:
             if not sys.stdin.isatty():
+                print("reading stdin")
                 query=sys.stdin.read()
             else:
                 query=args.query
