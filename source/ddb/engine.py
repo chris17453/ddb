@@ -36,6 +36,8 @@ def enum(**enums):
 
 class engine:
     """A serverless flat file database engine"""
+    AUTOCOMMIT=0
+
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
@@ -100,43 +102,51 @@ class engine:
             # exit(9)
             # get columns, doesnt need a table
             # print query_object['mode']
-            if query_object['mode'] == "show tables":
+            mode=query_object['mode']
+            
+            if mode == "show tables":
                 self.results = method_show_tables(self,self.database)
-            elif query_object['mode'] == "show columns":
+            elif mode == "show columns":
                 self.results = method_show_columns(self,self.database, query_object)
             
-            #if query_object['mode']=="show errors":
+            #if mode=="show errors":
             #    self.results=method_show_errors(self,self.database,self.table)
             
-            elif query_object['mode'] == 'select':
+            elif mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
-            elif query_object['mode'] == 'insert':
+            elif mode == 'insert':
                 self.results = method_insert(self,query_object)
 
-            elif query_object['mode'] == 'update':
+            elif mode == 'update':
                 self.results = method_update(self,query_object)
 
-            elif query_object['mode'] == 'delete':
+            elif mode == 'delete':
                 self.results = method_delete(self,query_object)
 
-            elif query_object['mode'] == 'use':
+            elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-            elif query_object['mode'] == 'set':
+            elif mode == 'set':
                 self.results = method_set(self,query_object)
 
-            elif query_object['mode'] == 'drop':
+            elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
 
-            elif query_object['mode'] == 'create':
+            elif mode == 'create':
                 self.results = method_create_table(self,query_object)
 
-            elif query_object['mode'] == 'update table':
+            elif mode == 'update table':
                 self.results = method_update_table(self,query_object)
 
-            elif query_object['mode'] == 'describe table':
-                self.results = method_describe_table(self,query_object)
+            #elif mode == 'begin':
+            #    self.results = system_begin(self,query_object)
+#
+            #elif mode == 'rollback':
+            #    self.results = system_rollback(self,query_object)
+#
+            #elif mode == 'commit':
+            #    self.results = system_commit(self,query_object)
             #else:
             # TODO uncaught    
             #    print (query_object)
