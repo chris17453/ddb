@@ -18,6 +18,7 @@
         
 import sys
 import os
+import fileinput
 import warnings
 import datetime
 import tempfile
@@ -43,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.46'
+__version__='1.1.47'
 
         
         
@@ -556,6 +557,7 @@ class lexer:
 
     def __init__(self, query, debug=False):
 
+        self.keep_non_keywords=None
         self.debug = debug
         self.query_objects = []
         querys = query.split(';')
@@ -765,6 +767,9 @@ class lexer:
 
                                     elif variable_type=='string':
                                         argument[variable] =variable_data
+                                else:
+                                    if self.keep_non_keywords:
+                                        argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
                                 curent_object['arguments'] = []
@@ -4730,6 +4735,10 @@ def cli_main():
         except Exception as ex:
             print(ex)
 
+    elif not sys.stdin.isatty():
+        for line in fileinput.input(sys.stdin):
+            print("READ",line)
+        
     else:
         prompt = ddbPrompt()
         prompt.set_vars(config_file=config_file,
