@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.64'
+__version__='1.1.65'
 
         
         
@@ -2010,6 +2010,7 @@ class database:
         t.data.path = data_file
         self.tables.append(t)
         if not temporary:
+            print("Sacing")
             res = t.save()
             if False == res:
                 raise Exception("Couldn't save table configuation")
