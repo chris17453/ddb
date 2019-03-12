@@ -91,6 +91,7 @@ def src_build():
         
 import sys
 import os
+import fileinput
 import warnings
 import datetime
 import tempfile
@@ -121,6 +122,7 @@ except Exception as ex:
         
 import sys
 import os
+import fileinput
 import warnings
 import datetime
 import tempfile

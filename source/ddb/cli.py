@@ -1,5 +1,7 @@
 import argparse
 import os
+import sys
+import fileinput
 from .engine import engine
 from .interactive import ddbPrompt
 from .output.factory import output_factory
@@ -54,6 +56,11 @@ def cli_main():
         except Exception as ex:
             print(ex)
 
+    # is there something in stdin.. a pipe?
+    elif not sys.stdin.isatty():
+        for line in fileinput.input(sys.stdin):
+            print("READ",line)
+        
     else:
         # interactive session
         prompt = ddbPrompt()
