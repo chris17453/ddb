@@ -262,11 +262,11 @@ def process_select_row(context,query_object,processed_line):
     if None != processed_line:                    
         line_type=processed_line['type']
         error= processed_line['error']
-        raw= processed_line['raw']
+        #raw= processed_line['raw']
     else:
         line_type=context.data_type.DATA
         error= None
-        raw= None
+        #raw= None
     return {'data': row, 'type': line_type, 'error': error} #TODO RAW?
 
 
