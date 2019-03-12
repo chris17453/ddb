@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.36'
+__version__='1.1.37'
 
         
         
@@ -665,12 +665,8 @@ class lexer:
                 base_argument={}
                 if 'data' in  switch:
                     if switch['data']!=None:
-                        print ("DATA IS HERE")
-                        print ("DATA IS HERE")
-                        print ("DATA IS HERE")
-                        print ("DATA IS HERE")
-                                            
                         if 'vars' in switch['data']:
+                            print ("DATA IS HERE")
                             for var_name in switch['data']['vars']:
                                 self.info("var: {0}-{1}".format(var_name,))
                                 base_argument[var_name]=switch['data']['vars'][var_name]

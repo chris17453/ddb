@@ -128,6 +128,7 @@ class lexer:
                 # set static variables
                 if 'data' in  switch:
                     if switch['data']!=None:
+                        print (switch['data'])
                         if 'vars' in switch['data']:
                             print ("DATA IS HERE")
                             for var_name in switch['data']['vars']:
