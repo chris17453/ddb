@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.91'
+__version__='1.1.92'
 
         
         
@@ -2034,6 +2034,7 @@ class database:
         if None == database_name:
             database_name = self.get_curent_database()
         for index in range(0, len(self.tables)):
+            print self.tables[index].data.name,self.tables[index].data.database
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
                 print("Found table")
                 if self.tables[index].data.type=="Temp":
