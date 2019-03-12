@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.107'
+__version__='1.1.108'
 
         
         
@@ -2926,6 +2926,7 @@ def limit(context, query_object, data):
     if 'limit' in query_object['meta']:
         if 'start' in query_object['meta']['limit']:
             index = query_object['meta']['limit']['start']
+            index=index-1
         if 'length' in query_object['meta']['limit']:
             length = query_object['meta']['limit']['length']
 
