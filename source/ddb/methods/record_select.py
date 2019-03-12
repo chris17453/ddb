@@ -189,7 +189,11 @@ def order_by(context,query_object,data):
         if c['column'] not in query_object['meta']['ordinals']:
             raise Exception ("ORDER BY column not present in the result set")
         ordinal = query_object['meta']['ordinals'][c['column']]
-        direction =c['direction']
+        direction = 1
+        if 'asc' in c:
+            direction = 1
+        elif 'desc' in c:
+            direction = -1
         context_sort.append([ordinal, direction])
     
     context.info(context_sort)
