@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.29'
+__version__='1.1.30'
 
         
         
@@ -654,6 +654,11 @@ class lexer:
                 else:
                     curent_object['mode'] = object_id
 
+                if 'vars' in switch:
+                    for var_name in switch['vars']:
+                        self.info("var: {0}-{1}".format(var_name,))
+                            curent_object[var_name]=switch['vars'][var_name]
+
                 if None == switch['data'] or False == switch['data']:
                     self.info("No data to match")
                     if not dispose:
@@ -710,6 +715,7 @@ class lexer:
                             self.info("No match")
                             break
                         else:
+
                             w_index = 0
                             argument = {}
                             for word in match:
@@ -852,6 +858,7 @@ class lexer:
                                         token_index += 1
 
             self.info(switch_index, token_index, len(tokens))
+
 
             self.info(curent_object)
             if token_index == len(tokens):
