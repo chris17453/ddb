@@ -298,6 +298,30 @@ sql_syntax = {
              'data': [{'sig': ['{variable}', '=', '{value}']}],
          }]
          },
+        {'query': 'begin',
+         'switch': [{
+             'name': 'begin',
+             'arguments': None,
+             'data': None,
+         }]
+         },
+        {'query': 'commit',
+         'switch': [{
+             'name': 'commit',
+             'arguments': None,
+             'data': None,
+             'depends_on':'begin'
+         }]
+         },
+        {'query': 'rollback',
+         'switch': [{
+             'name': 'rollback',
+             'arguments': None,
+             'data': None,
+             'depends_on':'begin'
+         }]
+         },
+
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
