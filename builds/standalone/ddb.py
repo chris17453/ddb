@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.69'
+__version__='1.1.70'
 
         
         
@@ -2432,7 +2432,6 @@ class engine:
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
-        print ("ESH")
         return self.results
 
     def change_database(self, database_name):
@@ -3367,7 +3366,7 @@ class output_factory:
                 print("Query Failed")
 
         except Exception as ex:
-            print(ex)
+            print("TERM Formatting: {0}".format(ex))
 
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
