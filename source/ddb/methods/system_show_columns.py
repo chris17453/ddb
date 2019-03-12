@@ -11,11 +11,11 @@ def method_system_show_columns(context,database, query_object):
         table = database.get(query_object['meta']['from']['table'],database_name=database_name)
         
         temp_table = database.temp_table(columns=['database','table', 'column'])
-
-        for c in table.columns:
-            columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(columns)
-        
+        if table:
+            for c in table.columns:
+                columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
+                temp_table.append_data(columns)
+            
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         print ex

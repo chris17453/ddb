@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.140'
+__version__='1.1.141'
 
         
         
@@ -3433,6 +3433,7 @@ def method_system_show_columns(context,database, query_object):
         
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
 
 
