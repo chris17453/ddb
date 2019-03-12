@@ -69,14 +69,16 @@ def select_process_file(context,query_object):
 
                 # not a match, skip
                 if False == processed_line['match']:
+                    line_number += 1
                     continue
+
                 
                 # there is data, rebuild and add
                 if None != processed_line['data']:
                     restructured_line = process_select_row(context,query_object,processed_line) 
                     data.append(restructured_line)
-
                 line_number += 1
+
 
     # file is closed at this point, proccess the no "FROM" statement
     if False == has_columns and True == has_functions:

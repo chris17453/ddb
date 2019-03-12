@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.103'
+__version__='1.1.104'
 
         
         
@@ -2465,7 +2465,7 @@ def process_line(context, query_object, line, line_number=0):
     if query_object['table'].data.starts_on_line >= line_number:
         line_type = context.data_type.COMMENT
         line_data = line
-        match=None
+        match=True
     else:
         line_type = context.data_type.DATA
         match=True
@@ -2516,7 +2516,12 @@ def process_line(context, query_object, line, line_number=0):
             match_results=False
 
 
-    return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
+    return {'data': line_data, 
+            'type': line_type, 
+            'raw': line_cleaned, 
+            'line_number': line_number, 
+            'match': match_results, 
+            'error': err}
 
   
 def swap_files(target, temp):
