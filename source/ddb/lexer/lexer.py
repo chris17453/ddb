@@ -242,9 +242,9 @@ class lexer:
 
                                     elif variable_type=='string':
                                         argument[variable] =variable_data
-                                else:
+                                #else:
                                     # normal keyword
-                                    argument[word] = variable_data
+                                #    argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
                                 curent_object['arguments'] = []
