@@ -67,8 +67,8 @@ def process_line(context, query_object, line, line_number=0):
                 match_results=False
 
 
-        # raw has rstrip for line.. maybe configuration option? Extra data anyway...
-        return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
+    # raw has rstrip for line.. maybe configuration option? Extra data anyway...
+    return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
 
   
 def swap_files(target, temp):
