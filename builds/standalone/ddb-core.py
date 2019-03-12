@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.134'
+__version__='1.1.135'
 
         
         
@@ -3469,7 +3469,7 @@ def method_system_show_variables(context, query_object):
     context.info("show variables")
     try:
          
-        temp_table = database.temp_table(columns=['name','value'])
+        temp_table = context.database.temp_table(columns=['name','value'])
 
         for c in context.system:
             columns = {'data': [c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
