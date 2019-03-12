@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.74'
+__version__='1.1.75'
 
         
         
@@ -557,7 +557,7 @@ class lexer:
 
     def __init__(self, query, debug=False):
 
-        self.keep_non_keywords=None
+        self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
         querys = query.split(';')
