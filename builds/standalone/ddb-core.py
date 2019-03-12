@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.22'
+__version__='1.1.23'
 
         
         
@@ -43,6 +43,10 @@ __version__='1.1.22'
 # Module : lexer-language
 # File   : ./source/ddb/lexer/language.py
 # ############################################################################
+
+
+
+
 
 
 
@@ -190,21 +194,55 @@ sql_syntax = {
               'optional': True},
 
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],
               'name': 'on',
               'optional': True,
               'depends_on': 'join',
               'store_array': True},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'on',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'and',
               'optional': True,
               'parent': 'on'},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'on',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'or',
               'optional': True,
@@ -212,21 +250,54 @@ sql_syntax = {
 
 
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'name': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'name': 'where',
               'optional': True,
               'depends_on': 'from',
               'store_array': True},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'and',
               'optional': True,
               'parent': 'where'},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'or',
               'optional': True,
@@ -639,11 +710,22 @@ class lexer:
                             self.info("No match")
                             break
                         else:
+                            if 'vars' in switch:
+                                for var_name in switch['vars']:
+                                     arguments[var_name]=switch['vars'][var_name]
+
                             w_index = 0
                             argument = {}
                             for word in match:
                                 variable_data=tokens[token_index + w_index]['data']
-                                if word[0:1] == '{' and word[-1] == '}':
+                                if word[0:1] == '[' and word[-1] == ']': 
+                                    definition='array'
+                                elif word[0:1] == '{' and word[-1] == '}':
+                                     definition='single'
+                                else:
+                                    definition=None
+
+                                if definition:
                                     variable=word[1:-1]
                                     variable_type='string'
                                     if 'specs' in switch:
@@ -775,70 +857,78 @@ class lexer:
 
             self.info(switch_index, token_index, len(tokens))
 
-            self.info(curent_object)
-            if token_index == len(tokens):
-                self.info("############################think its a match")
+        result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
+        return result
 
-                if 'arguments' not in curent_object and 'arguments' in switch:
-                    self.info("Missing argument in last element")
-                    bad = True
-                    break
 
-                if len(query['switch']) >= switch_index:
-                    self.info("still checking")
-                    bad = False
-                    for t in range(switch_index, len(query['switch'])):
-                        if 'optional' not in query['switch'][t]:
+
+
+
+    def validate(self,curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode):
+        self.info(curent_object)
+        if token_index == len(tokens):
+            self.info("############################think its a match")
+
+            if 'arguments' not in curent_object and 'arguments' in switch:
+                self.info("Missing argument in last element")
+                bad = True
+                break
+
+            if len(query['switch']) >= switch_index:
+                self.info("still checking")
+                bad = False
+                for t in range(switch_index, len(query['switch'])):
+                    if 'optional' not in query['switch'][t]:
+                        bad = True
+                        break
+                    else:
+                        if not query['switch'][t]['optional']:
                             bad = True
                             break
-                        else:
-                            if not query['switch'][t]['optional']:
-                                bad = True
+
+                if True == bad:
+                    self.info("Not successful. required arguments missing")
+                    break
+
+            self.info("Query object", query_object)
+            if query_mode == 'select':
+                self.info("Validating Select Functions")
+                if 'columns' in query_object:
+                    for node in query_object['columns']:
+                        valid_function_name = False
+                        is_function = False
+                        if 'function' in node:
+                            is_function = True
+                            self.info("It's a function!")
+                            for f in sql_syntax['functions']:
+                                if f['name'] == node['function']:
+                                    argindex = 1
+                                    if f['arguments'] is not None:
+                                        for arg in f['arguments']:
+                                            if arg['required']:
+                                                if 'argument{0}'.format(argindex) not in node:
+                                                    self.info("Missing arguments")
+                                                    return False
+                                            argindex += 1
+
+                                    else:
+                                        argindex = 0
+                                    if 'argument{0}'.format(argindex + 1) in node:
+                                        self.info("Too many arguments")
+                                        return False
+
+                                valid_function_name = True
                                 break
+                        if False == valid_function_name and True == is_function:
+                            self.info("FAIL", "This isnt a valid function", node['function'])
+                            return False
+                else:
+                    self.info("No columns in select")
+                    return False
 
-                    if True == bad:
-                        self.info("Not successful. required arguments missing")
-                        break
-
-                self.info("Query object", query_object)
-                if query_mode == 'select':
-                    self.info("Validating Select Functions")
-                    if 'columns' in query_object:
-                        for node in query_object['columns']:
-                            valid_function_name = False
-                            is_function = False
-                            if 'function' in node:
-                                is_function = True
-                                self.info("It's a function!")
-                                for f in sql_syntax['functions']:
-                                    if f['name'] == node['function']:
-                                        argindex = 1
-                                        if f['arguments'] is not None:
-                                            for arg in f['arguments']:
-                                                if arg['required']:
-                                                    if 'argument{0}'.format(argindex) not in node:
-                                                        self.info("Missing arguments")
-                                                        return False
-                                                argindex += 1
-
-                                        else:
-                                            argindex = 0
-                                        if 'argument{0}'.format(argindex + 1) in node:
-                                            self.info("Too many arguments")
-                                            return False
-
-                                    valid_function_name = True
-                                    break
-                            if False == valid_function_name and True == is_function:
-                                self.info("FAIL", "This isnt a valid function", node['function'])
-                                return False
-                    else:
-                        self.info("No columns in select")
-                        return False
-
-                self.info("SUCCESS")
-                sql_object = {'mode': query_mode, 'meta': query_object}
-                return sql_object
+            self.info("SUCCESS")
+            sql_object = {'mode': query_mode, 'meta': query_object}
+            return sql_object
         return False
 
     def expand_columns(self, query_object, columns):
