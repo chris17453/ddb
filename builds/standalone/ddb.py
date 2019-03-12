@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.99'
+__version__='1.1.100'
 
         
         
@@ -2461,54 +2461,59 @@ def process_line(context, query_object, line, line_number=0):
         column_len = query_object['table'].column_count()
         line_cleaned = line.rstrip()
         line_data = None
+        match_results=False
         if query_object['table'].data.starts_on_line > line_number:
             line_type = context.data_type.COMMENT
             line_data = line
+            match=None
         else:
             line_type = context.data_type.DATA
-        if not line_cleaned:
-            if True == query_object['table'].visible.whitespace:
-                line_data = ['']
-            line_type = context.data_type.WHITESPACE
-        else:
-            if line_cleaned[0] in query_object['table'].delimiters.comment:
-                if True == query_object['table'].visible.comments:
-                    line_data = [line_cleaned]
-                line_type = context.data_type.COMMENT
-            else:
-                line_data = line_cleaned.split(query_object['table'].delimiters.field)
-                cur_column_len = len(line_data)
-                if cur_column_len != column_len:
-                    if cur_column_len > column_len:
-                        err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, query_object['table'].data.name)
-                    else:
-                        err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, query_object['table'].data.name)
-                    line_type = context.data_type.ERROR
+            match=True
+        if match:
 
-                    if True == query_object['table'].visible.errors:
-                        line_data = line_cleaned
-                    else:
-                        line_data = None
-                    line_type = context.data_type.ERROR
-                if None != query_object['table'].delimiters.block_quote:
-                    line_data_cleaned = []
-                    for d in line_data:
-                        line_data_cleaned.append(d[1:-1])
-                    line_data = line_data_cleaned
-
-        if 'where' not in query_object['meta']:
-            match_results = True
-        else:
-            if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(query_object, line_data,)
+            if not line_cleaned:
+                if True == query_object['table'].visible.whitespace:
+                    line_data = ['']
+                line_type = context.data_type.WHITESPACE
             else:
-                match_results = False
-        if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:
-            match_results=False
-        elif query_object['table'].visible.comments is False and line_type==context.data_type.COMMENT:
-            match_results=False
-        elif query_object['table'].visible.errors is False and line_type==context.data_type.ERROR:
-            match_results=False
+                if line_cleaned[0] in query_object['table'].delimiters.comment:
+                    if True == query_object['table'].visible.comments:
+                        line_data = [line_cleaned]
+                    line_type = context.data_type.COMMENT
+                else:
+                    line_data = line_cleaned.split(query_object['table'].delimiters.field)
+                    cur_column_len = len(line_data)
+                    if cur_column_len != column_len:
+                        if cur_column_len > column_len:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, query_object['table'].data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, query_object['table'].data.name)
+                        line_type = context.data_type.ERROR
+
+                        if True == query_object['table'].visible.errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
+                    if None != query_object['table'].delimiters.block_quote:
+                        line_data_cleaned = []
+                        for d in line_data:
+                            line_data_cleaned.append(d[1:-1])
+                        line_data = line_data_cleaned
+
+            if 'where' not in query_object['meta']:
+                match_results = True
+            else:
+                if line_type == context.data_type.DATA:
+                    match_results = context.match.evaluate_match(query_object, line_data,)
+                else:
+                    match_results = False
+            if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:
+                match_results=False
+            elif query_object['table'].visible.comments is False and line_type==context.data_type.COMMENT:
+                match_results=False
+            elif query_object['table'].visible.errors is False and line_type==context.data_type.ERROR:
+                match_results=False
 
 
         return {'data': line_data, 'type': line_type, 'raw': line_cleaned, 'line_number': line_number, 'match': match_results, 'error': err}
@@ -2710,12 +2715,13 @@ def method_select(context, query_object, parser):
 def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
     has_functions = select_has_functions(context,query_object)
-    
+    table=None
     line_number = 1
     data=[]
     if True == has_columns:
         if 'table' in  query_object:
-            file_path = query_object['table'].data.path
+            table= query_object['table']
+            file_path =table.data.path
         else:
             raise Exception ('table configuration has no data file')
         with open(file_path, 'r') as content_file:
