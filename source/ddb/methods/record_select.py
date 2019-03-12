@@ -189,11 +189,7 @@ def order_by(context,query_object,data):
         if c['column'] not in query_object['meta']['ordinals']:
             raise Exception ("ORDER BY column not present in the result set")
         ordinal = query_object['meta']['ordinals'][c['column']]
-        direction = 1
-        if 'asc' in c:
-            direction = 1
-        elif 'desc' in c:
-            direction = -1
+        direction =c['direction']
         context_sort.append([ordinal, direction])
     
     context.info(context_sort)
@@ -267,7 +263,7 @@ def process_select_row(context,query_object,processed_line):
         line_type=context.data_type.DATA
         error= None
         raw= None
-    return {'data': row, 'type': line_type, 'error': error,'raw':raw} #TODO RAW?
+    return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 
 
 def sort_cmp( x, y):
