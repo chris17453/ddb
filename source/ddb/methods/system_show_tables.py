@@ -1,6 +1,6 @@
 from .record_core import query_results
 
-def method_show_tables(context,database):
+def method_system_show_tables(context,database):
     try:
         temp_table = database.temp_table(columns=['database', 'table'])
         for t in database.tables:
