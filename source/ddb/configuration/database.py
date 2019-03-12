@@ -169,12 +169,14 @@ class database:
         return True
 
     def drop_table(self, table_name, database_name=None):
+        print("Database.drop table")
         if None == database_name:
             database_name = self.get_curent_database()
         #print table_name,database_name
         for index in range(0, len(self.tables)):
             #print self.tables[index].data.name,self.tables[index].data.database
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
+                print("Found table")
                 if self.tables[index].data.type=="Temp":
                     self.tables.pop(index)
                     #self.reload_config()
