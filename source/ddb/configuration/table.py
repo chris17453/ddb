@@ -32,7 +32,8 @@ class table:
         self.results = []
         self.config_directory = config_directory
         self.active = True
-
+        print("NEW TABLE")
+        print("UPDATE")
         self.update(data_file=data_file,
                     columns=columns,
                     field_delimiter=field_delimiter,
