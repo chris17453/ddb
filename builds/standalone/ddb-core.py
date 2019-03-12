@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.105'
+__version__='1.1.106'
 
         
         
@@ -2457,7 +2457,7 @@ def process_line(context, query_object, line, line_number=0):
     if query_object['table'].data.starts_on_line >= line_number:
         line_type = context.data_type.COMMENT
         line_data = line
-        match=True
+        match=False
     else:
         line_type = context.data_type.DATA
         match=True
