@@ -161,7 +161,7 @@ class engine:
                 self.results = method_system_show_columns(self,self.database, query_object)
 
             elif mode == "show variables":
-                self.results = method_system_show_variables(self,self.database, query_object)
+                self.results = method_system_show_variables(self, query_object)
             
             #if mode=="show errors":
             #    self.results=method_show_errors(self,self.database,self.table)

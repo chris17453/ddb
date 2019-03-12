@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.130'
+__version__='1.1.131'
 
         
         
@@ -88,6 +88,11 @@ sql_syntax = {
         {'query': 'show tables',
          'switch': [
              {'data': False, 'name': ['show', 'tables']},
+                    ]},
+
+     {'query': 'show variables',
+         'switch': [
+             {'data': False, 'name': ['show', 'variables']},
                     ]},
 
         {'query': 'select',
