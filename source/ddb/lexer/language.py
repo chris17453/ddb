@@ -46,6 +46,11 @@ sql_syntax = {
              {'data': False, 'name': ['show', 'tables']},
                     ]},
 
+     {'query': 'show variables',
+         'switch': [
+             {'data': False, 'name': ['show', 'variables']},
+                    ]},
+
         {'query': 'select',
          'arguments': 1,
          'switch': [

@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.129'
+__version__='1.1.130'
 
         
         
@@ -2439,7 +2439,6 @@ class engine:
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-
             elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
 
@@ -3472,13 +3471,14 @@ def method_system_show_tables(context,database):
 def method_system_show_variables(context, query_object):
     context.info("show variables")
     try:
-        variable=query_object['meta']['variable']
-        value=query_object['meta']['value']
-        if variable in context.system:
-            context.system[variable]=value
-        else:
-            raise Exception("Cannot set {0}, not a system variable".format(variable))
-        return query_results(success=True)
+         
+        temp_table = database.temp_table(columns=['name','value'])
+
+        for c in context.system:
+            columns = {'data': [c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
+            temp_table.append_data(columns)
+        
+        return query_results(success=True,data=temp_table)
     except Exception as ex:
         return query_results(success=False,error=ex)
 
