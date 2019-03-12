@@ -158,12 +158,14 @@ class engine:
                     columns = self.results.columns
                     len_col = len(columns)
                     for line in self.results.data:
-                        new_dict = {}
-                        for i in range(0, len_col):
-                            if len(line['data']) < i:
-                                break
-                            new_dict[columns[i]] = line['data'][i]
-                        line['data']=new_dict
+                        # dont expand things that arn't data
+                        if self.results.data['type']==self.data_type.DATA:
+                            new_dict = {}
+                            for i in range(0, len_col):
+                                if len(line['data']) < i:
+                                    break
+                                new_dict[columns[i]] = line['data'][i]
+                            line['data']=new_dict
 
         # timing
         end = time.clock()
