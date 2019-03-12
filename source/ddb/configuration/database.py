@@ -174,7 +174,7 @@ class database:
             database_name = self.get_curent_database()
         #print table_name,database_name
         for index in range(0, len(self.tables)):
-            print( self.tables[index].data.name, table_name,self.tables[index].data.database,database_name)
+            #print( self.tables[index].data.name, table_name,self.tables[index].data.database,database_name)
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
                 #print("Found table")
                 if self.tables[index].data.type=="Temp":
