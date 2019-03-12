@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.94'
+__version__='1.1.95'
 
         
         
@@ -1518,8 +1518,7 @@ class table:
         self.results = []
         self.config_directory = config_directory
         self.active = True
-        print("NEW TABLE")
-        print("UPDATE")
+
         self.update(data_file=data_file,
                     columns=columns,
                     field_delimiter=field_delimiter,
@@ -1572,7 +1571,6 @@ class table:
                errors=None,
                data_on=None):
         if None != data_on:
-            print("SETTING DATA INT",data_on,int(data_on))
             self.data.starts_on_line = int(data_on)
         else:
             print("NO data_on")
@@ -3262,8 +3260,6 @@ def method_drop_table(context, query_object):
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-             
-         
         results = context.database.drop_table(table_name=table_name,database_name=database_name)
         return query_results(success=results)
     except Exception as ex:
