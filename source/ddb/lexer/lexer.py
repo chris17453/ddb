@@ -14,7 +14,7 @@ class lexer:
 
         # keep non variable keywords form signature match in object
         # realy only need this for debugging
-        self.keep_non_keywords=None
+        self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
         querys = query.split(';')
