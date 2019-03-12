@@ -179,7 +179,7 @@ class database:
                     self.tables.pop(index)
                     #self.reload_config()
                     return True
-
+                print("Removing Tabls from config")
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
                     raise Exception("Failed to remove configuration for table")
