@@ -54,12 +54,13 @@ def method_select(context, query_object, parser):
 def select_process_file(context,query_object):
     has_columns = select_has_columns(context,query_object)
     has_functions = select_has_functions(context,query_object)
-    
+    table=None
     line_number = 1
     data=[]
     if True == has_columns:
         if 'table' in  query_object:
-            file_path = query_object['table'].data.path
+            table= query_object['table']
+            file_path =table.data.path
         else:
             raise Exception ('table configuration has no data file')
         with open(file_path, 'r') as content_file:
