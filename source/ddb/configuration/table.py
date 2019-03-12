@@ -97,9 +97,7 @@ class table:
                data_on=None):
         if None != data_on:
             #print("SETTING DATA INT",data_on,int(data_on))
-            self.data.starts_on_line = int(data_on)
-        else:
-            print("NO data_on")
+            self.data.starts_on_line = data_on
         if None != comments:
             self.visible.comments = comments
 
