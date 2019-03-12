@@ -354,11 +354,9 @@ class lexer:
             self.info(curent_object)
             if token_index == len(tokens):
                 # add the static vars
-                print ("SIGNATURE",signature)
                 if 'vars' in signature:
-                    print ("DATA IS HERE")
                     for var_name in signature['vars']:
-                        self.info("var: {0}-{1}".format(var_name,))
+                        self.info("var: {0}-{1}".format(var_name,signature['vars'][var_name]))
                         argument[var_name]=switch['data']['vars'][var_name]
 
 
