@@ -190,11 +190,24 @@ class lexer:
                             self.info("No match")
                             break
                         else:
+                            # set static variables
+                            if 'vars' in switch:
+                                for var_name in switch['vars']:
+                                     arguments[var_name]=switch['vars'][var_name]
+
                             w_index = 0
                             argument = {}
                             for word in match:
                                 variable_data=tokens[token_index + w_index]['data']
-                                if word[0:1] == '{' and word[-1] == '}':
+                                if word[0:1] == '[' and word[-1] == ']': 
+                                    definition='array'
+                                elif word[0:1] == '{' and word[-1] == '}':
+                                     definition='single'
+                                else:
+                                    definition=None
+
+                                # is there an definition?
+                                if definition:
                                     # if we have definitions
                                     variable=word[1:-1]
                                     variable_type='string'

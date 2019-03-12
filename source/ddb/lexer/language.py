@@ -1,4 +1,21 @@
 
+
+#  query: "name"
+#  arguments: optional, 1 or 0 for unlimited (comma seperated)
+#  switch: signatures to match against 
+#     data: optional
+#          vars: variabls to manually set
+#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped
+#     name: initial string to match against to enter this query, this is the index of the object
+#   optional: can we skip this
+#   depends_on: do not match unless the other variable is present 
+#   jump: goto an ealier command for matching, to repeat a loop set for multiple matches
+#   parent: override the name, and place data on this index
+#   store_array: allow multiple keys in an array at this index
+#   specs :{'variable_name': {'type': 'int', 'default': 0} },
+
+
+
 sql_syntax = {
     'functions': [{'name': 'database', 'arguments': None},
                   {'name': 'count', 'arguments': [
@@ -142,21 +159,55 @@ sql_syntax = {
               'optional': True},
 
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],
               'name': 'on',
               'optional': True,
               'depends_on': 'join',
               'store_array': True},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'on',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'and',
               'optional': True,
               'parent': 'on'},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'on',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'or',
               'optional': True,
@@ -164,21 +215,54 @@ sql_syntax = {
 
 
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'name': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'name': 'where',
               'optional': True,
               'depends_on': 'from',
               'store_array': True},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'and',
               'optional': True,
               'parent': 'where'},
              {'arguments': 1,
-              'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-              'depends_on': 'where',
+              'data': [
+                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
+                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
+                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
+                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
+                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
+                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
+                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
+                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
+                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
+                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
+                  ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'or',
               'optional': True,
