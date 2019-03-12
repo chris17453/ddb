@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.63'
+__version__='1.1.64'
 
         
         
@@ -3360,7 +3360,7 @@ class output_factory:
     def format_term(self,query_results,output_file):
         """ouput results data in the term format"""
         try:
-            if query_results.data and query_results.columns:
+            if query_results.columns:
                 flextable(data=query_results.data,columns=query_results.columns)
             if True == query_results.success:
                 print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
@@ -4720,12 +4720,10 @@ def cli_main():
     if args.query is not None or not sys.stdin.isatty():
         try:
             if not sys.stdin.isatty():
-                print("reading stdin")
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 query=""
                 for c in new_stdin:
                     query+=c
-                print("DONE")
             else:
                 query=args.query
             e = engine( config_file=config_file, 
