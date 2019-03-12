@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.55'
+__version__='1.1.56'
 
         
         
@@ -4722,7 +4722,7 @@ def cli_main():
                 query=""
                 for c in new_stdin:
                     query+=c
-                    
+                print("DONE")
             else:
                 query=args.query
             e = engine( config_file=config_file, 

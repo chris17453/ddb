@@ -367,7 +367,7 @@ class flextable:
 
 
         if self.column_width==-1:
-            self.row_height,self.column_width = os.popen('stty size', 'r').read().split()
+            self.row_height,self.column_width =os.get_terminal_size(0)
         #auto name columns
         if column_count>-1 and columns == None:
             self.columns=[]
@@ -394,14 +394,13 @@ class flextable:
     def calculate_limits(self):
         tty_min_column_width=1
         # doesnt work with pipes. ugh
-        tty_rows, tty_columns = os.popen('stty size', 'r').read().split() 
+        
         # tty_rows=int(tty_rows)
         # tty_columns=int(tty_columns)
         # dev size
         # tty_rows=30
         # tty_columns=80
-        self.column_width=tty_columns
-
+        
         
         data_column_count=len(self.columns)
 
