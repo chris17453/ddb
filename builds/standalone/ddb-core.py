@@ -35,7 +35,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.45'
+__version__='1.1.46'
 
         
         
@@ -757,8 +757,6 @@ class lexer:
 
                                     elif variable_type=='string':
                                         argument[variable] =variable_data
-                                else:
-                                    argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
                                 curent_object['arguments'] = []

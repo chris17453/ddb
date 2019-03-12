@@ -12,6 +12,9 @@ class lexer:
         # insert into table () values ()
         # delete from table where x=y and y=2
 
+        # keep non variable keywords form signature match in object
+        # realy only need this for debugging
+        self.keep_non_keywords=None
         self.debug = debug
         self.query_objects = []
         querys = query.split(';')
@@ -242,9 +245,10 @@ class lexer:
 
                                     elif variable_type=='string':
                                         argument[variable] =variable_data
-                                #else:
+                                else:
                                     # normal keyword
-                                #    argument[word] = variable_data
+                                    if self.keep_non_keywords:
+                                        argument[word] = variable_data
                                 w_index += 1
                             if 'arguments' not in curent_object:
                                 curent_object['arguments'] = []
