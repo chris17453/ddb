@@ -169,19 +169,19 @@ class database:
         return True
 
     def drop_table(self, table_name, database_name=None):
-        print("Database.drop table")
+        #print("Database.drop table")
         if None == database_name:
             database_name = self.get_curent_database()
         #print table_name,database_name
         for index in range(0, len(self.tables)):
             print( self.tables[index].data.name, table_name,self.tables[index].data.database,database_name)
             if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
-                print("Found table")
+                #print("Found table")
                 if self.tables[index].data.type=="Temp":
                     self.tables.pop(index)
                     #self.reload_config()
                     return True
-                print("Removing Tabls from config")
+                #print("Removing Table from config")
                 res = self.remove_config(table_object=self.tables[index])
                 if False == res:
                     raise Exception("Failed to remove configuration for table")
