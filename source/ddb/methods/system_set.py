@@ -3,6 +3,7 @@ from .record_core import query_results
 def method_system_set(context, query_object):
     context.info("set")
     try:
+        print query_object
         variable=query_object['meta']['set']['variable']
         value=query_object['meta']['set']['value']
         print(context.system,variable,value)
