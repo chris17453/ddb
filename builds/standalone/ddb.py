@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.124'
+__version__='1.1.126'
 
         
         
@@ -3037,51 +3037,6 @@ def compare_data(context,data1, data2):
         
         
 # ############################################################################
-# Module : methods-records-show-columns
-# File   : ./source/ddb/methods/record_show_columns.py
-# ############################################################################
-
-
-
-
-def method_show_columns(context,database, query_object):
-    try:
-        table = database.get(query_object['meta']['from']['table'])
-        temp_table = database.temp_table(columns=['table', 'column'])
-
-        for c in table.columns:
-            columns = {'data': [table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(columns)
-        
-        return query_results(success=True,data=temp_table)
-    except Exception as ex:
-        return query_results(success=False,error=ex)
-
-
-        
-        
-# ############################################################################
-# Module : methods-records-show-tables
-# File   : ./source/ddb/methods/record_show_tables.py
-# ############################################################################
-
-
-
-
-def method_show_tables(context,database):
-    try:
-        temp_table = database.temp_table(columns=['database', 'table'])
-        for t in database.tables:
-            columns = [t.data.database, t .data.name]
-            temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
-       
-        return query_results(success=True,data=temp_table)
-    except Exception as ex:
-        return query_results(success=False,error=ex)
-
-        
-        
-# ############################################################################
 # Module : methods-records-update
 # File   : ./source/ddb/methods/record_update.py
 # ############################################################################
@@ -3446,6 +3401,81 @@ def method_system_commit(context, query_object):
 def method_system_rollback(context, query_object):
     context.info("set")
     try:
+        return query_results(success=True)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-system-show-columns
+# File   : ./source/ddb/methods/system_show_columns.py
+# ############################################################################
+
+
+
+
+def method_system_show_columns(context,database, query_object):
+    try:
+        if 'database' in query_object['meta']['from']:
+            context.info('Database specified')
+            database_name = query_object['meta']['from']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+        table = database.get(query_object['meta']['from']['table'],database_name=database_name)
+        
+        temp_table = database.temp_table(columns=['database','table', 'column'])
+
+        for c in table.columns:
+            columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
+            temp_table.append_data(columns)
+        
+        return query_results(success=True,data=temp_table)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+
+        
+        
+# ############################################################################
+# Module : methods-system-show-tables
+# File   : ./source/ddb/methods/system_show_tables.py
+# ############################################################################
+
+
+
+
+def method_system_show_tables(context,database):
+    try:
+        temp_table = database.temp_table(columns=['database', 'table'])
+        for t in database.tables:
+            columns = [t.data.database, t .data.name]
+            temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
+       
+        return query_results(success=True,data=temp_table)
+    except Exception as ex:
+        return query_results(success=False,error=ex)
+
+        
+        
+# ############################################################################
+# Module : methods-system-show-variables
+# File   : ./source/ddb/methods/system_show_variables.py
+# ############################################################################
+
+
+
+
+def method_system_set(context, query_object):
+    context.info("set")
+    try:
+        variable=query_object['meta']['set']['variable']
+        value=query_object['meta']['set']['value']
+        if variable in context.system:
+            context.system[variable]=value
+        else:
+            raise Exception("Cannot set {0}, not a system variable".format(variable))
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)

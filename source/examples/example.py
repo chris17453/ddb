@@ -63,3 +63,5 @@ def example1():
 
 if __name__ == '__main__':
     example1()
+
+# on error data=None
