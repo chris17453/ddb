@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.42'
+__version__='1.1.43'
 
         
         
@@ -870,7 +870,7 @@ class lexer:
             if token_index == len(tokens):
                 if 'vars' in signature:
                     for var_name in signature['vars']:
-                        self.info("var: '{0}'='{1}'".format(var_name,signature['vars'][var_name]))
+                        self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
                         argument[var_name]=switch['data']['vars'][var_name]
 
 
