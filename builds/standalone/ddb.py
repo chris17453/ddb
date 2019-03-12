@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.54'
+__version__='1.1.55'
 
         
         
@@ -4719,8 +4719,10 @@ def cli_main():
             if not sys.stdin.isatty():
                 print("reading stdin")
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
+                query=""
                 for c in new_stdin:
-                    print(c)
+                    query+=c
+                    
             else:
                 query=args.query
             e = engine( config_file=config_file, 
