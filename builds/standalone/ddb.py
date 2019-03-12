@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.25'
+__version__='1.1.26'
 
         
         
@@ -720,7 +720,7 @@ class lexer:
                         else:
                             if 'vars' in switch:
                                 for var_name in switch['vars']:
-                                     arguments[var_name]=switch['vars'][var_name]
+                                     curent_object[var_name]=switch['vars'][var_name]
 
                             w_index = 0
                             argument = {}
@@ -870,7 +870,6 @@ class lexer:
                 break
 
         
-        
         result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
         return result
 
@@ -880,71 +879,69 @@ class lexer:
 
     def validate(self,curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode):
         self.info(curent_object)
-        if token_index == len(tokens):
-            self.info("############################think its a match")
+        self.info("############################think its a match")
 
-            if 'arguments' not in curent_object and 'arguments' in switch:
-                self.info("Missing argument in last element")
-                bad = True
-                return False
+        if 'arguments' not in curent_object and 'arguments' in switch:
+            self.info("Missing argument in last element")
+            bad = True
+            return False
 
-            if len(query['switch']) >= switch_index:
-                self.info("still checking")
-                bad = False
-                for t in range(switch_index, len(query['switch'])):
-                    if 'optional' not in query['switch'][t]:
+        if len(query['switch']) >= switch_index:
+            self.info("still checking")
+            bad = False
+            for t in range(switch_index, len(query['switch'])):
+                if 'optional' not in query['switch'][t]:
+                    bad = True
+                    return False
+
+                else:
+                    if not query['switch'][t]['optional']:
                         bad = True
                         return False
 
-                    else:
-                        if not query['switch'][t]['optional']:
-                            bad = True
-                            return False
+            if True == bad:
+                self.info("Not successful. required arguments missing")
+                return False
 
-                if True == bad:
-                    self.info("Not successful. required arguments missing")
-                    return False
+        self.info("Query object", query_object)
+        if query_mode == 'select':
+            self.info("Validating Select Functions")
+            if 'columns' in query_object:
+                for node in query_object['columns']:
+                    valid_function_name = False
+                    is_function = False
+                    if 'function' in node:
+                        is_function = True
+                        self.info("It's a function!")
+                        for f in sql_syntax['functions']:
+                            if f['name'] == node['function']:
+                                argindex = 1
+                                if f['arguments'] is not None:
+                                    for arg in f['arguments']:
+                                        if arg['required']:
+                                            if 'argument{0}'.format(argindex) not in node:
+                                                self.info("Missing arguments")
+                                                return False
+                                        argindex += 1
 
-            self.info("Query object", query_object)
-            if query_mode == 'select':
-                self.info("Validating Select Functions")
-                if 'columns' in query_object:
-                    for node in query_object['columns']:
-                        valid_function_name = False
-                        is_function = False
-                        if 'function' in node:
-                            is_function = True
-                            self.info("It's a function!")
-                            for f in sql_syntax['functions']:
-                                if f['name'] == node['function']:
-                                    argindex = 1
-                                    if f['arguments'] is not None:
-                                        for arg in f['arguments']:
-                                            if arg['required']:
-                                                if 'argument{0}'.format(argindex) not in node:
-                                                    self.info("Missing arguments")
-                                                    return False
-                                            argindex += 1
+                                else:
+                                    argindex = 0
+                                if 'argument{0}'.format(argindex + 1) in node:
+                                    self.info("Too many arguments")
+                                    return False
 
-                                    else:
-                                        argindex = 0
-                                    if 'argument{0}'.format(argindex + 1) in node:
-                                        self.info("Too many arguments")
-                                        return False
+                            valid_function_name = True
+                            break
+                    if False == valid_function_name and True == is_function:
+                        self.info("FAIL", "This isnt a valid function", node['function'])
+                        return False
+            else:
+                self.info("No columns in select")
+                return False
 
-                                valid_function_name = True
-                                break
-                        if False == valid_function_name and True == is_function:
-                            self.info("FAIL", "This isnt a valid function", node['function'])
-                            return False
-                else:
-                    self.info("No columns in select")
-                    return False
-
-            self.info("SUCCESS")
-            sql_object = {'mode': query_mode, 'meta': query_object}
-            return sql_object
-        return False
+        self.info("SUCCESS")
+        sql_object = {'mode': query_mode, 'meta': query_object}
+        return sql_object
 
     def expand_columns(self, query_object, columns):
         if 'columns' in query_object['meta']:
