@@ -133,7 +133,6 @@ class engine:
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-
             elif mode == 'drop':
                 self.results = method_drop_table(self,query_object)
 
