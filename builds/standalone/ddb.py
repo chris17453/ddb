@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.110'
+__version__='1.1.111'
 
         
         
@@ -2937,11 +2937,14 @@ def limit(context, query_object, data):
             index=index-1
         if 'length' in query_object['meta']['limit']:
             length = query_object['meta']['limit']['length']
+            if length<1:
+                raise Exception("Limit: range length invalid ")
+
 
     context.info("Limit:{0},Length:{1}".format(index, length))
     if index<0:
-        raise Exception("Limit: range invalid ")
-        
+        raise Exception("Limit: range index invalid ")
+
     if None == index:
         index = 0
     if None == length:

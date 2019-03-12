@@ -86,7 +86,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(1, results.data_length)
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
             
-            self.assertEqual(True, results.success)
+            self.assertEqual(Falsee, results.success)
             self.assertEqual(0, results.data_length)
 
             # WHERE/LIMIT
