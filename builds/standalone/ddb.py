@@ -43,7 +43,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.27'
+__version__='1.1.28'
 
         
         
@@ -721,7 +721,7 @@ class lexer:
                             if 'vars' in switch:
                                 for var_name in switch['vars']:
                                     self.info("var: {0}-{1}".format(var_name,switch['vars'][var_name]))
-                                     curent_object[var_name]=switch['vars'][var_name]
+                                    curent_object[var_name]=switch['vars'][var_name]
 
                             w_index = 0
                             argument = {}
