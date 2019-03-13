@@ -60,12 +60,15 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
+        self.internal={}
         # variables that can be set by the system
+        
         self.system['AUTOCOMMIT']=0
         self.system['OUTPUT']='TERM'
         self.system['TERM_OUTPUT_HEADER']=True
         self.system['TERM_OUTPUT_MID']=False
         self.system['TERM_OUTPUT_FOOTER']=True
+        self.internal['IN_TRANSACTION']=0
         
         # print "Config",config_file
         self.database = database(config_file=config_file)
