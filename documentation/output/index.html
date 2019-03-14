@@ -1,0 +1,426 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>ddb 1.1 Reference Manual &#8212; ddb 1.1.118 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="ddb-1-1-reference-manual">
+<h1>ddb 1.1 Reference Manual<a class="headerlink" href="#ddb-1-1-reference-manual" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Charles Watkins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body">$Revision: 1.1 $</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Copyright:</th><td class="field-body">This document has been placed in the public domain.</td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+<p>#.. contents:</p>
+<div class="section" id="data-types">
+<h2>Data Types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="char">
+<h3>CHAR<a class="headerlink" href="#char" title="Permalink to this headline">¶</a></h3>
+<p>A singfle character of any ascii value</p>
+</div>
+<div class="section" id="string">
+<h3>STRING<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h3>
+<p>An unlimited collection of ascii characters.</p>
+</div>
+<div class="section" id="int">
+<h3>INT<a class="headerlink" href="#int" title="Permalink to this headline">¶</a></h3>
+<p>A python integer</p>
+</div>
+<div class="section" id="float">
+<h3>FLOAT<a class="headerlink" href="#float" title="Permalink to this headline">¶</a></h3>
+<p>A python float</p>
+</div>
+<div class="section" id="decimal">
+<h3>DECIMAL<a class="headerlink" href="#decimal" title="Permalink to this headline">¶</a></h3>
+<p>A python decimal</p>
+</div>
+<div class="section" id="guid">
+<h3>GUID<a class="headerlink" href="#guid" title="Permalink to this headline">¶</a></h3>
+<p>A 128 bit unique identifyer</p>
+<p>Example:</p>
+<blockquote>
+<div>69121893-3AFC-4F92-85F3-40BB5E7C7E29</div></blockquote>
+</div>
+<div class="section" id="ip">
+<h3>IP<a class="headerlink" href="#ip" title="Permalink to this headline">¶</a></h3>
+<p>An IPV4 Address</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>10.10.0.255</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="functions-and-operators">
+<h2>Functions and Operators<a class="headerlink" href="#functions-and-operators" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sum">
+<h3>SUM<a class="headerlink" href="#sum" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>FUTURE IMPLIMENTATION</div></blockquote>
+</div>
+<div class="section" id="count">
+<h3>COUNT<a class="headerlink" href="#count" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>FUTURE IMPLIMENTATION</div></blockquote>
+</div>
+<div class="section" id="database">
+<h3>DATABASE<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<p>The database function returns the curent database context.
+The default context is main.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>SELECT DATABASE()</dd>
+</dl>
+<p>Results:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">database</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>main</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="date">
+<h3>DATE<a class="headerlink" href="#date" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>SELECT DATE()</dd>
+</dl>
+<p>Results:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">date</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>2019-03-12</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="time">
+<h3>TIME<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>SELECT TIME()</div></blockquote>
+<p>Results:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">time</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>19:58:44</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="datetime">
+<h3>DATETIME<a class="headerlink" href="#datetime" title="Permalink to this headline">¶</a></h3>
+<p>Returns a python formatted datetime</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>SELECT DATETIME()</dd>
+</dl>
+<p>Results:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">datetime</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>2019-03-12 19:48:55.849826</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="version">
+<h3>VERSION<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<p>Version returns the <strong>major</strong> . <strong>minor</strong> . <strong>patch</strong> version of ddb.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>SELECT VERSION()</dd>
+</dl>
+<p>Results:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">version</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.1.118</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="sql-syntaxt">
+<h2>Sql Syntaxt<a class="headerlink" href="#sql-syntaxt" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-defintion-statements">
+<h3>Data Defintion Statements<a class="headerlink" href="#data-defintion-statements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="create">
+<h4>CREATE<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="drop">
+<h4>DROP<a class="headerlink" href="#drop" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="update">
+<h4>UPDATE<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="truncate-table">
+<h4>&#64;TRUNCATE TABLE<a class="headerlink" href="#truncate-table" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="data-manipulation-statements">
+<h3>Data Manipulation Statements<a class="headerlink" href="#data-manipulation-statements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="select">
+<h4>SELECT<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="insert">
+<h4>INSERT<a class="headerlink" href="#insert" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="delete">
+<h4>DELETE<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="id1">
+<h4>UPDATE<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="transactional-statements">
+<h3>Transactional Statements<a class="headerlink" href="#transactional-statements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="begin">
+<h4>BEGIN<a class="headerlink" href="#begin" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="commit">
+<h4>COMMIT<a class="headerlink" href="#commit" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="rollback">
+<h4>ROLLBACK<a class="headerlink" href="#rollback" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="prepaired-sql-statement-syntaxt">
+<h3>Prepaired SQL Statement Syntaxt<a class="headerlink" href="#prepaired-sql-statement-syntaxt" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="prepare">
+<h4>PREPARE<a class="headerlink" href="#prepare" title="Permalink to this headline">¶</a></h4>
+<p>FUTURE IMPLIMENTATION</p>
+</div>
+<div class="section" id="execute">
+<h4>EXECUTE<a class="headerlink" href="#execute" title="Permalink to this headline">¶</a></h4>
+<p>FUTURE IMPLIMENTATION</p>
+</div>
+</div>
+<div class="section" id="database-administration-statements">
+<h3>Database Administration Statements<a class="headerlink" href="#database-administration-statements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="set">
+<h4>SET<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="show-columns">
+<h4>SHOW COLUMNS<a class="headerlink" href="#show-columns" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="show-tables">
+<h4>SHOW TABLES<a class="headerlink" href="#show-tables" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="show-variables">
+<h4>SHOW VARIABLES<a class="headerlink" href="#show-variables" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="utility-statements">
+<h3>Utility Statements<a class="headerlink" href="#utility-statements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="use">
+<h4>USE<a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h4>
+<p>Change the curent database context. The default is main.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>USE test;</dd>
+<dt>Results:</dt>
+<dd>Querys executed without a specified database will execute against this database.</dd>
+</dl>
+</div>
+<div class="section" id="explain-query">
+<h4>EXPLAIN (QUERY)<a class="headerlink" href="#explain-query" title="Permalink to this headline">¶</a></h4>
+<p>FUTURE IMPLIMENTATION</p>
+</div>
+<div class="section" id="describe">
+<h4>DESCRIBE<a class="headerlink" href="#describe" title="Permalink to this headline">¶</a></h4>
+<p>Display the configuration of a table in a database.</p>
+<dl class="docutils">
+<dt>Example:</dt>
+<dd>DESCRIBE table test</dd>
+</dl>
+<p>Results:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="42%" />
+<col width="58%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">option</th>
+<th class="head">value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>active</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>table_name</td>
+<td>mock</td>
+</tr>
+<tr class="row-even"><td>database</td>
+<td>test</td>
+</tr>
+<tr class="row-odd"><td>data_file</td>
+<td>source/test/MOCK_DATA.csv</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>Temp</td>
+</tr>
+<tr class="row-odd"><td>config_file</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>data_starts_on</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>field_delimiter</td>
+<td>,</td>
+</tr>
+<tr class="row-even"><td>comments_visible</td>
+<td>False</td>
+</tr>
+<tr class="row-odd"><td>errors_visible</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>whitespace_visible</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>Errors, Error Codes
+SQL Errors</p>
+<p>Integration
+bash
+python</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">ddb</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Charles Watkins.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
