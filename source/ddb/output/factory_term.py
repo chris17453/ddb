@@ -353,6 +353,7 @@ class flextable:
             self.bottom     =self.char_bottom(default=default,style=style)
             self.top        =self.char_top(default=default,style=style)
             self.mid_header =self.char_mid_header(default=default,style=style)
+            self.header     =self.char_header(default=default,style=style)
             self.footer     =self.char_footer(default=default,style=style)
 
 
