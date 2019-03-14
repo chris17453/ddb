@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.146'
+__version__='1.1.147'
 
         
         
@@ -3783,7 +3783,7 @@ class flextable:
 
 
     class flextable_style:
-        def __init__(self,style='single'):
+        def __init__(self,style='rst'):
             self.whitespace=''
             self.line_ending='LRCF'
             self.color=flextable.modes()

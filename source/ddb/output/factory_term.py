@@ -361,7 +361,7 @@ class flextable:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
     
     def __init__(self,      data,
-                            display_style='single',
+                            display_style='rst',
                             column_count=0,
                             hide_comments=False,
                             hide_errors=False,
