@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.142'
+__version__='1.1.143'
 
         
         
@@ -2380,11 +2380,14 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
+        self.internal={}
+        
         self.system['AUTOCOMMIT']=0
         self.system['OUTPUT']='TERM'
         self.system['TERM_OUTPUT_HEADER']=True
         self.system['TERM_OUTPUT_MID']=False
         self.system['TERM_OUTPUT_FOOTER']=True
+        self.internal['IN_TRANSACTION']=0
         
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
@@ -3367,6 +3370,10 @@ def method_system_set(context, query_object):
 def method_system_begin(context, query_object):
     context.info("set")
     try:
+        if context.internal['IN_TRANSACTION']==1:
+            raise Exception("Already in a Batch Transaction")
+        else:
+            context.internal['IN_TRANSACTION']=0
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -3384,6 +3391,10 @@ def method_system_begin(context, query_object):
 def method_system_commit(context, query_object):
     context.info("set")
     try:
+        if context.internal['IN_TRANSACTION']==1:
+            context.internal['IN_TRANSACTION']=0
+        else:
+            raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -3401,6 +3412,10 @@ def method_system_commit(context, query_object):
 def method_system_rollback(context, query_object):
     context.info("set")
     try:
+        if context.internal['IN_TRANSACTION']==1:
+            context.internal['IN_TRANSACTION']=0
+        else:
+            raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -3826,114 +3841,145 @@ class flextable:
     class characters:
         class char_walls:
             
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,style):
+                if style=='ssingle':
                     l=u'│'
                     r=u'│'
                     t=u'─'
                     b=u'─'
-                else:
+                elif style=='double':
                     l=u'║'
                     r=u'║'
                     t=u'═'
                     b=u'═'
+                elif style=='rst':
+                    l=u'|'
+                    r=u'|'
+                    t=u'-'
+                    b=u'-'
+
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
                 self.top    =flextable.color(text=t,default=default)
                 self.bottom =flextable.color(text=b,default=default)
         class char_center:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,style):
+                if style=='single':
                     c=u'┼'
                     l=u'├'
                     r=u'┤'
-                else:
+                elif style=='double':
                     c=u'╬'
                     l=u'╠'
-                    r=u'╣'                        
+                    r=u'╣'
+                elif style=='rst':
+                    c=u'|'
+                    l=u'|'
+                    r=u'|'
+
                 self.center = flextable.color(text=c,default=default)
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=r,default=default)
         
         class char_bottom:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,style):
+                if style=='single':
                     l=u'└'
                     c=u'┴'
                     r=u'┘'
-                else:
+                elif style=='double':
                     l=u'╚'
                     c=u'╩'
                     r=u'╝'
+                elif style=='rst':
+                    l=u'+'
+                    c=u'+'
+                    r=u'+'
+
                 self.left   = flextable.color(text=l,default=default)
                 self.center = flextable.color(text=c,default=default)
                 self.right  = flextable.color(text=r,default=default)
         class char_top:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,style):
+                if style == 'single':
                     l=u'┌'
-                    c=u'┐'
-                    r=u'┬'
-                else:
+                    r=u'┐'
+                    c=u'┬'
+                elif style=='doubble':
                     l=u'╔'
-                    c=u'╗'
-                    r=u'╦'
+                    r=u'╗'
+                    c=u'╦'
+                elif style=='rst':
+                    l=u'+'
+                    c=u'+'
+                    r=u'+'
+
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=c,default=default)
                 self.center = flextable.color(text=r,default=default)
         class char_header:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,stylee):
+                if style=='single':
                     l=u'┤'
                     r=u'├'
                     c=u' '
-                else:
+                elif style='double':
                     l=u'╡'
                     r=u'╞'
-                    c=u' '            
+                    c=u' '
+                elif style=='rst':
+                    l=u''
+                    r=u''
+                    c=u' '
+                       
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
                 self.center = flextable.color(text=c,default=default,foreground='green')
         class char_mid_header:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,style):
+                if style == 'single':
                     l=u'-'
                     r=u'-'
                     c=u' '
-                else:
+                elif style== 'double':
                     l=u'-'
                     r=u'-'
                     c=u' '
+                elif style='rst':
+                    l=u'-'
+                    r=u'-'
+                    c=u' '
+
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
                 self.center = flextable.color(text=c,default=default,foreground='green')
         class char_footer:
-            def __init__(self,default=None,single=True):
-                if single is True:
+            def __init__(self,default=None,type='single'):
+
+                if type=='single':
                     l=u'['
                     r=u']'
                     c=u' '
-                else:
+                elif type=='double':
                     l=u'['
                     r=u']'
                     c=u' '
+                elif type=='rst':
+                    l=''
+                    r=''
+                    c=' '
                 self.left   = flextable.color(text=l,default=default,foreground='White') #╡
                 self.right  = flextable.color(text=r,default=default,foreground='White') #╞
                 self.center = flextable.color(text=c,default=default,foreground='green')
 
-        def __init__(self,default=None,style='single'):
-            if style=='single':
-                single=True
-            else:
-                single=False
-            self.walls      =self.char_walls(default=default,single=single)
-            self.center     =self.char_center(default=default,single=single)
-            self.bottom     =self.char_bottom(default=default,single=single)
-            self.top        =self.char_top(default=default,single=single)
-            self.header     =self.char_header(default=default,single=single)
-            self.mid_header =self.char_mid_header(default=default,single=single)
-            self.footer     =self.char_footer(default=default,single=single)
-
+        def __init__(self,default=None,style='rst'):
+            
+            self.walls      =self.char_walls(default=default,type=style)
+            self.center     =self.char_center(default=default,type=style)
+            self.bottom     =self.char_bottom(default=default,type=style)
+            self.top        =self.char_top(default=default,type=style)
+            self.mid_header =self.char_mid_header(default=default,type=style)
+            self.footer     =self.char_footer(default=default,type=style)
 
 
 
