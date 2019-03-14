@@ -215,8 +215,8 @@ class flextable:
     class characters:
         class char_walls:
             
-            def __init__(self,default=None,style):
-                if style=='ssingle':
+            def __init__(self,default=None,style='rst'):
+                if style=='single':
                     l=u'│'
                     r=u'│'
                     t=u'─'
@@ -237,7 +237,7 @@ class flextable:
                 self.top    =flextable.color(text=t,default=default)
                 self.bottom =flextable.color(text=b,default=default)
         class char_center:
-            def __init__(self,default=None,style):
+            def __init__(self,default=None,style='rst'):
                 if style=='single':
                     c=u'┼'
                     l=u'├'
@@ -256,7 +256,7 @@ class flextable:
                 self.right  = flextable.color(text=r,default=default)
         
         class char_bottom:
-            def __init__(self,default=None,style):
+            def __init__(self,default=None,style='rst'):
                 if style=='single':
                     l=u'└'
                     c=u'┴'
@@ -274,7 +274,7 @@ class flextable:
                 self.center = flextable.color(text=c,default=default)
                 self.right  = flextable.color(text=r,default=default)
         class char_top:
-            def __init__(self,default=None,style):
+            def __init__(self,default=None,style='rst'):
                 if style == 'single':
                     l=u'┌'
                     r=u'┐'
@@ -292,7 +292,7 @@ class flextable:
                 self.right  = flextable.color(text=c,default=default)
                 self.center = flextable.color(text=r,default=default)
         class char_header:
-            def __init__(self,default=None,stylee):
+            def __init__(self,default=None,style='rst'):
                 if style=='single':
                     l=u'┤'
                     r=u'├'
@@ -310,7 +310,7 @@ class flextable:
                 self.right  = flextable.color(text=r,default=default,foreground='White')
                 self.center = flextable.color(text=c,default=default,foreground='green')
         class char_mid_header:
-            def __init__(self,default=None,style):
+            def __init__(self,default=None,style='rst'):
                 if style == 'single':
                     l=u'-'
                     r=u'-'
@@ -328,17 +328,17 @@ class flextable:
                 self.right  = flextable.color(text=r,default=default,foreground='White')
                 self.center = flextable.color(text=c,default=default,foreground='green')
         class char_footer:
-            def __init__(self,default=None,type='single'):
+            def __init__(self,default=None,style='rst'):
 
-                if type=='single':
+                if style=='single':
                     l=u'['
                     r=u']'
                     c=u' '
-                elif type=='double':
+                elif style=='double':
                     l=u'['
                     r=u']'
                     c=u' '
-                elif type=='rst':
+                elif style=='rst':
                     l=''
                     r=''
                     c=' '
@@ -348,12 +348,12 @@ class flextable:
 
         def __init__(self,default=None,style='rst'):
             
-            self.walls      =self.char_walls(default=default,type=style)
-            self.center     =self.char_center(default=default,type=style)
-            self.bottom     =self.char_bottom(default=default,type=style)
-            self.top        =self.char_top(default=default,type=style)
-            self.mid_header =self.char_mid_header(default=default,type=style)
-            self.footer     =self.char_footer(default=default,type=style)
+            self.walls      =self.char_walls(default=default,style=style)
+            self.center     =self.char_center(default=default,style=style)
+            self.bottom     =self.char_bottom(default=default,style=style)
+            self.top        =self.char_top(default=default,style=style)
+            self.mid_header =self.char_mid_header(default=default,style=style)
+            self.footer     =self.char_footer(default=default,style=style)
 
 
 

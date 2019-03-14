@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.143'
+__version__='1.1.144'
 
         
         
@@ -3931,7 +3931,7 @@ class flextable:
                     l=u'┤'
                     r=u'├'
                     c=u' '
-                elif style='double':
+                elif style=='double':
                     l=u'╡'
                     r=u'╞'
                     c=u' '
@@ -3953,7 +3953,7 @@ class flextable:
                     l=u'-'
                     r=u'-'
                     c=u' '
-                elif style='rst':
+                elif style=='rst':
                     l=u'-'
                     r=u'-'
                     c=u' '
