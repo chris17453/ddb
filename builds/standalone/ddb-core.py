@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.164'
+__version__='1.1.165'
 
         
         
@@ -4078,7 +4078,10 @@ class flextable:
                 base=self.style.characters.center
                 column=self.style.characters.mid_header
         header=base.left.render(use_color=self.render_color)
-
+        if self.display_style=='rst':
+            fill_character='-'
+        else:
+            fill_character=' '
         column_pad=0
         if None!=column.left.text:
             column_pad+=1
@@ -4092,7 +4095,7 @@ class flextable:
                 if None!=column.left.text:
                     column_display=column.left.render(use_color=self.render_color)
 
-                column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
+                column_display+=column.center.render(use_color=self.render_color,fill_character=fill_character,text=c,length=self.column_character_width-column_pad)
 
                 if None!=column.right.text:
                     column_display+=column.right.render(use_color=self.render_color)
