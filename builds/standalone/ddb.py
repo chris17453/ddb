@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.157'
+__version__='1.1.158'
 
         
         
@@ -4207,7 +4207,7 @@ class flextable:
         for row in rows:
             self.output(row,encode)
             if self.display_style=='rst':
-                self.output(rst_spacer)
+                self.output(rst_spacer,encode)
             if self.header_every>0:                
                 if index%self.header_every==0 and len(buffer)-index>self.header_every :
                     self.output(mid_header,encode)
