@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.160'
+__version__='1.1.161'
 
         
         
@@ -4163,7 +4163,7 @@ class flextable:
         row=self.style.characters.center.left.render(use_color=self.render_color)
         
         for c in range(0,self.column_count):
-            row+=self.style.color.default.render('',fill_character=self.characters.center.center,use_color=self.render_color,length=self.column_character_width)
+            row+=self.style.color.default.render('',fill_character=self.style.characters.center.center,use_color=self.render_color,length=self.column_character_width)
             row+=self.style.characters.center.right.render(use_color=self.render_color)
         
         row+=u'{}'.format(flextable.reset.ALL)
