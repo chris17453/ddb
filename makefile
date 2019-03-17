@@ -11,7 +11,7 @@ endif
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 git_username="Charles Watkins"
-git_email="charles@titandws.com"
+git_email="chris17453@gmail.com"
 conf_dir="source/conf"
  
 .DEFAULT: help
