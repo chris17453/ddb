@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.161'
+__version__='1.1.162'
 
         
         
@@ -3808,7 +3808,7 @@ class flextable:
             if text==None:
                 text=self.text
 
-    
+            fill_character=fill_character.decode('utf-8','ignore')
             if None == text:
                 text=''
             
