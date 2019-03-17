@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.158'
+__version__='1.1.159'
 
         
         
@@ -4046,6 +4046,9 @@ class flextable:
             self.starts_on=page*length+1
         if self.line>-1:
             self.starts_on=line
+        if display_style=='rst':
+            self.footer=False
+            self.header_every=0
 
         self.style=self.flextable_style(style=display_style)
         self.results=[]
