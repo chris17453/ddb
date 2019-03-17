@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.155'
+__version__='1.1.156'
 
         
         
@@ -4159,7 +4159,7 @@ class flextable:
     def build_rst_spacer(self):
         row=self.style.characters.center.left.render(use_color=self.render_color)
         
-        for c in range(0,self.colimn_count):
+        for c in range(0,self.column_count):
             row+=self.style.color.default.render('x',use_color=self.render_color,length=self.column_character_width)
             row+=self.style.characters.center.right.render(use_color=self.render_color)
         
