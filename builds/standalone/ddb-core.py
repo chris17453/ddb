@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.156'
+__version__='1.1.157'
 
         
         
@@ -4021,7 +4021,7 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
-
+        self.display_style=display_style
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
