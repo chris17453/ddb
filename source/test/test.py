@@ -183,7 +183,7 @@ class test_engine(unittest.TestCase):
 
             results = engine.query("SHOW TABLES".format(self.table_name))
             self.assertEqual(True, results.success)
-            ddb.output.factory.output_factory(query_results=results,output=term)
+            ddb.output.factory.output_factory(query_results=results,output='term')
         except Exception as ex:
             print(ex)
             self.fail(ex)
