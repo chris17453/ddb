@@ -180,7 +180,7 @@ class flextable:
             if text==None:
                 text=self.text
 
-    
+            fill_character=fill_character.decode('utf-8','ignore')
             if None == text:
                 text=''
                 #TODO tabstop/tab
