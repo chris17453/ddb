@@ -231,6 +231,7 @@ class flextable:
                     r=u'|'
                     t=u'-'
                     b=u'-'
+                    h=u'='
 
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
@@ -247,14 +248,13 @@ class flextable:
                     l=u'╠'
                     r=u'╣'
                 elif style=='rst':
-                    c=u'|'
-                    l=u'|'
-                    r=u'|'
+                    c=u'+'
+                    l=u'+'
+                    r=u'+'
 
                 self.center = flextable.color(text=c,default=default)
                 self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)
-        
+                self.right  = flextable.color(text=r,default=default)     
         class char_bottom:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
@@ -421,8 +421,6 @@ class flextable:
         self.data=data
         self.format()
 
-
-
     def calculate_limits(self):
         tty_min_column_width=1
         # doesnt work with pipes. ugh
@@ -451,7 +449,6 @@ class flextable:
 
 
         self.total_width=self.column_character_width*data_column_count+data_column_count-1
-
 
     def build_header(self,footer=False,mid=False):
         # header
@@ -502,10 +499,10 @@ class flextable:
 
         return header
             
-    def build_rows(self,buffer):
+    def build_rows(self,buffer,rst=None):
         rows=[]
         index=0
-        if True == isinstance(buffer,list):
+        if True == isinstance(buffer,list) or rst==True:
             for line in buffer:
                 columns=self.style.characters.walls.left.render(use_color=self.render_color)
                 #print line
@@ -554,8 +551,18 @@ class flextable:
             raise Exception ("data is invalid: ->".format(buffer))
 
         return rows
+            
+    def build_rst_spacer(self):
+        row=self.style.characters.center.left.render(use_color=self.render_color)
+        
+        for c in range(0,self.colimn_count):
+            row+=self.style.color.default.render('x',use_color=self.render_color,length=self.column_character_width)
+            row+=self.style.characters.center.right.render(use_color=self.render_color)
+        
+        row+=u'{}'.format(flextable.reset.ALL)
 
-     
+        return row
+
     def output(self,text,encode):
         if encode:
             print(text.encode('utf-8'))
@@ -575,7 +582,8 @@ class flextable:
         mid_header=self.build_header(mid=True)
         footer=self.build_header(footer=True)
         rows=self.build_rows(self.data)
-        
+        rst_spacer=self.build_rst_spacer()
+
         index=1
 
         if sys.version_info.major>2:
@@ -589,7 +597,8 @@ class flextable:
 
         for row in rows:
             self.output(row,encode)
-            
+            if self.display_style=='rst':
+                self.output(rst_spacer)
             if self.header_every>0:                
                 # we want it every N, but not if it bunches up on the footer
                 if index%self.header_every==0 and len(buffer)-index>self.header_every :
