@@ -168,6 +168,23 @@ class test_engine(unittest.TestCase):
             # delete non existing
             results = engine.query("delete from {} where email like 'bop@%'".format(self.table_name))
             self.assertEqual(True, results.success)
+     
+        except Exception as ex:
+            print(ex)
+            self.fail(ex)
+
+    def test_show_tables(self):
+        """Show all tables in the database"""
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results.success)
+
+            results = engine.query("SHOW TABLES".format(self.table_name))
+            self.assertEqual(True, results.success)
+            print("TEST OUTPUT")
+            ddb.output.factory.output_factory(query_results=results,output='term')
         except Exception as ex:
             print(ex)
             self.fail(ex)
