@@ -193,15 +193,15 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
             
-            results = engine.query("set AUTOCOMMIT=1".format(self.table_name))
+            results = engine.query("set AUTOCOMMIT=False")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=YAML".format(self.table_name))
+            results = engine.query("set OUTPUT=YAML")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=TERM_RST".format(self.table_name))
+            results = engine.query("set OUTPUT=TERM_RST")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=TERM_SINGLE".format(self.table_name))
+            results = engine.query("set OUTPUT=TERM_SINGLE")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=TERM_DOUBLE".format(self.table_name))
+            results = engine.query("set OUTPUT=TERM_DOUBLE")
             self.assertEqual(True, results.success)
 
             results = engine.query("show variables")
