@@ -16,6 +16,7 @@ def method_system_set(context, query_object):
 
             elif value_up in ['NULL','NILL','NONE']:
                 value=None
+                
             if variable in context.system:
                 context.system[variable]=value
             elif len(value_up)>0 and value_up[0]=='@':
