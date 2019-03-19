@@ -103,6 +103,8 @@ import fileinput
 import warnings
 import datetime
 import tempfile
+import shutil
+
 try:
     import flextable
 except Exception as ex:
@@ -134,6 +136,7 @@ import fileinput
 import warnings
 import datetime
 import tempfile
+import shutil
 import time
 
 from cmd import Cmd
