@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.209'
+__version__='1.1.210'
 
         
         
@@ -2671,13 +2671,9 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print ("Writing..")
 
         with open(temp_data_file, 'r') as content_file:
-            print("opened file")
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) 
-            print (temp_file)
-            print("opened other file")
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
@@ -2686,7 +2682,6 @@ def method_delete(context, query_object):
                 if True == processed_line['match']:
                     affected_rows += 1
                     continue
-                print ("Writing TO FILE")
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
             swap_files(data_file, temp_file.name)
@@ -3151,11 +3146,8 @@ def method_update(context, query_object):
         affected_rows = 0
         temp_file_prefix="UPDATE"
         data_file=query_object['table'].data.path
-        print("THE UPDATE")
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print("update")
         with open(temp_data_file, 'r') as content_file:
-            print("updating")
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
@@ -3870,7 +3862,7 @@ class flextable:
             if text==None:
                 text=self.text
 
-            fill_character=fill_character.decode('utf-8','ignore')
+    
             if None == text:
                 text=''
             
@@ -3918,7 +3910,6 @@ class flextable:
                     r=u'|'
                     t=u'-'
                     b=u'-'
-                    h=u'='
 
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
@@ -3935,13 +3926,14 @@ class flextable:
                     l=u'╠'
                     r=u'╣'
                 elif style=='rst':
-                    c=u'+'
-                    l=u'+'
-                    r=u'+'
+                    c=u'|'
+                    l=u'|'
+                    r=u'|'
 
                 self.center = flextable.color(text=c,default=default)
                 self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)     
+                self.right  = flextable.color(text=r,default=default)
+        
         class char_bottom:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
@@ -4064,7 +4056,8 @@ class flextable:
                             tab_stop=8,
                             row_height=-1,
                             column_width=-1,
-                            render_color=True
+                            render_color=True,
+                            style='single'
                         ):
         self.column_count=column_count
         self.hide_comments=hide_comments
@@ -4085,6 +4078,7 @@ class flextable:
         self.is_temp_file=False
         self.display_style=display_style
 
+
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
         if column_count>-1 and columns == None:
@@ -4100,14 +4094,16 @@ class flextable:
             self.starts_on=page*length+1
         if self.line>-1:
             self.starts_on=line
+
         if display_style=='rst':
             self.footer=False
             self.header_every=0
-
         self.style=self.flextable_style(style=display_style)
         self.results=[]
         self.data=data
         self.format()
+
+
 
     def calculate_limits(self):
         tty_min_column_width=1
@@ -4128,6 +4124,7 @@ class flextable:
 
         self.total_width=self.column_character_width*data_column_count+data_column_count-1
 
+
     def build_header(self,footer=False,mid=False):
 
         if False==footer:
@@ -4140,7 +4137,7 @@ class flextable:
                 base=self.style.characters.center
                 column=self.style.characters.mid_header
         header=base.left.render(use_color=self.render_color)
-    
+
         column_pad=0
         if None!=column.left.text:
             column_pad+=1
@@ -4174,10 +4171,10 @@ class flextable:
 
         return header
             
-    def build_rows(self,buffer,rst=None):
+    def build_rows(self,buffer):
         rows=[]
         index=0
-        if True == isinstance(buffer,list) or rst==True:
+        if True == isinstance(buffer,list):
             for line in buffer:
                 columns=self.style.characters.walls.left.render(use_color=self.render_color)
                 
@@ -4220,21 +4217,8 @@ class flextable:
             raise Exception ("data is invalid: ->".format(buffer))
 
         return rows
-            
-    def build_rst_spacer(self,header=None):
-        row=self.style.characters.center.left.render(use_color=self.render_color)
-        if header:
-            fill_character='='
-        else:
-            fill_character='-'
-        for c in range(0,self.column_count):
-            row+=self.style.color.default.render('',fill_character=fill_character,use_color=self.render_color,length=self.column_character_width)
-            row+=self.style.characters.center.right.render(use_color=self.render_color)
-        
-        row+=u'{}'.format(flextable.reset.ALL)
 
-        return row
-
+     
     def output(self,text,encode):
         if encode:
             print(text.encode('utf-8'))
@@ -4245,15 +4229,13 @@ class flextable:
         for e in table.errors:
             print(e.encode('utf-8'))
                         
-    def format(self):
+    def format(self,style='single'):
         self.calculate_limits()
         header=self.build_header()
         mid_header=self.build_header(mid=True)
         footer=self.build_header(footer=True)
         rows=self.build_rows(self.data)
-        rst_spacer=self.build_rst_spacer()
-        rst_header_spacer=self.build_rst_spacer(header=True)
-
+        row_seperator=self.build_row_seperator()
         index=1
 
         if sys.version_info.major>2:
@@ -4262,19 +4244,13 @@ class flextable:
             encode=True
 
 
-        if self.display_style=='rst':
-            self.output(rst_spacer,encode)
- 
         if self.header==True:
             self.output(header,encode)
-
-        if self.display_style=='rst':
-            self.output(rst_header_spacer,encode)
 
         for row in rows:
             self.output(row,encode)
             if self.display_style=='rst':
-                self.output(rst_spacer,encode)
+                self.output(row_seperator,encode)
             if self.header_every>0:                
                 if index%self.header_every==0 and len(buffer)-index>self.header_every :
                     self.output(mid_header,encode)
