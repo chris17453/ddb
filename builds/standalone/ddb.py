@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.237'
+__version__='1.1.238'
 
         
         
@@ -3985,8 +3985,8 @@ class flextable:
                     r=u'╞'
                     c=u' '
                 elif style=='rst':
-                    l=u''
-                    r=u''
+                    l=u'|'
+                    r=u'|'
                     c=u' '
                        
                 self.left   = flextable.color(text=l,default=default,foreground='White')

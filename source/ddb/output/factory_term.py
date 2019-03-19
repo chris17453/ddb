@@ -308,8 +308,8 @@ class flextable:
                     r=u'╞'
                     c=u' '
                 elif style=='rst':
-                    l=u'|'
-                    r=u'|'
+                    l=u''
+                    r=u''
                     c=u' '
                        
                 self.left   = flextable.color(text=l,default=default,foreground='White')
