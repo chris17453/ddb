@@ -66,7 +66,7 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='RST'
-        self.user=[]
+        self.user={}
         self.internal['IN_TRANSACTION']=0
         
         # print "Config",config_file
