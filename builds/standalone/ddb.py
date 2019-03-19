@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.187'
+__version__='1.1.188'
 
         
         
@@ -2618,7 +2618,7 @@ def swap_files(path, temp):
         if os.path.exists(path):
             print("File exists")
             print("Removing {0}".format(path))
-            os.move(path)
+            os.remove(path)
         
         if os.path.exists(path):
             raise Exception("Deleting file {0} failed".format(path))
