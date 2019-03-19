@@ -117,7 +117,7 @@ def swap_files(path, temp):
             #temp_base_name=next(tempfile._get_candidate_names())
             #temp_path = os.path.join(temp_dir, temp_base_name)
             print("Removing {0}".format(path))
-            os.move(path)
+            os.remove(path)
         
         if os.path.exists(path):
             raise Exception("Deleting file {0} failed".format(path))
