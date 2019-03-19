@@ -9,7 +9,7 @@ class test_engine(unittest.TestCase):
     temp_data = 'MOCK_DATA.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))
     table_name = 'test'
-    debug=True
+    debug=False
     def cleanup(self):
         # print ("#--->Fresh init")
         config_file = os.path.join(self.basedir, self.temp_config)
