@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.215'
+__version__='1.1.216'
 
         
         
@@ -4220,11 +4220,11 @@ class flextable:
 
     def build_row_seperator(self):
         index=0
-        row=self.style.characters.edge.render(use_color=self.render_color)
+        row=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
         for i in range(0,self.column_count):
-            row+=self.style.color.comment.render('',fill_character=self.style.characters.rst.row,use_color=self.render_color,length=self.column_character_width)
+            row+=self.style.color.data.render('',fill_character=self.style.characters.rst.row,use_color=self.render_color,length=self.column_character_width)
 
-        row+=self.style.characters.edge.render(use_color=self.render_color)
+        row+=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
         return row
      
     def output(self,text,encode):
