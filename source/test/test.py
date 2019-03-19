@@ -186,6 +186,33 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
 
 
+    def test_set(self):
+        """Set a database variable """
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            
+            self.system['AUTOCOMMIT']=0
+            self.system['OUTPUT']='TERM'
+            self.system['TERM_OUTPUT_HEADER']=True
+            self.system['TERM_OUTPUT_MID']=False
+            self.system['TERM_OUTPUT_FOOTER']=True
+            
+            results = engine.query("set AUTOCOMMIT=1".format(self.table_name))
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT=YAML".format(self.table_name))
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT=TERM_RST".format(self.table_name))
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT=TERM_SINGLE".format(self.table_name))
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT=TERM_DOUBLE".format(self.table_name))
+            self.assertEqual(True, results.success)
+            
+        except Exception as ex:
+            print(ex)
+            self.fail(ex)
+
 if __name__ == '__main__':
     unittest.main()
 
