@@ -1,5 +1,5 @@
 import tempfile  # from table import table
-from .record_core import process_line, swap_files, query_results
+from .record_core import process_line, swap_files, query_results, create_temporary_copy
 
 def method_insert(context, query_object):
     try:

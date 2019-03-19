@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.167'
+__version__='1.1.168'
 
         
         
@@ -2662,7 +2662,7 @@ def method_delete(context, query_object):
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
@@ -2677,6 +2677,7 @@ def method_delete(context, query_object):
         return  query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
         return  query_results(success=False, error=ex)
+
 
 
         
@@ -2706,10 +2707,12 @@ def method_insert(context, query_object):
         line_number = 1
         affected_rows = 0
         requires_new_line = False
-        temp_file_name = "INS_" + next(tempfile._get_candidate_names())
         
-        with open(query_object['table'].data.path, 'r') as content_file:
-            with open(temp_file_name, 'w') as temp_file:
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+
+        with open(temp_data_file, 'r') as content_file:
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
@@ -3131,7 +3134,7 @@ def method_update(context, query_object):
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
