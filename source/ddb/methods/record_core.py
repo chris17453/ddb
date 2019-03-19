@@ -112,6 +112,7 @@ def create_temporary_copy(path,prefix):
 def swap_files(path, temp):
     try:
         if os.path.exists(path):
+            temp_dir = tempfile.gettempdir()
             temp_base_name=next(tempfile._get_candidate_names())
             temp_path = os.path.join(temp_dir, temp_base_name)
             os.rename(path,temp_base_name)
