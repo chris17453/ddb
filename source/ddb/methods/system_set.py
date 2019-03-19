@@ -5,7 +5,7 @@ def method_system_set(context, query_object):
     try:
         #print query_object
         for item in query_object['meta']['set']:
-            var_type=query_object['type']
+            var_type=query_object['meta']['set']['type']
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
