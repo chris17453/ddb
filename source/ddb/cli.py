@@ -21,7 +21,7 @@ def cli_main():
     # actions
     parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
     parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default= 'term')
+    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
     parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
     parser.add_argument('query', help='query to return data', nargs= "?")
 
@@ -53,7 +53,8 @@ def cli_main():
             results = e.query(query)
             if results.success==True:
                 #print(results)
-                output_factory(results,output=args.output,output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+
             
             if None==results:
                 exit_code=1

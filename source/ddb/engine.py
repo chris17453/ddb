@@ -52,7 +52,7 @@ class engine:
     
     data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_file=None):
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -63,11 +63,9 @@ class engine:
         self.internal={}
         # variables that can be set by the system
         
-        self.system['AUTOCOMMIT']=0
-        self.system['OUTPUT']='TERM'
-        self.system['TERM_OUTPUT_HEADER']=True
-        self.system['TERM_OUTPUT_MID']=False
-        self.system['TERM_OUTPUT_FOOTER']=True
+        self.system['AUTOCOMMIT']=True
+        self.system['OUTPUT_MODULE']=output
+        self.system['OUTPUT_STYLE']='RST'
         self.internal['IN_TRANSACTION']=0
         
         # print "Config",config_file

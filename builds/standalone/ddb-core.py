@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.253'
+__version__='1.1.254'
 
         
         
@@ -3393,7 +3393,6 @@ def method_update_table(context, query_object):
 def method_system_set(context, query_object):
     context.info("set")
     try:
-        print query_object
         for item in query_object['meta']['set']:
             variable=item['variable']
             value=item['value']
