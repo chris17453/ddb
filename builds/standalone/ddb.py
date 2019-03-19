@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.232'
+__version__='1.1.233'
 
         
         
@@ -2679,6 +2679,7 @@ def method_delete(context, query_object):
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
+            temp_file.flush()
             swap_files(data_file, temp_file.name)
         return  query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
@@ -3158,7 +3159,7 @@ def method_update(context, query_object):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
-                    temp_file.flush()
+                temp_file.flush()
                 swap_files(data_file, temp_file.name)
 
         return query_results(affected_rows=affected_rows,success=True)
