@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.171'
+__version__='1.1.172'
 
         
         
@@ -2623,7 +2623,7 @@ def swap_files(path, temp):
         
         shutil.copy2(temp, path)
 
-    except Exceptopn as ex:
+    except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
 
 class query_results:
