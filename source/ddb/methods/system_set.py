@@ -7,16 +7,19 @@ def method_system_set(context, query_object):
         for item in query_object['meta']['set']:
             variable=item['variable'].upper()
             value=item['value']
-            if variable in context.system:
-                value_up=value.upper()
-                if value_up in ['FALSE,NO']:
-                    value=False
-                elif value_up in ['TRUE,YES']:
-                    value=True
-                elif value_up in ['NULL','NILL','NONE']:
-                    value=None
+            value_up=value.upper()
 
+            if value_up in ['FALSE,NO']:
+                value=False
+            elif value_up in ['TRUE,YES']:
+                value=True
+
+            elif value_up in ['NULL','NILL','NONE']:
+                value=None
+            if variable in context.system:
                 context.system[variable]=value
+            elif len(value_up)>0 and value_up[0]=='@':
+                context.user[variable]=value
             else:
                 raise Exception("Cannot set {0}, not a system variable".format(variable))
         return query_results(success=True)

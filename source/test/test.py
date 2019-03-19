@@ -195,14 +195,26 @@ class test_engine(unittest.TestCase):
             
             results = engine.query("set AUTOCOMMIT=False")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=YAML")
+            results = engine.query("set OUTPUT_MODULE=YAML")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=TERM_RST")
+            results = engine.query("set OUTPUT_MODULE=TERM_RST")
             self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT=TERM_SINGLE")
+            results = engine.query("set OUTPUT_MODULE=TERM_SINGLE")
             self.assertEqual(True, results.success)
+            # Because it doesnt exist
             results = engine.query("set OUTPUT=TERM_DOUBLE")
+            self.assertEqual(False, results.success)
+            # User var test
+            results = engine.query("set @time=1")
             self.assertEqual(True, results.success)
+            results = engine.query("set @light=ON")
+            self.assertEqual(True, results.success)
+            results = engine.query("set @light=OFF")
+            self.assertEqual(True, results.success)
+            results = engine.query("set @config=FALSE")
+            self.assertEqual(True, results.success)
+            
+
 
             results = engine.query("show variables")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
