@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.276'
+__version__='1.1.277'
 
         
         
@@ -3418,7 +3418,6 @@ def method_system_set(context, query_object):
 
         return query_results(success=True)
     except Exception as ex:
-        print(ex)
         return query_results(success=False,error=ex)
 
         
