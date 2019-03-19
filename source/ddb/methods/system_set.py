@@ -33,5 +33,5 @@ def method_system_set(context, query_object):
 
         return query_results(success=True)
     except Exception as ex:
-        print(ex)
+        #print(ex)
         return query_results(success=False,error=ex)
