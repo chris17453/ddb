@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.166'
+__version__='1.1.167'
 
         
         
@@ -2512,6 +2512,8 @@ class engine:
 
 
 
+
+
 def process_line(context, query_object, line, line_number=0):
     err = None
     column_len = query_object['table'].column_count()
@@ -2580,13 +2582,41 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-def swap_files(target, temp):
-    os.remove(target)
-    if os.path.exists(target):
-        raise Exception("Deleting target file {0} failed".format(target))
-    os.rename(temp, target)
-    if os.path.exists(temp):
-        raise Exception("Renaming temp file {0} failed".format(temp))
+
+
+
+
+
+
+
+def create_temporary_copy(path,prefix):
+    try:
+        temp_dir = tempfile.gettempdir()
+        temp_base_name=next(tempfile._get_candidate_names())
+        if prefix:
+            temp_file_name="{0}".format(temp_base_name)
+        else:
+            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
+        
+        temp_path = os.path.join(temp_dir, temp_file_name)
+        shutil.copy2(path, temp_path)
+        
+        return temp_path
+    except Exception as ex:
+        raise Exception("Temp File Error: {0}".format(ex))
+        
+def swap_files(path, temp):
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+        
+        if os.path.exists(path):
+            raise Exception("Deleting file {0} failed".format(path))
+        
+        shutil.copy2(temp, path)
+
+    except Exceptopn as ex:
+        raise Exception("File Error: {0}".format(ex))
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
@@ -2616,6 +2646,7 @@ class query_results:
 
 
 
+
 def method_delete(context, query_object):
     try:
         table_name = query_object['meta']['from']['table']
@@ -2626,9 +2657,12 @@ def method_delete(context, query_object):
 
         line_number = 1
         affected_rows = 0
-        temp_file_name = "del_" + next(tempfile._get_candidate_names())
-        with open(query_object['table'].data.path, 'r') as content_file:
-            with open(temp_file_name, 'w') as temp_file:
+        temp_file_prefix = "del" 
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+
+        with open(temp_data_file, 'r') as content_file:
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
@@ -2644,7 +2678,7 @@ def method_delete(context, query_object):
     except Exception as ex:
         return  query_results(success=False, error=ex)
 
-    
+
         
         
 # ############################################################################
@@ -3091,11 +3125,14 @@ def method_update(context, query_object):
 
 
     
-        temp_file_name = "UP_" + next(tempfile._get_candidate_names())
         line_number = 1
         affected_rows = 0
-        with open(query_object['table'].data.path, 'r') as content_file:
-            with open(temp_file_name, 'w') as temp_file:
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+
+        with open(temp_data_file, 'r') as content_file:
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
+      
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
