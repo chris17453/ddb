@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.256'
+__version__='1.1.257'
 
         
         
@@ -3404,6 +3404,7 @@ def method_system_set(context, query_object):
 
             elif value_up in ['NULL','NILL','NONE']:
                 value=None
+                
             if variable in context.system:
                 context.system[variable]=value
             elif len(value_up)>0 and value_up[0]=='@':

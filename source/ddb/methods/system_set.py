@@ -5,6 +5,7 @@ def method_system_set(context, query_object):
     try:
         #print query_object
         for item in query_object['meta']['set']:
+            var_type=query_object['meta']['type']
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
@@ -16,13 +17,15 @@ def method_system_set(context, query_object):
 
             elif value_up in ['NULL','NILL','NONE']:
                 value=None
-                
-            if variable in context.system:
-                context.system[variable]=value
-            elif len(value_up)>0 and value_up[0]=='@':
+
+            if var_type=='system':
+                if variable in context.system:
+                    context.system[variable]=value
+                else:
+                    raise Exception("Cannot set {0}, not a system variable".format(variable))
+            elif var_type=='user':
                 context.user[variable]=value
-            else:
-                raise Exception("Cannot set {0}, not a system variable".format(variable))
+
         return query_results(success=True)
     except Exception as ex:
         print(ex)
