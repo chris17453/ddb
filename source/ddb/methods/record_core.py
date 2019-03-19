@@ -111,7 +111,7 @@ def create_temporary_copy(path,prefix):
         
 def swap_files(path, temp):
     try:
-        print("Swapping")
+        #print("Swapping")
         if os.path.exists(path):
             # print("File exists")
             #temp_dir = tempfile.gettempdir()
