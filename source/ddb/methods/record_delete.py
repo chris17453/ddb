@@ -1,5 +1,5 @@
 from .record_core import process_line, swap_files, query_results,create_temporary_copy
-
+import tempfile
 
 def method_delete(context, query_object):
     try:
