@@ -61,6 +61,7 @@ def method_update(context, query_object):
         affected_rows = 0
         temp_file_prefix="UPDATE"
         data_file=query_object['table'].data.path
+        print("THE UPDATE")
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
         print("update")
         with open(temp_data_file, 'r') as content_file:
