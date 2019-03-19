@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.184'
+__version__='1.1.185'
 
         
         
@@ -2611,13 +2611,13 @@ def swap_files(path, temp):
             temp_dir = tempfile.gettempdir()
             temp_base_name=next(tempfile._get_candidate_names())
             temp_path = os.path.join(temp_dir, temp_base_name)
-            os.rename(path,temp_base_name)
+            os.rename(path,temp_path)
         
         if os.path.exists(path):
             raise Exception("Deleting file {0} failed".format(path))
         
         shutil.copy2(temp, path)
-        os.remove(temp_base_name)
+        os.remove(temp_path)
 
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
