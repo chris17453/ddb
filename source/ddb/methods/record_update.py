@@ -63,7 +63,7 @@ def method_update(context, query_object):
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
