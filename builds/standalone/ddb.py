@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.225'
+__version__='1.1.226'
 
         
         
@@ -4258,7 +4258,7 @@ class flextable:
             encode=False
         else:
             encode=True
-        self.output('\n',encode)
+        self.output('',encode)
 
         if self.header==True:
             self.output(row_seperator,encode)
