@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.217'
+__version__='1.1.218'
 
         
         
@@ -4218,9 +4218,13 @@ class flextable:
 
         return rows
 
-    def build_row_seperator(self):
+    def build_row_seperator(self,header=None):
         index=0
-        row=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
+        if header:
+            char=self.style.characters.rst.header
+        else:
+            char=self.style.characters.rst.edge
+        row=self.style.color.data.render(char,use_color=self.render_color)
         for i in range(0,self.column_count):
             row+=self.style.color.data.render('',fill_character=self.style.characters.rst.row,use_color=self.render_color,length=self.column_character_width)
             row+=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
@@ -4243,6 +4247,7 @@ class flextable:
         footer=self.build_header(footer=True)
         rows=self.build_rows(self.data)
         row_seperator=self.build_row_seperator()
+        row_header_seperator=self.build_row_seperator(header=True)
         index=1
 
         if sys.version_info.major>2:
@@ -4252,7 +4257,9 @@ class flextable:
 
 
         if self.header==True:
+            self.output(row_seperator,encode)
             self.output(header,encode)
+            self.output(row_header_seperator,encode)
 
         for row in rows:
             self.output(row,encode)
