@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.207'
+__version__='1.1.208'
 
         
         
@@ -2685,6 +2685,7 @@ def method_delete(context, query_object):
             swap_files(data_file, temp_file.name)
         return  query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
+        print(ex)
         return  query_results(success=False, error=ex)
 
 
