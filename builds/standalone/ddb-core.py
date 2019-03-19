@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.275'
+__version__='1.1.276'
 
         
         
@@ -3394,7 +3394,7 @@ def method_system_set(context, query_object):
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
-            print(len(variable)>0 , variable[0])
+            
             if len(variable)>0 and variable[0]=='@':
                 var_type='user'
             else:
