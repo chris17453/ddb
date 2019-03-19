@@ -53,7 +53,7 @@ class tokenizer():
         ]
 
         # standard delimiters
-        delimiters = [',', '.', ';']
+        delimiters = [',', '.', ';','@']
 
         for token in whitespace:
             delimiters.append(token)

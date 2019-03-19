@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.269'
+__version__='1.1.270'
 
         
         
@@ -3397,7 +3397,7 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
-            var_type=query_object['meta']['set']['type']
+            var_type=item['type']
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
