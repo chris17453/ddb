@@ -83,7 +83,8 @@ def select_process_file(context,query_object):
                     data.append(restructured_line)
                 line_number += 1
 
-
+    # remove the temp data file
+    os.remove(temp_data_file)
     # file is closed at this point, proccess the no "FROM" statement
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)

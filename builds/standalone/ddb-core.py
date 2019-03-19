@@ -20,6 +20,8 @@ import fileinput
 import warnings
 import datetime
 import tempfile
+import shutil
+
 try:
     import flextable
 except Exception as ex:
@@ -36,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.247'
+__version__='1.1.248'
 
         
         
