@@ -1,4 +1,0 @@
-main: 
- test: 
-  path: '/home/cwatkin1/repos/chris17453/ddb/source/test/main/test.ddb.yaml'
-  name: 'test'
