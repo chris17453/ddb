@@ -45,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.261'
+__version__='1.1.262'
 
         
         
@@ -3409,9 +3409,9 @@ def method_system_set(context, query_object):
             value=item['value']
             value_up=value.upper()
 
-            if value_up in ['FALSE,NO']:
+            if value_up in ['FALSE','NO']:
                 value=False
-            elif value_up in ['TRUE,YES']:
+            elif value_up in ['TRUE','YES']:
                 value=True
 
             elif value_up in ['NULL','NILL','NONE']:
