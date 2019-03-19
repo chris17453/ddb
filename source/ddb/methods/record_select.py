@@ -60,10 +60,10 @@ def select_process_file(context,query_object):
     if True == has_columns:
         if 'table' in  query_object:
             table= query_object['table']
-            file_path =table.data.path
         else:
             raise Exception ('table configuration has no data file')
-
+        
+        temp_file_prefix="SELECT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
         with open(temp_data_file, 'r') as content_file:
