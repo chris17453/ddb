@@ -59,7 +59,7 @@ def process_line(context, query_object, line, line_number=0):
         else:
             # if a where, only return data, comments/whites/space/errors are ignored
             if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(query_object, line_data,)
+                match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
         if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:
@@ -79,20 +79,6 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-
-
-
-
-#def swap_files(target, temp):
-#    os.remove(target)
-#    if os.path.exists(target):
-#        raise Exception("Deleting target file {0} failed".format(target))
-#    os.rename(temp, target)
-#    if os.path.exists(temp):
-#        raise Exception("Renaming temp file {0} failed".format(temp))
-
-
-
 def create_temporary_copy(path,prefix):
     try:
         temp_dir = tempfile.gettempdir()
@@ -111,7 +97,7 @@ def create_temporary_copy(path,prefix):
         
 def swap_files(path, temp):
     try:
-        #print("Swapping")
+        # WSprint("Swapping")
         if os.path.exists(path):
             # print("File exists")
             #temp_dir = tempfile.gettempdir()

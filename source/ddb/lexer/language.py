@@ -202,6 +202,7 @@ sql_syntax = {
               'name': 'and',
               'optional': True,
               'parent': 'on'},
+
              {'arguments': 1,
               'data': [
                     {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
@@ -301,8 +302,7 @@ sql_syntax = {
              'name': 'set',
              'arguments': 0,
              'data': [
-                  {'vars':{'type':'system' },'sig': ['{variable}', '=', '{value}']},
-                  {'vars':{'type':'user'   },'sig': ['@','{variable}', '=', '{value}']}
+                  {'vars':{'type':'all' },'sig': ['{variable}', '=', '{value}']},
              
              ],
          }]

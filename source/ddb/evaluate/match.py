@@ -2,7 +2,7 @@
 
 class match():
 
-    def evaluate_single_match(self,test, row, table):
+    def evaluate_single_match(self,context,test, row, table):
         
         compare1 = None
         compare2 = None
@@ -117,7 +117,7 @@ class match():
         return False
 
 
-    def evaluate_match(self,query_object, row):
+    def evaluate_match(self,context,query_object, row):
         #print where
         table=query_object['table']
         where=query_object['meta']['where']
@@ -155,7 +155,7 @@ class match():
                     continue
 
             test_operation = test[operation]
-            success = self.evaluate_single_match(test_operation, row, table)
+            success = self.evaluate_single_match(context,test_operation, row, table)
 
         # never matched anytthing...
         if success is None:
