@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.220'
+__version__='1.1.221'
 
         
         
@@ -4223,7 +4223,7 @@ class flextable:
             row+=self.style.characters.rst.edge.render()
 
         if self.render_color==True:
-            columns+=u'{}'.format(flextable.reset.ALL)
+            row+=u'{}'.format(flextable.reset.ALL)
 
         return row
      

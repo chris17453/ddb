@@ -573,7 +573,7 @@ class flextable:
             char=self.style.characters.rst.row.text
         row=self.style.characters.rst.edge.render()
         for i in range(0,self.column_count):
-            row+=self.style.color.data.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
+            row+=self.style.characters.rst.row.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
             row+=self.style.characters.rst.edge.render()
 
         if self.render_color==True:
