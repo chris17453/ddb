@@ -83,6 +83,7 @@ def method_update(context, query_object):
 
         return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
+        print (ex)
         return query_results(success=False,error=ex)
 
 
