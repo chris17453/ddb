@@ -22,6 +22,7 @@ import fileinput
 import warnings
 import datetime
 import tempfile
+import shutil
 import time
 
 from cmd import Cmd
@@ -44,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.247'
+__version__='1.1.248'
 
         
         
