@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.208'
+__version__='1.1.209'
 
         
         
@@ -2646,7 +2646,6 @@ class query_results:
 # Module : methods-records-delete
 # File   : ./source/ddb/methods/record_delete.py
 # ############################################################################
-
 
 
 

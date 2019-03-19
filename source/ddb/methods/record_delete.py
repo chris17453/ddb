@@ -14,13 +14,9 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print ("Writing..")
 
         with open(temp_data_file, 'r') as content_file:
-            print("opened file")
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) 
-            print (temp_file)
-            print("opened other file")
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
@@ -30,7 +26,6 @@ def method_delete(context, query_object):
                 if True == processed_line['match']:
                     affected_rows += 1
                     continue
-                print ("Writing TO FILE")
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
             swap_files(data_file, temp_file.name)
