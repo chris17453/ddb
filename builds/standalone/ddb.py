@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.228'
+__version__='1.1.229'
 
         
         
@@ -2720,7 +2720,7 @@ def method_insert(context, query_object):
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
