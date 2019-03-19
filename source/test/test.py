@@ -9,7 +9,7 @@ class test_engine(unittest.TestCase):
     temp_data = 'MOCK_DATA.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))
     table_name = 'test'
-
+    debug=True
     def cleanup(self):
         # print ("#--->Fresh init")
         config_file = os.path.join(self.basedir, self.temp_config)
@@ -110,7 +110,7 @@ class test_engine(unittest.TestCase):
         """Update a row in the test file"""
         try:
             self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
@@ -132,7 +132,7 @@ class test_engine(unittest.TestCase):
         """Insert a row in the test file"""
         try:
             self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
             self.cleanup()
             # fail on existing table
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
