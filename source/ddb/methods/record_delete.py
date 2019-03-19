@@ -14,9 +14,10 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print ("Writing")
+        print ("Writing..")
 
         with open(temp_data_file, 'r') as content_file:
+            print("opened file")
             with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
