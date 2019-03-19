@@ -577,7 +577,7 @@ class flextable:
             row+=self.style.characters.rst.edge.render()
 
         if self.render_color==True:
-            columns+=u'{}'.format(flextable.reset.ALL)
+            row+=u'{}'.format(flextable.reset.ALL)
 
         return row
      

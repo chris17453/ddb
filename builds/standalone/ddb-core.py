@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.219'
+__version__='1.1.220'
 
         
         
@@ -3923,10 +3923,10 @@ class flextable:
 
         class char_rst:
             def __init__(self,default=None):
-                self.edge   =u'+'
-                self.space  =u' '
-                self.header =u'='
-                self.row    =u'-'
+                self.edge   =flextable.color(text=u'+',default=default)
+                self.space  =flextable.color(text=u' ',default=default)
+                self.header =flextable.color(text=u'=',default=default)
+                self.row    =flextable.color(text=u'-',default=default)
                 
         class char_bottom:
             def __init__(self,default=None,style='rst'):
@@ -4201,7 +4201,8 @@ class flextable:
                     columns=u"{0}{1}{2}".format( left,
                                                 center,
                                                 right)
-                columns+=u'{}'.format(flextable.reset.ALL)
+                if self.render_color==True:
+                    columns+=u'{}'.format(flextable.reset.ALL)
 
                 rows.append(columns)
                 index+=1
@@ -4213,13 +4214,17 @@ class flextable:
     def build_row_seperator(self,header=None):
         index=0
         if header:
-            char=self.style.characters.rst.header
+            char=self.style.characters.rst.header.text
         else:
-            char=self.style.characters.rst.row
-        row=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
+            char=self.style.characters.rst.row.text
+        row=self.style.characters.rst.edge.render()
         for i in range(0,self.column_count):
             row+=self.style.color.data.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
-            row+=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
+            row+=self.style.characters.rst.edge.render()
+
+        if self.render_color==True:
+            columns+=u'{}'.format(flextable.reset.ALL)
+
         return row
      
     def output(self,text,encode):
