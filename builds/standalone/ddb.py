@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.195'
+__version__='1.1.196'
 
         
         
@@ -3151,7 +3151,7 @@ def method_update(context, query_object):
         print("update")
         with open(temp_data_file, 'r') as content_file:
             print("updating")
-            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
