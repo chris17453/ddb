@@ -112,12 +112,15 @@ def create_temporary_copy(path,prefix):
 def swap_files(path, temp):
     try:
         if os.path.exists(path):
-            os.remove(path)
+            temp_base_name=next(tempfile._get_candidate_names())
+            temp_path = os.path.join(temp_dir, temp_base_name)
+            os.rename(path,temp_base_name)
         
         if os.path.exists(path):
             raise Exception("Deleting file {0} failed".format(path))
         
         shutil.copy2(temp, path)
+        os.remove(temp_base_name)
 
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
