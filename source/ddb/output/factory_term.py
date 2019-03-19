@@ -141,7 +141,6 @@ class flextable:
                 color+=flextable.bg.WHITE
         return color
 
-
     class flextable_style:
         def __init__(self,style='rst'):
             self.whitespace=''
