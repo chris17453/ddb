@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.189'
+__version__='1.1.190'
 
         
         
@@ -2676,7 +2676,7 @@ def method_delete(context, query_object):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
-        swap_files(query_object['table'].data.path, temp_file_name)
+                swap_files(data_file, temp_file.name)
         return  query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
         return  query_results(success=False, error=ex)
@@ -2730,7 +2730,7 @@ def method_insert(context, query_object):
                 results = create_single(context,query_object, temp_file, requires_new_line)
                 if True == results:
                     affected_rows += 1
-                swap_files(data_file, temp_file)
+                swap_files(data_file, temp_file.name)
 
         return query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
@@ -3154,7 +3154,7 @@ def method_update(context, query_object):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
-                swap_files(data_file, temp_file)
+                swap_files(data_file, temp_file.name)
 
         return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
