@@ -45,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.268'
+__version__='1.1.269'
 
         
         
@@ -2398,7 +2398,7 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='RST'
-        self.user=[]
+        self.user={}
         self.internal['IN_TRANSACTION']=0
         
         self.database = database(config_file=config_file)
@@ -3404,7 +3404,6 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
-            print(query_object['meta']['set'])
             var_type=query_object['meta']['set']['type']
             variable=item['variable'].upper()
             value=item['value']
