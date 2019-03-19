@@ -49,7 +49,7 @@ def method_select(context, query_object, parser):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         # something blew up. Bail!
-        print ex
+        #print ex
         return query_results(success=False,error=ex)   
 
 
