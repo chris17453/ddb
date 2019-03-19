@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.198'
+__version__='1.1.199'
 
         
         
@@ -2672,6 +2672,7 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        print ("Writing")
 
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
