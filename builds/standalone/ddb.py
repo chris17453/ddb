@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.218'
+__version__='1.1.219'
 
         
         
@@ -4223,10 +4223,10 @@ class flextable:
         if header:
             char=self.style.characters.rst.header
         else:
-            char=self.style.characters.rst.edge
-        row=self.style.color.data.render(char,use_color=self.render_color)
+            char=self.style.characters.rst.row
+        row=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
         for i in range(0,self.column_count):
-            row+=self.style.color.data.render('',fill_character=self.style.characters.rst.row,use_color=self.render_color,length=self.column_character_width)
+            row+=self.style.color.data.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
             row+=self.style.color.data.render(self.style.characters.rst.edge,use_color=self.render_color)
         return row
      
