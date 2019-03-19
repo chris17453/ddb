@@ -9,6 +9,7 @@ def method_system_set(context, query_object):
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
+            print(len(value_up)>0 , value_up[0])
             if len(value_up)>0 and value_up[0]=='@':
                 var_type='user'
             else:
