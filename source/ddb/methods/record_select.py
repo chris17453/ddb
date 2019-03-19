@@ -1,6 +1,7 @@
 from ..functions.functions import *
 from .record_core import process_line, swap_files, query_results
 from ..version import __version__
+import tempfile
 
 
 #used for order by a HACK to be fixed
@@ -47,7 +48,7 @@ def method_select(context, query_object, parser):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         # something blew up. Bail!
-        #print ex
+        print ex
         return query_results(success=False,error=ex)   
 
 
