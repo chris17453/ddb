@@ -203,6 +203,10 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             results = engine.query("set OUTPUT=TERM_DOUBLE".format(self.table_name))
             self.assertEqual(True, results.success)
+
+            results = engine.query("show variables")
+            ddb.output.factory.output_factory(query_results=results,output='TERM')
+            self.assertEqual(True, results.success)
             
         except Exception as ex:
             print(ex)
