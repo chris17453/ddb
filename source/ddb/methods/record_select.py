@@ -63,7 +63,10 @@ def select_process_file(context,query_object):
             file_path =table.data.path
         else:
             raise Exception ('table configuration has no data file')
-        with open(file_path, 'r') as content_file:
+
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        with open(temp_data_file, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
 

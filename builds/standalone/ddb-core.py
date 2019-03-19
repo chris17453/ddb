@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.240'
+__version__='1.1.241'
 
         
         
@@ -3815,7 +3815,6 @@ class flextable:
             if  background.upper() == 'WHITE' :
                 color+=flextable.bg.WHITE
         return color
-
 
     class flextable_style:
         def __init__(self,style='rst'):
