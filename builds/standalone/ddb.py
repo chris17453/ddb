@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.169'
+__version__='1.1.170'
 
         
         
@@ -2665,7 +2665,7 @@ def method_delete(context, query_object):
 
         line_number = 1
         affected_rows = 0
-        temp_file_prefix = "del" 
+        temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
@@ -2716,6 +2716,7 @@ def method_insert(context, query_object):
         affected_rows = 0
         requires_new_line = False
         
+        temp_file_prefix="INSERT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
