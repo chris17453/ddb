@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.173'
+__version__='1.1.174'
 
         
         
@@ -2603,6 +2603,7 @@ def create_temporary_copy(path,prefix):
         
         return temp_path
     except Exception as ex:
+        print ex
         raise Exception("Temp File Error: {0}".format(ex))
         
 def swap_files(path, temp):
@@ -2616,7 +2617,6 @@ def swap_files(path, temp):
         shutil.copy2(temp, path)
 
     except Exception as ex:
-        print(ex)
         raise Exception("File Error: {0}".format(ex))
 
 class query_results:
