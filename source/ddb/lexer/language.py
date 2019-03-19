@@ -300,7 +300,11 @@ sql_syntax = {
          'switch': [{
              'name': 'set',
              'arguments': 0,
-             'data': [{'sig': ['{variable}', '=', '{value}']}],
+             'data': [
+                  {'vars':{'type':'system' },'sig': ['{variable}', '=', '{value}']},
+                  {'vars':{'type':'user'   },'sig': ['@','{variable}', '=', '{value}']}
+             
+             ],
          }]
          },
         {'query': 'begin',
