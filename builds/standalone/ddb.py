@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.191'
+__version__='1.1.192'
 
         
         
@@ -2615,6 +2615,7 @@ def create_temporary_copy(path,prefix):
         
 def swap_files(path, temp):
     try:
+        print("Swapping")
         if os.path.exists(path):
             print("File exists")
             print("Removing {0}".format(path))
