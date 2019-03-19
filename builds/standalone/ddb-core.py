@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.257'
+__version__='1.1.258'
 
         
         
@@ -338,7 +338,11 @@ sql_syntax = {
          'switch': [{
              'name': 'set',
              'arguments': 0,
-             'data': [{'sig': ['{variable}', '=', '{value}']}],
+             'data': [
+                  {'vars':{'type':'system' },'sig': ['{variable}', '=', '{value}']},
+                  {'vars':{'type':'user'   },'sig': ['@','{variable}', '=', '{value}']}
+             
+             ],
          }]
          },
         {'query': 'begin',
@@ -3393,6 +3397,7 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
+            var_type=query_object['meta']['type']
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
@@ -3404,13 +3409,15 @@ def method_system_set(context, query_object):
 
             elif value_up in ['NULL','NILL','NONE']:
                 value=None
-                
-            if variable in context.system:
-                context.system[variable]=value
-            elif len(value_up)>0 and value_up[0]=='@':
+
+            if var_type=='system':
+                if variable in context.system:
+                    context.system[variable]=value
+                else:
+                    raise Exception("Cannot set {0}, not a system variable".format(variable))
+            elif var_type=='user':
                 context.user[variable]=value
-            else:
-                raise Exception("Cannot set {0}, not a system variable".format(variable))
+
         return query_results(success=True)
     except Exception as ex:
         print(ex)
