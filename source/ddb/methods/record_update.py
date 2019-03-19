@@ -57,12 +57,14 @@ def method_update(context, query_object):
 
 
     
-        temp_file_name = "UP_" + next(tempfile._get_candidate_names())
         line_number = 1
         affected_rows = 0
-        # process file
-        with open(query_object['table'].data.path, 'r') as content_file:
-            with open(temp_file_name, 'w') as temp_file:
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+
+        with open(temp_data_file, 'r') as content_file:
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
+      
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:

@@ -1,35 +1,5 @@
 from .record_core import process_line, swap_files, query_results
-import tempfile, shutil, os
 
-
-def create_temporary_copy(path,prefix):
-    try:
-        temp_dir = tempfile.gettempdir()
-        temp_base_name=next(tempfile._get_candidate_names())
-        if prefix:
-            temp_file_name="{0}".format(temp_base_name)
-        else:
-            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
-        
-        temp_path = os.path.join(temp_dir, temp_file_name)
-        shutil.copy2(path, temp_path)
-        
-        return temp_path
-    except Exception as ex:
-        raise Exception("Temp File Error: {0}".format(ex))
-        
-def swap_files(target, temp):
-    try:
-        if os.path.exists(target):
-            os.remove(target)
-        
-        if os.path.exists(target):
-            raise Exception("Deleting target file {0} failed".format(target))
-        
-        shutil.copy2(temp, target)
-
-    except Exceptopn as ex:
-        raise Exception("File Error: {0}".format(ex))
 
 def method_delete(context, query_object):
     try:
@@ -42,14 +12,11 @@ def method_delete(context, query_object):
         line_number = 1
         affected_rows = 0
         temp_file_prefix = "del" 
-
-        # process file
-        #copy soure file to temp file...
-       data_file=query_object['table'].data.path
-       temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        data_file=query_object['table'].data.path
+        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
         with open(temp_data_file, 'r') as content_file:
-            with temp_file=tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True)
+            with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
@@ -66,4 +33,3 @@ def method_delete(context, query_object):
     except Exception as ex:
         return  query_results(success=False, error=ex)
 
-    
