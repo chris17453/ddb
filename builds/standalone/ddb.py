@@ -44,7 +44,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.214'
+__version__='1.1.215'
 
         
         
@@ -3929,7 +3929,7 @@ class flextable:
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=r,default=default)
 
-        class rst:
+        class char_rst:
             def __init__(self,default=None):
                 self.edge   =u'+'
                 self.space  =u' '
