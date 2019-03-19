@@ -45,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.254'
+__version__='1.1.255'
 
         
         
@@ -2381,7 +2381,7 @@ class engine:
     
     data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
 
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='term',output_file=None):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_file=None):
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -2391,11 +2391,9 @@ class engine:
         self.system={}
         self.internal={}
         
-        self.system['AUTOCOMMIT']=0
-        self.system['OUTPUT']='TERM'
-        self.system['TERM_OUTPUT_HEADER']=True
-        self.system['TERM_OUTPUT_MID']=False
-        self.system['TERM_OUTPUT_FOOTER']=True
+        self.system['AUTOCOMMIT']=True
+        self.system['OUTPUT_MODULE']=output
+        self.system['OUTPUT_STYLE']='RST'
         self.internal['IN_TRANSACTION']=0
         
         self.database = database(config_file=config_file)
@@ -3401,9 +3399,17 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
-            variable=item['variable']
+            variable=item['variable'].upper()
             value=item['value']
             if variable in context.system:
+                value_up=value.upper()
+                if value_up in ['FALSE,NO']:
+                    value=False
+                elif value_up in ['TRUE,YES']:
+                    value=True
+                elif value_up in ['NULL','NILL','NONE']:
+                    value=None
+
                 context.system[variable]=value
             else:
                 raise Exception("Cannot set {0}, not a system variable".format(variable))
@@ -5008,7 +5014,7 @@ def cli_main():
 
     parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
     parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default= 'term')
+    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
     parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
     parser.add_argument('query', help='query to return data', nargs= "?")
 
@@ -5036,7 +5042,8 @@ def cli_main():
                             output_file=args.file)
             results = e.query(query)
             if results.success==True:
-                output_factory(results,output=args.output,output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+
             
             if None==results:
                 exit_code=1
