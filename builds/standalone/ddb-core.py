@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.263'
+__version__='1.1.264'
 
         
         
@@ -3404,7 +3404,7 @@ def method_system_set(context, query_object):
             null_array=['NULL','NILL','NONE']
             false_array=['FALSE','NO']
             true_array=['TRUE','YES']
-            if value_up in false_array
+            if value_up in false_array:
                 value=False
             elif value_up in true_array:
                 value=True
