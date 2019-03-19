@@ -1,5 +1,8 @@
 import os
+import tempfile, shutil
 from pprint import pprint
+
+
 def process_line(context, query_object, line, line_number=0):
     err = None
     column_len = query_object['table'].column_count()
@@ -76,13 +79,48 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-def swap_files(target, temp):
-    os.remove(target)
-    if os.path.exists(target):
-        raise Exception("Deleting target file {0} failed".format(target))
-    os.rename(temp, target)
-    if os.path.exists(temp):
-        raise Exception("Renaming temp file {0} failed".format(temp))
+
+
+
+
+#def swap_files(target, temp):
+#    os.remove(target)
+#    if os.path.exists(target):
+#        raise Exception("Deleting target file {0} failed".format(target))
+#    os.rename(temp, target)
+#    if os.path.exists(temp):
+#        raise Exception("Renaming temp file {0} failed".format(temp))
+
+
+
+def create_temporary_copy(path,prefix):
+    try:
+        temp_dir = tempfile.gettempdir()
+        temp_base_name=next(tempfile._get_candidate_names())
+        if prefix:
+            temp_file_name="{0}".format(temp_base_name)
+        else:
+            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
+        
+        temp_path = os.path.join(temp_dir, temp_file_name)
+        shutil.copy2(path, temp_path)
+        
+        return temp_path
+    except Exception as ex:
+        raise Exception("Temp File Error: {0}".format(ex))
+        
+def swap_files(path, temp):
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+        
+        if os.path.exists(path):
+            raise Exception("Deleting file {0} failed".format(path))
+        
+        shutil.copy2(temp, path)
+
+    except Exceptopn as ex:
+        raise Exception("File Error: {0}".format(ex))
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
