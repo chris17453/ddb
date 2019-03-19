@@ -19,7 +19,7 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
-    def atest_use(self):
+    def test_use(self):
         """Test changing database context"""
         try:
             # single db change from default
@@ -33,7 +33,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def atest_create_table(self):
+    def test_create_table(self):
         """Test creating a table"""
         try:
             self.cleanup()
@@ -48,7 +48,7 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def atest_drop_table(self):
+    def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
@@ -66,7 +66,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def atest_select(self):
+    def test_select(self):
         """Test selecting results using various clauses a table"""
         try:
             self.cleanup()
@@ -105,7 +105,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def atest_update(self):
+    def test_update(self):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -127,7 +127,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def atest_insert(self):
+    def test_insert(self):
         """Insert a row in the test file"""
         try:
             self.cleanup()
