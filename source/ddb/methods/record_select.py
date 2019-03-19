@@ -1,5 +1,5 @@
 from ..functions.functions import *
-from .record_core import process_line, swap_files, query_results
+from .record_core import process_line, swap_files, query_results, create_temporary_copy
 from ..version import __version__
 import tempfile
 
