@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.255'
+__version__='1.1.256'
 
         
         
@@ -2387,6 +2387,7 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='RST'
+        self.user=[]
         self.internal['IN_TRANSACTION']=0
         
         self.database = database(config_file=config_file)
@@ -3394,16 +3395,19 @@ def method_system_set(context, query_object):
         for item in query_object['meta']['set']:
             variable=item['variable'].upper()
             value=item['value']
-            if variable in context.system:
-                value_up=value.upper()
-                if value_up in ['FALSE,NO']:
-                    value=False
-                elif value_up in ['TRUE,YES']:
-                    value=True
-                elif value_up in ['NULL','NILL','NONE']:
-                    value=None
+            value_up=value.upper()
 
+            if value_up in ['FALSE,NO']:
+                value=False
+            elif value_up in ['TRUE,YES']:
+                value=True
+
+            elif value_up in ['NULL','NILL','NONE']:
+                value=None
+            if variable in context.system:
                 context.system[variable]=value
+            elif len(value_up)>0 and value_up[0]=='@':
+                context.user[variable]=value
             else:
                 raise Exception("Cannot set {0}, not a system variable".format(variable))
         return query_results(success=True)
@@ -3541,10 +3545,13 @@ def method_system_show_variables(context, query_object):
     context.info("show variables")
     try:
          
-        temp_table = context.database.temp_table(columns=['name','value'])
+        temp_table = context.database.temp_table(columns=['type','name','value'])
 
         for c in context.system:
-            columns = {'data': [c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
+            columns = {'data': ['system',c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
+            temp_table.append_data(columns)
+        for c in context.user:
+            columns = {'data': ['user',c,context.user[c]], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(columns)
         
         return query_results(success=True,data=temp_table)
