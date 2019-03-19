@@ -126,6 +126,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
 
         except Exception as ex:
+            print(ex)
             self.fail(ex)
 
     def test_insert(self):
