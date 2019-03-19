@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.262'
+__version__='1.1.263'
 
         
         
@@ -3401,13 +3401,15 @@ def method_system_set(context, query_object):
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
-
-            if value_up in ['FALSE','NO']:
+            null_array=['NULL','NILL','NONE']
+            false_array=['FALSE','NO']
+            true_array=['TRUE','YES']
+            if value_up in false_array
                 value=False
-            elif value_up in ['TRUE','YES']:
+            elif value_up in true_array:
                 value=True
 
-            elif value_up in ['NULL','NILL','NONE']:
+            elif value_up in null_array:
                 value=None
 
             if var_type=='system':
