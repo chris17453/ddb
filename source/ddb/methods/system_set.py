@@ -5,10 +5,14 @@ def method_system_set(context, query_object):
     try:
         #print query_object
         for item in query_object['meta']['set']:
-            var_type=item['type']
+            
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
+            if len(value_up)>0 and value_up[0]=='@':
+                var_type='user'
+            else:
+                var_type='system'
 
             if value_up in ['FALSE','NO']:
                 value=False

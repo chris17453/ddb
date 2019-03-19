@@ -213,15 +213,12 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             results = engine.query("set @config=FALSE")
             self.assertEqual(True, results.success)
-            
-
 
             results = engine.query("show variables")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
             
         except Exception as ex:
-            print(ex)
             self.fail(ex)
 
 if __name__ == '__main__':
