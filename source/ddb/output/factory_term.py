@@ -608,7 +608,7 @@ class flextable:
             encode=False
         else:
             encode=True
-        self.output('\n',encode)
+        self.output('',encode)
 
         if self.header==True:
             self.output(row_seperator,encode)
