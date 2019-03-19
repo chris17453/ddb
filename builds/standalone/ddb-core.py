@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.272'
+__version__='1.1.273'
 
         
         
@@ -1109,7 +1109,7 @@ class tokenizer():
             ')',  # right paren  (grouping)
         ]
 
-        delimiters = [',', '.', ';','@']
+        delimiters = [',', '.', ';']
 
         for token in whitespace:
             delimiters.append(token)
