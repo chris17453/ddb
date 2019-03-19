@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.172'
+__version__='1.1.173'
 
         
         
@@ -2616,6 +2616,7 @@ def swap_files(path, temp):
         shutil.copy2(temp, path)
 
     except Exception as ex:
+        print(ex)
         raise Exception("File Error: {0}".format(ex))
 
 class query_results:
