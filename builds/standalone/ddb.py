@@ -45,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.271'
+__version__='1.1.272'
 
         
         
@@ -247,6 +247,7 @@ sql_syntax = {
               'name': 'and',
               'optional': True,
               'parent': 'on'},
+
              {'arguments': 1,
               'data': [
                     {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
@@ -346,8 +347,7 @@ sql_syntax = {
              'name': 'set',
              'arguments': 0,
              'data': [
-                  {'vars':{'type':'system' },'sig': ['{variable}', '=', '{value}']},
-                  {'vars':{'type':'user'   },'sig': ['@','{variable}', '=', '{value}']}
+                  {'vars':{'type':'all' },'sig': ['{variable}', '=', '{value}']},
              
              ],
          }]
@@ -2150,7 +2150,7 @@ class database:
 
 class match():
 
-    def evaluate_single_match(self,test, row, table):
+    def evaluate_single_match(self,context,test, row, table):
         
         compare1 = None
         compare2 = None
@@ -2247,7 +2247,7 @@ class match():
         return False
 
 
-    def evaluate_match(self,query_object, row):
+    def evaluate_match(self,context,query_object, row):
         table=query_object['table']
         where=query_object['meta']['where']
         if None == row:
@@ -2281,7 +2281,7 @@ class match():
                     continue
 
             test_operation = test[operation]
-            success = self.evaluate_single_match(test_operation, row, table)
+            success = self.evaluate_single_match(context,test_operation, row, table)
 
         if success is None:
             return False
@@ -2575,7 +2575,7 @@ def process_line(context, query_object, line, line_number=0):
             match_results = True
         else:
             if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(query_object, line_data,)
+                match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
         if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:
@@ -2594,13 +2594,6 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-
-
-
-
-
-
-
 def create_temporary_copy(path,prefix):
     try:
         temp_dir = tempfile.gettempdir()
@@ -3404,10 +3397,14 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
-            var_type=item['type']
+            
             variable=item['variable'].upper()
             value=item['value']
             value_up=value.upper()
+            if len(value_up)>0 and value_up[0]=='@':
+                var_type='user'
+            else:
+                var_type='system'
 
             if value_up in ['FALSE','NO']:
                 value=False
