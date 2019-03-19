@@ -38,7 +38,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.248'
+__version__='1.1.249'
 
         
         
@@ -2844,7 +2844,7 @@ def select_process_file(context,query_object):
                     data.append(restructured_line)
                 line_number += 1
 
-
+    os.remove(temp_data_file)
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
         data.append(row)
