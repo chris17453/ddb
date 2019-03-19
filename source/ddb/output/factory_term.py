@@ -211,7 +211,6 @@ class flextable:
             self.edit     =flextable.color('cyan'       ,default=self.default)
             self.disabled =flextable.color('dark gray'  ,default=self.default)
 
-
     class characters:
         class char_walls:
             
@@ -254,7 +253,14 @@ class flextable:
                 self.center = flextable.color(text=c,default=default)
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=r,default=default)
-        
+
+        class rst:
+            def __init__(self,default=None):
+                self.edge   =u'+'
+                self.space  =u' '
+                self.header =u'='
+                self.row    =u'-'
+                
         class char_bottom:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
@@ -355,6 +361,7 @@ class flextable:
             self.mid_header =self.char_mid_header(default=default,style=style)
             self.header     =self.char_header(default=default,style=style)
             self.footer     =self.char_footer(default=default,style=style)
+            self.rst        =self.char_rst(default=default)
 
 
 
@@ -426,8 +433,6 @@ class flextable:
         self.data=data
         self.format()
 
-
-
     def calculate_limits(self):
         tty_min_column_width=1
         # doesnt work with pipes. ugh
@@ -456,7 +461,6 @@ class flextable:
 
 
         self.total_width=self.column_character_width*data_column_count+data_column_count-1
-
 
     def build_header(self,footer=False,mid=False):
         # header
@@ -560,6 +564,14 @@ class flextable:
 
         return rows
 
+    def build_row_seperator(self):
+        index=0
+        row=self.style.characters.edge.render(use_color=self.render_color)
+        for i in range(0,self.column_count):
+            row+=self.style.color.comment.render('',fill_character=self.style.characters.rst.row,use_color=self.render_color,length=self.column_character_width)
+
+        row+=self.style.characters.edge.render(use_color=self.render_color)
+        return row
      
     def output(self,text,encode):
         if encode:
