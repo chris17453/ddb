@@ -20,6 +20,7 @@ def method_insert(context, query_object):
         # process file
         requires_new_line = False
         
+        temp_file_prefix="INSERT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 

@@ -1,4 +1,4 @@
-from .record_core import process_line, swap_files, query_results
+from .record_core import process_line, swap_files, query_results,create_temporary_copy
 
 
 def method_delete(context, query_object):
@@ -11,7 +11,7 @@ def method_delete(context, query_object):
 
         line_number = 1
         affected_rows = 0
-        temp_file_prefix = "del" 
+        temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
 
