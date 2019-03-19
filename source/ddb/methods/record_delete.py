@@ -19,6 +19,7 @@ def method_delete(context, query_object):
         with open(temp_data_file, 'r') as content_file:
             print("opened file")
             with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
+                print("opened other file")
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
