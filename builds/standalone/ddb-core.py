@@ -36,7 +36,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.192'
+__version__='1.1.193'
 
         
         
@@ -3159,6 +3159,7 @@ def method_update(context, query_object):
 
         return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
+        print (ex)
         return query_results(success=False,error=ex)
 
 

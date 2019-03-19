@@ -62,8 +62,9 @@ def method_update(context, query_object):
         temp_file_prefix="UPDATE"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-
+        print("update")
         with open(temp_data_file, 'r') as content_file:
+            print("updating")
             with tempfile.NamedTemporaryFile(mode='w+b', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
@@ -83,7 +84,7 @@ def method_update(context, query_object):
 
         return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
-        print (ex)
+        #print (ex)
         return query_results(success=False,error=ex)
 
 
