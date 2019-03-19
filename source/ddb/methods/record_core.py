@@ -104,10 +104,9 @@ def create_temporary_copy(path,prefix):
         
         temp_path = os.path.join(temp_dir, temp_file_name)
         shutil.copy2(path, temp_path)
-        
+        print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
     except Exception as ex:
-        print ex
         raise Exception("Temp File Error: {0}".format(ex))
         
 def swap_files(path, temp):
