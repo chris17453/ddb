@@ -45,7 +45,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.267'
+__version__='1.1.268'
 
         
         
@@ -3404,6 +3404,7 @@ def method_system_set(context, query_object):
     context.info("set")
     try:
         for item in query_object['meta']['set']:
+            print(query_object['meta']['set'])
             var_type=query_object['meta']['set']['type']
             variable=item['variable'].upper()
             value=item['value']
@@ -3422,10 +3423,12 @@ def method_system_set(context, query_object):
                     context.system[variable]=value
                 else:
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
+            elif var_type=='user':
+                context.user[variable]=value
 
         return query_results(success=True)
     except Exception as ex:
-        print("g",ex)
+        print(ex)
         return query_results(success=False,error=ex)
 
         
