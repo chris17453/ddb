@@ -42,6 +42,7 @@ def method_insert(context, query_object):
                 results = create_single(context,query_object, temp_file, requires_new_line)
                 if True == results:
                     affected_rows += 1
+                temp_file.flush()
                 swap_files(data_file, temp_file.name)
 
         return query_results(success=True,affected_rows=affected_rows)
