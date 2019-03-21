@@ -121,65 +121,65 @@ class engine:
             raise Exception("Invalid SQL")
 
         start = time.clock()
-        try:
-            for query_object in parser.query_objects:
-                self.info("Engine: query_object", query_object)
-                #print  query_object
-                # exit(9)
-                # get columns, doesnt need a table
-                # print query_object['mode']
-                mode=query_object['mode']
+        for query_object in parser.query_objects:
+            self.info("Engine: query_object", query_object)
+            #print  query_object
+            # exit(9)
+            # get columns, doesnt need a table
+            # print query_object['mode']
+            mode=query_object['mode']
+            
+            # RECORDS
+            if mode == 'select':
+                self.results = method_select(self,query_object, parser)
+            
+            elif mode == 'insert':
+                self.results = method_insert(self,query_object)
+
+            elif mode == 'update':
+                self.results = method_update(self,query_object)
+            
+            elif mode == 'delete':
+                self.results = method_delete(self,query_object)
+
+            elif mode == 'use':
+                self.results = method_use(self,query_object)
+
+            # TABLE 
+            elif mode == 'drop':
+                self.results = method_drop_table(self,query_object)
+
+            elif mode == 'create':
+                self.results = method_create_table(self,query_object)
+
+            elif mode == 'update table':
+                self.results = method_update_table(self,query_object)
+
+            # SYSTEM 
+            elif mode == 'set':
+                self.results = method_system_set(self,query_object)
+
+            elif mode == 'begin':
+                self.results = method_system_begin(self,query_object)
+
+            elif mode == 'rollback':
+                self.results = method_system_rollback(self,query_object)
+
+            elif mode == 'commit':
+                self.results = method_system_commit(self,query_object)
+
+            elif mode == "show tables":
+                self.results = method_system_show_tables(self,self.database)
+
+            elif mode == "show columns":
+                self.results = method_system_show_columns(self,self.database, query_object)
+
+            elif mode == "show variables":
+                self.results = method_system_show_variables(self, query_object)
+
+            if False==self.results.success:
                 
-                # RECORDS
-                if mode == 'select':
-                    self.results = method_select(self,query_object, parser)
-                
-                elif mode == 'insert':
-                    self.results = method_insert(self,query_object)
-
-                elif mode == 'update':
-                    self.results = method_update(self,query_object)
-                
-                elif mode == 'delete':
-                    self.results = method_delete(self,query_object)
-
-                elif mode == 'use':
-                    self.results = method_use(self,query_object)
-
-                # TABLE 
-                elif mode == 'drop':
-                    self.results = method_drop_table(self,query_object)
-
-                elif mode == 'create':
-                    self.results = method_create_table(self,query_object)
-
-                elif mode == 'update table':
-                    self.results = method_update_table(self,query_object)
-
-                # SYSTEM 
-                elif mode == 'set':
-                    self.results = method_system_set(self,query_object)
-
-                elif mode == 'begin':
-                    self.results = method_system_begin(self,query_object)
-
-                elif mode == 'rollback':
-                    self.results = method_system_rollback(self,query_object)
-
-                elif mode == 'commit':
-                    self.results = method_system_commit(self,query_object)
-
-                elif mode == "show tables":
-                    self.results = method_system_show_tables(self,self.database)
-
-                elif mode == "show columns":
-                    self.results = method_system_show_columns(self,self.database, query_object)
-
-                elif mode == "show variables":
-                    self.results = method_system_show_variables(self, query_object)
-        except Exception as ex:
-            print ("ERROR")
-            pass
+                break
             #if mode=="show errors":
             #    self.results=method_show_errors(self,self.database,self.table)
             #else:
