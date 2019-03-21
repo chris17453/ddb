@@ -28,7 +28,7 @@ def method_system_set(context, query_object):
                     context.system[variable]=value
                     # if it has an auto trigger, lets call it...
                     if variable in context.system_trigger:
-                        context.system_trigger[context.system_trigger]()
+                        context.system_trigger[variable]()
                 else:
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
