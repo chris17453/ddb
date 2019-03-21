@@ -230,6 +230,7 @@ class database:
             temp_table = table(table_config_file=t)
             # Dont add tables that are inactive...
             if temp_table.active == False:
+                print (temp_table.active)
                 warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
                 warnings.warn(message=warn_msg)
                 continue
