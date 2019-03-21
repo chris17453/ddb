@@ -54,7 +54,8 @@ def cli_main():
             if results.success==True:
                 #print(results)
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
-            
+            else:
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
             
             if None==results:
                 exit_code=1
