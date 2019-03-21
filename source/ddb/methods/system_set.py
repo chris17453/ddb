@@ -15,9 +15,9 @@ def method_system_set(context, query_object):
             else:
                 var_type='system'
 
-            if value_up in ['FALSE','NO']:
+            if value_up in ['FALSE','NO',"OFF"]:
                 value=False
-            elif value_up in ['TRUE','YES']:
+            elif value_up in ['TRUE','YES',"ON"]:
                 value=True
 
             elif value_up in ['NULL','NILL','NONE']:
