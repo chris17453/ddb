@@ -47,6 +47,7 @@ class table:
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
                 #print yaml_data
+                print (yaml_data)
                 for key in yaml_data:
                     if 'version' == key:
                         self.version = yaml_data[key]
