@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.294'
+__version__='1.1.295'
 
         
         
@@ -2383,7 +2383,7 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
-        self.system_trigger=[]
+        self.system_trigger={}
         self.internal={}
         
         self.system['DEBUG']=False
