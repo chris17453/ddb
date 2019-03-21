@@ -49,7 +49,7 @@ def src_build():
     ]    
 
 
-    ansible_files=[{'name':'ddb-ansible-module','file':source_dir+'/ansible/ddb-ansible.py'}]+standalone_files.copy()
+    ansible_files=[{'name':'ddb-ansible-module','file':source_dir+'/ansible/ddb-ansible.py'}]+standalone_files
 
     core_headers="""# -*- coding: utf-8 -*-
 # ############################################################################
