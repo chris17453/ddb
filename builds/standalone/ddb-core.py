@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.292'
+__version__='1.1.293'
 
         
         
@@ -2383,7 +2383,7 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
-        self.system_trigger={}
+        system_trigger={}
         self.internal={}
         
         self.system['DEBUG']=False
@@ -3429,7 +3429,7 @@ def method_system_set(context, query_object):
                     if variable in context.system_trigger:
                         context.system_trigger[context.system_trigger]()
                 else:
-                    print ("EH")
+                    print("NOT FOUND")
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
                 context.user[variable]=value
