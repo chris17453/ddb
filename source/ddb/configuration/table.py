@@ -47,7 +47,7 @@ class table:
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
                 #print yaml_data
-                print (yaml_data)
+                
                 for key in yaml_data:
                     if 'version' == key:
                         self.version = yaml_data[key]
@@ -77,6 +77,7 @@ class table:
 
                     if 'active' == key:
                         self.active = yaml_data[key]
+                        print ( yaml_data[key])
 
                     # attr=getattr(self,key)
                     # setattr(self,key,yaml_data[key])
