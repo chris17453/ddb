@@ -62,7 +62,8 @@ from ansible.module_utils.basic import AnsibleModule
 def run_module():
     # define available arguments/parameters a user can pass to the module
     module_args = dict(
-        query=dict(type='str', required=True),
+        query=dict(type='list', required=True),
+        
     )
 
     result = dict(
@@ -83,7 +84,7 @@ def run_module():
     e=engine()
     query=module.params['query']
     try:
-        results=e.query(query)
+        results=e.query(";".join(query))
     except Exception as ex:
         pass
     result['success']=results.success
