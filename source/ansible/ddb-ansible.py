@@ -91,7 +91,7 @@ def run_module():
     result['data_length']=results.data_length
     result['column_length']=results.column_length
     result['data']=results.data
-    result['error']=results.error
+    result['error']=str(results.error)
     result['success']=results.success
 
     if module.check_mode:
