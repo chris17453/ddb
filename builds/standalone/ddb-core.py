@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.297'
+__version__='1.1.298'
 
         
         
@@ -3432,7 +3432,6 @@ def method_system_set(context, query_object):
                     if variable in context.system_trigger:
                         context.system_trigger[context.system_trigger]()
                 else:
-                    print("NOT FOUND")
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
                 context.user[variable]=value
