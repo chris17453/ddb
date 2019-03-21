@@ -81,7 +81,7 @@ def run_module():
         argument_spec=module_args,
         supports_check_mode=True
     )
-    e=engine(debug=true)
+    e=engine(debug=True)
     results=e.query(module.params['query'])
     result['success']=results.success
     result['affected_rows']=results.affected_rows
