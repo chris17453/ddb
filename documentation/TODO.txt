@@ -1,0 +1,4 @@
+ORDER BY FAILS on functions screwing up columns,index error
+add show databases
+selecting unknown columns works shouldn't...
+order by number fails? did I loose a commit?
