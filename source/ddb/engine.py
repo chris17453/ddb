@@ -121,8 +121,8 @@ class engine:
             raise Exception("Invalid SQL")
 
         start = time.clock()
-        for query_object in parser.query_objects:
-            try:
+        try:
+            for query_object in parser.query_objects:
                 self.info("Engine: query_object", query_object)
                 #print  query_object
                 # exit(9)
