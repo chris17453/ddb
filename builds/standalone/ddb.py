@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.293'
+__version__='1.1.294'
 
         
         
@@ -2390,7 +2390,7 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
-        system_trigger={}
+        self.system_trigger=[]
         self.internal={}
         
         self.system['DEBUG']=False
