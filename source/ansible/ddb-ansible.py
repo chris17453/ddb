@@ -83,6 +83,13 @@ def run_module():
     )
     e=engine()
     results=e.query(module.params['query'])
+    result['success']=results.success
+    result['affected_rows']=results.affected_rows
+    result['data_lenght']=results.data_lenght
+    result['column_length']=results.column_length
+    result['data']=results.data
+    result['error']=results.error
+    result['success']=results.success
 
     if module.check_mode:
         return result
