@@ -7,6 +7,6 @@
              SELECT * FROM test.mock;
              "
 
-        """,
+        """
     }
 }
