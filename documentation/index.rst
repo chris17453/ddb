@@ -185,7 +185,6 @@ Syntax:
 read data from a table
 - select_expr = { {column | function () } [AS display_name]}
 - order_expression = { ASC | DESC }
-```sql
 SELECT [DISTINCT] select_expr [,select_expr ... ]
 [FROM table
  [WHERE condition 
@@ -225,7 +224,6 @@ Results:
 
 executed in 0.017521, 5 rows returned
 
-```         
 
 INSERT
 ``````
@@ -295,21 +293,21 @@ Example:
 ddb 'show columns from beta.mock'
 
 Results:
-+-----------------------------+-----------------------------+-----------------------------+
-|database                     |table                        |column                       |
-+=============================+=============================+=============================+
-|beta                         |mock                         |id                           |
-+-----------------------------+-----------------------------+-----------------------------+
-|beta                         |mock                         |first_name                   |
-+-----------------------------+-----------------------------+-----------------------------+
-|beta                         |mock                         |last_name                    |
-+-----------------------------+-----------------------------+-----------------------------+
-|beta                         |mock                         |email                        |
-+-----------------------------+-----------------------------+-----------------------------+
-|beta                         |mock                         |gender                       |
-+-----------------------------+-----------------------------+-----------------------------+
-|beta                         |mock                         |ip_address                   |
-+-----------------------------+-----------------------------+-----------------------------+
++---------+-------+-----------+
+|database |table  |column     |
++=========+=======+===========+
+|beta     |mock   |id         |
++---------+-------+-----------+
+|beta     |mock   |first_name |
++---------+-------+-----------+
+|beta     |mock   |last_name  |
++---------+-------+-----------+
+|beta     |mock   |email      |
++---------+-------+-----------+
+|beta     |mock   |gender     |
++---------+-------+-----------+
+|beta     |mock   |ip_address |
++---------+-------+-----------+
 
 executed in 0.000093, 6 rows returned
 
@@ -407,11 +405,24 @@ SQL Errors
 Integration
 bash
 python
+Syntax:
+import ddb
+
+ ddb(config_file=None,debug=False)
+ 
+ Config file: 
+    None   = use conmfiguration in users home directory ~/.ddb/ddb.conf
+    False  = Empty configuration, No configuration loaded or saved
+    string =  The specific configuration file to use
+ Debug:
+  Turn debugging verbosity on
+
+ddb_context.query("Select * from test.mock")
 
 Example:
 
 ```
-import  ddb
+import ddb
 import json 
 
 
