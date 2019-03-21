@@ -3,7 +3,7 @@ from .table import table
 import warnings
 import sys
 from ..output.factory_yaml import yamlf_load, yamlf_dump
-from ..methocds.record_core import normalize_path
+from ..methods.record_core import normalize_path
 
 
 class database:

@@ -43,4 +43,5 @@ ddb/output/factory_json.py
 ddb/output/factory_term.py
 ddb/output/factory_xml.py
 ddb/output/factory_yaml.py
+test/test-path.py
 test/test.py
