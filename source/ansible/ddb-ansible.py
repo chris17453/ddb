@@ -69,7 +69,7 @@ def run_module():
         changed=False,
         query="",
         affected_rows=0,
-        data_lenght=0,
+        data_length=0,
         column_length=0,
         data=None,
         error=None,
@@ -85,7 +85,7 @@ def run_module():
     results=e.query(module.params['query'])
     result['success']=results.success
     result['affected_rows']=results.affected_rows
-    result['data_lenght']=results.data_lenght
+    result['data_length']=results.data_length
     result['column_length']=results.column_length
     result['data']=results.data
     result['error']=results.error
