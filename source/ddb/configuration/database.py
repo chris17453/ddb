@@ -231,7 +231,7 @@ class database:
             # Dont add tables that are inactive...
             if temp_table.active == False:
                 warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
-                warnings.warn(warn_msg)
+                warnings.warn(message=warn_msg)
                 continue
             table_swap.append(temp_table)
 
