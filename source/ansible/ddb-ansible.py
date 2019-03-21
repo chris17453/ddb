@@ -80,7 +80,7 @@ def run_module():
         argument_spec=module_args,
         supports_check_mode=True
     )
-    e=engine(debug=True)
+    e=engine()
     query=module.params['query']
     try:
         results=e.query(query)
