@@ -30,12 +30,11 @@ def method_system_set(context, query_object):
                     if variable in context.system_trigger:
                         context.system_trigger[context.system_trigger]()
                 else:
-                    print("HI")
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
                 context.user[variable]=value
 
         return query_results(success=True)
     except Exception as ex:
-        #print(ex)
+        print(ex)
         return query_results(success=False,error=ex)
