@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.296'
+__version__='1.1.297'
 
         
         
@@ -2437,8 +2437,8 @@ class engine:
             raise Exception("Invalid SQL")
 
         start = time.clock()
-        for query_object in parser.query_objects:
-            try:
+        try:
+            for query_object in parser.query_objects:
                 self.info("Engine: query_object", query_object)
                 mode=query_object['mode']
                 
