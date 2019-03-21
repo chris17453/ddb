@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.319'
+__version__='1.1.320'
 
         
         
@@ -1558,6 +1558,7 @@ class table:
                 yaml_data = yamlf_load(file=table_config_file)
                 if None == yaml_data:
                     raise Exception("Table configuration empty")
+                print (yaml_data)
                 for key in yaml_data:
                     if 'version' == key:
                         self.version = yaml_data[key]
