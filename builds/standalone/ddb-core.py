@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.316'
+__version__='1.1.317'
 
         
         
@@ -2097,7 +2097,7 @@ class database:
             temp_table = table(table_config_file=t)
             if temp_table.active == False:
                 warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
-                warnings.warn(warn_msg)
+                warnings.warn(message=warn_msg)
                 continue
             table_swap.append(temp_table)
 
