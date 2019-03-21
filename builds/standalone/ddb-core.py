@@ -33,7 +33,7 @@ import shutil
 
 
 
-__version__='1.1.282'
+__version__='1.1.283'
 
         
         
@@ -1766,6 +1766,7 @@ class table:
         if None == self.data.config:
             self.data.config = os.path.join(
                 dest_dir, "{0}.ddb.yaml".format(self.data.name))
+        
         yamlf_dump(data=self, file=self.data.config)
         return True
 
@@ -2014,8 +2015,8 @@ class database:
         exists = self.get(table_name, database_name)
         if None != exists:
             raise Exception("table already exists")
-
-        if False == os.path.isfile(data_file):
+        
+        if False == os.path.isfile(normalize_path(data_file)):
             raise Exception("Data file does not exist")
 
         if not temporary:
@@ -2381,11 +2382,16 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
+        self.system_trigger={}
         self.internal={}
         
+        self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='RST'
+
+        self.system_trigger['DEBUG']=self.trigger_debug
+        
         self.user={}
         self.internal['IN_TRANSACTION']=0
         
@@ -2395,6 +2401,10 @@ class engine:
             self.query(query)
         
 
+    def trigger_debug(self):
+        self.debug=self.system['DEBUG']
+        self.database.debug=self.debug
+        
 
     def debugging(self, debug=False):
         self.debug = debug
@@ -2583,6 +2593,7 @@ def process_line(context, query_object, line, line_number=0):
 
   
 def create_temporary_copy(path,prefix):
+    """ Create a copy of a regular file in a temporary directory """
     try:
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
@@ -2592,23 +2603,30 @@ def create_temporary_copy(path,prefix):
             temp_file_name="{0}_{1}".format(prefix,temp_base_name)
         
         temp_path = os.path.join(temp_dir, temp_file_name)
-        shutil.copy2(path, temp_path)
+        shutil.copy2(normalize_path(path), temp_path)
         return temp_path
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
         
 def swap_files(path, temp):
+    """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
-        if os.path.exists(path):
-            os.remove(path)
+        norm_path=normalize_path(path)
+        if os.path.exists(norm_path):
+            os.remove(norm_path)
         
-        if os.path.exists(path):
-            raise Exception("Deleting file {0} failed".format(path))
+        if os.path.exists(norm_path):
+            raise Exception("Deleting file {0} failed".format(norm_path))
         
-        shutil.copy2(temp, path)
+        shutil.copy2(temp, norm_path)
         
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
+
+def normalize_path(path):
+    """Update a relative or user absed path to an ABS path"""
+    normalized_path=os.path.abspath(os.path.expanduser(path))
+    return normalized_path
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
@@ -2617,6 +2635,7 @@ class query_results:
         self.data=[]
         self.error=None
         self.data_length=0
+        self.column_length=0
         self.columns=[]
 
         if data and data.results:
@@ -2625,6 +2644,7 @@ class query_results:
 
         if data:
             self.columns = data.get_columns_display()
+            self.column_length=len(self.columns)
             
 
 
@@ -3405,6 +3425,8 @@ def method_system_set(context, query_object):
             if var_type=='system':
                 if variable in context.system:
                     context.system[variable]=value
+                    if variable in context.system_trigger:
+                        context.system_trigger[context.system_trigger]()
                 else:
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
