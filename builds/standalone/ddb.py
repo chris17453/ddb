@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.308'
+__version__='1.1.309'
 
         
         
@@ -3450,7 +3450,7 @@ def method_system_set(context, query_object):
                 if variable in context.system:
                     context.system[variable]=value
                     if variable in context.system_trigger:
-                        context.system_trigger[context.system_trigger]()
+                        context.system_trigger[variable]()
                 else:
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
