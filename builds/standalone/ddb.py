@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.321'
+__version__='1.1.322'
 
         
         
@@ -1582,12 +1582,11 @@ class table:
 
                     if 'active' == key:
                         self.active = yaml_data[key]
-                        print ( yaml_data[key])
 
 
         self.update_ordinals()
         if None != self.data.path:
-            if False == os.path.exists(self.data.path):
+            if False == os.path.exists(normalize_path(self.data.path)):
                 self.active = False
 
     def update(self,
