@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.303'
+__version__='1.1.304'
 
         
         
@@ -2382,6 +2382,11 @@ class engine:
     
    
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_file=None):
+        if config_file is None:
+            home = os.path.expanduser("~")
+            config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+    
+
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
         self.debug = debug
         self.results = None
