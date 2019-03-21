@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.292'
+__version__='1.1.293'
 
         
         
@@ -2390,7 +2390,7 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
-        self.system_trigger={}
+        system_trigger={}
         self.internal={}
         
         self.system['DEBUG']=False
@@ -3436,7 +3436,7 @@ def method_system_set(context, query_object):
                     if variable in context.system_trigger:
                         context.system_trigger[context.system_trigger]()
                 else:
-                    print ("EH")
+                    print("NOT FOUND")
                     raise Exception("Cannot set {0}, not a system variable".format(variable))
             elif var_type=='user':
                 context.user[variable]=value
@@ -5073,7 +5073,7 @@ def cli_main():
             results = e.query(query)
             if results.success==True:
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
-
+            
             
             if None==results:
                 exit_code=1
@@ -5083,7 +5083,7 @@ def cli_main():
                 exit_code=1
             sys.exit(exit_code)
         except Exception as ex:
-            print(ex)
+            print("Error:",ex)
 
     else:
         prompt = ddbPrompt()
