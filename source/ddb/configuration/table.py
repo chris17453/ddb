@@ -77,14 +77,13 @@ class table:
 
                     if 'active' == key:
                         self.active = yaml_data[key]
-                        print ( yaml_data[key])
 
                     # attr=getattr(self,key)
                     # setattr(self,key,yaml_data[key])
 
         self.update_ordinals()
         if None != self.data.path:
-            if False == os.path.exists(self.data.path):
+            if False == os.path.exists(normalize_path(self.data.path)):
                 #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
                 self.active = False
 
