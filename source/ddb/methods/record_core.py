@@ -121,7 +121,7 @@ class query_results:
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
-        self.error=None
+        self.error=error
         self.data_length=0
         self.column_length=0
         self.columns=[]
