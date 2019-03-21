@@ -60,12 +60,18 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
+        self.system_trigger={}
         self.internal={}
         # variables that can be set by the system
         
+        self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='RST'
+
+        #auto functions ran when a variable is set
+        self.system_trigger['DEBUG']=self.trigger_debug
+        
         self.user={}
         self.internal['IN_TRANSACTION']=0
         
@@ -80,6 +86,10 @@ class engine:
     #    if False == self.has_configuration():
     #        raise Exception("No configuration data")
 
+    def trigger_debug(self):
+        self.debug=self.system['DEBUG']
+        self.database.debug=self.debug
+        
 
     def debugging(self, debug=False):
         self.debug = debug
