@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.314'
+__version__='1.1.315'
 
         
         
@@ -1544,7 +1544,6 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
-        self.active = True
 
         self.update(data_file=data_file,
                     columns=columns,
