@@ -3,6 +3,7 @@ from .table import table
 import warnings
 import sys
 from ..output.factory_yaml import yamlf_load, yamlf_dump
+from ..methocds.record_core import normalize_path
 
 
 class database:
@@ -134,8 +135,8 @@ class database:
         # it exists. so no dont create it
         if None != exists:
             raise Exception("table already exists")
-
-        if False == os.path.isfile(data_file):
+        
+        if False == os.path.isfile(normalize_path(data_file)):
             raise Exception("Data file does not exist")
 
         if not temporary:

@@ -80,6 +80,7 @@ def process_line(context, query_object, line, line_number=0):
 
   
 def create_temporary_copy(path,prefix):
+    """ Create a copy of a regular file in a temporary directory """
     try:
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
@@ -89,31 +90,31 @@ def create_temporary_copy(path,prefix):
             temp_file_name="{0}_{1}".format(prefix,temp_base_name)
         
         temp_path = os.path.join(temp_dir, temp_file_name)
-        shutil.copy2(path, temp_path)
+        shutil.copy2(normalize_path(path), temp_path)
         #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
         
 def swap_files(path, temp):
+    """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
-        # WSprint("Swapping")
-        if os.path.exists(path):
-            # print("File exists")
-            #temp_dir = tempfile.gettempdir()
-            #temp_base_name=next(tempfile._get_candidate_names())
-            #temp_path = os.path.join(temp_dir, temp_base_name)
-            # print("Removing {0}".format(path))
-            os.remove(path)
+        norm_path=normalize_path(path)
+        if os.path.exists(norm_path):
+            os.remove(norm_path)
         
-        if os.path.exists(path):
-            raise Exception("Deleting file {0} failed".format(path))
+        if os.path.exists(norm_path):
+            raise Exception("Deleting file {0} failed".format(norm_path))
         
-        #print("copying {0},{1}".format(temp,path))
-        shutil.copy2(temp, path)
+        shutil.copy2(temp, norm_path)
         
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
+
+def normalize_path(path):
+    """Update a relative or user absed path to an ABS path"""
+    normalized_path=os.path.abspath(os.path.expanduser(path))
+    return normalized_path
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
@@ -122,6 +123,7 @@ class query_results:
         self.data=[]
         self.error=None
         self.data_length=0
+        self.column_length=0
         self.columns=[]
 
         if data and data.results:
@@ -130,6 +132,7 @@ class query_results:
 
         if data:
             self.columns = data.get_columns_display()
+            self.column_length=len(self.columns)
             
 
         #pprint(data)
