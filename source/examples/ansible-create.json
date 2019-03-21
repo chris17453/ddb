@@ -1,6 +1,6 @@
 {
     "ANSIBLE_MODULE_ARGS": {
-        "query": "SELECT * FROM mock.test"
+        "query": "select * from mock.test"
 
     }
 }
