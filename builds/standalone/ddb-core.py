@@ -22,11 +22,6 @@ import datetime
 import tempfile
 import shutil
 
-try:
-    import flextable
-except Exception as ex:
-    pass
-
 
 
         
@@ -38,7 +33,7 @@ except Exception as ex:
 
 
 
-__version__='1.1.278'
+__version__='1.1.280'
 
         
         
