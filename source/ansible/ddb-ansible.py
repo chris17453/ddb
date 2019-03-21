@@ -85,7 +85,6 @@ def run_module():
     query=module.params['query']
     try:
         query_list=";".join(query)
-        print(query_list)
         results=e.query(query_list)
     except Exception as ex:
         pass
