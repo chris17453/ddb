@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.299'
+__version__='1.1.300'
 
         
         
@@ -5075,7 +5075,8 @@ def cli_main():
             results = e.query(query)
             if results.success==True:
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
-            
+            else:
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
             
             if None==results:
                 exit_code=1

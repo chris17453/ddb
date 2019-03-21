@@ -177,7 +177,7 @@ class test_engine(unittest.TestCase):
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
-            results = engine.query("SHOW TABLES".format(self.table_name))
+            results = engine.query("SHOW TABLES")
             self.assertEqual(True, results.success)
             
             ddb.output.factory.output_factory(query_results=results,output='term')
