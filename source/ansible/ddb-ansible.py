@@ -67,26 +67,32 @@ def run_module():
 
     result = dict(
         changed=False,
-        original_message='',
-        message=''
+        query="",
+        affected_rows=0,
+        data_lenght=0,
+        column_length=0,
+        data=None,
+        error=None,
+        success=False
     )
+
 
     module = AnsibleModule(
         argument_spec=module_args,
         supports_check_mode=True
     )
+    e=engine()
+    results=e.query(module.params['query'])
 
     if module.check_mode:
         return result
 
-    result['original_message'] = module.params['name']
-    result['message'] = 'goodbye'
 
-    if module.params['new']:
+    if results.affected_rows>0:
         result['changed'] = True
 
-    if module.params['name'] == 'fail me':
-        module.fail_json(msg='You requested this to fail', **result)
+    if results.error:
+        module.fail_json(msg='Query failed', **result)
 
     module.exit_json(**result)
 
