@@ -67,7 +67,6 @@ def run_module():
 
     result = dict(
         changed=False,
-        query="",
         affected_rows=0,
         data_length=0,
         column_length=0,
@@ -82,7 +81,12 @@ def run_module():
         supports_check_mode=True
     )
     e=engine(debug=True)
-    results=e.query(module.params['query'])
+    query=module.params['query']
+    try:
+        results=e.query(query)
+    except Exception as ex:
+        print(ex)
+        pass
     result['success']=results.success
     result['affected_rows']=results.affected_rows
     result['data_length']=results.data_length

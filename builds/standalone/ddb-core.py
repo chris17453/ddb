@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.301'
+__version__='1.1.302'
 
         
         
@@ -2422,6 +2422,7 @@ class engine:
 
     def query(self, sql_query):
         try:
+            start = time.clock()
             self.results = None
             if False == self.has_configuration():
                 raise Exception("No table found")
@@ -2430,7 +2431,6 @@ class engine:
             if False == parser.query_objects:
                 raise Exception("Invalid SQL")
 
-            start = time.clock()
             for query_object in parser.query_objects:
                 self.info("Engine: query_object", query_object)
                 mode=query_object['mode']
