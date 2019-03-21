@@ -42,45 +42,15 @@ def src_build():
         #{'name':'interactive','file':source_dir+'/ddb/interactive.py'},
         #{'name':'cli','file':source_dir+'/ddb/cli.py'},
     ]
-    standalone_files=[
-        # base class
-        {'name':'version','file':source_dir+'/ddb/version.py'},
-        {'name':'lexer-language','file':source_dir+'/ddb/lexer/language.py'},
-        {'name':'lexer-parse','file':source_dir+'/ddb/lexer/lexer.py'},
-        {'name':'lexer-token','file':source_dir+'/ddb/lexer/tokenize.py'},
-        {'name':'column','file':source_dir+'/ddb/configuration/column.py'},
-        {'name':'table','file':source_dir+'/ddb/configuration/table.py'},
-        {'name':'database','file':source_dir+'/ddb/configuration/database.py'},
-        {'name':'match','file':source_dir+'/ddb/evaluate/match.py'},
-        {'name':'functions','file':source_dir+'/ddb/functions/functions.py'},
-        {'name':'sql_engine','file':source_dir+'/ddb/engine.py'},
-        {'name':'methods-records_core','file':source_dir+'/ddb/methods/record_core.py'},
-        {'name':'methods-records-delete','file':source_dir+'/ddb/methods/record_delete.py'},
-        {'name':'methods-records-insert','file':source_dir+'/ddb/methods/record_insert.py'},
-        {'name':'methods-records-select','file':source_dir+'/ddb/methods/record_select.py'},
-        {'name':'methods-records-update','file':source_dir+'/ddb/methods/record_update.py'},
-        {'name':'methods-database-use','file':source_dir+'/ddb/methods/database_use.py'},
-        {'name':'methods-table-structure-create','file':source_dir+'/ddb/methods/table_create.py'},
-        {'name':'methods-table-structure-describe','file':source_dir+'/ddb/methods/table_describe.py'},
-        {'name':'methods-table-structure-drop','file':source_dir+'/ddb/methods/table_drop.py'},
-        {'name':'methods-table-structure-update','file':source_dir+'/ddb/methods/table_update.py'},
-        {'name':'methods-system-set','file':source_dir+'/ddb/methods/system_set.py'},
-        {'name':'methods-system-begin','file':source_dir+'/ddb/methods/system_begin.py'},
-        {'name':'methods-system-commit','file':source_dir+'/ddb/methods/system_commit.py'},
-        {'name':'methods-system-rollback','file':source_dir+'/ddb/methods/system_rollback.py'},
-        {'name':'methods-system-show-columns','file':source_dir+'/ddb/methods/system_show_columns.py'},
-        {'name':'methods-system-show-tables','file':source_dir+'/ddb/methods/system_show_tables.py'},
-        {'name':'methods-system-show-variables','file':source_dir+'/ddb/methods/system_show_variables.py'},
-        # formatting
-        {'name':'output','file':source_dir+'/ddb/output/factory.py'},
-        {'name':'factory_term','file':source_dir+'/ddb/output/factory_term.py'},
-        {'name':'factory_yaml','file':source_dir+'/ddb/output/factory_yaml.py'},
-        {'name':'factory_xml','file':source_dir+'/ddb/output/factory_xml.py'},
-        {'name':'factory_json','file':source_dir+'/ddb/output/factory_json.py'},
+    standalone_files=core_files+[
         # cli stuff
         {'name':'interactive','file':source_dir+'/ddb/interactive.py'},
         {'name':'cli','file':source_dir+'/ddb/cli.py'},
     ]    
+
+
+    ansible_files=[{'name':'ddb-ansible-module','file':source_dir+'/ansible/ddb-ansible.py'}]+standalone_files.copy()
+
     core_headers="""# -*- coding: utf-8 -*-
 # ############################################################################
 # :########::'########::'########::
@@ -104,11 +74,6 @@ import warnings
 import datetime
 import tempfile
 import shutil
-
-try:
-    import flextable
-except Exception as ex:
-    pass
 
 
 """
@@ -142,19 +107,54 @@ import time
 from cmd import Cmd
 import argparse
 from os.path import expanduser
-try:
-    import flextable
-except Exception as ex:
-    pass
 
 
 
 """
-    build_standalone(core_files,core_headers,'builds/standalone/ddb-core.py')
-    build_standalone(standalone_files,standalone_headers,'builds/standalone/ddb.py')
+
+    ansible_headers="""# -*- coding: utf-8 -*-
+# ############################################################################
+# :########::'########::'########::
+# :##.... ##: ##.... ##: ##.... ##:
+# :##:::: ##: ##:::: ##: ##:::: ##:
+# :##:::: ##: ##:::: ##: ########::
+# :##:::: ##: ##:::: ##: ##.... ##:
+# :##:::: ##: ##:::: ##: ##:::: ##:
+# :########:: ########:: ########::
+# :.......:::........:::........:::
+# Author: Charles Watkins
+# This file is automagically generated
+# dont edit it, because it will be erased next build
+# 
+# ############################################################################
+        
+import sys
+import os
+import fileinput
+import warnings
+import datetime
+import tempfile
+import shutil
+from ansible.module_utils.basic import AnsibleModule
 
 
-def build_standalone(files,headers,dest_file):
+"""
+
+    ansible_tail="""
+
+def main():
+    run_module()
+
+if __name__ == '__main__':
+    main()
+"""
+
+    build_standalone(core_files,core_headers,None,'builds/standalone/ddb-core.py')
+    build_standalone(standalone_files,standalone_headers,None,'builds/standalone/ddb.py')
+    build_standalone(ansible_files,ansible_headers,ansible_tail,'builds/ansible/ddb-ansible.py')
+
+
+def build_standalone(files,headers,footer,dest_file):
     build=[]
     for item in files:
         seperator='''
@@ -185,9 +185,13 @@ def build_standalone(files,headers,dest_file):
                 build.append(line)
     print dest_file
     with  open(dest_file,"w") as target:
-        target.write(headers)
+        if headers:
+            target.write(headers)
 
         for item in build:
             target.write(item)
+        
+        if footer:
+            target.write(footer)
 
 src_build()
