@@ -85,7 +85,6 @@ def run_module():
     try:
         results=e.query(query)
     except Exception as ex:
-        print(ex)
         pass
     result['success']=results.success
     result['affected_rows']=results.affected_rows
