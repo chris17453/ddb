@@ -84,7 +84,9 @@ def run_module():
     e=engine()
     query=module.params['query']
     try:
-        results=e.query(";".join(query))
+        query_list=";".join(query)
+        print(query_list)
+        results=e.query(query_list)
     except Exception as ex:
         pass
     result['success']=results.success
