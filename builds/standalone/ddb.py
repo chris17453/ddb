@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.315'
+__version__='1.1.316'
 
         
         
@@ -2103,8 +2103,8 @@ class database:
         for t in temp_tables:
             temp_table = table(table_config_file=t)
             if temp_table.active == False:
-                warnings.warn("Table not loaded {0}.{1}".format(
-                    temp_table.data.database, temp_table.data.name))
+                warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
+                warnings.warn(warn_msg)
                 continue
             table_swap.append(temp_table)
 
