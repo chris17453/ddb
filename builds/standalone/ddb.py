@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.323'
+__version__='1.1.324'
 
         
         
@@ -2104,7 +2104,6 @@ class database:
         for t in temp_tables:
             temp_table = table(table_config_file=t)
             if temp_table.active == False:
-                print (t)
                 warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
                 warnings.warn(message=warn_msg)
                 continue
