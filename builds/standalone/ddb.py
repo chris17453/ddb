@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.311'
+__version__='1.1.312'
 
         
         

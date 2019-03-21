@@ -1,5 +1,9 @@
 {
     "ANSIBLE_MODULE_ARGS": {
-        "query": "set dgbebug=false;create table test.mock ('id','first_name','last_name','email','gender','ip_address') file='~/repos/chris17453/ddb/source/test/MOCK_DATA.csv';select * from test.mock limit 10"
+        "query": [
+        "set debug=false",
+        "create table test.mock ('id','first_name','last_name','email','gender','ip_address') file='~/repos/chris17453/ddb/source/test/MOCK_DATA.csv' data_starts_on=2",
+        "select * from test.mock limit 10"
+    ]
     }
 }
