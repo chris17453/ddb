@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.310'
+__version__='1.1.311'
 
         
         
@@ -2650,7 +2650,7 @@ class query_results:
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
-        self.error=None
+        self.error=error
         self.data_length=0
         self.column_length=0
         self.columns=[]
@@ -3451,7 +3451,6 @@ def method_system_set(context, query_object):
 
         return query_results(success=True)
     except Exception as ex:
-        print(ex)
         return query_results(success=False,error=ex)
 
         
