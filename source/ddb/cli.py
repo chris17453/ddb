@@ -54,7 +54,7 @@ def cli_main():
             if results.success==True:
                 #print(results)
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
-
+            
             
             if None==results:
                 exit_code=1
@@ -64,7 +64,7 @@ def cli_main():
                 exit_code=1
             sys.exit(exit_code)
         except Exception as ex:
-            print(ex)
+            print("Error:",ex)
 
     # is there something in stdin.. a pipe?
     else:

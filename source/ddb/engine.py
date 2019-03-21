@@ -60,7 +60,7 @@ class engine:
         self.output_file=output_file
         self.match=match()
         self.system={}
-        self.system_trigger={}
+        system_trigger={}
         self.internal={}
         # variables that can be set by the system
         
