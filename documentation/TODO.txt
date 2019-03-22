@@ -1,4 +1,51 @@
-ORDER BY FAILS on functions screwing up columns,index error
-add show databases
-selecting unknown columns works shouldn't...
-order by number fails? did I loose a commit?
+# TODO 
+
+- ORDER BY FAILS on functions screwing up columns,index error
+- add show databases
+- selecting unknown columns works shouldn't...
+- order by number fails? did I loose a commit?
+- What does distict do with functions?
+
+# FEATURES
+- ADD SHOW DATABASES
+- ADD IN (,)
+
+# UNIT TEST
+
+- SELECT
+- SELECT FUNCITON
+- SELECT FUNCTION AS
+- SELECT FUNCTION,COLUMN AS FROM
+- SELECT DISTINCT FUNCITON
+- SELECT DISTINCT FUNCTION AS
+- SELECT DISTINCT FUNCTION,COLUMN AS FROM
+- ORDER BY COLUMN
+- ORDER BY COLUMN number
+- ORDER BY COLUMN with derrived columns
+- WITH
+- AND
+- OR
+- IN
+- LIMIT COUNT
+- LIMIT INDEX,COUNT
+- SET USER
+- SET SYSTEM
+- INSERT
+- DELETE
+- UPDATE
+- SHOW TABLES
+- SHOW COLUMNS
+- SHOW VARIABLES
+- SHOW DATABASES
+- CREATE TABLE
+- CREATE TEMPORARY TABLE
+- DROP TABLE
+- DESCRIBE TABLE
+
+# Configuration
+- WITH NONE
+- With user
+- With explicit
+
+# AUTOMATION
+- CREATE GIF OF EACH TEST, CREATE RST AUTOMAGICALLY
