@@ -19,10 +19,10 @@ def cli_main():
                     """, epilog="And that's how you ddb")
 
     # actions
-    parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
-    parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
-    parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
+    #parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
+    #parser.add_argument('-c', '--config', help='yaml configuration file')
+    #parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
+    #parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
     parser.add_argument('query', help='query to return data', nargs= "?")
 
     args = parser.parse_args()
@@ -46,10 +46,10 @@ def cli_main():
             else:
                 query=args.query
             e = engine( config_file=config_file, 
-                            debug=args.debug, 
+                            debug=False, 
                             mode="full",
-                            output=args.output,
-                            output_file=args.file)
+                            output='term',
+                            output_file=None)
             results = e.query(query)
             if results.success==True:
                 #print(results)
