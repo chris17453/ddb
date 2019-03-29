@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.334'
+__version__='1.1.335'
 
         
         
@@ -2422,9 +2422,9 @@ class engine:
     def debugging(self, debug=False):
         self.debug = debug
 
-    def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None):
+    def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None,data_starts_on=None):
         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
-        t = table(database=database_name, columns=columns, name=table_name, data_file=data_file, field_delimiter=field_delimiter)
+        t = table(database=database_name, columns=columns, name=table_name, data_file=data_file, field_delimiter=field_delimiter,data_on=data_starts_on)
         self.database.tables.append(t)
 
     def has_configuration(self):
@@ -2510,11 +2510,11 @@ class engine:
                                     new_dict[columns[i]] = line['data'][i]
                                 line['data']=new_dict
         except Exception as Ex:
-            if None == self.results:
-                self.results=query_results()
-                self.results.error=Ex
             pass
         
+        if None == self.results:
+            self.results=query_results()
+            self.results.error=Ex
             
 
         end = time.clock()
@@ -3217,12 +3217,14 @@ def method_use(context, query_object):
         target_db = query_object['meta']['use']['table']
         if context.database.get_curent_database()!=target_db:
             context.database.set_database(target_db)
-            temp_table = context.database.temp_table()
-            temp_table.add_column('changed_db')
-            data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(data)
+
+        temp_table = context.database.temp_table()
+        temp_table.add_column('changed_db')
+        data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
+        temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
         
         
@@ -5071,7 +5073,7 @@ def cli_main():
                 for c in new_stdin:
                     query+=c
             else:
-                query=args.query
+                query=" ".join(args.query)
             e = engine( config_file=config_file, 
                             debug=False, 
                             mode="full",

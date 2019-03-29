@@ -214,7 +214,7 @@ class engine:
         
         if None == self.results:
             self.results=query_results()
-            self.results.error=Ex
+            
             
 
             # timing
