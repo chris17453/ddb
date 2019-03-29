@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.340'
+__version__='1.1.341'
 
         
         
