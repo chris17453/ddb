@@ -25,7 +25,7 @@ if '--use-cython' in sys.argv:
         Extension("ddb.output.factory_xml",                 [prefix+"./ddb/output/factory_xml" + ext], ),
         Extension("ddb.output.factory_json",                [prefix+"./ddb/output/factory_json" + ext], ),
         Extension("ddb.output.factory_term",                [prefix+"./ddb/output/factory_term" + ext], ),
-        #Extension("ddb.methods",                            [prefix+"./ddb/methods/" + ext], ),
+        Extension("ddb.methods",                            [prefix+"./ddb/methods/" + ext], ),
         #Extension("ddb.methods",                            [prefix+"./ddb/methods/table/core" + ext], ),
         Extension("ddb.version",                            [prefix+"./ddb/version" + ext], ),
         Extension("ddb.engine",                             [prefix+"./ddb/engine" + ext], ),
