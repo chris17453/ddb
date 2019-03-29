@@ -101,9 +101,9 @@ class engine:
     def debugging(self, debug=False):
         self.debug = debug
 
-    def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None):
+    def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None,data_starts_on=None):
         """Progromatically define a table. Not saved to a configuration file, unless manualy activated"""
-        t = table(database=database_name, columns=columns, name=table_name, data_file=data_file, field_delimiter=field_delimiter)
+        t = table(database=database_name, columns=columns, name=table_name, data_file=data_file, field_delimiter=field_delimiter,data_on=data_starts_on)
         self.database.tables.append(t)
 
     def has_configuration(self):
