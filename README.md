@@ -31,8 +31,8 @@
 
 
 ## How do I use it?
-- with python [python integration](data/python-integration.md)
-- from bash [cli](data/cli.md)
+- with python [python integration](docs/python-integration.md)
+- from bash [cli](docs/cli.md)
 
 
 ## Where do I get it?
@@ -48,9 +48,10 @@ pip install ddb --user
 
 
 ## Getting started
-- [cli](data/cli.md)
+- [cli](docs/cli.md)
 - [bash examples](docs/examples.md)
-- [code example](examples/example.py)
+- [code example](/source/examples/example.py)
+- [unittest example](/source/test/test.py)
 - [walkthrough](docs/walkthrough.md)
 
 
