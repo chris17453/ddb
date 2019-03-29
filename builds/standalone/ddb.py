@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.328'
+__version__='1.1.334'
 
         
         
@@ -5057,22 +5057,14 @@ def cli_main():
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
 
-    parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
-    parser.add_argument('-c', '--config', help='yaml configuration file')
-    parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
-    parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
-    parser.add_argument('query', help='query to return data', nargs= "?")
+    parser.add_argument('query', help='query to return data', nargs= "*")
 
     args = parser.parse_args()
     
-    if args.config is not None:
-        config_file = args.config
-    else:
-        home = expanduser("~")
-        config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
-    
+    home = expanduser("~")
+    config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+
     if args.query is not None or not sys.stdin.isatty():
-        try:
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 query=""
@@ -5081,15 +5073,15 @@ def cli_main():
             else:
                 query=args.query
             e = engine( config_file=config_file, 
-                            debug=args.debug, 
+                            debug=False, 
                             mode="full",
-                            output=args.output,
-                            output_file=args.file)
+                            output='term',
+                            output_file=None)
             results = e.query(query)
             if results.success==True:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
             else:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
             
             if None==results:
                 exit_code=1
@@ -5098,13 +5090,11 @@ def cli_main():
             elif results.success==False:
                 exit_code=1
             sys.exit(exit_code)
-        except Exception as ex:
-            print("Error:",ex)
 
     else:
         prompt = ddbPrompt()
         prompt.set_vars(config_file=config_file,
-                        debug=args.debug)
+                        debug=False)
         prompt.cmdloop_with_keyboard_interrupt()
 
 
