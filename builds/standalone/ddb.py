@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.330'
+__version__='1.1.331'
 
         
         
@@ -5097,7 +5097,7 @@ def cli_main():
     else:
         prompt = ddbPrompt()
         prompt.set_vars(config_file=config_file,
-                        debug=args.debug)
+                        debug=False)
         prompt.cmdloop_with_keyboard_interrupt()
 
 
