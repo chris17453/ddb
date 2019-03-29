@@ -16,7 +16,7 @@ if '--use-cython' in sys.argv:
         Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext]),
         Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext]),
         Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext]),
-        Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext], include_dirs=[prefix+'./ddb/structure/'],),
+        Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext]),
         Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext]),
         Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext]),
         Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext]),
