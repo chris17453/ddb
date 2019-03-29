@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.335'
+__version__='1.1.336'
 
         
         
@@ -2514,7 +2514,7 @@ class engine:
         
         if None == self.results:
             self.results=query_results()
-            self.results.error=Ex
+            
             
 
         end = time.clock()

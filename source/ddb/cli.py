@@ -35,8 +35,8 @@ def cli_main():
     home = expanduser("~")
     config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
 
-    if args.query is not None or not sys.stdin.isatty():
-        #:try:
+    if len(args.query)!=0 or not sys.stdin.isatty():
+        try:
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 query=""
@@ -54,9 +54,9 @@ def cli_main():
             results = e.query(query)
             #print(results)
             if results.success==True:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
             else:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
             
             if None==results:
                 exit_code=1
@@ -65,8 +65,8 @@ def cli_main():
             elif results.success==False:
                 exit_code=1
             sys.exit(exit_code)
-        #except Exception as ex:
-        #    print("Error:",ex)
+        except Exception as ex:
+            print("Error:",ex)
 
     # is there something in stdin.. a pipe?
     else:
