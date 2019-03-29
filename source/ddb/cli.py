@@ -29,12 +29,12 @@ def cli_main():
     
     # set the config q
     # file location
-    if args.config is not None:
-        config_file = args.config
-    else:
-        home = expanduser("~")
-        config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
-    
+    #if args.config is not None:
+    #    config_file = args.config
+    #else:
+    home = expanduser("~")
+    config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+
     if args.query is not None or not sys.stdin.isatty():
         try:
             if not sys.stdin.isatty():
