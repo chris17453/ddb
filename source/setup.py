@@ -46,7 +46,7 @@ if '--use-cython' in sys.argv:
               'ddb.methods',
               'ddb.methods',
               'ddb.functions',
-              'ddb.structure',
+              'ddb.configuration',
               'ddb.output',
               ]
 else:
