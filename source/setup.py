@@ -42,7 +42,6 @@ if '--use-cython' in sys.argv:
     packages=['ddb',
               'ddb.lexer',
               'ddb.evaluate',
-              'ddb.structure',
               'ddb.methods',
               'ddb.methods',
               'ddb.functions',
