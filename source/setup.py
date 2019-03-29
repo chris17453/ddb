@@ -36,6 +36,7 @@ if '--use-cython' in sys.argv:
         from Cython.Build import cythonize
     except BaseException:
         print ("No Cython installed")
+        print("Building")
         exit(1)
     extensions = cythonize(extensions)
     packages=['ddb',
