@@ -367,7 +367,7 @@ class flextable:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
     
     def __init__(self,      data,
-                            display_style='rst',
+                            display_style='single',
                             column_count=0,
                             hide_comments=False,
                             hide_errors=False,
@@ -384,7 +384,6 @@ class flextable:
                             row_height=-1,
                             column_width=-1,
                             render_color=True,
-                            style='single'
                         ):
         self.column_count=column_count
         self.hide_comments=hide_comments
@@ -403,8 +402,10 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
+        if display_style not in ['single','double','rst']:
+            display_style='single'    
         self.display_style=display_style
-
+        
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
@@ -427,7 +428,7 @@ class flextable:
         if display_style=='rst':
             self.footer=False
             self.header_every=0
-        self.style=self.flextable_style(style=display_style)
+        self.style=self.flextable_style()
         self.results=[]
         self.data=data
         self.format()
@@ -591,7 +592,7 @@ class flextable:
             print(e.encode('utf-8'))
                         
     # with no columns, everything will be run on, not well formated
-    def format(self,style='single'):
+    def format(self):
         # now we have a file, from stdin or a file on the system that we can access    
         # print buffer
         self.calculate_limits()
@@ -610,9 +611,11 @@ class flextable:
         self.output('',encode)
 
         if self.header==True:
-            self.output(row_seperator,encode)
+            if self.display_style=='rst':
+                self.output(row_seperator,encode)
             self.output(header,encode)
-            self.output(row_header_seperator,encode)
+            if self.display_style=='rst':
+                self.output(row_header_seperator,encode)
 
         for row in rows:
             self.output(row,encode)

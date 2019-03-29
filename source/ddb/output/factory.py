@@ -6,7 +6,7 @@ from .factory_xml import factory_xml
 
 class output_factory:
 
-    def __init__(self,query_results,output='term',output_file=None):
+    def __init__(self,query_results,output='term',output_style="flextable",output_file=None): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
 
@@ -21,7 +21,7 @@ class output_factory:
                 self.format_bash(query_results,output_file)
             
             elif 'term'==mode:
-                self.format_term(query_results,output_file)
+                self.format_term(query_results,output_file,output_style)
             
             elif 'raw'==mode:
                 self.format_raw(query_results,output_file)
@@ -39,19 +39,19 @@ class output_factory:
                 self.format_term(query_results,output_file)
 
 
-    def format_term(self,query_results,output_file):
-        """ouput results data in the term format"""
-        try:
+    def format_term(self,query_results,output_file,output_style=None):
+            """ouput results data in the term format"""
+        #try:
             if query_results.columns:
-                flextable(data=query_results.data,columns=query_results.columns)
+                flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
             if True == query_results.success:
                 print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
                 # may never get here...
                 print("Query Failed")
 
-        except Exception as ex:
-            print("TERM Formatting: {0}".format(ex))
+        #except Exception as ex:
+        #    print("TERM Formatting: {0}".format(ex))
             #print(query_results.data)
 
     def format_bash(self,query_results,output_file):

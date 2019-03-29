@@ -74,7 +74,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
-        self.system['OUTPUT_STYLE']='RST'
+        self.system['OUTPUT_STYLE']='single'
 
         #auto functions ran when a variable is set
         self.system_trigger['DEBUG']=self.trigger_debug

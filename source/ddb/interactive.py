@@ -101,7 +101,7 @@ class ddbPrompt(Cmd):
                 print ("sql engine gone")
                 return
             results = self.engine.query(sql_query=inp)
-            o=output_factory(results)
+            o=output_factory(results,output=self.engine.system['OUTPUT_MODULE'],output_style=self.engine.system['OUTPUT_STYLE'],)
             inp = None
         except Exception as ex:
             self.msg("error", ex)
