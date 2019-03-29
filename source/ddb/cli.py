@@ -72,7 +72,7 @@ def cli_main():
         # interactive session
         prompt = ddbPrompt()
         prompt.set_vars(config_file=config_file,
-                        debug=args.debug)
+                        debug=False)
         prompt.cmdloop_with_keyboard_interrupt()
 
 
