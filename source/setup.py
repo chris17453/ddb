@@ -7,7 +7,7 @@ from distutils.extension import Extension
 if '--use-cython' in sys.argv:
     index = sys.argv.index('--use-cython')
     sys.argv.pop(index)  # Removes the '--foo'
-    ext = '.c'
+    ext = '.py'
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
