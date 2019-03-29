@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.332'
+__version__='1.1.333'
 
         
         
@@ -5057,7 +5057,7 @@ def cli_main():
     parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
                     """, epilog="And that's how you ddb")
 
-    parser.add_argument('query', help='query to return data', nargs= "?")
+    parser.add_argument('query', help='query to return data', nargs= "*")
 
     args = parser.parse_args()
     

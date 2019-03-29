@@ -53,9 +53,9 @@ def cli_main():
             results = e.query(query)
             if results.success==True:
                 #print(results)
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
             else:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=args.file)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
             
             if None==results:
                 exit_code=1
