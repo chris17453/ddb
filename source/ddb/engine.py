@@ -210,11 +210,11 @@ class engine:
                                     new_dict[columns[i]] = line['data'][i]
                                 line['data']=new_dict
         except Exception as Ex:
-            if None == self.results:
-                self.results=query_results()
-                self.results.error=Ex
             pass
         
+        if None == self.results:
+            self.results=query_results()
+            self.results.error=Ex
             
 
             # timing
