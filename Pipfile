@@ -7,6 +7,7 @@ verify_ssl = true
 flake8 = "*"
 
 [packages]
+cython = "*"
 
 [requires]
 python_version = "2.7"
