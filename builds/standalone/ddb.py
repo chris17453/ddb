@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.329'
+__version__='1.1.330'
 
         
         
@@ -5061,12 +5061,9 @@ def cli_main():
 
     args = parser.parse_args()
     
-    if args.config is not None:
-        config_file = args.config
-    else:
-        home = expanduser("~")
-        config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
-    
+    home = expanduser("~")
+    config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+
     if args.query is not None or not sys.stdin.isatty():
         try:
             if not sys.stdin.isatty():
