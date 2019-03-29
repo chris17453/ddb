@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.336'
+__version__='1.1.337'
 
         
         
@@ -2401,7 +2401,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
-        self.system['OUTPUT_STYLE']='RST'
+        self.system['OUTPUT_STYLE']='single'
 
         self.system_trigger['DEBUG']=self.trigger_debug
         
@@ -3619,7 +3619,7 @@ def method_system_show_variables(context, query_object):
 
 class output_factory:
 
-    def __init__(self,query_results,output='term',output_file=None):
+    def __init__(self,query_results,output='term',output_style="flextable",output_file=None): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
 
@@ -3634,7 +3634,7 @@ class output_factory:
                 self.format_bash(query_results,output_file)
             
             elif 'term'==mode:
-                self.format_term(query_results,output_file)
+                self.format_term(query_results,output_file,output_style)
             
             elif 'raw'==mode:
                 self.format_raw(query_results,output_file)
@@ -3651,18 +3651,15 @@ class output_factory:
                 self.format_term(query_results,output_file)
 
 
-    def format_term(self,query_results,output_file):
-        """ouput results data in the term format"""
-        try:
+    def format_term(self,query_results,output_file,output_style=None):
+            """ouput results data in the term format"""
             if query_results.columns:
-                flextable(data=query_results.data,columns=query_results.columns)
+                flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
             if True == query_results.success:
                 print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
                 print("Query Failed")
 
-        except Exception as ex:
-            print("TERM Formatting: {0}".format(ex))
 
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
@@ -4101,7 +4098,7 @@ class flextable:
     data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
     
     def __init__(self,      data,
-                            display_style='rst',
+                            display_style='single',
                             column_count=0,
                             hide_comments=False,
                             hide_errors=False,
@@ -4118,7 +4115,6 @@ class flextable:
                             row_height=-1,
                             column_width=-1,
                             render_color=True,
-                            style='single'
                         ):
         self.column_count=column_count
         self.hide_comments=hide_comments
@@ -4137,8 +4133,10 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
+        if display_style not in ['single','double','rst']:
+            display_style='single'    
         self.display_style=display_style
-
+        
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
@@ -4159,7 +4157,7 @@ class flextable:
         if display_style=='rst':
             self.footer=False
             self.header_every=0
-        self.style=self.flextable_style(style=display_style)
+        self.style=self.flextable_style()
         self.results=[]
         self.data=data
         self.format()
@@ -4303,7 +4301,7 @@ class flextable:
         for e in table.errors:
             print(e.encode('utf-8'))
                         
-    def format(self,style='single'):
+    def format(self):
         self.calculate_limits()
         header=self.build_header()
         mid_header=self.build_header(mid=True)
@@ -4320,9 +4318,11 @@ class flextable:
         self.output('',encode)
 
         if self.header==True:
-            self.output(row_seperator,encode)
+            if self.display_style=='rst':
+                self.output(row_seperator,encode)
             self.output(header,encode)
-            self.output(row_header_seperator,encode)
+            if self.display_style=='rst':
+                self.output(row_header_seperator,encode)
 
         for row in rows:
             self.output(row,encode)
@@ -5029,7 +5029,7 @@ class ddbPrompt(Cmd):
                 print ("sql engine gone")
                 return
             results = self.engine.query(sql_query=inp)
-            o=output_factory(results)
+            o=output_factory(results,output=self.engine.system['OUTPUT_MODULE'],output_style=self.engine.system['OUTPUT_STYLE'],)
             inp = None
         except Exception as ex:
             self.msg("error", ex)
@@ -5066,7 +5066,8 @@ def cli_main():
     home = expanduser("~")
     config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
 
-    if args.query is not None or not sys.stdin.isatty():
+    if len(args.query)!=0 or not sys.stdin.isatty():
+        try:
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
                 query=""
@@ -5081,9 +5082,9 @@ def cli_main():
                             output_file=None)
             results = e.query(query)
             if results.success==True:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
             else:
-                output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
+                output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
             
             if None==results:
                 exit_code=1
@@ -5092,6 +5093,8 @@ def cli_main():
             elif results.success==False:
                 exit_code=1
             sys.exit(exit_code)
+        except Exception as ex:
+            print("Error:",ex)
 
     else:
         prompt = ddbPrompt()
