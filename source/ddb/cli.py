@@ -23,7 +23,7 @@ def cli_main():
     #parser.add_argument('-c', '--config', help='yaml configuration file')
     #parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
     #parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
-    parser.add_argument('query', help='query to return data', nargs= "?")
+    parser.add_argument('query', help='query to return data', nargs= "*")
 
     args = parser.parse_args()
     
