@@ -44,15 +44,16 @@ def cli_main():
                     query+=c
                 #query=sys.stdin.read()
             else:
-                query=args.query
+                query=" ".join(args.query)
+            #print (query)
             e = engine( config_file=config_file, 
                             debug=False, 
                             mode="full",
                             output='term',
                             output_file=None)
             results = e.query(query)
+            #print(results)
             if results.success==True:
-                #print(results)
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
             else:
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_file=None)
