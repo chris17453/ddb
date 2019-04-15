@@ -80,7 +80,7 @@ class lexer:
                 if 'key' in switch:
                     arg_key=switch['key']
                 else: 
-                    key=None
+                    arg_key=None
                 if 'parent' in switch:
                     parent = switch['parent']
                 else:
