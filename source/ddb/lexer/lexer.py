@@ -317,6 +317,8 @@ class lexer:
 
                                         else:
                                             self.info("APPEND")
+                                            if parent not in query_object[parent]:
+                                                query_object[parent]=[]
                                             query_object[parent].append({curent_object['mode']: curent_object['arguments']})
 
                                 # look ahead to see if its a list ","
@@ -341,6 +343,8 @@ class lexer:
 
                                             else:
                                                 self.info("APPEND")
+                                                if parent not in query_object[parent]:
+                                                    query_object[parent]=[]
                                                 query_object[parent].append({curent_object['mode']: curent_object['arguments']})
                                         jump = None
                                         if 'jump' in switch:
