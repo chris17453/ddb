@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.389'
+__version__='1.1.390'
 
         
         
@@ -682,7 +682,10 @@ class lexer:
                     store_array = switch['store_array']
                 else:
                     store_array = False
-
+                if 'key' in switch:
+                    arg_key=switch['key']
+                else: 
+                    key=None
                 if 'parent' in switch:
                     parent = switch['parent']
                 else:
@@ -703,6 +706,8 @@ class lexer:
                 else:
                     object_id = switch['name']
                     object_id = object_id.lower()
+                if arg_key:
+                    object_id=arg_key
                 self.info("Object Id:", object_id, "Token Id:", token_index)
                 if False == no_keyword:
                     keyword_compare = self.get_sub_array(switch, 'name')
