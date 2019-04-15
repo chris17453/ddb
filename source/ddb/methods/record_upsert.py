@@ -5,14 +5,14 @@ from .record_update  import update_single
 from .record_insert  import create_single
 def method_upsert(context, query_object):
     try:
-        if 'database' in query_object['meta']['upsert']:
+        if 'database' in query_object['meta']['into']:
             context.info('Database specified')
-            database_name = query_object['meta']['upsert']['database']
+            database_name = query_object['meta']['into']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-        table_name = query_object['meta']['upsert']['table']
+        table_name = query_object['meta']['into']['table']
         query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
@@ -36,8 +36,8 @@ def method_upsert(context, query_object):
         query_object['meta']['where']=where
             
 
-        print(query_object)
-        return None
+        #print(query_object)
+        #return None
         
     
         line_number = 1
