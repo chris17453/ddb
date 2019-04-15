@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.374'
+__version__='1.1.375'
 
         
         
@@ -2440,9 +2440,9 @@ class engine:
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
-            if isinstance(str,arg1) :
+            if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
-            elif isinstance(object,arg1) :
+            elif isinstance(arg1,object) :
                 print(msg, arg2, arg3)
                 pp = pprint.PrettyPrinter(indent=4)
                 pp.pprint(arg1)
