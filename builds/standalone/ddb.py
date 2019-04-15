@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.355'
+__version__='1.1.356'
 
         
         
@@ -474,9 +474,14 @@ sql_syntax = {
                      'no_keyword': True},
                     {'data': False, 'dispose': True, 'name': ')'},
 
-                    {'arguments': 1,
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']}],
+                     'name': ['on','duplicate','key'],
+                     'optional': True,
+                     'store_array': True},
+                    {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
-                     'name': ['on','duplicate','key','update'],
+                     'name': ['update'],
                      'optional': True,
                      'store_array': True},
                     {'arguments': 1,
