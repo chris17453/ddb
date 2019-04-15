@@ -109,7 +109,7 @@ class test_engine(unittest.TestCase):
         """Update a row in the test file"""
         try:
             self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
