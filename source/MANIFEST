@@ -42,6 +42,7 @@ ddb/methods/record_delete.py
 ddb/methods/record_insert.py
 ddb/methods/record_select.py
 ddb/methods/record_update.py
+ddb/methods/record_upsert.py
 ddb/methods/system_begin.py
 ddb/methods/system_commit.py
 ddb/methods/system_rollback.py

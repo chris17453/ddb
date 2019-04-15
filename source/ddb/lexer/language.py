@@ -13,6 +13,7 @@
 #   parent: override the name, and place data on this index
 #   store_array: allow multiple keys in an array at this index
 #   specs :{'variable_name': {'type': 'int', 'default': 0} },
+#   no_keyword:True ...?
 
 
 
@@ -433,9 +434,14 @@ sql_syntax = {
                      'no_keyword': True},
                     {'data': False, 'dispose': True, 'name': ')'},
 
-                    {'arguments': 1,
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']}],
+                     'name': ['on','duplicate','key'],
+                     'optional': True,
+                     'store_array': True},
+                    {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
-                     'name': ['on','duplicate','key','update'],
+                     'name': ['update'],
                      'optional': True,
                      'store_array': True},
                     # where
