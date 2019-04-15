@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.361'
+__version__='1.1.362'
 
         
         
@@ -2433,7 +2433,14 @@ class engine:
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
-            print(msg, arg1, arg2, arg3)
+            if isinstance(str,arg1) :
+                print(msg, arg1, arg2, arg3)
+            elif isinstance(object,arg1) :
+                print(msg, arg2, arg3)
+                pp = pprint.PrettyPrinter(indent=4)
+                pp.pprint(arg1)
+            else:    
+                print(msg, arg1, arg2, arg3)
 
     
    
