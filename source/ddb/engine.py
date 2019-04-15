@@ -24,6 +24,7 @@ from .methods.database_show_errors import method_show_errors
 # table level structure methods
 from .methods.table_create import method_create_table
 from .methods.table_update import method_update_table
+from .methods.table_upsert import method_upsert_table
 from .methods.table_describe import method_describe_table
 from .methods.table_drop import method_drop_table
 
@@ -146,6 +147,9 @@ class engine:
 
                 elif mode == 'update':
                     self.results = method_update(self,query_object)
+
+                elif mode == 'upsert':
+                    self.results = method_upsert(self,query_object)
                 
                 elif mode == 'delete':
                     self.results = method_delete(self,query_object)

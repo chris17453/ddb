@@ -185,6 +185,22 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
+    def test_upsert(self):
+        """Show all tables in the database"""
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            self.assertEqual(True, results.success)
+
+            results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0') ON DUPLICATE KEY id, UPDATE id='10000' ".format(self.table_name))
+            self.assertEqual(True, results.success)
+            
+            ddb.output.factory.output_factory(query_results=results,output='term')
+        except Exception as ex:
+            print(ex)
+            self.fail(ex)
+
 
     def test_set(self):
         """Set a database variable """
