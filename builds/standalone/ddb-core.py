@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.387'
+__version__='1.1.388'
 
         
         
@@ -478,6 +478,7 @@ sql_syntax = {
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
                      'name': ['update'],
                      'optional': True,
+                     'parent':'set'
                      },
                 ]},
 
