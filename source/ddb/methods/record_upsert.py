@@ -23,7 +23,6 @@ def method_upsert(context, query_object):
         where=[]
         for item in query_object['meta']['on duplicate key']:
             column=item['column']
-            print column
             for index in range(0,len(query_object['meta']['columns'])):
                 column_compare=query_object['meta']['columns'][index]['column']
                 if column_compare==column:
