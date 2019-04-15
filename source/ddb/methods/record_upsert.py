@@ -5,7 +5,7 @@ from .record_update  import update_single
 from .record_insert  import create_single
 def method_upsert(context, query_object):
     try:
-        print(query_object)
+        # print(query_object)
         return None
         if 'database' in query_object['meta']['upsert']:
             context.info('Database specified')
@@ -18,6 +18,18 @@ def method_upsert(context, query_object):
         query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
+        
+        if 'on duplicate key' not in query_object['meta']:
+            raise Exception("Upsert missing duplicate keys")
+
+        where=[]
+        for item in query_object['meta']['on duplicate key']:
+            column=item['column']
+            for index in range(0,len(query_object['meta']['columns'])):
+                if query_object['meta']['columns'][index]==column:
+                    value=query_object['meta']['columns'][index]
+                    where.append({'e1':column,'=':'=','e2':value})
+            
 
 
     

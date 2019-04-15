@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.357'
+__version__='1.1.358'
 
         
         
@@ -444,7 +444,8 @@ sql_syntax = {
                      'parent': 'where'}]},
 
         {'query': 'upsert',
-         'switch': [{'data': False, 'name': 'upsert'},
+         'switch': [
+                     {'data': False, 'name': 'upsert'},
                         {'arguments': 1,
                         'data': [ {'sig': ['{table}']},
                                   {'sig': ['{database}','.','{table}']},
@@ -471,12 +472,13 @@ sql_syntax = {
                      'data': [{'sig': ['{column}']}],
                      'name': ['on','duplicate','key'],
                      'optional': True,
-                     'store_array': True},
+                     }
+                     ,
                     {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
                      'name': ['update'],
                      'optional': True,
-                     'store_array': True},
+                     },
                     {'arguments': 1,
                      'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
                      'name': 'where',
