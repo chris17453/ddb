@@ -1,0 +1,3 @@
+
+- name: Update csv with data
+  query: 'SELECT id from test WHERE id=1'
