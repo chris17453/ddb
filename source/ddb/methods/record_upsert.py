@@ -61,8 +61,12 @@ def method_upsert(context, query_object):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
-                #NO update occured.. Lets Insert...
-                #if affected_rows==0:
+                # NO update occured.. Lets Insert...
+                if affected_rows==0:
+                    context.info("No row found in upsert, creating")
+                    results = create_single(context,query_object, temp_file,  False, processed_line)
+                else:
+                    context.info("row found in upsert")
 
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)

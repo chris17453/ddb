@@ -445,28 +445,9 @@ sql_syntax = {
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
                      'name': ['update'],
                      'optional': True,
+                     'parent':'set'
                      },
-                    # where
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'name': 'where',
-                     'optional': True,
-                     'store_array': True},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'and',
-                     'optional': True,
-                     'parent': 'where'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'or',
-                     'optional': True,
-                     'parent': 'where'}
-                    ]},
+                ]},
 
 
 
