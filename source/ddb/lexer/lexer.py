@@ -281,6 +281,8 @@ class lexer:
                                             self.info("NO APPEND")
                                         else:
                                             self.info("APPEND")
+                                            if parent not in query_object[parent]:
+                                                query_object[parent]=[]
                                             query_object[parent].append({curent_object['mode']: curent_object['arguments']})
                                     jump = None
                                     if 'jump' in switch:
