@@ -37,7 +37,7 @@ def method_upsert(context, query_object):
             
 
         context.info("Query object",query_object)
-        return None
+        #return None
         
     
         line_number = 1
@@ -64,7 +64,7 @@ def method_upsert(context, query_object):
                 # NO update occured.. Lets Insert...
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
-                    results = create_single(context,query_object, temp_file,  False, processed_line)
+                    results = create_single(context,query_object, temp_file,True)
                 else:
                     context.info("row found in upsert")
 
