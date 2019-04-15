@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.391'
+__version__='1.1.392'
 
         
         
@@ -484,6 +484,7 @@ sql_syntax = {
                     {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
                      'name': ['update'],
+                     'key':'set'
                      'optional': True,
                      },
                 ]},
