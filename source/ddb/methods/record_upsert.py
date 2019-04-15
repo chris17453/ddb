@@ -5,8 +5,6 @@ from .record_update  import update_single
 from .record_insert  import create_single
 def method_upsert(context, query_object):
     try:
-        # print(query_object)
-        return None
         if 'database' in query_object['meta']['upsert']:
             context.info('Database specified')
             database_name = query_object['meta']['upsert']['database']
@@ -28,10 +26,17 @@ def method_upsert(context, query_object):
             for index in range(0,len(query_object['meta']['columns'])):
                 if query_object['meta']['columns'][index]==column:
                     value=query_object['meta']['columns'][index]
-                    where.append({'e1':column,'=':'=','e2':value})
+                    if len(where)==0:
+                        mode='where'
+                    else:
+                        mode='and'
+                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
+        query_object['meta']['where']=where
             
 
-
+        print(query_object)
+        return None
+        
     
         line_number = 1
         affected_rows = 0
