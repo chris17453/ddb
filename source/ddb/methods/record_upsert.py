@@ -34,7 +34,7 @@ def method_upsert(context, query_object):
         query_object['meta']['where']=where
             
 
-        print(query_object)
+        context.info("Query object",query_object)
         return None
         
     
