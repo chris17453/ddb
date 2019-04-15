@@ -44,11 +44,12 @@ def method_upsert(context, query_object):
         temp_file_prefix="UPSERT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        print data_file,temp_data_file
+        
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
       
                 for line in content_file:
-                    print temp_data_file,line
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
