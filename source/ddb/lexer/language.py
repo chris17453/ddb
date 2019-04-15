@@ -444,6 +444,7 @@ sql_syntax = {
                     {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
                      'name': ['update'],
+                     'key':'set'
                      'optional': True,
                      },
                 ]},
