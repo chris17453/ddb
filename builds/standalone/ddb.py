@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.383'
+__version__='1.1.384'
 
         
         
@@ -910,6 +910,8 @@ class lexer:
 
                                         else:
                                             self.info("APPEND")
+                                            if parent not in query_object[parent]:
+                                                query_object[parent]=[]
                                             query_object[parent].append({curent_object['mode']: curent_object['arguments']})
 
                                 if len(tokens) > token_index:
@@ -930,6 +932,8 @@ class lexer:
 
                                             else:
                                                 self.info("APPEND")
+                                                if parent not in query_object[parent]:
+                                                    query_object[parent]=[]
                                                 query_object[parent].append({curent_object['mode']: curent_object['arguments']})
                                         jump = None
                                         if 'jump' in switch:
