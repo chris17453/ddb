@@ -25,8 +25,9 @@ def method_upsert(context, query_object):
             column=item['column']
             print column
             for index in range(0,len(query_object['meta']['columns'])):
-                value=query_object['meta']['columns'][index]['column']
-                if value==column:
+                column_compare=query_object['meta']['columns'][index]['column']
+                if column_compare==column:
+                    value=query_object['meta']['values'][index]['value']
                     if len(where)==0:
                         mode='where'
                     else:
