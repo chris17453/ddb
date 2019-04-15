@@ -16,10 +16,12 @@ def method_upsert(context, query_object):
         query_object['table'] = context.database.get(table_name,database_name)
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
+        print ("H33I")
         
         if 'on duplicate key' not in query_object['meta']:
             raise Exception("Upsert missing duplicate keys")
 
+        print ("HI")
         where=[]
         for item in query_object['meta']['on duplicate key']:
             column=item['column']
