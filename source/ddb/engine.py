@@ -24,7 +24,6 @@ from .methods.database_show_errors import method_show_errors
 # table level structure methods
 from .methods.table_create import method_create_table
 from .methods.table_update import method_update_table
-from .methods.table_upsert import method_upsert_table
 from .methods.table_describe import method_describe_table
 from .methods.table_drop import method_drop_table
 
@@ -32,6 +31,7 @@ from .methods.table_drop import method_drop_table
 from .methods.record_insert import method_insert 
 from .methods.record_select import method_select
 from .methods.record_update import method_update
+from .methods.record_upsert import method_upsert
 from .methods.record_delete import method_delete
 from .methods.record_core import query_results
 

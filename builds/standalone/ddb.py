@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.353'
+__version__='1.1.354'
 
         
         
@@ -418,6 +418,9 @@ sql_syntax = {
                      'name': 'values',
                      'no_keyword': True},
                     {'data': False, 'dispose': True, 'name': ')'}]},
+
+
+
         {'query': 'update',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']},
@@ -446,6 +449,59 @@ sql_syntax = {
                      'name': 'or',
                      'optional': True,
                      'parent': 'where'}]},
+
+        {'query': 'upsert',
+         'switch': [{'data': False, 'name': 'upsert'},
+                        {'arguments': 1,
+                        'data': [ {'sig': ['{table}']},
+                                  {'sig': ['{database}','.','{table}']},
+                                ],
+                        'name': 'into',
+                        },
+                    {'data': False, 'dispose': True, 'name': '('},
+                    {'arguments': 0,
+                     'data': [{'sig': ['{column}']}],
+                     'name': 'columns',
+                     'no_keyword': True},
+                    {'data': False, 'dispose': True, 'name': ')'},
+                    {'data': False,
+                     'dispose': True,
+                     'name': 'values'},
+                    {'data': False, 'dispose': True, 'name': '('},
+                    {'arguments': 0,
+                     'data': [{'sig': ['{value}']}],
+                     'name': 'values',
+                     'no_keyword': True},
+                    {'data': False, 'dispose': True, 'name': ')'},
+
+                    {'arguments': 1,
+                     'data': [{'sig': ['{column}', '=', '{expression}']}],
+                     'name': ['on','duplicate','key','update'],
+                     'optional': True,
+                     'store_array': True},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'name': 'where',
+                     'optional': True,
+                     'store_array': True},
+                    {'arguments': 0,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'and',
+                     'optional': True,
+                     'parent': 'where'},
+                    {'arguments': 1,
+                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                     'depends_on': 'where',
+                     'jump': 'where',
+                     'name': 'or',
+                     'optional': True,
+                     'parent': 'where'}
+                    ]},
+
+
+
         {'query': 'use',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']}],
@@ -2455,6 +2511,9 @@ class engine:
 
                 elif mode == 'update':
                     self.results = method_update(self,query_object)
+
+                elif mode == 'upsert':
+                    self.results = method_upsert(self,query_object)
                 
                 elif mode == 'delete':
                     self.results = method_delete(self,query_object)
