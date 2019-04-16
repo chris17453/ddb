@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.573'
+__version__='1.1.574'
 
         
         
@@ -2736,10 +2736,11 @@ def normalize_path(path):
 
 
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None):
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
+        self.diff=diff
         self.error=error
         self.data_length=0
         self.column_length=0
@@ -2832,7 +2833,7 @@ def method_insert(context, query_object):
         temp_file_prefix="INSERT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-
+        diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
                 for line in content_file:
@@ -2846,13 +2847,14 @@ def method_insert(context, query_object):
                     requires_new_line = False
 
                 results = create_single(context,query_object, temp_file, requires_new_line)
-                if True == results:
+                if True == results['success']:
+                    diff.append(results['line'])
                     affected_rows += 1
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)
 
         remove_temp_file(temp_data_file)      
-        return query_results(success=True,affected_rows=affected_rows)
+        return query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)
         remove_temp_file(temp_data_file)      
@@ -2889,9 +2891,9 @@ def create_single(context, query_object, temp_file, requires_new_line):
                 temp_file.write(new_line)
                 temp_file.write(query_object['table'].delimiters.get_new_line())
     if False == err:
-        return True
+        return {'success':True,'line':new_line}
     else:
-        return False
+        return {'success':False,'line':new_line}
 
         
         
@@ -3238,9 +3240,9 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
         temp_file.write(new_line)
         temp_file.write(query_object['table'].delimiters.get_new_line())
     if False == err:
-        return True
+        return {'success':True,'line':new_line}
     else:
-        return False
+        return {'success':False,'line':new_line}
 
 def method_update(context, query_object):
     try:
@@ -3263,6 +3265,7 @@ def method_update(context, query_object):
         temp_file_prefix="UPDATE"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
       
@@ -3273,7 +3276,8 @@ def method_update(context, query_object):
                     line_number += 1
                     if True == processed_line['match']:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
-                        if True == results:
+                        if True == results['success']:
+                            diff.append(results['line'])
                             affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
@@ -3281,7 +3285,7 @@ def method_update(context, query_object):
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)
         remove_temp_file(temp_data_file)      
-        return query_results(affected_rows=affected_rows,success=True)
+        return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         remove_temp_file(temp_data_file)      
         return query_results(success=False,error=ex)
