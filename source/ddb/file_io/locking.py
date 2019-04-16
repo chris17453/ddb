@@ -81,6 +81,7 @@ class lock:
         if os.path.exists(lock_path):
             lock.info("Lock","Already Exists")
             raise Exception ("Lockfile already exists. {0}".format(lock_path))
+        
         with open(lock_path,'w') as lockfile:
             lock_time=datetime.datetime.now()
             lock_time_str="{0}".format(lock_time)
