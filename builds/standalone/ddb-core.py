@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.524'
+__version__='1.1.525'
 
         
         
@@ -2695,6 +2695,15 @@ def create_temporary_copy(path,prefix):
         return temp_path
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
+
+def remove_temp_file(path):
+    try:
+        os.remove(path)
+        if os.path.exists(path):
+            raise Exception("Failed to delete: {0}".format(path))    
+    except Exception as ex:
+        raise Exception("Temp File Error: {0}".format(ex))
+
         
 def swap_files(path, temp):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
@@ -2789,6 +2798,7 @@ def method_delete(context, query_object):
                 temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.flush()
             swap_files(data_file, temp_file.name)
+        remove_temp_file(temp_data_file)      
         return  query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
         print(ex)
@@ -2846,9 +2856,11 @@ def method_insert(context, query_object):
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)
 
+        remove_temp_file(temp_data_file)      
         return query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
         print(ex)
+        remove_temp_file(temp_data_file)      
         return query_results(success=False, error=ex)
     
         
@@ -2957,7 +2969,7 @@ def select_process_file(context,query_object):
                     data.append(restructured_line)
                 line_number += 1
 
-        os.remove(temp_data_file)
+        remove_temp_file(temp_data_file)      
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
         data.append(row)
@@ -3272,9 +3284,10 @@ def method_update(context, query_object):
                     temp_file.write(query_object['table'].delimiters.get_new_line())
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)
-
+        remove_temp_file(temp_data_file)      
         return query_results(affected_rows=affected_rows,success=True)
     except Exception as ex:
+        remove_temp_file(temp_data_file)      
         return query_results(success=False,error=ex)
 
 
