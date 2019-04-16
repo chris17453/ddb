@@ -27,13 +27,21 @@ class lock:
         if os.path.exists(lock_path):
             with open(lock_path,'r') as lockfile:
                 try:
-                    file_lock_time=datetime.datetime.strptime(lockfile.readline(),'%Y-%m-%d %H:%M:%S.%f')
+                    print ("2")
+                    file_data=lockfile.readline()
+                    print ("3")
+                    file_lock_time=datetime.datetime.strptime(file_data,'%Y-%m-%d %H:%M:%S.%f')
+                    print ("4")
                     curent_datetime =datetime.datetime.now()
+                    print ("5")
                     elapsed_time=curent_datetime-file_lock_time
+                    print ("6")
                     # its an old lock thats failed. time to long. remove it
                     if elapsed_time.seconds()>10*1:
+                        print ("7")
                         lock.release(path)
                         return None
+                    print ("9")
                     return True
                 except Exception as ex:
                     print(ex)
