@@ -37,6 +37,8 @@ class lock:
                     return True
                 except Exception as ex:
                     print(ex)
+                    lock.release(path)
+                    pass
         return None
 
     @staticmethod
