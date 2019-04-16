@@ -1,9 +1,9 @@
 import os
 import datetime
 import tempfile
+import time
 
-
-class lockfile:
+class lock:
     
     @staticmethod
     def normalize_path(path):
@@ -13,7 +13,7 @@ class lockfile:
 
     @staticmethod
     def get_lock_filename(path):
-        norm_path=lockfile.normalize_path(path)
+        norm_path=lock.normalize_path(path)
         temp_dir = tempfile.gettempdir()
         basename=os.path.basename(norm_path)
         temp_file_name='{0}.lock'.format(basename)
@@ -22,22 +22,22 @@ class lockfile:
             
     @staticmethod
     def is_locked(path):
-        lock_path=lockfile.get_lock_filename(path)
+        lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
-            with open(lock_path,'r') as lock:
-                file_lock_time=datetime.datetime.strptime(lock.readline())
+            with open(lock_path,'r') as lockfile:
+                file_lock_time=datetime.datetime.strptime(lockfile.readline())
                 curent_datetime =datetime.datetime.now()
                 elapsed_time=curent_datetime-file_lock_time
                 # its an old lock thats failed. time to long. remove it
                 if elapsed_time.seconds()>10*1:
-                    lockfile.remove(path)
+                    lock.release(path)
                     return None
             return True
         return None
 
     @staticmethod
-    def remove(path):
-        lock_path=lockfile.get_lock_filename(path)
+    def release(path):
+        lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         os.remove(lock_path)
@@ -45,12 +45,23 @@ class lockfile:
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
 
     @staticmethod
-    def create(path):
-        lock_path=lockfile.get_lock_filename(path)
+    def aquire(path):
+        max_lock_time=60
+        lock_time=0
+        sleep_time=0.02
+        lock_cycle=0
+        while lock.is_locked(path):
+            time.sleep(sleep_time)
+            lock_time+=sleep_time
+            lock_cycle+=1
+            if lock_time>max_lock_time:
+                raise Exception( "Canot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format( max_lock_time,lock_cycle))
+
+        lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
             raise Exception ("Lockfile already exists. {0}".format(lock_path))
-        with open(lock_path,'w') as lock:
-            lock.write(datetime.datetime.now())
+        with open(lock_path,'w') as lockfile:
+            lockfile.write(datetime.datetime.now())
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
         
