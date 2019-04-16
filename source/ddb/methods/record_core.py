@@ -107,7 +107,7 @@ def create_temporary_copy(path,prefix):
 
 def remove_temp_file(path):
     try:
-        print "Removing temp copy"
+        #print "Removing temp copy"
         os.remove(path)
         if os.path.exists(path):
             raise Exception("Failed to delete: {0}".format(path))    
@@ -134,10 +134,10 @@ def swap_files(path, temp):
         #print("Swap File2")
         lock.release(path)
 
-        if os.path.exists(temp):
-            print ("Exists")
+        #if os.path.exists(temp):
+        #    print ("Exists")
         shutil.copy2(temp, norm_path)
-        print  temp,path
+        #print  temp,path
         
         #os.remove(temp)
         #print("$Removed")
