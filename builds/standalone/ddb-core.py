@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.492'
+__version__='1.1.493'
 
         
         
@@ -2679,6 +2679,7 @@ def process_line(context, query_object, line, line_number=0):
 def create_temporary_copy(path,prefix):
     """ Create a copy of a regular file in a temporary directory """
     try:
+        
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
         if prefix:
@@ -2711,6 +2712,10 @@ def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
     return normalized_path
+
+
+
+
 
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None):
@@ -3538,7 +3543,9 @@ def method_system_begin(context, query_object):
         if context.internal['IN_TRANSACTION']==1:
             raise Exception("Already in a Batch Transaction")
         else:
-            context.internal['IN_TRANSACTION']=0
+            context.internal['AUTOCOMMIT_HOLODER']=context.system['AUTOCOMMIT']
+            context.system['AUTOCOMMIT']=False
+            context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -3558,6 +3565,7 @@ def method_system_commit(context, query_object):
     try:
         if context.internal['IN_TRANSACTION']==1:
             context.internal['IN_TRANSACTION']=0
+            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
@@ -3579,6 +3587,7 @@ def method_system_rollback(context, query_object):
     try:
         if context.internal['IN_TRANSACTION']==1:
             context.internal['IN_TRANSACTION']=0
+            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
         else:
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
