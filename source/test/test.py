@@ -214,7 +214,6 @@ class test_engine(unittest.TestCase):
         #    print(ex)
         #    self.fail(ex)
 
-
     def test_set(self):
         """Set a database variable """
         self.cleanup()
