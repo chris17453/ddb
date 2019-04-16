@@ -65,6 +65,8 @@ class lock:
         lock_time=0
         lock_cycle=0
         while lock.is_locked(path):
+            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time")
+
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
             lock_cycle+=1
