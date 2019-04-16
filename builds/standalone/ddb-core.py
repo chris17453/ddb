@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.498'
+__version__='1.1.499'
 
         
         
@@ -1122,8 +1122,8 @@ class lexer:
 
 class tokenizer():
 
-    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=False):
-        self.debug_on = debug
+    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
+        self.debug_on = None
         tokens = []
 
         text = text.strip()
