@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.530'
+__version__='1.1.531'
 
         
         
@@ -2962,6 +2962,7 @@ def select_process_file(context,query_object):
         temp_file_prefix="SELECT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        print ("Processing")
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)

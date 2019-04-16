@@ -107,6 +107,7 @@ def create_temporary_copy(path,prefix):
 
 def remove_temp_file(path):
     try:
+        print "Removing temp copy"
         os.remove(path)
         if os.path.exists(path):
             raise Exception("Failed to delete: {0}".format(path))    
