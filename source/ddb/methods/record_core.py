@@ -130,7 +130,7 @@ def swap_files(path, temp):
             raise Exception("Deleting file {0} failed".format(norm_path))
         
         #print("Swap File2")
-        lock.release(path)
+        #lock.release(path)
 
         #if os.path.exists(temp):
         #    print ("Exists")
