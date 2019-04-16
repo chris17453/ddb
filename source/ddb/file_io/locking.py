@@ -4,6 +4,8 @@ import tempfile
 import time
 
 class lock:
+    max_lock_time=60
+    sleep_time=0.02
     
     @staticmethod
     def normalize_path(path):
@@ -31,8 +33,9 @@ class lock:
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # its an old lock thats failed. time to long. remove it
-                    print elapsed_time.seconds
-                    if elapsed_time.seconds>10*1:
+                    print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds
+                    
+                    if elapsed_time.seconds>max_lock_time:
                         lock.release(path)
                         return None
                     return True
@@ -53,9 +56,7 @@ class lock:
 
     @staticmethod
     def aquire(path):
-        max_lock_time=60
         lock_time=0
-        sleep_time=0.02
         lock_cycle=0
         while lock.is_locked(path):
             time.sleep(sleep_time)
