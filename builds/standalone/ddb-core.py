@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.531'
+__version__='1.1.532'
 
         
         
@@ -2698,6 +2698,7 @@ def create_temporary_copy(path,prefix):
 
 def remove_temp_file(path):
     try:
+        print "Removing temp copy"
         os.remove(path)
         if os.path.exists(path):
             raise Exception("Failed to delete: {0}".format(path))    
@@ -2955,7 +2956,6 @@ def select_process_file(context,query_object):
         temp_file_prefix="SELECT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print ("Processing")
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)

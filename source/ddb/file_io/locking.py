@@ -55,7 +55,10 @@ class lock:
         lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
-        print("Removing {0}".format(path))
+        
+        
+        
+        ("Removing {0}".format(path))
         os.remove(lock_path)
         if os.path.exists(lock_path):
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
@@ -66,7 +69,7 @@ class lock:
         lock_time=0
         lock_cycle=0
         while lock.is_locked(path):
-            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
+            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1}".format(path,lock_time))
 
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
