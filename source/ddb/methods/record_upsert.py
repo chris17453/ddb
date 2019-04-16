@@ -44,7 +44,7 @@ def method_upsert(context, query_object):
         temp_file_prefix="UPSERT"
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        print data_file,temp_data_file
+        #print data_file,temp_data_file
         
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
