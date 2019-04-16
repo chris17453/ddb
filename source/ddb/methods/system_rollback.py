@@ -6,6 +6,7 @@ def method_system_rollback(context, query_object):
         if context.internal['IN_TRANSACTION']==1:
             # TODO ROLLBACK
             context.internal['IN_TRANSACTION']=0
+            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
         else:
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
