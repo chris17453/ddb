@@ -108,12 +108,17 @@ def create_temporary_copy(path,prefix):
 def swap_files(path, temp):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
+        if None == lock.is_locked(path):
+            raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
+
         norm_path=normalize_path(path)
         if os.path.exists(norm_path):
             os.remove(norm_path)
         
         if os.path.exists(norm_path):
             raise Exception("Deleting file {0} failed".format(norm_path))
+        
+        lock.release(path)
         
         shutil.copy2(temp, norm_path)
         
