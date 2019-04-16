@@ -6,6 +6,7 @@ def method_system_commit(context, query_object):
         if context.internal['IN_TRANSACTION']==1:
             # TODO COMIT
             context.internal['IN_TRANSACTION']=0
+            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)

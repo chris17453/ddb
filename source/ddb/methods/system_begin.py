@@ -6,7 +6,9 @@ def method_system_begin(context, query_object):
         if context.internal['IN_TRANSACTION']==1:
             raise Exception("Already in a Batch Transaction")
         else:
-            context.internal['IN_TRANSACTION']=0
+            context.internal['AUTOCOMMIT_HOLODER']=context.system['AUTOCOMMIT']
+            context.system['AUTOCOMMIT']=False
+            context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
     except Exception as ex:
         return query_results(success=False,error=ex)
