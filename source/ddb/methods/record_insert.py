@@ -1,5 +1,5 @@
 import tempfile  # from table import table
-from .record_core import process_line, swap_files, query_results, create_temporary_copy
+from .record_core import process_line, swap_files, query_results, create_temporary_copy,remove_temp_file
 
 def method_insert(context, query_object):
     try:
@@ -45,9 +45,11 @@ def method_insert(context, query_object):
                 temp_file.flush()
                 swap_files(data_file, temp_file.name)
 
+        remove_temp_file(temp_data_file)      
         return query_results(success=True,affected_rows=affected_rows)
     except Exception as ex:
         print(ex)
+        remove_temp_file(temp_data_file)      
         return query_results(success=False, error=ex)
     
         
