@@ -1,3 +1,23 @@
 
 - name: Update csv with data
-  query: 'SELECT id from test WHERE id=1'
+  ddb:
+    query:
+    query: select * from machines where node like 'bob'
+    svn_auth: 
+      endpoint:
+      username:
+      password:
+      ignore-certificate:
+ 
+
+- name: Update csv with data
+  etmeta:
+    query: select * from machines where node like 'bob'
+    svn_auth: 
+      endpoint:
+      username:
+      password:
+      ignore-certificate:
+    
+ 
+
