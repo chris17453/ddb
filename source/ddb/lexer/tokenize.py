@@ -2,8 +2,8 @@
 # TODO: memory optimization.. maybe not sure how wastefull this is
 class tokenizer():
 
-    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=False):
-        self.debug_on = debug
+    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
+        self.debug_on = None
         tokens = []
 
         # clean leading and trailiong stuff
