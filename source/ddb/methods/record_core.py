@@ -104,6 +104,15 @@ def create_temporary_copy(path,prefix):
         return temp_path
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
+
+def remove_temp_file(path):
+    try:
+        os.remove(path)
+        if os.path.exists(path):
+            raise Exception("Failed to delete: {0}".format(path))    
+    except Exception as ex:
+        raise Exception("Temp File Error: {0}".format(ex))
+
         
 def swap_files(path, temp):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """

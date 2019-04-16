@@ -1,5 +1,5 @@
 from ..functions.functions import *
-from .record_core import process_line, swap_files, query_results, create_temporary_copy
+from .record_core import process_line, swap_files, query_results, create_temporary_copy,remove_temp_file
 from ..version import __version__
 import os
 import tempfile
@@ -85,7 +85,7 @@ def select_process_file(context,query_object):
                 line_number += 1
 
         # remove the temp data file
-        os.remove(temp_data_file)
+        remove_temp_file(temp_data_file)      
     # file is closed at this point, proccess the no "FROM" statement
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
