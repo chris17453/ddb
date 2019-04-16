@@ -68,6 +68,7 @@ class lock:
             raise Exception ("Lockfile already exists. {0}".format(lock_path))
         with open(lock_path,'w') as lockfile:
             lockfile.write(datetime.datetime.now())
+            lockfile.flush()
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
         
