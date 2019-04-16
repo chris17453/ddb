@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.522'
+__version__='1.1.523'
 
         
         
@@ -2721,7 +2721,7 @@ def swap_files(path, temp):
         lock.release(path)
 
         shutil.copy2(temp, norm_path)
-        
+        print  temp,pathj
         os.remove(temp)
         if os.path.exists(temp):
             raise Exception("Deleting temp file {0} failed".format(temp))
