@@ -75,9 +75,11 @@ class test_engine(unittest.TestCase):
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
             # test results length
+            print("HI")
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
-
+            print("Hello)
+            
             self.assertEqual(10, results.data_length)
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
             
