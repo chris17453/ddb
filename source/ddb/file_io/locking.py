@@ -63,7 +63,7 @@ class lock:
             lock_time+=lock.sleep_time
             lock_cycle+=1
             if lock_time>lock.max_lock_time:
-                raise Exception( "Canot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format( max_lock_time,lock_cycle))
+                raise Exception( "Canot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
