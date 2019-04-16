@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.556'
+__version__='1.1.557'
 
         
         
@@ -2719,10 +2719,10 @@ def swap_files(path, temp):
         if os.path.exists(norm_path):
             raise Exception("Deleting file {0} failed".format(norm_path))
         
+        lock.release(path)
 
         shutil.copy2(temp, norm_path)
         
-        os.remove(temp)
         if os.path.exists(temp):
             raise Exception("Deleting temp file {0} failed".format(temp))
         
