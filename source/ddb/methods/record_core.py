@@ -83,7 +83,11 @@ def process_line(context, query_object, line, line_number=0):
 def create_temporary_copy(path,prefix):
     """ Create a copy of a regular file in a temporary directory """
     try:
-        lock.aquire(path):
+        # dont over look this
+        # it checks for a lock file in the temp dir
+        # and blocks this thread/.process until MAX timout occures
+        # or the lock ages and is deleted
+        lock.aquire(path)
 
 
 
