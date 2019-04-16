@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.551'
+__version__='1.1.552'
 
         
         
@@ -2709,7 +2709,6 @@ def remove_temp_file(path):
 def swap_files(path, temp):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
-        print("Swap File1")
         if None == lock.is_locked(path):
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
@@ -2720,16 +2719,11 @@ def swap_files(path, temp):
         if os.path.exists(norm_path):
             raise Exception("Deleting file {0} failed".format(norm_path))
         
-        print("Swap File2")
         lock.release(path)
 
-        if os.path.exists(temp):
-            print ("Exists")
         shutil.copy2(temp, norm_path)
-        print  temp,path
         
         os.remove(temp)
-        print("$Removed")
         if os.path.exists(temp):
             raise Exception("Deleting temp file {0} failed".format(temp))
         
