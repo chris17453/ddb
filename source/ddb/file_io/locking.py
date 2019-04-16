@@ -37,7 +37,7 @@ class lock:
                     elapsed_time=curent_datetime-file_lock_time
                     print ("6")
                     # its an old lock thats failed. time to long. remove it
-                    if elapsed_time.seconds()>10*1:
+                    if elapsed_time.seconds>10*1:
                         print ("7")
                         lock.release(path)
                         return None
