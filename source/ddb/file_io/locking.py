@@ -6,6 +6,10 @@ import time
 class lock:
     max_lock_time=60
     sleep_time=0.02
+
+    @staticmethod
+    def info(msg,data):
+        print("{0}: {1}".format(msg,data))
     
     @staticmethod
     def normalize_path(path):
@@ -33,9 +37,9 @@ class lock:
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # its an old lock thats failed. time to long. remove it
-                    print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds
-                    
+                    # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds
                     if elapsed_time.seconds>lock.max_lock_time:
+                        lock.info("Lock","Releasing")
                         lock.release(path)
                         return None
                     return True
@@ -43,6 +47,7 @@ class lock:
                     #print(ex)
                     lock.release(path)
                     pass
+        lock.info("Lock","No Lock")
         return None
 
     @staticmethod
@@ -53,6 +58,7 @@ class lock:
         os.remove(lock_path)
         if os.path.exists(lock_path):
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
+        lock.info("Lock","removed")
 
     @staticmethod
     def aquire(path):
@@ -63,17 +69,23 @@ class lock:
             lock_time+=lock.sleep_time
             lock_cycle+=1
             if lock_time>lock.max_lock_time:
-                raise Exception( "Canot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
+                lock.info("Lock","Cannot aquire lock, timeout")
+                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
+            lock.info("Lock","Already Exists")
             raise Exception ("Lockfile already exists. {0}".format(lock_path))
         with open(lock_path,'w') as lockfile:
             lock_time=datetime.datetime.now()
             lock_time_str="{0}".format(lock_time)
-            print("Lock Time: {0}".format(lock_time_str))
+            
+            lock.info("Lock Time",lock_time_str)
+            
             lockfile.write(lock_time_str)
             lockfile.flush()
         if os.path.exists(lock_path)==False:
+            lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
+
         
