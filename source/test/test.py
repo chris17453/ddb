@@ -196,7 +196,19 @@ class test_engine(unittest.TestCase):
 
         results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
         self.assertEqual(True, results.success)
+
+        results = engine.query("select * from  {} where id = 1006".format(self.table_name))
+        self.assertEqual(1, results.data_length)
         
+        results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
+        self.assertEqual(True, results.success)
+
+        results = engine.query("select * from  {} where id = 12345".format(self.table_name))
+        self.assertEqual(1, results.data_length)
+        
+        results = engine.query("delete from {} where id = 12345".format(self.table_name))
+        self.assertEqual(1, results.affected_rows)
+
         ddb.output.factory.output_factory(query_results=results,output='term')
         #except Exception as ex:
         #    print(ex)
