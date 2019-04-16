@@ -35,7 +35,7 @@ class lock:
                     # its an old lock thats failed. time to long. remove it
                     print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds
                     
-                    if elapsed_time.seconds>max_lock_time:
+                    if elapsed_time.seconds>lock.max_lock_time:
                         lock.release(path)
                         return None
                     return True
@@ -59,10 +59,10 @@ class lock:
         lock_time=0
         lock_cycle=0
         while lock.is_locked(path):
-            time.sleep(sleep_time)
-            lock_time+=sleep_time
+            time.sleep(lock.sleep_time)
+            lock_time+=lock.sleep_time
             lock_cycle+=1
-            if lock_time>max_lock_time:
+            if lock_time>lock.max_lock_time:
                 raise Exception( "Canot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format( max_lock_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
