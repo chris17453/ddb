@@ -58,6 +58,7 @@ else:
     packages=['ddb',
               'ddb.lexer',
               'ddb.evaluate',
+              'ddb.file_io',
               'ddb.configuration',
               'ddb.functions',
               'ddb.output',
