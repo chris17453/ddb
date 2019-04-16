@@ -45,7 +45,7 @@ def method_upsert(context, query_object):
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
         #print data_file,temp_data_file
-        
+        diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
       
@@ -59,6 +59,7 @@ def method_upsert(context, query_object):
                     if True == processed_line['match']:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
                         if True == results:
+                            diff.append(results['line'])
                             affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
@@ -67,6 +68,8 @@ def method_upsert(context, query_object):
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     results = create_single(context,query_object, temp_file,False)
+                    if True==results['success']:
+                        diff.append(results['success'])
                 else:
                     context.info("row found in upsert")
 
@@ -76,7 +79,7 @@ def method_upsert(context, query_object):
         remove_temp_file(temp_data_file)      
                 
 
-        return query_results(affected_rows=affected_rows,success=True)
+        return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
         print ("ERR",ex)
         #Sremove_temp_file(temp_data_file)      
