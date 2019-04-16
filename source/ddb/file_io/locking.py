@@ -9,7 +9,8 @@ class lock:
 
     @staticmethod
     def info(msg,data):
-        print("{0}: {1}".format(msg,data))
+        if 1==2:
+            print("{0}: {1}".format(msg,data))
     
     @staticmethod
     def normalize_path(path):

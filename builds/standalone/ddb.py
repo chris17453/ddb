@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.563'
+__version__='1.1.564'
 
         
         
@@ -2705,7 +2705,6 @@ def create_temporary_copy(path,prefix):
 
 def remove_temp_file(path):
     try:
-        print "Removing temp copy"
         os.remove(path)
         if os.path.exists(path):
             raise Exception("Failed to delete: {0}".format(path))    
@@ -2728,10 +2727,7 @@ def swap_files(path, temp):
         
         lock.release(path)
 
-        if os.path.exists(temp):
-            print ("Exists")
         shutil.copy2(temp, norm_path)
-        print  temp,path
         
         
     except Exception as ex:
