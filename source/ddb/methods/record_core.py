@@ -122,6 +122,7 @@ def swap_files(path, temp):
         if None == lock.is_locked(path):
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
+        # DELETE ORIGINAL
         norm_path=normalize_path(path)
         if os.path.exists(norm_path):
             os.remove(norm_path)
@@ -129,6 +130,7 @@ def swap_files(path, temp):
         if os.path.exists(norm_path):
             raise Exception("Deleting file {0} failed".format(norm_path))
         
+        # REMOVE LOCK FROM ORIGINAL PATH
         #print("Swap File2")
         lock.release(path)
 
@@ -137,10 +139,10 @@ def swap_files(path, temp):
         shutil.copy2(temp, norm_path)
         print  temp,path
         
-        os.remove(temp)
-        print("$Removed")
-        if os.path.exists(temp):
-            raise Exception("Deleting temp file {0} failed".format(temp))
+        #os.remove(temp)
+        #print("$Removed")
+        #if os.path.exists(temp):
+        #    raise Exception("Deleting temp file {0} failed".format(temp))
         
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
