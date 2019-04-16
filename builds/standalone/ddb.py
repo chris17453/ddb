@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.536'
+__version__='1.1.537'
 
         
         
@@ -2977,7 +2977,8 @@ def select_process_file(context,query_object):
                     data.append(restructured_line)
                 line_number += 1
 
-        remove_temp_file(temp_data_file)      
+        remove_temp_file(temp_data_file)
+        lock.release(data_file)
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
         data.append(row)
