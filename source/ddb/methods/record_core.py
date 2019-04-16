@@ -132,13 +132,13 @@ def swap_files(path, temp):
         #print("Swap File2")
         lock.release(path)
 
-        #if os.path.exists(temp):
-        #    print ("Exists")
+        if os.path.exists(temp):
+            print ("Exists")
         shutil.copy2(temp, norm_path)
-        #print  temp,path
+        print  temp,path
         
         os.remove(temp)
-        #print("$Removed")
+        print("$Removed")
         if os.path.exists(temp):
             raise Exception("Deleting temp file {0} failed".format(temp))
         
