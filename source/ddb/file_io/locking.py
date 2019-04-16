@@ -23,6 +23,7 @@ class lock:
     @staticmethod
     def is_locked(path):
         lock_path=lock.get_lock_filename(path)
+        print "LP",lock_path
         if os.path.exists(lock_path):
             with open(lock_path,'r') as lockfile:
                 try:
