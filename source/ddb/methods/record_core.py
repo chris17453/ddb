@@ -1,6 +1,6 @@
 import os
 import tempfile, shutil
-from ..file_io.locking import lockfile
+from ..file_io.locking import lock
 from pprint import pprint
 
 
@@ -83,7 +83,10 @@ def process_line(context, query_object, line, line_number=0):
 def create_temporary_copy(path,prefix):
     """ Create a copy of a regular file in a temporary directory """
     try:
-        
+        lock.aquire(path):
+
+
+
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
         if prefix:
@@ -112,7 +115,7 @@ def swap_files(path, temp):
         
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
-
+ 
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
