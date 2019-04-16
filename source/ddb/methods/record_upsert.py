@@ -71,9 +71,9 @@ def method_upsert(context, query_object):
                     context.info("row found in upsert")
 
                 temp_file.flush()
-                swap_files(data_file, temp_file.name)
+                #swap_files(data_file, temp_file.name)
         
-        #remove_temp_file(temp_data_file)      
+        remove_temp_file(temp_data_file)      
                 
 
         return query_results(affected_rows=affected_rows,success=True)
