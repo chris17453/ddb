@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.577'
+__version__='1.1.578'
 
         
         
@@ -1574,7 +1574,6 @@ class column_sort:
 
 
 
-
 class table:
     def __init__(self,
                  table_config_file=None,
@@ -1600,6 +1599,17 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
+
+        if table_config_file:
+            parser = lexer(sql_query, self.debug)
+            if False == parser.query_objects:
+                raise Exception("Invalid Create table SQL")
+
+                for query_object in parser.query_objects:
+                    mode=query_object['mode']
+                    if mode == 'create':
+                        self.results = method_create_table(self,query_object)
+
 
         self.update(data_file=data_file,
                     columns=columns,
@@ -1800,8 +1810,7 @@ class table:
             self.data.config = os.path.join(
                 dest_dir, "{0}.ddb.yaml".format(self.data.name))
         
-        sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".
-            format(
+        sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 ",".join(self.columns),
@@ -1815,7 +1824,7 @@ class table:
               
         with open(self.data.config,"w") as config_file:
             config_file.write(sql);
-            
+
         return True
 
 
@@ -2700,7 +2709,8 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-
+        diff=[]
+        context.diff.append
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) 
             for line in content_file:
@@ -2710,13 +2720,15 @@ def method_delete(context, query_object):
                 line_number += 1
                 if True == processed_line['match']:
                     affected_rows += 1
+                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.flush()
             swap_files(data_file, temp_file.name)
+
         remove_temp_file(temp_data_file)      
-        return  query_results(success=True,affected_rows=affected_rows)
+        return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)
         return  query_results(success=False, error=ex)
