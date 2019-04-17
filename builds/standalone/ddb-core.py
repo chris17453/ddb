@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.594'
+__version__='1.1.595'
 
         
         
@@ -2381,10 +2381,10 @@ class engine:
             self.current_database = self.database.get_default_database()
             print ("?O")
             queries=self.database.get_db_sql()
-            print ("database sql",queries)
             self.query(queries)
-        except Exception ex:
+        except Exception as ex:
             print ex
+            pass
 
         if None != query:
             self.query(query)
