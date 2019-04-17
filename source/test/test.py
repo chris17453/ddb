@@ -39,10 +39,9 @@ class test_engine(unittest.TestCase):
             # single db change from default
             self.cleanup()
             engine = ddb.engine(config_file=False)
-            test_db_name = self.table_name
             results = engine.query("show output modules")
-            self.assertEqual(True, results.success)
             ddb.output.factory.output_factory(query_results=results,output='TERM')
+            self.assertEqual(True, results.success)
         except Exception as ex:
             self.fail(ex)
 
