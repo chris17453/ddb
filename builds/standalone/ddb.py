@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.623'
+__version__='1.1.624'
 
         
         
@@ -2481,7 +2481,7 @@ class engine:
                 elif mode == "show tables":
                     self.results = method_system_show_tables(self,self.database)
 
-                elif mode == "show output options":
+                elif mode == "show output modules":
                     self.results = method_system_show_output_modules(self,query_object)
 
                 elif mode == "show columns":
