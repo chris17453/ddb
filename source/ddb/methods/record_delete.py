@@ -14,7 +14,8 @@ def method_delete(context, query_object):
         temp_file_prefix = "DELETE" 
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-
+        diff=[]
+        context.diff.append
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) 
             for line in content_file:
@@ -25,13 +26,15 @@ def method_delete(context, query_object):
                 # skip matches
                 if True == processed_line['match']:
                     affected_rows += 1
+                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
             temp_file.flush()
             swap_files(data_file, temp_file.name)
+
         remove_temp_file(temp_data_file)      
-        return  query_results(success=True,affected_rows=affected_rows)
+        return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)
         return  query_results(success=False, error=ex)
