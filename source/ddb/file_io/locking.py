@@ -34,7 +34,8 @@ class lock:
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
-                    file_lock_time=datetime.datetime.strptime(file_data,'%Y-%m-%d %H:%M:%S.%f')
+                    timestamp,temp_file_path=file_data.split('|')
+                    file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # it's an old lock thats failed. time to long. remove it
@@ -88,7 +89,7 @@ class lock:
             
             lock.info("Lock Time",lock_time_str)
             
-            lockfile.write(lock_time_str)
+            lockfile.write("{0}|{1}".format(lock_time_str,path))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
