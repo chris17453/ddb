@@ -90,15 +90,17 @@ class engine:
         
         self.user={}
         self.internal['IN_TRANSACTION']=0
-        
-        # print "Config",config_file
-        self.database = database(config_file=config_file)
-        self.current_database = self.database.get_default_database()
-        # load tables
-        print ("YO")
-        queries=self.database.get_db_sql()
-        print ("database sql",queries)
-        self.query(queries)
+        try:        
+            # print "Config",config_file
+            self.database = database(config_file=config_file)
+            self.current_database = self.database.get_default_database()
+            # load tables
+            print ("YwO")
+            queries=self.database.get_db_sql()
+            print ("database sql",queries)
+            self.query(queries)
+        except Exception ex:
+            print ex
 
         if None != query:
             self.query(query)
