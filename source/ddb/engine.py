@@ -94,6 +94,10 @@ class engine:
         # print "Config",config_file
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
+        # load tables
+        queries=self.database.get_db_sql()
+        self.query(queries)
+
         if None != query:
             self.query(query)
         
@@ -133,7 +137,6 @@ class engine:
             # update table info...
             # it may have changed...
             # self.database.reload_config()
-
             parser = lexer(sql_query, self.debug)
             if False == parser.query_objects:
                 raise Exception("Invalid SQL")

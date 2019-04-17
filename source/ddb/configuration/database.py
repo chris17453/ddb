@@ -17,8 +17,7 @@ class database:
         if None != config_file and config_file != False:
             self.config_file = config_file
             # loads the config in a safe way
-            self.reload_config()
-            return
+            #self.reload_config()
 
     def set_database(self, database_name):
         # TODO validate database name
@@ -218,24 +217,35 @@ class database:
         except Exception as ex:
             raise Exception("failed to remove table from db configuration")
 
-    def reload_config(self):
+    def get_db_sql(self):
         temp_tables = self.get_tables()
-        table_swap = []
-        # add temp tables to list
-        for t in self.tables:
-            if t.data.type == 'Temp':
-                table_swap.append(t)
-
         for t in temp_tables:
-            temp_table = table(table_config_file=t)
-            # Dont add tables that are inactive...
-            if temp_table.active == False:
-                warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
-                warnings.warn(message=warn_msg)
-                continue
-            table_swap.append(temp_table)
-
-        self.tables = table_swap
+            queries=""
+            with open(t,'r') as table_config:
+                queries.append(table_config.read())
+        return ";".join(queries)
+            
+    #def reload_config(self):
+    #    temp_tables = self.get_tables()
+    #    table_swap = []
+    #    # add temp tables to list
+    #    for t in self.tables:
+    #        if t.data.type == 'Temp':
+    #            table_swap.append(t)
+    #
+    #    for t in temp_tables:
+    #        #temp_table = table(table_config_file=t)
+    #        queries=""
+    #        with open(t,'r') as table_config:
+    #            queries.append(table_config.read())
+    #        # Dont add tables that are inactive...
+    #        #if temp_table.active == False:
+    #        #    warn_msg="Table not loaded {0}.{1}".format(temp_table.data.database, temp_table.data.name)
+    #        #    warnings.warn(message=warn_msg)
+    #        #    continue
+    #        #table_swap.append(temp_table)
+    #
+    #    self.tables = table_swap
 
     def get_tables(self):
         if None == self.config_file:
