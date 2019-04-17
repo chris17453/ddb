@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.582'
+__version__='1.1.583'
 
         
         
@@ -2707,7 +2707,7 @@ def method_delete(context, query_object):
         data_file=query_object['table'].data.path
         temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
         diff=[]
-        context.diff.append
+
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) 
             for line in content_file:
