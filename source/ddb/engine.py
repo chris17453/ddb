@@ -17,6 +17,7 @@ from .methods.system_rollback import method_system_rollback
 from .methods.system_show_variables  import method_system_show_variables
 from .methods.system_show_tables import method_system_show_tables
 from .methods.system_show_columns import method_system_show_columns
+from .methods.system_show_output_options import system_show_output_options
 
 # database level data methods
 from .methods.database_use import method_use
@@ -84,7 +85,13 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='single'
-
+        self.system['OUTPUT_MODULES']=[
+            {'name':'bash'},
+            {'name':'term','styles':['single','double','rst']},
+            {'name':'raw'},
+            {'name':'yaml'},
+            {'name':'json'},
+            {'name':'xml'}]
         #auto functions ran when a variable is set
         self.system_trigger['DEBUG']=self.trigger_debug
         
@@ -197,6 +204,9 @@ class engine:
 
                 elif mode == "show tables":
                     self.results = method_system_show_tables(self,self.database)
+
+                elif mode == "show output options":
+                    self.results = method_system_show_output_options(self,query_object)
 
                 elif mode == "show columns":
                     self.results = method_system_show_columns(self,self.database, query_object)

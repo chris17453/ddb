@@ -332,6 +332,13 @@ sql_syntax = {
              'depends_on':'begin'
          }]
          },
+        {'query': 'show output options',
+         'switch': [{
+             'name': ['show','output','options'],
+             'arguments': None,
+             'data': None,
+         }]
+         },
         {'query': 'delete',
          'switch': [{'data': False, 'name': 'delete'},
                     {'arguments': 1,
