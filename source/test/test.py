@@ -206,7 +206,7 @@ class test_engine(unittest.TestCase):
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
-            results = engine.query("DESCRIBE TABLE {1}".format(self.table_name)
+            results = engine.query("DESCRIBE TABLE {1}".format(self.table_name))
             ddb.output.factory.output_factory(query_results=results,output='term')
             self.assertEqual(True, results.success)
         except Exception as ex:
