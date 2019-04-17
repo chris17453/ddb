@@ -55,7 +55,7 @@ extensions = [
 #    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
 if USE_CYTHON:
-    try
+    try:
         from Cython.Build import cythonize
     except BaseException:
         print ("No Cython installed")
