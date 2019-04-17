@@ -7,11 +7,11 @@ include ddb/evaluate/__init__.py
 include ddb/output/__init__.py
 include ddb/structure/__init__.py
 include ddb/methods/__init__.py
-recursive-include ddb/ *.py
-recursive-include ddb/functions *.py
-recursive-include ddb/lexer *.py
-recursive-include ddb/file_io *.py
-recursive-include ddb/evaluate *.py
-recursive-include ddb/output *.py
-recursive-include ddb/structure *.py
-recursive-include ddb/methods *.py
+include ddb/ *.py
+#recursive-include ddb/functions *.py
+#recursive-include ddb/lexer *.py
+#recursive-include ddb/file_io *.py
+#recursive-include ddb/evaluate *.py
+#recursive-include ddb/output *.py
+#recursive-include ddb/structure *.py
+#recursive-include ddb/methods *.py
