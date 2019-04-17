@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.654'
+__version__='1.1.655'
 
         
         
@@ -3347,7 +3347,7 @@ def method_describe_table(context, query_object):
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-        table_name=query_object['meta']['describe']['table']
+        table_name=query_object['meta']['describe_table']['table']
         target_table= context.database.get(table_name,database_name=database_name)
         temp_table.add_column('option')
         temp_table.add_column('value')
