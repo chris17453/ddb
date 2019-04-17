@@ -207,9 +207,8 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
 
             results = engine.query("DESCRIBE TABLE {1}".format(self.table_name)
-            self.assertEqual(True, results.success)
-            
             ddb.output.factory.output_factory(query_results=results,output='term')
+            self.assertEqual(True, results.success)
         except Exception as ex:
             print(ex)
             self.fail(ex)
