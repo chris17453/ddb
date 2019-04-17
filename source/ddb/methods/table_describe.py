@@ -6,9 +6,9 @@ def method_describe_table(context, query_object):
     context.info("Describe Table")
     try:
         temp_table = context.database.temp_table()
-        if 'database' in query_object['meta']:
+        if 'database' in query_object['meta']['describe_table']:
             context.info('Database specified')
-            database_name = query_object['meta']['database']
+            database_name = query_object['meta']['describe_table']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
