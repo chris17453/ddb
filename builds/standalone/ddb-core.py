@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.588'
+__version__='1.1.589'
 
         
         
@@ -2385,6 +2385,7 @@ class engine:
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
         queries=self.database.get_db_sql()
+        print (queries)
         self.query(queries)
 
         if None != query:
