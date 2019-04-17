@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.604'
+__version__='1.1.605'
 
         
         
@@ -2399,11 +2399,9 @@ class engine:
         try:        
             self.database = database(config_file=config_file)
             self.current_database = self.database.get_default_database()
-            print ("?O")
             queries=self.database.get_db_sql()
             self.query(queries)
         except Exception as ex:
-            print ex
             pass
 
         if None != query:
