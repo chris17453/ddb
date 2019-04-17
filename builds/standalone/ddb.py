@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.648'
+__version__='1.1.649'
 
         
         
@@ -2490,6 +2490,8 @@ class engine:
 
                 elif mode == "show variables":
                     self.results = method_system_show_variables(self, query_object)
+                elif mode == "describe table":
+                    self.results = method_describe_table(self, query_object)
 
                 if False==self.results.success:
 
