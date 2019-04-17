@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.591'
+__version__='1.1.592'
 
         
         
@@ -2073,7 +2073,7 @@ class database:
 
     def get_db_sql(self):
         temp_tables = self.get_tables()
-        queries=''
+        queries=[]
         for t in temp_tables:
             with open(t,'r') as table_config:
                 queries.append(table_config.read())
@@ -2383,13 +2383,15 @@ class engine:
         
         self.user={}
         self.internal['IN_TRANSACTION']=0
-        
-        self.database = database(config_file=config_file)
-        self.current_database = self.database.get_default_database()
-        print ("YO")
-        queries=self.database.get_db_sql()
-        print ("database sql",queries)
-        self.query(queries)
+        try:        
+            self.database = database(config_file=config_file)
+            self.current_database = self.database.get_default_database()
+            print ("YwO")
+            queries=self.database.get_db_sql()
+            print ("database sql",queries)
+            self.query(queries)
+        except Exception ex:
+            print ex
 
         if None != query:
             self.query(query)
