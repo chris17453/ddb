@@ -62,6 +62,8 @@ if USE_CYTHON:
         print ("No Cython installed")
         print("Building")
         exit(1)
+else:
+    print("Not using CYTHON")
     extensions = cythonize(extensions)
     #packages=['ddb',
     #          'ddb.lexer',
