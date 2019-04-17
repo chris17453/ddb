@@ -43,6 +43,7 @@ class test_engine(unittest.TestCase):
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
         except Exception as ex:
+            print ex
             self.fail(ex)
 
     def test_create_table(self):
