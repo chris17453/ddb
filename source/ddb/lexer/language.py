@@ -575,9 +575,10 @@ sql_syntax = {
          },
         {'query': 'describe table',
          'switch': [{'arguments': 1,
-                     'data': [{'sig': ['table', '{table}']}],
-                     'name': 'describe'}]},
-
+                    'data': [ {'sig': ['{table}']},
+                                {'sig': ['{database}','.','{table}']},
+                                ],
+                    'name': 'describe'}]},
 
     ]  # query matrix array
 }  # sql_syntax
