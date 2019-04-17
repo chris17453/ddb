@@ -32,6 +32,19 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
         except Exception as ex:
             self.fail(ex)
+    
+    def test_show_output_modules(self):
+        """Test changing database context"""
+        try:
+            # single db change from default
+            self.cleanup()
+            engine = ddb.engine(config_file=False)
+            test_db_name = self.table_name
+            results = engine.query("show output modules")
+            self.assertEqual(True, results.success)
+            ddb.output.factory.output_factory(query_results=results,output='TERM')
+        except Exception as ex:
+            self.fail(ex)
 
     def test_create_table(self):
         """Test creating a table"""
