@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.595'
+__version__='1.1.596'
 
         
         
@@ -369,6 +369,13 @@ sql_syntax = {
              'arguments': None,
              'data': None,
              'depends_on':'begin'
+         }]
+         },
+        {'query': 'show output options',
+         'switch': [{
+             'name': ['show','output','options'],
+             'arguments': None,
+             'data': None,
          }]
          },
         {'query': 'delete',
@@ -2378,7 +2385,13 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='single'
-
+        self.system['OUTPUT_MODULES']=[
+            {'name':'bash'},
+            {'name':'term','styles':['single','double','rst']},
+            {'name':'raw'},
+            {'name':'yaml'},
+            {'name':'json'},
+            {'name':'xml'}]
         self.system_trigger['DEBUG']=self.trigger_debug
         
         self.user={}
@@ -2470,6 +2483,9 @@ class engine:
 
                 elif mode == "show tables":
                     self.results = method_system_show_tables(self,self.database)
+
+                elif mode == "show output options":
+                    self.results = method_system_show_output_options(self,query_object)
 
                 elif mode == "show columns":
                     self.results = method_system_show_columns(self,self.database, query_object)
@@ -2602,7 +2618,7 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-def create_temporary_copy(path,prefix):
+def create_temporary_copy(context,path,prefix):
     """ Create a copy of a regular file in a temporary directory """
     try:
         lock.aquire(path)
@@ -3313,7 +3329,6 @@ def method_create_table(context, query_object):
 
         return query_results(success=results)
     except Exception as ex:
-        print ex
         return query_results(success=False, error=ex)
 
         
