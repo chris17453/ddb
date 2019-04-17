@@ -34,11 +34,11 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
     
     def test_show_output_modules(self):
-        """Test changing database context"""
+        """Test showint output modules and styles"""
         try:
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=False)
+            engine = ddb.engine(config_file=False,debug=True)
             results = engine.query("show output modules")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
