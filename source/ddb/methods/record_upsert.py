@@ -58,7 +58,7 @@ def method_upsert(context, query_object):
                     # skip matches
                     if True == processed_line['match']:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
-                        if True == results:
+                        if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
@@ -69,7 +69,7 @@ def method_upsert(context, query_object):
                     context.info("No row found in upsert, creating")
                     results = create_single(context,query_object, temp_file,False)
                     if True==results['success']:
-                        diff.append(results['success'])
+                        diff.append(results['line'])
                 else:
                     context.info("row found in upsert")
 
