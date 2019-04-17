@@ -12,6 +12,7 @@ if '--use-cython' in sys.argv:
     print("Using Cython")
     USE_CYTHON=True
 else:
+    prefix=''
     USE_CYTHON=None    
 
 extensions = [
