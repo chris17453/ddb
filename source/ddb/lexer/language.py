@@ -578,7 +578,7 @@ sql_syntax = {
                     'data': [ {'sig': ['{table}']},
                                 {'sig': ['{database}','.','{table}']},
                                 ],
-                    'name': 'describe'}]},
+                    'name': ['describe','table']}]},
 
     ]  # query matrix array
 }  # sql_syntax
