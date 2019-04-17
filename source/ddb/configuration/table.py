@@ -271,10 +271,18 @@ class table:
                 dest_dir, "{0}.ddb.yaml".format(self.data.name))
         #print ("dump:{0}".format(self.data.config))
         
+        if len(self.columns)==0:
+            raise Exception("No columns in the table. Cant save")
+        
+        column_str=[]
+        for column in self.columns:
+            column_str.append("'{0}'".format(column))
+        column_str=",".join(column_str)
+        
         sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
-                ",".join(self.columns),
+                column_str,
                 self.data.path,
                 self.delimiters.field,
                 self.visible.whitespace,
