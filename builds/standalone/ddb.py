@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.606'
+__version__='1.1.607'
 
         
         
@@ -2616,7 +2616,7 @@ def process_line(context, query_object, line, line_number=0):
             'error': err}
 
   
-def create_temporary_copy(context,path,prefix):
+def create_temporary_copy(path,prefix):
     """ Create a copy of a regular file in a temporary directory """
     try:
         lock.aquire(path)
