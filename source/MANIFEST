@@ -34,7 +34,7 @@ ddb/methods/system_commit.py
 ddb/methods/system_rollback.py
 ddb/methods/system_set.py
 ddb/methods/system_show_columns.py
-ddb/methods/system_show_output_options.py
+ddb/methods/system_show_output_modules.py
 ddb/methods/system_show_tables.py
 ddb/methods/system_show_variables.py
 ddb/methods/table_create.py

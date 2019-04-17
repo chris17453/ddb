@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.597'
+__version__='1.1.598'
 
         
         
@@ -2378,7 +2378,7 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='single'
-        self.system['OUTPUT_MODULES']=[
+        self.internal['OUTPUT_MODULES']=[
             {'name':'bash'},
             {'name':'term','styles':['single','double','rst']},
             {'name':'raw'},
@@ -2478,7 +2478,7 @@ class engine:
                     self.results = method_system_show_tables(self,self.database)
 
                 elif mode == "show output options":
-                    self.results = method_system_show_output_options(self,query_object)
+                    self.results = method_system_show_output_modules(self,query_object)
 
                 elif mode == "show columns":
                     self.results = method_system_show_columns(self,self.database, query_object)
