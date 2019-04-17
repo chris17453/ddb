@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.652'
+__version__='1.1.653'
 
         
         
@@ -617,7 +617,7 @@ sql_syntax = {
                     'data': [ {'sig': ['{table}']},
                                 {'sig': ['{database}','.','{table}']},
                                 ],
-                    'name': 'describe'}]},
+                    'name': ['describe','table']}]},
 
     ]  # query matrix array
 }  # sql_syntax
@@ -3347,9 +3347,9 @@ def method_describe_table(context, query_object):
     context.info("Describe Table")
     try:
         temp_table = context.database.temp_table()
-        if 'database' in query_object['meta']:
+        if 'database' in query_object['meta']['describe_table']:
             context.info('Database specified')
-            database_name = query_object['meta']['database']
+            database_name = query_object['meta']['describe_table']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
