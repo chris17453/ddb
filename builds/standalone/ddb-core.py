@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.584'
+__version__='1.1.585'
 
         
         
@@ -1797,9 +1797,9 @@ class table:
         
         column_str=[]
         for column in self.columns:
-            column_str.append("'{0}'".format(column))
+            column_str.append("'{0}'".format(column.name))
         column_str=",".join(column_str)
-        
+
         sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
