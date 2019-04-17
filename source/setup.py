@@ -66,17 +66,17 @@ if USE_CYTHON:
         exit(1)
 else:
     print("Not using CYTHON")
-    #packages=['ddb',
-    #          'ddb.lexer',
-    #          'ddb.evaluate',
-    #          'ddb.file_io',
-    #          'ddb.methods',
-    #          'ddb.functions',
-    #          'ddb.configuration',
-    #          'ddb.output',
-    #          ]
+
+packages=['ddb',
+            'ddb.lexer',
+            'ddb.evaluate',
+            'ddb.file_io',
+            'ddb.methods',
+            'ddb.functions',
+            'ddb.configuration',
+            'ddb.output',
+            ]
     
-packages=['ddb']
 
 exec(open('ddb/version.py').read())
 setup(
