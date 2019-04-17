@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.647'
+__version__='1.1.648'
 
         
         
@@ -614,9 +614,10 @@ sql_syntax = {
          },
         {'query': 'describe table',
          'switch': [{'arguments': 1,
-                     'data': [{'sig': ['table', '{table}']}],
-                     'name': 'describe'}]},
-
+                    'data': [ {'sig': ['{table}']},
+                                {'sig': ['{database}','.','{table}']},
+                                ],
+                    'name': 'describe'}]},
 
     ]  # query matrix array
 }  # sql_syntax
@@ -3344,8 +3345,15 @@ def method_describe_table(context, query_object):
     context.info("Describe Table")
     try:
         temp_table = context.database.temp_table()
+        if 'database' in query_object['meta']:
+            context.info('Database specified')
+            database_name = query_object['meta']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+
         table_name=query_object['meta']['describe']['table']
-        target_table= context.database.get(table_name)
+        target_table= context.database.get(table_name,database_name=database_name)
         temp_table.add_column('option')
         temp_table.add_column('value')
         
@@ -3363,6 +3371,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['whitespace_visible',target_table.visible.whitespace], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
 
 
