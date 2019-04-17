@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.621'
+__version__='1.1.622'
 
         
         
@@ -374,6 +374,7 @@ sql_syntax = {
         {'query': 'show output modules',
          'switch': [{
              'name': ['show','output','modules'],
+             'data':None
          }]
          },
         {'query': 'delete',
