@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.578'
+__version__='1.1.579'
 
         
         
@@ -1592,17 +1592,6 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
-
-        if table_config_file:
-            parser = lexer(sql_query, self.debug)
-            if False == parser.query_objects:
-                raise Exception("Invalid Create table SQL")
-
-                for query_object in parser.query_objects:
-                    mode=query_object['mode']
-                    if mode == 'create':
-                        self.results = method_create_table(self,query_object)
-
 
         self.update(data_file=data_file,
                     columns=columns,

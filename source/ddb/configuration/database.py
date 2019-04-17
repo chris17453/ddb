@@ -219,8 +219,8 @@ class database:
 
     def get_db_sql(self):
         temp_tables = self.get_tables()
+        queries=''
         for t in temp_tables:
-            queries=""
             with open(t,'r') as table_config:
                 queries.append(table_config.read())
         return ";".join(queries)
