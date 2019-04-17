@@ -332,9 +332,9 @@ sql_syntax = {
              'depends_on':'begin'
          }]
          },
-        {'query': 'show output options',
+        {'query': 'show output modules',
          'switch': [{
-             'name': ['show','output','options'],
+             'name': ['show','output','modules'],
              'arguments': None,
              'data': None,
          }]
