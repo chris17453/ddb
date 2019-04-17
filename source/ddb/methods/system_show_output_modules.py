@@ -1,8 +1,8 @@
 from .record_core import query_results
 
-def method_system_output_modules(context,database):
+def method_system_output_modules(context):
     try:
-        temp_table = database.temp_table(columns=['output_module', 'output_style'])
+        temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
         for t in context.internal['OUTPUT_MODULES']:
             columns = [t['name'], t['style']]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
