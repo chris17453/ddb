@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.664'
+__version__='1.1.665'
 
         
         
@@ -3346,7 +3346,6 @@ def method_describe_table(context, query_object):
     returns: table"""
     context.info("Describe Table")
     try:
-        print query_object
         temp_table = context.database.temp_table()
         if 'database' in query_object['meta']['describe table']:
             context.info('Database specified')
