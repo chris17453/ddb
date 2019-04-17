@@ -58,13 +58,13 @@ extensions = [
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
+        extensions = cythonize(extensions)
     except BaseException:
         print ("No Cython installed")
         print("Building")
         exit(1)
 else:
     print("Not using CYTHON")
-    extensions = cythonize(extensions)
     #packages=['ddb',
     #          'ddb.lexer',
     #          'ddb.evaluate',
