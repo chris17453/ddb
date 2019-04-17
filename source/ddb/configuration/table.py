@@ -262,7 +262,7 @@ class table:
             home = self.config_directory
 
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.create.sql".format(self.data.name))
+            self.data.config = os.path.join(home, "{0}.{1}.create.sql".format(self.data.database,self.data.name))
         
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
