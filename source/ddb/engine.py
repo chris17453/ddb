@@ -96,6 +96,7 @@ class engine:
         self.current_database = self.database.get_default_database()
         # load tables
         queries=self.database.get_db_sql()
+        print (queries)
         self.query(queries)
 
         if None != query:
