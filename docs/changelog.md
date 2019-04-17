@@ -1,4 +1,6 @@
 ### ddb Recent additions
+- changed save file format from yaml to sql, eliminated split brain loading tables
+- enabled file locking
 - language prep for GROUP BY, *not implimented*
 - added support for DISTINCT
 - removed pyyaml and libxml support
