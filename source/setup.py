@@ -3,7 +3,8 @@ import sys
 from distutils.core import setup, Command
 from distutils.extension import Extension
 
-ext = '.py'
+# dist style
+ext = '.c'
 if '--use-cython' in sys.argv:
     index = sys.argv.index('--use-cython')
     sys.argv.pop(index)  # Removes the '--foo'
