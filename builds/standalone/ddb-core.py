@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.610'
+__version__='1.1.611'
 
         
         
@@ -364,9 +364,9 @@ sql_syntax = {
              'depends_on':'begin'
          }]
          },
-        {'query': 'show output options',
+        {'query': 'show output modules',
          'switch': [{
-             'name': ['show','output','options'],
+             'name': ['show','output','modules'],
              'arguments': None,
              'data': None,
          }]
