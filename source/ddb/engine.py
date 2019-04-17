@@ -102,11 +102,9 @@ class engine:
             self.database = database(config_file=config_file)
             self.current_database = self.database.get_default_database()
             # load tables
-            print ("?O")
             queries=self.database.get_db_sql()
             self.query(queries)
         except Exception as ex:
-            print ex
             pass
 
         if None != query:
