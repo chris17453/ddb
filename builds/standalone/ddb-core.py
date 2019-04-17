@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.590'
+__version__='1.1.591'
 
         
         
@@ -1785,7 +1785,7 @@ class table:
             home = self.config_directory
 
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.create.sql".format(self.data.name))
+            self.data.config = os.path.join(home, "{0}.{1}.create.sql".format(self.data.database,self.data.name))
         
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
@@ -2379,8 +2379,9 @@ class engine:
         
         self.database = database(config_file=config_file)
         self.current_database = self.database.get_default_database()
+        print ("YO")
         queries=self.database.get_db_sql()
-        print (queries)
+        print ("database sql",queries)
         self.query(queries)
 
         if None != query:
