@@ -76,7 +76,7 @@ build: bump
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
 
-buildc: clean bump 
+buildc: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
     # makes ansible single script
 	@python $(conf_dir)/build.py
