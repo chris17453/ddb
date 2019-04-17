@@ -41,47 +41,6 @@ class table:
                     errors=errors,
                     data_on=data_on)
 
-        if None != table_config_file:
-            if os.path.exists(table_config_file):
-                yaml_data = yamlf_load(file=table_config_file)
-                # print (yaml_data)
-                if None == yaml_data:
-                    raise Exception("Table configuration empty")
-                #print yaml_data
-                
-                for key in yaml_data:
-                    if 'version' == key:
-                        self.version = yaml_data[key]
-
-                    if 'ownership' == key:
-                        self.ownership = table_ownership(yaml=yaml_data[key])
-
-                    if 'delimiters' == key:
-                        self.delimiters = table_delimiters(yaml=yaml_data[key])
-
-                    if 'visible' == key:
-                        self.visible = table_visible_attributes(
-                            yaml=yaml_data[key])
-
-                    if 'data' == key:
-                        self.data = table_data(yaml=yaml_data[key])
-
-                    # one offs
-                    if 'columns' == key:
-                        for c in yaml_data['columns']:
-                            # if self.version == 1:
-                            #    cv1=column_v1( c )
-                            #    cv2=cv1.to_v2()
-                            #    self.columns.append( cv2 )
-                            # if self.version == 2:
-                            self.columns.append(column_v2(c))
-
-                    if 'active' == key:
-                        self.active = yaml_data[key]
-
-                    # attr=getattr(self,key)
-                    # setattr(self,key,yaml_data[key])
-
         self.update_ordinals()
         if None != self.data.path:
             if False == os.path.exists(normalize_path(self.data.path)):
@@ -312,31 +271,34 @@ class table:
                 dest_dir, "{0}.ddb.yaml".format(self.data.name))
         #print ("dump:{0}".format(self.data.config))
         
-        yamlf_dump(data=self, file=self.data.config)
+        sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".
+            format(
+                self.data.database,
+                self.data.name,
+                ",".join(self.columns),
+                self.data.path,
+                self.delimiters.field,
+                self.visible.whitespace,
+                self.visible.errors,
+                self.visible.comments,
+                self.data.starts_on_line)
+
+              
+        with open(self.data.config,"w") as config_file:
+            config_file.write(sql);
+            
+        #yamlf_dump(data=self, file=self.data.config)
         return True
 
 
 class table_visible_attributes:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.comments = False
         self.errors = True
         self.whitespace = False
-        if None != yaml:
-
-            if 'comments' in yaml:
-                self.comments = yaml['comments']
-            if 'errors' in yaml:
-                self.errors = yaml['errors']
-            if 'whitespace' in yaml:
-                self.whitespace = yaml['whitespace']
-
 
 class table_data:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None, name=None, database=None):
         self.type = 'Temp'
@@ -357,49 +319,16 @@ class table_data:
         if None != database:
             self.database = database
 
-        if None != yaml:
-            if 'type' in yaml:
-                self.type = yaml['type']
-            if 'name' in yaml:
-                self.name = yaml['name']
-            if 'database' in yaml:
-                self.database = yaml['database']
-            if 'display_name' in yaml:
-                self.display_name = yaml['display_name']
-            if 'multi_search' in yaml:
-                self.multi_search = yaml['multi_search']
-            if 'starts_on_line' in yaml:
-                self.starts_on_line = int(yaml['starts_on_line'])
-            if 'uid' in yaml:
-                self.uid = yaml['uid']
-            if 'path' in yaml:
-                self.path = yaml['path']
-            if 'key' in yaml:
-                self.key = yaml['key']
-            if 'ordinal' in yaml:
-                self.ordinal = int(yaml['ordinal'])
-
-
+     
 class table_ownership:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.group = None
         self.entity = None
         self.location = None
-        if None != yaml:
-            if 'group' in yaml:
-                self.group = yaml['group']
-            if 'entity' in yaml:
-                self.entity = yaml['entity']
-            if 'location' in yaml:
-                self.location = yaml['location']
-
+     
 
 class table_delimiters:
-    def noop(self, *args, **kw):
-        pass
 
     def __init__(self, yaml=None):
         self.field = ","
@@ -409,22 +338,6 @@ class table_delimiters:
         self.comment = ["#", ";", "/"]
         # TODO hard coding this for a moment... must think
         self.new_line = "\n"
-        if None != yaml:
-            if 'field' in yaml:
-                self.field = yaml['field']
-            if 'error' in yaml:
-                self.error = yaml['error']
-            if 'array' in yaml:
-                self.array = yaml['array']
-            if 'comment' in yaml:
-                self.comment = yaml['comment']
-            if 'block_quote' in yaml:
-                self.block_quote = yaml['block_quote']
-                if isinstance(self.block_quote, str):
-                    if not self.block_quote.strip():
-                        self.block_quote = None
-                else:
-                    self.block_quote = None
 
     def get_new_line(self):
         '''Return the correct line ending for the file format'''
