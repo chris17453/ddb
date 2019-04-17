@@ -97,10 +97,10 @@ class engine:
             # load tables
             print ("?O")
             queries=self.database.get_db_sql()
-            print ("database sql",queries)
             self.query(queries)
-        except Exception ex:
+        except Exception as ex:
             print ex
+            pass
 
         if None != query:
             self.query(query)
