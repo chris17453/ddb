@@ -3,7 +3,7 @@ import os
 from .column import column_v2
 from ..output.factory_yaml import yamlf_load, yamlf_dump
 from ..methods.record_core import normalize_path
-
+from ..lexer import lexer
 # use the c based parser, or you're going to get massive lag with the python based solution
 
 
@@ -32,6 +32,17 @@ class table:
         self.errors = []
         self.results = []
         self.config_directory = config_directory
+
+        if table_config_file:
+            parser = lexer(sql_query, self.debug)
+            if False == parser.query_objects:
+                raise Exception("Invalid Create table SQL")
+
+                for query_object in parser.query_objects:
+                    mode=query_object['mode']
+                    if mode == 'create':
+                        self.results = method_create_table(self,query_object)
+
 
         self.update(data_file=data_file,
                     columns=columns,
@@ -271,8 +282,7 @@ class table:
                 dest_dir, "{0}.ddb.yaml".format(self.data.name))
         #print ("dump:{0}".format(self.data.config))
         
-        sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".
-            format(
+        sql="create table {0}.{1} ({2}) file={3} delimiter={4} whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 ",".join(self.columns),
@@ -286,7 +296,7 @@ class table:
               
         with open(self.data.config,"w") as config_file:
             config_file.write(sql);
-            
+
         #yamlf_dump(data=self, file=self.data.config)
         return True
 
