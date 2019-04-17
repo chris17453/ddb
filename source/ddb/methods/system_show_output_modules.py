@@ -1,6 +1,6 @@
 from .record_core import query_results
 
-def method_system_output_modules(context):
+def method_system_show_output_modules(context):
     try:
         temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
         for t in context.internal['OUTPUT_MODULES']:
