@@ -335,8 +335,6 @@ sql_syntax = {
         {'query': 'show output modules',
          'switch': [{
              'name': ['show','output','modules'],
-             'arguments': False,
-             'data': None,
          }]
          },
         {'query': 'delete',
