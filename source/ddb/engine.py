@@ -86,12 +86,12 @@ class engine:
         self.system['OUTPUT_MODULE']=output
         self.system['OUTPUT_STYLE']='single'
         self.internal['OUTPUT_MODULES']=[
-            {'name':'bash'},
+            {'name':'bash','styles':[]},
             {'name':'term','styles':['single','double','rst']},
-            {'name':'raw'},
-            {'name':'yaml'},
-            {'name':'json'},
-            {'name':'xml'}]
+            {'name':'raw' ,'styles':[]},
+            {'name':'yaml','styles':[]},
+            {'name':'json','styles':[]},
+            {'name':'xml' ,'styles':[]}]
         #auto functions ran when a variable is set
         self.system_trigger['DEBUG']=self.trigger_debug
         
