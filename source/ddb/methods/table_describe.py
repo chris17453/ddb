@@ -16,6 +16,8 @@ def method_describe_table(context, query_object):
 
         table_name=query_object['meta']['describe table']['table']
         target_table= context.database.get(table_name,database_name=database_name)
+        if None ==target_table:
+            raise Exception("Table not found")
         temp_table.add_column('option')
         temp_table.add_column('value')
         
@@ -33,7 +35,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['whitespace_visible',target_table.visible.whitespace], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        print ex
+        #print ex
         return query_results(success=False,error=ex)
 
 
