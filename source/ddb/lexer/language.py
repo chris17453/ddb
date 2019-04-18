@@ -309,6 +309,48 @@ sql_syntax = {
              ],
          }]
          },
+
+         {'query': 'create procedure',
+         'switch': [{
+                        'name': ['create','procedure'],
+                        'arguments': None,
+                        'data': [{'sig':['(']}],
+                        'dispose':True
+                        'optional':False
+                    },
+                    {
+                        'name': ['parameters'],
+                        'arguments': 0,
+                        'optional': True,
+                        'data': [ {'sig':['{parameter}']} ]
+                    },
+                    {
+                        'name': [')'],
+                        'arguments': 0,
+                        'optional': False,
+                        'dispose': True,
+                        'data':None,
+                    }]
+         },
+
+
+        {'query': 'delimiter',
+         'switch': [{
+             'name': 'delimiter',
+             'arguments': 1,
+             'data': {'sig':['{delimiter}']},
+         }]
+         },
+
+
+        {'query': 'end',
+         'switch': [{
+             'name': 'end',
+             'arguments': None,
+             'data': None,
+         }]
+         },
+
         {'query': 'begin',
          'switch': [{
              'name': 'begin',
