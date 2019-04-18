@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.665'
+__version__='1.1.666'
 
         
         
@@ -348,6 +348,48 @@ sql_syntax = {
              ],
          }]
          },
+
+         {'query': 'create procedure',
+         'switch': [{
+                        'name': ['create','procedure'],
+                        'arguments': None,
+                        'data': [{'sig':['(']}],
+                        'dispose':True
+                        'optional':False
+                    },
+                    {
+                        'name': ['parameters'],
+                        'arguments': 0,
+                        'optional': True,
+                        'data': [ {'sig':['{parameter}']} ]
+                    },
+                    {
+                        'name': [')'],
+                        'arguments': 0,
+                        'optional': False,
+                        'dispose': True,
+                        'data':None,
+                    }]
+         },
+
+
+        {'query': 'delimiter',
+         'switch': [{
+             'name': 'delimiter',
+             'arguments': 1,
+             'data': {'sig':['{delimiter}']},
+         }]
+         },
+
+
+        {'query': 'end',
+         'switch': [{
+             'name': 'end',
+             'arguments': None,
+             'data': None,
+         }]
+         },
+
         {'query': 'begin',
          'switch': [{
              'name': 'begin',
@@ -2393,6 +2435,7 @@ class engine:
             {'name':'json','styles':[]},
             {'name':'xml' ,'styles':[]}]
         self.system_trigger['DEBUG']=self.trigger_debug
+        self.system['DELIMITER']=';'
         
         self.user={}
         self.internal['IN_TRANSACTION']=0
@@ -2432,7 +2475,7 @@ class engine:
             self.results = None
             if False == self.has_configuration():
                 raise Exception("No table found")
-            parser = lexer(sql_query, self.debug)
+            parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
             if False == parser.query_objects:
                 raise Exception("Invalid SQL")
 
