@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.669'
+__version__='1.1.670'
 
         
         
@@ -2467,7 +2467,7 @@ class engine:
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
-        parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
+        parser = lexer(sql_query)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
