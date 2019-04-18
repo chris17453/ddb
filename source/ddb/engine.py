@@ -139,109 +139,109 @@ class engine:
         return True
 
     def query(self, sql_query):
-        try:
-            start = time.clock()
-            self.results = None
-            if False == self.has_configuration():
-                raise Exception("No table found")
-            # update table info...
-            # it may have changed...
-            # self.database.reload_config()
-            parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
-            if False == parser.query_objects:
-                raise Exception("Invalid SQL")
+        #try:
+        start = time.clock()
+        self.results = None
+        if False == self.has_configuration():
+            raise Exception("No table found")
+        # update table info...
+        # it may have changed...
+        # self.database.reload_config()
+        parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
+        if False == parser.query_objects:
+            raise Exception("Invalid SQL")
 
-            for query_object in parser.query_objects:
-                self.info("Engine: query_object", query_object)
-                #print  query_object
-                # exit(9)
-                # get columns, doesnt need a table
-                # print query_object['mode']
-                mode=query_object['mode']
-                
-                # RECORDS
-                if mode == 'select':
-                    self.results = method_select(self,query_object, parser)
-                
-                elif mode == 'insert':
-                    self.results = method_insert(self,query_object)
-
-                elif mode == 'update':
-                    self.results = method_update(self,query_object)
-
-                elif mode == 'upsert':
-                    self.results = method_upsert(self,query_object)
-                
-                elif mode == 'delete':
-                    self.results = method_delete(self,query_object)
-
-                elif mode == 'use':
-                    self.results = method_use(self,query_object)
-
-                # TABLE 
-                elif mode == 'drop':
-                    self.results = method_drop_table(self,query_object)
-
-                elif mode == 'create':
-                    self.results = method_create_table(self,query_object)
-
-                elif mode == 'update table':
-                    self.results = method_update_table(self,query_object)
-
-                # SYSTEM 
-                elif mode == 'set':
-                    self.results = method_system_set(self,query_object)
-
-                elif mode == 'begin':
-                    self.results = method_system_begin(self,query_object)
-
-                elif mode == 'rollback':
-                    self.results = method_system_rollback(self,query_object)
-
-                elif mode == 'commit':
-                    self.results = method_system_commit(self,query_object)
-
-                elif mode == "show tables":
-                    self.results = method_system_show_tables(self,self.database)
-
-                elif mode == "show output modules":
-                    self.results = method_system_show_output_modules(self,query_object)
-
-                elif mode == "show columns":
-                    self.results = method_system_show_columns(self,self.database, query_object)
-
-                elif mode == "show variables":
-                    self.results = method_system_show_variables(self, query_object)
-                elif mode == "describe table":
-                    self.results = method_describe_table(self, query_object)
-
-                if False==self.results.success:
-
-                    break
-                #if mode=="show errors":
-                #    self.results=method_show_errors(self,self.database,self.table)
-                #else:
-                # TODO uncaught    
-                #    print (query_object)
-            # only return last command
+        for query_object in parser.query_objects:
+            self.info("Engine: query_object", query_object)
+            #print  query_object
+            # exit(9)
+            # get columns, doesnt need a table
+            # print query_object['mode']
+            mode=query_object['mode']
             
-            if self.results:
-                if self.results.data:
-                    if self.mode == 'object':
-                        columns = self.results.columns
-                        len_col = len(columns)
-                        for line in self.results.data:
-                            # dont expand things that arn't data
-                            if line['type']==self.data_type.DATA:
-                                new_dict = {}
-                                for i in range(0, len_col):
-                                    if len(line['data']) < i:
-                                        break
-                                    new_dict[columns[i]] = line['data'][i]
-                                line['data']=new_dict
-        except Exception as Ex:
-            print  Ex
-            pass
+            # RECORDS
+            if mode == 'select':
+                self.results = method_select(self,query_object, parser)
+            
+            elif mode == 'insert':
+                self.results = method_insert(self,query_object)
+
+            elif mode == 'update':
+                self.results = method_update(self,query_object)
+
+            elif mode == 'upsert':
+                self.results = method_upsert(self,query_object)
+            
+            elif mode == 'delete':
+                self.results = method_delete(self,query_object)
+
+            elif mode == 'use':
+                self.results = method_use(self,query_object)
+
+            # TABLE 
+            elif mode == 'drop':
+                self.results = method_drop_table(self,query_object)
+
+            elif mode == 'create':
+                self.results = method_create_table(self,query_object)
+
+            elif mode == 'update table':
+                self.results = method_update_table(self,query_object)
+
+            # SYSTEM 
+            elif mode == 'set':
+                self.results = method_system_set(self,query_object)
+
+            elif mode == 'begin':
+                self.results = method_system_begin(self,query_object)
+
+            elif mode == 'rollback':
+                self.results = method_system_rollback(self,query_object)
+
+            elif mode == 'commit':
+                self.results = method_system_commit(self,query_object)
+
+            elif mode == "show tables":
+                self.results = method_system_show_tables(self,self.database)
+
+            elif mode == "show output modules":
+                self.results = method_system_show_output_modules(self,query_object)
+
+            elif mode == "show columns":
+                self.results = method_system_show_columns(self,self.database, query_object)
+
+            elif mode == "show variables":
+                self.results = method_system_show_variables(self, query_object)
+            elif mode == "describe table":
+                self.results = method_describe_table(self, query_object)
+
+            if False==self.results.success:
+
+                break
+            #if mode=="show errors":
+            #    self.results=method_show_errors(self,self.database,self.table)
+            #else:
+            # TODO uncaught    
+            #    print (query_object)
+        # only return last command
+        
+        if self.results:
+            if self.results.data:
+                if self.mode == 'object':
+                    columns = self.results.columns
+                    len_col = len(columns)
+                    for line in self.results.data:
+                        # dont expand things that arn't data
+                        if line['type']==self.data_type.DATA:
+                            new_dict = {}
+                            for i in range(0, len_col):
+                                if len(line['data']) < i:
+                                    break
+                                new_dict[columns[i]] = line['data'][i]
+                            line['data']=new_dict
+        #except Exception as Ex:
+        #    print  Ex
+        #    pass
         
         if None == self.results:
             self.results=query_results()

@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.667'
+__version__='1.1.668'
 
         
         
@@ -354,7 +354,7 @@ sql_syntax = {
                         'name': ['create','procedure'],
                         'arguments': None,
                         'data': [{'sig':['(']}],
-                        'dispose':True
+                        'dispose':True,
                         'optional':False
                     },
                     {
