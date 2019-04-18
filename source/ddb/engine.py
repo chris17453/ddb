@@ -94,6 +94,7 @@ class engine:
             {'name':'xml' ,'styles':[]}]
         #auto functions ran when a variable is set
         self.system_trigger['DEBUG']=self.trigger_debug
+        self.system['DELIMITER']=';'
         
         self.user={}
         self.internal['IN_TRANSACTION']=0
@@ -146,7 +147,7 @@ class engine:
             # update table info...
             # it may have changed...
             # self.database.reload_config()
-            parser = lexer(sql_query, self.debug)
+            parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
             if False == parser.query_objects:
                 raise Exception("Invalid SQL")
 
