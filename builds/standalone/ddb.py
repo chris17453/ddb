@@ -41,7 +41,7 @@ from os.path import expanduser
 
 
 
-__version__='1.1.672'
+__version__='1.1.673'
 
         
         
@@ -579,6 +579,10 @@ sql_syntax = {
               'data': [{'sig': ['=', '{file}']}],
               'type':'single',
               'name': 'file'},
+             {'arguments': 1,
+              'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','repo_file','=','{repo_file}']}],
+              'type':'single',
+              'name': 'repo'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{delimiter}']}],
               'type':'single',

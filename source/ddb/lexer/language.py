@@ -543,6 +543,7 @@ sql_syntax = {
              {'arguments': 1,
               'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','repo_file','=','{repo_file}']}],
               'type':'single',
+              'optional': True,
               'name': 'repo'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{delimiter}']}],
