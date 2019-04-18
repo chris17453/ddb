@@ -9,12 +9,12 @@
 #     name: initial string to match against to enter this query, this is the index of the object
 #     optional: can we skip this
 #     key: override name key
-#   depends_on: do not match unless the other variable is present 
-#   jump: goto an ealier command for matching, to repeat a loop set for multiple matches
-#   parent: override the name, and place data on this index
-#   store_array: allow multiple keys in an array at this index
-#   specs :{'variable_name': {'type': 'int', 'default': 0} },
-#   no_keyword:True ...?
+#     depends_on: do not match unless the other variable is present 
+#     jump: goto an ealier command for matching, to repeat a loop set for multiple matches
+#     parent: override the name, and place data on this index
+#     store_array: allow multiple keys in an array at this index
+#     specs :{'variable_name': {'type': 'int', 'default': 0} },
+#     no_keyword:True ...?
 
 
 

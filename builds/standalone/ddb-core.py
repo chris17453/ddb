@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.673'
+__version__='1.1.674'
 
         
         
@@ -575,6 +575,7 @@ sql_syntax = {
              {'arguments': 1,
               'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','repo_file','=','{repo_file}']}],
               'type':'single',
+              'optional': True,
               'name': 'repo'},
              {'arguments': 1,
               'data': [{'sig': ['=', '{delimiter}']}],
