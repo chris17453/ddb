@@ -52,20 +52,20 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # new on existing table
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
         except Exception as ex:
             self.fail(ex)
 
         # fail on existing table
-        results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
     def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(True, results.success)
         try:
         
@@ -85,7 +85,7 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
-            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
@@ -124,7 +124,7 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
-            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
             
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -147,7 +147,7 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
             self.cleanup()
             # fail on existing table
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
             # update
@@ -165,7 +165,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -187,7 +187,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
             results = engine.query("SHOW TABLES")
@@ -203,7 +203,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
 
             results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
@@ -219,7 +219,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         #try:
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}'".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(True, results.success)
 
         results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
