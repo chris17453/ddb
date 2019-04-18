@@ -315,7 +315,7 @@ sql_syntax = {
                         'name': ['create','procedure'],
                         'arguments': None,
                         'data': [{'sig':['(']}],
-                        'dispose':True
+                        'dispose':True,
                         'optional':False
                     },
                     {
