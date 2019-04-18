@@ -147,7 +147,7 @@ class engine:
         # update table info...
         # it may have changed...
         # self.database.reload_config()
-        parser = lexer(sql_query, self.debug,self.system['DELIMITER'])
+        parser = lexer(sql_query)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
