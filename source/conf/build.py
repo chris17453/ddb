@@ -31,7 +31,7 @@ def src_build():
         {'name':'methods-system-show-columns','file':source_dir+'/ddb/methods/system_show_columns.py'},
         {'name':'methods-system-show-tables','file':source_dir+'/ddb/methods/system_show_tables.py'},
         {'name':'methods-system-show-variables','file':source_dir+'/ddb/methods/system_show_variables.py'},
-        {'name':'file_io-lock','file':source_dir+'/ddb/file_io/lock.py'},
+        {'name':'file_io-lock','file':source_dir+'/ddb/file_io/locking.py'},
         # formatting
         {'name':'output','file':source_dir+'/ddb/output/factory.py'},
         {'name':'factory_term','file':source_dir+'/ddb/output/factory_term.py'},
