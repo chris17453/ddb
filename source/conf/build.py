@@ -188,7 +188,7 @@ import logging
 logging.basicConfig()
 
 """
-    slack_Tail="""
+    slack_tail="""
 if __name__ == "__main__":
   d=ddb_bot()
   d.go()
