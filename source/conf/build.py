@@ -51,6 +51,7 @@ def src_build():
 
 
     ansible_files=[{'name':'ddb-ansible-module','file':source_dir+'/ansible/ddb-ansible.py'}]+core_files
+    slack_files=[{'name':'ddb-slack','file':source_dir+'/slack/ddb-slack-bot.py'}]+core_files
 
     core_headers="""# -*- coding: utf-8 -*-
 # ############################################################################
@@ -114,7 +115,9 @@ from os.path import expanduser
 
 """
 
-    ansible_headers="""# -*- coding: utf-8 -*-
+    ansible_headers="""#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # ############################################################################
 # :########::'########::'########::
 # :##.... ##: ##.... ##: ##.... ##:
@@ -152,9 +155,44 @@ if __name__ == '__main__':
     main()
 """
 
+    slack_headers="""#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+# # ############################################################################
+# :########::'########::'########::
+# :##.... ##: ##.... ##: ##.... ##:
+# :##:::: ##: ##:::: ##: ##:::: ##:
+# :##:::: ##: ##:::: ##: ########::
+# :##:::: ##: ##:::: ##: ##.... ##:
+# :##:::: ##: ##:::: ##: ##:::: ##:
+# :########:: ########:: ########::
+# :.......:::........:::........:::
+# Author: Charles Watkins
+# This file is automagically generated
+# dont edit it, because it will be erased next build
+# 
+# ############################################################################
+        
+import sys
+import os
+import fileinput
+import warnings
+import datetime
+import tempfile
+import shutil
+import time
+
+from slackclient import SlackClient
+
+import logging
+logging.basicConfig()
+
+"""
+
     build_standalone(core_files,core_headers,None,'builds/standalone/ddb-core.py')
     build_standalone(standalone_files,standalone_headers,None,'builds/standalone/ddb.py')
     build_standalone(ansible_files,ansible_headers,ansible_tail,'builds/ansible/ddb-ansible.py')
+    build_standalone(slack_files,slack_headers,None,'builds/slack/ddb-slack-bot.py')
 
 
 def build_standalone(files,headers,footer,dest_file):
