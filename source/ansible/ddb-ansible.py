@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # Copyright: (c) 2018, Charles Watkins <chris17453@gmail.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -12,11 +10,8 @@ ANSIBLE_METADATA = {
 DOCUMENTATION = '''
 ---
 module: ddb
-
 short_description: SQL interface for flat files
-
 version_added: "2.7"
-
 description:
     - "A serviceless SQL interface for crud operations on flat files"
 
@@ -27,10 +22,7 @@ options:
             - select, update, insert, delete are all valid queries
             
         required: true
-        
     query: 'SELECT id from test WHERE id=1'
-
-
 extends_documentation_fragment:
     - 
 
@@ -40,12 +32,16 @@ author:
 
 EXAMPLES = '''
 - name: Update csv with data
-  query: 'SELECT id from test WHERE id=1'
+  ddb:
+    query: SELECT id from test WHERE id=1
 '''
 
 EXAMPLES = '''
-- name: Update csv with data
-  query: 'SELECT id from test WHERE id=1'
+- name: grab data from mock table
+  ddb:
+      query: 
+      - create temporary table test.mock ('id','first_name','last_name','email','gender','ip_address') file='~/repos/chris17453/ddb/source/test/MOCK_DATA.csv' data_starts_on=2
+      - select * from test.mock limit 10
 '''
 
 
