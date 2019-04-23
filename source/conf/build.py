@@ -188,11 +188,15 @@ import logging
 logging.basicConfig()
 
 """
-
+    slack_Tail="""
+if __name__ == "__main__":
+  d=ddb_bot()
+  d.go()
+    """
     build_standalone(core_files,core_headers,None,'builds/standalone/ddb-core.py')
     build_standalone(standalone_files,standalone_headers,None,'builds/standalone/ddb.py')
     build_standalone(ansible_files,ansible_headers,ansible_tail,'builds/ansible/ddb-ansible.py')
-    build_standalone(slack_files,slack_headers,None,'builds/slack/ddb-slack-bot.py')
+    build_standalone(slack_files,slack_headers,slack_tail,'builds/slack/ddb-slack-bot.py')
 
 
 def build_standalone(files,headers,footer,dest_file):
