@@ -34,7 +34,7 @@ import time
 
 
 
-__version__='1.1.674'
+__version__='1.1.676'
 
         
         
@@ -2404,7 +2404,7 @@ class engine:
 
     
    
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_file=None):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None):
         if config_file is None:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
@@ -2420,11 +2420,12 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
+        self.internal={'READONLY':readonly}
         
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
-        self.system['OUTPUT_STYLE']='single'
+        self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
             {'name':'bash','styles':[]},
             {'name':'term','styles':['single','double','rst']},
@@ -2483,28 +2484,28 @@ class engine:
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
-            elif mode == 'insert':
+            elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,query_object)
 
-            elif mode == 'update':
+            elif mode == 'update' and self.internal['READONLY']==None:
                 self.results = method_update(self,query_object)
 
-            elif mode == 'upsert':
+            elif mode == 'upsert' and self.internal['READONLY']==None:
                 self.results = method_upsert(self,query_object)
             
-            elif mode == 'delete':
+            elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,query_object)
 
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
-            elif mode == 'drop':
+            elif mode == 'drop' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
 
-            elif mode == 'create':
+            elif mode == 'create' and self.internal['READONLY']==None:
                 self.results = method_create_table(self,query_object)
 
-            elif mode == 'update table':
+            elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,query_object)
 
             elif mode == 'set':
@@ -3693,6 +3694,105 @@ def method_system_show_variables(context, query_object):
         print (ex)
         return query_results(success=False,error=ex)
 
+        
+        
+# ############################################################################
+# Module : file_io-lock
+# File   : ./source/ddb/file_io/locking.py
+# ############################################################################
+
+
+
+
+class lock:
+    max_lock_time=60
+    sleep_time=0.02
+
+    @staticmethod
+    def info(msg,data):
+        if 1==2:
+            print("{0}: {1}".format(msg,data))
+    
+    @staticmethod
+    def normalize_path(path):
+        """Update a relative or user absed path to an ABS path"""
+        normalized_path=os.path.abspath(os.path.expanduser(path))
+        return normalized_path
+
+    @staticmethod
+    def get_lock_filename(path):
+        norm_path=lock.normalize_path(path)
+        temp_dir = tempfile.gettempdir()
+        basename=os.path.basename(norm_path)
+        temp_file_name='{0}.lock'.format(basename)
+        norm_lock_path = os.path.join(temp_dir, temp_file_name)
+        return norm_lock_path
+            
+    @staticmethod
+    def is_locked(path):
+        lock_path=lock.get_lock_filename(path)
+        if os.path.exists(lock_path):
+            with open(lock_path,'r') as lockfile:
+                try:
+                    file_data=lockfile.readline()
+                    timestamp,temp_file_path=file_data.split('|')
+                    file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
+                    curent_datetime =datetime.datetime.now()
+                    elapsed_time=curent_datetime-file_lock_time
+                    if elapsed_time.seconds>lock.max_lock_time:
+                        lock.info("Lock","Releasing")
+                        lock.release(path)
+                        return None
+                    return True
+                except Exception as ex:
+                    lock.release(path)
+                    pass
+        lock.info("Lock","No Lock")
+        return None
+
+    @staticmethod
+    def release(path):
+        lock_path=lock.get_lock_filename(path)
+        if os.path.exists(lock_path)==False:
+            raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
+        
+        os.remove(lock_path)
+        if os.path.exists(lock_path):
+            raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
+        lock.info("Lock","removed")
+
+    @staticmethod
+    def aquire(path):
+        lock_time=0
+        lock_cycle=0
+        while lock.is_locked(path):
+            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1}".format(path,lock_time))
+
+            time.sleep(lock.sleep_time)
+            lock_time+=lock.sleep_time
+            lock_cycle+=1
+            if lock_time>lock.max_lock_time:
+                lock.info("Lock","Cannot aquire lock, timeout")
+                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
+
+        lock_path=lock.get_lock_filename(path)
+        if os.path.exists(lock_path):
+            lock.info("Lock","Already Exists")
+            raise Exception ("Lockfile already exists. {0}".format(lock_path))
+        
+        with open(lock_path,'w') as lockfile:
+            lock_time=datetime.datetime.now()
+            lock_time_str="{0}".format(lock_time)
+            
+            lock.info("Lock Time",lock_time_str)
+            
+            lockfile.write("{0}|{1}".format(lock_time_str,path))
+            lockfile.flush()
+        if os.path.exists(lock_path)==False:
+            lock.info("Lock","Failed to create")
+            raise Exception ("Lockfile failed to create {0}".format(lock_path))
+
+        
         
         
 # ############################################################################

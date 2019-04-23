@@ -62,7 +62,7 @@ class engine:
 
     
    
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_file=None):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None):
         # if false, load nothing, if true, load form user dir
         if config_file is None:
             home = os.path.expanduser("~")
@@ -79,12 +79,13 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
+        self.internal={'READONLY':readonly}
         # variables that can be set by the system
         
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
-        self.system['OUTPUT_STYLE']='single'
+        self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
             {'name':'bash','styles':[]},
             {'name':'term','styles':['single','double','rst']},
@@ -163,29 +164,29 @@ class engine:
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
             
-            elif mode == 'insert':
+            elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,query_object)
 
-            elif mode == 'update':
+            elif mode == 'update' and self.internal['READONLY']==None:
                 self.results = method_update(self,query_object)
 
-            elif mode == 'upsert':
+            elif mode == 'upsert' and self.internal['READONLY']==None:
                 self.results = method_upsert(self,query_object)
             
-            elif mode == 'delete':
+            elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,query_object)
 
             elif mode == 'use':
                 self.results = method_use(self,query_object)
 
             # TABLE 
-            elif mode == 'drop':
+            elif mode == 'drop' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
 
-            elif mode == 'create':
+            elif mode == 'create' and self.internal['READONLY']==None:
                 self.results = method_create_table(self,query_object)
 
-            elif mode == 'update table':
+            elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,query_object)
 
             # SYSTEM 
