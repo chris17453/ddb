@@ -108,6 +108,7 @@ class engine:
             if config_file:
                 queries=self.database.get_db_sql()
                 if queries:
+                    print queries
                     if not queries.isspace():
                         self.query(queries)
         except Exception as ex:
