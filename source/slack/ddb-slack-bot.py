@@ -49,8 +49,11 @@ class ddb_bot:
     return None
   
   def return_my_message(self,msg):
-      pre,post=msg['text'].split("<@{0}>".format(self.bot_id))
-      return post
+      if 'text' in msg:
+        msg=msg['text']
+        pre,post=msg.split("<@{0}>".format(self.bot_id))
+        return post
+      return None
 
   def ddb_query(self,msg):
     print("Preforming query:{0}".format(msg))
