@@ -72,10 +72,13 @@ class ddb_bot:
         while True:
           rtm_res=self.slack_client.rtm_read()
           for msg in rtm_res:
+            print msg
             if 'type' in msg:
               if self.is_mesage_to(msg):
+                print ("MSG")
                 self.ddb_query(msg)
               elif self.is_direct_message(msg):
+                print ("MSG2")
                 self.ddb_query(msg)
               
               if msg['type']=='message':
