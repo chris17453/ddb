@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.715'
+__version__='1.1.716'
 
         
 # ############################################################################
@@ -3186,7 +3186,10 @@ class output_factory:
     def format_term(self,query_results,output_file,output_style=None,output_stream=None):
         """ouput results data in the term format"""
         if query_results.columns:
-            res=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style,output_stream=output_stream)
+            ft=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style,output_stream=output_stream)
+            res=ft.output_destination
+        else:
+            res=[]
         if True == query_results.success:
             res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
