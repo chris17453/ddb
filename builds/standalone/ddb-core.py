@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.696'
+__version__='1.1.697'
 
         
 # ############################################################################
@@ -626,6 +626,7 @@ class lexer:
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid SQL")
+        print query
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
