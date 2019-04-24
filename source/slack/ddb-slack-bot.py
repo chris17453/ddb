@@ -78,7 +78,7 @@ class ddb_bot:
       "chat.postMessage",
       channel=msg['channel'],
       text=output_text,
-      thread_ts=msg['thread_ts'],
+      thread_ts=msg['ts'],
       reply_broadcast=True
     )
 
