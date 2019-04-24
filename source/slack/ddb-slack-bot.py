@@ -84,9 +84,3 @@ class ddb_bot:
          if fails>=ddb_bot.RTM_MAX_FAILS:
             raise Exception(ddb_bot.EXCEPTIONS['CONNECTION_FAILED'])
 
-
-
-
-if __name__ == "__main__":
-  d=ddb_bot()
-  d.go()
