@@ -409,7 +409,6 @@ class flextable:
         if output_stream=='STDIO':
             self.output_destination=None
         elif output_stream=='STRING':
-            print("ITS A STRING")
             self.output_destination=[]
         else:
             self.output_destination=None
@@ -590,7 +589,7 @@ class flextable:
         return row
      
     def output(self,text,encode):
-        if self.output_destination:
+        if isinstance(self.output_destination,list):
             print("ITS A OD")
             if encode:
                 self.output_destination.append(text.encode('utf-8'))
