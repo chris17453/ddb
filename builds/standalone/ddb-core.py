@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.720'
+__version__='1.1.721'
 
         
 # ############################################################################
@@ -3182,7 +3182,7 @@ class output_factory:
                 self.output=self.format_xml(query_results,output_file)
             else: 
                 self.output=self.format_term(query_results,output_file)
-    def format_term(self,query_results,output_file,output_style=None,output_stream=None,color=color):
+    def format_term(self,query_results,output_file,output_style=None,output_stream=None,color=True):
         """ouput results data in the term format"""
         if query_results.columns:
             ft=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style,output_stream=output_stream,render_color=color)
