@@ -6,7 +6,7 @@ from .factory_xml import factory_xml
 
 class output_factory:
 
-    def __init__(self,query_results,output='term',output_style="flextable",output_file=None): # style single double rst
+    def __init__(self,query_results,output='term',output_style="flextable",output_file=None,output_stream='STDIO'): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
 
@@ -21,7 +21,7 @@ class output_factory:
                 self.output=self.format_bash(query_results,output_file)
             
             elif 'term'==mode:
-                self.output=self.format_term(query_results,output_file,output_style)
+                self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             
             elif 'raw'==mode:
                 self.output=self.format_raw(query_results,output_file)
@@ -40,7 +40,7 @@ class output_factory:
 
 
     def format_term(self,query_results,output_file,output_style=None):
-            """ouput results data in the term format"""
+        """ouput results data in the term format"""
         #try:
         if query_results.columns:
             res=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
