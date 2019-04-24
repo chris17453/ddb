@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.700'
+__version__='1.1.701'
 
         
 # ############################################################################
@@ -3159,7 +3159,7 @@ class lock:
 # ############################################################################
 
 class output_factory:
-    def __init__(self,query_results,output='term',output_style="flextable",output_file=None): # style single double rst
+    def __init__(self,query_results,output='term',output_style="flextable",output_file=None,output_stream='STDIO'): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
             output=(bash|term|yaml|json|xml)
@@ -3172,7 +3172,7 @@ class output_factory:
             if 'bash'==mode:
                 self.output=self.format_bash(query_results,output_file)
             elif 'term'==mode:
-                self.output=self.format_term(query_results,output_file,output_style)
+                self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             elif 'raw'==mode:
                 self.output=self.format_raw(query_results,output_file)
             elif 'yaml'==mode:
@@ -3184,7 +3184,7 @@ class output_factory:
             else: 
                 self.output=self.format_term(query_results,output_file)
     def format_term(self,query_results,output_file,output_style=None):
-            """ouput results data in the term format"""
+        """ouput results data in the term format"""
         if query_results.columns:
             res=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
         if True == query_results.success:

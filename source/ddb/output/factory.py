@@ -45,10 +45,10 @@ class output_factory:
         if query_results.columns:
             res=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
         if True == query_results.success:
-            res+=print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+            res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             # may never get here...
-            res+"Query Failed"
+            res.append("Query Failed")
         return res
         #except Exception as ex:
         #    print("TERM Formatting: {0}".format(ex))
