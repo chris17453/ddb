@@ -590,7 +590,6 @@ class flextable:
      
     def output(self,text,encode):
         if isinstance(self.output_destination,list):
-            print("ITS A OD")
             if encode:
                 self.output_destination.append(text.encode('utf-8'))
             else:

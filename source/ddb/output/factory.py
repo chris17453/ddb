@@ -21,7 +21,6 @@ class output_factory:
                 self.output=self.format_bash(query_results,output_file)
             
             elif 'term'==mode:
-                print("SET OUTPUT",output_stream)
                 self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             
             elif 'raw'==mode:
