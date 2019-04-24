@@ -60,7 +60,7 @@ class ddb_bot:
     # declare engine    
     e=engine(config_file=self.DDB_CONFIG)
     # run query
-    query=return_my_message(msg)
+    query=self.return_my_message(msg)
     results=e.query(query)
     # format results
     output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
