@@ -384,6 +384,7 @@ class flextable:
                             row_height=-1,
                             column_width=-1,
                             render_color=True,
+                            output_stream='STDIO'
                         ):
         self.column_count=column_count
         self.hide_comments=hide_comments
@@ -405,7 +406,12 @@ class flextable:
         if display_style not in ['single','double','rst']:
             display_style='single'    
         self.display_style=display_style
-        
+        if output_stream=='STDIO':
+            self.output_destination=None
+        elif output_stream=='STRING':
+            self.output_destination=[]
+        else:
+            self.output_destination=None
 
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
@@ -432,6 +438,7 @@ class flextable:
         self.results=[]
         self.data=data
         self.format()
+
 
     def calculate_limits(self):
         tty_min_column_width=1
@@ -582,10 +589,16 @@ class flextable:
         return row
      
     def output(self,text,encode):
-        if encode:
-            print(text.encode('utf-8'))
+        if self.output_destination:
+            if encode:
+                self.output_destination.append(text.encode('utf-8'))
+            else:
+                self.output_destination.append(text)
         else:
-            print (text)
+            if encode:
+                print(text.encode('utf-8'))
+            else:
+                print (text)
 
     def print_errors(table):
         for e in table.errors:

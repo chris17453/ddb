@@ -63,7 +63,14 @@ class ddb_bot:
     query=self.return_my_message(msg)
     results=e.query(query)
     # format results
-    output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
+    res=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+    self.slack_client.api_call(
+      "chat.postMessage",
+      channel=msg['channel'],
+      text="\r\n".join(res),
+      thread_ts=msg['thread_ts'],
+      reply_broadcast=True
+    )
 
   def go(self):
     fails=0
@@ -76,18 +83,16 @@ class ddb_bot:
         while True:
           rtm_res=self.slack_client.rtm_read()
           for msg in rtm_res:
-            print msg
+            #print msg
             if 'type' in msg:
               if self.is_mesage_to(msg):
-                print ("MSG")
                 self.ddb_query(msg)
               elif self.is_direct_message(msg):
-                print ("MSG2")
                 self.ddb_query(msg)
               
               if msg['type']=='message':
-                if 'text' in msg:
-                  print(msg['text'])
+                #if 'text' in msg:
+                #  print(msg['text'])
             #print msg
             
           # out of for loop
