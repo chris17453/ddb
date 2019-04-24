@@ -218,6 +218,9 @@ def build_standalone(files,headers,footer,dest_file):
                 l=line.strip()
                 if len(l) >0 and l[0]=='#':
                     continue
+                if line.isspace():
+                    continue
+
                 if part=='impo' or part=='from':
                     l=line.strip()
                     if l in headers:
