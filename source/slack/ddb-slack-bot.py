@@ -66,6 +66,8 @@ class ddb_bot:
       # format results
       o=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
       res=o.output
+      if None == res:
+        res=['No Output']
     except Exception as ex:
       res=[ex]
       pass
