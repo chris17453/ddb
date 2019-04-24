@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.727'
+__version__='1.1.728'
 
         
 # ############################################################################
@@ -2283,7 +2283,7 @@ def normalize_path(path):
     normalized_path=os.path.abspath(os.path.expanduser(path))
     return normalized_path
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None):
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
@@ -2291,6 +2291,7 @@ class query_results:
         self.error=error
         self.data_length=0
         self.column_length=0
+        self.total_data_length=0
         self.columns=[]
         if data and data.results:
             self.data=data.results
@@ -2433,11 +2434,12 @@ def method_select(context, query_object, parser):
         add_table_columns(context,query_object,temp_table)
         set_ordinals(context,query_object)
         temp_data=select_process_file(context,query_object)
+        all_records_count=len(temp_data)
         temp_data=order_by(context,query_object,temp_data)
         temp_data=distinct(context,query_object,temp_data)
         temp_data = limit(context, query_object, temp_data)
         temp_table.results=temp_data
-        return query_results(success=True,data=temp_table)
+        return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
         return query_results(success=False,error=ex)   
 def select_process_file(context,query_object):
