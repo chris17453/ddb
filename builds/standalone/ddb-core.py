@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.710'
+__version__='1.1.711'
 
         
 # ############################################################################
@@ -626,7 +626,6 @@ class lexer:
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid SQL")
-        print query
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
@@ -3172,7 +3171,6 @@ class output_factory:
             if 'bash'==mode:
                 self.output=self.format_bash(query_results,output_file)
             elif 'term'==mode:
-                print("SET OUTPUT")
                 self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             elif 'raw'==mode:
                 self.output=self.format_raw(query_results,output_file)
@@ -3192,7 +3190,6 @@ class output_factory:
             res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             res.append("Query Failed")
-        print res
         return res
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
