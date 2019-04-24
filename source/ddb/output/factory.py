@@ -39,7 +39,7 @@ class output_factory:
                 self.output=self.format_term(query_results,output_file)
 
 
-    def format_term(self,query_results,output_file,output_style=None,output_stream=None,color=color):
+    def format_term(self,query_results,output_file,output_style=None,output_stream=None,color=True):
         """ouput results data in the term format"""
         #try:
         if query_results.columns:
