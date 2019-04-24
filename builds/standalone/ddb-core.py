@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.722'
+__version__='1.1.723'
 
         
 # ############################################################################
@@ -2623,7 +2623,6 @@ def limit(context, query_object, data):
     if 'limit' in query_object['meta']:
         if 'start' in query_object['meta']['limit']:
             index = query_object['meta']['limit']['start']
-            index=index-1
         if 'length' in query_object['meta']['limit']:
             length = query_object['meta']['limit']['length']
             if length<1:
