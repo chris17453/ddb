@@ -55,7 +55,7 @@ class ddb_bot:
   def ddb_query(self,msg):
     print("Preforming query:{0}".format(msg))
     # declare engine    
-    e=engine(config=self.DDB_CONFIG)
+    e=engine(config_file=self.DDB_CONFIG)
     # run query
     results=e.query(msg)
     # format results
