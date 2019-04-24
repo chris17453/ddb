@@ -1,11 +1,3 @@
-import os
-import sys
-import time
-from slackclient import SlackClient
-
-import logging
-logging.basicConfig()
-
 
 
 class ddb_bot:
@@ -58,6 +50,12 @@ class ddb_bot:
 
   def ddb_query(self,msg):
     print("Preforming query:{0}".format(msg))
+    # declare engine    
+    e=engine()
+    # run query
+    results=e.query(msg)
+    # format results
+    output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
 
   def go(self):
     fails=0
