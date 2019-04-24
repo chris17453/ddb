@@ -61,9 +61,13 @@ class ddb_bot:
     e=engine(config_file=self.DDB_CONFIG)
     # run query
     query=self.return_my_message(msg)
-    results=e.query(query)
-    # format results
-    res=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+    try:
+      results=e.query(query)
+      # format results
+      res=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+    except Exception as ex:
+      res=[ex]
+      pass
     self.slack_client.api_call(
       "chat.postMessage",
       channel=msg['channel'],
