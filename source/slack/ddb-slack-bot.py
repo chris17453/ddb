@@ -15,7 +15,13 @@ class ddb_bot:
       SLACK_BOT_TOKEN= os.environ["SLACK_BOT_TOKEN"]
     except:
       raise Exception(ddb_bot.EXCEPTIONS['NO_BOT_TOKEN'])
-
+    
+    try:
+      self.DDB_CONFIG=os.environ["DDB_CONFIG"]
+    except:
+      self.DDB_CONFIG=None
+      pass
+    
     #Chgeck for proxies
     SLACK_PROXIES=None
     try:
@@ -49,7 +55,7 @@ class ddb_bot:
   def ddb_query(self,msg):
     print("Preforming query:{0}".format(msg))
     # declare engine    
-    e=engine()
+    e=engine(config=self.DDB_CONFIG)
     # run query
     results=e.query(msg)
     # format results
