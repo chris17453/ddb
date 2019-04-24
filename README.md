@@ -73,3 +73,5 @@ Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
 ### Python Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-python-demo.gif)
 
+### DDB ICon
+![DDB](https://raw.githubusercontent.com/chris17453/ddb/master/source/resources/ddb-icon.png)
