@@ -38,7 +38,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.725'
+__version__='1.1.726'
 
         
 # ############################################################################
@@ -3199,7 +3199,7 @@ class output_factory:
             if res:
                 res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
-                print(res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length)))
+                print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             if res:
                 res.append("Query Failed")
