@@ -158,7 +158,7 @@ def normalize_path(path):
 
 
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None):
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
@@ -166,6 +166,8 @@ class query_results:
         self.error=error
         self.data_length=0
         self.column_length=0
+        self.total_data_length=0
+        
         self.columns=[]
 
         if data and data.results:

@@ -29,6 +29,8 @@ def method_select(context, query_object, parser):
 
         # scan the table for matches and collect the data
         temp_data=select_process_file(context,query_object)
+        
+        all_records_count=len(temp_data)
 
         # TODO Join code here.....
 
@@ -47,7 +49,7 @@ def method_select(context, query_object, parser):
         # assign matched and transformed data to temp table
         temp_table.results=temp_data
 
-        return query_results(success=True,data=temp_table)
+        return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
         # something blew up. Bail!
         #print ex
