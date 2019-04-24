@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.699'
+__version__='1.1.700'
 
         
 # ############################################################################
@@ -3167,29 +3167,31 @@ class output_factory:
             """        
             if None==query_results:
                 return
+            self.output=None
             mode=output.lower()
             if 'bash'==mode:
-                self.format_bash(query_results,output_file)
+                self.output=self.format_bash(query_results,output_file)
             elif 'term'==mode:
-                self.format_term(query_results,output_file,output_style)
+                self.output=self.format_term(query_results,output_file,output_style)
             elif 'raw'==mode:
-                self.format_raw(query_results,output_file)
+                self.output=self.format_raw(query_results,output_file)
             elif 'yaml'==mode:
-                self.format_yaml(query_results,output_file)
+                self.output=self.format_yaml(query_results,output_file)
             elif 'json'==mode:
-                self.format_json(query_results,output_file)
+                self.output=self.format_json(query_results,output_file)
             elif 'xml'==mode:
-                self.format_xml(query_results,output_file)
+                self.output=self.format_xml(query_results,output_file)
             else: 
-                self.format_term(query_results,output_file)
+                self.output=self.format_term(query_results,output_file)
     def format_term(self,query_results,output_file,output_style=None):
             """ouput results data in the term format"""
-            if query_results.columns:
-                flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
-            if True == query_results.success:
-                print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
-            else:
-                print("Query Failed")
+        if query_results.columns:
+            res=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style)
+        if True == query_results.success:
+            res+=print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+        else:
+            res+"Query Failed"
+        return res
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
         data=query_results.data
@@ -3595,6 +3597,7 @@ class flextable:
                             row_height=-1,
                             column_width=-1,
                             render_color=True,
+                            output_stream='STDIO'
                         ):
         self.column_count=column_count
         self.hide_comments=hide_comments
@@ -3616,6 +3619,12 @@ class flextable:
         if display_style not in ['single','double','rst']:
             display_style='single'    
         self.display_style=display_style
+        if output_stream=='STDIO':
+            self.output_destination=None
+        elif output_stream=='STRING':
+            self.output_destination=[]
+        else:
+            self.output_destination=None
         if self.column_width==-1:
             self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
         if column_count>-1 and columns == None:
@@ -3735,10 +3744,16 @@ class flextable:
             row+=u'{}'.format(flextable.reset.ALL)
         return row
     def output(self,text,encode):
-        if encode:
-            print(text.encode('utf-8'))
+        if self.output_destination:
+            if encode:
+                self.output_destination.append(text.encode('utf-8'))
+            else:
+                self.output_destination.append(text)
         else:
-            print (text)
+            if encode:
+                print(text.encode('utf-8'))
+            else:
+                print (text)
     def print_errors(table):
         for e in table.errors:
             print(e.encode('utf-8'))
