@@ -79,7 +79,8 @@ class ddb_bot:
                 self.ddb_query(msg)
               
               if msg['type']=='message':
-                print(msg['text'])
+                if 'text' in msg:
+                  print(msg['text'])
             #print msg
             
           # out of for loop
