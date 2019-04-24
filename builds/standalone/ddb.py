@@ -33,24 +33,18 @@ from os.path import expanduser
 
 
         
-        
 # ############################################################################
 # Module : version
 # File   : ./source/ddb/version.py
 # ############################################################################
 
+__version__='1.1.681'
 
-
-__version__='1.1.680'
-
-        
         
 # ############################################################################
 # Module : lexer-language
 # File   : ./source/ddb/lexer/language.py
 # ############################################################################
-
-
 
 
 
@@ -670,13 +664,10 @@ sql_syntax = {
 }  # sql_syntax
 
         
-        
 # ############################################################################
 # Module : lexer-parse
 # File   : ./source/ddb/lexer/lexer.py
 # ############################################################################
-
-
 
 
 
@@ -1173,13 +1164,10 @@ class lexer:
 
 
         
-        
 # ############################################################################
 # Module : lexer-token
 # File   : ./source/ddb/lexer/tokenize.py
 # ############################################################################
-
-
 
 class tokenizer():
 
@@ -1378,13 +1366,10 @@ class tokenizer():
 
 
         
-        
 # ############################################################################
 # Module : column
 # File   : ./source/ddb/configuration/column.py
 # ############################################################################
-
-
 
 
 class column_v1:
@@ -1618,13 +1603,10 @@ class column_sort:
                 self.default_asc = yaml['default_asc']
 
         
-        
 # ############################################################################
 # Module : table
 # File   : ./source/ddb/configuration/table.py
 # ############################################################################
-
-
 
 
 
@@ -1931,13 +1913,10 @@ class table_delimiters:
             return '\n'
 
         
-        
 # ############################################################################
 # Module : database
 # File   : ./source/ddb/configuration/database.py
 # ############################################################################
-
-
 
 
 
@@ -2158,13 +2137,10 @@ class database:
         return tables
 
         
-        
 # ############################################################################
 # Module : match
 # File   : ./source/ddb/evaluate/match.py
 # ############################################################################
-
-
 
 
 
@@ -2308,13 +2284,10 @@ class match():
         return success
 
         
-        
 # ############################################################################
 # Module : functions
 # File   : ./source/ddb/functions/functions.py
 # ############################################################################
-
-
 
 
 
@@ -2372,13 +2345,10 @@ def f_cat(context,arg1,arg2):
 
 
         
-        
 # ############################################################################
 # Module : sql_engine
 # File   : ./source/ddb/engine.py
 # ############################################################################
-
-
 
 
 
@@ -2585,13 +2555,10 @@ class engine:
     
 
         
-        
 # ############################################################################
 # Module : methods-records_core
 # File   : ./source/ddb/methods/record_core.py
 # ############################################################################
-
-
 
 
 
@@ -2744,13 +2711,10 @@ class query_results:
 
 
         
-        
 # ############################################################################
 # Module : methods-records-delete
 # File   : ./source/ddb/methods/record_delete.py
 # ############################################################################
-
-
 
 
 def method_delete(context, query_object):
@@ -2793,13 +2757,10 @@ def method_delete(context, query_object):
 
 
         
-        
 # ############################################################################
 # Module : methods-records-insert
 # File   : ./source/ddb/methods/record_insert.py
 # ############################################################################
-
-
 
 
 def method_insert(context, query_object):
@@ -2886,13 +2847,10 @@ def create_single(context, query_object, temp_file, requires_new_line):
         return {'success':False,'line':new_line}
 
         
-        
 # ############################################################################
 # Module : methods-records-select
 # File   : ./source/ddb/methods/record_select.py
 # ############################################################################
-
-
 
 
 
@@ -3193,13 +3151,10 @@ def compare_data(context,data1, data2):
 
 
         
-        
 # ############################################################################
 # Module : methods-records-update
 # File   : ./source/ddb/methods/record_update.py
 # ############################################################################
-
-
 
 
 def update_single(context,query_object, temp_file, requires_new_line, processed_line):
@@ -3284,13 +3239,10 @@ def method_update(context, query_object):
 
 
         
-        
 # ############################################################################
 # Module : methods-database-use
 # File   : ./source/ddb/methods/database_use.py
 # ############################################################################
-
-
 
 
 def method_use(context, query_object):
@@ -3309,13 +3261,10 @@ def method_use(context, query_object):
         print ex
         return query_results(success=False,error=ex)
         
-        
 # ############################################################################
 # Module : methods-table-structure-create
 # File   : ./source/ddb/methods/table_create.py
 # ############################################################################
-
-
 
 
 
@@ -3377,13 +3326,10 @@ def method_create_table(context, query_object):
         return query_results(success=False, error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-table-structure-describe
 # File   : ./source/ddb/methods/table_describe.py
 # ############################################################################
-
-
 
 
 def method_describe_table(context, query_object):
@@ -3426,13 +3372,10 @@ def method_describe_table(context, query_object):
 
 
         
-        
 # ############################################################################
 # Module : methods-table-structure-drop
 # File   : ./source/ddb/methods/table_drop.py
 # ############################################################################
-
-
 
 
 def method_drop_table(context, query_object):
@@ -3452,13 +3395,10 @@ def method_drop_table(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-table-structure-update
 # File   : ./source/ddb/methods/table_update.py
 # ############################################################################
-
-
 
 
 def method_update_table(context, query_object):
@@ -3508,13 +3448,10 @@ def method_update_table(context, query_object):
 
 
         
-        
 # ############################################################################
 # Module : methods-system-set
 # File   : ./source/ddb/methods/system_set.py
 # ############################################################################
-
-
 
 
 def method_system_set(context, query_object):
@@ -3554,13 +3491,10 @@ def method_system_set(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-system-begin
 # File   : ./source/ddb/methods/system_begin.py
 # ############################################################################
-
-
 
 
 def method_system_begin(context, query_object):
@@ -3577,13 +3511,10 @@ def method_system_begin(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-system-commit
 # File   : ./source/ddb/methods/system_commit.py
 # ############################################################################
-
-
 
 
 def method_system_commit(context, query_object):
@@ -3599,13 +3530,10 @@ def method_system_commit(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-system-rollback
 # File   : ./source/ddb/methods/system_rollback.py
 # ############################################################################
-
-
 
 
 def method_system_rollback(context, query_object):
@@ -3621,13 +3549,10 @@ def method_system_rollback(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-system-show-columns
 # File   : ./source/ddb/methods/system_show_columns.py
 # ############################################################################
-
-
 
 
 def method_system_show_columns(context,database, query_object):
@@ -3653,13 +3578,10 @@ def method_system_show_columns(context,database, query_object):
 
 
         
-        
 # ############################################################################
 # Module : methods-system-show-tables
 # File   : ./source/ddb/methods/system_show_tables.py
 # ############################################################################
-
-
 
 
 def method_system_show_tables(context,database):
@@ -3674,13 +3596,10 @@ def method_system_show_tables(context,database):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : methods-system-show-variables
 # File   : ./source/ddb/methods/system_show_variables.py
 # ############################################################################
-
-
 
 
 def method_system_show_variables(context, query_object):
@@ -3702,13 +3621,10 @@ def method_system_show_variables(context, query_object):
         return query_results(success=False,error=ex)
 
         
-        
 # ############################################################################
 # Module : file_io-lock
 # File   : ./source/ddb/file_io/locking.py
 # ############################################################################
-
-
 
 
 class lock:
@@ -3801,13 +3717,10 @@ class lock:
 
         
         
-        
 # ############################################################################
 # Module : output
 # File   : ./source/ddb/output/factory.py
 # ############################################################################
-
-
 
 
 
@@ -3924,13 +3837,10 @@ class output_factory:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
         
-        
 # ############################################################################
 # Module : factory_term
 # File   : ./source/ddb/output/factory_term.py
 # ############################################################################
-
-
 
 
 class flextable:
@@ -4530,13 +4440,10 @@ class flextable:
             self.output(footer,encode)
 
         
-        
 # ############################################################################
 # Module : factory_yaml
 # File   : ./source/ddb/output/factory_yaml.py
 # ############################################################################
-
-
 
 def yamlf_load(data=None,file=None):
     factory=factory_yaml()
@@ -5024,13 +4931,10 @@ class factory_yaml:
 
 
         
-        
 # ############################################################################
 # Module : factory_xml
 # File   : ./source/ddb/output/factory_xml.py
 # ############################################################################
-
-
 
 class factory_xml:
 
@@ -5070,13 +4974,10 @@ class factory_xml:
         return fragment
 
         
-        
 # ############################################################################
 # Module : factory_json
 # File   : ./source/ddb/output/factory_json.py
 # ############################################################################
-
-
 
 class factory_json:
     def dumps(self,data):
@@ -5126,13 +5027,10 @@ class factory_json:
 
 
         
-        
 # ############################################################################
 # Module : interactive
 # File   : ./source/ddb/interactive.py
 # ############################################################################
-
-
 
 
 
@@ -5235,13 +5133,10 @@ class ddbPrompt(Cmd):
     help_EOF = help_exit
 
         
-        
 # ############################################################################
 # Module : cli
 # File   : ./source/ddb/cli.py
 # ############################################################################
-
-
 
 
 
