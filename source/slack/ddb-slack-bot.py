@@ -69,11 +69,11 @@ class ddb_bot:
       if None == res:
         res=['No Output']
     except Exception as ex:
-      res=[ex]
+      res=[ex.message]
       pass
-    print "Joining",res
-    output_text="\r\n".join(res)
-    print "NOW",output_text
+    #print "Joining",res
+    #output_text="\r\n".join(res)
+    #print "NOW",output_text
     self.slack_client.api_call(
       "chat.postMessage",
       channel=msg['channel'],
