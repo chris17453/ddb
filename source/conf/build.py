@@ -51,7 +51,7 @@ def src_build():
 
 
     ansible_files=[{'name':'ddb-ansible-module','file':source_dir+'/ansible/ddb-ansible.py'}]+core_files
-    slack_files=[{'name':'ddb-slack','file':source_dir+'/slack/ddb-slack-bot.py'}]+core_files
+    slack_files=core_files+[{'name':'ddb-slack','file':source_dir+'/slack/ddb-slack-bot.py'}]
 
     core_headers="""# -*- coding: utf-8 -*-
 # ############################################################################
