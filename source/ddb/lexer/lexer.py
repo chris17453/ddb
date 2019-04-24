@@ -20,7 +20,7 @@ class lexer:
         if  query==None:
             raise Exception("Invalid SQL")
     
-        print query
+        #print query
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
