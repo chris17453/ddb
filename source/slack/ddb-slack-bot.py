@@ -90,7 +90,7 @@ class ddb_bot:
               elif self.is_direct_message(msg):
                 self.ddb_query(msg)
               
-              if msg['type']=='message':
+              #if msg['type']=='message':
                 #if 'text' in msg:
                 #  print(msg['text'])
             #print msg
