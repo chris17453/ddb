@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.695'
+__version__='1.1.696'
 
         
 # ############################################################################
@@ -625,8 +625,6 @@ class lexer:
         self.debug = debug
         self.query_objects = []
         if  query==None:
-            raise Exception("Invalid SQL")
-        elif query.isspace():
             raise Exception("Invalid SQL")
         querys = query.split(';')
         self.info("Queries", querys)
@@ -2081,9 +2079,7 @@ class engine:
             if config_file:
                 queries=self.database.get_db_sql()
                 if queries:
-                    print queries
-                    if not queries.isspace():
-                        self.query(queries)
+                    self.query(queries)
         except Exception as ex:
             pass
         if None != query:
