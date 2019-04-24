@@ -71,10 +71,13 @@ class ddb_bot:
     except Exception as ex:
       res=[ex]
       pass
+    print "Joining",res
+    output_text="\r\n".join(res)
+    print "NOW",output_text
     self.slack_client.api_call(
       "chat.postMessage",
       channel=msg['channel'],
-      text="\r\n".join(res),
+      text=output_text,
       thread_ts=msg['thread_ts'],
       reply_broadcast=True
     )
