@@ -204,13 +204,10 @@ def build_standalone(files,headers,footer,dest_file):
     for item in files:
         seperator='''
         
-        
 # ############################################################################
 # Module : {0}
 # File   : {1}
 # ############################################################################
-
-
 
 '''.format(item['name'],item['file'])
     
