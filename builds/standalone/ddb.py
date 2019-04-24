@@ -38,7 +38,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.692'
+__version__='1.1.693'
 
         
 # ############################################################################
@@ -631,6 +631,8 @@ class lexer:
         self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
+        if  query==None or query.isspace():
+            raise Exception("Invalid SQL")
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
@@ -2081,8 +2083,10 @@ class engine:
         try:        
             self.database = database(config_file=config_file)
             self.current_database = self.database.get_default_database()
-            queries=self.database.get_db_sql()
-            self.query(queries)
+            if config_file:
+                queries=self.database.get_db_sql()
+                if queries!=None and not queries.isspace():
+                    self.query(queries)
         except Exception as ex:
             pass
         if None != query:

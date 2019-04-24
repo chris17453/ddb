@@ -107,8 +107,9 @@ class engine:
             # dont load empty stuff
             if config_file:
                 queries=self.database.get_db_sql()
-                if queries!=None and not queries.isspace():
-                    self.query(queries)
+                if queries:
+                    if not queries.isspace():
+                        self.query(queries)
         except Exception as ex:
             pass
 
