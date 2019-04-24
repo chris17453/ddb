@@ -1,5 +1,3 @@
-
-
 class ddb_bot:
   # Global class variables
   EXCEPTIONS={}
@@ -92,5 +90,3 @@ class ddb_bot:
 if __name__ == "__main__":
   d=ddb_bot()
   d.go()
-  
-  
