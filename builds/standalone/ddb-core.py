@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.721'
+__version__='1.1.722'
 
         
 # ############################################################################
@@ -3691,7 +3691,8 @@ class flextable:
                         header+=base.center.render(use_color=self.render_color)
                 index+=1
         header+=base.right.render(use_color=self.render_color)
-        header+=u'{0}'.format(flextable.reset.ALL)
+        if self.render_color==True:
+            header+=u'{0}'.format(flextable.reset.ALL)
         return header
     def build_rows(self,buffer):
         rows=[]

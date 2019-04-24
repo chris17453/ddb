@@ -1,0 +1,10 @@
+# MyTODO LIST
+
+- convert output format to return an array based on output_stream. STDIO vs STRING
+- update slack bot, disconnect issues? maybe to many reads?
+- make docker for slack bot
+- make flextable output scale friendly
+  - Error with flextable scaling when over bounds it go's to 0 padding not calculated
+  - add minimum scale instead of full width / make it an option
+- ddb flask
+- jquery ui front end ? npm?
