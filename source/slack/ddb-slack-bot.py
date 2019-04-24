@@ -64,7 +64,8 @@ class ddb_bot:
     try:
       results=e.query(query)
       # format results
-      res=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+      o=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+      res=o.output
     except Exception as ex:
       res=[ex]
       pass
