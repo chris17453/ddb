@@ -199,9 +199,9 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
 
     def test_describe_table(self):
-            """Show table configuration"""
-            self.cleanup()
-        #try:
+        """Show table configuration"""
+        self.cleanup()
+        try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
@@ -209,8 +209,8 @@ class test_engine(unittest.TestCase):
             results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
             ddb.output.factory.output_factory(query_results=results,output='term')
             self.assertEqual(True, results.success)
-        #except Exception as ex:
-            #print(ex)
+        except Exception as ex:
+            print(ex)
             self.fail(ex)
 
     
