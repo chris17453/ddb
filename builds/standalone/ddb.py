@@ -38,7 +38,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.694'
+__version__='1.1.695'
 
         
 # ############################################################################
@@ -2088,6 +2088,7 @@ class engine:
             if config_file:
                 queries=self.database.get_db_sql()
                 if queries:
+                    print queries
                     if not queries.isspace():
                         self.query(queries)
         except Exception as ex:

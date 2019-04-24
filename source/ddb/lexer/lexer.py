@@ -19,8 +19,6 @@ class lexer:
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid SQL")
-        elif query.isspace():
-            raise Exception("Invalid SQL")
     
 
         querys = query.split(';')
