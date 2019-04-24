@@ -38,7 +38,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.711'
+__version__='1.1.712'
 
         
 # ############################################################################
@@ -3178,6 +3178,7 @@ class output_factory:
             if 'bash'==mode:
                 self.output=self.format_bash(query_results,output_file)
             elif 'term'==mode:
+                print("SET OUTPUT",output_stream)
                 self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             elif 'raw'==mode:
                 self.output=self.format_raw(query_results,output_file)
