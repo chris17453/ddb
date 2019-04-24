@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.724'
+__version__='1.1.725'
 
         
 # ############################################################################
@@ -3187,11 +3187,17 @@ class output_factory:
             ft=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style,output_stream=output_stream,render_color=color)
             res=ft.output_destination
         else:
-            res=[]
+            res=None
         if True == query_results.success:
-            res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+            if res:
+                res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+            else:
+                print(res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length)))
         else:
-            res.append("Query Failed")
+            if res:
+                res.append("Query Failed")
+            else:
+                print("Query Failed")
         return res
     def format_bash(self,query_results,output_file):
         """ouput results data in the bash format"""
