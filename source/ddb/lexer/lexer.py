@@ -17,6 +17,9 @@ class lexer:
         self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
+        if  query==None or query.isspace():
+            raise Exception("Invalid SQL")
+
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
