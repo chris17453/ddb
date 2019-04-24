@@ -64,7 +64,7 @@ class ddb_bot:
     try:
       results=e.query(query)
       # format results
-      o=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING")
+      o=output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None,output_stream="STRING",color=None)
       res=o.output
       if None == res:
         res=['No Output']

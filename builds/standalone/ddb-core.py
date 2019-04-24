@@ -31,7 +31,7 @@ import time
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.718'
+__version__='1.1.719'
 
         
 # ############################################################################
@@ -3171,7 +3171,6 @@ class output_factory:
             if 'bash'==mode:
                 self.output=self.format_bash(query_results,output_file)
             elif 'term'==mode:
-                print("SET OUTPUT",output_stream)
                 self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream)
             elif 'raw'==mode:
                 self.output=self.format_raw(query_results,output_file)
@@ -3748,7 +3747,6 @@ class flextable:
         return row
     def output(self,text,encode):
         if isinstance(self.output_destination,list):
-            print("ITS A OD")
             if encode:
                 self.output_destination.append(text.encode('utf-8'))
             else:
