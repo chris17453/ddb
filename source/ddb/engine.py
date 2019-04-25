@@ -144,7 +144,7 @@ class engine:
 
     def query(self, sql_query):
         #try:
-        start = time.clock()
+        start = time.perf_counter()
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
@@ -251,7 +251,7 @@ class engine:
             
 
             # timing
-        end = time.clock()
+        end = time.perf_counter()
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
