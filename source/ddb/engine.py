@@ -228,22 +228,16 @@ class engine:
             # TODO uncaught    
             #    print (query_object)
         # only return last command
-        print  ("HI")
         if self.results:
-            print (self.results.data)
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns
                     len_col = len(columns)
-                    print ("YO")
                     for line in self.results.data:
-                        print ("sup")
-                        print(line)
                         # dont expand things that arn't data
                         if line['type']==self.data_type.DATA:
                             new_dict = {}
                             for i in range(0, len_col):
-                                print(line['data'])
                                 if len(line['data']) < i:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
@@ -251,7 +245,6 @@ class engine:
         #except Exception as Ex:
         #    print  Ex
         #    pass
-        print ("Yep")
         if None == self.results:
             self.results=query_results()
             
