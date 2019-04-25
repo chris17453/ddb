@@ -228,7 +228,7 @@ class engine:
             # TODO uncaught    
             #    print (query_object)
         # only return last command
-        
+        print  ("HI")
         if self.results:
             if self.results.data:
                 if self.mode == 'object':
