@@ -43,7 +43,9 @@ class output_factory:
         """ouput results data in the term format"""
         #try:
         if query_results.columns:
+            print ("HI")
             ft=flextable(data=query_results.data,columns=query_results.columns,display_style=output_style,output_stream=output_stream,render_color=color)
+            print ("Ho")
             res=ft.output_destination
         else:
             res=None
