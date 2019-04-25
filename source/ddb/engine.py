@@ -239,6 +239,7 @@ class engine:
                         if line['type']==self.data_type.DATA:
                             new_dict = {}
                             for i in range(0, len_col):
+                                print(line['data'])
                                 if len(line['data']) < i:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
