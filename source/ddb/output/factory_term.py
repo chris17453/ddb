@@ -426,8 +426,9 @@ class flextable:
             self.column_count=len(columns)
         
         
-        if page>-1 and length>1:
-            self.starts_on=page*length+1
+        if page>-1 and length:
+            if length>0:
+                self.starts_on=page*length+1
         if self.line>-1:
             self.starts_on=line
 
