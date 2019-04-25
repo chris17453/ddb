@@ -235,7 +235,9 @@ class engine:
                 if self.mode == 'object':
                     columns = self.results.columns
                     len_col = len(columns)
+                    print ("YO")
                     for line in self.results.data:
+                        print ("sup")
                         print(line)
                         # dont expand things that arn't data
                         if line['type']==self.data_type.DATA:
