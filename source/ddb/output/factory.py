@@ -106,7 +106,7 @@ class output_factory:
         factory=factory_yaml()
         dump=factory.dump(results)
         if not output_file:
-            print dump
+            print(dump)
         else:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
@@ -117,7 +117,7 @@ class output_factory:
         factory=factory_json()
         dump=factory.dumps(results)
         if not output_file:
-            print dump
+            print(dump)
         else:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
@@ -128,7 +128,7 @@ class output_factory:
         factory=factory_xml()
         dump=factory.dumps({'data':results})
         if not output_file:
-            print dump
+            print(dump)
         else:
             with open(output_file, "w") as write_file:
                 write_file.write(dump)
