@@ -98,7 +98,7 @@ class ddbPrompt(Cmd):
 
         try:
             if None == self.engine:
-                print ("sql engine gone")
+                print("sql engine gone")
                 return
             results = self.engine.query(sql_query=inp)
             o=output_factory(results,output=self.engine.system['OUTPUT_MODULE'],output_style=self.engine.system['OUTPUT_STYLE'],)

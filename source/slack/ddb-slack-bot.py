@@ -73,7 +73,7 @@ class ddb_bot:
       pass
     #print "Joining",res
     output_text="```\r\n"+"\r\n".join(res)+"\r\n```"
-    print msg
+    print (msg)
     self.slack_client.api_call(
       "chat.postMessage",
       channel=msg['channel'],

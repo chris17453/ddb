@@ -19,6 +19,7 @@ def src_build():
         {'name':'methods-records-insert','file':source_dir+'/ddb/methods/record_insert.py'},
         {'name':'methods-records-select','file':source_dir+'/ddb/methods/record_select.py'},
         {'name':'methods-records-update','file':source_dir+'/ddb/methods/record_update.py'},
+        {'name':'methods-records-upsert','file':source_dir+'/ddb/methods/record_upsert.py'},
         {'name':'methods-database-use','file':source_dir+'/ddb/methods/database_use.py'},
         {'name':'methods-table-structure-create','file':source_dir+'/ddb/methods/table_create.py'},
         {'name':'methods-table-structure-describe','file':source_dir+'/ddb/methods/table_describe.py'},
@@ -31,6 +32,7 @@ def src_build():
         {'name':'methods-system-show-columns','file':source_dir+'/ddb/methods/system_show_columns.py'},
         {'name':'methods-system-show-tables','file':source_dir+'/ddb/methods/system_show_tables.py'},
         {'name':'methods-system-show-variables','file':source_dir+'/ddb/methods/system_show_variables.py'},
+        {'name':'methods-system-show-output-modules','file':source_dir+'/ddb/methods/system_show_output_modules.py'},
         {'name':'file_io-lock','file':source_dir+'/ddb/file_io/locking.py'},
         # formatting
         {'name':'output','file':source_dir+'/ddb/output/factory.py'},
@@ -77,6 +79,7 @@ import datetime
 import tempfile
 import shutil
 import time
+import pprint
 
 
 """
@@ -106,6 +109,8 @@ import datetime
 import tempfile
 import shutil
 import time
+import pprint
+
 
 from cmd import Cmd
 import argparse
@@ -141,6 +146,8 @@ import datetime
 import tempfile
 import shutil
 import time
+import pprint
+
 from ansible.module_utils.basic import AnsibleModule
 
 
@@ -181,6 +188,8 @@ import datetime
 import tempfile
 import shutil
 import time
+import pprint
+
 
 from slackclient import SlackClient
 
