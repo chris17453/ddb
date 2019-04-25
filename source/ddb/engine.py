@@ -230,6 +230,7 @@ class engine:
         # only return last command
         print  ("HI")
         if self.results:
+            print (self.results.data)
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns
