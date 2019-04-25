@@ -236,6 +236,7 @@ class engine:
                     columns = self.results.columns
                     len_col = len(columns)
                     for line in self.results.data:
+                        print(line)
                         # dont expand things that arn't data
                         if line['type']==self.data_type.DATA:
                             new_dict = {}
