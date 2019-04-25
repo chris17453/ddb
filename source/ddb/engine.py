@@ -251,7 +251,7 @@ class engine:
         #except Exception as Ex:
         #    print  Ex
         #    pass
-        
+        print ("Yep")
         if None == self.results:
             self.results=query_results()
             
