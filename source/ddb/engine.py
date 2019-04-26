@@ -88,7 +88,7 @@ class engine:
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
             {'name':'bash','styles':[]},
-            {'name':'term','styles':['single','double','rst']},
+            {'name':'term','styles':['single','double','rst','time']},
             {'name':'raw' ,'styles':[]},
             {'name':'yaml','styles':[]},
             {'name':'json','styles':[]},
@@ -145,8 +145,11 @@ class engine:
     def query(self, sql_query):
         try:
             start = time.perf_counter()
+            wall_start = time.perf_counter()
         except:
             start = time.clock()
+            wall_start = time.time()
+            
             pass
         self.results = None
         if False == self.has_configuration():
@@ -255,13 +258,17 @@ class engine:
 
         try:
             end = time.perf_counter()
+            self.results.wall_end = time.time()
         except:
             end = time.clock()
+            self.results.wall_end = time.time()
             pass
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
-        print(start,end)
+        self.results.wall_start=wall_start
+        self.results.wall_time=self.results.wall_start-self.results.wall_end
+        #print(start,end)
         return self.results
 
     def change_database(self, database_name):

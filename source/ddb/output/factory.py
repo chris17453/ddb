@@ -34,7 +34,9 @@ class output_factory:
             
             elif 'xml'==mode:
                 self.output=self.format_xml(query_results,output_file)
-            #default
+            elif 'time'==mode:
+                self.output ="User Time:Start:{0}, End:{1}, Elapsed:{2}".format(results.start,results.end,results.time)
+                self.output+="Wall Time:Start:{0}, End:{1}, Elapsed:{2}".format(results.wall_start,results.wall_,end,results._wall_time)            #default
             else: 
                 self.output=self.format_term(query_results,output_file)
 
