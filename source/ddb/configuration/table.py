@@ -155,7 +155,6 @@ class table:
     def column_ordinals(self):
         temp_columns = []
         for c in self.columns:
-            self.ordinal_lookup[c.data.name]=c.data.ordinal
             if c.display.visible:
                 temp_columns.append(
                     {'data': c.data.ordinal, 'display': c.display.ordinal})
@@ -183,7 +182,7 @@ class table:
 
     def get_data_by_name(self, name, row):
         try:
-            index=self.ordinal_lookup[name]
+            index=self.ordinals[name]
             return row[index]
         except:
             raise Exception("Data Error")
