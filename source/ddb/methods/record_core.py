@@ -178,6 +178,19 @@ class query_results:
             self.columns = data.get_columns_display()
             self.column_length=len(self.columns)
             
+    def get_first(self):
+        try:
+            return self.data[0]['data'][0]
+        except:
+            pass
+        return None
 
+    def is_single(self):
+        try:
+            if len(self.data)==1:
+                return True
+        except:
+            pass
+        return None
         #pprint(data)
         #print("Success: {0} Error:{1}".format(success,error))
