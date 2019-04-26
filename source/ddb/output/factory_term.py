@@ -189,8 +189,8 @@ class flextable:
             # make sure its a string
             if not isinstance(text,str):
                 text=str(text)
-            #if text.find('\t')>-1:
-            #    text=text.replace('\t','       ')
+            if text.find('\t')>-1:
+                text=text.replace('\t','       ')
             
             #text=text.rstrip()
             if length!=None:
