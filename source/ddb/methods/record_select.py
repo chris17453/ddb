@@ -297,7 +297,7 @@ def process_select_row(context,query_object,processed_line):
                 #     row.append(context.functions.upper(c['column']))
                 #elif c['function'] == 'cat':
                 #     row.append(context.functions.cat(c['arg1'],c['arg2']))
-    else:
+    
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 
 
