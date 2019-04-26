@@ -10,7 +10,7 @@ import tempfile
 context_sort=[]
 
 def method_select(context, query_object, parser):
-    try:
+    #try:
         context.info(query_object)
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,query_object,parser)
@@ -50,10 +50,10 @@ def method_select(context, query_object, parser):
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
-    except Exception as ex:
+    #except Exception as ex:
         # something blew up. Bail!
         #print ex
-        return query_results(success=False,error=ex)   
+    #    return query_results(success=False,error=ex)   
 
 
 def select_process_file(context,query_object):
