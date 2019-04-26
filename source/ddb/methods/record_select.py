@@ -277,27 +277,28 @@ def process_select_row(context,query_object,processed_line):
         line_type=processed_line['type']
         error= processed_line['error']
         raw= processed_line['raw']
-        for c in query_object['meta']['columns']:
-            if 'column' in c:
-                row.append(processed_line['data'][ordinals[c['column']]])
-            elif 'function' in c:
-                if c['function'] == 'database':
-                    row.append(f_database(context))
-                elif c['function'] == 'datetime':
-                        row.append(f_datetime(context))
-                elif c['function'] == 'date':
-                        row.append(f_date(context))
-                elif c['function'] == 'time':
-                        row.append(f_time(context))
-                elif c['function'] == 'version':
-                        row.append(f_version(context,__version__))
-                #elif c['function'] == 'lower':
-                #     row.append(context.functions.lower(c['column']))
-                #elif c['function'] == 'upper':
-                #     row.append(context.functions.upper(c['column']))
-                #elif c['function'] == 'cat':
-                #     row.append(context.functions.cat(c['arg1'],c['arg2']))
-    
+        if line_type!=context.data_type.ERROR:
+            for c in query_object['meta']['columns']:
+                if 'column' in c:
+                    row.append(processed_line['data'][ordinals[c['column']]])
+                elif 'function' in c:
+                    if c['function'] == 'database':
+                        row.append(f_database(context))
+                    elif c['function'] == 'datetime':
+                            row.append(f_datetime(context))
+                    elif c['function'] == 'date':
+                            row.append(f_date(context))
+                    elif c['function'] == 'time':
+                            row.append(f_time(context))
+                    elif c['function'] == 'version':
+                            row.append(f_version(context,__version__))
+                    #elif c['function'] == 'lower':
+                    #     row.append(context.functions.lower(c['column']))
+                    #elif c['function'] == 'upper':
+                    #     row.append(context.functions.upper(c['column']))
+                    #elif c['function'] == 'cat':
+                    #     row.append(context.functions.cat(c['arg1'],c['arg2']))
+        
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 
 
