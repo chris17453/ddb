@@ -184,7 +184,7 @@ class table:
     def get_data_by_name(self, name, row):
         try:
             index=self.ordinal_lookup[name]
-            return row[i]
+            return row[index]
         except:
             raise Exception("Data Error")
                 
