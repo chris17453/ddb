@@ -192,5 +192,7 @@ class query_results:
         except:
             pass
         return None
-        #pprint(data)
+    def debug(self):
+        pprint(self.error)
+        pprint(self.data)
         #print("Success: {0} Error:{1}".format(success,error))
