@@ -263,6 +263,7 @@ class engine:
             end = time.clock()
             self.results.wall_end = time.time()
             pass
+        
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
