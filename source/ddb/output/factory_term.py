@@ -185,10 +185,12 @@ class flextable:
                 #TODO tabstop/tab
             
             # make safe
-            text=u'{}'.format(text)
-            text=text.replace(u'\t',u'       ')
+            #text=u'{0}'.format(text)
+            text=str(text)
+            if text.find('\t')>-1:
+                text=text.replace(u'\t',u'       ')
             
-            text=text.rstrip()
+            #text=text.rstrip()
             if length!=None:
                 # because python data storage differes in 2&3 (float vs int)
                 length=int(length)
@@ -533,7 +535,7 @@ class flextable:
                     for c in line['data']:
                         columns+=self.style.color.data.render(c,use_color=self.render_color,length=self.column_character_width)
                         # if we have overflow, change the column wall on the right
-                        if len('{}'.format(c))>self.column_character_width:
+                        if len('{0}'.format(c))>self.column_character_width:
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.overflow)
                         else:
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color)
