@@ -249,7 +249,7 @@ def distinct(context,query_object,data):
 
 def process_select_row(context,query_object,processed_line):
     row=[]
-    has_columns = select_has_columns(context,query_object)
+    # has_columns = select_has_columns(context,query_object)
 
     for c in query_object['meta']['columns']:
         if 'column' in c:
