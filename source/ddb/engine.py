@@ -143,8 +143,11 @@ class engine:
         return True
 
     def query(self, sql_query):
-        #try:
-        start = time.perf_counter()
+        try:
+            start = time.perf_counter()
+        except:
+            start = time.clock()
+            pass
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
@@ -250,8 +253,11 @@ class engine:
             
             
 
-            # timing
-        end = time.perf_counter()
+        try:
+            end = time.perf_counter()
+        except:
+            end = time.clock()
+            pass
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
