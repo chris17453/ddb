@@ -5,7 +5,7 @@ import os
 class flextable:
 
     def escape(c):
-        return '\033[{}m'.format(c)
+        return '\033[{0}m'.format(c)
 
     def enum(**enums):
         return type('Enum', (), enums)
@@ -170,7 +170,7 @@ class flextable:
             #print foreground,background,dim,bold
             self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
             if None !=text:
-                if text.rstrip()=='': 
+                if text.isspace(): 
                     text=None
             self.text=text
                     
@@ -186,9 +186,9 @@ class flextable:
             
             # make safe
             #text='{0}'.format(text)
-            text=str(text)
-            if text.find('\t')>-1:
-                text=text.replace('\t','       ')
+            #text=str(text)
+            #if text.find('\t')>-1:
+            #    text=text.replace('\t','       ')
             
             #text=text.rstrip()
             if length!=None:
@@ -564,7 +564,7 @@ class flextable:
                                                 center,
                                                 right)
                 if self.render_color==True:
-                    columns+='{}'.format(flextable.reset.ALL)
+                    columns+='{0}'.format(flextable.reset.ALL)
 
                 rows.append(columns)
                 index+=1
@@ -588,7 +588,7 @@ class flextable:
             row+=self.style.characters.rst.edge.render()
 
         if self.render_color==True:
-            row+='{}'.format(flextable.reset.ALL)
+            row+='{0}'.format(flextable.reset.ALL)
 
         return row
      
