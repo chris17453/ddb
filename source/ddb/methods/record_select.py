@@ -256,7 +256,7 @@ def process_select_row(context,query_object,processed_line):
     for c in query_object['meta']['columns']:
         if 'column' in c:
             if None != processed_line:
-                row.append(c['column'], processed_line['data'][ordinals[c['column']]])
+                row.append(processed_line['data'][ordinals[c['column']]])
         elif 'function' in c:
             if c['function'] == 'database':
                 row.append(f_database(context))
