@@ -525,6 +525,7 @@ class flextable:
         index=0
         if True == isinstance(buffer,list):
             for line in buffer:
+                data_len=len(line['data'])
                 columns=self.style.characters.walls.left.render(use_color=self.render_color)
                 #print line
                 
@@ -538,15 +539,14 @@ class flextable:
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color)
                         
                     #only happend if we allow errored rows            
-                    if len(line['data']) < self.column_count:
+                    if data_len < self.column_count:
                         wall_color=flextable.bg.LIGHT_BLUE
-                        for c in range(len(line['data']),self.column_count):
+                        for c in range(data_len),self.column_count):
                             columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
-                            
                 
                 
-                if self.data_type.COMMENT ==  line['type'] or self.data_type.WHITESPACE==line['type']:
+                elif self.data_type.COMMENT ==  line['type'] or self.data_type.WHITESPACE==line['type']:
                     left  =self.style.characters.walls.left.render(use_color=self.render_color)
                     center=self.style.color.comment.render(line['raw'],use_color=self.render_color,length=self.total_width)
                     right =self.style.characters.walls.right.render(use_color=self.render_color)
@@ -554,7 +554,7 @@ class flextable:
                                                 center,
                                                 right)
                 
-                if self.data_type.ERROR ==  line['type']:
+                elif self.data_type.ERROR ==  line['type']:
                     left  =self.style.characters.walls.left.render(use_color=self.render_color)
                     center=self.style.color.error.render(line['raw'],use_color=self.render_color,length=self.total_width)
                     right =self.style.characters.walls.right.render(use_color=self.render_color)
