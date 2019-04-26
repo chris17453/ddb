@@ -7,7 +7,7 @@ from pprint import pprint
 def process_line(context, query_object, line, line_number=0):
     err = None
     column_len = query_object['table'].column_count()
-    line_cleaned = line #.rstrip()
+    line_cleaned = line.rstrip()
     line_data = None
     match_results=False
     if query_object['table'].data.starts_on_line > line_number:
