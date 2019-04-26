@@ -186,7 +186,9 @@ class flextable:
             
             # make safe
             #text='{0}'.format(text)
-            #text=str(text)
+            # make sure its a string
+            if not isinstance(text,str):
+                text=str(text)
             #if text.find('\t')>-1:
             #    text=text.replace('\t','       ')
             

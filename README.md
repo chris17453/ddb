@@ -64,10 +64,6 @@ pip install ddb --user
 - [changelog](docs/changelog.md)
 
 
-## Will you help me?
-Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
-
-
 ### BASH Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-bash-demo.gif)
 
@@ -76,3 +72,6 @@ Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
 
 ### DDB ICon
 ![DDB](https://raw.githubusercontent.com/chris17453/ddb/master/source/resources/ddb-icon.png)
+
+## Will you help me?
+Sure, within reason and ability. Just contact [me](mailto:chris174543@gmail.com)
