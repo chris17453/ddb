@@ -192,7 +192,7 @@ class flextable:
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
             
-            #text=text.rstrip()
+            text=text.rstrip()
             if length!=None:
                 # because python data storage differes in 2&3 (float vs int)
                 length=int(length)
