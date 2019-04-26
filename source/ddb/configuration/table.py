@@ -79,6 +79,7 @@ class table:
             for column in columns:
                 self.add_column(column)
 
+
     def set_field_delimiter(self, delimiter):
         self.delimiters.field = delimiter
 
@@ -88,7 +89,7 @@ class table:
 
     def column_count(self):
         """Return the column count for this table"""
-        return len(self.columns)
+        return self.column_length
 
     def get_columns(self):
         """return a list of columns"""
@@ -129,6 +130,7 @@ class table:
         column.data.name = name
         column.display.name = display
         self.columns.append(column)
+        self.column_length=len(self.columns)
         self.update_ordinals()
 
     def get_column_at_data_ordinal(self, ordinal):
