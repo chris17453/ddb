@@ -251,10 +251,12 @@ def process_select_row(context,query_object,processed_line):
     row=[]
     # has_columns = select_has_columns(context,query_object)
 
+
+    ordinals=query_object['table'].ordinals
     for c in query_object['meta']['columns']:
         if 'column' in c:
             if None != processed_line:
-                row.append(query_object['table'].get_data_by_name(c['column'], processed_line['data']))
+                row.append(c['column'], processed_line['data'][ordinals[c['column']]]))
         elif 'function' in c:
             if c['function'] == 'database':
                 row.append(f_database(context))
