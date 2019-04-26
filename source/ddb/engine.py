@@ -261,6 +261,7 @@ class engine:
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
+        print(start,end)
         return self.results
 
     def change_database(self, database_name):

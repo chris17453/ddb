@@ -29,6 +29,7 @@ class table:
         self.columns = []
         self.active = True
         self.ordinals = {}
+        self.ordinal_lookup = {}
         self.errors = []
         self.results = []
         self.config_directory = config_directory
@@ -154,6 +155,7 @@ class table:
     def column_ordinals(self):
         temp_columns = []
         for c in self.columns:
+            self.ordinal_lookup[c.data.name]=c.data.ordinal
             if c.display.visible:
                 temp_columns.append(
                     {'data': c.data.ordinal, 'display': c.display.ordinal})
@@ -180,14 +182,20 @@ class table:
                 return c
 
     def get_data_by_name(self, name, row):
-        for c in self.columns:
-            if c.data.name == name:
-                i = c.data.ordinal
-                if None == row:
-                    return None
-                if len(row) <= i:
-                    return None
-                return row[i]
+        try:
+            index=self.ordinal_lookup[name]
+            return row[i]
+        except:
+            raise Exception("Data Error")
+                
+        #for c in self.columns:
+        #    if c.data.name == name:
+        #        i = c.data.ordinal
+        #        if None == row:
+        #            return None
+        #        if len(row) <= i:
+        #            return None
+        #        return row[i]
 
     def get_data_from_column(self, column, row):
         i = column.data.ordinal
