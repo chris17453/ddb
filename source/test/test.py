@@ -85,33 +85,33 @@ class test_engine(unittest.TestCase):
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
-            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+            results = engine.query("create table {0}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
             self.assertEqual(True, results.success)
             # test results length
-            results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
+            results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(10, results.data_length)
 
-            results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
+            results = engine.query('select * from {0} LIMIT 1'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
 
-            results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
-            self.assertEqual(False, results.success)
-            self.assertEqual(0, results.data_length)
-
+            #results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
+            #self.assertEqual(False, results.success)
+            s#elf.assertEqual(0, results.data_length)
+            
             # WHERE/LIMIT
-            results = engine.query('select * from {} where id="1" order by id LIMIT 100;'.format(self.table_name))
+            results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
             
             # WHERE AND/LIMIT
-            results = engine.query('select * from {} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
+            results = engine.query('select * from {0} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
 
             # WHERE / AND / OR/LIMIT
-            results = engine.query('select * from {} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
+            results = engine.query('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(2, results.data_length)
         except Exception as ex:
