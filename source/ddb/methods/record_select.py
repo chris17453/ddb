@@ -342,7 +342,7 @@ def limit(context, query_object, data):
 
     context.info("Limit:{0},Length:{1}".format(index, length))
     if index<0:
-        raise Exception("Limit: range index invalid ")
+        raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
 
     if None == index:
         index = 0
