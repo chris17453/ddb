@@ -42,7 +42,7 @@ class test_engine(unittest.TestCase):
             results = engine.query("show output modules")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
-        except Exception as ex:
+        except Exception as ex: 
             print(ex)
             self.fail(ex)
 
