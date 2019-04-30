@@ -418,7 +418,12 @@ class flextable:
             self.output_destination=None
 
         if self.column_width==-1:
-            self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
+            try:
+                self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
+            except:
+                self.row_height=25
+                self.column_width=80
+                pass
         #auto name columns
         if column_count>-1 and columns == None:
             self.columns=[]
@@ -439,7 +444,7 @@ class flextable:
         if display_style=='rst':
             self.footer=False
             self.header_every=0
-        self.style=self.flextable_style()
+        self.style=self.flextable_style(style=self.display_style)
         self.results=[]
         self.data=data
         self.format()
