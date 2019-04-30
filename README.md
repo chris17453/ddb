@@ -44,6 +44,13 @@
 The github repo is where I work. Stable releases should be downloaded from pypi.
 ```bash
 pip install ddb --user
+
+```
+## If you dont want to quote everything in shell
+- disable globing for ddb
+### BASH
+```bash
+   echo "alias ddb='set -f;ddb';ddb(){ command ddb "$@";set +f;}" >~/.bashrc
 ```
 
 

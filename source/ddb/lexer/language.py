@@ -20,6 +20,7 @@
 
 sql_syntax = {
     'functions': [{'name': 'database', 'arguments': None},
+                  {'name': 'row_number', 'arguments': None},
                   {'name': 'count', 'arguments': [
                       {'name': 'where', 'required': True}]},
                   {'name': 'sum', 'arguments': [
