@@ -98,7 +98,7 @@ class test_engine(unittest.TestCase):
 
             #results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
             #self.assertEqual(False, results.success)
-            s#elf.assertEqual(0, results.data_length)
+            #self.assertEqual(0, results.data_length)
             
             # WHERE/LIMIT
             results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
