@@ -336,8 +336,8 @@ def limit(context, query_object, data):
             # index=index-1
         if 'length' in query_object['meta']['limit']:
             length = query_object['meta']['limit']['length']
-            if length<1:
-                raise Exception("Limit: range length invalid ")
+            if length<0:
+                raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
 
 
     context.info("Limit:{0},Length:{1}".format(index, length))
