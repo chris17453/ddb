@@ -250,7 +250,10 @@ def distinct(context,query_object,data):
 def process_select_row(context,query_object,processed_line):
     row=[]
     # has_columns = select_has_columns(context,query_object)
-    ordinals=query_object['table'].ordinals
+    if 'table' in query_object:
+        ordinals=query_object['table'].ordinals
+    else:
+        ordinals=None
     if None == processed_line:
         line_type=context.data_type.DATA
         error= None
