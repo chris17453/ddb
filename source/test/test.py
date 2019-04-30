@@ -90,17 +90,13 @@ class test_engine(unittest.TestCase):
             # test results length
             results = engine.query('select * from {} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
-            
             self.assertEqual(10, results.data_length)
+
             results = engine.query('select * from {} LIMIT 1'.format(self.table_name))
-            
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
-            
-            print("Hiii")
+
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
-            
-            print("Hi",results.data_length)
             self.assertEqual(False, results.success)
             self.assertEqual(0, results.data_length)
 
