@@ -96,6 +96,8 @@ class test_engine(unittest.TestCase):
             
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
+            
+            print("Hiii")
             results = engine.query('select * from {} LIMIT 0'.format(self.table_name))
             
             print("Hi",results.data_length)
