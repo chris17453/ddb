@@ -119,6 +119,8 @@ class engine:
     #    self.database=database
     #    if False == self.has_configuration():
     #        raise Exception("No configuration data")
+    def init_state_variables(self):
+        self.internal['row']=0
 
     def trigger_debug(self):
         self.debug=self.system['DEBUG']
@@ -162,6 +164,9 @@ class engine:
             raise Exception("Invalid SQL")
 
         for query_object in parser.query_objects:
+            # clear all per state variables per run
+            self.init_state_variables()
+            
             self.info("Engine: query_object", query_object)
             #print  query_object
             # exit(9)

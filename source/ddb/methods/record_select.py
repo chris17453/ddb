@@ -267,6 +267,8 @@ def process_select_row(context,query_object,processed_line):
                         row.append(f_time(context))
                 elif c['function'] == 'version':
                         row.append(f_version(context,__version__))
+                elif c['function'] == 'row_number':
+                        row.append(f_row_number(context))
                 #elif c['function'] == 'lower':
                 #     row.append(context.functions.lower(c['column']))
                 #elif c['function'] == 'upper':
@@ -292,6 +294,8 @@ def process_select_row(context,query_object,processed_line):
                             row.append(f_time(context))
                     elif c['function'] == 'version':
                             row.append(f_version(context,__version__))
+                    elif c['function'] == 'row_number':
+                            row.append(f_row_number(context))
                     #elif c['function'] == 'lower':
                     #     row.append(context.functions.lower(c['column']))
                     #elif c['function'] == 'upper':
