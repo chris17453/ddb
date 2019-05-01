@@ -498,7 +498,7 @@ class flextable:
         
         if not column.left.text.isspace():
             column_pad+=1
-        if not column.right.text.isspace:
+        if not column.right.text.isspace():
             column_pad+=1
 
         if None != self.columns:
