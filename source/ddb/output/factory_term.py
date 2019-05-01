@@ -187,7 +187,7 @@ class flextable:
             # make safe
             #text='{0}'.format(text)
             # make sure its a string
-            if not isinstance(text,str):
+            if not isinstance(text,unicode):
                 text=str(text)
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
@@ -219,20 +219,20 @@ class flextable:
             
             def __init__(self,default=None,style='rst'):
                 if style=='single':
-                    l='│'
-                    r='│'
-                    t='─'
-                    b='─'
+                    l=u'│'
+                    r=u'│'
+                    t=u'─'
+                    b=u'─'
                 elif style=='double':
-                    l='║'
-                    r='║'
-                    t='═'
-                    b='═'
+                    l=u'║'
+                    r=u'║'
+                    t=u'═'
+                    b=u'═'
                 elif style=='rst':
-                    l='|'
-                    r='|'
-                    t='-'
-                    b='-'
+                    l=u'|'
+                    r=u'|'
+                    t=u'-'
+                    b=u'-'
 
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
@@ -241,17 +241,17 @@ class flextable:
         class char_center:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
-                    c='┼'
-                    l='├'
-                    r='┤'
+                    c=u'┼'
+                    l=u'├'
+                    r=u'┤'
                 elif style=='double':
-                    c='╬'
-                    l='╠'
-                    r='╣'
+                    c=u'╬'
+                    l=u'╠'
+                    r=u'╣'
                 elif style=='rst':
-                    c='|'
-                    l='|'
-                    r='|'
+                    c=u'|'
+                    l=u'|'
+                    r=u'|'
 
                 self.center = flextable.color(text=c,default=default)
                 self.left   = flextable.color(text=l,default=default)
@@ -267,17 +267,17 @@ class flextable:
         class char_bottom:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
-                    l='└'
-                    c='┴'
-                    r='┘'
+                    l=u'└'
+                    c=u'┴'
+                    r=u'┘'
                 elif style=='double':
-                    l='╚'
-                    c='╩'
-                    r='╝'
+                    l=u'╚'
+                    c=u'╩'
+                    r=u'╝'
                 elif style=='rst':
-                    l='+'
-                    c='+'
-                    r='+'
+                    l=u'+'
+                    c=u'+'
+                    r=u'+'
 
                 self.left   = flextable.color(text=l,default=default)
                 self.center = flextable.color(text=c,default=default)
@@ -285,17 +285,17 @@ class flextable:
         class char_top:
             def __init__(self,default=None,style='rst'):
                 if style == 'single':
-                    l='┌'
-                    r='┐'
-                    c='┬'
+                    l=u'┌'
+                    r=u'┐'
+                    c=u'┬'
                 elif style=='doubble':
-                    l='╔'
-                    r='╗'
-                    c='╦'
+                    l=u'╔'
+                    r=u'╗'
+                    c=u'╦'
                 elif style=='rst':
-                    l='|'
-                    c='|'
-                    r='|'
+                    l=u'|'
+                    c=u'|'
+                    r=u'|'
 
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=c,default=default)
@@ -303,17 +303,17 @@ class flextable:
         class char_header:
             def __init__(self,default=None,style='rst'):
                 if style=='single':
-                    l='┤'
-                    r='├'
-                    c=' '
+                    l=u'┤'
+                    r=u'├'
+                    c=u' '
                 elif style=='double':
-                    l='╡'
-                    r='╞'
-                    c=' '
+                    l=u'╡'
+                    r=u'╞'
+                    c=u' '
                 elif style=='rst':
-                    l=''
-                    r=''
-                    c=' '
+                    l=u''
+                    r=u''
+                    c=u' '
                        
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
@@ -321,17 +321,17 @@ class flextable:
         class char_mid_header:
             def __init__(self,default=None,style='rst'):
                 if style == 'single':
-                    l='-'
-                    r='-'
-                    c=' '
+                    l=u'-'
+                    r=u'-'
+                    c=u' '
                 elif style== 'double':
-                    l='-'
-                    r='-'
-                    c=' '
+                    l=u'-'
+                    r=u'-'
+                    c=u' '
                 elif style=='rst':
-                    l='-'
-                    r='-'
-                    c=' '
+                    l=u'-'
+                    r=u'-'
+                    c=u' '
 
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
@@ -340,17 +340,17 @@ class flextable:
             def __init__(self,default=None,style='rst'):
 
                 if style=='single':
-                    l='['
-                    r=']'
-                    c=' '
+                    l=u'['
+                    r=u']'
+                    c=u' '
                 elif style=='double':
-                    l='['
-                    r=']'
-                    c=' '
+                    l=u'['
+                    r=u']'
+                    c=u' '
                 elif style=='rst':
-                    l=''
-                    r=''
-                    c=' '
+                    l=u''
+                    r=u''
+                    c=u' '
                 self.left   = flextable.color(text=l,default=default,foreground='White') #╡
                 self.right  = flextable.color(text=r,default=default,foreground='White') #╞
                 self.center = flextable.color(text=c,default=default,foreground='green')
