@@ -200,8 +200,8 @@ class flextable:
             if use_color is False or use_color is None:
                 return text
             if None!=override:
-                return "{0}{1}".format(override.color,text)    
-            return "{0}{1}{2}".format(self.color,text,self.reset)
+                return u"{0}{1}".format(override.color,text)    
+            return u"{0}{1}{2}".format(self.color,text,self.reset)
 
     class modes:
         def __init__(self):
