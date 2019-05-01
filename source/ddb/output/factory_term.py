@@ -348,9 +348,9 @@ class flextable:
                     c=u' '
                     r=u']'
                 elif style=='rst':
-                    l=u''
+                    l=None
                     c=u' '
-                    r=u''
+                    r=None
                 self.left   = flextable.color(text=l,default=default,foreground='White') #╡
                 self.right  = flextable.color(text=r,default=default,foreground='White') #╞
                 self.center = flextable.color(text=c,default=default,foreground='green')
@@ -496,22 +496,22 @@ class flextable:
         column_pad=0
         
         
-        if False==column.left.text.isspace():
+        if column.left.text:
             column_pad+=1
-        if False==column.right.text.isspace():
+        if column.right.text:
             column_pad+=1
 
         if None != self.columns:
             index=0
             for c in self.columns:
                 column_display=''
-                if False==column.left.text.isspace():
+                if column.left.text:
                     column_display=column.left.render(use_color=self.render_color)
 
                 column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
                 #print self.column_character_width-column_pad
 
-                if False==column.right.text.isspace():
+                if column.right.text:
                     column_display+=column.right.render(use_color=self.render_color)
                 
 
