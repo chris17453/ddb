@@ -494,9 +494,11 @@ class flextable:
         header=base.left.render(use_color=self.render_color)
 
         column_pad=0
-        if None!=column.left.text:
+        
+        
+        if not column.left.text.isspace():
             column_pad+=1
-        if None!=column.right.text:
+        if not column.right.text.isspace:
             column_pad+=1
 
         if None != self.columns:
@@ -515,7 +517,7 @@ class flextable:
 
                 header+=column_display
 
-                # if we have overflow, change the column wall ont he right
+                # if we have overflow, change the column wall on the right
                 if index<len(self.columns)-1:
                     if len('{0}'.format(c))>self.column_character_width-2:
                         header+=base.center.render(use_color=self.render_color,override=self.style.color.overflow)
