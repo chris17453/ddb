@@ -496,22 +496,22 @@ class flextable:
         column_pad=0
         
         
-        if not column.left.text.isspace():
+        if False==column.left.text.isspace():
             column_pad+=1
-        if not column.right.text.isspace():
+        if False==column.right.text.isspace():
             column_pad+=1
 
         if None != self.columns:
             index=0
             for c in self.columns:
                 column_display=''
-                if not column.left.text.isspace():
+                if False==column.left.text.isspace():
                     column_display=column.left.render(use_color=self.render_color)
 
                 column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
                 #print self.column_character_width-column_pad
 
-                if not column.right.text.isspace():
+                if False==column.right.text.isspace():
                     column_display+=column.right.render(use_color=self.render_color)
                 
 
