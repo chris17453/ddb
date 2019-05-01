@@ -505,13 +505,13 @@ class flextable:
             index=0
             for c in self.columns:
                 column_display=''
-                if None!=column.left.text:
+                if not column.left.text.isspace():
                     column_display=column.left.render(use_color=self.render_color)
 
                 column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
                 #print self.column_character_width-column_pad
 
-                if None!=column.right.text:
+                if not column.right.text.isspace():
                     column_display+=column.right.render(use_color=self.render_color)
                 
 
