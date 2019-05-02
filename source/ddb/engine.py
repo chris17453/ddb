@@ -290,7 +290,7 @@ class engine:
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
-            temp_data_file=create_temporary_copy(data_file,self.system['uuid'],prefix)
+            temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     

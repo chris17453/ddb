@@ -18,7 +18,7 @@ def method_system_commit(context):
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
-                    swap_files(tmp['origin'],tmp['temp_source'],context.system['uuid'])
+                    swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
             context.internal['TEMP_FILES']={}
 
