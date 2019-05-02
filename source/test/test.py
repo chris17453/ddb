@@ -322,10 +322,10 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
 
     def test_commit(self):
-        """Rollback db changes"""
-        self.cleanup()
-        print("COMMIT")
-        try:
+            """Rollback db changes"""
+            self.cleanup()
+            print("COMMIT")
+        #try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
             create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
@@ -360,8 +360,8 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
                 
             
-        except Exception as ex:
-            self.fail(ex)
+        #except Exception as ex:
+        #    self.fail(ex)
 
 
 if __name__ == '__main__':
