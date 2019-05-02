@@ -142,16 +142,16 @@ class test_engine(unittest.TestCase):
     def test_insert(self):
         """Insert a row in the test file"""
         #try:
-            self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
-            self.cleanup()
-            # fail on existing table
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+        self.cleanup()
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
+        self.cleanup()
+        # fail on existing table
+        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        self.assertEqual(True, results.success)
 
-            # update
-            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            self.assertEqual(True, results.success)
+        # update
+        results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+        self.assertEqual(True, results.success)
             # Delete
             #results = engine.query("delete from {} where id='1001'".format(self.table_name))
             #self.assertEqual(True, results.success)
