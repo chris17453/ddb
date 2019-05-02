@@ -285,10 +285,10 @@ class engine:
     def add_error(self,error):
         self.info(error)
     
-    def get_data_file(self,table):
+    def get_data_file(self,table,prefix="ddb_"):
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
-            temp_data_file=create_temporary_copy(data_file)
+            temp_data_file=create_temporary_copy(data_file,prefix)
             self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None,'dest':None}
         print(self.internal['TEMP_FILES'][data_file])
         return self.internal['TEMP_FILES'][data_file]['path']
