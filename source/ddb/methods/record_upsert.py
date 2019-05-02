@@ -71,7 +71,7 @@ def method_upsert(context, query_object):
                 else:
                     context.info("row found in upsert")
 
-                temp_file.flush()
+                temp_file.close()
                 context.autocommit_write(table,temp_file.name)
         context.auto_commit(table)                
 
