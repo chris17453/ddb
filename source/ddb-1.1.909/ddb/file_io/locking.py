@@ -144,11 +144,11 @@ def remove_temp_file(path):
 
         
 # todo move into context with a manager flag        
-def swap_files(path, temp,uuid):
+def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
         #print("Swap File1")
-        if lock.LOCK_OWNER != lock.is_locked(path):
+        if lock.LOCK_OWNER != lock.is_locked(path,key_uuid):
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
         # DELETE ORIGINAL
