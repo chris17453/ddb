@@ -98,7 +98,7 @@ class lock:
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 
   
-def create_temporary_copy(path,prefix):
+def create_temporary_copy(path,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
         # dont over look this
