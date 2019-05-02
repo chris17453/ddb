@@ -357,6 +357,7 @@ sql_syntax = {
              'name': 'begin',
              'arguments': None,
              'data': None,
+              'no_keyword': True
          }]
          },
         {'query': 'commit',
