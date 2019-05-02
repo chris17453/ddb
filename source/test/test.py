@@ -19,7 +19,7 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
-    def test_use(self):
+    def t1est_use(self):
         """Test changing database context"""
         try:
             # single db change from default
@@ -33,7 +33,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def test_show_output_modules(self):
+    def t1est_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -46,7 +46,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_create_table(self):
+    def t1est_create_table(self):
         """Test creating a table"""
         try:
             self.cleanup()
@@ -61,7 +61,7 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def test_drop_table(self):
+    def t1est_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
@@ -117,7 +117,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def test_update(self):
+    def t1est_update(self):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -139,7 +139,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_insert(self):
+    def t1est_insert(self):
         """Insert a row in the test file"""
         try:
             self.cleanup()
@@ -159,7 +159,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def test_delete(self):
+    def t1est_delete(self):
         """Delete a test row in the test file"""
         self.cleanup()
         try:
@@ -181,7 +181,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_show_tables(self):
+    def t1est_show_tables(self):
         """Show all tables in the database"""
         self.cleanup()
         try:
@@ -197,7 +197,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_describe_table(self):
+    def t1est_describe_table(self):
         """Show table configuration"""
         self.cleanup()
         try:
@@ -211,9 +211,8 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             print(ex)
             self.fail(ex)
-
     
-    def test_upsert(self):
+    def t1est_upsert(self):
         """Show all tables in the database"""
         self.cleanup()
         #try:
@@ -241,7 +240,7 @@ class test_engine(unittest.TestCase):
         #    print(ex)
         #    self.fail(ex)
 
-    def test_set(self):
+    def t1est_set(self):
         """Set a database variable """
         self.cleanup()
         try:
