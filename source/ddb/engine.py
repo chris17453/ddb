@@ -80,7 +80,7 @@ class engine:
         self.internal={'READONLY':readonly,'TEMP_FILES':{}}
         # variables that can be set by the system
         
-        self.system['UUID']=uuid.uuid1()
+        self.system['UUID']=str(uuid.uuid1())
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
