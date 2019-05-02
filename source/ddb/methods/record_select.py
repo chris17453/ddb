@@ -1,5 +1,5 @@
 from ..functions.functions import *
-from .record_core import process_line, swap_files, query_results, create_temporary_copy,remove_temp_file
+from .record_core import process_line, query_results
 from ..file_io.locking import lock
 from ..version import __version__
 import os
