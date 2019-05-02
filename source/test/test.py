@@ -285,6 +285,42 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
+    def test_rollback(self):
+        """Rollback db changes"""
+        self.cleanup()
+        #try:
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+
+        create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
+        results = engine.query(create_table)
+        self.assertEqual(True, results.success)
+        print ("HI")
+        results = engine.query("begin")
+        self.assertEqual(True, results.success)
+        print ("Hellop")
+        # update
+        results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+        #results.debug()
+        self.assertEqual(True, results.success)
+
+        results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(1001, results.data_length)
+        results.debug()
+
+        results = engine.query("rollback")
+        self.assertEqual(True, results.success)
+        
+        results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(1000, results.data_length)
+            
+            
+        #except Exception as ex:
+        #    self.fail(ex)
+
 if __name__ == '__main__':
     unittest.main()
 
