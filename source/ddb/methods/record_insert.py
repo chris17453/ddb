@@ -11,7 +11,8 @@ def method_insert(context, query_object):
             database_name = context.database.get_curent_database()
 
         table_name = query_object['meta']['into']['table']
-        query_object['table'] = context.database.get(table_name,database_name)
+        table= context.database.get(table_name,database_name)
+        query_object['table']=table
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
@@ -20,12 +21,10 @@ def method_insert(context, query_object):
         # process file
         requires_new_line = False
         
-        temp_file_prefix="INSERT"
-        data_file=query_object['table'].data.path
-        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        temp_data_file=context.get_data_file(table)
         diff=[]
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="INSERT",delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
@@ -44,9 +43,8 @@ def method_insert(context, query_object):
                     diff.append(results['line'])
                     affected_rows += 1
                 temp_file.flush()
-                swap_files(data_file, temp_file.name)
-
-        remove_temp_file(temp_data_file)      
+            context.autocommit_write(temp_file.name)
+        context.auto_commit(table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)

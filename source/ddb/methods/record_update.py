@@ -51,7 +51,8 @@ def method_update(context, query_object):
             database_name = context.database.get_curent_database()
 
         table_name = query_object['meta']['update']['table']
-        query_object['table'] = context.database.get(table_name,database_name)
+        table= context.database.get(table_name,database_name)
+        query_object['table']=table
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
 
@@ -59,9 +60,7 @@ def method_update(context, query_object):
     
         line_number = 1
         affected_rows = 0
-        temp_file_prefix="UPDATE"
-        data_file=query_object['table'].data.path
-        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        temp_data_file=context.get_data_file(table,"UPDATE")
         diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
@@ -81,8 +80,8 @@ def method_update(context, query_object):
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
                 temp_file.flush()
-                swap_files(data_file, temp_file.name)
-        remove_temp_file(temp_data_file)      
+                context.autocommit_write(temp_file.name)
+        context.auto_commit(table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         #print (ex)
