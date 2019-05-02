@@ -67,7 +67,6 @@ class engine:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
-        self.system['UUID']=uuid.uuid1()
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
         self.debug = debug
         self.results = None
@@ -81,6 +80,7 @@ class engine:
         self.internal={'READONLY':readonly,'TEMP_FILES':{}}
         # variables that can be set by the system
         
+        self.system['UUID']=uuid.uuid1()
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
