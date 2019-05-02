@@ -289,7 +289,7 @@ class engine:
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file)
-            self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None}
+            self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None,'dest':None}
         return self.internal['TEMP_FILES'][data_file]['path']
     
     def autocommit_write(self,table,dest_file):
@@ -301,6 +301,8 @@ class engine:
     def auto_commit(self,table):
         # every write action updates the original files and clears all temp files
         table_key=table.data.path
+        destination_file=temp_file['dest']
+
         if table_key in self.internal['TEMP_FILES']:
             temp_file=self.internal['TEMP_FILES'][table_key]
             if self.system['AUTOCOMMIT']==True:
@@ -309,7 +311,6 @@ class engine:
                     lock.release(table_key)
                     remove_temp_file(temp_file['path'])
                 else:
-                    destination_file=self.internal['TEMP_FILES'][table_key]['dest']
                     swap_files(table_key, destination_file)
                 del self.internal['TEMP_FILES'][table_key]
             # ok we may be doing multiple inserts to the same file or many files..
