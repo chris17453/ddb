@@ -5,7 +5,7 @@ from .tokenize import tokenizer
 class lexer:
    
 
-    def __init__(self, query, debug=True):
+    def __init__(self, query, debug=False):
         # select distinct,* from table where x=y and y=2 order by x,y limit 10,2
         # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
         # select top 10 * from table where x=y and y=2 order by x,y
