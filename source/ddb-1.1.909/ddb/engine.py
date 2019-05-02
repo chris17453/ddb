@@ -80,7 +80,6 @@ class engine:
         self.internal={'READONLY':readonly,'TEMP_FILES':{}}
         # variables that can be set by the system
         uuid_str=uuid.uuid1()
-        print ("INIT",uuid_str.urn)
         self.system['UUID']= uuid_str.urn
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
@@ -291,7 +290,6 @@ class engine:
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
-            print ("LOCK",self.system['UUID'])
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
@@ -307,8 +305,7 @@ class engine:
         
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
-            print("Committing")
-            method_system_commit(self)
+            method_system_commit(self,uuid)
 
 
 
