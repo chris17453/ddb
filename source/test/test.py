@@ -331,7 +331,7 @@ class test_engine(unittest.TestCase):
             create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
             results = engine.query(create_table)
             self.assertEqual(True, results.success)
-
+            print ("BEGIN")
             results = engine.query("begin")
             self.assertEqual(True, results.success)
             # update
@@ -339,6 +339,7 @@ class test_engine(unittest.TestCase):
             #results.debug()
             self.assertEqual(True, results.success)
 
+            print ("CHECK")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
