@@ -290,6 +290,7 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file)
             self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None,'dest':None}
+        print(self.internal['TEMP_FILES'][data_file])
         return self.internal['TEMP_FILES'][data_file]['path']
     
     def autocommit_write(self,table,dest_file):
@@ -297,6 +298,8 @@ class engine:
         if table_key in self.internal['TEMP_FILES']:
             self.internal['TEMP_FILES'][table_key]['written']=True
             self.internal['TEMP_FILES'][table_key]['dest']=dest_file
+            print(self.internal['TEMP_FILES'][table_key])
+        
         
     def auto_commit(self,table):
         # every write action updates the original files and clears all temp files
@@ -309,6 +312,7 @@ class engine:
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== temp_file['written']:
                     lock.release(table_key)
+                    print(self.internal['TEMP_FILES'][table_key])
                     remove_temp_file(temp_file['path'])
                 else:
                     swap_files(table_key, destination_file)
@@ -318,7 +322,9 @@ class engine:
                 # swap temp READ file for newly WRITTEN file, delete the first read file
                 # if no file given do nothing... select passthrough
                 if destination_file:
-                    remove_temp_file(temp_file['path'])
+                    print(self.internal['TEMP_FILES'][table_key])
+
+                    #remove_temp_file(temp_file['path'])
                     self.internal['TEMP_FILES'][table_key]['path']=self.internal['TEMP_FILES'][table_key]['dest']
 
         else:

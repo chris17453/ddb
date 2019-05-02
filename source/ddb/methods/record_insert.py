@@ -21,10 +21,10 @@ def method_insert(context, query_object):
         # process file
         requires_new_line = False
         
-        temp_data_file=context.get_data_file(table)
+        temp_data_file=context.get_data_file(table,"SRC_INSERT")
         diff=[]
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="INSERT",delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=True) as temp_file:
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
                     if None != processed_line['error']:
