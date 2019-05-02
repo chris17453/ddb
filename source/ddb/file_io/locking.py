@@ -13,7 +13,7 @@ class lock:
     LOCK_OWNER=2
     @staticmethod
     def info(msg,data):
-        if 1==2:
+        if 1==1:
             print("{0}: {1}".format(msg,data))
     
     @staticmethod
