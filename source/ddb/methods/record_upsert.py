@@ -45,7 +45,7 @@ def method_upsert(context, query_object):
         temp_data_file=context.get_data_file(table)
         diff=[]
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
       
                 for line in content_file:
                     #print line
