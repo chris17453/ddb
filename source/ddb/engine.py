@@ -289,9 +289,9 @@ class engine:
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file,prefix)
-            self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None,'dest':None}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'dest':None}
         print(self.internal['TEMP_FILES'][data_file])
-        return self.internal['TEMP_FILES'][data_file]['path']
+        return self.internal['TEMP_FILES'][data_file]['temp_source']
     
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
@@ -313,7 +313,7 @@ class engine:
                 if None== temp_file['written']:
                     lock.release(table_key)
                     print(self.internal['TEMP_FILES'][table_key])
-                    remove_temp_file(temp_file['path'])
+                    remove_temp_file(temp_file['temp_source'])
                 else:
                     swap_files(table_key, destination_file)
                 del self.internal['TEMP_FILES'][table_key]
@@ -325,7 +325,7 @@ class engine:
                     print(self.internal['TEMP_FILES'][table_key])
 
                     #remove_temp_file(temp_file['path'])
-                    self.internal['TEMP_FILES'][table_key]['path']=self.internal['TEMP_FILES'][table_key]['dest']
+                    self.internal['TEMP_FILES'][table_key]['temp_source']=self.internal['TEMP_FILES'][table_key]['dest']
 
         else:
             raise Exception("Temp file not logged properly in internal memory.")
