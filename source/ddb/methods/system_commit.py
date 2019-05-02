@@ -14,10 +14,13 @@ def method_system_commit(context):
             for table_key in context.internal['TEMP_FILES']:
                 tmp=context.internal['TEMP_FILES'][table_key]
                 # no need to swap files if nothing was written yea? Just delete the temp data
+                
                 if None== tmp['written']:
+                    print ("Nothing written")
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
+                    print ("swap files",context.system['UUID'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
             context.internal['TEMP_FILES']={}
