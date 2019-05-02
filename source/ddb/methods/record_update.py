@@ -1,5 +1,5 @@
 import tempfile  # from table import table
-from .record_core import process_line, swap_files, query_results, create_temporary_copy,remove_temp_file
+from .record_core import process_line, query_results
 
 def update_single(context,query_object, temp_file, requires_new_line, processed_line):
     err = False

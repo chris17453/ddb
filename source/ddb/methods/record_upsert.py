@@ -1,6 +1,6 @@
 
 import tempfile  # from table import table
-from .record_core import process_line, swap_files, query_results, create_temporary_copy,remove_temp_file
+from .record_core import process_line, query_results
 from .record_update  import update_single
 from .record_insert  import create_single
 def method_upsert(context, query_object):
