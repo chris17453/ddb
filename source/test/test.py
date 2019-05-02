@@ -141,7 +141,7 @@ class test_engine(unittest.TestCase):
 
     def test_insert(self):
         """Insert a row in the test file"""
-        try:
+        #try:
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
             self.cleanup()
@@ -156,8 +156,8 @@ class test_engine(unittest.TestCase):
             #results = engine.query("delete from {} where id='1001'".format(self.table_name))
             #self.assertEqual(True, results.success)
 
-        except Exception as ex:
-            self.fail(ex)
+        #except Exception as ex:
+        #    self.fail(ex)
 
     def t1est_delete(self):
         """Delete a test row in the test file"""
