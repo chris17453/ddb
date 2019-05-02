@@ -1,6 +1,7 @@
 import os
 import time
 import pprint
+import uuid
 from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
@@ -66,7 +67,7 @@ class engine:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
-
+        self.system['UUID']=uuid.uuid1()
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
         self.debug = debug
         self.results = None

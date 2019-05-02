@@ -80,6 +80,7 @@ import tempfile
 import shutil
 import time
 import pprint
+import uuid
 
 
 """
@@ -110,6 +111,7 @@ import tempfile
 import shutil
 import time
 import pprint
+import uuid
 
 
 from cmd import Cmd
@@ -147,6 +149,8 @@ import tempfile
 import shutil
 import time
 import pprint
+import uuid
+
 
 from ansible.module_utils.basic import AnsibleModule
 
@@ -189,6 +193,7 @@ import tempfile
 import shutil
 import time
 import pprint
+import uuid
 
 
 from slackclient import SlackClient
