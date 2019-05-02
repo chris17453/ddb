@@ -77,7 +77,8 @@ class lock:
     def aquire(path,uuid):
         lock_time=0
         lock_cycle=0
-        while lock_status=lock.is_locked(path,uuid):
+        while 1:
+            lock_status=lock.is_locked(path,uuid)
             if lock_status>lock.LOCK_OWNER:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
