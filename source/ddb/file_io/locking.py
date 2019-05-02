@@ -109,9 +109,9 @@ def create_temporary_copy(path,prefix='ddb_'):
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
         if prefix:
-            temp_file_name="{0}".format(temp_base_name)
-        else:
             temp_file_name="{0}_{1}".format(prefix,temp_base_name)
+        else:
+            temp_file_name="{0}".format(temp_base_name)
         
         temp_path = os.path.join(temp_dir, temp_file_name)
         shutil.copy2(normalize_path(path), temp_path)
