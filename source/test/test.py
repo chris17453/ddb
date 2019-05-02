@@ -82,6 +82,7 @@ class test_engine(unittest.TestCase):
     def test_select(self):
         """Test selecting results using various clauses a table"""
         try:
+            print("SELECT")
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
@@ -121,6 +122,7 @@ class test_engine(unittest.TestCase):
         """Update a row in the test file"""
         try:
             self.cleanup()
+            print("UPDATE")
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
             results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
@@ -143,6 +145,7 @@ class test_engine(unittest.TestCase):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
+        print("INSERT")
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
         self.cleanup()
         # fail on existing table
@@ -164,6 +167,7 @@ class test_engine(unittest.TestCase):
     def test_delete(self):
         """Delete a test row in the test file"""
         self.cleanup()
+        print("DELETE")
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
@@ -217,6 +221,8 @@ class test_engine(unittest.TestCase):
     def test_upsert(self):
         """Show all tables in the database"""
         self.cleanup()
+        print("UPSERT")
+
         #try:
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
