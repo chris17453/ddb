@@ -139,7 +139,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_insert(self):
+    def test_insert(self):
         """Insert a row in the test file"""
         try:
             self.cleanup()
