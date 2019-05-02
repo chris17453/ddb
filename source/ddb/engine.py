@@ -68,7 +68,7 @@ class engine:
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-        self.debug = debug
+        self.debug = True
         self.results = None
         self.mode = mode
         self.output=output
