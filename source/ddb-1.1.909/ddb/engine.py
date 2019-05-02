@@ -305,7 +305,7 @@ class engine:
         
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
-            method_system_commit(self,uuid)
+            method_system_commit(self)
 
 
 
