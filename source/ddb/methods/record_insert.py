@@ -43,7 +43,7 @@ def method_insert(context, query_object):
                     diff.append(results['line'])
                     affected_rows += 1
                 temp_file.flush()
-            context.autocommit_write(temp_file.name)
+            context.autocommit_write(table,temp_file.name)
         context.auto_commit(table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
     #except Exception as ex:
