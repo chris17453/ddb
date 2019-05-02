@@ -26,7 +26,7 @@ def method_delete(context, query_object):
         diff=[]
 
         with open(temp_data_file, 'r') as content_file:
-            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DELETE",delete=False) 
+            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
@@ -39,7 +39,7 @@ def method_delete(context, query_object):
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(query_object['table'].delimiters.get_new_line())
-            temp_file.flush()
+            temp_file.close()
             context.autocommit_write(table,temp_file.name)
         context.auto_commit(table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
