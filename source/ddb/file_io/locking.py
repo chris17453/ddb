@@ -39,6 +39,7 @@ class lock:
                 try:
                     file_data=lockfile.readline()
                     timestamp,temp_file_path,owner_uuid=file_data.split('|')
+                    print timestamp,temp_file_path,owner_uuid
                     file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
