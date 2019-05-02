@@ -213,7 +213,7 @@ class engine:
                 self.results = method_system_rollback(self,query_object)
 
             elif mode == 'commit':
-                self.results = method_system_commit(self,query_object)
+                self.results = method_system_commit(self)
 
             elif mode == "show tables":
                 self.results = method_system_show_tables(self,self.database)
