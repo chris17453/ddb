@@ -324,7 +324,7 @@ class test_engine(unittest.TestCase):
     def test_commit(self):
         """Rollback db changes"""
         self.cleanup()
-        print("ROLLBACK")
+        print("COMMIT")
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
@@ -344,14 +344,17 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
-
+            print ("C")
             results = engine.query("commit")
+            print ("D")
             self.assertEqual(True, results.success)
+            print ("E")
             
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
+            print ("F")
             
             results = engine.query("delete from {} where id='1001'".format(self.table_name))
             self.assertEqual(True, results.success)
