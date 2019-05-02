@@ -345,11 +345,10 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
-            print ("C")
+            print ("COMMITish")
             results = engine.query("commit")
-            print ("D")
             self.assertEqual(True, results.success)
-            print ("E")
+            print ("DONE COMMIT")
             
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
