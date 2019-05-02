@@ -60,10 +60,10 @@ def method_update(context, query_object):
     
         line_number = 1
         affected_rows = 0
-        temp_data_file=context.get_data_file(table,"UPDATE")
+        temp_data_file=context.get_data_file(table)
         diff=[]
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=True) as temp_file:
       
                 for line in content_file:
                     processed_line = process_line(context,query_object, line, line_number)
