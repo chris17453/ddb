@@ -80,7 +80,7 @@ def method_update(context, query_object):
                     temp_file.write(processed_line['raw'])
                     temp_file.write(query_object['table'].delimiters.get_new_line())
                 temp_file.flush()
-                context.autocommit_write(temp_file.name)
+                context.autocommit_write(table,temp_file.name)
         context.auto_commit(table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
