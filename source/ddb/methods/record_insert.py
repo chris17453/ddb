@@ -2,7 +2,7 @@ import tempfile  # from table import table
 from .record_core import process_line, query_results
 
 def method_insert(context, query_object):
-    try:
+    #try:
         if 'database' in query_object['meta']['into']:
             context.info('Database specified')
             database_name = query_object['meta']['into']['database']
@@ -46,9 +46,9 @@ def method_insert(context, query_object):
             context.autocommit_write(temp_file.name)
         context.auto_commit(table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
-    except Exception as ex:
-        print(ex)
-        return query_results(success=False, error=ex)
+    #except Exception as ex:
+    #    print(ex)
+    #    return query_results(success=False, error=ex)
     
         
 
