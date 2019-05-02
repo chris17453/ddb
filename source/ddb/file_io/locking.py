@@ -106,9 +106,6 @@ def create_temporary_copy(path,prefix='ddb_'):
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
         lock.aquire(path)
-
-
-
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
         if prefix:

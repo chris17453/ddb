@@ -146,7 +146,9 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
         self.cleanup()
         # fail on existing table
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
+        results = engine.query(create_table)
+        print(create_table)
         results.debug()
         self.assertEqual(True, results.success)
 
