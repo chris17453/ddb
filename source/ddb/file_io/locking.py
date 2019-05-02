@@ -155,10 +155,10 @@ def swap_files(path, temp):
         shutil.copy2(temp, norm_path)
         #print  temp,path
         
-        #os.remove(temp)
+        os.remove(temp)
         #print("$Removed")
-        #if os.path.exists(temp):
-        #    raise Exception("Deleting temp file {0} failed".format(temp))
+        if os.path.exists(temp):
+            raise Exception("Deleting temp file {0} failed".format(temp))
         
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))
