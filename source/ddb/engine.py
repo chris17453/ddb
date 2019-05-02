@@ -37,7 +37,7 @@ from .methods.record_upsert import method_upsert
 from .methods.record_delete import method_delete
 from .methods.record_core import query_results
 from .file_io.locking import lock
-from .methods.record_core import create_temporary_copy
+from .methods.record_core import create_temporary_copy, swap_files
 
 def enum(**enums):
     return type('Enum', (), enums)
