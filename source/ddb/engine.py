@@ -301,10 +301,10 @@ class engine:
     def auto_commit(self,table):
         # every write action updates the original files and clears all temp files
         table_key=table.data.path
-        destination_file=temp_file['dest']
 
         if table_key in self.internal['TEMP_FILES']:
             temp_file=self.internal['TEMP_FILES'][table_key]
+            destination_file=temp_file['dest']
             if self.system['AUTOCOMMIT']==True:
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== temp_file['written']:
