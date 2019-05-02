@@ -286,6 +286,7 @@ class engine:
         self.info(error)
     
     def get_data_file(self,table,prefix="ddb_"):
+        self.system['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file,prefix)
@@ -303,20 +304,9 @@ class engine:
         
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
-            self.commit()
+            method_system_commit(self)
 
-    def commit(self):
-        """Move temp files to source files"""
-        for table_key in self.internal['TEMP_FILES']:
-            tmp=self.internal['TEMP_FILES'][table_key]
-            # no need to swap files if nothing was written yea? Just delete the temp data
-            if None== tmp['written']:
-                remove_temp_file(tmp['temp_source'])
-                lock.release(table_key)
-            else:
-                swap_files(tmp['origin'],tmp['temp_source'])
-        # clear
-        self.internal['TEMP_FILES']={}
+
 
 
         
