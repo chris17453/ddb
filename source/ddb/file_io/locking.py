@@ -44,7 +44,7 @@ class lock:
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # it's an old lock thats failed. time to long. remove it
-                    print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
+                    # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
                     
                     if elapsed_time.seconds>lock.max_lock_time:
                         lock.info("Lock","Releasing, lock aged out")
@@ -55,7 +55,7 @@ class lock:
                         return lock.LOCK_OWNER
                     else:
                         lock.info("Lock","owned by other process")
-                        print(owner_uuid,key_uuid)
+                        # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                 except Exception as ex:
                     lock.info("Lock","error".format(ex))
@@ -103,7 +103,7 @@ class lock:
             lock_time_str="{0}".format(lock_time)
             
             lock.info("Lock Time",lock_time_str)
-            print("writing",key_uuid)
+            # print("writing",key_uuid)
             lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
