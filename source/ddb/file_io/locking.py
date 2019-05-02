@@ -101,7 +101,7 @@ class lock:
             lock_time_str="{0}".format(lock_time)
             
             lock.info("Lock Time",lock_time_str)
-            
+            print("writing",key_uuid)
             lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
