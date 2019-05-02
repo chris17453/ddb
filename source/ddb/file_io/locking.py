@@ -8,7 +8,9 @@ import tempfile, shutil
 class lock:
     max_lock_time=60
     sleep_time=0.02
-
+    LOCK_NONE=0
+    LOCK_OTHER=1
+    LOCK_OWNER=2
     @staticmethod
     def info(msg,data):
         if 1==2:
@@ -30,29 +32,33 @@ class lock:
         return norm_lock_path
             
     @staticmethod
-    def is_locked(path):
+    def is_locked(path,uuid):
         lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
-                    timestamp,temp_file_path=file_data.split('|')
+                    timestamp,temp_file_path,owner_uuid=file_data.split('|')
                     file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # it's an old lock thats failed. time to long. remove it
                     # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
                     if elapsed_time.seconds>lock.max_lock_time:
-                        lock.info("Lock","Releasing")
+                        lock.info("Lock","Releasing, lock aged out")
                         lock.release(path)
-                        return None
-                    return True
+                        return lock.LOCK_NONE
+                    if owner_uuid==uuid:
+                        lock.info("Lock","Releasing owned by current process")
+                        return lock.LOCK_OWNER
+                    else:
+                        return lock.LOCK_OTHER
                 except Exception as ex:
                     #print(ex)
                     lock.release(path)
                     pass
         lock.info("Lock","No Lock")
-        return None
+        return lock.LOCK_NONE
 
     @staticmethod
     def release(path):
@@ -67,10 +73,10 @@ class lock:
         lock.info("Lock","removed")
 
     @staticmethod
-    def aquire(path):
+    def aquire(path,uuid):
         lock_time=0
         lock_cycle=0
-        while lock.is_locked(path):
+        while lock.is_locked(path,uuid)<lock.LOCK_OWNER:
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1}".format(path,lock_time))
 
             time.sleep(lock.sleep_time)
@@ -81,31 +87,31 @@ class lock:
                 raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
-        if os.path.exists(lock_path):
-            lock.info("Lock","Already Exists")
-            raise Exception ("Lockfile already exists. {0}".format(lock_path))
-        
+        #if os.path.exists(lock_path):
+        #    lock.info("Lock","Already Exists")
+        #    raise Exception ("Lockfile already exists. {0}".format(lock_path))
+
         with open(lock_path,'w') as lockfile:
             lock_time=datetime.datetime.now()
             lock_time_str="{0}".format(lock_time)
             
             lock.info("Lock Time",lock_time_str)
             
-            lockfile.write("{0}|{1}".format(lock_time_str,path))
+            lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,uuid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 
   
-def create_temporary_copy(path,prefix='ddb_'):
+def create_temporary_copy(path,uuid,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
         # dont over look this
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
-        lock.aquire(path)
+        lock.aquire(path,uuid)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())
         if prefix:
@@ -131,11 +137,11 @@ def remove_temp_file(path):
 
         
 # todo move into context with a manager flag        
-def swap_files(path, temp):
+def swap_files(path, temp,uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
         #print("Swap File1")
-        if None == lock.is_locked(path):
+        if lock.LOCK_OWNER != lock.is_locked(path):
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
         # DELETE ORIGINAL
