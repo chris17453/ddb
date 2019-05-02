@@ -44,7 +44,8 @@ class lock:
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
                     # it's an old lock thats failed. time to long. remove it
-                    # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
+                    print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
+                    
                     if elapsed_time.seconds>lock.max_lock_time:
                         lock.info("Lock","Releasing, lock aged out")
                         lock.release(path)
