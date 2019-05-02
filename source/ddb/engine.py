@@ -304,7 +304,7 @@ class engine:
             if self.system['AUTOCOMMIT']==True:
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== temp_file['written']:
-                    lock.release_file(table_key)
+                    lock.release(table_key)
                     remove_temp_file(temp_file['path'])
                 else:
                     swap_files(table_key, destination_file)
