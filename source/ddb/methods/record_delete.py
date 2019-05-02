@@ -26,7 +26,7 @@ def method_delete(context, query_object):
         diff=[]
 
         with open(temp_data_file, 'r') as content_file:
-            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DELETE",delete=True) 
+            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DELETE",delete=False) 
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
                 if None != processed_line['error']:
