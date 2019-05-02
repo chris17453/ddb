@@ -289,7 +289,7 @@ class engine:
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file,prefix)
-            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'dest':None}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         print(self.internal['TEMP_FILES'][data_file])
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
@@ -297,45 +297,26 @@ class engine:
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:
             self.internal['TEMP_FILES'][table_key]['written']=True
-            self.internal['TEMP_FILES'][table_key]['dest']=dest_file
-            print(self.internal['TEMP_FILES'][table_key])
-        
+            # remove the previous source
+            if dest_file and dest_file!=self.internal['TEMP_FILES'][table_key]['temp_source']:
+                remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
+                self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
     def auto_commit(self,table):
-        self.commit()
+        if self.system['AUTOCOMMIT']==True:
+            self.commit()
 
     def commit(self):
-        for table in self.internal['TEMP_FILES']:
-            print table,self.internal['TEMP_FILES'][table]
-            continue
-            # every write action updates the original files and clears all temp files
-            table_key=table.data.path
-
-            if table_key in self.internal['TEMP_FILES']:
-                temp_file=self.internal['TEMP_FILES'][table_key]
-                destination_file=temp_file['dest']
-                if self.system['AUTOCOMMIT']==True:
-                    # no need to swap files if nothing was written yea? Just delete the temp data
-                    if None== temp_file['written']:
-                        lock.release(table_key)
-                        print(self.internal['TEMP_FILES'][table_key])
-                        remove_temp_file(temp_file['temp_source'])
-                    else:
-                        remove_temp_file(temp_file['temp_source'])
-                        swap_files(table_key, destination_file)
-                    del self.internal['TEMP_FILES'][table_key]
-                # ok we may be doing multiple inserts to the same file or many files..
-                else:
-                    # swap temp READ file for newly WRITTEN file, delete the first read file
-                    # if no file given do nothing... select passthrough
-                    if destination_file:
-                        print(self.internal['TEMP_FILES'][table_key])
-
-                        #remove_temp_file(temp_file['path'])
-                        self.internal['TEMP_FILES'][table_key]['temp_source']=self.internal['TEMP_FILES'][table_key]['dest']
-
+        """Move temp files to source files"""
+        for table_key in self.internal['TEMP_FILES']:
+            tmp=self.internal['TEMP_FILES'][table_key]
+            remove_temp_file(tmp['temp_source'])
+            # no need to swap files if nothing was written yea? Just delete the temp data
+            if None== tmp['written']:
+                lock.release(table_key)
             else:
-                raise Exception("Temp file not logged properly in internal memory.")
+                swap_files(tmp['origin'],tmp['temp_source'])
+            del self.internal['TEMP_FILES'][table_key]
 
 
         
