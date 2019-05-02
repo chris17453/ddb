@@ -9,8 +9,8 @@ class lock:
     max_lock_time=60
     sleep_time=0.02
     LOCK_NONE=0
-    LOCK_OTHER=2
     LOCK_OWNER=1
+    LOCK_OTHER=2
     @staticmethod
     def info(msg,data):
         if 1==1:
@@ -77,8 +77,10 @@ class lock:
     def aquire(path,uuid):
         lock_time=0
         lock_cycle=0
-        while lock.is_locked(path,uuid)>lock.LOCK_OWNER:
-            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1}".format(path,lock_time))
+        while lock.is_locked(path,uuid) as lock_status:
+            if lock_status>lock.LOCK_OWNER:
+                break
+            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
 
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
