@@ -347,6 +347,7 @@ class test_engine(unittest.TestCase):
             #results.debug()
             print ("COMMITish")
             results = engine.query("commit")
+            results.debug()
             self.assertEqual(True, results.success)
             print ("DONE COMMIT")
             
