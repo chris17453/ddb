@@ -30,7 +30,7 @@ def process_line(context, query_object, line, line_number=0):
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(query_object['table'].delimiters.field)
+                line_data = line_cleaned.split(query_object['table'].delimiters.field,column_len)
                 cur_column_len = len(line_data)
                 if cur_column_len != column_len:
                     if cur_column_len > column_len:
