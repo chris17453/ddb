@@ -32,7 +32,7 @@ class lock:
         return norm_lock_path
             
     @staticmethod
-    def is_locked(path,uuid):
+    def is_locked(path,key_uuid):
         lock_path=lock.get_lock_filename(path)
         if os.path.exists(lock_path):
             with open(lock_path,'r') as lockfile:
@@ -49,11 +49,11 @@ class lock:
                         lock.info("Lock","Releasing, lock aged out")
                         lock.release(path)
                         return lock.LOCK_NONE
-                    if owner_uuid==uuid:
+                    if owner_uuid==key_uuid:
                         lock.info("Lock","Releasing owned by current process")
                         return lock.LOCK_OWNER
                     else:
-                        print(owner_uuid,uuid)
+                        print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                 except Exception as ex:
                     #print(ex)
@@ -75,11 +75,11 @@ class lock:
         lock.info("Lock","removed")
 
     @staticmethod
-    def aquire(path,uuid):
+    def aquire(path,key_uuid):
         lock_time=0
         lock_cycle=0
         while 1:
-            lock_status=lock.is_locked(path,uuid)
+            lock_status=lock.is_locked(path,key_uuid)
             if lock_status<lock.LOCK_OTHER:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
@@ -102,7 +102,7 @@ class lock:
             
             lock.info("Lock Time",lock_time_str)
             
-            lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,uuid))
+            lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
