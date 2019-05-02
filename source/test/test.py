@@ -322,16 +322,16 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
 
     def test_commit(self):
-            """Rollback db changes"""
-            self.cleanup()
-            print("COMMIT")
-        #try:
+        """Rollback db changes"""
+        self.cleanup()
+        print("COMMIT")
+        try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
             create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
             results = engine.query(create_table)
             self.assertEqual(True, results.success)
-            print ("BEGIN")
+
             results = engine.query("begin")
             self.assertEqual(True, results.success)
             # update
@@ -339,33 +339,26 @@ class test_engine(unittest.TestCase):
             #results.debug()
             self.assertEqual(True, results.success)
 
-            print ("CHECK")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
-            print ("COMMITish")
-            try:
-                results = engine.query("commit")
-                results.debug()
-            except Exception as ex:
-                print ex
+
+            results = engine.query("commit")
             self.assertEqual(True, results.success)
-            print ("DONE COMMIT")
             
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
-            print ("F")
             
             results = engine.query("delete from {} where id='1001'".format(self.table_name))
             self.assertEqual(True, results.success)
                 
             
-        #except Exception as ex:
-        #    self.fail(ex)
+        except Exception as ex:
+            self.fail(ex)
 
 
 if __name__ == '__main__':
