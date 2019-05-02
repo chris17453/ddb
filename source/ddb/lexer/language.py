@@ -347,8 +347,7 @@ sql_syntax = {
         {'query': 'end',
          'switch': [{
              'name': 'end',
-             'arguments': None,
-             'data': None,
+             'data': False,
          }]
          },
 
@@ -361,16 +360,14 @@ sql_syntax = {
         {'query': 'commit',
          'switch': [{
              'name': 'commit',
-             'arguments': None,
-             'data': None,
+             'data': False,
              'depends_on':'begin'
          }]
          },
         {'query': 'rollback',
          'switch': [{
              'name': 'rollback',
-             'arguments': None,
-             'data': None,
+             'data': False,
              'depends_on':'begin'
          }]
          },
