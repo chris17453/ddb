@@ -9,8 +9,8 @@ class lock:
     max_lock_time=60
     sleep_time=0.02
     LOCK_NONE=0
-    LOCK_OTHER=1
-    LOCK_OWNER=2
+    LOCK_OTHER=2
+    LOCK_OWNER=1
     @staticmethod
     def info(msg,data):
         if 1==1:
@@ -39,7 +39,7 @@ class lock:
                 try:
                     file_data=lockfile.readline()
                     timestamp,temp_file_path,owner_uuid=file_data.split('|')
-                    print timestamp,temp_file_path,owner_uuid
+                    print(timestamp,temp_file_path,owner_uuid)
                     file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
@@ -77,7 +77,7 @@ class lock:
     def aquire(path,uuid):
         lock_time=0
         lock_cycle=0
-        while lock.is_locked(path,uuid)<lock.LOCK_OWNER:
+        while lock.is_locked(path,uuid)>lock.LOCK_OWNER:
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1}".format(path,lock_time))
 
             time.sleep(lock.sleep_time)
