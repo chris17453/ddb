@@ -39,7 +39,7 @@ class lock:
                 try:
                     file_data=lockfile.readline()
                     timestamp,temp_file_path,owner_uuid=file_data.split('|')
-                    print(timestamp,temp_file_path,owner_uuid)
+                    # print(timestamp,temp_file_path,owner_uuid)
                     file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     curent_datetime =datetime.datetime.now()
                     elapsed_time=curent_datetime-file_lock_time
@@ -53,6 +53,7 @@ class lock:
                         lock.info("Lock","Releasing owned by current process")
                         return lock.LOCK_OWNER
                     else:
+                        print(owner_uuid,uuid)
                         return lock.LOCK_OTHER
                 except Exception as ex:
                     #print(ex)
