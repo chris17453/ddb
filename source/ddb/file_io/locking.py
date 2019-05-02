@@ -2,6 +2,8 @@ import os
 import datetime
 import tempfile
 import time
+import tempfile, shutil
+
 
 class lock:
     max_lock_time=60
