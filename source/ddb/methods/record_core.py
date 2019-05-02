@@ -101,6 +101,18 @@ class query_results:
             self.columns = data.get_columns_display()
             self.column_length=len(self.columns)
             
+    def debug(self):
+        print("success:           {0}".format(self.success))
+        print("affected_rows:     {0}".format(self.affected_rows))
+        print("data:              {0}".format(self.data))
+        print("diff:              {0}".format(self.diff))
+        print("error:             {0}".format(self.error))
+        print("data_length:       {0}".format(self.data_length))
+        print("column_length:     {0}".format(self.column_length))
+        print("total_data_length: {0}".format(self.total_data_length))
+        print("columns:           {0}".format(self.columns))
+
+
     def get_first(self):
         try:
             return self.data[0]['data'][0]

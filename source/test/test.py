@@ -147,7 +147,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         # fail on existing table
         results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-        pprint(results)
+        results.debug()
         self.assertEqual(True, results.success)
 
         # update
