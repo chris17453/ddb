@@ -51,13 +51,14 @@ class lock:
                         lock.release(path)
                         return lock.LOCK_NONE
                     if owner_uuid==key_uuid:
-                        lock.info("Lock","Releasing owned by current process")
+                        lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
                     else:
+                        lock.info("Lock","owned by other process")
                         print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                 except Exception as ex:
-                    #print(ex)
+                    lock.info("Lock","error".format(ex))
                     lock.release(path)
                     pass
         lock.info("Lock","No Lock")
