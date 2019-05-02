@@ -353,6 +353,10 @@ sql_syntax = {
          },
 
         {'query': 'begin',
+         'switch': [{
+             'name': 'begin',
+             'data': False,
+         }]
          },
         {'query': 'commit',
          'switch': [{
