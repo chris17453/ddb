@@ -79,7 +79,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def test_select(self):
+    def t1est_select(self):
         """Test selecting results using various clauses a table"""
         try:
             self.cleanup()
