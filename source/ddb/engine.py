@@ -286,7 +286,7 @@ class engine:
         self.info(error)
     
     def get_data_file(self,table,prefix="ddb_"):
-        self.system['IN_TRANSACTION']=1
+        self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             temp_data_file=create_temporary_copy(data_file,prefix)
