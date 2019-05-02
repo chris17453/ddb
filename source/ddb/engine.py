@@ -292,8 +292,6 @@ class engine:
             self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['path']
     
-
-
     def autocommit_write(self,table):
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:
