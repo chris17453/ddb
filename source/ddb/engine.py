@@ -316,7 +316,8 @@ class engine:
                 lock.release(table_key)
             else:
                 swap_files(tmp['origin'],tmp['temp_source'])
-            del self.internal['TEMP_FILES'][table_key]
+        # clear
+        self.internal['TEMP_FILES']={}
 
 
         
