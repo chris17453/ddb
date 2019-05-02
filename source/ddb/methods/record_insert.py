@@ -48,7 +48,6 @@ def method_insert(context, query_object):
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)
-        remove_temp_file(temp_data_file)      
         return query_results(success=False, error=ex)
     
         
