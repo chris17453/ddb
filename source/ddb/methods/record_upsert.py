@@ -13,7 +13,8 @@ def method_upsert(context, query_object):
             database_name = context.database.get_curent_database()
 
         table_name = query_object['meta']['into']['table']
-        query_object['table'] = context.database.get(table_name,database_name)
+        table= context.database.get(table_name,database_name)
+        query_object['table']=table
         if None == query_object['table']:
             raise Exception("Table '{0}' does not exist.".format(table_name))
         
@@ -41,13 +42,10 @@ def method_upsert(context, query_object):
     
         line_number = 1
         affected_rows = 0
-        temp_file_prefix="UPSERT"
-        data_file=query_object['table'].data.path
-        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
-        #print data_file,temp_data_file
+        temp_data_file=context.get_data_file(table)
         diff=[]
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix=temp_file_prefix,delete=True) as temp_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=True) as temp_file:
       
                 for line in content_file:
                     #print line
@@ -74,10 +72,8 @@ def method_upsert(context, query_object):
                     context.info("row found in upsert")
 
                 temp_file.flush()
-                swap_files(data_file, temp_file.name)
-        
-        remove_temp_file(temp_data_file)      
-                
+                context.autocommit_write(temp_file.name)
+        context.auto_commit(table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
