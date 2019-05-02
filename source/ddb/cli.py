@@ -53,7 +53,7 @@ def cli_main():
                             output_file=None)
             results = e.query(query)
             #results.debug()
-            #print(results)
+            #print(results) 
             if results.success==True:
                 output_factory(results,output=e.system['OUTPUT_MODULE'],output_style=e.system['OUTPUT_STYLE'],output_file=None)
             else:
