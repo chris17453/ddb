@@ -310,9 +310,9 @@ class engine:
         """Move temp files to source files"""
         for table_key in self.internal['TEMP_FILES']:
             tmp=self.internal['TEMP_FILES'][table_key]
-            remove_temp_file(tmp['temp_source'])
             # no need to swap files if nothing was written yea? Just delete the temp data
             if None== tmp['written']:
+                remove_temp_file(tmp['temp_source'])
                 lock.release(table_key)
             else:
                 swap_files(tmp['origin'],tmp['temp_source'])
