@@ -71,7 +71,7 @@ def select_process_file(context,query_object):
         
         # if autocommit... create a temp copy everytime
         # if batch transaction, make 1 copy, always pull from that
-        temp_data_file=context.get_data_file(table,"SELECT")
+        temp_data_file=context.get_data_file(table)
 
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
