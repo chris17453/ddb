@@ -1,5 +1,5 @@
 from .record_core import query_results
-from ..file_io.locking i mport swap_files, lock, remove_temp_file
+from ..file_io.locking import swap_files, lock, remove_temp_file
 
 def method_system_commit(context):
     """Move temp files to source files"""
