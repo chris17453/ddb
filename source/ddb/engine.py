@@ -36,9 +36,8 @@ from .methods.record_update import method_update
 from .methods.record_upsert import method_upsert
 from .methods.record_delete import method_delete
 from .methods.record_core import query_results
-
-
-
+from .file_io.locking import lock
+from .methods.record_core import create_temporary_copy
 
 def enum(**enums):
     return type('Enum', (), enums)
@@ -79,7 +78,7 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
-        self.internal={'READONLY':readonly}
+        self.internal={'READONLY':readonly,'TEMP_FILES':{}}
         # variables that can be set by the system
         
         self.system['DEBUG']=False
@@ -287,6 +286,41 @@ class engine:
     def add_error(self,error):
         self.info(error)
     
+    def get_data_file(self,table,prefix):
+        data_file=table.data.path
+        if data_file not in self.internal['TEMP_FILES']:
+            temp_data_file=create_temporary_copy(data_file,prefix)
+            self.internal['TEMP_FILES'][data_file]={'path':temp_data_file,'written':None}
+        return self.internal['TEMP_FILES'][data_file]['path']
+    
 
+
+    
+    def auto_commit(self,table,destination_file=None):
+        # every write action updates the original files and clears all temp files
+        table_key=table.data.path
+        if table_key in self.internal['TEMP_FILES']:
+            temp_file=self.internal['TEMP_FILES'][table_key]
+            if self.system['AUTOCOMMIT']==True:
+                # no need to swap files if nothing was written yea? Just delete the temp data
+                if None== temp_file['written']:
+                    lock.release_file(table_key)
+                    remove_temp_file(temp_file['path'])
+                else:
+                    swap_files(table_key, destination_file)
+                del self.internal['TEMP_FILES'][table_key]
+            # ok we may be doing multiple inserts to the same file or many files..
+            else:
+                # swap temp READ file for newly WRITTEN file, delete the first read file
+                # if no file given do nothing... select passthrough
+                if destination_file:
+                    remove_temp_file(temp_file['path'])
+                    self.internal['TEMP_FILES'][table_key]['path']=destination_file
+
+        else:
+            raise Exception("Temp file not logged properly in internal memory.")
+
+
+        
     
     

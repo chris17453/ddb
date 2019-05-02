@@ -68,9 +68,11 @@ def select_process_file(context,query_object):
         else:
             raise Exception ('table configuration has no data file')
         
-        temp_file_prefix="SELECT"
-        data_file=query_object['table'].data.path
-        temp_data_file=create_temporary_copy(data_file,temp_file_prefix)
+        
+        # if autocommit... create a temp copy everytime
+        # if batch transaction, make 1 copy, always pull from that
+        temp_data_file=context.get_data_file(table,"SELECT")
+
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line(context,query_object, line, line_number)
@@ -79,17 +81,15 @@ def select_process_file(context,query_object):
                 if False == processed_line['match']:
                     line_number += 1
                     continue
-
                 
                 # there is data, rebuild and add
                 if None != processed_line['data']:
                     restructured_line = process_select_row(context,query_object,processed_line) 
                     data.append(restructured_line)
                 line_number += 1
-
-        # remove the temp data file
-        remove_temp_file(temp_data_file)
-        lock.release(data_file)
+        
+        # release lock ans swap files if need be.
+        context.auto_commit(table)
     # file is closed at this point, proccess the no "FROM" statement
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
