@@ -1,22 +1,22 @@
 import os
-from  threading import Thread
+import threading
+
 import ddb
 
 
 
-class ddb_passthrough(threading.Thread,file):
-    def run(self):
-        thread_name=self.getName()
+def ddb_passthrough(src,dst,table,delimiter):
+        thread_name=threading.currentThread().getName()
         print("{0} started".format(thread_name))
-        FIFO = file['src']
+        FIFO = src
         #os.mkfifo(FIFO)
         while True:
-            e=ddb.engine(output,field_delimiter=file['delimiter'])
-            res=e.query("SELECT * FROM {0}".format(file['table']))
-            output=e.output.factory(res,output='raw',stream='STRING')
+            e=ddb.engine(output,field_delimiter=delimiter)
+            res=e.query("SELECT * FROM {0}".format(table))
+            output=e.output.factory(res,output='raw',output_stream='STRING')
     
             
-            with open(file['src']) as fifo:
+            with open(src) as fifo:
                 fifo.write(output)
         
         print("{0} finished".format(thread_name))
@@ -26,8 +26,8 @@ class pipe_runner:
     
   
     def __init__(self,files):
-        for file in files:
-            thread = Thread(target = ddb_passthrough, args = (file ))
+        for item in files:
+            thread = threading.Thread(target = ddb_passthrough, args = (item ))
             thread.start()
             thread.join()
 
