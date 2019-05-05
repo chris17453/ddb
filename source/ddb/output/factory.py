@@ -91,16 +91,22 @@ class output_factory:
 
     def format_raw(self,query_results,output_file):
         """ouput results data in the yaml format"""
-        print(query_results.data)
+        #print(query_results.data)
+        if 'table' in query_results:
+            delimiter=query_results['table'].delimiters.field
+        else:
+            delimiter=","
         if not output_file:
             for row in query_results.data:
-                if 'raw' in row:
-                    print(row['raw'].rstrip())
+                if 'data' in row:
+                    raw=delimiter.join(row['data'])
+                    print(raw)
         else:
             with open(output_file, "w") as write_file:
                 for row in query_results.data:
-                    if 'raw' in row:
-                        write_file.write(row['raw'])
+                    if 'data' in row:
+                        raw=delimiter.join(row['data'])
+                        write_file.write(raw)
 
     def format_yaml(self,query_results,output_file):
         """ouput results data in the yaml format"""
