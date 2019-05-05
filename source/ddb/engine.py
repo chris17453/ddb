@@ -61,7 +61,7 @@ class engine:
 
     
    
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None):
+    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         # if false, load nothing, if true, load form user dir
         if config_file is None:
             home = os.path.expanduser("~")
@@ -77,7 +77,8 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
-        self.internal={'READONLY':readonly,'TEMP_FILES':{}}
+        
+        self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         # variables that can be set by the system
         uuid_str=uuid.uuid1()
         self.system['UUID']= uuid_str.urn[9:]
@@ -239,6 +240,8 @@ class engine:
             #    print (query_object)
         # only return last command
         if self.results:
+            self.results.delimiter=self.internal['FIELD_DELIMITER']
+            self.results.new_line=self.internal['NEW_LINE']
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns

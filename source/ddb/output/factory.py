@@ -18,30 +18,30 @@ class output_factory:
             self.output=None
             mode=output.lower()
             if 'bash'==mode:
-                self.output=self.format_bash(query_results,output_file)
+                self.output=self.format_bash(query_results)
             
             elif 'term'==mode:
-                self.output=self.format_term(query_results,output_file,output_style,output_stream=output_stream,color=color)
+                self.output=self.format_term(query_results,output_style,output_stream=output_stream,color=color)
             
             elif 'raw'==mode:
-                self.output=self.format_raw(query_results,output_file)
+                self.output=self.format_raw(query_results,output_stream)
             
             elif 'yaml'==mode:
-                self.output=self.format_yaml(query_results,output_file)
+                self.output=self.format_yaml(query_results)
             
             elif 'json'==mode:
-                self.output=self.format_json(query_results,output_file)
+                self.output=self.format_json(query_results)
             
             elif 'xml'==mode:
-                self.output=self.format_xml(query_results,output_file)
+                self.output=self.format_xml(query_results)
             elif 'time'==mode:
                 self.output ="User Time:Start:{0}, End:{1}, Elapsed:{2}".format(query_results.start_time,query_results.end_time,query_results.time)
                 self.output+="Wall Time:Start:{0}, End:{1}, Elapsed:{2}".format(query_results.wall_start,query_results.wall_end,query_results.wall_time)            #default
             else: 
-                self.output=self.format_term(query_results,output_file)
+                self.output=self.format_term(query_results)
 
 
-    def format_term(self,query_results,output_file,output_style=None,output_stream=None,color=True):
+    def format_term(self,query_results,output_style=None,output_stream=None,color=True):
         """ouput results data in the term format"""
         #try:
         if query_results.columns:
@@ -66,7 +66,7 @@ class output_factory:
         #    print("TERM Formatting: {0}".format(ex))
             #print(query_results.data)
 
-    def format_bash(self,query_results,output_file):
+    def format_bash(self,query_results):
         """ouput results data in the bash format"""
         data=query_results.data
         
@@ -89,54 +89,42 @@ class output_factory:
             row_index+=1
         
 
-    def format_raw(self,query_results,output_file):
+    def format_raw(self,query_results,output_stream):
         """ouput results data in the yaml format"""
         #print(query_results.data)
         if 'table' in query_results:
             delimiter=query_results['table'].delimiters.field
         else:
             delimiter=","
-        if not output_file:
-            for row in query_results.data:
-                if 'data' in row:
-                    raw=delimiter.join(row['data'])
+        res=[]
+        for row in query_results.data:
+            if 'data' in row:
+                raw=delimiter.join(row['data'])
+                if output_stream=='STDIO':
                     print(raw)
-        else:
-            with open(output_file, "w") as write_file:
-                for row in query_results.data:
-                    if 'data' in row:
-                        raw=delimiter.join(row['data'])
-                        write_file.write(raw)
+                else:
+                    res.append(raw)
 
-    def format_yaml(self,query_results,output_file):
+        if output_stream=='STRING':
+            return res
+
+    def format_yaml(self,query_results):
         """ouput results data in the yaml format"""
         results=query_results.data
         factory=factory_yaml()
         dump=factory.dump(results)
-        if not output_file:
-            print(dump)
-        else:
-            with open(output_file, "w") as write_file:
-                write_file.write(dump)
+        print(dump)
 
-    def format_json(self,query_results,output_file):
+    def format_json(self,query_results):
         """ouput results data in the json format"""
         results=query_results.data
         factory=factory_json()
         dump=factory.dumps(results)
-        if not output_file:
-            print(dump)
-        else:
-            with open(output_file, "w") as write_file:
-                write_file.write(dump)
+        print(dump)
         
-    def format_xml(self,query_results,output_file):
+    def format_xml(self,query_results):
         """ouput results data in the xml format"""
         results=query_results.data
         factory=factory_xml()
         dump=factory.dumps({'data':results})
-        if not output_file:
-            print(dump)
-        else:
-            with open(output_file, "w") as write_file:
-                write_file.write(dump)
+        print(dump)
