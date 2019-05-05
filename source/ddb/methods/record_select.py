@@ -123,12 +123,14 @@ def select_validate_columns_and_from(context, query_object, parser):
                 database_name=context.database.get_curent_database()
 
             table_name = query_object['meta']['from']['table']
-            query_object['table'] = context.database.get(table_name,database_name)
-            if None == query_object['table']:
-                raise Exception("Table '{0}' does not exist.".format(table_name))
-            table_columns = query_object['table'].get_columns()
+            table= context.database.get(table_name,database_name)
+            if None == table:
+                except_str="Table '{0}' does not exist.".format(table_name)
+                raise Exception(except_str)
+            query_object['table']= table
+            table_columns = table.get_columns()
             parser.expand_columns(query_object, table_columns)
-            column_len = query_object['table'].column_count()
+            column_len = table.column_count()
             if column_len == 0:
                 raise Exception("No defined columns in configuration")
         else:
