@@ -77,6 +77,7 @@ class pipe_runner:
                         
             e=ddb.engine()
             for table in e.database.tables:
+                print table.data.name
                 if table.data.fifo:
                     thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':table.data.name,'delimiter':table.delimiters.field} )
                     thread.start()
@@ -106,6 +107,7 @@ if __name__=='__main__':
     args = parser.parse_args()
    
     p=pipe_runner()
+
     if args.action=='start':
         p.start()
     elif args.action=='stop':

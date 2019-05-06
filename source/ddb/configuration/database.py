@@ -9,11 +9,12 @@ from ..file_io.locking import normalize_path
 class database:
     tables = []
 
-    def __init__(self, config_file=None, show_config=False):
+    def __init__(self, config_file=None):
         self.curent_database = None
         self.tables = []
-        is_file = False
         self.config_file = None
+        is_file = False
+
         if None != config_file and config_file != False:
             self.config_file = config_file
             # loads the config in a safe way
