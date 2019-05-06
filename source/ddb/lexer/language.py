@@ -540,6 +540,7 @@ sql_syntax = {
              {'arguments': 1,
               'data': [{'sig': ['=', '{fifo}']}],
               'type':'single',
+              'optional': True,
               'name': 'fifo'},
              {'arguments': 1,
               'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','repo_file','=','{repo_file}']}],
