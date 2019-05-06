@@ -286,7 +286,11 @@ class table:
             column_str.append("'{0}'".format(column.data.name))
         column_str=",".join(column_str)
 
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' fifo='{9}' delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        fifo=""
+        if self.data.fifo:
+            fifo="fifo='{0}'".format(self.data.fifo)
+
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -296,7 +300,7 @@ class table:
                 self.visible.errors,
                 self.visible.comments,
                 self.data.starts_on_line,
-                self.data.fifo)
+                fifo)
 
               
         with open(self.data.config,"w") as config_file:
