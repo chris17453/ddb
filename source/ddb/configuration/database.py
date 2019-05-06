@@ -126,7 +126,8 @@ class database:
                      errors=None,
                      whitespace=None,
                      data_on=None,
-                     temporary=None):
+                     temporary=None,
+                     fifo=None):
         #print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
@@ -155,7 +156,8 @@ class database:
                   data_on=data_on,
                   comments=comments,
                   whitespace=whitespace,
-                  errors=errors)
+                  errors=errors,
+                  fifo=fifo)
         t.data.path = data_file
         # print("Appending table")
         self.tables.append(t)

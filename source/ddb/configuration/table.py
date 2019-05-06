@@ -19,7 +19,8 @@ class table:
                  comments=None,
                  whitespace=None,
                  errors=None,
-                 data_on=None
+                 data_on=None,
+                 fifo=None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -43,7 +44,7 @@ class table:
                     data_on=data_on)
 
         self.update_ordinals()
-        if None != self.data.path:
+        if self.data.path:
             if False == os.path.exists(normalize_path(self.data.path)):
                 #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
                 self.active = False
@@ -56,25 +57,27 @@ class table:
                whitespace=None,
                errors=None,
                data_on=None):
-        if None != data_on:
+        if fifo:
+            self.data.fifi=fifo
+        if data_on:
             #print("SETTING DATA INT",data_on,int(data_on))
             self.data.starts_on_line = data_on
-        if None != comments:
+        if comments:
             self.visible.comments = comments
 
-        if None != whitespace:
+        if whitespace:
             self.visible.whitespace = whitespace
 
-        if None != errors:
+        if errors:
             self.visible.errors = errors
 
-        if None != field_delimiter:
+        if field_delimiter:
             self.set_field_delimiter(field_delimiter)
 
-        if None != data_file:
+        if data_file:
             self.data.path = data_file
 
-        if None != columns:
+        if columns:
             self.columns = []
             for column in columns:
                 self.add_column(column)
@@ -281,7 +284,7 @@ class table:
             column_str.append("'{0}'".format(column.data.name))
         column_str=",".join(column_str)
 
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' fifo='{9}' delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -290,7 +293,8 @@ class table:
                 self.visible.whitespace,
                 self.visible.errors,
                 self.visible.comments,
-                self.data.starts_on_line)
+                self.data.starts_on_line,
+                self.data.fifo)
 
               
         with open(self.data.config,"w") as config_file:
@@ -321,7 +325,7 @@ class table_data:
         self.key = None
         self.ordinal = -1
         self.config = None
-        self.retults = None
+        self.fifo=None
         if None != name:
             self.name = name
 
