@@ -222,7 +222,6 @@ class database:
 
     def get_db_sql(self):
         temp_tables = self.get_tables()
-        print ( "GOT EM ",temp_tables)
         queries=[]
         for t in temp_tables:
             with open(t,'r') as table_config:

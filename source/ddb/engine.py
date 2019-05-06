@@ -108,7 +108,7 @@ class engine:
             if config_file!=False:
                 queries=self.database.get_db_sql()
                 if queries:
-                    print("Init Sql",query)
+                    print("Init Sql",queries)
                     self.query(queries)
         except Exception as ex:
             pass
