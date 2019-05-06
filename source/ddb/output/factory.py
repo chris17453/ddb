@@ -92,10 +92,7 @@ class output_factory:
     def format_raw(self,query_results,output_stream):
         """ouput results data in the yaml format"""
         #print(query_results.data)
-        if 'table' in query_results:
-            delimiter=query_results['table'].delimiters.field
-        else:
-            delimiter=","
+        delimiter=query_results.delimiter
         res=[]
         for row in query_results.data:
             if 'data' in row:
