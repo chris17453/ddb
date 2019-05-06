@@ -222,6 +222,7 @@ class database:
 
     def get_db_sql(self):
         temp_tables = self.get_tables()
+        print ( "GOT EM ",temp_tables)
         queries=[]
         for t in temp_tables:
             with open(t,'r') as table_config:
@@ -261,7 +262,6 @@ class database:
 
         #print("Loading config file: {0}".format(self.config_file))
         yaml_data = yamlf_load(file=self.config_file)
-        print (yaml_data)
         # could be empty
         if yaml_data != None:
             for db in yaml_data:
