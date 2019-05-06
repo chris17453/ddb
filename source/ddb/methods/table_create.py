@@ -31,6 +31,7 @@ def method_create_table(context, query_object):
         found_whitespace = None
         found_data_on = None
         found_errors = None
+        fifo = None
         if 'delimiter' in query_object['meta']:
             found_delimiter = query_object['meta']['delimiter']
         if 'whitespace' in query_object['meta']:
@@ -41,6 +42,8 @@ def method_create_table(context, query_object):
             found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on = query_object['meta']['data_starts_on']
+        if 'fifo' in query_object['meta']:
+            fifo = query_object['meta']['fifo']
             
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 database_name=database_name,
@@ -51,7 +54,8 @@ def method_create_table(context, query_object):
                                                 errors=found_errors,
                                                 whitespace=found_whitespace,
                                                 data_on=found_data_on,
-                                                temporary=temporary
+                                                temporary=temporary,
+                                                fifo=fifo
                                                 )
 
         return query_results(success=results)

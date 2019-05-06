@@ -1,26 +1,38 @@
 import os
+import sys
 import threading
 import logging
+import argparse
 import ddb
 from ddb.output.factory import output_factory
 
 logging.basicConfig(level=logging.DEBUG,format='(%(threadName)-10s) %(message)s')
 
+# this file uses a named pipe
+# it latches on to the pipe and when read from ddb emits the database as a processes raw file
+# errors, whitespace etc removed
+# it's an example of giving read only access to a file thats managed by ddb
+# with event hooks on file reads
+# now you can tell when anything reads from the file.
+# still working out the writes tho....
+
+
 class ddb_passthrough(threading.Thread):
     
     def __init__(self, group=None, target=None, name=None,args=(), kwargs=None, verbose=None):
         threading.Thread.__init__(self, group=group, target=target, name=name,verbose=verbose)
-        # self.setDaemon(True)
+        self.daemon=True
         self.args = args
         self.kwargs = kwargs
-        return
 
     def run(self):
-        print(self.args)
         thread_name=self.getName()
         logging.debug("{0} started".format(thread_name))
         FIFO = os.path.expanduser(self.kwargs['src'])
-        #os.mkfifo(FIFO)
+        if False==os.path.exists(FIFO):
+            os.mkfifo(FIFO)
+        
+        
         while True:
             logging.debug("{0} Looping".format(thread_name))
             e=ddb.engine(output='raw',field_delimiter=self.kwargs['delimiter'])
@@ -51,13 +63,56 @@ class ddb_passthrough(threading.Thread):
 
 # Launches the threads per table
 class pipe_runner:
-    def __init__(self,files):
-        for item in files:
-            print item
-            thread = ddb_passthrough(kwargs = {'src':item['src'],'table':item['table'],'delimiter':item['delimiter']} )
-            thread.start()
-            thread.join()
+    def __init__(self):
+        self.pidfile = "/tmp/ddb_fiforunner.pid"
+
+    def start(self):
+        pid = str(os.getpid())
+        if os.path.isfile(self.pidfile):
+            print("{0} already exists, exiting" .format( self.pidfile))
+            sys.exit()
+        file(self.pidfile, 'w').write(pid)
+        
+        try:
+                        
+            e=ddb.engine()
+            for table in e.database.tables:
+                if table.data.fifo:
+                    thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':table.data.name,'delimiter':table.delimiters.field} )
+                    thread.start()
+                    thread.join()
+        finally:
+            os.unlink(self.pidfile)
+    
+    def stop(self):
+        if os.path.isfile(self.pidfile):
+            with  open(self.pidfile) as pid_file:
+                pid=pid_file.read()
+            os.unlink(self.pidfile)
+        else:
+            raise Exception("service not running")
+            os.unlink(self.pidfile)
+            return
+
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except OSError as ex:
+            error ="Failed to terminate {0:d}: {1}".format(pid,ex)
+            raise error
 
 if __name__=='__main__':
-    files=[{'src':'~/chris17453/ddb/source/test/MOCK_DATA_FIFO.csv','dst':'~/chris17453/ddb/source/test/MOCK_DATA.csv','table':'test.mock','delimiter':','}]
-    p=pipe_runner(files)
+    parser = argparse.ArgumentParser("ddb_fifo", usage='%(prog)s [options]', description="""fifo service for ddb""", epilog="")
+    parser.add_argument('action', help='start, stop', nargs= "?")
+    args = parser.parse_args()
+   
+    p=pipe_runner()
+    if args.action=='start':
+        p.start()
+    elif args.action=='stop':
+        p.stop()
+    elif args.action=='restart':
+        p.stop()
+        p.start()
+    else:
+        print ("Usage: ddb_fifo [start|stop|restart]")
+

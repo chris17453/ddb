@@ -25,6 +25,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['table_name',target_table.data.name], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['database',target_table.data.database], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['data_file',target_table.data.path], 'type': context.data_type.DATA, 'error': None})
+        temp_table.append_data({'data':['fifo',target_table.data.fifo], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['type',target_table.data.type], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['config_file',target_table.data.config], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['data_starts_on',target_table.data.starts_on_line], 'type': context.data_type.DATA, 'error': None})
