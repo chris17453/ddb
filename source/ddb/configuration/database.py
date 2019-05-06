@@ -255,20 +255,13 @@ class database:
             return []
 
         if False == os.path.exists(self.config_file):
-            self.create_config(self.config_file)
+            return []
 
         tables = []
 
-        # if the file doesnt exist.. then just chill...
-        if self.config_file:
-            if False == os.path.exists(self.config_file):
-                return tables
-            #    raise Exception("db config invalid")
-        else:
-            return tables
         #print("Loading config file: {0}".format(self.config_file))
         yaml_data = yamlf_load(file=self.config_file)
-        #print (yaml_data)
+        print (yaml_data)
         # could be empty
         if yaml_data != None:
             for db in yaml_data:
