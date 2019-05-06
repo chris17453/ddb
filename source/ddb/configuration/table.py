@@ -41,7 +41,8 @@ class table:
                     comments=comments,
                     whitespace=whitespace,
                     errors=errors,
-                    data_on=data_on)
+                    data_on=data_on,
+                    fifo=fifo)
 
         self.update_ordinals()
         if self.data.path:
@@ -59,7 +60,7 @@ class table:
                data_on=None,
                fifo=None):
         if fifo:
-            self.data.fifi=fifo
+            self.data.fifo=fifo
         if data_on:
             #print("SETTING DATA INT",data_on,int(data_on))
             self.data.starts_on_line = data_on
