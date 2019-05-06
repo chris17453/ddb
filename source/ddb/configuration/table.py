@@ -56,7 +56,8 @@ class table:
                comments=None,
                whitespace=None,
                errors=None,
-               data_on=None):
+               data_on=None,
+               fifo=None):
         if fifo:
             self.data.fifi=fifo
         if data_on:
