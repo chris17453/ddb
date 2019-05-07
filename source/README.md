@@ -2,4 +2,4 @@
 
 -This is the source directory for ddb.
 -Do not use this.
--This source builds the usaable source in the ../builds directory
+-This source builds the useable distributions in the ../builds directory
