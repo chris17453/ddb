@@ -2,11 +2,16 @@ import os
 import time
 import pprint
 import uuid
+import logging
 from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
 from .evaluate.match import match
 from .version import __version__
+
+
+log = logging.getLogger(__name__)
+log.propagate = False
 
 #methods -> actions
 
@@ -62,6 +67,8 @@ class engine:
     
    
     def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+        
+        self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
         if config_file is None:
             home = os.path.expanduser("~")
@@ -107,9 +114,10 @@ class engine:
             # dont load empty stuff
             if config_file!=False:
                 queries=self.database.get_db_sql()
+                log.disabled = True
                 if queries:
-                    print("Init Sql",queries)
                     self.query(queries)
+                log.disabled = False
         except Exception as ex:
             pass
 
@@ -175,6 +183,7 @@ class engine:
             # print query_object['mode']
             mode=query_object['mode']
             
+            log.info("PID:{1} : {0}".format(query,self.pid))
             # RECORDS
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
