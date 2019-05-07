@@ -10,8 +10,8 @@ from .evaluate.match import match
 from .version import __version__
 
 
-log = logging.getLogger(__name__)
-log.propagate = False
+logging.basicConfig(filename='/tmp/ddb.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+logging.propagate = False
 
 #methods -> actions
 
@@ -183,7 +183,7 @@ class engine:
             # print query_object['mode']
             mode=query_object['mode']
             
-            log.info("PID:{1} : {0}".format(query,self.pid))
+            log.info("PID:{1} : {0}".format(sql_query,self.pid))
             # RECORDS
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
