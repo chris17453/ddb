@@ -74,10 +74,15 @@ class ddb_pipe_runner:
         self.name="ddb pipes"
 
     def start(self):
+        
+        if os.path.isfile(self.pidfile):
+            logging.info("{0} already exists, exiting" .format( self.pidfile))
+            raise Exception("{0} service already running".format(self.name))
+
+        pid = os.fork()
+        
         logging.info("starting service: pid: {0}" .format( self.pidfile))
         
-        pid = os.fork()
-
         try:
             if pid > 0:
                 print("{0} Service Started".format(self.name))
@@ -85,15 +90,11 @@ class ddb_pipe_runner:
         except OSError, e:
             logging.error("Failed to Demonize: %d, %s\n" % (e.errno,e.strerror))
             sys.exit(1)
-        # TODO
+        # TODO figure this part out? seems important brah
         # os.umask(UMASK)
         # os.setsid()
         pid=str(os.getpid())
-        if os.path.isfile(self.pidfile):
-            logging.info("{0} already exists, exiting" .format( self.pidfile))
-            raise Exception("{0} service already running".format(self.name))
         file(self.pidfile, 'w').write(pid)
-
 
         try:
                         
