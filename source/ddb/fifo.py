@@ -7,7 +7,7 @@ import signal
 import ddb
 from ddb.output.factory import output_factory
 
-logging.basicConfig(filename='/tmp/ddb_fifo.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+logging.basicConfig(filename='/tmp/ddb_pipes.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 
 # this file uses a named pipe
 # it latches on to the pipe and when read from ddb emits the database as a processes raw file
@@ -68,18 +68,33 @@ class ddb_passthrough(threading.Thread):
 
 
 # Launches the threads per table
-class pipe_runner:
+class ddb_pipe_runner:
     def __init__(self):
-        self.pidfile = "/tmp/ddb_fiforunner.pid"
+        self.pidfile = "/tmp/ddb_pipes.pid"
+        self.name="ddb pipes"
 
     def start(self):
         logging.info("starting service: pid: {0}" .format( self.pidfile))
-        pid = str(os.getpid())
+        
+        pid = os.fork()
+
+        try:
+            if pid > 0:
+                print("{0} Service Started".format(self.name))
+                sys.exit(0)
+        except OSError, e:
+            logging.error("Failed to Demonize: %d, %s\n" % (e.errno,e.strerror))
+            sys.exit(1)
+        # TODO
+        # os.umask(UMASK)
+        # os.setsid()
+        pid=str(os.getpid())
         if os.path.isfile(self.pidfile):
             logging.info("{0} already exists, exiting" .format( self.pidfile))
-            raise Exception("service already running")
+            raise Exception("{0} service already running".format(self.name))
         file(self.pidfile, 'w').write(pid)
-        
+
+
         try:
                         
             e=ddb.engine()
@@ -101,8 +116,11 @@ class pipe_runner:
             except OSError as ex:
                 error ="failed to stop service {0:d}: {1}".format(pid,ex)
                 logging.info(error)
+                os.unlink(self.pidfile)
                 raise Exception(error)
             os.unlink(self.pidfile)
+            print("{1} Service Stopped: pid {0}".format(pid,self.name))
+                
         else:
             error="service cannot stop, not running"
             logging.info(error)
@@ -117,7 +135,7 @@ if __name__=='__main__':
     parser.add_argument('action', help='start, stop', nargs= "?")
     args = parser.parse_args()
    
-    p=pipe_runner()
+    p=ddb_pipe_runner()
 
     try:
         if args.action=='start':
