@@ -183,7 +183,7 @@ class engine:
             # print query_object['mode']
             mode=query_object['mode']
             
-            log.info("PID:{1} : {0}".format(sql_query,self.pid))
+            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             # RECORDS
             if mode == 'select':
                 self.results = method_select(self,query_object, parser)
