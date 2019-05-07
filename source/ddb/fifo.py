@@ -3,6 +3,7 @@ import sys
 import threading
 import logging
 import argparse
+import signal
 import ddb
 from ddb.output.factory import output_factory
 
@@ -79,7 +80,7 @@ class pipe_runner:
             for table in e.database.tables:
                 print table.data.name
                 if table.data.fifo:
-                    thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':table.data.name,'delimiter':table.delimiters.field} )
+                    thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':"'{0}'.'{1}'".format(table.data.database,table.data.name),'delimiter':table.delimiters.field} )
                     thread.start()
                     thread.join()
         finally:
@@ -89,17 +90,18 @@ class pipe_runner:
         if os.path.isfile(self.pidfile):
             with  open(self.pidfile) as pid_file:
                 pid=pid_file.read()
+            try:
+                os.kill(int(pid), signal.SIGTERM)
+            except OSError as ex:
+                error ="Failed to terminate {0:d}: {1}".format(pid,ex)
+                raise error                
             os.unlink(self.pidfile)
         else:
             raise Exception("service not running")
             os.unlink(self.pidfile)
             return
 
-        try:
-            os.kill(pid, signal.SIGTERM)
-        except OSError as ex:
-            error ="Failed to terminate {0:d}: {1}".format(pid,ex)
-            raise error
+        
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser("ddb_fifo", usage='%(prog)s [options]', description="""fifo service for ddb""", epilog="")
