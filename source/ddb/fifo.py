@@ -7,7 +7,7 @@ import signal
 import ddb
 from ddb.output.factory import output_factory
 
-logging.basicConfig(level=logging.DEBUG,format='(%(threadName)-10s) %(message)s')
+logging.basicConfig(filename='/tmp/ddb_fifo.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 
 # this file uses a named pipe
 # it latches on to the pipe and when read from ddb emits the database as a processes raw file
@@ -27,11 +27,16 @@ class ddb_passthrough(threading.Thread):
         self.kwargs = kwargs
 
     def run(self):
+
         thread_name=self.getName()
         logging.debug("{0} started".format(thread_name))
         FIFO = os.path.expanduser(self.kwargs['src'])
         if False==os.path.exists(FIFO):
+            logging.info("Creating FIFO: {0}".format(FIFO))
             os.mkfifo(FIFO)
+        else:
+            logging.info("FIFO Exists: {0}".format(FIFO))
+
         
         
         while True:
@@ -40,7 +45,7 @@ class ddb_passthrough(threading.Thread):
             res=e.query("SELECT * FROM {0}".format(self.kwargs['table']))
             results=output_factory(res,output='raw',output_stream='STRING')
             
-            logging.debug("{0} grabbing data".format(thread_name))
+            logging.info("{0} grabbing data".format(thread_name))
 
             with open(FIFO,"wr") as fifo:
                 # clear the buffer
@@ -68,17 +73,17 @@ class pipe_runner:
         self.pidfile = "/tmp/ddb_fiforunner.pid"
 
     def start(self):
+        logging.info("starting service: pid: {0}" .format( self.pidfile))
         pid = str(os.getpid())
         if os.path.isfile(self.pidfile):
-            print("{0} already exists, exiting" .format( self.pidfile))
-            sys.exit()
+            logging.info("{0} already exists, exiting" .format( self.pidfile))
+            raise Exception("service already running")
         file(self.pidfile, 'w').write(pid)
         
         try:
                         
             e=ddb.engine()
             for table in e.database.tables:
-                print table.data.name
                 if table.data.fifo:
                     thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':"'{0}'.'{1}'".format(table.data.database,table.data.name),'delimiter':table.delimiters.field} )
                     thread.start()
@@ -91,13 +96,17 @@ class pipe_runner:
             with  open(self.pidfile) as pid_file:
                 pid=pid_file.read()
             try:
+                logging.info("stopping service: pid {0}".format(pid))
                 os.kill(int(pid), signal.SIGTERM)
             except OSError as ex:
-                error ="Failed to terminate {0:d}: {1}".format(pid,ex)
-                raise error                
+                error ="failed to stop service {0:d}: {1}".format(pid,ex)
+                logging.info(error)
+                raise Exception(error)
             os.unlink(self.pidfile)
         else:
-            raise Exception("service not running")
+            error="service cannot stop, not running"
+            logging.info(error)
+            raise Exception(error)
             os.unlink(self.pidfile)
             return
 
@@ -110,13 +119,17 @@ if __name__=='__main__':
    
     p=pipe_runner()
 
-    if args.action=='start':
-        p.start()
-    elif args.action=='stop':
-        p.stop()
-    elif args.action=='restart':
-        p.stop()
-        p.start()
-    else:
-        print ("Usage: ddb_fifo [start|stop|restart]")
+    try:
+        if args.action=='start':
+            p.start()
+        elif args.action=='stop':
+            p.stop()
+        elif args.action=='restart':
+            p.stop()
+            p.start()
+        else:
+            print ("Usage: ddb_fifo [start|stop|restart]")
+    except Exception as ex:
+        print(ex)
+        pass
 
