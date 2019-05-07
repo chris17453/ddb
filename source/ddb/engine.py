@@ -114,10 +114,10 @@ class engine:
             # dont load empty stuff
             if config_file!=False:
                 queries=self.database.get_db_sql()
-                log.disabled = True
+                logging.disabled = True
                 if queries:
                     self.query(queries)
-                log.disabled = False
+                logging.disabled = False
         except Exception as ex:
             pass
 
