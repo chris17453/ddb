@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.965'
+__version__='1.1.966'
 
         
 # ############################################################################
@@ -2307,46 +2307,6 @@ def process_line(context, query_object, line, line_number=0):
             'line_number': line_number, 
             'match': match_results, 
             'error': err}
-def create_temporary_copy(path,prefix):
-    """ Create a copy of a regular file in a temporary directory """
-    try:
-        lock.aquire(path)
-        temp_dir = tempfile.gettempdir()
-        temp_base_name=next(tempfile._get_candidate_names())
-        if prefix:
-            temp_file_name="{0}".format(temp_base_name)
-        else:
-            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
-        temp_path = os.path.join(temp_dir, temp_file_name)
-        shutil.copy2(normalize_path(path), temp_path)
-        return temp_path
-    except Exception as ex:
-        raise Exception("Temp File Error: {0}".format(ex))
-def remove_temp_file(path):
-    try:
-        os.remove(path)
-        if os.path.exists(path):
-            raise Exception("Failed to delete: {0}".format(path))    
-    except Exception as ex:
-        raise Exception("Temp File Error: {0}".format(ex))
-def swap_files(path, temp):
-    """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
-    try:
-        if None == lock.is_locked(path):
-            raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
-        norm_path=normalize_path(path)
-        if os.path.exists(norm_path):
-            os.remove(norm_path)
-        if os.path.exists(norm_path):
-            raise Exception("Deleting file {0} failed".format(norm_path))
-        lock.release(path)
-        shutil.copy2(temp, norm_path)
-    except Exception as ex:
-        raise Exception("File Error: {0}".format(ex))
-def normalize_path(path):
-    """Update a relative or user absed path to an ABS path"""
-    normalized_path=os.path.abspath(os.path.expanduser(path))
-    return normalized_path
 class query_results:
     def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
         self.success=success

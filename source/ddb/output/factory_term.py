@@ -613,7 +613,7 @@ class flextable:
             else:
                 print (text)
 
-    def print_errors(table):
+    def print_errors(self,table):
         for e in table.errors:
             print(e.encode('utf-8'))
                         
