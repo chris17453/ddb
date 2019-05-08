@@ -81,6 +81,8 @@ import shutil
 import time
 import pprint
 import uuid
+import logging
+
 
 
 """
@@ -112,7 +114,7 @@ import shutil
 import time
 import pprint
 import uuid
-
+import logging
 
 from cmd import Cmd
 import argparse
@@ -150,6 +152,8 @@ import shutil
 import time
 import pprint
 import uuid
+import logging
+
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -194,6 +198,8 @@ import shutil
 import time
 import pprint
 import uuid
+import logging
+
 
 
 from slackclient import SlackClient
