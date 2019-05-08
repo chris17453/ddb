@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.969'
+__version__='1.1.970'
 
         
 # ############################################################################
@@ -1063,7 +1063,7 @@ class tokenizer():
         self.debug_on = None
         tokens = []
         text = text.strip()
-        whitespace = {' ', '\t', '\n', '\r'}
+        whitespace = [' ', '\t', '\n', '\r' ]
         blocks = [
             ['\'', '\'', 'quote'],   # string block
             ['"', '"', 'quote'],   # string block
