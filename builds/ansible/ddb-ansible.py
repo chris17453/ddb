@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.972'
+__version__='1.1.973'
 
         
 # ############################################################################
@@ -2191,7 +2191,7 @@ class engine:
             self.system['PYTHON_MINOR']=sys.version_info[1]
             self.system['PYTHON_MICRO']=sys.version_info[2]
             self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
-            self.system['PYTHON_SERIAL']=sys.version_info.serial[4]
+            self.system['PYTHON_SERIAL']=sys.version_info[4]
             pass
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
