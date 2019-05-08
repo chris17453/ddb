@@ -89,7 +89,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
     author='Charles Watkins',
-    author_email='charles@titandws.com',
+    author_email='chris17453@gmail.com',
     description='A serviceless sql interface for flat files written in python',
     ext_modules=extensions,
     classifiers=[
@@ -100,7 +100,7 @@ setup(
     entry_points="""
         [console_scripts]
         ddb = ddb.cli:cli_main
-        ddb_fifo = ddb.fifo:cli_main
+        ddb_pipes = ddb.fifo:cli_main
         """,
     compiler_directives={"language_level": "2"},
 
