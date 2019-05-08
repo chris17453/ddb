@@ -26,6 +26,8 @@ import shutil
 import time
 import pprint
 import uuid
+import logging
+
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -126,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.964'
+__version__='1.1.965'
 
         
 # ############################################################################

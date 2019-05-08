@@ -26,7 +26,7 @@ import shutil
 import time
 import pprint
 import uuid
-
+import logging
 
 from cmd import Cmd
 import argparse
@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.964'
+__version__='1.1.965'
 
         
 # ############################################################################
