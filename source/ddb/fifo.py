@@ -74,7 +74,7 @@ class ddb_pipe_runner:
         self.name="ddb pipes"
 
     def start(self):
-        
+        print ("Starting")
         if os.path.isfile(self.pidfile):
             logging.info("{0} already exists, exiting" .format( self.pidfile))
             raise Exception("{0} service already running".format(self.name))
@@ -101,6 +101,7 @@ class ddb_pipe_runner:
             e=ddb.engine()
             for table in e.database.tables:
                 if table.data.fifo:
+                    print table
                     thread = ddb_passthrough(kwargs = {'src':table.data.fifo,'table':"'{0}'.'{1}'".format(table.data.database,table.data.name),'delimiter':table.delimiters.field} )
                     thread.start()
                     thread.join()
@@ -125,14 +126,14 @@ class ddb_pipe_runner:
         else:
             error="service cannot stop, not running"
             logging.info(error)
-            raise Exception(error)
             os.unlink(self.pidfile)
-            return
+            raise Exception(error)
+            
 
         
 
 if __name__=='__main__':
-    parser = argparse.ArgumentParser("ddb_fifo", usage='%(prog)s [options]', description="""fifo service for ddb""", epilog="")
+    parser = argparse.ArgumentParser("ddb-pipes", usage='%(prog)s [options]', description="""named pipes service for ddb""", epilog="")
     parser.add_argument('action', help='start, stop', nargs= "?")
     args = parser.parse_args()
    
