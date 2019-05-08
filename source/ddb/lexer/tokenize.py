@@ -9,7 +9,7 @@ class tokenizer():
         # clean leading and trailiong stuff
         text = text.strip()
         # visual formatting characters
-        whitespace = {' ', '\t', '\n', '\r'}
+        whitespace = [' ', '\t', '\n', '\r' ]
         # these are solid non depth related blocks
         blocks = [
             ['\'', '\'', 'quote'],   # string block
