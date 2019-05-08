@@ -4,19 +4,24 @@
 
 
 ## What does it do?
+
 - ddb sits on top of text files, giving them a database access layer
 - you can read, write, update csv's or any type of delimited text file via sql
 
 
 ## What are the human benifits to using ddb?
+
 - a common interface for all of your flat files
-- multiple points of integration (progromatic and cli)
+- change control
+- access and modification logging
+- multiple points of integration (python, shell, slack, ansible)
 - sql is easy to work with, no coding required
 - the text file stays the same
 - wont break or affect anything that might use the file
 
 
 ## What are the technical benifits to using ddb?
+
 - it does not run as a service, nothing to maintain
 - it can run on any server with python 2.7>
 - low memory foot print. it reads data 1 line at a time
