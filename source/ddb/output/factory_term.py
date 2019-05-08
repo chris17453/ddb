@@ -630,10 +630,15 @@ class flextable:
         row_header_seperator=self.build_row_seperator(header=True)
         index=1
 
-        if sys.version_info.major>2:
+        try:
+            if sys.version_info.major>2:
+                encode=False
+            else:
+                encode=True
+        except:
             encode=False
-        else:
-            encode=True
+            pass
+
         self.output('',encode)
 
         if self.header==True:
