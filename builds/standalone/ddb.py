@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.968'
+__version__='1.1.969'
 
         
 # ############################################################################
@@ -1062,7 +1062,7 @@ class tokenizer():
         self.debug_on = None
         tokens = []
         text = text.strip()
-        whitespace = [' ', '\t', '\n', '\r']
+        whitespace = {' ', '\t', '\n', '\r'}
         blocks = [
             ['\'', '\'', 'quote'],   # string block
             ['"', '"', 'quote'],   # string block
@@ -3998,12 +3998,14 @@ class flextable:
         row_seperator=self.build_row_seperator()
         row_header_seperator=self.build_row_seperator(header=True)
         index=1
-        if isinstance(sys.version_info,list):
+        try:
+            if sys.version_info.major>2:
+                encode=False
+            else:
+                encode=True
+        except:
             encode=False
-        elif sys.version_info.major>2:
-            encode=False
-        else:
-            encode=True
+            pass
         self.output('',encode)
         if self.header==True:
             if self.display_style=='rst':

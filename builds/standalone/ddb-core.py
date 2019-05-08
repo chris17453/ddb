@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.968'
+__version__='1.1.969'
 
         
 # ############################################################################
@@ -3992,10 +3992,14 @@ class flextable:
         row_seperator=self.build_row_seperator()
         row_header_seperator=self.build_row_seperator(header=True)
         index=1
-        if sys.version_info.major>2:
+        try:
+            if sys.version_info.major>2:
+                encode=False
+            else:
+                encode=True
+        except:
             encode=False
-        else:
-            encode=True
+            pass
         self.output('',encode)
         if self.header==True:
             if self.display_style=='rst':
