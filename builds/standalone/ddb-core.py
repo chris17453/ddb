@@ -24,6 +24,8 @@ import shutil
 import time
 import pprint
 import uuid
+import logging
+
 
 
 
@@ -33,7 +35,7 @@ import uuid
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.964'
+__version__='1.1.965'
 
         
 # ############################################################################
