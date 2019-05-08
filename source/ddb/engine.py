@@ -94,19 +94,20 @@ class engine:
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
         
-        if isinstance(sys.version_info,list):
-            self.system['PYTHON_MAJOR']=sys.version_info[0]
-            self.system['PYTHON_MINOR']=sys.version_info[1]
-            self.system['PYTHON_MICRO']=sys.version_info[2]
-            self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
-            self.system['PYTHON_SERIAL']=sys.version_info.serial[4]
-        else:
+        try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
             self.system['PYTHON_MINOR']=sys.version_info.minor 
             self.system['PYTHON_MICRO']=sys.version_info.micro
             self.system['PYTHON_RELEASELEVEL']=sys.version_info.releaselevel
             self.system['PYTHON_SERIAL']=sys.version_info.serial
-
+        except:
+            self.system['PYTHON_MAJOR']=sys.version_info[0]
+            self.system['PYTHON_MINOR']=sys.version_info[1]
+            self.system['PYTHON_MICRO']=sys.version_info[2]
+            self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
+            self.system['PYTHON_SERIAL']=sys.version_info.serial[4]
+            pass
+        
 
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
