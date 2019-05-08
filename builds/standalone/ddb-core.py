@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.966'
+__version__='1.1.967'
 
         
 # ############################################################################
@@ -3980,7 +3980,7 @@ class flextable:
                 print(text.encode('utf-8'))
             else:
                 print (text)
-    def print_errors(table):
+    def print_errors(self,table):
         for e in table.errors:
             print(e.encode('utf-8'))
     def format(self):
