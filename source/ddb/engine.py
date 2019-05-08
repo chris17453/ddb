@@ -105,7 +105,7 @@ class engine:
             self.system['PYTHON_MINOR']=sys.version_info[1]
             self.system['PYTHON_MICRO']=sys.version_info[2]
             self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
-            self.system['PYTHON_SERIAL']=sys.version_info.serial[4]
+            self.system['PYTHON_SERIAL']=sys.version_info[4]
             pass
         
 
