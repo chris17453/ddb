@@ -44,7 +44,30 @@ def method_create_table(context, query_object):
             found_data_on = query_object['meta']['data_starts_on']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
-            
+
+        if 'repo' in query_object['meta']:
+            repo=query_object['meta']['repo']:
+            if 'type' in repo:
+                repo_type=repo['type']
+            if 'url' in repo:
+                repo_url=repo['url']
+            if 'user' in repo:
+                repo_user=repo['user']
+            if 'password' in repo:
+                repo_password=repo['password']
+            if 'dir' in repo:
+                repo_dir=repo['dir']
+            if 'file' in repo:
+                repo_file=repo['file']
+        else:
+            repo_type=None
+            repo_url=None
+            repo_user=None
+            repo_password=None
+            repo_dir=None
+            repo_file=None
+
+
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 database_name=database_name,
                                                 columns=columns,
@@ -55,7 +78,13 @@ def method_create_table(context, query_object):
                                                 whitespace=found_whitespace,
                                                 data_on=found_data_on,
                                                 temporary=temporary,
-                                                fifo=fifo
+                                                fifo=fifo,
+                                                repo_type=repo_type,
+                                                repo_url=repo_url,
+                                                repo_user=repo_user,
+                                                repo_password=repo_password,
+                                                repo_dir=repo_dir,
+                                                repo_file=repo_file,                                                
                                                 )
 
         return query_results(success=results)

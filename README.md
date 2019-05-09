@@ -53,6 +53,8 @@ pip install ddb --user
 ```
 ## If you dont want to quote everything in shell
 - disable globing for ddb
+
+
 ### BASH
 ```bash
    echo "alias ddb='set -f;ddb';ddb(){ command ddb "$@";set +f;}" >~/.bashrc
