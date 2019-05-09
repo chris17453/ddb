@@ -20,7 +20,13 @@ class table:
                  whitespace=None,
                  errors=None,
                  data_on=None,
-                 fifo=None
+                 fifo=None,
+                 repo_type=None,
+                 repo_url=None,
+                 repo_user=None,
+                 repo_password=None,
+                 repo_dir=None,
+                 repo_file=None,
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -42,7 +48,14 @@ class table:
                     whitespace=whitespace,
                     errors=errors,
                     data_on=data_on,
-                    fifo=fifo)
+                    fifo=fifo,
+                    repo_type=repo_type,
+                    repo_url=repo_url,
+                    repo_user=repo_user,
+                    repo_password=repo_password,
+                    repo_dir=repo_dir,
+                    repo_file=repo_file,
+                    )
 
         self.update_ordinals()
         if self.data.path:
@@ -50,15 +63,31 @@ class table:
                 #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
                 self.active = False
 
-    def update(self,
-               columns=None,
-               data_file=None,
-               field_delimiter=None,
-               comments=None,
-               whitespace=None,
-               errors=None,
-               data_on=None,
-               fifo=None):
+    def update( self,
+                columns=None,
+                data_file=None,
+                field_delimiter=None,
+                comments=None,
+                whitespace=None,
+                errors=None,
+                data_on=None,
+                fifo=None,
+                repo_type=None,
+                repo_url=None,
+                repo_user=None,
+                repo_password=None,
+                repo_dir=None,
+                repo_file=None):
+        
+        if repo_type:
+            if repo_type=='svn':
+                self.data.repo_type=repo_type
+                self.data.repo_url=repo_url
+                self.data.repo_user=repo_user
+                self.data.repo_password=repo_password
+                self.data.repo_dir=repo_dir
+                self.data.repo_file=repo_file
+
         if fifo:
             self.data.fifo=fifo
         if data_on:
@@ -290,7 +319,18 @@ class table:
         if self.data.fifo:
             fifo="fifo='{0}'".format(self.data.fifo)
 
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        if self.data.repo_type:
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' dir='{4}' file='{5}'".format(
+            self.data.repo_type,
+            self.data.repo_url,
+            self.data.repo_user,
+            self.data.repo_password,
+            self.data.repo_dir,
+            self.data.repo_file)
+        else:
+            repo=""
+
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -300,11 +340,12 @@ class table:
                 self.visible.errors,
                 self.visible.comments,
                 self.data.starts_on_line,
-                fifo)
+                fifo,
+                repo)
 
               
         with open(self.data.config,"w") as config_file:
-            config_file.write(sql);
+            config_file.write(sql)
 
         #yamlf_dump(data=self, file=self.data.config)
         return True
@@ -332,6 +373,13 @@ class table_data:
         self.ordinal = -1
         self.config = None
         self.fifo=None
+        self.repo_type=None
+        self.repo_url=None
+        self.repo_user=None
+        self.repo_password=None
+        self.repo_dir=None
+        self.repo_file=None
+
         if None != name:
             self.name = name
 
