@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.974'
+__version__='1.1.975'
 
         
 # ############################################################################
@@ -531,7 +531,7 @@ sql_syntax = {
               'optional': True,
               'name': 'fifo'},
              {'arguments': 1,
-              'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','repo_file','=','{repo_file}']}],
+              'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','dir','=','{dir}','file','{file}']}],
               'type':'single',
               'optional': True,
               'name': 'repo'},
@@ -1439,7 +1439,13 @@ class table:
                  whitespace=None,
                  errors=None,
                  data_on=None,
-                 fifo=None
+                 fifo=None,
+                 repo_type=None,
+                 repo_url=None,
+                 repo_user=None,
+                 repo_password=None,
+                 repo_dir=None,
+                 repo_file=None,
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -1460,20 +1466,41 @@ class table:
                     whitespace=whitespace,
                     errors=errors,
                     data_on=data_on,
-                    fifo=fifo)
+                    fifo=fifo,
+                    repo_type=repo_type,
+                    repo_url=repo_url,
+                    repo_user=repo_user,
+                    repo_password=repo_password,
+                    repo_dir=repo_dir,
+                    repo_file=repo_file,
+                    )
         self.update_ordinals()
         if self.data.path:
             if False == os.path.exists(normalize_path(self.data.path)):
                 self.active = False
-    def update(self,
-               columns=None,
-               data_file=None,
-               field_delimiter=None,
-               comments=None,
-               whitespace=None,
-               errors=None,
-               data_on=None,
-               fifo=None):
+    def update( self,
+                columns=None,
+                data_file=None,
+                field_delimiter=None,
+                comments=None,
+                whitespace=None,
+                errors=None,
+                data_on=None,
+                fifo=None,
+                repo_type=None,
+                repo_url=None,
+                repo_user=None,
+                repo_password=None,
+                repo_dir=None,
+                repo_file=None):
+        if repo_type:
+            if repo_type=='svn':
+                self.data.repo_type=repo_type
+                self.data.repo_url=repo_url
+                self.data.repo_user=repo_user
+                self.data.repo_password=repo_password
+                self.data.repo_dir=repo_dir
+                self.data.repo_file=repo_file
         if fifo:
             self.data.fifo=fifo
         if data_on:
@@ -1622,7 +1649,17 @@ class table:
         fifo=""
         if self.data.fifo:
             fifo="fifo='{0}'".format(self.data.fifo)
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        if self.data.repo_type:
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' dir='{4}' file='{5}'".format(
+            self.data.repo_type,
+            self.data.repo_url,
+            self.data.repo_user,
+            self.data.repo_password,
+            self.data.repo_dir,
+            self.data.repo_file)
+        else:
+            repo=""
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -1632,9 +1669,10 @@ class table:
                 self.visible.errors,
                 self.visible.comments,
                 self.data.starts_on_line,
-                fifo)
+                fifo,
+                repo)
         with open(self.data.config,"w") as config_file:
-            config_file.write(sql);
+            config_file.write(sql)
         return True
 class table_visible_attributes:
     def __init__(self, yaml=None):
@@ -1655,6 +1693,12 @@ class table_data:
         self.ordinal = -1
         self.config = None
         self.fifo=None
+        self.repo_type=None
+        self.repo_url=None
+        self.repo_user=None
+        self.repo_password=None
+        self.repo_dir=None
+        self.repo_file=None
         if None != name:
             self.name = name
         if None != database:
@@ -2087,6 +2131,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
+        self.system['VERSION']=__version__
         try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
             self.system['PYTHON_MINOR']=sys.version_info.minor 
@@ -2239,6 +2284,7 @@ class engine:
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
+            if 
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
@@ -2936,6 +2982,27 @@ def method_create_table(context, query_object):
             found_data_on = query_object['meta']['data_starts_on']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
+        if 'repo' in query_object['meta']:
+            repo=query_object['meta']['repo']:
+            if 'type' in repo:
+                repo_type=repo['type']
+            if 'url' in repo:
+                repo_url=repo['url']
+            if 'user' in repo:
+                repo_user=repo['user']
+            if 'password' in repo:
+                repo_password=repo['password']
+            if 'dir' in repo:
+                repo_dir=repo['dir']
+            if 'file' in repo:
+                repo_file=repo['file']
+        else:
+            repo_type=None
+            repo_url=None
+            repo_user=None
+            repo_password=None
+            repo_dir=None
+            repo_file=None
         results = context.database.create_table(table_name=query_object['meta']['table'],
                                                 database_name=database_name,
                                                 columns=columns,
@@ -2946,7 +3013,13 @@ def method_create_table(context, query_object):
                                                 whitespace=found_whitespace,
                                                 data_on=found_data_on,
                                                 temporary=temporary,
-                                                fifo=fifo
+                                                fifo=fifo,
+                                                repo_type=repo_type,
+                                                repo_url=repo_url,
+                                                repo_user=repo_user,
+                                                repo_password=repo_password,
+                                                repo_dir=repo_dir,
+                                                repo_file=repo_file,                                                
                                                 )
         return query_results(success=results)
     except Exception as ex:
