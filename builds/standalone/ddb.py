@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.980'
+__version__='1.1.981'
 
         
 # ############################################################################
@@ -1827,7 +1827,14 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None,
-                     fifo=None):
+                     fifo=None,
+                     repo_type=None,
+                     repo_url=None,
+                     repo_user=None,
+                     repo_password=None,
+                     repo_dir=None,
+                     repo_file=None,
+                    ):
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
@@ -1841,16 +1848,22 @@ class database:
             config_directory = os.path.dirname(self.config_file)
         else:
             config_directory = None
-        t = table(name=table_name,
-                  database=database_name,
-                  columns=columns,
-                  config_directory=config_directory,
-                  field_delimiter=delimiter,
-                  data_on=data_on,
-                  comments=comments,
-                  whitespace=whitespace,
-                  errors=errors,
-                  fifo=fifo)
+        t = table(  name=table_name,
+                    database=database_name,
+                    columns=columns,
+                    config_directory=config_directory,
+                    field_delimiter=delimiter,
+                    data_on=data_on,
+                    comments=comments,
+                    whitespace=whitespace,
+                    errors=errors,
+                    fifo=fifo,
+                    repo_type=None,
+                    repo_url=None,
+                    repo_user=None,
+                    repo_password=None,
+                    repo_dir=None,
+                    repo_file=None,)
         t.data.path = data_file
         self.tables.append(t)
         if not temporary:
