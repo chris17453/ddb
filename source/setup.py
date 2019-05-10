@@ -100,7 +100,7 @@ setup(
     entry_points="""
         [console_scripts]
         ddb = ddb.cli:cli_main
-        ddb_pipes = ddb.fifo:cli_main
+        ddb-pipes = ddb.pipes:cli_main
         """,
     compiler_directives={"language_level": "2"},
 

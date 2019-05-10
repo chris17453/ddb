@@ -19,7 +19,6 @@ def process_line(context, query_object, line, line_number=0):
         line_type = context.data_type.DATA
         match=True
     if match:
-
         if not line_cleaned:
             if True == query_object['table'].visible.whitespace:
                 line_data = ['']
