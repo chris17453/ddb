@@ -45,7 +45,7 @@ def method_create_table(context, query_object):
         fifo = query_object['meta']['fifo']
 
     if 'repo' in query_object['meta']:
-        repo=query_object['meta']['repo']:
+        repo=query_object['meta']['repo']
         if 'type' in repo:
             repo_type=repo['type']
         if 'url' in repo:
