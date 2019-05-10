@@ -131,8 +131,7 @@ class ddb_pipe_runner:
             
 
         
-
-if __name__=='__main__':
+def cli_main():
     parser = argparse.ArgumentParser("ddb-pipes", usage='%(prog)s [options]', description="""named pipes service for ddb""", epilog="")
     parser.add_argument('action', help='start, stop', nargs= "?")
     args = parser.parse_args()
@@ -153,3 +152,8 @@ if __name__=='__main__':
         print(ex)
         pass
 
+
+    
+
+if __name__=='__main__':
+    cli_main()

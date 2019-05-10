@@ -93,6 +93,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
+        self.system['VERSION']=__version__
         
         try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
@@ -320,6 +321,7 @@ class engine:
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
+            if 
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
