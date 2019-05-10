@@ -128,7 +128,14 @@ class database:
                      whitespace=None,
                      data_on=None,
                      temporary=None,
-                     fifo=None):
+                     fifo=None,
+                     repo_type=None,
+                     repo_url=None,
+                     repo_user=None,
+                     repo_password=None,
+                     repo_dir=None,
+                     repo_file=None,
+                    ):
         #print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
@@ -149,16 +156,22 @@ class database:
 
         # print("Creating {0}.{1}".format(database_name,table_name))
 
-        t = table(name=table_name,
-                  database=database_name,
-                  columns=columns,
-                  config_directory=config_directory,
-                  field_delimiter=delimiter,
-                  data_on=data_on,
-                  comments=comments,
-                  whitespace=whitespace,
-                  errors=errors,
-                  fifo=fifo)
+        t = table(  name=table_name,
+                    database=database_name,
+                    columns=columns,
+                    config_directory=config_directory,
+                    field_delimiter=delimiter,
+                    data_on=data_on,
+                    comments=comments,
+                    whitespace=whitespace,
+                    errors=errors,
+                    fifo=fifo,
+                    repo_type=None,
+                    repo_url=None,
+                    repo_user=None,
+                    repo_password=None,
+                    repo_dir=None,
+                    repo_file=None,)
         t.data.path = data_file
         # print("Appending table")
         self.tables.append(t)
