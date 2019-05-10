@@ -41,8 +41,8 @@ setup.py
 ddb/__init__.py
 ddb/cli.py
 ddb/engine.py
-ddb/fifo.py
 ddb/interactive.py
+ddb/pipes.py
 ddb/server.py
 ddb/version.py
 ddb/configuration/__init__.py
