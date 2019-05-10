@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.979'
+__version__='1.1.980'
 
         
 # ############################################################################
@@ -2981,7 +2981,7 @@ def method_create_table(context, query_object):
     if 'fifo' in query_object['meta']:
         fifo = query_object['meta']['fifo']
     if 'repo' in query_object['meta']:
-        repo=query_object['meta']['repo']:
+        repo=query_object['meta']['repo']
         if 'type' in repo:
             repo_type=repo['type']
         if 'url' in repo:
