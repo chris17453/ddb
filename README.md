@@ -84,7 +84,7 @@ pip install ddb --user
 ### Python Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-python-demo.gif)
 
-### DDB ICon
+### DDB Icon
 ![DDB](https://raw.githubusercontent.com/chris17453/ddb/master/source/resources/ddb-icon.png)
 
 ## Will you help me?
