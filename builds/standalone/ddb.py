@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.992'
+__version__='1.1.993'
 
         
 # ############################################################################
@@ -303,10 +303,11 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
              {'arguments':1,
-              'data': [{'sig': ['select']}],
+              'data': False,#[{'sig': ['select']}],
               'name': 'union',
               'optional': True,
-              'jump':'distinct'}
+              'jump':'select',
+              'parent'}
               ,
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
@@ -711,10 +712,18 @@ class lexer:
                     meta_type = switch['type']
                 else:
                     meta_type = None
+                if 'jump' in switch:
+                    jump = switch['jump']
+                else:
+                    jump = None
                 if 'optional' in switch:
                     optional = switch['optional']
                 else:
                     optional = False
+                if 'group' in switch:
+                    group = switch['group']
+                else:
+                    group = False
                 if isinstance(switch['name'], list):
                     object_id = ' '.join([str(x) for x in switch['name']])
                     object_id = object_id.lower()
@@ -884,8 +893,20 @@ class lexer:
                                                 break
                                             tsi += 1
                                     in_argument = False
-                                    in_argument = False
                             else:
+                                jump = None
+                                if 'jump' in switch:
+                                    self.info("JUMP")
+                                    jump = switch['jump']
+                                if None != jump:
+                                    tsi = 0
+                                    for ts in query['switch']:
+                                        if ts['name'] == jump:
+                                            self.info("Jumping from ", switch_index, tsi + 1)
+                                            switch_index = tsi + 1
+                                            break
+                                        tsi += 1
+                                in_argument = False
                                 self.info("in list")
                                 if len(tokens) <= token_index:
                                     self.info("at the end")
