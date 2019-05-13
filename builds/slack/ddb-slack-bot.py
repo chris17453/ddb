@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.1000'
+__version__='1.1.1001'
 
         
 # ############################################################################
@@ -764,10 +764,9 @@ class lexer:
                     if not dispose:
                         self.info("----------Adding", curent_object['mode'])
                         query_object[curent_object['mode']] = None
-                    self.info(switch)
                     jump = None
                     if 'jump' in switch:
-                        self.info("JUMP")
+                        self.info("JUMP in no data")
                         jump = switch['jump']
                     if None != jump:
                         tsi = 0
