@@ -329,9 +329,11 @@ class engine:
         return output
     
     def svn_get_file(self,table):
+        c=1
     
     def svn_put_file(self,table):
-
+        d=1
+        
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path

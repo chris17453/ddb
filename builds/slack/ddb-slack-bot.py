@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.985'
+__version__='1.1.986'
 
         
 # ############################################################################
@@ -303,12 +303,6 @@ sql_syntax = {
               'name': 'or',
               'optional': True,
               'parent': 'where'},
-             {
-              'data': False,
-              'name': 'union',
-              'optional': True,
-              'jump':'select'}
-              ,
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
               'name': ['group', 'by'],
@@ -326,6 +320,13 @@ sql_syntax = {
               'specs':{'length': {'type': 'int', 'default': 0}, 'start': {'type': 'int', 'default': 0}},
               'name': 'limit',
               'optional': True}]},
+        {'query': 'union',
+         'switch': [{
+             'name': 'union',
+             'arguments': 0,
+             'data':False
+         }]
+         },
         {'query': 'set',
          'switch': [{
              'name': 'set',
@@ -2148,7 +2149,7 @@ class engine:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-        self.debug = debug
+        self.debug = True
         self.results = None
         self.mode = mode
         self.output=output
@@ -2312,6 +2313,18 @@ class engine:
         return True
     def add_error(self,error):
         self.info(error)
+    def os_cmd(self,cmd,err_msg):
+        os.chdir(self.terraform_dir)
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        output, err = p.communicate()
+        rc = p.returncode
+        if rc!=0:
+            self.info(output)
+            self.info(err)
+            raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
+        return output
+    def svn_get_file(self,table):
+    def svn_put_file(self,table):
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
