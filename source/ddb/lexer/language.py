@@ -285,7 +285,7 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
 
-             {'arguments':1,
+             {'arguments':False,
               'data': False,#[{'sig': ['select']}],
               'name': 'union',
               'optional': True,
