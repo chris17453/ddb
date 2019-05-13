@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.2'
+__version__='1.2.3'
 
         
 # ############################################################################
@@ -1044,7 +1044,7 @@ class lexer:
                                     else:
                                         self.info("------more list")
                                         token_index += 1
-            self.info(switch_index, token_index, len(tokens))
+            self.info("Switch Index: {0}, Token Index:{0}, Token Len: {2}".format(switch_index, token_index, len(tokens)))
             self.info(curent_object)
             if token_index == len(tokens):
                 result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
