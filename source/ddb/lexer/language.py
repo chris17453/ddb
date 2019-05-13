@@ -15,7 +15,7 @@
 #     store_array: allow multiple keys in an array at this index
 #     specs :{'variable_name': {'type': 'int', 'default': 0} },
 #     no_keyword:True ...?
-
+#     .. jump with no  data, split path than with data (Well all decisions)
 
 sql_syntax = {
     'functions': [{'name': 'database', 'arguments': None},
@@ -290,10 +290,8 @@ sql_syntax = {
               'name': 'union',
               'optional': True,
               'jump':'select',
-            }
-           
-              ,
-
+              'array':True,
+            },
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
               'name': ['group', 'by'],
@@ -328,7 +326,6 @@ sql_syntax = {
              ],
          }]
          },
-
         {'query': 'create procedure',
          'switch': [{
              'name': ['create', 'procedure'],
@@ -351,8 +348,6 @@ sql_syntax = {
              'data':None,
          }]
          },
-
-
         {'query': 'delimiter',
          'switch': [{
              'name': 'delimiter',
@@ -360,15 +355,12 @@ sql_syntax = {
              'data': {'sig': ['{delimiter}']},
          }]
          },
-
-
         {'query': 'end',
          'switch': [{
              'name': 'end',
              'data': False,
          }]
          },
-
         {'query': 'begin',
          'switch': [{
              'name': 'begin',
@@ -442,9 +434,6 @@ sql_syntax = {
                      'name': 'values',
                      'no_keyword': True},
                     {'data': False, 'dispose': True, 'name': ')'}]},
-
-
-
         {'query': 'update',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']},
@@ -473,7 +462,6 @@ sql_syntax = {
                      'name': 'or',
                      'optional': True,
                      'parent': 'where'}]},
-
         {'query': 'upsert',
          'switch': [
              {'data': False, 'name': 'upsert'},
@@ -511,9 +499,6 @@ sql_syntax = {
               'optional': True,
               },
          ]},
-
-
-
         {'query': 'use',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']}],
