@@ -157,6 +157,20 @@ class lexer:
                     if not dispose:
                         self.info("----------Adding", curent_object['mode'])
                         query_object[curent_object['mode']] = None
+                    
+                    jump = None
+                    if 'jump' in switch:
+                        self.info("JUMP")
+                        jump = switch['jump']
+                    if None != jump:
+                        tsi = 0
+                        for ts in query['switch']:
+                            if ts['name'] == jump:
+                                self.info("Jumping from ", switch_index, tsi + 1)
+                                switch_index = tsi + 1
+                                break
+                            tsi += 1
+                    in_argument = False
 
 
                 # This is where data colection happens
@@ -322,19 +336,6 @@ class lexer:
                             else:
 
   
-                                jump = None
-                                if 'jump' in switch:
-                                    self.info("JUMP")
-                                    jump = switch['jump']
-                                if None != jump:
-                                    tsi = 0
-                                    for ts in query['switch']:
-                                        if ts['name'] == jump:
-                                            self.info("Jumping from ", switch_index, tsi + 1)
-                                            switch_index = tsi + 1
-                                            break
-                                        tsi += 1
-                                in_argument = False
 
                                 self.info("in list")
 
