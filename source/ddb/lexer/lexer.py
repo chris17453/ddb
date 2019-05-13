@@ -167,8 +167,10 @@ class lexer:
                             if ts['name'] == jump:
                                 self.info("Jumping from ", switch_index, tsi + 1)
                                 switch_index = tsi + 1
+                                token_index+=1
                                 break
                             tsi += 1
+
                     in_argument = False
 
 
@@ -401,7 +403,7 @@ class lexer:
             # This is where we exit if we reached the end of processing with a full length
             #print token_index,len(tokens)
             self.info("Switch Index: {0}, Token Index:{1}, Token Len: {2}".format(switch_index, token_index, len(tokens)))
-            self.info(tokens)
+            #self.info(tokens)
 
             self.info(curent_object)
             if token_index == len(tokens):
