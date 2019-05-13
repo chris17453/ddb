@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.994'
+__version__='1.1.995'
 
         
 # ############################################################################
@@ -389,7 +389,7 @@ sql_syntax = {
               'name': 'or',
               'optional': True,
               'parent': 'where'},
-             {'arguments':1,
+             {'arguments':False,
               'data': False,#[{'sig': ['select']}],
               'name': 'union',
               'optional': True,
