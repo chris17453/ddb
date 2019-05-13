@@ -286,10 +286,12 @@ sql_syntax = {
               'parent': 'where'},
 
              {'arguments':1,
-              'data': [{'sig': ['select']}],
+              'data': False,#[{'sig': ['select']}],
               'name': 'union',
               'optional': True,
-              'jump':'distinct'}
+              'jump':'select',
+              'parent'}
+           
               ,
 
              {'arguments': 0,

@@ -94,10 +94,20 @@ class lexer:
                 else:
                     meta_type = None
 
+                if 'jump' in switch:
+                    jump = switch['jump']
+                else:
+                    jump = None
+
                 if 'optional' in switch:
                     optional = switch['optional']
                 else:
                     optional = False
+
+                if 'group' in switch:
+                    group = switch['group']
+                else:
+                    group = False
 
                 if isinstance(switch['name'], list):
                     object_id = ' '.join([str(x) for x in switch['name']])
@@ -147,6 +157,7 @@ class lexer:
                     if not dispose:
                         self.info("----------Adding", curent_object['mode'])
                         query_object[curent_object['mode']] = None
+
 
                 # This is where data colection happens
                 else:
@@ -294,6 +305,7 @@ class lexer:
                                             if parent not in query_object:
                                                 query_object[parent]=[]
                                             query_object[parent].append({curent_object['mode']: curent_object['arguments']})
+                                
                                     jump = None
                                     if 'jump' in switch:
                                         self.info("JUMP")
@@ -307,9 +319,23 @@ class lexer:
                                                 break
                                             tsi += 1
                                     in_argument = False
-
-                                    in_argument = False
                             else:
+
+  
+                                jump = None
+                                if 'jump' in switch:
+                                    self.info("JUMP")
+                                    jump = switch['jump']
+                                if None != jump:
+                                    tsi = 0
+                                    for ts in query['switch']:
+                                        if ts['name'] == jump:
+                                            self.info("Jumping from ", switch_index, tsi + 1)
+                                            switch_index = tsi + 1
+                                            break
+                                        tsi += 1
+                                in_argument = False
+
                                 self.info("in list")
 
                                 if len(tokens) <= token_index:
