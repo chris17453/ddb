@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.988'
+__version__='1.1.989'
 
         
 # ############################################################################
@@ -296,6 +296,12 @@ sql_syntax = {
               'name': 'or',
               'optional': True,
               'parent': 'where'},
+             {'arguments':False
+              'data': False,
+              'name': 'union',
+              'optional': True,
+              'jump':'select'}
+              ,
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
               'name': ['group', 'by'],
@@ -313,13 +319,6 @@ sql_syntax = {
               'specs':{'length': {'type': 'int', 'default': 0}, 'start': {'type': 'int', 'default': 0}},
               'name': 'limit',
               'optional': True}]},
-        {'query': 'union',
-         'switch': [{
-             'name': 'union',
-             'arguments': 0,
-             'data':False
-         }]
-         },
         {'query': 'set',
          'switch': [{
              'name': 'set',
