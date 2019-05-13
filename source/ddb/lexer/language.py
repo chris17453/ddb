@@ -285,7 +285,13 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
 
-             
+             {'arguments':False
+              'data': False,
+              'name': 'union',
+              'optional': True,
+              'jump':'select'}
+              ,
+
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
               'name': ['group', 'by'],
@@ -307,15 +313,6 @@ sql_syntax = {
               'name': 'limit',
               'optional': True}]},
 
-
-
-        {'query': 'union',
-         'switch': [{
-             'name': 'union',
-             'arguments': 0,
-             'data':False
-         }]
-         },
 
 
         {'query': 'set',

@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.987'
+__version__='1.1.988'
 
         
 # ############################################################################
@@ -2148,7 +2148,7 @@ class engine:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-        self.debug = True
+        self.debug = debug
         self.results = None
         self.mode = mode
         self.output=output
@@ -2228,7 +2228,7 @@ class engine:
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
-        parser = lexer(sql_query)
+        parser = lexer(sql_query,debug=True)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
         for query_object in parser.query_objects:
