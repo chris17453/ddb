@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.995'
+__version__='1.1.996'
 
         
 # ############################################################################
@@ -303,7 +303,7 @@ sql_syntax = {
               'name': 'or',
               'optional': True,
               'parent': 'where'},
-             {'arguments':False,
+             {'arguments':None,
               'data': False,#[{'sig': ['select']}],
               'name': 'union',
               'optional': True,
