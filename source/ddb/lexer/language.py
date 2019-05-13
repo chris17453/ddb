@@ -286,7 +286,7 @@ sql_syntax = {
               'parent': 'where'},
 
              {
-              'data': False,#[{'sig': ['select']}],
+              'data': None,
               'name': 'union',
               'optional': True,
               'jump':'select',
