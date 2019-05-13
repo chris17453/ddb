@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.5'
+__version__='1.2.6'
 
         
 # ############################################################################
@@ -774,6 +774,7 @@ class lexer:
                             if ts['name'] == jump:
                                 self.info("Jumping from ", switch_index, tsi + 1)
                                 switch_index = tsi + 1
+                                token_index+=1
                                 break
                             tsi += 1
                     in_argument = False
@@ -959,7 +960,6 @@ class lexer:
                                         self.info("------more list")
                                         token_index += 1
             self.info("Switch Index: {0}, Token Index:{1}, Token Len: {2}".format(switch_index, token_index, len(tokens)))
-            self.info(tokens)
             self.info(curent_object)
             if token_index == len(tokens):
                 result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
