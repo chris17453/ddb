@@ -76,7 +76,7 @@ class engine:
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-        self.debug = debug
+        self.debug = True
         self.results = None
         self.mode = mode
         self.output=output
@@ -317,10 +317,27 @@ class engine:
     def add_error(self,error):
         self.info(error)
     
+    def os_cmd(self,cmd,err_msg):
+        os.chdir(self.terraform_dir)
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        output, err = p.communicate()
+        rc = p.returncode
+        if rc!=0:
+            self.info(output)
+            self.info(err)
+            raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
+        return output
+    
+    def svn_get_file(self,table):
+    
+    def svn_put_file(self,table):
+
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
+
+
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
