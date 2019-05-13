@@ -285,11 +285,11 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
 
-             {'arguments':False,
-              'data': False,
+             {'arguments':1,
+              'data': [{'sig': ['{select}']}],
               'name': 'union',
               'optional': True,
-              'jump':'select'}
+              'jump':'columns'}
               ,
 
              {'arguments': 0,
