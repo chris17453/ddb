@@ -290,7 +290,7 @@ sql_syntax = {
               'name': 'union',
               'optional': True,
               'jump':'select',
-              'parent'}
+            }
            
               ,
 
