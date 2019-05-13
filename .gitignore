@@ -6,5 +6,9 @@ dist/
 *.so
 *.c
 *.o
+*.tgz
+*.gz
+*.zip
+*.tar
 ddb.egg-info/
 
