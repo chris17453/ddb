@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.997'
+__version__='1.1.998'
 
         
 # ############################################################################
@@ -303,7 +303,7 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
              {
-              'data': False,#[{'sig': ['select']}],
+              'data': None,
               'name': 'union',
               'optional': True,
               'jump':'select',
