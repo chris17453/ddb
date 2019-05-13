@@ -285,10 +285,10 @@ sql_syntax = {
               'optional': True,
               'parent': 'where'},
 
-             {'arguments': 0,
+             {
               'data': False,
               'name': 'union',
-              'optional': True
+              'optional': True,
               'jump':'select'}
               ,
 
