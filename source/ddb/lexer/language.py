@@ -1,7 +1,7 @@
 
 
 #  query: "name"
-#  switch: signatures to match against 
+#  switch: signatures to match against
 #     arguments: optional, 1 or 0 for unlimited (comma seperated)
 #     data: optional
 #          vars: variabls to manually set
@@ -9,13 +9,12 @@
 #     name: initial string to match against to enter this query, this is the index of the object
 #     optional: can we skip this
 #     key: override name key
-#     depends_on: do not match unless the other variable is present 
+#     depends_on: do not match unless the other variable is present
 #     jump: goto an ealier command for matching, to repeat a loop set for multiple matches
 #     parent: override the name, and place data on this index
 #     store_array: allow multiple keys in an array at this index
 #     specs :{'variable_name': {'type': 'int', 'default': 0} },
 #     no_keyword:True ...?
-
 
 
 sql_syntax = {
@@ -40,19 +39,19 @@ sql_syntax = {
         {'query': 'show columns',
          'switch': [{'data': False, 'name': ['show', 'columns']},
                     {'arguments': 1,
-                        'data': [ {'sig': ['{table}']},
-                                  {'sig': ['{database}','.','{table}']},
-                                ],
+                        'data': [{'sig': ['{table}']},
+                                 {'sig': ['{database}', '.', '{table}']},
+                                 ],
                      'name': 'from'}]},
         {'query': 'show tables',
          'switch': [
              {'data': False, 'name': ['show', 'tables']},
-                    ]},
+         ]},
 
-     {'query': 'show variables',
+        {'query': 'show variables',
          'switch': [
              {'data': False, 'name': ['show', 'variables']},
-                    ]},
+         ]},
 
         {'query': 'select',
          'arguments': 1,
@@ -91,7 +90,7 @@ sql_syntax = {
                                 '{argument1}',
                                 ',',
                                 '{argument2}',
-                                ',', 
+                                ',',
                                 '{argument3}',
                                 ')'
                                 ]},
@@ -137,11 +136,11 @@ sql_syntax = {
               },
 
              {'arguments': 1,
-              'data': [ {'sig': ['{table}']},
-                        {'sig': ['{table}', 'as', '{display}']},
-                        {'sig': ['{database}','.','{table}']},
-                        {'sig': ['{database}','.','{table}', 'as', '{display}']}
-                        ],
+              'data': [{'sig': ['{table}']},
+                       {'sig': ['{table}', 'as', '{display}']},
+                       {'sig': ['{database}', '.', '{table}']},
+                       {'sig': ['{database}', '.', '{table}', 'as', '{display}']}
+                       ],
               'name': 'from',
               'optional': True},
 
@@ -171,36 +170,38 @@ sql_syntax = {
 
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],
               'name': 'on',
               'optional': True,
               'depends_on': 'join',
               'store_array': True},
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],              'depends_on': 'on',
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'and',
               'optional': True,
@@ -208,18 +209,19 @@ sql_syntax = {
 
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],              'depends_on': 'on',
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],              'depends_on': 'on',
               'jump': 'on',
               'name': 'or',
               'optional': True,
@@ -228,57 +230,67 @@ sql_syntax = {
 
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],              'name': 'where',
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],              'name': 'where',
               'optional': True,
               'depends_on': 'from',
               'store_array': True},
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],              'depends_on': 'where',
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'and',
               'optional': True,
               'parent': 'where'},
              {'arguments': 1,
               'data': [
-                    {'vars':{'c':'<'   }, 'sig': ['{e1}', '<',    '{e2}']},
-                    {'vars':{'c':'>'   }, 'sig': ['{e1}', '>',    '{e2}']},
-                    {'vars':{'c':'>='  }, 'sig': ['{e1}', '>=',   '{e2}']},
-                    {'vars':{'c':'<='  }, 'sig': ['{e1}', '<=',   '{e2}']},
-                    {'vars':{'c':'!='  }, 'sig': ['{e1}', '!=',   '{e2}']},
-                    {'vars':{'c':'<>'  }, 'sig': ['{e1}', '<>',   '{e2}']},
-                    {'vars':{'c':'not' }, 'sig': ['{e1}', 'not',  '{e2}']},
-                    {'vars':{'c':'is'  }, 'sig': ['{e1}', 'is',   '{e2}']},
-                    {'vars':{'c':'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                    {'vars':{'c':'='   }, 'sig': ['{e1}', '=',    '{e2}']},
-                    {'vars':{'c':'in'  }, 'sig': ['{e1}', 'in',   '(','[e2]',')']},
-                  ],              'depends_on': 'where',
+                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
+                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
+                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
+                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
+                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
+                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
+                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
+                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
+                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
+                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
+                  {'vars': {'c': 'in'}, 'sig': [
+                      '{e1}', 'in',   '(', '[e2]', ')']},
+              ],              'depends_on': 'where',
               'jump': 'where',
               'name': 'or',
               'optional': True,
               'parent': 'where'},
+
+             {'arguments': 0,
+              'data': False,
+              'name': 'union',
+              'optional': True
+              'jump':'select'}
+              ,
 
              {'arguments': 0,
               'data': [{'sig': ['{column}']}],
@@ -288,8 +300,8 @@ sql_syntax = {
 
              {'arguments': 0,
               'data': [{'sig': ['{column}']},
-                       {'vars':{'direction':1},'sig': ['{column}', 'asc']},
-                       {'vars':{'direction':-1},'sig': ['{column}', 'desc']}],
+                       {'vars': {'direction': 1}, 'sig': ['{column}', 'asc']},
+                       {'vars': {'direction': -1}, 'sig': ['{column}', 'desc']}],
               'name': ['order', 'by'],
               'optional': True},
              {'data': [{'sig': ['{length}']},
@@ -300,38 +312,42 @@ sql_syntax = {
 
               'name': 'limit',
               'optional': True}]},
+
+
+
         {'query': 'set',
          'switch': [{
              'name': 'set',
              'arguments': 0,
              'data': [
-                  {'vars':{'type':'all' },'sig': ['{variable}', '=', '{value}']},
-             
+                  {'vars': {'type': 'all'}, 'sig': [
+                      '{variable}', '=', '{value}']},
+
              ],
          }]
          },
 
-         {'query': 'create procedure',
+        {'query': 'create procedure',
          'switch': [{
-                        'name': ['create','procedure'],
-                        'arguments': None,
-                        'data': [{'sig':['(']}],
-                        'dispose':True,
-                        'optional':False
-                    },
-                    {
-                        'name': ['parameters'],
-                        'arguments': 0,
-                        'optional': True,
-                        'data': [ {'sig':['{parameter}']} ]
-                    },
-                    {
-                        'name': [')'],
-                        'arguments': 0,
-                        'optional': False,
-                        'dispose': True,
-                        'data':None,
-                    }]
+             'name': ['create', 'procedure'],
+             'arguments': None,
+             'data': [{'sig': ['(']}],
+             'dispose':True,
+             'optional':False
+         },
+             {
+             'name': ['parameters'],
+             'arguments': 0,
+             'optional': True,
+             'data': [{'sig': ['{parameter}']}]
+         },
+             {
+             'name': [')'],
+             'arguments': 0,
+             'optional': False,
+             'dispose': True,
+             'data':None,
+         }]
          },
 
 
@@ -339,7 +355,7 @@ sql_syntax = {
          'switch': [{
              'name': 'delimiter',
              'arguments': 1,
-             'data': {'sig':['{delimiter}']},
+             'data': {'sig': ['{delimiter}']},
          }]
          },
 
@@ -361,19 +377,19 @@ sql_syntax = {
          'switch': [{
              'name': 'commit',
              'data': False,
-             'depends_on':'begin'
+             'depends_on': 'begin'
          }]
          },
         {'query': 'rollback',
          'switch': [{
              'name': 'rollback',
              'data': False,
-             'depends_on':'begin'
+             'depends_on': 'begin'
          }]
          },
         {'query': 'show output modules',
          'switch': [{
-             'name': ['show','output','modules'],
+             'name': ['show', 'output', 'modules'],
              'data':None
          }]
          },
@@ -403,12 +419,12 @@ sql_syntax = {
                      'parent': 'where'}]},
         {'query': 'insert',
          'switch': [{'data': False, 'name': 'insert'},
-                        {'arguments': 1,
-                        'data': [ {'sig': ['{table}']},
-                                  {'sig': ['{database}','.','{table}']},
-                                ],
-                        'name': 'into',
-                        },
+                    {'arguments': 1,
+                        'data': [{'sig': ['{table}']},
+                                 {'sig': ['{database}', '.', '{table}']},
+                                 ],
+                     'name': 'into',
+                     },
                     {'data': False, 'dispose': True, 'name': '('},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}']}],
@@ -430,8 +446,8 @@ sql_syntax = {
         {'query': 'update',
          'switch': [{'arguments': 1,
                      'data': [{'sig': ['{table}']},
-                              {'sig': ['{database}','.','{table}']},
-                     ],
+                              {'sig': ['{database}', '.', '{table}']},
+                              ],
                      'name': 'update'},
                     {'arguments': 0,
                      'data': [{'sig': ['{column}', '=', '{expression}']}],
@@ -458,42 +474,41 @@ sql_syntax = {
 
         {'query': 'upsert',
          'switch': [
-                     {'data': False, 'name': 'upsert'},
-                        {'arguments': 1,
-                        'data': [ {'sig': ['{table}']},
-                                  {'sig': ['{database}','.','{table}']},
-                                ],
-                        'name': 'into',
-                        },
-                    {'data': False, 'dispose': True, 'name': '('},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}']}],
-                     'name': 'columns',
-                     'no_keyword': True},
-                    {'data': False, 'dispose': True, 'name': ')'},
-                    {'data': False,
-                     'dispose': True,
-                     'name': 'values'},
-                    {'data': False, 'dispose': True, 'name': '('},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{value}']}],
-                     'name': 'values',
-                     'no_keyword': True},
-                    {'data': False, 'dispose': True, 'name': ')'},
+             {'data': False, 'name': 'upsert'},
+             {'arguments': 1,
+              'data': [{'sig': ['{table}']},
+                       {'sig': ['{database}', '.', '{table}']},
+                       ],
+              'name': 'into',
+              },
+             {'data': False, 'dispose': True, 'name': '('},
+             {'arguments': 0,
+              'data': [{'sig': ['{column}']}],
+              'name': 'columns',
+              'no_keyword': True},
+             {'data': False, 'dispose': True, 'name': ')'},
+             {'data': False,
+              'dispose': True,
+              'name': 'values'},
+             {'data': False, 'dispose': True, 'name': '('},
+             {'arguments': 0,
+              'data': [{'sig': ['{value}']}],
+              'name': 'values',
+              'no_keyword': True},
+             {'data': False, 'dispose': True, 'name': ')'},
 
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}']}],
-                     'name': ['on','duplicate','key'],
-                     'optional': True,
-                     }
-                     ,
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}', '=', '{expression}']}],
-                     'name': ['update'],
-                     'key':'set',
-                     'optional': True,
-                     },
-                ]},
+             {'arguments': 0,
+              'data': [{'sig': ['{column}']}],
+              'name': ['on', 'duplicate', 'key'],
+              'optional': True,
+              },
+             {'arguments': 0,
+              'data': [{'sig': ['{column}', '=', '{expression}']}],
+              'name': ['update'],
+              'key':'set',
+              'optional': True,
+              },
+         ]},
 
 
 
@@ -503,8 +518,8 @@ sql_syntax = {
                      'name': 'use'}]},
         {'query': 'drop',
          'switch': [{'arguments': 1,
-                     'data': [ {'sig': ['table','{table}']},
-                               {'sig': ['table','{database}','.','{table}']}],
+                     'data': [{'sig': ['table', '{table}']},
+                              {'sig': ['table', '{database}', '.', '{table}']}],
 
                      'name': 'drop'}]},
         {'query': 'create',
@@ -520,12 +535,12 @@ sql_syntax = {
               },
 
              {'arguments': 1,
-              'data': [ {'sig': ['{table}']},
-                        {'sig': ['{database}','.','{table}']},
-                        ],
+              'data': [{'sig': ['{table}']},
+                       {'sig': ['{database}', '.', '{table}']},
+                       ],
               'name': 'table',
               'type': 'single',
-              'optional': False },
+              'optional': False},
 
              {'data': False, 'dispose': True, 'name': '('},
              {'arguments': 0,
@@ -543,7 +558,7 @@ sql_syntax = {
               'optional': True,
               'name': 'fifo'},
              {'arguments': 1,
-              'data': [{'sig': ['=','{type}','url','=', '{url}','user','=','{user}','password','=','{password}','dir','=','{dir}','file','{file}']}],
+              'data': [{'sig': ['=', '{type}', 'url', '=', '{url}', 'user', '=', '{user}', 'password', '=', '{password}', 'dir', '=', '{dir}', 'file', '{file}']}],
               'type':'single',
               'optional': True,
               'name': 'repo'},
@@ -624,10 +639,10 @@ sql_syntax = {
          },
         {'query': 'describe table',
          'switch': [{'arguments': 1,
-                    'data': [ {'sig': ['{table}']},
-                                {'sig': ['{database}','.','{table}']},
-                                ],
-                    'name': ['describe','table']}]},
+                     'data': [{'sig': ['{table}']},
+                              {'sig': ['{database}', '.', '{table}']},
+                              ],
+                     'name': ['describe', 'table']}]},
 
     ]  # query matrix array
 }  # sql_syntax
