@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.998'
+__version__='1.1.999'
 
         
 # ############################################################################
@@ -757,6 +757,19 @@ class lexer:
                     if not dispose:
                         self.info("----------Adding", curent_object['mode'])
                         query_object[curent_object['mode']] = None
+                    jump = None
+                    if 'jump' in switch:
+                        self.info("JUMP")
+                        jump = switch['jump']
+                    if None != jump:
+                        tsi = 0
+                        for ts in query['switch']:
+                            if ts['name'] == jump:
+                                self.info("Jumping from ", switch_index, tsi + 1)
+                                switch_index = tsi + 1
+                                break
+                            tsi += 1
+                    in_argument = False
                 else:
                     in_argument = True
                     argument_index = 0
@@ -888,19 +901,6 @@ class lexer:
                                             tsi += 1
                                     in_argument = False
                             else:
-                                jump = None
-                                if 'jump' in switch:
-                                    self.info("JUMP")
-                                    jump = switch['jump']
-                                if None != jump:
-                                    tsi = 0
-                                    for ts in query['switch']:
-                                        if ts['name'] == jump:
-                                            self.info("Jumping from ", switch_index, tsi + 1)
-                                            switch_index = tsi + 1
-                                            break
-                                        tsi += 1
-                                in_argument = False
                                 self.info("in list")
                                 if len(tokens) <= token_index:
                                     self.info("at the end")
