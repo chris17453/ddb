@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.1.986'
+__version__='1.1.987'
 
         
 # ############################################################################
@@ -2324,7 +2324,9 @@ class engine:
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_get_file(self,table):
+        c=1
     def svn_put_file(self,table):
+        d=1
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path

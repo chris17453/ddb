@@ -76,7 +76,7 @@ class engine:
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
         self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
-        self.debug = True
+        self.debug = debug
         self.results = None
         self.mode = mode
         self.output=output
@@ -186,7 +186,7 @@ class engine:
         # update table info...
         # it may have changed...
         # self.database.reload_config()
-        parser = lexer(sql_query)
+        parser = lexer(sql_query,debug=True)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
@@ -333,7 +333,7 @@ class engine:
     
     def svn_put_file(self,table):
         d=1
-        
+
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
