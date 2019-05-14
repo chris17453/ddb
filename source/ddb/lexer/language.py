@@ -553,7 +553,7 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data':[{'sig':['set']}],
                             'name':'set header',
                             'optional':True
-                            }
+                            },
                             {'arguments': 0,
                              'data': [{'sig': [
                                                '{variable}',
