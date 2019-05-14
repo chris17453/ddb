@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.12'
+__version__='1.2.13'
 
         
 # ############################################################################
@@ -812,161 +812,160 @@ class lexer:
             query_mode = command['name']
             self.info("Object Id:", flags.object_id, "Token Id:", token_index)
             base_argument={}
-            if None == segment['data'] or False == segment['data']:
-                self.info("No data to match")
-                if not flags.dispose:
-                    self.info("----------Adding", curent_object['mode'])
-                    query_object[curent_object['mode']] = None
-                jump = None
-                if 'jump' in segment:
-                    self.info("JUMP")
-                    jump = segment['jump']
-                if None != jump:
-                    tsi = 0
-                    for ts in command['segments']:
-                        if ts['name'] == jump:
-                            self.info("Jumping from ", segment_index, tsi + 1)
-                            segment_index = tsi + 1
-                            token_index+=1
-                            break
-                        tsi += 1
-                in_argument = False
-            else:
-                in_argument = True
-                argument_index = 0
-                while True == in_argument:
-                    self.info("---in argument")
-                    if 'depends_on' in segment:
-                        depends_on = segment['depends_on']
-                    else:
-                        self.info("--- Depends on nothing")
-                        depends_on = None
-                    if None != depends_on:
-                        depends_oncompare = self.get_sub_array(depends_on)
-                        dependency_found = False
-                        for q_o in query_object:
-                            haystack = self.get_sub_array(q_o)
-                            if True == self.single_array_match(depends_oncompare, haystack):
-                                dependency_found = True
-                        if False == dependency_found:
-                            self.info("Missing", depends_on)
-                            break
-                        else:
-                            self.info("Dependency found", depends_on)
-                    if 'arguments' in segment:
-                        arguments = segment['arguments']
-                    else:
-                        arguments = 1
-                    if arguments == None:
-                        arguments = 1
-                    self.info("Number of arguments", arguments)
-                    data = self.get_sub_array(segment, 'data')
-                    match_len = 0
-                    match = None
-                    for sig in data:
-                        signature_compare = self.get_sub_array(sig, 'sig')
-                        haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
-                        if True == self.single_array_match(signature_compare, haystack):
-                            if len(signature_compare) > match_len:
-                                match_len = len(signature_compare)
-                                match = signature_compare
-                                signature=sig
-                                self.info("Best Match", match_len)
-                    if None == match:
-                        self.info("No match")
+            in_argument = True
+            argument_index = 0
+            while True == in_argument:
+                self.info("---in argument")
+                if 'depends_on' in segment:
+                    depends_on = segment['depends_on']
+                else:
+                    self.info("--- Depends on nothing")
+                    depends_on = None
+                if None != depends_on:
+                    depends_oncompare = self.get_sub_array(depends_on)
+                    dependency_found = False
+                    for q_o in query_object:
+                        haystack = self.get_sub_array(q_o)
+                        if True == self.single_array_match(depends_oncompare, haystack):
+                            dependency_found = True
+                    if False == dependency_found:
+                        self.info("Missing", depends_on)
                         break
                     else:
-                        base_argument={}
-                        if 'vars' in signature:
-                            for var_name in signature['vars']:
-                                self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
-                                base_argument[var_name]=signature['vars'][var_name]
-                        w_index = 0
-                        argument = base_argument
-                        for word in match:
-                            variable_data=tokens[token_index + w_index]['data']
-                            if word[0:1] == '[' and word[-1] == ']': 
-                                definition='array'
-                            elif word[0:1] == '{' and word[-1] == '}':
-                                    definition='single'
-                            else:
-                                definition=None
-                            if definition:
-                                variable=word[1:-1]
-                                variable_type='string'
-                                if 'specs' in segment:
-                                    if variable in segment['specs']:
-                                        if 'type' in segment['specs'][variable]:
-                                            variable_type=segment['specs'][variable]['type']
-                                if variable_type=='int':
-                                    try:
-                                        argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
-                                    except BaseException:
-                                        raise Exception ("Variable data not an integer")
-                                elif variable_type=='bool':
-                                    if variable_data.lower()=='true':
-                                        argument[variable] =True
-                                    elif variable_data.lower()=='false':
-                                        argument[variable] =False
-                                    else:
-                                        raise Exception("Variable Data not boolean")
-                                elif variable_type=='char':
-                                    if len(variable_data)!=1:
-                                        raise Exception("variable data length exceeded, type char")
-                                    argument[variable] =variable_data
-                                elif variable_type=='string':
-                                    argument[variable] =variable_data
-                            else:
-                                if self.keep_non_keywords:
-                                    argument[word] = variable_data
-                            w_index += 1
-                        if 'arguments' not in curent_object:
-                            curent_object['arguments'] = []
-                        if arguments == 1:
-                            curent_object['arguments'] = argument
+                        self.info("Dependency found", depends_on)
+                if 'arguments' in segment:
+                    arguments = segment['arguments']
+                else:
+                    arguments = 1
+                if arguments == None:
+                    arguments = 1
+                self.info("Number of arguments", arguments)
+                data = self.get_sub_array(segment, 'data')
+                match_len = 0
+                match = None
+                for sig in data:
+                    signature_compare = self.get_sub_array(sig, 'sig')
+                    haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
+                    if True == self.single_array_match(signature_compare, haystack):
+                        if len(signature_compare) > match_len:
+                            match_len = len(signature_compare)
+                            match = signature_compare
+                            signature=sig
+                            self.info("Best Match", match_len)
+                if None == match:
+                    self.info("No match")
+                    break
+                else:
+                    base_argument={}
+                    if 'vars' in signature:
+                        for var_name in signature['vars']:
+                            self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
+                            base_argument[var_name]=signature['vars'][var_name]
+                    w_index = 0
+                    argument = base_argument
+                    for word in match:
+                        variable_data=tokens[token_index + w_index]['data']
+                        if word[0:1] == '[' and word[-1] == ']': 
+                            definition='array'
+                        elif word[0:1] == '{' and word[-1] == '}':
+                                definition='single'
                         else:
-                            curent_object['arguments'].append(argument)
-                        self.info("match", match)
-                        token_index += len(match)
-                        if arguments != 0:
-                            self.info("print not in list")
-                            argument_index += 1
-                            if argument_index >= arguments:
-                                self.info("----------Adding", curent_object['mode'])
-                                if True == flags.store_array:
-                                    if curent_object['mode'] not in query_object:
-                                        query_object[curent_object['mode']] = []
-                                    query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
+                            definition=None
+                        if definition:
+                            variable=word[1:-1]
+                            variable_type='string'
+                            if 'specs' in segment:
+                                if variable in segment['specs']:
+                                    if 'type' in segment['specs'][variable]:
+                                        variable_type=segment['specs'][variable]['type']
+                            if variable_type=='int':
+                                try:
+                                    argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
+                                except BaseException:
+                                    raise Exception ("Variable data not an integer")
+                            elif variable_type=='bool':
+                                if variable_data.lower()=='true':
+                                    argument[variable] =True
+                                elif variable_data.lower()=='false':
+                                    argument[variable] =False
                                 else:
-                                    if None == flags.parent:
-                                        if flags.meta_type=='single':
-                                            for flags.arg_key in curent_object['arguments']:
-                                                query_object[flags.arg_key] = curent_object['arguments'][flags.arg_key]
-                                        else:    
-                                            query_object[curent_object['mode']] = curent_object['arguments']
-                                        self.info("NO APPEND")
-                                    else:
-                                        self.info("APPEND")
-                                        if flags.parent not in query_object:
-                                            query_object[flags.parent]=[]
-                                        query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
-                                jump = None
-                                if 'jump' in segment:
-                                    self.info("JUMP")
-                                    jump = segment['jump']
-                                if None != jump:
-                                    tsi = 0
-                                    for ts in command['segments']:
-                                        if ts['name'] == jump:
-                                            self.info("Jumping from ", segment_index, tsi + 1)
-                                            segment_index = tsi + 1
-                                            break
-                                        tsi += 1
-                                in_argument = False
+                                    raise Exception("Variable Data not boolean")
+                            elif variable_type=='char':
+                                if len(variable_data)!=1:
+                                    raise Exception("variable data length exceeded, type char")
+                                argument[variable] =variable_data
+                            elif variable_type=='string':
+                                argument[variable] =variable_data
                         else:
-                            self.info("in list")
-                            if len(tokens) <= token_index:
-                                self.info("at the end")
+                            if self.keep_non_keywords:
+                                argument[word] = variable_data
+                        w_index += 1
+                    if 'arguments' not in curent_object:
+                        curent_object['arguments'] = []
+                    if arguments == 1:
+                        curent_object['arguments'] = argument
+                    else:
+                        curent_object['arguments'].append(argument)
+                    self.info("match", match)
+                    token_index += len(match)
+                    if arguments != 0:
+                        self.info("print not in list")
+                        argument_index += 1
+                        if argument_index >= arguments:
+                            self.info("----------Adding", curent_object['mode'])
+                            if True == flags.store_array:
+                                if curent_object['mode'] not in query_object:
+                                    query_object[curent_object['mode']] = []
+                                query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
+                            else:
+                                if None == flags.parent:
+                                    if flags.meta_type=='single':
+                                        for flags.arg_key in curent_object['arguments']:
+                                            query_object[flags.arg_key] = curent_object['arguments'][flags.arg_key]
+                                    else:    
+                                        query_object[curent_object['mode']] = curent_object['arguments']
+                                    self.info("NO APPEND")
+                                else:
+                                    self.info("APPEND")
+                                    if flags.parent not in query_object:
+                                        query_object[flags.parent]=[]
+                                    query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
+                            jump = None
+                            if 'jump' in segment:
+                                self.info("JUMP")
+                                jump = segment['jump']
+                            if None != jump:
+                                tsi = 0
+                                for ts in command['segments']:
+                                    if ts['name'] == jump:
+                                        self.info("Jumping from ", segment_index, tsi + 1)
+                                        segment_index = tsi + 1
+                                        break
+                                    tsi += 1
+                            in_argument = False
+                    else:
+                        self.info("in list")
+                        if len(tokens) <= token_index:
+                            self.info("at the end")
+                            if True == flags.store_array:
+                                if curent_object['mode'] not in query_object:
+                                    query_object[curent_object['mode']] = []
+                                query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
+                            else:
+                                if None == flags.parent:
+                                    query_object[curent_object['mode']] = curent_object['arguments']
+                                    self.info("NO APPEND")
+                                else:
+                                    self.info("APPEND")
+                                    if flags.parent not in query_object:
+                                        query_object[flags.parent]=[]
+                                    query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
+                        if len(tokens) > token_index:
+                            self.info("--looking ahead")
+                            self.info("----", tokens[token_index]['data'])
+                            if tokens[token_index]['data'] != ',':
+                                self.info("---not list")
+                                self.info("----------Adding", curent_object['mode'])
                                 if True == flags.store_array:
                                     if curent_object['mode'] not in query_object:
                                         query_object[curent_object['mode']] = []
@@ -980,40 +979,21 @@ class lexer:
                                         if flags.parent not in query_object:
                                             query_object[flags.parent]=[]
                                         query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
-                            if len(tokens) > token_index:
-                                self.info("--looking ahead")
-                                self.info("----", tokens[token_index]['data'])
-                                if tokens[token_index]['data'] != ',':
-                                    self.info("---not list")
-                                    self.info("----------Adding", curent_object['mode'])
-                                    if True == flags.store_array:
-                                        if curent_object['mode'] not in query_object:
-                                            query_object[curent_object['mode']] = []
-                                        query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
-                                    else:
-                                        if None == flags.parent:
-                                            query_object[curent_object['mode']] = curent_object['arguments']
-                                            self.info("NO APPEND")
-                                        else:
-                                            self.info("APPEND")
-                                            if flags.parent not in query_object:
-                                                query_object[flags.parent]=[]
-                                            query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
-                                    jump = None
-                                    if 'jump' in segment:
-                                        jump = segment['jump']
-                                    if None != jump:
-                                        tsi = 0
-                                        for ts in command['segments']:
-                                            if ts['name'] == jump:
-                                                self.info("Jumping from ", segment_index, tsi + 1)
-                                                segment_index = tsi + 1
-                                                break
-                                            tsi += 1
-                                    in_argument = False
-                                else:
-                                    self.info("------more list")
-                                    token_index += 1
+                                jump = None
+                                if 'jump' in segment:
+                                    jump = segment['jump']
+                                if None != jump:
+                                    tsi = 0
+                                    for ts in command['segments']:
+                                        if ts['name'] == jump:
+                                            self.info("Jumping from ", segment_index, tsi + 1)
+                                            segment_index = tsi + 1
+                                            break
+                                        tsi += 1
+                                in_argument = False
+                            else:
+                                self.info("------more list")
+                                token_index += 1
         self.info(segment_index, token_index, len(tokens))
         self.info(curent_object)
         if token_index == len(tokens):
@@ -2390,7 +2370,6 @@ class engine:
     def add_error(self,error):
         self.info(error)
     def os_cmd(self,cmd,err_msg):
-        os.chdir(self.terraform_dir)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
