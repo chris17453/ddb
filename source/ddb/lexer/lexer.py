@@ -278,7 +278,7 @@ class lexer:
                                 try:
                                     argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
                                 except BaseException:
-                                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                                    #err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
                                     pass
                                     break
                                     #raise Exception (err_msg)
