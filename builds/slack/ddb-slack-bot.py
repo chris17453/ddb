@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.34'
+__version__='1.2.35'
 
         
 # ############################################################################
@@ -588,9 +588,11 @@ language={'commands': [{'name': 'show columns',
                             'name':'set header',
                             'optional':True
                             },
+                            {'name':'set header',
+                             'optional':True,
+                             'data': [{'sig': ['set']}],},
                             {'arguments': 0,
-                             'data': [{'sig': [
-                                               '{variable}',
+                             'data': [{'sig': ['{variable}',
                                                '=',
                                                '{value}'],
                                        'vars': {'type': 'all'}}],
@@ -700,12 +702,15 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'update'},
+                            'name': 'update'},
+                            {'name':'set header',
+                             'data': [{'sig': ['set']}],},
                             {'arguments': 0,
                              'data': [{'sig': ['{column}',
                                                '=',
                                                '{expression}']}],
-                             'name': 'set'},
+                             'name': 'set',
+                             'depends_on':'set header'},
                             {'data': [{'sig': ['where',
                                                '{e1}',
                                                '{c}',
@@ -713,8 +718,8 @@ language={'commands': [{'name': 'show columns',
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'arguments': 0,
-                             'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                            {
+                             'data': [{'sig': ['and','{e1}', '{c}', '{e2}']}],
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
