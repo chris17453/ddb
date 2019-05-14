@@ -319,7 +319,7 @@ class engine:
         self.info(error)
     
     def os_cmd(self,cmd,err_msg):
-        os.chdir(self.terraform_dir)
+        #os.chdir(self.working_dir)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
