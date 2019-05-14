@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.27'
+__version__='1.2.28'
 
         
 # ############################################################################
@@ -641,13 +641,12 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['group', 'by']}],
-                             'name': 'group by',
+                             'name': 'group by header',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['{column}']}],
-                             'name': 'group by columns',
-                             'parent':'group by',
-                             'depends_on':'group by',
+                             'name': 'group by',
+                             'depends_on':'group by header',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['order', 'by']}],
@@ -661,7 +660,6 @@ language={'commands': [{'name': 'show columns',
                                        'vars': {'direction': -1}}],
                              'name': 'order by',
                              'depends_on':'order by header',
-                             'parent':'order by header',
                              'optional': True},
                             {'data': [{'sig': ['limit', '{length}']},
                                       {'sig': ['limit',
