@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.26'
+__version__='1.2.27'
 
         
 # ############################################################################
@@ -558,7 +558,7 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['order', 'by']}],
-                             'name': 'order by',
+                             'name': 'order by header',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['{column}']},
@@ -566,9 +566,9 @@ language={'commands': [{'name': 'show columns',
                                        'vars': {'direction': 1}},
                                       {'sig': ['{column}', 'desc'],
                                        'vars': {'direction': -1}}],
-                             'name': 'order by columns',
-                             'depends_on':'order by',
-                             'parent':'order by',
+                             'name': 'order by',
+                             'depends_on':'order by header',
+                             'parent':'order by header',
                              'optional': True},
                             {'data': [{'sig': ['limit', '{length}']},
                                       {'sig': ['limit',
