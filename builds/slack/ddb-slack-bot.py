@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.16'
+__version__='1.2.17'
 
         
 # ############################################################################
@@ -816,11 +816,10 @@ class lexer:
             in_argument = True
             argument_index = 0
             while True == in_argument:
-                self.info("---in argument")
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
+                    self.info("Depends on {0}".format(depends_on))
                 else:
-                    self.info("--- Depends on nothing")
                     depends_on = None
                 if None != depends_on:
                     depends_oncompare = self.get_sub_array(depends_on)
