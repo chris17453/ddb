@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.6'
+__version__='1.2.7'
 
         
 # ############################################################################
@@ -49,594 +49,674 @@ __version__='1.2.6'
 # File   : ./source/ddb/lexer/language.py
 # ############################################################################
 
-sql_syntax = {
-    'functions': [{'name': 'database', 'arguments': None},
-                  {'name': 'row_number', 'arguments': None},
-                  {'name': 'count', 'arguments': [
-                      {'name': 'where', 'required': True}]},
-                  {'name': 'sum', 'arguments': [
-                      {'name': 'column', 'required': True}]},
-                  {'name': 'version', 'arguments': None},
-                  {'name': 'upper', 'arguments': [
-                      {'name': 'column', 'required': True}]},
-                  {'name': 'lower', 'arguments': [
-                      {'name': 'column', 'required': True}]},
-                  {'name': 'cat', 'arguments':  [
-                      {'name': 'arg1', 'required': True}, {'name': 'arg2', 'required': True}]},
-                  {'name': 'date', 'arguments': None},
-                  {'name': 'time', 'arguments': None},
-                  {'name': 'datetime', 'arguments': None},
-                  ],
-    'query_matrix': [
-        {'query': 'show columns',
-         'switch': [{'data': False, 'name': ['show', 'columns']},
-                    {'arguments': 1,
-                        'data': [{'sig': ['{table}']},
-                                 {'sig': ['{database}', '.', '{table}']},
-                                 ],
-                     'name': 'from'}]},
-        {'query': 'show tables',
-         'switch': [
-             {'data': False, 'name': ['show', 'tables']},
-         ]},
-        {'query': 'show variables',
-         'switch': [
-             {'data': False, 'name': ['show', 'variables']},
-         ]},
-        {'query': 'select',
-         'arguments': 1,
-         'switch': [
-             {'data': None,
-              'name': 'select',
-              'optional': False
-              },
-             {'data': None,
-              'name': 'distinct',
-              'optional': True
-              },
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']},
-                       {'sig': ['{column}',
-                                'as',
-                                '{display}']},
-                       {'sig': ['{function}',
-                                '(',
-                                ')']},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ')'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ',',
-                                '{argument2}',
-                                ')'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ',',
-                                '{argument2}',
-                                ',',
-                                '{argument3}',
-                                ')'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                ')',
-                                'as',
-                                '{display}'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ')',
-                                'as',
-                                '{display}'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ',',
-                                '{argument2}',
-                                ')',
-                                'as',
-                                '{display}'
-                                ]},
-                       {'sig': ['{function}',
-                                '(',
-                                '{argument1}',
-                                ',',
-                                '{argument2}',
-                                ',',
-                                '{argument3}',
-                                ')',
-                                'as',
-                                '{display}'
-                                ]},
-                       ],
-              'name': 'columns',
-              'no_keyword': True,
-              'depends_on':'select'
-              },
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']},
-                       {'sig': ['{table}', 'as', '{display}']},
-                       {'sig': ['{database}', '.', '{table}']},
-                       {'sig': ['{database}', '.', '{table}', 'as', '{display}']}
-                       ],
-              'name': 'from',
-              'optional': True},
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-              'name': 'join',
-              'depends_on': 'from',
-              'optional': True},
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-              'name': 'left join',
-              'depends_on': 'from',
-              'optional': True},
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-              'name': 'right join',
-              'depends_on': 'from',
-              'optional': True},
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']}, {'sig': ['{table}', 'as', '{display}']}],
-              'name': 'full join',
-              'depends_on': 'from',
-              'optional': True},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],
-              'name': 'on',
-              'optional': True,
-              'depends_on': 'join',
-              'store_array': True},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],              'depends_on': 'on',
-              'jump': 'on',
-              'name': 'and',
-              'optional': True,
-              'parent': 'on'},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],              'depends_on': 'on',
-              'jump': 'on',
-              'name': 'or',
-              'optional': True,
-              'parent': 'on'},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],              'name': 'where',
-              'optional': True,
-              'depends_on': 'from',
-              'store_array': True},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],              'depends_on': 'where',
-              'jump': 'where',
-              'name': 'and',
-              'optional': True,
-              'parent': 'where'},
-             {'arguments': 1,
-              'data': [
-                  {'vars': {'c': '<'}, 'sig': ['{e1}', '<',    '{e2}']},
-                  {'vars': {'c': '>'}, 'sig': ['{e1}', '>',    '{e2}']},
-                  {'vars': {'c': '>='}, 'sig': ['{e1}', '>=',   '{e2}']},
-                  {'vars': {'c': '<='}, 'sig': ['{e1}', '<=',   '{e2}']},
-                  {'vars': {'c': '!='}, 'sig': ['{e1}', '!=',   '{e2}']},
-                  {'vars': {'c': '<>'}, 'sig': ['{e1}', '<>',   '{e2}']},
-                  {'vars': {'c': 'not'}, 'sig': ['{e1}', 'not',  '{e2}']},
-                  {'vars': {'c': 'is'}, 'sig': ['{e1}', 'is',   '{e2}']},
-                  {'vars': {'c': 'like'}, 'sig': ['{e1}', 'like', '{e2}']},
-                  {'vars': {'c': '='}, 'sig': ['{e1}', '=',    '{e2}']},
-                  {'vars': {'c': 'in'}, 'sig': [
-                      '{e1}', 'in',   '(', '[e2]', ')']},
-              ],              'depends_on': 'where',
-              'jump': 'where',
-              'name': 'or',
-              'optional': True,
-              'parent': 'where'},
-             {
-              'data': None,
-              'name': 'union',
-              'optional': True,
-              'jump':'select',
-            }
-              ,
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']}],
-              'name': ['group', 'by'],
-              'optional': True},
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']},
-                       {'vars': {'direction': 1}, 'sig': ['{column}', 'asc']},
-                       {'vars': {'direction': -1}, 'sig': ['{column}', 'desc']}],
-              'name': ['order', 'by'],
-              'optional': True},
-             {'data': [{'sig': ['{length}']},
-                       {'sig': ['{start}',
-                                ',',
-                                '{length}']}],
-              'specs':{'length': {'type': 'int', 'default': 0}, 'start': {'type': 'int', 'default': 0}},
-              'name': 'limit',
-              'optional': True}]},
-        {'query': 'set',
-         'switch': [{
-             'name': 'set',
-             'arguments': 0,
-             'data': [
-                  {'vars': {'type': 'all'}, 'sig': [
-                      '{variable}', '=', '{value}']},
-             ],
-         }]
-         },
-        {'query': 'create procedure',
-         'switch': [{
-             'name': ['create', 'procedure'],
-             'arguments': None,
-             'data': [{'sig': ['(']}],
-             'dispose':True,
-             'optional':False
-         },
-             {
-             'name': ['parameters'],
-             'arguments': 0,
-             'optional': True,
-             'data': [{'sig': ['{parameter}']}]
-         },
-             {
-             'name': [')'],
-             'arguments': 0,
-             'optional': False,
-             'dispose': True,
-             'data':None,
-         }]
-         },
-        {'query': 'delimiter',
-         'switch': [{
-             'name': 'delimiter',
-             'arguments': 1,
-             'data': {'sig': ['{delimiter}']},
-         }]
-         },
-        {'query': 'end',
-         'switch': [{
-             'name': 'end',
-             'data': False,
-         }]
-         },
-        {'query': 'begin',
-         'switch': [{
-             'name': 'begin',
-             'data': False,
-         }]
-         },
-        {'query': 'commit',
-         'switch': [{
-             'name': 'commit',
-             'data': False,
-             'depends_on': 'begin'
-         }]
-         },
-        {'query': 'rollback',
-         'switch': [{
-             'name': 'rollback',
-             'data': False,
-             'depends_on': 'begin'
-         }]
-         },
-        {'query': 'show output modules',
-         'switch': [{
-             'name': ['show', 'output', 'modules'],
-             'data':None
-         }]
-         },
-        {'query': 'delete',
-         'switch': [{'data': False, 'name': 'delete'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
-                     'name': 'from'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'name': 'where',
-                     'optional': True,
-                     'store_array': True},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'and',
-                     'optional': True,
-                     'parent': 'where'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'or',
-                     'optional': True,
-                     'parent': 'where'}]},
-        {'query': 'insert',
-         'switch': [{'data': False, 'name': 'insert'},
-                    {'arguments': 1,
-                        'data': [{'sig': ['{table}']},
-                                 {'sig': ['{database}', '.', '{table}']},
-                                 ],
-                     'name': 'into',
-                     },
-                    {'data': False, 'dispose': True, 'name': '('},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}']}],
-                     'name': 'columns',
-                     'no_keyword': True},
-                    {'data': False, 'dispose': True, 'name': ')'},
-                    {'data': False,
-                     'dispose': True,
-                     'name': 'values'},
-                    {'data': False, 'dispose': True, 'name': '('},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{value}']}],
-                     'name': 'values',
-                     'no_keyword': True},
-                    {'data': False, 'dispose': True, 'name': ')'}]},
-        {'query': 'update',
-         'switch': [{'arguments': 1,
-                     'data': [{'sig': ['{table}']},
-                              {'sig': ['{database}', '.', '{table}']},
-                              ],
-                     'name': 'update'},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}', '=', '{expression}']}],
-                     'name': 'set'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'name': 'where',
-                     'optional': True,
-                     'store_array': True},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'and',
-                     'optional': True,
-                     'parent': 'where'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
-                     'depends_on': 'where',
-                     'jump': 'where',
-                     'name': 'or',
-                     'optional': True,
-                     'parent': 'where'}]},
-        {'query': 'upsert',
-         'switch': [
-             {'data': False, 'name': 'upsert'},
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']},
-                       {'sig': ['{database}', '.', '{table}']},
-                       ],
-              'name': 'into',
-              },
-             {'data': False, 'dispose': True, 'name': '('},
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']}],
-              'name': 'columns',
-              'no_keyword': True},
-             {'data': False, 'dispose': True, 'name': ')'},
-             {'data': False,
-              'dispose': True,
-              'name': 'values'},
-             {'data': False, 'dispose': True, 'name': '('},
-             {'arguments': 0,
-              'data': [{'sig': ['{value}']}],
-              'name': 'values',
-              'no_keyword': True},
-             {'data': False, 'dispose': True, 'name': ')'},
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']}],
-              'name': ['on', 'duplicate', 'key'],
-              'optional': True,
-              },
-             {'arguments': 0,
-              'data': [{'sig': ['{column}', '=', '{expression}']}],
-              'name': ['update'],
-              'key':'set',
-              'optional': True,
-              },
-         ]},
-        {'query': 'use',
-         'switch': [{'arguments': 1,
-                     'data': [{'sig': ['{table}']}],
-                     'name': 'use'}]},
-        {'query': 'drop',
-         'switch': [{'arguments': 1,
-                     'data': [{'sig': ['table', '{table}']},
-                              {'sig': ['table', '{database}', '.', '{table}']}],
-                     'name': 'drop'}]},
-        {'query': 'create',
-         'switch': [
-             {'data': None,
-              'name': 'create',
-              'optional': False
-              },
-             {'data': None,
-              'name': 'temporary',
-              'optional': True
-              },
-             {'arguments': 1,
-              'data': [{'sig': ['{table}']},
-                       {'sig': ['{database}', '.', '{table}']},
-                       ],
-              'name': 'table',
-              'type': 'single',
-              'optional': False},
-             {'data': False, 'dispose': True, 'name': '('},
-             {'arguments': 0,
-              'data': [{'sig': ['{column}']}],
-              'name': 'columns',
-              'no_keyword': True},
-             {'data': False, 'dispose': True, 'name': ')'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{file}']}],
-              'type':'single',
-              'name': 'file'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{fifo}']}],
-              'type':'single',
-              'optional': True,
-              'name': 'fifo'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{type}', 'url', '=', '{url}', 'user', '=', '{user}', 'password', '=', '{password}', 'dir', '=', '{dir}', 'file', '{file}']}],
-              'type':'single',
-              'optional': True,
-              'name': 'repo'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{delimiter}']}],
-              'type':'single',
-              'optional': True,
-              'specs':{'field': {'type': 'char', 'default': ','}},
-              'name': 'delimiter'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{whitespace}']}],
-              'type':'single',
-              'optional': True,
-              'specs':{'whitespace': {'type': 'bool'}},
-              'name': 'whitespace'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{errors}']}],
-              'type':'single',
-              'optional': True,
-              'specs':{'errors': {'type': 'bool'}},
-              'name': 'errors'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{comments}']}],
-              'type':'single',
-              'optional': True,
-              'specs':{'comments': {'type': 'bool'}},
-              'name': 'comments'},
-             {'arguments': 1,
-              'data': [{'sig': ['=', '{data_starts_on}']}],
-              'type':'single',
-              'optional': True,
-              'specs':{'data_starts_on': {'type': 'int', 'default': 1}},
-              'name': 'data_starts_on'}, ]},
-        {'query': 'update table',
-         'switch': [{'arguments': 1,
-                     'data': [{'sig': ['table', '{table}']}],
-                     'name': 'update'},
-                    {'data': False, 'dispose': True,
-                        'name': '(', 'optional': True},
-                    {'arguments': 0,
-                     'data': [{'sig': ['{column}']}],
-                     'name': 'columns',
-                     'no_keyword': True,
-                     'depends_on':'(',
-                     'optional': True},
-                    {'data': False, 'dispose': True,
-                        'name': ')', 'optional': True, 'depends_on': '('},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{file}']}],
-                     'name': 'file',
-                     'optional': True},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{field}']}],
-                     'optional': True,
-                     'specs':{'field': {'type': 'char', 'default': ','}},
-                     'name': 'delimiter'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{whitespace}']}],
-                     'optional': True,
-                     'specs':{'whitespace': {'type': 'bool'}},
-                     'name': 'whitespace'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{whitespace}']}],
-                     'optional': True,
-                     'specs':{'errors': {'type': 'bool'}},
-                     'name': 'errors'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{comments}']}],
-                     'optional': True,
-                     'specs':{'comments': {'type': 'bool'}},
-                     'name': 'comments'},
-                    {'arguments': 1,
-                     'data': [{'sig': ['=', '{data_starts_on}']}],
-                     'optional': True,
-                     'specs':{'data_starts_on': {'type': 'int'}},
-                     'name': 'data_starts_on'}
-                    ]
-         },
-        {'query': 'describe table',
-         'switch': [{'arguments': 1,
-                     'data': [{'sig': ['{table}']},
-                              {'sig': ['{database}', '.', '{table}']},
-                              ],
-                     'name': ['describe', 'table']}]},
-    ]  # query matrix array
-}  # sql_syntax
+language ={'commands': [{'name': 'show columns',
+               'segments': [{'data': [{'sig': ['show', 'columns']}],
+                             'name': ['show', 'columns']},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'from'}]},
+              {'name': 'show tables',
+               'segments': [{'data': [{'sig': ['show', 'tables']}],
+                             'name': ['show', 'tables']}]},
+              {'name': 'show variables',
+               'segments': [{'data': [{'sig': ['show variables']}],
+                             'name': 'show variables'}]},
+              {'arguments': 1,
+               'name': 'select',
+               'segments': [{'data': [{'sig': ['select']}],
+                             'name': 'select',
+                             'optional': False},
+                            {'data': [{'sig': ['distinct']}],
+                             'name': 'distinct',
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']},
+                                      {'sig': ['{column}',
+                                               'as',
+                                               '{display}']},
+                                      {'sig': ['{function}', '(', ')']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ')']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ',',
+                                               '{argument2}',
+                                               ')']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ',',
+                                               '{argument2}',
+                                               ',',
+                                               '{argument3}',
+                                               ')']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               ')',
+                                               'as',
+                                               '{display}']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ')',
+                                               'as',
+                                               '{display}']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ',',
+                                               '{argument2}',
+                                               ')',
+                                               'as',
+                                               '{display}']},
+                                      {'sig': ['{function}',
+                                               '(',
+                                               '{argument1}',
+                                               ',',
+                                               '{argument2}',
+                                               ',',
+                                               '{argument3}',
+                                               ')',
+                                               'as',
+                                               '{display}']}],
+                             'depends_on': 'select',
+                             'name': 'columns',
+                             'no_keyword': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{table}',
+                                               'as',
+                                               '{display}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}',
+                                               'as',
+                                               '{display}']}],
+                             'name': 'from',
+                             'optional': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{table}',
+                                               'as',
+                                               '{display}']}],
+                             'depends_on': 'from',
+                             'name': 'join',
+                             'optional': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{table}',
+                                               'as',
+                                               '{display}']}],
+                             'depends_on': 'from',
+                             'name': 'left join',
+                             'optional': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{table}',
+                                               'as',
+                                               '{display}']}],
+                             'depends_on': 'from',
+                             'name': 'right join',
+                             'optional': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{table}',
+                                               'as',
+                                               '{display}']}],
+                             'depends_on': 'from',
+                             'name': 'full join',
+                             'optional': True},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'join',
+                             'name': 'on',
+                             'optional': True,
+                             'store_array': True},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'on',
+                             'jump': 'on',
+                             'name': 'and',
+                             'optional': True,
+                             'parent': 'on'},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'on',
+                             'jump': 'on',
+                             'name': 'or',
+                             'optional': True,
+                             'parent': 'on'},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'from',
+                             'name': 'where',
+                             'optional': True,
+                             'store_array': True},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'and',
+                             'optional': True,
+                             'parent': 'where'},
+                            {'data': [{'sig': ['{e1}', '<', '{e2}'],
+                                       'vars': {'c': '<'}},
+                                      {'sig': ['{e1}', '>', '{e2}'],
+                                       'vars': {'c': '>'}},
+                                      {'sig': ['{e1}', '>=', '{e2}'],
+                                       'vars': {'c': '>='}},
+                                      {'sig': ['{e1}', '<=', '{e2}'],
+                                       'vars': {'c': '<='}},
+                                      {'sig': ['{e1}', '!=', '{e2}'],
+                                       'vars': {'c': '!='}},
+                                      {'sig': ['{e1}', '<>', '{e2}'],
+                                       'vars': {'c': '<>'}},
+                                      {'sig': ['{e1}', 'not', '{e2}'],
+                                       'vars': {'c': 'not'}},
+                                      {'sig': ['{e1}', 'is', '{e2}'],
+                                       'vars': {'c': 'is'}},
+                                      {'sig': ['{e1}', 'like', '{e2}'],
+                                       'vars': {'c': 'like'}},
+                                      {'sig': ['{e1}', '=', '{e2}'],
+                                       'vars': {'c': '='}},
+                                      {'sig': ['{e1}',
+                                               'in',
+                                               '(',
+                                               '[e2]',
+                                               ')'],
+                                       'vars': {'c': 'in'}}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'or',
+                             'optional': True,
+                             'parent': 'where'},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'name': ['group', 'by'],
+                             'optional': True},
+                            {'data': [{'sig': ['union']}],
+                             'jump': 'select',
+                             'name': 'union',
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']},
+                                      {'sig': ['{column}', 'asc'],
+                                       'vars': {'direction': 1}},
+                                      {'sig': ['{column}', 'desc'],
+                                       'vars': {'direction': -1}}],
+                             'name': ['order', 'by'],
+                             'optional': True},
+                            {'data': [{'sig': ['{length}']},
+                                      {'sig': ['{start}',
+                                               ',',
+                                               '{length}']}],
+                             'name': 'limit',
+                             'optional': True,
+                             'specs': {'length': {'default': 0,
+                                                  'type': 'int'},
+                                       'start': {'default': 0,
+                                                 'type': 'int'}}}]},
+              {'name': 'set',
+               'segments': [{'arguments': 0,
+                             'data': [{'sig': ['{variable}',
+                                               '=',
+                                               '{value}'],
+                                       'vars': {'type': 'all'}}],
+                             'name': 'set'}]},
+              {'name': 'create procedure',
+               'segments': [{'arguments': None,
+                             'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': ['create', 'procedure'],
+                             'optional': False},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{parameter}']}],
+                             'name': ['parameters'],
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': [')'],
+                             'optional': False}]},
+              {'name': 'delimiter',
+               'segments': [{'data': [{'sig': ['{delimiter}']}],
+                             'name': 'delimiter'}]},
+              {'name': 'end',
+               'segments': [{'data': [{'sig': ['end']}], 'name': 'end'}]},
+              {'name': 'begin',
+               'segments': [{'data': [{'sig': ['begin']}], 'name': 'begin'}]},
+              {'name': 'commit',
+               'segments': [{'data': [{'sig': ['commit']}],
+                             'depends_on': 'begin',
+                             'name': 'commit'}]},
+              {'name': 'rollback',
+               'segments': [{'data': [{'sig': ['rollback']}],
+                             'depends_on': 'begin',
+                             'name': 'rollback'}]},
+              {'name': 'show output modules',
+               'segments': [{'data': [{'sig': ['show',
+                                               'output',
+                                               'modules']}],
+                             'name': ['show', 'output', 'modules']}]},
+              {'name': 'delete',
+               'segments': [{'data': [{'sig': ['delete']}],
+                             'name': 'delete'},
+                            {'data': [{'sig': ['{table}']}],
+                             'name': 'from'},
+                            {'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'name': 'where',
+                             'optional': True,
+                             'store_array': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'and',
+                             'optional': True,
+                             'parent': 'where'},
+                            {'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'or',
+                             'optional': True,
+                             'parent': 'where'}]},
+              {'name': 'insert',
+               'segments': [{'data': [{'sig': ['insert']}],
+                             'name': 'insert'},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'into'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '('},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'name': 'columns',
+                             'no_keyword': True},
+                            {'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': ')'},
+                            {'data': [{'sig': ['values']}],
+                             'dispose': True,
+                             'name': 'values'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '('},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{value}']}],
+                             'name': 'values',
+                             'no_keyword': True},
+                            {'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': ')'}]},
+              {'name': 'update',
+               'segments': [{'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'update'},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}',
+                                               '=',
+                                               '{expression}']}],
+                             'name': 'set'},
+                            {'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'name': 'where',
+                             'optional': True,
+                             'store_array': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'and',
+                             'optional': True,
+                             'parent': 'where'},
+                            {'data': [{'sig': ['{e1}', '{c}', '{e2}']}],
+                             'depends_on': 'where',
+                             'jump': 'where',
+                             'name': 'or',
+                             'optional': True,
+                             'parent': 'where'}]},
+              {'name': 'upsert',
+               'segments': [{'data': [{'sig': ['upsert']}],
+                             'name': 'upsert'},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'into'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '('},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'name': 'columns',
+                             'no_keyword': True},
+                            {'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': ')'},
+                            {'data': [{'sig': ['values']}],
+                             'dispose': True,
+                             'name': 'values'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '('},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{value}']}],
+                             'name': 'values',
+                             'no_keyword': True},
+                            {'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': ')'},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'name': ['on', 'duplicate', 'key'],
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}',
+                                               '=',
+                                               '{expression}']}],
+                             'key': 'set',
+                             'name': ['update'],
+                             'optional': True}]},
+              {'name': 'use',
+               'segments': [{'data': [{'sig': ['{table}']}], 'name': 'use'}]},
+              {'name': 'drop',
+               'segments': [{'data': [{'sig': ['table', '{table}']},
+                                      {'sig': ['table',
+                                               '{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'drop'}]},
+              {'name': 'create',
+               'segments': [{'data': [{'sig': ['create']}],
+                             'name': 'create',
+                             'optional': False},
+                            {'data': [{'sig': ['temporary']}],
+                             'name': 'temporary',
+                             'optional': True},
+                            {'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'table',
+                             'optional': False,
+                             'type': 'single'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '('},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'name': 'columns',
+                             'no_keyword': True},
+                            {'data': [{'sig': [')']}],
+                             'dispose': True,
+                             'name': ')'},
+                            {'data': [{'sig': ['=', '{file}']}],
+                             'name': 'file',
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{fifo}']}],
+                             'name': 'fifo',
+                             'optional': True,
+                             'type': 'single'},
+                            {'data': [{'sig': ['=',
+                                               '{type}',
+                                               'url',
+                                               '=',
+                                               '{url}',
+                                               'user',
+                                               '=',
+                                               '{user}',
+                                               'password',
+                                               '=',
+                                               '{password}',
+                                               'dir',
+                                               '=',
+                                               '{dir}',
+                                               'file',
+                                               '{file}']}],
+                             'name': 'repo',
+                             'optional': True,
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{delimiter}']}],
+                             'name': 'delimiter',
+                             'optional': True,
+                             'specs': {'field': {'default': ',',
+                                                 'type': 'char'}},
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{whitespace}']}],
+                             'name': 'whitespace',
+                             'optional': True,
+                             'specs': {'whitespace': {'type': 'bool'}},
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{errors}']}],
+                             'name': 'errors',
+                             'optional': True,
+                             'specs': {'errors': {'type': 'bool'}},
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{comments}']}],
+                             'name': 'comments',
+                             'optional': True,
+                             'specs': {'comments': {'type': 'bool'}},
+                             'type': 'single'},
+                            {'data': [{'sig': ['=', '{data_starts_on}']}],
+                             'name': 'data_starts_on',
+                             'optional': True,
+                             'specs': {'data_starts_on': {'default': 1,
+                                                          'type': 'int'}},
+                             'type': 'single'}]},
+              {'name': 'update table',
+               'segments': [{'data': [{'sig': ['table', '{table}']}],
+                             'name': 'update'},
+                            {'data': [{'sig': ['(']}],
+                             'dispose': True,
+                             'name': '(',
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['{column}']}],
+                             'depends_on': '(',
+                             'name': 'columns',
+                             'no_keyword': True,
+                             'optional': True},
+                            {'data': [{'sig': [')']}],
+                             'depends_on': '(',
+                             'dispose': True,
+                             'name': ')',
+                             'optional': True},
+                            {'data': [{'sig': ['=', '{file}']}],
+                             'name': 'file',
+                             'optional': True},
+                            {'data': [{'sig': ['=', '{field}']}],
+                             'name': 'delimiter',
+                             'optional': True,
+                             'specs': {'field': {'default': ',',
+                                                 'type': 'char'}}},
+                            {'data': [{'sig': ['=', '{whitespace}']}],
+                             'name': 'whitespace',
+                             'optional': True,
+                             'specs': {'whitespace': {'type': 'bool'}}},
+                            {'data': [{'sig': ['=', '{whitespace}']}],
+                             'name': 'errors',
+                             'optional': True,
+                             'specs': {'errors': {'type': 'bool'}}},
+                            {'data': [{'sig': ['=', '{comments}']}],
+                             'name': 'comments',
+                             'optional': True,
+                             'specs': {'comments': {'type': 'bool'}}},
+                            {'data': [{'sig': ['=', '{data_starts_on}']}],
+                             'name': 'data_starts_on',
+                             'optional': True,
+                             'specs': {'data_starts_on': {'type': 'int'}}}]},
+              {'name': 'describe table',
+               'segments': [{'data': [{'sig': ['{table}']},
+                                      {'sig': ['{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': ['describe', 'table']}]}],
+ 'functions': [{'arguments': None, 'name': 'database'},
+               {'arguments': None, 'name': 'row_number'},
+               {'arguments': [{'name': 'where', 'required': True}],
+                'name': 'count'},
+               {'arguments': [{'name': 'column', 'required': True}],
+                'name': 'sum'},
+               {'arguments': None, 'name': 'version'},
+               {'arguments': [{'name': 'column', 'required': True}],
+                'name': 'upper'},
+               {'arguments': [{'name': 'column', 'required': True}],
+                'name': 'lower'},
+               {'arguments': [{'name': 'arg1', 'required': True},
+                              {'name': 'arg2', 'required': True}],
+                'name': 'cat'},
+               {'arguments': None, 'name': 'date'},
+               {'arguments': None, 'name': 'time'},
+               {'arguments': None, 'name': 'datetime'}]}
+def cleanup_language():
+    from pprint import pprint
+    for command in language['commands']:
+        for segment in command['segments']:
+            not_found=None
+            if 'data' not in segment:
+                segment['data']=[]
+            elif  segment['data']==None:
+                segment['data']=[]
+            elif  segment['data']==False:
+                segment['data']=[]
+            else:
+                not_found=True
+            if not_found==None:
+                if isinstance(segment['name'],list):
+                    segment['data']=[{'sig':segment['name']}]+segment['data']
+                else:
+                    segment['data']=[{'sig':[segment['name']]}]+segment['data']
+            if 'arguments' in segment:
+                if  segment['arguments']==1:
+                    del(segment['arguments'])
+    pprint(language)
 
         
 # ############################################################################
@@ -647,10 +727,10 @@ sql_syntax = {
 class lexer:
     def __init__(self, query, debug=False):
         self.keep_non_keywords=True
-        self.debug = debug
+        self.debug = True
         self.query_objects = []
         if  query==None:
-            raise Exception("Invalid SQL")
+            raise Exception("Invalid Syntax")
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
@@ -669,320 +749,296 @@ class lexer:
                 break
             self.query_objects.append(parsed)
         if None == self.query_objects:
-            raise Exception("Invalid SQL")
+            raise Exception("Invalid Syntax")
     def parse(self, tokens):
         sql_object = []
+        for command in language['commands']:
+            res=self.test_syntax(command,tokens)
+            if res:
+                return res
+    class flags:
+        def __init__(self,command_fragment):
+            if 'dispose' in command_fragment:
+                self.dispose = command_fragment['dispose']
+            else:
+                self.dispose = False
+            if 'no_keyword' in command_fragment:
+                self.no_keyword = command_fragment['no_keyword']
+            else:
+                self.no_keyword = False
+            if 'store_array' in command_fragment:
+                self.store_array = command_fragment['store_array']
+            else:
+                self.store_array = False
+            if 'key' in command_fragment:
+                self.arg_key=command_fragment['key']
+            else: 
+                self.arg_key=None
+            if 'parent' in command_fragment:
+                self.parent = command_fragment['parent']
+            else:
+                self.parent = None
+            if 'type' in command_fragment:
+                self.meta_type = command_fragment['type']
+            else:
+                self.meta_type = None
+            if 'optional' in command_fragment:
+                self.optional = command_fragment['optional']
+            else:
+                self.optional = False
+            if isinstance(command_fragment['name'], list):
+                self.object_id = ' '.join([str(x) for x in command_fragment['name']])
+                self.object_id = self.object_id.lower()
+            else:
+                self.object_id = command_fragment['name'].lower()
+            if self.arg_key:
+                self.object_id=self.arg_key
+    def test_syntax(self,command,tokens):
         debug = True
         query_object = {}
-        for query in sql_syntax['query_matrix']:
-            token_index = 0
-            self.info("-----", query['query'])
-            keyword_found = False
-            switch_index = 0
-            query_mode = None
+        token_index = 0
+        self.info("-----", command['name'])
+        keyword_found = False
+        segment_index = 0
+        query_mode = None
+        curent_object = {}
+        segment = {}
+        while segment_index < len(command['segments']) and token_index < len(tokens):
+            segment = command['segments'][segment_index]
+            segment_index += 1
             curent_object = {}
-            switch = {}
-            while switch_index < len(query['switch']) and token_index < len(tokens):
-                self.info("Token Index", token_index, "token", tokens[token_index])
-                self.info("Token Length", len(tokens))
-                switch = query['switch'][switch_index]
-                switch_index += 1
-                curent_object = {}
-                if 'dispose' in switch:
-                    dispose = switch['dispose']
-                else:
-                    dispose = False
-                if 'no_keyword' in switch:
-                    no_keyword = switch['no_keyword']
-                else:
-                    no_keyword = False
-                if 'store_array' in switch:
-                    store_array = switch['store_array']
-                else:
-                    store_array = False
-                if 'key' in switch:
-                    arg_key=switch['key']
-                else: 
-                    arg_key=None
-                if 'parent' in switch:
-                    parent = switch['parent']
-                else:
-                    parent = None
-                if 'type' in switch:
-                    meta_type = switch['type']
-                else:
-                    meta_type = None
-                if 'jump' in switch:
-                    jump = switch['jump']
-                else:
-                    jump = None
-                if 'optional' in switch:
-                    optional = switch['optional']
-                else:
-                    optional = False
-                if 'group' in switch:
-                    group = switch['group']
-                else:
-                    group = False
-                if isinstance(switch['name'], list):
-                    object_id = ' '.join([str(x) for x in switch['name']])
-                    object_id = object_id.lower()
-                else:
-                    object_id = switch['name']
-                    object_id = object_id.lower()
-                if arg_key:
-                    object_id=arg_key
-                self.info("Object Id:", object_id, "Token Id:", token_index)
-                if False == no_keyword:
-                    keyword_compare = self.get_sub_array(switch, 'name')
-                    haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
-                    self.info(keyword_compare)
-                    if True == self.single_array_match(keyword_compare, haystack):
-                        self.info("match", keyword_compare, haystack)
-                        curent_object['mode'] = object_id
-                        if switch_index == 1:
-                            query_mode = query['query']
-                        keyword_found = True
+            flags=lexer.flags(segment)
+            curent_object['mode'] = flags.object_id
+            query_mode = command['name']
+            self.info("Object Id:", flags.object_id, "Token Id:", token_index)
+            base_argument={}
+            if None == segment['data'] or False == segment['data']:
+                self.info("No data to match")
+                if not flags.dispose:
+                    self.info("----------Adding", curent_object['mode'])
+                    query_object[curent_object['mode']] = None
+                jump = None
+                if 'jump' in segment:
+                    self.info("JUMP")
+                    jump = segment['jump']
+                if None != jump:
+                    tsi = 0
+                    for ts in command['segments']:
+                        if ts['name'] == jump:
+                            self.info("Jumping from ", segment_index, tsi + 1)
+                            segment_index = tsi + 1
+                            token_index+=1
+                            break
+                        tsi += 1
+                in_argument = False
+            else:
+                in_argument = True
+                argument_index = 0
+                while True == in_argument:
+                    self.info("---in argument")
+                    if 'depends_on' in segment:
+                        depends_on = segment['depends_on']
                     else:
-                        if False == optional:
-                            if True == debug:
-                                self.info("Exiting")
+                        self.info("--- Depends on nothing")
+                        depends_on = None
+                    if None != depends_on:
+                        depends_oncompare = self.get_sub_array(depends_on)
+                        dependency_found = False
+                        for q_o in query_object:
+                            haystack = self.get_sub_array(q_o)
+                            if True == self.single_array_match(depends_oncompare, haystack):
+                                dependency_found = True
+                        if False == dependency_found:
+                            self.info("Missing", depends_on)
                             break
                         else:
-                            continue
-                    if False == keyword_found:
-                        self.info("Keywords exhausted")
+                            self.info("Dependency found", depends_on)
+                    if 'arguments' in segment:
+                        arguments = segment['arguments']
+                    else:
+                        arguments = 1
+                    if arguments == None:
+                        arguments = 1
+                    self.info("Number of arguments", arguments)
+                    data = self.get_sub_array(segment, 'data')
+                    match_len = 0
+                    match = None
+                    for sig in data:
+                        signature_compare = self.get_sub_array(sig, 'sig')
+                        haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
+                        if True == self.single_array_match(signature_compare, haystack):
+                            if len(signature_compare) > match_len:
+                                match_len = len(signature_compare)
+                                match = signature_compare
+                                signature=sig
+                                self.info("Best Match", match_len)
+                    if None == match:
+                        self.info("No match")
                         break
-                    token_index += len(keyword_compare)
-                    self.info("advance token index ", token_index, switch['data'])
-                else:
-                    curent_object['mode'] = object_id
-                base_argument={}
-                if None == switch['data'] or False == switch['data']:
-                    self.info("No data to match")
-                    if not dispose:
-                        self.info("----------Adding", curent_object['mode'])
-                        query_object[curent_object['mode']] = None
-                    jump = None
-                    if 'jump' in switch:
-                        self.info("JUMP in no data")
-                        jump = switch['jump']
-                    if None != jump:
-                        tsi = 0
-                        for ts in query['switch']:
-                            if ts['name'] == jump:
-                                self.info("Jumping from ", switch_index, tsi + 1)
-                                switch_index = tsi + 1
-                                token_index+=1
-                                break
-                            tsi += 1
-                    in_argument = False
-                else:
-                    in_argument = True
-                    argument_index = 0
-                    while True == in_argument:
-                        self.info("---in argument")
-                        if 'depends_on' in switch:
-                            depends_on = switch['depends_on']
-                        else:
-                            self.info("--- Depends on nothing")
-                            depends_on = None
-                        if None != depends_on:
-                            depends_oncompare = self.get_sub_array(depends_on)
-                            dependency_found = False
-                            for q_o in query_object:
-                                haystack = self.get_sub_array(q_o)
-                                if True == self.single_array_match(depends_oncompare, haystack):
-                                    dependency_found = True
-                            if False == dependency_found:
-                                self.info("Missing", depends_on)
-                                break
+                    else:
+                        base_argument={}
+                        if 'vars' in signature:
+                            for var_name in signature['vars']:
+                                self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
+                                base_argument[var_name]=signature['vars'][var_name]
+                        w_index = 0
+                        argument = base_argument
+                        for word in match:
+                            variable_data=tokens[token_index + w_index]['data']
+                            if word[0:1] == '[' and word[-1] == ']': 
+                                definition='array'
+                            elif word[0:1] == '{' and word[-1] == '}':
+                                    definition='single'
                             else:
-                                self.info("Dependency found", depends_on)
-                        if 'arguments' in switch:
-                            arguments = switch['arguments']
-                        else:
-                            arguments = 1
-                        self.info("Number of arguments", arguments)
-                        data = self.get_sub_array(switch, 'data')
-                        match_len = 0
-                        match = None
-                        for sig in data:
-                            signature_compare = self.get_sub_array(sig, 'sig')
-                            haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
-                            if True == self.single_array_match(signature_compare, haystack):
-                                if len(signature_compare) > match_len:
-                                    match_len = len(signature_compare)
-                                    match = signature_compare
-                                    signature=sig
-                                    self.info("Best Match", match_len)
-                        if None == match:
-                            self.info("No match")
-                            break
-                        else:
-                            base_argument={}
-                            if 'vars' in signature:
-                                for var_name in signature['vars']:
-                                    self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
-                                    base_argument[var_name]=signature['vars'][var_name]
-                            w_index = 0
-                            argument = base_argument
-                            for word in match:
-                                variable_data=tokens[token_index + w_index]['data']
-                                if word[0:1] == '[' and word[-1] == ']': 
-                                    definition='array'
-                                elif word[0:1] == '{' and word[-1] == '}':
-                                     definition='single'
-                                else:
-                                    definition=None
-                                if definition:
-                                    variable=word[1:-1]
-                                    variable_type='string'
-                                    if 'specs' in switch:
-                                        if variable in switch['specs']:
-                                            if 'type' in switch['specs'][variable]:
-                                                variable_type=switch['specs'][variable]['type']
-                                    if variable_type=='int':
-                                        try:
-                                            argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
-                                        except BaseException:
-                                            raise Exception ("Variable data not an integer")
-                                    elif variable_type=='bool':
-                                        if variable_data.lower()=='true':
-                                            argument[variable] =True
-                                        elif variable_data.lower()=='false':
-                                            argument[variable] =False
-                                        else:
-                                            raise Exception("Variable Data not boolean")
-                                    elif variable_type=='char':
-                                        if len(variable_data)!=1:
-                                            raise Exception("variable data length exceeded, type char")
-                                        argument[variable] =variable_data
-                                    elif variable_type=='string':
-                                        argument[variable] =variable_data
-                                else:
-                                    if self.keep_non_keywords:
-                                        argument[word] = variable_data
-                                w_index += 1
-                            if 'arguments' not in curent_object:
-                                curent_object['arguments'] = []
-                            if arguments == 1:
-                                curent_object['arguments'] = argument
+                                definition=None
+                            if definition:
+                                variable=word[1:-1]
+                                variable_type='string'
+                                if 'specs' in segment:
+                                    if variable in segment['specs']:
+                                        if 'type' in segment['specs'][variable]:
+                                            variable_type=segment['specs'][variable]['type']
+                                if variable_type=='int':
+                                    try:
+                                        argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
+                                    except BaseException:
+                                        raise Exception ("Variable data not an integer")
+                                elif variable_type=='bool':
+                                    if variable_data.lower()=='true':
+                                        argument[variable] =True
+                                    elif variable_data.lower()=='false':
+                                        argument[variable] =False
+                                    else:
+                                        raise Exception("Variable Data not boolean")
+                                elif variable_type=='char':
+                                    if len(variable_data)!=1:
+                                        raise Exception("variable data length exceeded, type char")
+                                    argument[variable] =variable_data
+                                elif variable_type=='string':
+                                    argument[variable] =variable_data
                             else:
-                                curent_object['arguments'].append(argument)
-                            self.info("match", match)
-                            token_index += len(match)
-                            if arguments != 0:
-                                self.info("print not in list")
-                                argument_index += 1
-                                if argument_index >= arguments:
+                                if self.keep_non_keywords:
+                                    argument[word] = variable_data
+                            w_index += 1
+                        if 'arguments' not in curent_object:
+                            curent_object['arguments'] = []
+                        if arguments == 1:
+                            curent_object['arguments'] = argument
+                        else:
+                            curent_object['arguments'].append(argument)
+                        self.info("match", match)
+                        token_index += len(match)
+                        if arguments != 0:
+                            self.info("print not in list")
+                            argument_index += 1
+                            if argument_index >= arguments:
+                                self.info("----------Adding", curent_object['mode'])
+                                if True == flags.store_array:
+                                    if curent_object['mode'] not in query_object:
+                                        query_object[curent_object['mode']] = []
+                                    query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
+                                else:
+                                    if None == flags.parent:
+                                        if flags.meta_type=='single':
+                                            for flags.arg_key in curent_object['arguments']:
+                                                query_object[flags.arg_key] = curent_object['arguments'][flags.arg_key]
+                                        else:    
+                                            query_object[curent_object['mode']] = curent_object['arguments']
+                                        self.info("NO APPEND")
+                                    else:
+                                        self.info("APPEND")
+                                        if flags.parent not in query_object:
+                                            query_object[flags.parent]=[]
+                                        query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
+                                jump = None
+                                if 'jump' in segment:
+                                    self.info("JUMP")
+                                    jump = segment['jump']
+                                if None != jump:
+                                    tsi = 0
+                                    for ts in command['segments']:
+                                        if ts['name'] == jump:
+                                            self.info("Jumping from ", segment_index, tsi + 1)
+                                            segment_index = tsi + 1
+                                            break
+                                        tsi += 1
+                                in_argument = False
+                        else:
+                            self.info("in list")
+                            if len(tokens) <= token_index:
+                                self.info("at the end")
+                                if True == flags.store_array:
+                                    if curent_object['mode'] not in query_object:
+                                        query_object[curent_object['mode']] = []
+                                    query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
+                                else:
+                                    if None == flags.parent:
+                                        query_object[curent_object['mode']] = curent_object['arguments']
+                                        self.info("NO APPEND")
+                                    else:
+                                        self.info("APPEND")
+                                        if flags.parent not in query_object:
+                                            query_object[flags.parent]=[]
+                                        query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
+                            if len(tokens) > token_index:
+                                self.info("--looking ahead")
+                                self.info("----", tokens[token_index]['data'])
+                                if tokens[token_index]['data'] != ',':
+                                    self.info("---not list")
                                     self.info("----------Adding", curent_object['mode'])
-                                    if True == store_array:
+                                    if True == flags.store_array:
                                         if curent_object['mode'] not in query_object:
                                             query_object[curent_object['mode']] = []
                                         query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
                                     else:
-                                        if None == parent:
-                                            if meta_type=='single':
-                                                for arg_key in curent_object['arguments']:
-                                                    query_object[arg_key] = curent_object['arguments'][arg_key]
-                                            else:    
-                                                query_object[curent_object['mode']] = curent_object['arguments']
-                                            self.info("NO APPEND")
-                                        else:
-                                            self.info("APPEND")
-                                            if parent not in query_object:
-                                                query_object[parent]=[]
-                                            query_object[parent].append({curent_object['mode']: curent_object['arguments']})
-                                    jump = None
-                                    if 'jump' in switch:
-                                        self.info("JUMP")
-                                        jump = switch['jump']
-                                    if None != jump:
-                                        tsi = 0
-                                        for ts in query['switch']:
-                                            if ts['name'] == jump:
-                                                self.info("Jumping from ", switch_index, tsi + 1)
-                                                switch_index = tsi + 1
-                                                break
-                                            tsi += 1
-                                    in_argument = False
-                            else:
-                                self.info("in list")
-                                if len(tokens) <= token_index:
-                                    self.info("at the end")
-                                    if True == store_array:
-                                        if curent_object['mode'] not in query_object:
-                                            query_object[curent_object['mode']] = []
-                                        query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
-                                    else:
-                                        if None == parent:
+                                        if None == flags.parent:
                                             query_object[curent_object['mode']] = curent_object['arguments']
                                             self.info("NO APPEND")
                                         else:
                                             self.info("APPEND")
-                                            if parent not in query_object:
-                                                query_object[parent]=[]
-                                            query_object[parent].append({curent_object['mode']: curent_object['arguments']})
-                                if len(tokens) > token_index:
-                                    self.info("--looking ahead")
-                                    self.info("----", tokens[token_index]['data'])
-                                    if tokens[token_index]['data'] != ',':
-                                        self.info("---not list")
-                                        self.info("----------Adding", curent_object['mode'])
-                                        if True == store_array:
-                                            if curent_object['mode'] not in query_object:
-                                                query_object[curent_object['mode']] = []
-                                            query_object[curent_object['mode']].append({curent_object['mode']: curent_object['arguments']})
-                                        else:
-                                            if None == parent:
-                                                query_object[curent_object['mode']] = curent_object['arguments']
-                                                self.info("NO APPEND")
-                                            else:
-                                                self.info("APPEND")
-                                                if parent not in query_object:
-                                                    query_object[parent]=[]
-                                                query_object[parent].append({curent_object['mode']: curent_object['arguments']})
-                                        jump = None
-                                        if 'jump' in switch:
-                                            jump = switch['jump']
-                                        if None != jump:
-                                            tsi = 0
-                                            for ts in query['switch']:
-                                                if ts['name'] == jump:
-                                                    self.info("Jumping from ", switch_index, tsi + 1)
-                                                    switch_index = tsi + 1
-                                                    break
-                                                tsi += 1
-                                        in_argument = False
-                                    else:
-                                        self.info("------more list")
-                                        token_index += 1
-            self.info("Switch Index: {0}, Token Index:{1}, Token Len: {2}".format(switch_index, token_index, len(tokens)))
-            self.info(curent_object)
-            if token_index == len(tokens):
-                result=self.validate(curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode)
-                if False == result:
-                    break
-                else:
-                    return result
-        return False
-    def validate(self,curent_object,tokens,token_index,switch,query,switch_index,query_object,query_mode):
+                                            if flags.parent not in query_object:
+                                                query_object[flags.parent]=[]
+                                            query_object[flags.parent].append({curent_object['mode']: curent_object['arguments']})
+                                    jump = None
+                                    if 'jump' in segment:
+                                        jump = segment['jump']
+                                    if None != jump:
+                                        tsi = 0
+                                        for ts in command['segments']:
+                                            if ts['name'] == jump:
+                                                self.info("Jumping from ", segment_index, tsi + 1)
+                                                segment_index = tsi + 1
+                                                break
+                                            tsi += 1
+                                    in_argument = False
+                                else:
+                                    self.info("------more list")
+                                    token_index += 1
+        self.info(segment_index, token_index, len(tokens))
+        self.info(curent_object)
+        if token_index == len(tokens):
+            result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
+            if False == result:
+                return None
+            else:
+                return result
+        return None
+    def validate(self,curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode):
         self.info(curent_object)
         self.info("############################think its a match")
-        if 'arguments' not in curent_object and 'arguments' in switch:
+        if 'arguments' not in curent_object and 'arguments' in segment:
             self.info("Missing argument in last element")
             bad = True
             return False
-        if len(query['switch']) >= switch_index:
+        if len(command['segments']) >= segment_index:
             self.info("still checking")
             bad = False
-            for t in range(switch_index, len(query['switch'])):
-                if 'optional' not in query['switch'][t]:
+            for t in range(segment_index, len(command['segments'])):
+                if 'optional' not in command['segments'][t]:
                     bad = True
                     return False
                 else:
-                    if not query['switch'][t]['optional']:
+                    if not command['segments'][t]['optional']:
                         bad = True
                         return False
             if True == bad:
@@ -998,7 +1054,7 @@ class lexer:
                     if 'function' in node:
                         is_function = True
                         self.info("It's a function!")
-                        for f in sql_syntax['functions']:
+                        for f in language['functions']:
                             if f['name'] == node['function']:
                                 argindex = 1
                                 if f['arguments'] is not None:
