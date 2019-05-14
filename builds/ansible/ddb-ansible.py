@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.18'
+__version__='1.2.19'
 
         
 # ############################################################################
@@ -892,6 +892,7 @@ class lexer:
         segment = {}
         while segment_index < len(command['segments']) and token_index < len(tokens):
             segment = command['segments'][segment_index]
+            self.info("############# TESTING : {0}.{1}".format(command['name'],segment['name']))
             segment_index += 1
             curent_object = {}
             flags=lexer.flags(segment)
