@@ -615,3 +615,50 @@ language = {
 
     ]  # name matrix array
 }  # sql_syntax
+
+
+
+def cleanup_language():
+    from pprint import pprint
+    # all commands
+    for command in language['commands']:
+        for segment in command['segments']:
+            not_found=None
+            if 'data' not in segment:
+                segment['data']=[]
+            elif  segment['data']==None:
+                segment['data']=[]
+            elif  segment['data']==False:
+                segment['data']=[]
+            else:
+                not_found=True
+            if not_found==None:
+                if isinstance(segment['name'],list):
+                    segment['data']=[{'sig':segment['name']}]+segment['data']
+                else:
+                    segment['data']=[{'sig':[segment['name']]}]+segment['data']
+          
+            else:
+                if 'arguments' in segment:
+                   if segment['arguments']==0:
+                           continue
+                for data in segment['data']:
+
+                    if None == data:
+                        data={'sig':[]}
+
+                    if isinstance(segment['name'],list):
+                        s2=segment['name']
+                    else:
+                        s2=[segment['name']]
+                    #print data['sig'],s2
+                    data['sig']=s2+data['sig']
+            
+            if 'arguments' in segment:
+                if  segment['arguments']==1:
+                    del(segment['arguments'])
+    pprint(language)
+
+cleanup_language()
+
+# updater for old language style
