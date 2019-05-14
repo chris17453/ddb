@@ -1,22 +1,4 @@
-
-
-#  name: "name"
-#  segments: signatures to match against 
-#     arguments: optional, 1 or 0 for unlimited (comma seperated)
-#     data: optional
-#          vars: variabls to manually set
-#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped
-#     name: initial string to match against to enter this name, this is the index of the object
-#     optional: can we skip this
-#     key: override name key
-#     depends_on: do not match unless the other variable is present 
-#     jump: goto an ealier command for matching, to repeat a loop set for multiple matches
-#     parent: override the name, and place data on this index
-#     store_array: allow multiple keys in an array at this index
-#     specs :{'variable_name': {'type': 'int', 'default': 0} },
-#     no_keyword:True ...?
-
-language={'commands': [{'name': 'show columns',
+{'commands': [{'name': 'show columns',
                'segments': [{'data': [{'sig': ['show', 'columns']}],
                              'name': ['show', 'columns']},
                             {'data': [{'sig': ['from', '{table}']},
