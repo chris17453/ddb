@@ -1,21 +1,4 @@
 
-
-#  name: "name"
-#  segments: signatures to match against 
-#     arguments: optional, 1 or 0 for unlimited (comma seperated)
-#     data: optional
-#          vars: variabls to manually set
-#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped
-#     name: initial string to match against to enter this name, this is the index of the object
-#     optional: can we skip this
-#     key: override name key
-#     depends_on: do not match unless the other variable is present 
-#     jump: goto an ealier command for matching, to repeat a loop set for multiple matches
-#     parent: override the name, and place data on this index
-#     store_array: allow multiple keys in an array at this index
-#     specs :{'variable_name': {'type': 'int', 'default': 0} },
-#     no_keyword:True ...?
-
 language = {
     'functions': [{'name': 'database', 'arguments': None},
                   {'name': 'row_number', 'arguments': None},
@@ -632,45 +615,3 @@ language = {
 
     ]  # name matrix array
 }  # sql_syntax
-
-
-
-def cleanup_language():
-    from pprint import pprint
-    # all commands
-    for command in language['commands']:
-        for segment in command['segments']:
-            not_found=None
-            if 'data' not in segment:
-                segment['data']=[]
-            elif  segment['data']==None:
-                segment['data']=[]
-            elif  segment['data']==False:
-                segment['data']=[]
-            else:
-                not_found=True
-            if not_found==None:
-                if isinstance(segment['name'],list):
-                    segment['data']=[{'sig':segment['name']}]+segment['data']
-                else:
-                    segment['data']=[{'sig':[segment['name']]}]+segment['data']
-          
-            else:
-                for data in segment['data']:
-                    if None == data:
-                        data={'sig':[]}
-
-                    if isinstance(segment['name'],list):
-                        s2=segment['name']
-                    else:
-                        s2=[segment['name']]
-                    #print data['sig'],s2
-                    data['sig']=s2+data['sig']
-            
-            if 'arguments' in segment:
-                if  segment['arguments']==1:
-                    del(segment['arguments'])
-    pprint(language)
-
-        
-cleanup_language()
