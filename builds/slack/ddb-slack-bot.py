@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.23'
+__version__='1.2.24'
 
         
 # ############################################################################
@@ -559,7 +559,7 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['{column}']}],
-                             'name': 'group by columns'],
+                             'name': 'group by columns',
                              'parent':'group by',
                              'depends_on':'group by',
                              'optional': True},
