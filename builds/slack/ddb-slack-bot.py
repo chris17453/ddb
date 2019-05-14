@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.33'
+__version__='1.2.34'
 
         
 # ############################################################################
@@ -594,8 +594,8 @@ language={'commands': [{'name': 'show columns',
                                                '=',
                                                '{value}'],
                                        'vars': {'type': 'all'}}],
-                             'name': 'set'
-                             'optional':True
+                             'name': 'set',
+                             'optional':True,
                              'depends_on':'set header'}]},
               {'name': 'create procedure',
                'segments': [{'arguments': None,
