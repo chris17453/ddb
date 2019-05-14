@@ -540,8 +540,8 @@ language={'commands': [{'name': 'show columns',
                                       {'sig': ['{column}', 'desc'],
                                        'vars': {'direction': -1}}],
                              'name': 'order by columns',
-                             'depends_on':'order by'
-                             'parent':'order by'
+                             'depends_on':'order by',
+                             'parent':'order by',
                              'optional': True},
                             {'data': [{'sig': ['limit', '{length}']},
                                       {'sig': ['limit',
