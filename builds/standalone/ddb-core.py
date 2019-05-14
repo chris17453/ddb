@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.32'
+__version__='1.2.33'
 
         
 # ############################################################################
@@ -580,7 +580,7 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data':[{'sig':['set']}],
                             'name':'set header',
                             'optional':True
-                            }
+                            },
                             {'arguments': 0,
                              'data': [{'sig': [
                                                '{variable}',

@@ -560,8 +560,8 @@ language={'commands': [{'name': 'show columns',
                                                '=',
                                                '{value}'],
                                        'vars': {'type': 'all'}}],
-                             'name': 'set'
-                             'optional':True
+                             'name': 'set',
+                             'optional':True,
                              'depends_on':'set header'}]},
               {'name': 'create procedure',
                'segments': [{'arguments': None,
