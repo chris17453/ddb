@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.31'
+__version__='1.2.32'
 
         
 # ############################################################################
@@ -670,8 +670,8 @@ language={'commands': [{'name': 'show columns',
                                        'start': {'default': 0,
                                                  'type': 'int'}}}]},
               {'name': 'set',
-               'segments': [{'data':[{'sig':['set']}]
-                            'name':'set header'
+               'segments': [{'data':[{'sig':['set']}],
+                            'name':'set header',
                             'optional':True
                             }
                             {'arguments': 0,
