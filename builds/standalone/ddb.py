@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.37'
+__version__='1.2.38'
 
         
 # ############################################################################
@@ -995,18 +995,18 @@ class lexer:
             if token_length == 0:
                 continue
             parsed = self.parse(tokens)
-            if False == parsed:
+            if None == parsed:
                 self.query_objects = None
                 break
             self.query_objects.append(parsed)
         if None == self.query_objects:
             raise Exception("Invalid Syntax")
     def parse(self, tokens):
-        sql_object = []
         for command in language['commands']:
             res=self.test_syntax(command,tokens)
             if res:
                 return res
+        return None
     class flags:
         def __init__(self,command_fragment):
             if 'dispose' in command_fragment:
