@@ -190,7 +190,7 @@ class lexer:
             argument_index = 0
             while True == in_argument:
 
-                self.info("---in argument")
+                #self.info("---in argument")
 
                 # DEPENDENCY
                 # DEPENDENCY
@@ -198,8 +198,8 @@ class lexer:
 
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
+                    self.info("Depends on {0}".format(depends_on))
                 else:
-                    self.info("--- Depends on nothing")
                     depends_on = None
 
                 # if there is a dependency, enforce
