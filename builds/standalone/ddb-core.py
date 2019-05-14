@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.22'
+__version__='1.2.23'
 
         
 # ############################################################################
@@ -547,8 +547,18 @@ language={'commands': [{'name': 'show columns',
                              'name': 'union',
                              'optional': True},
                             {'arguments': 0,
+                             'data': [{'sig': ['group', 'by']}],
+                             'name': 'group by',
+                             'optional': True},
+                            {'arguments': 0,
                              'data': [{'sig': ['{column}']}],
-                             'name': ['group', 'by'],
+                             'name': 'group by columns'],
+                             'parent':'group by',
+                             'depends_on':'group by',
+                             'optional': True},
+                            {'arguments': 0,
+                             'data': [{'sig': ['order', 'by']}],
+                             'name': 'order by',
                              'optional': True},
                             {'arguments': 0,
                              'data': [{'sig': ['{column}']},
@@ -556,7 +566,9 @@ language={'commands': [{'name': 'show columns',
                                        'vars': {'direction': 1}},
                                       {'sig': ['{column}', 'desc'],
                                        'vars': {'direction': -1}}],
-                             'name': ['order', 'by'],
+                             'name': 'order by columns',
+                             'depends_on':'order by'
+                             'parent':'order by'
                              'optional': True},
                             {'data': [{'sig': ['limit', '{length}']},
                                       {'sig': ['limit',
