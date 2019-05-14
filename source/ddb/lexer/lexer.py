@@ -37,7 +37,7 @@ class lexer:
                 continue
 
             parsed = self.parse(tokens)
-            if False == parsed:
+            if None == parsed:
                 self.query_objects = None
                 break
             self.query_objects.append(parsed)
@@ -46,8 +46,6 @@ class lexer:
             raise Exception("Invalid Syntax")
 
     def parse(self, tokens):
-
-        sql_object = []
         # SOME TODO!
         # loop through commands, return the first matching result
 
@@ -56,6 +54,7 @@ class lexer:
             if res:
                 return res
 
+        return None
     # place holder for the status of a command fragment
     class flags:
         def __init__(self,command_fragment):
