@@ -112,6 +112,7 @@ class lexer:
         while segment_index < len(command['segments']) and token_index < len(tokens):
             # set the state
             segment = command['segments'][segment_index]
+            self.info("############# TESTING : {0}.{1}".format(command['name'],segment['name']))
             segment_index += 1
             curent_object = {}
             flags=lexer.flags(segment)
