@@ -4,7 +4,7 @@ import time
 import pprint
 import uuid
 import logging
-from subprocess import Popen
+from subprocess import Popen,PIPE
 from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
