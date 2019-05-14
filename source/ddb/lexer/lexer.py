@@ -278,18 +278,24 @@ class lexer:
                                 try:
                                     argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
                                 except BaseException:
-                                    err_msg="Variable data not an integer {0}".format(variable_data)
-                                    raise Exception (err_msg)
+                                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                                    pass
+                                    break
+                                    #raise Exception (err_msg)
                             elif variable_type=='bool':
                                 if variable_data.lower()=='true':
                                     argument[variable] =True
                                 elif variable_data.lower()=='false':
                                     argument[variable] =False
                                 else:
-                                    raise Exception("Variable Data not boolean")
+                                    pass
+                                    break
+                                    #raise Exception("Variable Data not boolean")
                             elif variable_type=='char':
                                 if len(variable_data)!=1:
-                                    raise Exception("variable data length exceeded, type char")
+                                    pass
+                                    break
+                                    #raise Exception("variable data length exceeded, type char")
                                 argument[variable] =variable_data
 
                             elif variable_type=='string':
