@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.35'
+__version__='1.2.36'
 
         
 # ############################################################################
@@ -759,17 +759,26 @@ language={'commands': [{'name': 'show columns',
                             {'data': [{'sig': [')']}],
                              'dispose': True,
                              'name': ')'},
+                            {
+                             'data': [{'sig': ['on', 'duplicate', 'key']}],
+                             'name': 'on duplicate key header',
+                             },
                             {'arguments': 0,
                              'data': [{'sig': ['{column}']}],
-                             'name': ['on', 'duplicate', 'key'],
-                             'optional': True},
+                             'name': 'on duplicate key',
+                             'depends_on':'on duplicate key header'},
+                            {
+                             'data': [{'sig': ['set']}],
+                             'name':'update header'
+                             },
                             {'arguments': 0,
                              'data': [{'sig': ['{column}',
                                                '=',
                                                '{expression}']}],
                              'key': 'set',
-                             'name': ['update'],
-                             'optional': True}]},
+                             'name': 'update',
+                             'depends_on':'update header'
+                             }]},
               {'name': 'use',
                'segments': [{'data': [{'sig': ['use', '{table}']}],
                              'name': 'use'}]},
