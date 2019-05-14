@@ -550,8 +550,8 @@ language={'commands': [{'name': 'show columns',
                                        'start': {'default': 0,
                                                  'type': 'int'}}}]},
               {'name': 'set',
-               'segments': [{'data':[{'sig':['set']}]
-                            'name':'set header'
+               'segments': [{'data':[{'sig':['set']}],
+                            'name':'set header',
                             'optional':True
                             }
                             {'arguments': 0,
