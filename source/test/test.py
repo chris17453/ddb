@@ -19,7 +19,7 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
-    def t1est_use(self):
+    def test_use(self):
         """Test changing database context"""
         try:
             # single db change from default
@@ -33,7 +33,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -46,7 +46,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_create_table(self):
+    def test_create_table(self):
         """Test creating a table"""
         try:
             self.cleanup()
@@ -61,7 +61,7 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def t1est_drop_table(self):
+    def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
@@ -79,7 +79,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_select(self):
+    def test_select(self):
         """Test selecting results using various clauses a table"""
         try:
             print("SELECT")
@@ -118,7 +118,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_update(self):
+    def test_update(self):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -141,7 +141,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_insert(self):
+    def test_insert(self):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -164,7 +164,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_delete(self):
+    def test_delete(self):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")
@@ -189,7 +189,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_show_tables(self):
+    def test_show_tables(self):
         """Show all tables in the database"""
         self.cleanup()
         try:
@@ -205,7 +205,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_describe_table(self):
+    def test_describe_table(self):
         """Show table configuration"""
         self.cleanup()
         try:
@@ -220,7 +220,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def t1est_upsert(self):
+    def test_upsert(self):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
@@ -250,7 +250,7 @@ class test_engine(unittest.TestCase):
         #    print(ex)
         #    self.fail(ex)
 
-    def t1est_set(self):
+    def test_set(self):
         """Set a database variable """
         self.cleanup()
         try:
@@ -285,7 +285,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_rollback(self):
+    def test_rollback(self):
         """Rollback db changes"""
         self.cleanup()
         print("ROLLBACK")
@@ -337,27 +337,27 @@ class test_engine(unittest.TestCase):
         results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
         #results.debug()
         self.assertEqual(True, results.success)
-#
+
         results = engine.query("SELECT id FROM {0}".format(self.table_name) )
         #results.debug()
         self.assertEqual(True, results.success)
         self.assertEqual(1001, results.data_length)
-       # #results.debug()
-#
+        #results.debug()
+
         results = engine.query("commit")
         self.assertEqual(True, results.success)
-       # 
-       # results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-       # #results.debug()
-       # self.assertEqual(True, results.success)
-       # self.assertEqual(1001, results.data_length)
-       # 
-       # results = engine.query("delete from {} where id='1001'".format(self.table_name))
-       # self.assertEqual(True, results.success)
+        
+        results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(1001, results.data_length)
+        
+        results = engine.query("delete from {} where id='1001'".format(self.table_name))
+        self.assertEqual(True, results.success)
             
             
-        #except Exception as ex:
-         #   self.fail(ex)
+        except Exception as ex:
+            self.fail(ex)
 
 
 if __name__ == '__main__':

@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.73'
+__version__='1.2.74'
 
         
 # ############################################################################
@@ -628,13 +628,11 @@ language={'commands': [{'name': 'show columns',
                     'segments': [
                                 {
                                 'data': [{'sig': ['commit']}],
-                                'depends_on': 'begin',
                                 'name': 'commit'}
                                 ]
               },
               {'name': 'rollback',
                'segments': [{'data': [{'sig': ['rollback']}],
-                             'depends_on': 'begin',
                              'name': 'rollback'}]},
               {'name': 'show output modules',
                'segments': [{'data': [{'sig': ['show',
