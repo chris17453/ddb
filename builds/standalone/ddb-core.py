@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.78'
+__version__='1.2.79'
 
         
 # ############################################################################
@@ -2554,13 +2554,12 @@ class engine:
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
-        parser = lexer(sql_query,debug=True)
+        parser = lexer(sql_query,debug=False)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
         for query_object in parser.query_objects:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
-            print query_object
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             if mode == 'select':
