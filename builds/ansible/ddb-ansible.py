@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.84'
+__version__='1.2.85'
 
         
 # ############################################################################
@@ -1353,7 +1353,7 @@ class lexer:
         if token_index == len(tokens):
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if False == result:
-                return {'success':False,'results':None,'match':token_index,'msg':"Validation failed"}
+                return {'success':None,'results':None,'match':token_index,'msg':"Validation failed"}
             else:
                 return {'success':True,'results':result,'match':token_index,'msg':None}
         query_err=[]
