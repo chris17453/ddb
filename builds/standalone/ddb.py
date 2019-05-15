@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.42'
+__version__='1.2.43'
 
         
 # ############################################################################
@@ -1259,7 +1259,7 @@ class lexer:
             if False == result:
                 return {'success':False,'results':None,'match':token_index,'msg':"Validation failed"}
             else:
-                return {'success':True,'results':results,'match':token_index,'msg':None}
+                return {'success':True,'results':result,'match':token_index,'msg':None}
         query_err=[]
         for index in range(0,len(tokens)):
             if index==token_index:
