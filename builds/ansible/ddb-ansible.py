@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.48'
+__version__='1.2.49'
 
         
 # ############################################################################
@@ -871,7 +871,7 @@ language={'commands': [{'name': 'show columns',
                                                '{expression}']}],
                              'key': 'set',
                              'name': 'update',
-                             'depends_on':'update header'
+                             'depends_on':'set'
                              }]},
               {'name': 'use',
                'segments': [{'data': [{'sig': ['use', '{table}']}],
