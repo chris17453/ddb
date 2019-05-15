@@ -344,8 +344,8 @@ class test_engine(unittest.TestCase):
         self.assertEqual(1001, results.data_length)
        # #results.debug()
 #
-        results = engine.query("commit")
-        self.assertEqual(True, results.success)
+       # results = engine.query("commit")
+       # self.assertEqual(True, results.success)
        # 
        # results = engine.query("SELECT id FROM {0}".format(self.table_name) )
        # #results.debug()
