@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.83'
+__version__='1.2.84'
 
         
 # ############################################################################
@@ -1001,11 +1001,8 @@ class lexer:
                 if None == parsed['results']:
                     continue
                 self.query_objects.append(parsed['results'])
-        print ("PARSE",self.query_objects)
         if len(self.query_objects)==0:
-            print ("ERROR")
             raise Exception("Invalid Syntax")
-        print ("NO ERROR")
     def parse(self, tokens):
         highest_match=-1
         recent_match=None
