@@ -187,7 +187,7 @@ class engine:
         # update table info...
         # it may have changed...
         # self.database.reload_config()
-        parser = lexer(sql_query,debug=True)
+        parser = lexer(sql_query,debug=False)
         if False == parser.query_objects:
             raise Exception("Invalid SQL")
 
@@ -199,7 +199,7 @@ class engine:
             #print  query_object
             # exit(9)
             # get columns, doesnt need a table
-            print query_object
+            #print query_object
             
             mode=query_object['mode']
 
