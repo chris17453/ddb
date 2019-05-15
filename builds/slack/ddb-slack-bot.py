@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.65'
+__version__='1.2.66'
 
         
 # ############################################################################
@@ -1092,6 +1092,7 @@ class lexer:
                     depends_on = None
                     depends_on_root=None
                 if depends_on:
+                     self.info ("DEPENDS ON:", query_object)
                     dependency_found=None
                     if depends_on_root:
                         if depends_on in query_object:
