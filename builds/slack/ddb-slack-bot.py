@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.80'
+__version__='1.2.81'
 
         
 # ############################################################################
@@ -2562,8 +2562,6 @@ class engine:
         if False == self.has_configuration():
             raise Exception("No table found")
         parser = lexer(sql_query,debug=False)
-        if False == parser.query_objects:
-            raise Exception("Invalid SQL")
         for query_object in parser.query_objects:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
