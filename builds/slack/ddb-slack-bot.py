@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.60'
+__version__='1.2.61'
 
         
 # ############################################################################
@@ -623,19 +623,23 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'sig': ['end']}], 'name': 'end'}]},
               {'name': 'begin',
                'segments': [{'data': [{'sig': ['begin']}], 'name': 'begin'}]},
-              {'name': 'commit',
-               'segments': [{'data': [{'sig': ['commit']}],
-                             'depends_on': 'begin',
-                             'name': 'commit'}]},
+              {'name': 'commit', 
+                    'segments': [
+                                {
+                                'data': [{'sig': ['commit']}],
+                                'depends_on': '.begin',
+                                'name': 'commit'}
+                                ]
+              },
               {'name': 'rollback',
                'segments': [{'data': [{'sig': ['rollback']}],
-                             'depends_on': 'begin',
+                             'depends_on': '.begin',
                              'name': 'rollback'}]},
               {'name': 'show output modules',
                'segments': [{'data': [{'sig': ['show',
                                                'output',
                                                'modules']}],
-                             'name': ['show', 'output', 'modules']}]},
+                             'name': 'show output modules']}]},
               {'name': 'delete',
                'segments': [{'data': [{'sig': ['delete']}],
                              'name': 'delete'},
@@ -1077,21 +1081,24 @@ class lexer:
             while True == in_argument:
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
+                    if len(depends_on)>0:
+                        if depends_on[0]=='.'
+                            depends_on_root=True
+                            depends_on=depends_on[1:]
+                    else:
+                        depends_on_root=None
                     self.info("Depends on {0}".format(depends_on))
                 else:
                     depends_on = None
-                if None != depends_on:
-                    depends_oncompare = self.get_sub_array(depends_on)
-                    dependency_found = False
-                    for q_o in query_object:
-                        haystack = self.get_sub_array(q_o)
-                        if True == self.single_array_match(depends_oncompare, haystack):
-                            dependency_found = True
-                    if False == dependency_found:
-                        self.info("Missing", depends_on)
-                        break
+                    depends_on_root=None
+                if depends_on:
+                    dependency_found=False
+                    if depends_on_root:
+                        if depends_on in query_object:
+                            dependency_found=True
                     else:
-                        self.info("Dependency found", depends_on)
+                        if depends_on in curent_object:
+                            dependency_found=True
                 if 'arguments' in segment:
                     arguments = segment['arguments']
                 else:
