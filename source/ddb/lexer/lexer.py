@@ -45,7 +45,7 @@ class lexer:
                 self.query_objects.append(parsed['results'])
 
 
-        if None == self.query_objects:
+        if len(self.query_objects)==0:
             raise Exception("Invalid Syntax")
 
     def parse(self, tokens):
@@ -132,13 +132,6 @@ class lexer:
             self.info("Object Id:", flags.object_id, "Token Id:", token_index)
 
             while True == in_argument:
-
-                #self.info("---in argument")
-
-                # DEPENDENCY
-                # DEPENDENCY
-                # DEPENDENCY
-
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
                     if len(depends_on)>0:
