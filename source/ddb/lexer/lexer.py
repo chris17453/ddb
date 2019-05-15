@@ -142,7 +142,7 @@ class lexer:
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
                     if len(depends_on)>0:
-                        if depends_on[0]=='.'
+                        if depends_on[0]=='.':
                             depends_on_root=True
                             depends_on=depends_on[1:]
                     else:
