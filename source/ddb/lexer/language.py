@@ -9,7 +9,7 @@
 #     name: initial string to match against to enter this name, this is the index of the object
 #     optional: can we skip this
 #     key: override name key
-#     depends_on: do not match unless the other variable is present 
+#     depends_on: do not match unless the other variable is present in same scope . will drop to root scope
 #     jump: goto an ealier command for matching, to repeat a loop set for multiple matches
 #     parent: override the name, and place data on this index
 #     store_array: allow multiple keys in an array at this index
@@ -591,19 +591,23 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'sig': ['end']}], 'name': 'end'}]},
               {'name': 'begin',
                'segments': [{'data': [{'sig': ['begin']}], 'name': 'begin'}]},
-              {'name': 'commit',
-               'segments': [{'data': [{'sig': ['commit']}],
-                             'depends_on': 'begin',
-                             'name': 'commit'}]},
+              {'name': 'commit', 
+                    'segments': [
+                                {
+                                'data': [{'sig': ['commit']}],
+                                'depends_on': '.begin',
+                                'name': 'commit'}
+                                ]
+              },
               {'name': 'rollback',
                'segments': [{'data': [{'sig': ['rollback']}],
-                             'depends_on': 'begin',
+                             'depends_on': '.begin',
                              'name': 'rollback'}]},
               {'name': 'show output modules',
                'segments': [{'data': [{'sig': ['show',
                                                'output',
                                                'modules']}],
-                             'name': ['show', 'output', 'modules']}]},
+                             'name': 'show output modules']}]},
               {'name': 'delete',
                'segments': [{'data': [{'sig': ['delete']}],
                              'name': 'delete'},
