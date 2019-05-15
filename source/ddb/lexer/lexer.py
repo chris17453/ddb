@@ -37,10 +37,11 @@ class lexer:
                 continue
 
             parsed = self.parse(tokens)
-            if None == parsed:
-                self.query_objects = None
-                break
-            self.query_objects.append(parsed)
+            if None == parsed['success']:
+                raise Exception(parsed['msg'])
+            else:
+                self.query_objects.append(parsed['results'])
+
 
         if None == self.query_objects:
             raise Exception("Invalid Syntax")
@@ -48,13 +49,19 @@ class lexer:
     def parse(self, tokens):
         # SOME TODO!
         # loop through commands, return the first matching result
-
+        # return the exact match, OR the match with the highest score
+        highest_match=-1
+        recent_match=None
         for command in language['commands']:
             res=self.test_syntax(command,tokens)
-            if res:
+            if res['success']:
                 return res
+            else:
+                if res['match']>highest_match:
+                    highest_match=res['match']
+                    recent_match=res
 
-        return None
+        return recent_match
     # place holder for the status of a command fragment
     class flags:
         def __init__(self,command_fragment):
@@ -98,11 +105,9 @@ class lexer:
 
                 
     def test_syntax(self,command,tokens):
-        debug = True
         query_object = {}
         token_index = 0
         self.info("-----", command['name'])
-        keyword_found = False
         segment_index = 0
         query_mode = None
         curent_object = {}
@@ -114,80 +119,16 @@ class lexer:
             self.info("############# TESTING : {0}.{1}".format(command['name'],segment['name']))
             segment_index += 1
             curent_object = {}
+            base_argument={}
+            in_argument = True
+            argument_index = 0
+
             flags=lexer.flags(segment)
     
-                
             curent_object['mode'] = flags.object_id
             query_mode = command['name']
             self.info("Object Id:", flags.object_id, "Token Id:", token_index)
-            
-           # if False == flags.no_keyword:
-           #     keyword_compare = self.get_sub_array(segment, 'name')
-           #     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
-           #     self.info(keyword_compare)
-           #     if True == self.single_array_match(keyword_compare, haystack):
-           #         self.info("match", keyword_compare, haystack)
-           #         # we use name because it may be a list. and its simpler to hash by name
-           #         # as long as the compare is good, we dont care
-           #         curent_object['mode'] = flags.object_id
-           #         if segment_index == 1:
-           #             query_mode = command['name']
-           #         keyword_found = True
-           #     else:
-           #         if False == flags.optional:
-           #             if True == debug:
-           #                 self.info("Exiting")
-           #             break
-           #         else:
-           #             continue
-           #     if False == keyword_found:
-           #         self.info("Keywords exhausted")
-           #         break
-#
-           #     token_index += len(keyword_compare)
-           #     self.info("advance token index ", token_index, segment['data'])
-           # else:
-           #     curent_object['mode'] = flags.object_id
-#
-            base_argument={}
-            # set static variables
 
-
-
-
-
-
-
-            #if None == segment['data'] or False == segment['data']:
-            #    self.info("No data to match")
-            #    # only append object after argument collection is done
-            #    # query_object.append(curent_object)
-            #    if not flags.dispose:
-            #        self.info("----------Adding", curent_object['mode'])
-            #        query_object[curent_object['mode']] = None
-#
-            #    jump = None
-            #    if 'jump' in segment:
-            #        self.info("JUMP")
-            #        jump = segment['jump']
-            #    if None != jump:
-            #        tsi = 0
-            #        for ts in command['segments']:
-            #            if ts['name'] == jump:
-            #                self.info("Jumping from ", segment_index, tsi + 1)
-            #                segment_index = tsi + 1
-            #                token_index+=1
-            #                break
-            #            tsi += 1
-            #    in_argument = False
-            #    
-#
-            ## This is where data colection happens
-            #else:
-
-
-            in_argument = True
-            argument_index = 0
             while True == in_argument:
 
                 #self.info("---in argument")
@@ -425,11 +366,18 @@ class lexer:
 
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if False == result:
-                return None
+                return {'success':False,'results':None,'match':token_index,'msg':"Validation failed"}
             else:
-                return result
+                return {'success':True,'results':results,'match':token_index,'msg':None}
 
-        return None
+        query_err=[]
+        for index in range(0,len(tokens)):
+            if index==token_index:
+                query_err.append(" >>> ")    
+                query_err.append(tokens[index].data)
+        query_err.append("\n Syntax error near word {0}".format(token_index))
+        err_msg=" ".join(query_err)
+        return {'success':None,'results':None,'match':token_index,'msg':err_msg}
 
 
 
