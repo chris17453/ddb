@@ -154,7 +154,7 @@ class lexer:
                 if depends_on:
                     self.info ("DEPENDS ON:", query_object)
                     dependency_found=None
-                        if depends_on in query_object:
+                    if depends_on in query_object:
                             dependency_found=True
 
                     if dependency_found:
