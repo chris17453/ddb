@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.61'
+__version__='1.2.62'
 
         
 # ############################################################################
@@ -632,7 +632,7 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'sig': ['show',
                                                'output',
                                                'modules']}],
-                             'name': 'show output modules']}]},
+                             'name': 'show output modules'}]},
               {'name': 'delete',
                'segments': [{'data': [{'sig': ['delete']}],
                              'name': 'delete'},
