@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.64'
+__version__='1.2.65'
 
         
 # ############################################################################
@@ -1178,7 +1178,7 @@ class lexer:
                     depends_on = None
                     depends_on_root=None
                 if depends_on:
-                    dependency_found=False
+                    dependency_found=None
                     if depends_on_root:
                         if depends_on in query_object:
                             dependency_found=True
