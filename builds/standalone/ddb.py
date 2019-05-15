@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.68'
+__version__='1.2.69'
 
         
 # ############################################################################
@@ -1090,7 +1090,7 @@ class lexer:
                 if depends_on:
                     self.info ("DEPENDS ON:", query_object)
                     dependency_found=None
-                        if depends_on in query_object:
+                    if depends_on in query_object:
                             dependency_found=True
                     if dependency_found:
                         self.info("Dependency found", depends_on)
