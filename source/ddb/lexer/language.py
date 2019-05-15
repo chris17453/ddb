@@ -744,7 +744,8 @@ language={'commands': [{'name': 'show columns',
                              'name': 'on duplicate key',
                              'depends_on':'on duplicate key header'},
                             {
-                             'data': [{'sig': ['set']}],
+                             'data': [{'sig': ['update']}],
+                             'key':'set',
                              'name':'update header'
                              },
                             {'arguments': 0,
