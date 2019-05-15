@@ -188,8 +188,7 @@ class engine:
         # it may have changed...
         # self.database.reload_config()
         parser = lexer(sql_query,debug=False)
-        if False == parser.query_objects:
-            raise Exception("Invalid SQL")
+     
 
         for query_object in parser.query_objects:
             # clear all per state variables per run
