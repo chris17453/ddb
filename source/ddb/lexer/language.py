@@ -754,7 +754,7 @@ language={'commands': [{'name': 'show columns',
                                                '{expression}']}],
                              'key': 'set',
                              'name': 'update',
-                             'depends_on':'update header'
+                             'depends_on':'set'
                              
                              }]},
               {'name': 'use',

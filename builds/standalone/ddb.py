@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.47'
+__version__='1.2.48'
 
         
 # ############################################################################
@@ -774,7 +774,8 @@ language={'commands': [{'name': 'show columns',
                              'name': 'on duplicate key',
                              'depends_on':'on duplicate key header'},
                             {
-                             'data': [{'sig': ['set']}],
+                             'data': [{'sig': ['update']}],
+                             'key':'set',
                              'name':'update header'
                              },
                             {'arguments': 0,
