@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.63'
+__version__='1.2.64'
 
         
 # ############################################################################
@@ -1099,6 +1099,11 @@ class lexer:
                     else:
                         if depends_on in curent_object:
                             dependency_found=True
+                    if dependency_found:
+                        self.info("Dependency found", depends_on)
+                    else:
+                        self.info("Missing", depends_on)
+                        break
                 if 'arguments' in segment:
                     arguments = segment['arguments']
                 else:
