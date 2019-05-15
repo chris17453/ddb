@@ -25,6 +25,8 @@ class lexer:
         self.info("Queries", querys)
         for q in querys:
             self.info("-----------------------------------")
+            if q and q.isspace():
+                continue
             tokens = tokenizer().chomp(q, discard_whitespace=True, debug=debug)
             # skip 0 length commands such as single ';'
             token_length = 0
