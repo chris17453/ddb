@@ -141,26 +141,42 @@ class lexer:
 
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
+                    if len(depends_on)>0:
+                        if depends_on[0]=='.'
+                            depends_on_root=True
+                            depends_on=depends_on[1:]
+                    else:
+                        depends_on_root=None
+                
                     self.info("Depends on {0}".format(depends_on))
                 else:
                     depends_on = None
+                    depends_on_root=None
 
                 # if there is a dependency, enforce
-                if None != depends_on:
+                if depends_on:
 
-                    depends_oncompare = self.get_sub_array(depends_on)
+                    #depends_oncompare = self.get_sub_array(depends_on)
 
-                    dependency_found = False
-                    for q_o in query_object:
-                        #self.info( depends_on,q_o)
-                        haystack = self.get_sub_array(q_o)
-                        if True == self.single_array_match(depends_oncompare, haystack):
-                            dependency_found = True
-                    if False == dependency_found:
-                        self.info("Missing", depends_on)
-                        break
+                    dependency_found=False
+                    if depends_on_root:
+                        if depends_on in query_object:
+                            dependency_found=True
                     else:
-                        self.info("Dependency found", depends_on)
+                        if depends_on in curent_object:
+                            dependency_found=True
+
+                    #dependency_found = False
+                    #for q_o in query_object:
+                    #    #self.info( depends_on,q_o)
+                    #    haystack = self.get_sub_array(q_o)
+                    #    if True == self.single_array_match(depends_oncompare, haystack):
+                    #        dependency_found = True
+                    #if False == dependency_found:
+                    #    self.info("Missing", depends_on)
+                    #    break
+                    #else:
+                    #    self.info("Dependency found", depends_on)
 
                 # self.info("data",segment['data'])
                 if 'arguments' in segment:
