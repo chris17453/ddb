@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.82'
+__version__='1.2.83'
 
         
 # ############################################################################
@@ -1091,6 +1091,8 @@ class lexer:
             if None == parsed['success']:
                 raise Exception(parsed['msg'])
             else:
+                if None == parsed['results']:
+                    continue
                 self.query_objects.append(parsed['results'])
         print ("PARSE",self.query_objects)
         if len(self.query_objects)==0:
