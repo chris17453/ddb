@@ -155,7 +155,7 @@ class lexer:
 
                 # if there is a dependency, enforce
                 if depends_on:
-                    dependency_found=False
+                    dependency_found=None
                     if depends_on_root:
                         if depends_on in query_object:
                             dependency_found=True
