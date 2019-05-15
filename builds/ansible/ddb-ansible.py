@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.41'
+__version__='1.2.42'
 
         
 # ############################################################################
@@ -1082,18 +1082,24 @@ class lexer:
             if token_length == 0:
                 continue
             parsed = self.parse(tokens)
-            if None == parsed:
-                self.query_objects = None
-                break
-            self.query_objects.append(parsed)
+            if None == parsed['success']:
+                raise Exception(parsed['msg'])
+            else:
+                self.query_objects.append(parsed['results'])
         if None == self.query_objects:
             raise Exception("Invalid Syntax")
     def parse(self, tokens):
+        highest_match=-1
+        recent_match=None
         for command in language['commands']:
             res=self.test_syntax(command,tokens)
-            if res:
+            if res['success']:
                 return res
-        return None
+            else:
+                if res['match']>highest_match:
+                    highest_match=res['match']
+                    recent_match=res
+        return recent_match
     class flags:
         def __init__(self,command_fragment):
             if 'dispose' in command_fragment:
@@ -1132,11 +1138,9 @@ class lexer:
             if self.arg_key:
                 self.object_id=self.arg_key
     def test_syntax(self,command,tokens):
-        debug = True
         query_object = {}
         token_index = 0
         self.info("-----", command['name'])
-        keyword_found = False
         segment_index = 0
         query_mode = None
         curent_object = {}
@@ -1146,13 +1150,13 @@ class lexer:
             self.info("############# TESTING : {0}.{1}".format(command['name'],segment['name']))
             segment_index += 1
             curent_object = {}
+            base_argument={}
+            in_argument = True
+            argument_index = 0
             flags=lexer.flags(segment)
             curent_object['mode'] = flags.object_id
             query_mode = command['name']
             self.info("Object Id:", flags.object_id, "Token Id:", token_index)
-            base_argument={}
-            in_argument = True
-            argument_index = 0
             while True == in_argument:
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
@@ -1340,10 +1344,17 @@ class lexer:
         if token_index == len(tokens):
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if False == result:
-                return None
+                return {'success':False,'results':None,'match':token_index,'msg':"Validation failed"}
             else:
-                return result
-        return None
+                return {'success':True,'results':results,'match':token_index,'msg':None}
+        query_err=[]
+        for index in range(0,len(tokens)):
+            if index==token_index:
+                query_err.append(" >>> ")    
+                query_err.append(tokens[index].data)
+        query_err.append("\n Syntax error near word {0}".format(token_index))
+        err_msg=" ".join(query_err)
+        return {'success':None,'results':None,'match':token_index,'msg':err_msg}
     def validate(self,curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode):
         self.info(curent_object)
         self.info("############################think its a match")
