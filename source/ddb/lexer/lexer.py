@@ -362,7 +362,7 @@ class lexer:
 
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if False == result:
-                return {'success':False,'results':None,'match':token_index,'msg':"Validation failed"}
+                return {'success':None,'results':None,'match':token_index,'msg':"Validation failed"}
             else:
                 return {'success':True,'results':result,'match':token_index,'msg':None}
 
