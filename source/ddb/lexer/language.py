@@ -590,18 +590,19 @@ language={'commands': [{'name': 'show columns',
               {'name': 'end',
                'segments': [{'data': [{'sig': ['end']}], 'name': 'end'}]},
               {'name': 'begin',
-               'segments': [{'data': [{'sig': ['begin']}], 'name': 'begin'}]},
+               'segments': [    {'data': [{'sig': ['begin']}], 
+                                 'name': 'begin'}]},
               {'name': 'commit', 
                     'segments': [
                                 {
                                 'data': [{'sig': ['commit']}],
-                                'depends_on': '.begin',
+                                'depends_on': 'begin',
                                 'name': 'commit'}
                                 ]
               },
               {'name': 'rollback',
                'segments': [{'data': [{'sig': ['rollback']}],
-                             'depends_on': '.begin',
+                             'depends_on': 'begin',
                              'name': 'rollback'}]},
               {'name': 'show output modules',
                'segments': [{'data': [{'sig': ['show',
