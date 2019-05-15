@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.43'
+__version__='1.2.44'
 
         
 # ############################################################################
@@ -1258,6 +1258,7 @@ class lexer:
         for index in range(0,len(tokens)):
             if index==token_index:
                 query_err.append(" >>> ")    
+                print tokens[index]
                 query_err.append(tokens[index].data)
         query_err.append("\n Syntax error near word {0}".format(token_index))
         err_msg=" ".join(query_err)
