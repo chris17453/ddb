@@ -46,11 +46,8 @@ class lexer:
                     continue
                 self.query_objects.append(parsed['results'])
 
-        print ("PARSE",self.query_objects)
         if len(self.query_objects)==0:
-            print ("ERROR")
             raise Exception("Invalid Syntax")
-        print ("NO ERROR")
 
     def parse(self, tokens):
         # SOME TODO!
