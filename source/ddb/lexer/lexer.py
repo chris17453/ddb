@@ -375,7 +375,7 @@ class lexer:
             if index==token_index:
                 query_err.append(" >>> ")    
                 #print tokens[index]
-                query_err.append(tokens[index]['data'])
+            query_err.append(tokens[index]['data'])
         query_err.append("\n Syntax error near word {0}".format(token_index))
         err_msg=" ".join(query_err)
         return {'success':None,'results':None,'match':token_index,'msg':err_msg}
