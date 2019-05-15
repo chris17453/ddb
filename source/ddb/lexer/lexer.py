@@ -433,7 +433,7 @@ class lexer:
                                         if arg['required']:
                                             # if this argument key is not in the node dict
                                             if 'argument{0}'.format(argindex) not in node:
-                                                mag="Missing arguments"
+                                                msg="Missing arguments"
                                                 self.info(msg)
                                                 return {'success':None,'msg':msg}
 
