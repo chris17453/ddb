@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.86'
+__version__='1.2.87'
 
         
 # ############################################################################
@@ -1408,7 +1408,7 @@ class lexer:
                                     for arg in f['arguments']:
                                         if arg['required']:
                                             if 'argument{0}'.format(argindex) not in node:
-                                                mag="Missing arguments"
+                                                msg="Missing arguments"
                                                 self.info(msg)
                                                 return {'success':None,'msg':msg}
                                         argindex += 1
