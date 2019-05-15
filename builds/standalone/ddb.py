@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.50'
+__version__='1.2.51'
 
         
 # ############################################################################
@@ -987,6 +987,8 @@ class lexer:
         self.info("Queries", querys)
         for q in querys:
             self.info("-----------------------------------")
+            if q and q.isspace():
+                continue
             tokens = tokenizer().chomp(q, discard_whitespace=True, debug=debug)
             token_length = 0
             for token in tokens:
