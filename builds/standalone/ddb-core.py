@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.85'
+__version__='1.2.86'
 
         
 # ############################################################################
@@ -1259,10 +1259,10 @@ class lexer:
         self.info(curent_object)
         if token_index == len(tokens):
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
-            if False == result:
-                return {'success':None,'results':None,'match':token_index,'msg':"Validation failed"}
-            else:
+            if  result['success']:
                 return {'success':True,'results':result,'match':token_index,'msg':None}
+            else:
+                return {'success':None,'results':None,'match':token_index,'msg':result['msg']}
         query_err=[]
         for index in range(0,len(tokens)):
             if index==token_index:
@@ -1287,14 +1287,17 @@ class lexer:
             for t in range(segment_index, len(command['segments'])):
                 if 'optional' not in command['segments'][t]:
                     bad = True
-                    return False
+                    msg="Non optional components missing from query"
+                    return {'success':None,'msg':msg}
                 else:
                     if not command['segments'][t]['optional']:
                         bad = True
-                        return False
+                        msg="Non optional components missing from query"
+                        return {'success':None,'msg':msg}
             if True == bad:
-                self.info("Not successful. required arguments missing")
-                return False
+                msg="Not successful. required arguments missing"
+                self.info(msg)
+                return {'success':None,'msg':msg}
         self.info("Query object", query_object)
         if query_mode == 'select':
             self.info("Validating Select Functions")
@@ -1312,24 +1315,28 @@ class lexer:
                                     for arg in f['arguments']:
                                         if arg['required']:
                                             if 'argument{0}'.format(argindex) not in node:
-                                                self.info("Missing arguments")
-                                                return False
+                                                mag="Missing arguments"
+                                                self.info(msg)
+                                                return {'success':None,'msg':msg}
                                         argindex += 1
                                 else:
                                     argindex = 0
                                 if 'argument{0}'.format(argindex + 1) in node:
-                                    self.info("Too many arguments")
-                                    return False
+                                    msg="Too many arguments"
+                                    self.info(msg)
+                                    return {'success':None,'msg':msg}
                             valid_function_name = True
                             break
                     if False == valid_function_name and True == is_function:
-                        self.info("FAIL", "This isnt a valid function", node['function'])
-                        return False
+                        msg="'{0}' isn't a valid function".format(node['function'])
+                        self.info(msg)
+                        return {'success':None,'msg':msg}
             else:
-                self.info("No columns in select")
-                return False
+                msg="No columns in select"
+                self.info(msg)
+                return {'success':None,'msg':msg}
         self.info("SUCCESS")
-        sql_object = {'mode': query_mode, 'meta': query_object}
+        sql_object = {'success':True,'mode': query_mode, 'meta': query_object}
         return sql_object
     def expand_columns(self, query_object, columns):
         if 'columns' in query_object['meta']:
