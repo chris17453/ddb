@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.62'
+__version__='1.2.63'
 
         
 # ############################################################################
@@ -1082,7 +1082,7 @@ class lexer:
                 if 'depends_on' in segment:
                     depends_on = segment['depends_on']
                     if len(depends_on)>0:
-                        if depends_on[0]=='.'
+                        if depends_on[0]=='.':
                             depends_on_root=True
                             depends_on=depends_on[1:]
                     else:

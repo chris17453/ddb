@@ -155,9 +155,6 @@ class lexer:
 
                 # if there is a dependency, enforce
                 if depends_on:
-
-                    #depends_oncompare = self.get_sub_array(depends_on)
-
                     dependency_found=False
                     if depends_on_root:
                         if depends_on in query_object:
@@ -166,17 +163,11 @@ class lexer:
                         if depends_on in curent_object:
                             dependency_found=True
 
-                    #dependency_found = False
-                    #for q_o in query_object:
-                    #    #self.info( depends_on,q_o)
-                    #    haystack = self.get_sub_array(q_o)
-                    #    if True == self.single_array_match(depends_oncompare, haystack):
-                    #        dependency_found = True
-                    #if False == dependency_found:
-                    #    self.info("Missing", depends_on)
-                    #    break
-                    #else:
-                    #    self.info("Dependency found", depends_on)
+                    if dependency_found:
+                        self.info("Dependency found", depends_on)
+                    else:
+                        self.info("Missing", depends_on)
+                        break
 
                 # self.info("data",segment['data'])
                 if 'arguments' in segment:
