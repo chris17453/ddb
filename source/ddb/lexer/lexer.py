@@ -145,23 +145,16 @@ class lexer:
                         if depends_on[0]=='.':
                             depends_on_root=True
                             depends_on=depends_on[1:]
-                    else:
-                        depends_on_root=None
                 
                     self.info("Depends on {0}".format(depends_on))
                 else:
                     depends_on = None
-                    depends_on_root=None
 
                 # if there is a dependency, enforce
                 if depends_on:
                     self.info ("DEPENDS ON:", query_object)
                     dependency_found=None
-                    if depends_on_root:
                         if depends_on in query_object:
-                            dependency_found=True
-                    else:
-                        if depends_on in curent_object:
                             dependency_found=True
 
                     if dependency_found:
