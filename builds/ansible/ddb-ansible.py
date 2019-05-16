@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.123'
+__version__='1.2.124'
 
         
 # ############################################################################
@@ -3511,9 +3511,9 @@ def method_create_table(context, query_object):
             if 'password' in repo:
                 repo_password=repo['password']
             if 'repo_dir' in repo:
-                repo_dir=repo['dir']
+                repo_dir=repo['repo_dir']
             if 'repo_file' in repo:
-                repo_file=repo['file']
+                repo_file=repo['repo_file']
         else:
             repo_type=None
             repo_url=None
