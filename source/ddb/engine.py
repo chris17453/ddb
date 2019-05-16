@@ -355,7 +355,7 @@ class engine:
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
-
+            print ("TEMP FILES")
             if table.data.repo_type=='svn':
 
                 self.svn_get_file(table)
