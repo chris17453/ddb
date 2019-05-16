@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.111'
+__version__='1.2.112'
 
         
 # ############################################################################
@@ -2587,7 +2587,7 @@ class engine:
         self.results = None
         if False == self.has_configuration():
             raise Exception("No table found")
-        parser = lexer(sql_query,debug=False)
+        parser = lexer(sql_query,debug=self.debug)
         for query_object in parser.query_objects:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
