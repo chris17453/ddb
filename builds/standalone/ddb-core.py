@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.121'
+__version__='1.2.122'
 
         
 # ############################################################################
@@ -2700,10 +2700,10 @@ class engine:
     def svn_put_file(self,table):
         d=1
     def get_data_file(self,table,prefix="ddb_"):
+        print ("GDF")
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
-            print ("TEMP FILES")
             if table.data.repo_type=='svn':
                 self.svn_get_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
