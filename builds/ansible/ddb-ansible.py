@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.201'
+__version__='1.2.202'
 
         
 # ############################################################################
@@ -2860,7 +2860,8 @@ def process_line(context, query_object, line, line_number=0):
             else:
                 line_data = line_cleaned.split(table.delimiters.field,column_len)
                 cur_column_len = len(line_data)
-                if table.data.strict_columns and cur_column_len != column_len:
+                if table.data.strict_columns:
+                    if  cur_column_len != column_len:
                     if cur_column_len > column_len:
                         err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
                     else:
@@ -2871,6 +2872,10 @@ def process_line(context, query_object, line, line_number=0):
                     else:
                         line_data = None
                     line_type = context.data_type.ERROR
+                else:
+                    if  cur_column_len != column_len:
+                        for i in range(cur_column_len,column_len)
+                            line.data.append('')
                 if None != table.delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:

@@ -33,26 +33,25 @@ def process_line(context, query_object, line, line_number=0):
                 line_data = line_cleaned.split(table.delimiters.field,column_len)
                 cur_column_len = len(line_data)
                 
-                if table.data.strict_columns:
+                if table.data.strict_columns==True:
                     if  cur_column_len != column_len:
+                        if cur_column_len > column_len:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, table.data.name)
+                        # table.add_error(err)
+                        line_type = context.data_type.ERROR
 
-                    if cur_column_len > column_len:
-                        err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
-                    else:
-                        err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, table.data.name)
-                    # table.add_error(err)
-                    line_type = context.data_type.ERROR
-
-                    # turn error into coment
-                    if True == table.visible.errors:
-                        line_data = line_cleaned
-                    else:
-                        line_data = None
-                    line_type = context.data_type.ERROR
+                        # turn error into coment
+                        if True == table.visible.errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
                 else:
                     # add empty columns
                     if  cur_column_len != column_len:
-                        for i in range(cur_column_len,column_len)
+                        for i in range(cur_column_len,column_len):
                             line.data.append('')
 
 
