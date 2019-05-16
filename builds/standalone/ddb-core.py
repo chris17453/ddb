@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.195'
+__version__='1.2.196'
 
         
 # ############################################################################
@@ -3775,7 +3775,7 @@ def method_system_show_output_modules(context,query_object):
 # ############################################################################
 
 class lock:
-    max_lock_time=2
+    max_lock_time=30
     sleep_time=0.02
     LOCK_NONE=0
     LOCK_OWNER=1
