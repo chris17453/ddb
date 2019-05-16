@@ -33,7 +33,8 @@ def process_line(context, query_object, line, line_number=0):
                 line_data = line_cleaned.split(table.delimiters.field,column_len)
                 cur_column_len = len(line_data)
                 
-                if table.data.strict_columns and cur_column_len != column_len:
+                if table.data.strict_columns:
+                    if  cur_column_len != column_len:
 
                     if cur_column_len > column_len:
                         err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
@@ -48,6 +49,13 @@ def process_line(context, query_object, line, line_number=0):
                     else:
                         line_data = None
                     line_type = context.data_type.ERROR
+                else:
+                    # add empty columns
+                    if  cur_column_len != column_len:
+                        for i in range(cur_column_len,column_len)
+                            line.data.append('')
+
+
                 # fields are surrounded by something... trim
                 #print context.table.delimiters.block_quote
                 if None != table.delimiters.block_quote:
