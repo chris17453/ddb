@@ -92,7 +92,7 @@ class test_engine(unittest.TestCase):
             'http://localhost/svn/SampleProject/',
             'user',
             'password',
-            os.path.join(self.basedir,'source/test/svn_test/'),
+            os.path.join(self.basedir,'svn_test'),
             'MOCK_DATA.csv')
 
         if repo:
