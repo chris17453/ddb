@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.97'
+__version__='1.2.98'
 
         
 # ############################################################################
@@ -878,12 +878,11 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'comments': {'type': 'bool','default': None}},
                              'type': 'single'},
                             {'data': [{'sig': ['strict',
-                                               'columns',
                                                '=',
-                                               '{strict columns}']}],
-                             'name': 'strict columns',
+                                               '{strict}']}],
+                             'name': 'strict',
                              'optional': True,
-                             'specs': {'strict columns': {'type': 'bool','default': True}},
+                             'specs': {'strict': {'type': 'bool','default': True}},
                              'type': 'single'},
                             {'data': [{'sig': ['data_starts_on',
                                                '=',
@@ -2027,7 +2026,7 @@ class table:
             self.data.repo_file)
         else:
             repo=""
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict columns={11} data_starts_on={8} ".format(
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict={11} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
