@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.91'
+__version__='1.2.92'
 
         
 # ############################################################################
@@ -1815,6 +1815,7 @@ class table:
                  repo_password=None,
                  repo_dir=None,
                  repo_file=None,
+                 strict_columns=None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -1842,6 +1843,7 @@ class table:
                     repo_password=repo_password,
                     repo_dir=repo_dir,
                     repo_file=repo_file,
+                    strict_columns=strict_columns
                     )
         self.update_ordinals()
         if self.data.path:
@@ -1861,7 +1863,9 @@ class table:
                 repo_user=None,
                 repo_password=None,
                 repo_dir=None,
-                repo_file=None):
+                repo_file=None,
+                strict_columns=None
+                ):
         if repo_type:
             if repo_type=='svn':
                 self.data.repo_type=repo_type
@@ -1870,6 +1874,8 @@ class table:
                 self.data.repo_password=repo_password
                 self.data.repo_dir=repo_dir
                 self.data.repo_file=repo_file
+        if strict_columns:
+            self.data.strict_columns=strict_columns
         if fifo:
             self.data.fifo=fifo
         if data_on:
@@ -2028,7 +2034,7 @@ class table:
             self.data.repo_file)
         else:
             repo=""
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict columns={11} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -2039,7 +2045,8 @@ class table:
                 self.visible.comments,
                 self.data.starts_on_line,
                 fifo,
-                repo)
+                repo,
+                self.data.strict_columns)
         with open(self.data.config,"w") as config_file:
             config_file.write(sql)
         return True
@@ -2068,6 +2075,7 @@ class table_data:
         self.repo_password=None
         self.repo_dir=None
         self.repo_file=None
+        self.strict_columns=None
         if None != name:
             self.name = name
         if None != database:
@@ -2197,6 +2205,7 @@ class database:
                      repo_password=None,
                      repo_dir=None,
                      repo_file=None,
+                     strict_columns=None
                     ):
         if None == database_name:
             database_name = self.get_curent_database()
@@ -2221,12 +2230,13 @@ class database:
                     whitespace=whitespace,
                     errors=errors,
                     fifo=fifo,
-                    repo_type=None,
-                    repo_url=None,
-                    repo_user=None,
-                    repo_password=None,
-                    repo_dir=None,
-                    repo_file=None,)
+                    repo_type=repo_type,
+                    repo_url=repo_url,
+                    repo_user=repo_user,
+                    repo_password=repo_password,
+                    repo_dir=repo_dir,
+                    repo_file=repo_file,
+                    strict_columns=strict_columns)
         t.data.path = data_file
         self.tables.append(t)
         if not temporary:
@@ -3356,6 +3366,7 @@ def method_create_table(context, query_object):
             context.info("Creating temporary table")
         else:
             temporary = None
+        strict_columns=None
         found_delimiter = None
         found_comments = None
         found_whitespace = None
@@ -3372,6 +3383,8 @@ def method_create_table(context, query_object):
             found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on = query_object['meta']['data_starts_on']
+        if 'strict columns' in query_object['meta']:
+            strict_columns = query_object['meta']['strict columns']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
         if 'repo' in query_object['meta']:
@@ -3412,6 +3425,7 @@ def method_create_table(context, query_object):
                                                 repo_password=repo_password,
                                                 repo_dir=repo_dir,
                                                 repo_file=repo_file,                                                
+                                                strict_columns=strict_columns
                                                 )
         return query_results(success=results)
     except Exception as ex:
