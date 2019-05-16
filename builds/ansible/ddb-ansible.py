@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.100'
+__version__='1.2.101'
 
         
 # ############################################################################
@@ -2641,11 +2641,9 @@ class engine:
                 queries=self.database.get_db_sql()
                 logging.disabled = True
                 if queries:
-                    print queries
                     self.query(queries)
                 logging.disabled = False
         except Exception as ex:
-            print ex
             pass
         if None != query:
             self.query(query)
@@ -3471,8 +3469,8 @@ def method_create_table(context, query_object):
             found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on = query_object['meta']['data_starts_on']
-        if 'strict columns' in query_object['meta']:
-            strict_columns = query_object['meta']['strict columns']
+        if 'strict' in query_object['meta']:
+            strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
         if 'repo' in query_object['meta']:
