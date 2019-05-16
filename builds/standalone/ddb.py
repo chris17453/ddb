@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.180'
+__version__='1.2.181'
 
         
 # ############################################################################
@@ -2737,7 +2737,7 @@ class engine:
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
-            print ("AUTOCOMMIT")
+            self.info("AUTOCOMMIT")
             method_system_commit(self)
 
         
