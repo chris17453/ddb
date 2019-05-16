@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.102'
+__version__='1.2.103'
 
         
 # ############################################################################
@@ -2211,7 +2211,7 @@ class database:
         exists = self.get(table_name, database_name)
         if None != exists:
             raise Exception("table already exists")
-        if repo_type!='svn'
+        if repo_type!='svn':
             if False == os.path.isfile(normalize_path(data_file)):
                 raise Exception("Data file does not exist")
         if not temporary:
