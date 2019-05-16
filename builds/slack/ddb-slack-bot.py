@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.124'
+__version__='1.2.125'
 
         
 # ############################################################################
@@ -3456,6 +3456,7 @@ def method_create_table(context, query_object):
                                                 )
         return query_results(success=results)
     except Exception as ex:
+        print ex
         return query_results(success=False, error=ex)
 
         
