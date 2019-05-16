@@ -145,7 +145,7 @@ class database:
         if None != exists:
             raise Exception("table already exists")
         
-        if repo_type!='svn'
+        if repo_type!='svn':
             if False == os.path.isfile(normalize_path(data_file)):
                 raise Exception("Data file does not exist")
 
