@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.101'
+__version__='1.2.102'
 
         
 # ############################################################################
@@ -2297,8 +2297,9 @@ class database:
         exists = self.get(table_name, database_name)
         if None != exists:
             raise Exception("table already exists")
-        if False == os.path.isfile(normalize_path(data_file)):
-            raise Exception("Data file does not exist")
+        if repo_type!='svn'
+            if False == os.path.isfile(normalize_path(data_file)):
+                raise Exception("Data file does not exist")
         if not temporary:
             if None == self.config_file:
                 raise Exception("Not using a config file")
@@ -2765,13 +2766,27 @@ class engine:
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_get_file(self,table):
-        c=1
+        if table.data.repo_type=='svn':
+            cmd=[   'svn',
+                    '--no-auth-cache',
+                    '--username {0}'.format(table.data.repo_user),
+                    '--password {0}'.format(table.data.repo_password),
+                    'co',
+                    table.data.repo_url,
+                    table.data.repo_dir,
+                    '--depth empty']
+            self.os_cmd(cmd,"SVN Repo Err")
+            os.chdir(table.data.repo_dir)
+            cmd=['svn','up',table.data.repo_file]
+            self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_put_file(self,table):
         d=1
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
+            if table.data.repo_type=='svn':
+                self.svn_get_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
