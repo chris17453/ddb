@@ -330,7 +330,7 @@ class engine:
         return output
     
     def svn_checkout_file(self,table):
-        print("IN SVN PULL")
+        self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
             cmd=[   'svn',
                     '--no-auth-cache',
@@ -356,6 +356,17 @@ class engine:
     
     def svn_commit_file(self,table):
         print("IN SVN COMMIT",table.data.name)
+        os.chdir(table.data.repo_dir)
+        cmd=[   'svn',
+                'commit',
+                table.data.repo_file,
+                '-m','ddb',
+                '--no-auth-cache',
+                '--username','{0}'.format(table.data.repo_user),
+                '--password','{0}'.format(table.data.repo_password)
+                ]
+        #print " ".join(cmd)
+        self.os_cmd(cmd,"SVN Checkout File Err")        
 
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1

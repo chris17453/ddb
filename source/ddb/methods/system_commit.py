@@ -14,14 +14,11 @@ def method_system_commit(context):
                 tmp=context.internal['TEMP_FILES'][table_key]
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== tmp['written']:
-                    print ("Removing unused lock")
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
-                    print ("deleting temp and copying to src",tmp['origin'],tmp['temp_source'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
                     if tmp['table'].data.repo_type=='svn':
-                       print ("svn thing")
                        context.svn_commit_file(tmp['table'])
 
             # clear
