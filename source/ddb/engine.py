@@ -344,7 +344,13 @@ class engine:
             self.os_cmd(cmd,"SVN Repo Err")
 
             os.chdir(table.data.repo_dir)
-            cmd=['svn','up',table.data.repo_file]
+            cmd=[   'svn',
+                    'up',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password)
+                    ]
             print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
