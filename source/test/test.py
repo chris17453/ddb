@@ -64,7 +64,7 @@ class test_engine(unittest.TestCase):
     def t1est_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
         results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(True, results.success)
         try:
