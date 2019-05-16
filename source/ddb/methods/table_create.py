@@ -57,9 +57,9 @@ def method_create_table(context, query_object):
                 repo_user=repo['user']
             if 'password' in repo:
                 repo_password=repo['password']
-            if 'dir' in repo:
+            if 'repo_dir' in repo:
                 repo_dir=repo['dir']
-            if 'file' in repo:
+            if 'repo_file' in repo:
                 repo_file=repo['file']
         else:
             repo_type=None
