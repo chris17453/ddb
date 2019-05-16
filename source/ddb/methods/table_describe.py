@@ -38,8 +38,8 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['repo_url',target_table.data.repo_url], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['repo_dir',target_table.data.repo_dir], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['repo_file',target_table.data.repo_file], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['user',target_table.data.user], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['password',target_table.data.password], 'type': context.data_type.DATA, 'error': None})
+        temp_table.append_data({'data':['user',target_table.data.repo_user], 'type': context.data_type.DATA, 'error': None})
+        temp_table.append_data({'data':['password',target_table.data.repo_password], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         print ex
