@@ -232,9 +232,10 @@ def order_by(context,query_object,data):
     
     context.info(context_sort)
     try:
+      # the python2 way
       ordered_data = sorted(data, sort_cmp)
     except:
-
+      # the python3 way
       ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
       pass
 
