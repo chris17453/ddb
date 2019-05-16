@@ -48,6 +48,7 @@ def method_create_table(context, query_object):
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
         
+        print query_object
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
             if 'repo_type' in repo:

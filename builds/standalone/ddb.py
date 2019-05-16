@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.154'
+__version__='1.2.155'
 
         
 # ############################################################################
@@ -836,16 +836,16 @@ language={'commands': [{'name': 'show columns',
                              'type': 'single'},
                             {'data': [{'sig': ['repo',
                                                '=',
-                                               '{type}',
+                                               '{repo_type}',
                                                'url',
                                                '=',
-                                               '{url}',
+                                               '{repo_url}',
                                                'user',
                                                '=',
-                                               '{user}',
+                                               '{repo_user}',
                                                'password',
                                                '=',
-                                               '{password}',
+                                               '{repo_password}',
                                                'repo_dir',
                                                '=',
                                                '{repo_dir}',
@@ -3416,17 +3416,16 @@ def method_create_table(context, query_object):
             strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
-        if 'repo' in query_object['meta']:
-            print "REPO"
+        if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
-            if 'type' in repo:
-                repo_type=repo['type']
-            if 'url' in repo:
-                repo_url=repo['url']
-            if 'user' in repo:
-                repo_user=repo['user']
-            if 'password' in repo:
-                repo_password=repo['password']
+            if 'repo_type' in repo:
+                repo_type=repo['repo_type']
+            if 'repo_url' in repo:
+                repo_url=repo['repo_url']
+            if 'repo_user' in repo:
+                repo_user=repo['repo_user']
+            if 'repo_password' in repo:
+                repo_password=repo['repo_password']
             if 'repo_dir' in repo:
                 repo_dir=repo['repo_dir']
             if 'repo_file' in repo:
