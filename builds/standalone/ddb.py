@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.129'
+__version__='1.2.130'
 
         
 # ############################################################################
@@ -848,7 +848,7 @@ language={'commands': [{'name': 'show columns',
                                                '{password}',
                                                'repo_dir',
                                                '=',
-                                               '{dir}',
+                                               '{repo_dir}',
                                                'repo_file',
                                                '=',
                                                '{file}']}],

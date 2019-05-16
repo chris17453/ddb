@@ -334,12 +334,12 @@ class engine:
         if table.data.repo_type=='svn':
             cmd=[   'svn',
                     '--no-auth-cache',
-                    '--username {0}'.format(table.data.repo_user),
-                    '--password {0}'.format(table.data.repo_password),
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
                     'co',
                     table.data.repo_url,
                     table.data.repo_dir,
-                    '--depth empty']
+                    '--depth','empty']
             print " ".join(cmd)
             self.os_cmd(cmd,"SVN Repo Err")
 
@@ -352,8 +352,6 @@ class engine:
         d=1
 
     def get_data_file(self,table,prefix="ddb_"):
-        print ("GDF")
-            
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
