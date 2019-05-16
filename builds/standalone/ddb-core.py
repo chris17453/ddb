@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.186'
+__version__='1.2.187'
 
         
 # ############################################################################
@@ -2495,6 +2495,7 @@ class engine:
     """A serverless flat file database engine"""
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
+            logging.info("PID:{0} : {2}, {3}, {4}".format(self.pid,msg,arg1,arg2))
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
             elif isinstance(arg1,object) :
