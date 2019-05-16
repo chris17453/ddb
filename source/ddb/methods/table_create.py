@@ -4,7 +4,7 @@ from .record_core import  process_line, query_results
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
-        print(query_object)
+        #print(query_object)
         if 'database' in query_object['meta']:
             context.info('Database specified')
             database_name = query_object['meta']['database']
