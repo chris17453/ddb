@@ -21,9 +21,9 @@ def method_system_commit(context):
                     print ("deleting temp and copying to src",tmp['origin'],tmp['temp_source'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
-                if tmp['table'].data.repo=='svn':
-                    print ("svn thing")
-                    context.svn_commit_file(tmp['table'])
+                #if tmp['table'].data.repo=='svn':
+                 #   print ("svn thing")
+                  #  context.svn_commit_file(tmp['table'])
 
             context.internal['TEMP_FILES']={}
 
