@@ -73,9 +73,8 @@ class test_engine(unittest.TestCase):
         try:
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            # new on existing table
-        self.create_table(engine)
-        self.assertEqual(True, results.success)
+        
+            self.create_table(engine)
         except Exception as ex:
             self.fail(ex)
 
