@@ -18,7 +18,7 @@ def method_system_commit(context):
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
-                    print ("deleting temp and copying to src")
+                    print ("deleting temp and copying to src",tmp['origin'],tmp['temp_source'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
             if tmp['table'].data.repo=='svn':
