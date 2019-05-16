@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.89'
+__version__='1.2.90'
 
         
 # ############################################################################
@@ -878,7 +878,7 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'comments': {'type': 'bool'}},
                              'type': 'single'},
                             {'data': [{'sig': ['strict',
-                                               'columns'
+                                               'columns',
                                                '=',
                                                '{strict columns}']}],
                              'name': 'strict columns',
