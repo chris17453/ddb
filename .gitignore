@@ -10,5 +10,7 @@ dist/
 *.gz
 *.zip
 *.tar
+.svn
+svn_test
 ddb.egg-info/
 
