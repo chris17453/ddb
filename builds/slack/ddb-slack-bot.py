@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.92'
+__version__='1.2.93'
 
         
 # ############################################################################
@@ -882,7 +882,7 @@ language={'commands': [{'name': 'show columns',
                                                '{comments}']}],
                              'name': 'comments',
                              'optional': True,
-                             'specs': {'comments': {'type': 'bool'}},
+                             'specs': {'comments': {'type': 'bool','default': None}},
                              'type': 'single'},
                             {'data': [{'sig': ['strict',
                                                'columns',
@@ -890,7 +890,7 @@ language={'commands': [{'name': 'show columns',
                                                '{strict columns}']}],
                              'name': 'strict columns',
                              'optional': True,
-                             'specs': {'strict columns': {'type': 'bool'}},
+                             'specs': {'strict columns': {'type': 'bool','default': True}},
                              'type': 'single'},
                             {'data': [{'sig': ['data_starts_on',
                                                '=',
@@ -2709,11 +2709,12 @@ class engine:
 
 def process_line(context, query_object, line, line_number=0):
     err = None
-    column_len = query_object['table'].column_count()
+    table=query_object['table']
+    column_len = table.column_count()
     line_cleaned = line.rstrip()
     line_data = None
     match_results=False
-    if query_object['table'].data.starts_on_line > line_number:
+    if table.data.starts_on_line > line_number:
         line_type = context.data_type.COMMENT
         line_data = line
         match=False
@@ -2722,29 +2723,29 @@ def process_line(context, query_object, line, line_number=0):
         match=True
     if match:
         if not line_cleaned:
-            if True == query_object['table'].visible.whitespace:
+            if True == table.visible.whitespace:
                 line_data = ['']
             line_type = context.data_type.WHITESPACE
         else:
-            if line_cleaned[0] in query_object['table'].delimiters.comment:
-                if True == query_object['table'].visible.comments:
+            if line_cleaned[0] in table.delimiters.comment:
+                if True == table.visible.comments:
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(query_object['table'].delimiters.field,column_len)
+                line_data = line_cleaned.split(table.delimiters.field,column_len)
                 cur_column_len = len(line_data)
-                if cur_column_len != column_len:
+                if table.data.strict_columns and cur_column_len != column_len:
                     if cur_column_len > column_len:
-                        err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, query_object['table'].data.name)
+                        err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
                     else:
-                        err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, query_object['table'].data.name)
+                        err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, table.data.name)
                     line_type = context.data_type.ERROR
-                    if True == query_object['table'].visible.errors:
+                    if True == table.visible.errors:
                         line_data = line_cleaned
                     else:
                         line_data = None
                     line_type = context.data_type.ERROR
-                if None != query_object['table'].delimiters.block_quote:
+                if None != table.delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:
                         line_data_cleaned.append(d[1:-1])
@@ -2756,11 +2757,11 @@ def process_line(context, query_object, line, line_number=0):
                 match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
-        if query_object['table'].visible.whitespace is False and line_type==context.data_type.WHITESPACE:
+        if table.visible.whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
-        elif query_object['table'].visible.comments is False and line_type==context.data_type.COMMENT:
+        elif table.visible.comments is False and line_type==context.data_type.COMMENT:
             match_results=False
-        elif query_object['table'].visible.errors is False and line_type==context.data_type.ERROR:
+        elif table.visible.errors is False and line_type==context.data_type.ERROR:
             match_results=False
     return {'data': line_data, 
             'type': line_type, 
@@ -3467,6 +3468,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['comments_visible',target_table.visible.comments], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['errors_visible',target_table.visible.errors], 'type': context.data_type.DATA, 'error': None})
         temp_table.append_data({'data':['whitespace_visible',target_table.visible.whitespace], 'type': context.data_type.DATA, 'error': None})
+        temp_table.append_data({'data':['strict_columns',target_table.data.strict_columns], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         return query_results(success=False,error=ex)
