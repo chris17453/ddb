@@ -60,7 +60,7 @@ class test_engine(unittest.TestCase):
         try:
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=False,debug=False)
+            engine = ddb.engine(config_file=False,debug=None)
             results = engine.query("show output modules")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
@@ -85,7 +85,7 @@ class test_engine(unittest.TestCase):
     def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         
         self.create_table(engine)
         try:
