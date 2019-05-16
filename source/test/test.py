@@ -100,6 +100,7 @@ class test_engine(unittest.TestCase):
                 
             else:
                 file_name=os.path.join(self.basedir, self.temp_data)
+            print file_name
 
             query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
             print query
