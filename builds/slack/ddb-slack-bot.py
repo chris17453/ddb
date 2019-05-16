@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.93'
+__version__='1.2.94'
 
         
 # ############################################################################
@@ -3471,6 +3471,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['strict_columns',target_table.data.strict_columns], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
 
         
