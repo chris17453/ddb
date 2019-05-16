@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.198'
+__version__='1.2.199'
 
         
 # ############################################################################
@@ -4176,7 +4176,11 @@ class flextable:
                 text=self.text
             if None == text:
                 text=''
-            text=str(text)
+            try:
+                if not isinstance(text,unicode):
+                    text=str(text)
+            except:
+                pass
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
             text=text.rstrip()
