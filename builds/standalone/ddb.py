@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.142'
+__version__='1.2.143'
 
         
 # ############################################################################
@@ -988,7 +988,7 @@ language={'commands': [{'name': 'show columns',
 # ############################################################################
 
 class lexer:
-    def __init__(self, query, debug=False):
+    def __init__(self, query, debug=None):
         self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
