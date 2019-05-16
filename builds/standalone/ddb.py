@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.179'
+__version__='1.2.180'
 
         
 # ############################################################################
@@ -2708,7 +2708,7 @@ class engine:
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
-        print("IN SVN COMMIT",table.data.name)
+        self.info("IN SVN COMMIT",table.data.name)
         os.chdir(table.data.repo_dir)
         cmd=[   'svn',
                 'commit',
