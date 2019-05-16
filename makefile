@@ -27,6 +27,9 @@ help:
 	@echo "make unittest       | run unittest "
 	@echo "make upload         | upload any build packages to pypi"
 	@echo "make uninstall      | uninstall ddb from your user directory"
+	@echo "make uninstall      | uninstall ddb from your user directory"
+	@echo "make svn_start      | start svn docker"
+	@echo "make svn_stop       | stop svn docker"
 	
 
 clean:
@@ -67,6 +70,12 @@ bump:
 unittest:
 	@cd source; python -m test.test
 	
+svn_stop:
+	@source/test/svn_stop.sh
+
+svn_start:
+	@source/test/svn_start.sh
+
 build: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
@@ -75,9 +84,7 @@ build: bump
 # --use-cython
 	#
 	# @$(MAKE) -f $(THIS_FILE) standalone
-	@source/test/svn_start.sh
 	@$(MAKE) -f $(THIS_FILE) unittest
-	@source/test/svn_stop.sh
 
 buildc: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
@@ -86,9 +93,7 @@ buildc: bump
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --use-cython
 	#
 	# @$(MAKE) -f $(THIS_FILE) standalone
-	@source/test/svn_start.sh
 	@$(MAKE) -f $(THIS_FILE) unittest
-	@source/test/svn_stop.sh
 
 
 standalone:
