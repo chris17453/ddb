@@ -187,11 +187,11 @@ class flextable:
             # make safe
             #text='{0}'.format(text)
             # make sure its a string
-#            try:
-#                if not isinstance(text,unicode):
-            text=str(text)
-#            except:
-#                pass
+            try:
+                if not isinstance(text,unicode):
+                    text=str(text)
+            except:
+                pass
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
             
