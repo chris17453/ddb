@@ -15,7 +15,7 @@ class lexer:
         # keep non variable keywords form signature match in object
         # realy only need this for debugging
         self.keep_non_keywords=True
-        self.debug = debug
+        self.debug = True
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid Syntax")
