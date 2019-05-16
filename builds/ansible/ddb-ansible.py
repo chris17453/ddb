@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.174'
+__version__='1.2.175'
 
         
 # ############################################################################
@@ -3740,9 +3740,6 @@ def method_system_commit(context):
                 else:
                     print ("deleting temp and copying to src",tmp['origin'],tmp['temp_source'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
-                if tmp['table'].data.repo=='svn':
-                    print ("svn thing")
-                    context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
         else:
             raise Exception("Cannot commit, not in a transaction")
