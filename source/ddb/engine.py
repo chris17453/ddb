@@ -56,8 +56,8 @@ class engine:
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None):
+        logging.info("PID:{0} : {2}, {3}, {4}".format(self.pid,msg,arg1,arg2))
         if True == self.debug:
-            logging.info("PID:{0} : {2}, {3}, {4}".format(self.pid,msg,arg1,arg2))
 
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
