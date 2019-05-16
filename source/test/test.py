@@ -87,7 +87,7 @@ class test_engine(unittest.TestCase):
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
             
-            repo="repo='{0}' url='{1}' user='{2}' password='{3}' dir='{4}' file='{5}'".format(
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
                 'svn',
                 'http://localhost/svn/SampleProject/',
                 'user',
