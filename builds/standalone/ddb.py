@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.196'
+__version__='1.2.197'
 
         
 # ############################################################################
@@ -3442,7 +3442,6 @@ def method_create_table(context, query_object):
             if 'repo_file' in repo:
                 repo_file=repo['repo_file']
         else:
-            print "NO REPO"
             repo_type=None
             repo_url=None
             repo_user=None
