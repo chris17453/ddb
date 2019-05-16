@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.141'
+__version__='1.2.142'
 
         
 # ############################################################################
@@ -2503,7 +2503,7 @@ class engine:
                 pp.pprint(arg1)
             else:    
                 print(msg, arg1, arg2, arg3)
-    def __init__(self, config_file=None, query=None, debug=False, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_file=None, query=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         if config_file is None:
             home = os.path.expanduser("~")
