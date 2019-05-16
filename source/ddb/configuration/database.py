@@ -135,6 +135,7 @@ class database:
                      repo_password=None,
                      repo_dir=None,
                      repo_file=None,
+                     strict_columns=None
                     ):
         #print("Creating table..")
         if None == database_name:
@@ -166,12 +167,13 @@ class database:
                     whitespace=whitespace,
                     errors=errors,
                     fifo=fifo,
-                    repo_type=None,
-                    repo_url=None,
-                    repo_user=None,
-                    repo_password=None,
-                    repo_dir=None,
-                    repo_file=None,)
+                    repo_type=repo_type,
+                    repo_url=repo_url,
+                    repo_user=repo_user,
+                    repo_password=repo_password,
+                    repo_dir=repo_dir,
+                    repo_file=repo_file,
+                    strict_columns=strict_columns)
         t.data.path = data_file
         # print("Appending table")
         self.tables.append(t)

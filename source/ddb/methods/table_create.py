@@ -25,6 +25,7 @@ def method_create_table(context, query_object):
         else:
             temporary = None
 
+        strict_columns=None
         found_delimiter = None
         found_comments = None
         found_whitespace = None
@@ -41,6 +42,8 @@ def method_create_table(context, query_object):
             found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on = query_object['meta']['data_starts_on']
+        if 'strict columns' in query_object['meta']:
+            strict_columns = query_object['meta']['strict columns']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
 
@@ -84,6 +87,7 @@ def method_create_table(context, query_object):
                                                 repo_password=repo_password,
                                                 repo_dir=repo_dir,
                                                 repo_file=repo_file,                                                
+                                                strict_columns=strict_columns
                                                 )
 
         return query_results(success=results)

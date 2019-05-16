@@ -27,6 +27,7 @@ class table:
                  repo_password=None,
                  repo_dir=None,
                  repo_file=None,
+                 strict_columns=None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -55,6 +56,8 @@ class table:
                     repo_password=repo_password,
                     repo_dir=repo_dir,
                     repo_file=repo_file,
+                    strict_columns=strict_columns
+
                     )
 
         self.update_ordinals()
@@ -77,7 +80,9 @@ class table:
                 repo_user=None,
                 repo_password=None,
                 repo_dir=None,
-                repo_file=None):
+                repo_file=None,
+                strict_columns=None
+                ):
         
         if repo_type:
             if repo_type=='svn':
@@ -87,6 +92,9 @@ class table:
                 self.data.repo_password=repo_password
                 self.data.repo_dir=repo_dir
                 self.data.repo_file=repo_file
+
+        if strict_columns:
+            self.data.strict_columns=strict_columns
 
         if fifo:
             self.data.fifo=fifo
@@ -330,7 +338,7 @@ class table:
         else:
             repo=""
 
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} data_starts_on={8} ".format(
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict columns={11} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -341,7 +349,8 @@ class table:
                 self.visible.comments,
                 self.data.starts_on_line,
                 fifo,
-                repo)
+                repo,
+                self.data.strict_columns)
 
               
         with open(self.data.config,"w") as config_file:
@@ -379,6 +388,7 @@ class table_data:
         self.repo_password=None
         self.repo_dir=None
         self.repo_file=None
+        self.strict_columns=None
 
         if None != name:
             self.name = name
