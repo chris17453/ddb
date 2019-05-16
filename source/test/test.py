@@ -37,8 +37,7 @@ class test_engine(unittest.TestCase):
         
 
         query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
-        
-        results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        results = engine.query(query)
         self.assertEqual(True, results.success)
 
     def t1est_use(self):

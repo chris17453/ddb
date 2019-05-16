@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.155'
+__version__='1.2.156'
 
         
 # ############################################################################
@@ -3503,6 +3503,7 @@ def method_create_table(context, query_object):
             strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
+        print query_object
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
             if 'repo_type' in repo:
