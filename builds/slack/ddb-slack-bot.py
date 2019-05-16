@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.117'
+__version__='1.2.118'
 
         
 # ############################################################################
@@ -851,6 +851,7 @@ language={'commands': [{'name': 'show columns',
                                                '=',
                                                '{dir}',
                                                'repo_file',
+                                               '=',
                                                '{file}']}],
                              'name': 'repo',
                              'optional': True,
