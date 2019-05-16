@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.165'
+__version__='1.2.166'
 
         
 # ############################################################################
@@ -2708,8 +2708,7 @@ class engine:
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
-        print("COMMIT",table.data.name)
-        d=1
+        print("IN SVN COMMIT",table.data.name)
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -3652,6 +3651,8 @@ def method_system_commit(context):
                 else:
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             context.internal['TEMP_FILES']={}
+            if tmp['table'].data.repo=='svn':
+                context.svn_commit_file(tmp['table'])
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)

@@ -19,10 +19,10 @@ def method_system_commit(context):
                 else:
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
-            context.internal['TEMP_FILES']={}
             if tmp['table'].data.repo=='svn':
                 context.svn_commit_file(tmp['table'])
 
+            context.internal['TEMP_FILES']={}
 
         else:
             raise Exception("Cannot commit, not in a transaction")
