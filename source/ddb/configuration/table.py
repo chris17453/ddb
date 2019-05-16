@@ -388,7 +388,7 @@ class table_data:
         self.repo_password=None
         self.repo_dir=None
         self.repo_file=None
-        self.strict_columns=None
+        self.strict_columns=False
 
         if None != name:
             self.name = name
