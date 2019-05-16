@@ -338,7 +338,7 @@ class table:
         else:
             repo=""
 
-        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict columns={11} data_starts_on={8} ".format(
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict={11} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,

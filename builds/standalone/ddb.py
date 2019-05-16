@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.96'
+__version__='1.2.97'
 
         
 # ############################################################################
@@ -2555,9 +2555,11 @@ class engine:
                 queries=self.database.get_db_sql()
                 logging.disabled = True
                 if queries:
+                    print queries
                     self.query(queries)
                 logging.disabled = False
         except Exception as ex:
+            print ex
             pass
         if None != query:
             self.query(query)
