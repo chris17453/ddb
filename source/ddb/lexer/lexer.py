@@ -362,8 +362,10 @@ class lexer:
 
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if  result['success']:
+                self.info("SUCCESSFULL MATCH")
                 return {'success':True,'results':result,'match':token_index,'msg':None}
             else:
+                self.info("FAILED MATCH")
                 return {'success':None,'results':None,'match':token_index,'msg':result['msg']}
 
         query_err=[]
@@ -376,6 +378,7 @@ class lexer:
                 query_err.append(tokens[index]['data'])
         query_err.append("\n Syntax error near word {0}".format(token_index))
         err_msg=" ".join(query_err)
+        self.info("FAILED MATCH")
         return {'success':None,'results':None,'match':token_index,'msg':err_msg}
 
 
