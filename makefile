@@ -63,6 +63,7 @@ bump:
 	@git add -A 
 	@git commit -m 'Bump Version $(shell cat source/conf/version)'
 
+
 unittest:
 	@cd source; python -m test.test
 	
@@ -74,7 +75,9 @@ build: bump
 # --use-cython
 	#
 	# @$(MAKE) -f $(THIS_FILE) standalone
+	@source/test/svn_start.sh
 	@$(MAKE) -f $(THIS_FILE) unittest
+	@source/test/svn_stop.sh
 
 buildc: bump 
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
@@ -83,7 +86,9 @@ buildc: bump
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --use-cython
 	#
 	# @$(MAKE) -f $(THIS_FILE) standalone
+	@source/test/svn_start.sh
 	@$(MAKE) -f $(THIS_FILE) unittest
+	@source/test/svn_stop.sh
 
 
 standalone:
