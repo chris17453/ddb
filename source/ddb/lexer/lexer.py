@@ -361,7 +361,7 @@ class lexer:
         self.info(segment_index, token_index, len(tokens))
 
 
-        self.info(curent_object)
+        self.info(query_object)
         if token_index == len(tokens):
 
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)

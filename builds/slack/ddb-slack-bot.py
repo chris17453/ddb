@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.115'
+__version__='1.2.116'
 
         
 # ############################################################################
@@ -1076,7 +1076,7 @@ class lexer:
         segment = {}
         token_list=[]
         for i in range(0,len(tokens)):
-            token_list.append("{0}-{1}".format(i,tokens[i].data))
+            token_list.append("{0}-{1}".format(i,tokens[i]['data']))
         self.info(",".join(token_list))
         while segment_index < len(command['segments']) and token_index < len(tokens):
             segment = command['segments'][segment_index]
