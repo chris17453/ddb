@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.90'
+__version__='1.2.91'
 
         
 # ############################################################################
@@ -889,7 +889,7 @@ language={'commands': [{'name': 'show columns',
                                                '{strict columns}']}],
                              'name': 'strict columns',
                              'optional': True,
-                             'specs': {'strict','columns': {'type': 'bool'}},
+                             'specs': {'strict columns': {'type': 'bool'}},
                              'type': 'single'},
                             {'data': [{'sig': ['data_starts_on',
                                                '=',
