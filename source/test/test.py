@@ -108,8 +108,6 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         # fail on existing table
         
-        results = engine.query(query)
-        self.assertEqual(True, results.success)
         self.create_table(engine)
         
          # test results length
