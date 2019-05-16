@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.131'
+__version__='1.2.132'
 
         
 # ############################################################################
@@ -845,7 +845,7 @@ language={'commands': [{'name': 'show columns',
                                                '{repo_dir}',
                                                'repo_file',
                                                '=',
-                                               '{file}']}],
+                                               '{repo_file}']}],
                              'name': 'repo',
                              'optional': True,
                              'type': 'single'},
