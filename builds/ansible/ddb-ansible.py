@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.107'
+__version__='1.2.108'
 
         
 # ############################################################################
@@ -933,10 +933,10 @@ language={'commands': [{'name': 'show columns',
                                                'password',
                                                '=',
                                                '{password}',
-                                               'dir',
+                                               'repo_dir',
                                                '=',
                                                '{dir}',
-                                               'file',
+                                               'repo_file',
                                                '{file}']}],
                              'name': 'repo',
                              'optional': True,
@@ -3498,9 +3498,9 @@ def method_create_table(context, query_object):
                 repo_user=repo['user']
             if 'password' in repo:
                 repo_password=repo['password']
-            if 'dir' in repo:
+            if 'repo_dir' in repo:
                 repo_dir=repo['dir']
-            if 'file' in repo:
+            if 'repo_file' in repo:
                 repo_file=repo['file']
         else:
             repo_type=None

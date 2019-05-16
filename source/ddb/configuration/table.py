@@ -328,7 +328,7 @@ class table:
             fifo="fifo='{0}'".format(self.data.fifo)
 
         if self.data.repo_type:
-            repo="repo='{0}' url='{1}' user='{2}' password='{3}' dir='{4}' file='{5}'".format(
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
             self.data.repo_type,
             self.data.repo_url,
             self.data.repo_user,
