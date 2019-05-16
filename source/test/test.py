@@ -258,8 +258,8 @@ class test_engine(unittest.TestCase):
         results = engine.query("select * from  {} where id = 12345".format(self.table_name))
         self.assertEqual(1, results.data_length)
         
-        results = engine.query("delete from {} where id = 12345".format(self.table_name))
-        self.assertEqual(1, results.affected_rows)
+       # results = engine.query("delete from {} where id = 12345".format(self.table_name))
+       # self.assertEqual(1, results.affected_rows)
 
         ddb.output.factory.output_factory(query_results=results,output='term')
         #except Exception as ex:
