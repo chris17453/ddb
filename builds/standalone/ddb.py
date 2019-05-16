@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.125'
+__version__='1.2.126'
 
         
 # ############################################################################
@@ -3413,6 +3413,7 @@ def method_create_table(context, query_object):
             strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
+        print  query_object['meta']
         if 'repo' in query_object['meta']:
             repo=query_object['meta']['repo']
             if 'type' in repo:
