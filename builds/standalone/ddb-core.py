@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.153'
+__version__='1.2.154'
 
         
 # ############################################################################
@@ -3411,6 +3411,7 @@ def method_create_table(context, query_object):
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
         if 'repo' in query_object['meta']:
+            print "REPO"
             repo=query_object['meta']
             if 'type' in repo:
                 repo_type=repo['type']
@@ -3425,6 +3426,7 @@ def method_create_table(context, query_object):
             if 'repo_file' in repo:
                 repo_file=repo['repo_file']
         else:
+            print "NO REPO"
             repo_type=None
             repo_url=None
             repo_user=None
@@ -3499,7 +3501,6 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['password',target_table.data.repo_password], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        print ex
         return query_results(success=False,error=ex)
 
         
