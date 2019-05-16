@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.140'
+__version__='1.2.141'
 
         
 # ############################################################################
@@ -3372,7 +3372,6 @@ def method_use(context, query_object):
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
-        print(query_object)
         if 'database' in query_object['meta']:
             context.info('Database specified')
             database_name = query_object['meta']['database']
