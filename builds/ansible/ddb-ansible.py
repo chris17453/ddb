@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.127'
+__version__='1.2.128'
 
         
 # ############################################################################
@@ -3462,6 +3462,7 @@ def method_use(context, query_object):
 def method_create_table(context, query_object):
     context.info("Create Table")
     try:
+        pprint.pprint(query_object)
         if 'database' in query_object['meta']:
             context.info('Database specified')
             database_name = query_object['meta']['database']
@@ -3542,7 +3543,6 @@ def method_create_table(context, query_object):
                                                 )
         return query_results(success=results)
     except Exception as ex:
-        print ex
         return query_results(success=False, error=ex)
 
         
