@@ -18,8 +18,6 @@ def method_system_commit(context):
                     lock.release(table_key)
                 else:
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
-                if tmp['table'].data.repo=='svn':
-                    context.svn_commit_file(tmp['table'])
             # clear
             context.internal['TEMP_FILES']={}
 
