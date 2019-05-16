@@ -195,7 +195,7 @@ class engine:
             self.init_state_variables()
             
             self.info("Engine: query_object", query_object)
-            #print  query_object
+            #d  query_object
             # exit(9)
             # get columns, doesnt need a table
             #print query_object
@@ -329,7 +329,7 @@ class engine:
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     
-    def svn_get_file(self,table):
+    def svn_checkout_file(self,table):
         print("IN SVN PULL")
         if table.data.repo_type=='svn':
             cmd=[   'svn',
@@ -354,7 +354,8 @@ class engine:
             #print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
-    def svn_put_file(self,table):
+    def svn_commit_file(self,table):
+        print("COMMIT",table.data.name)
         d=1
 
     def get_data_file(self,table,prefix="ddb_"):
@@ -362,10 +363,9 @@ class engine:
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
-
-                self.svn_get_file(table)
+                self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
-            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
     def autocommit_write(self,table,dest_file):
