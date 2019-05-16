@@ -81,60 +81,60 @@ class test_engine(unittest.TestCase):
 
     def test_select(self):
         """Test selecting results using various clauses a table"""
-        try:
-            print("SELECT")
-            self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
-            # fail on existing table
+        #try:
+        print("SELECT")
+        self.cleanup()
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        # fail on existing table
+        
+        repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
+            'svn',
+            'http://localhost/svn/SampleProject/',
+            'user',
+            'password',
+            os.path.join(self.basedir,'source/test/svn_test/'),
+            'MOCK_DATA.csv')
+
+        if repo:
+            file_name=os.path.join(self.basedir,'source/test/svn_test',"MOCK_DATA.csv")
             
-            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
-                'svn',
-                'http://localhost/svn/SampleProject/',
-                'user',
-                'password',
-                os.path.join(self.basedir,'source/test/svn_test/'),
-                'MOCK_DATA.csv')
+        else:
+            file_name=os.path.join(self.basedir, self.temp_data)
+        
 
-            if repo:
-                file_name=os.path.join(self.basedir,'source/test/svn_test',"MOCK_DATA.csv")
-                
-            else:
-                file_name=os.path.join(self.basedir, self.temp_data)
-            
+        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        print query
+        results = engine.query(query)
+        self.assertEqual(True, results.success)
+        # test results length
+        results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(10, results.data_length)
 
-            query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
-            print query
-            results = engine.query(query)
-            self.assertEqual(True, results.success)
-            # test results length
-            results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(10, results.data_length)
+        results = engine.query('select * from {0} LIMIT 1'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(1, results.data_length)
 
-            results = engine.query('select * from {0} LIMIT 1'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
+        results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(0, results.data_length)
+        
+        # WHERE/LIMIT
+        results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(1, results.data_length)
+        
+        # WHERE AND/LIMIT
+        results = engine.query('select * from {0} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(1, results.data_length)
 
-            results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(0, results.data_length)
-            
-            # WHERE/LIMIT
-            results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
-            
-            # WHERE AND/LIMIT
-            results = engine.query('select * from {0} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
-
-            # WHERE / AND / OR/LIMIT
-            results = engine.query('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(2, results.data_length)
-        except Exception as ex:
-            self.fail(ex)
+        # WHERE / AND / OR/LIMIT
+        results = engine.query('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(2, results.data_length)
+        #except Exception as ex:
+        #    self.fail(ex)
 
     def t1est_update(self):
         """Update a row in the test file"""
