@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.158'
+__version__='1.2.159'
 
         
 # ############################################################################
@@ -3651,9 +3651,8 @@ def method_system_commit(context):
                     lock.release(table_key)
                 else:
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
-                    for
                 if tmp['table'].data.repo=='svn':
-                    context.svn_commit_file(table)
+                    context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
         else:
             raise Exception("Cannot commit, not in a transaction")
