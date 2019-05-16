@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.178'
+__version__='1.2.179'
 
         
 # ############################################################################
@@ -2688,7 +2688,7 @@ class engine:
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_checkout_file(self,table):
-        print("IN SVN PULL")
+        self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
             cmd=[   'svn',
                     '--no-auth-cache',
@@ -2710,6 +2710,16 @@ class engine:
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
         print("IN SVN COMMIT",table.data.name)
+        os.chdir(table.data.repo_dir)
+        cmd=[   'svn',
+                'commit',
+                table.data.repo_file,
+                '-m','ddb',
+                '--no-auth-cache',
+                '--username','{0}'.format(table.data.repo_user),
+                '--password','{0}'.format(table.data.repo_password)
+                ]
+        self.os_cmd(cmd,"SVN Checkout File Err")        
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -3648,14 +3658,11 @@ def method_system_commit(context):
             for table_key in context.internal['TEMP_FILES']:
                 tmp=context.internal['TEMP_FILES'][table_key]
                 if None== tmp['written']:
-                    print ("Removing unused lock")
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
-                    print ("deleting temp and copying to src",tmp['origin'],tmp['temp_source'])
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
                     if tmp['table'].data.repo_type=='svn':
-                       print ("svn thing")
                        context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
         else:

@@ -355,7 +355,7 @@ class engine:
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_commit_file(self,table):
-        print("IN SVN COMMIT",table.data.name)
+        self.info("IN SVN COMMIT",table.data.name)
         os.chdir(table.data.repo_dir)
         cmd=[   'svn',
                 'commit',
