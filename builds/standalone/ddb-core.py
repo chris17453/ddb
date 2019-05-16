@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.157'
+__version__='1.2.158'
 
         
 # ############################################################################
@@ -2680,7 +2680,7 @@ class engine:
             self.info(err)
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
-    def svn_get_file(self,table):
+    def svn_checkout_file(self,table):
         print("IN SVN PULL")
         if table.data.repo_type=='svn':
             cmd=[   'svn',
@@ -2701,16 +2701,17 @@ class engine:
                     '--password','{0}'.format(table.data.repo_password)
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
-    def svn_put_file(self,table):
+    def svn_commit_file(self,table):
+        print("COMMIT",table.data.name)
         d=1
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
-                self.svn_get_file(table)
+                self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
-            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
@@ -3410,7 +3411,6 @@ def method_create_table(context, query_object):
             strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
-        print query_object
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
             if 'repo_type' in repo:
@@ -3645,6 +3645,9 @@ def method_system_commit(context):
                     lock.release(table_key)
                 else:
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
+                    for
+                if tmp['table'].data.repo=='svn':
+                    context.svn_commit_file(table)
             context.internal['TEMP_FILES']={}
         else:
             raise Exception("Cannot commit, not in a transaction")
