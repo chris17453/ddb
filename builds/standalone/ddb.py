@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.116'
+__version__='1.2.117'
 
         
 # ############################################################################
@@ -1273,7 +1273,7 @@ class lexer:
                                 self.info("------more list")
                                 token_index += 1
         self.info(segment_index, token_index, len(tokens))
-        self.info(curent_object)
+        self.info(query_object)
         if token_index == len(tokens):
             result=self.validate(curent_object,tokens,token_index,segment,command,segment_index,query_object,query_mode)
             if  result['success']:
