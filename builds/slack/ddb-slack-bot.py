@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.187'
+__version__='1.2.188'
 
         
 # ############################################################################
@@ -2501,8 +2501,8 @@ def enum(**enums):
 class engine:
     """A serverless flat file database engine"""
     def info(self,msg, arg1=None, arg2=None, arg3=None):
+        logging.info("PID:{0} : {2}, {3}, {4}".format(self.pid,msg,arg1,arg2))
         if True == self.debug:
-            logging.info("PID:{0} : {2}, {3}, {4}".format(self.pid,msg,arg1,arg2))
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
             elif isinstance(arg1,object) :
