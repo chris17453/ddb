@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.118'
+__version__='1.2.119'
 
         
 # ############################################################################
@@ -984,7 +984,7 @@ language={'commands': [{'name': 'show columns',
 class lexer:
     def __init__(self, query, debug=False):
         self.keep_non_keywords=True
-        self.debug = True
+        self.debug = debug
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid Syntax")

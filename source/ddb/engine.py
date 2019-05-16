@@ -330,6 +330,7 @@ class engine:
         return output
     
     def svn_get_file(self,table):
+        print("IN SVN PULL")
         if table.data.repo_type=='svn':
             cmd=[   'svn',
                     '--no-auth-cache',
@@ -339,9 +340,12 @@ class engine:
                     table.data.repo_url,
                     table.data.repo_dir,
                     '--depth empty']
+            print " ".join(cmd)
             self.os_cmd(cmd,"SVN Repo Err")
+
             os.chdir(table.data.repo_dir)
             cmd=['svn','up',table.data.repo_file]
+            print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_put_file(self,table):
@@ -353,6 +357,7 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
 
             if table.data.repo_type=='svn':
+
                 self.svn_get_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None}
