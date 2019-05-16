@@ -1,11 +1,11 @@
 #!/bin/bash
 
 
-$(docker ps | grep ddb-svn)
+res=$(docker ps | grep ddb-svn)
 svn_stat="$?"
 
 if [[ $svn_stat == 0 ]]; then
-    print "ddb-svn already up"
+    echo "ddb-svn already up"
     exit 0
 fi
 
