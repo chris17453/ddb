@@ -20,6 +20,8 @@ def method_system_commit(context):
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
             # clear
             context.internal['TEMP_FILES']={}
+            if tmp['table'].data.repo=='svn':
+                context.svn_commit_file(tmp['table'])
 
 
         else:

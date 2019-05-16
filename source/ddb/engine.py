@@ -355,8 +355,7 @@ class engine:
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_commit_file(self,table):
-        print("COMMIT",table.data.name)
-        d=1
+        print("IN SVN COMMIT",table.data.name)
 
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
