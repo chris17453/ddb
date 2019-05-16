@@ -42,7 +42,7 @@ def method_describe_table(context, query_object):
         temp_table.append_data({'data':['password',target_table.data.repo_password], 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        print ex
+       #print ex
         return query_results(success=False,error=ex)
 
 
