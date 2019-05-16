@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.138'
+__version__='1.2.139'
 
         
 # ############################################################################
@@ -2697,7 +2697,6 @@ class engine:
                     table.data.repo_url,
                     table.data.repo_dir,
                     '--depth','empty']
-            print " ".join(cmd)
             self.os_cmd(cmd,"SVN Repo Err")
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
@@ -2707,7 +2706,6 @@ class engine:
                     '--username','{0}'.format(table.data.repo_user),
                     '--password','{0}'.format(table.data.repo_password)
                     ]
-            print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_put_file(self,table):
         d=1
