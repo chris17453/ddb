@@ -105,8 +105,10 @@ class test_engine(unittest.TestCase):
         query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
         print query
         results = engine.query(query)
+        print ("1")
         self.assertEqual(True, results.success)
         # test results length
+        print ("3")
         results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
         self.assertEqual(True, results.success)
         self.assertEqual(10, results.data_length)
