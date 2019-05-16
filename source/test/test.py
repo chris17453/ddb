@@ -96,7 +96,7 @@ class test_engine(unittest.TestCase):
                 "MOCK_DATA.csv")
 
             if repo:
-                file_name=os.path.join(self.basedir,'source/test/svn_test',"MOCK_DATA.csv"),
+                file_name=os.path.join(self.basedir,'source/test/svn_test',"MOCK_DATA.csv")
                 
             else:
                 file_name=os.path.join(self.basedir, self.temp_data)
