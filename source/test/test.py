@@ -1,3 +1,4 @@
+
 import unittest
 import os
 import sys
@@ -19,7 +20,28 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
-    def t1est_use(self):
+    def create_table(self,engine):
+        repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
+            'svn',
+            'http://localhost/svn/SampleProject/',
+            'user',
+            'password',
+            os.path.join(self.basedir,'svn_test'),
+            'MOCK_DATA.csv')
+
+        if repo:
+            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
+            
+        else:
+            file_name=os.path.join(self.basedir, self.temp_data)
+        
+
+        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        
+        results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
+        self.assertEqual(True, results.success)
+
+    def test_use(self):
         """Test changing database context"""
         try:
             # single db change from default
@@ -33,7 +55,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -46,14 +68,14 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_create_table(self):
+    def test_create_table(self):
         """Test creating a table"""
         try:
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             # new on existing table
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+        self.create_table(engine)
+        self.assertEqual(True, results.success)
         except Exception as ex:
             self.fail(ex)
 
@@ -61,12 +83,12 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def t1est_drop_table(self):
+    def test_drop_table(self):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=True)
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-        self.assertEqual(True, results.success)
+        
+        self.create_table(engine)
         try:
         
             # fail on existing table
@@ -87,25 +109,11 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         # fail on existing table
         
-        repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
-            'svn',
-            'http://localhost/svn/SampleProject/',
-            'user',
-            'password',
-            os.path.join(self.basedir,'svn_test'),
-            'MOCK_DATA.csv')
-
-        if repo:
-            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
-            
-        else:
-            file_name=os.path.join(self.basedir, self.temp_data)
-        
-
-        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
         results = engine.query(query)
         self.assertEqual(True, results.success)
-        # test results length
+        self.create_table(engine)
+        
+         # test results length
         
         results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
         self.assertEqual(True, results.success)
@@ -136,15 +144,14 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_update(self):
+    def test_update(self):
         """Update a row in the test file"""
         try:
             self.cleanup()
             print("UPDATE")
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
-            results = engine.query("create table {}('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
             
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
@@ -159,7 +166,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_insert(self):
+    def test_insert(self):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -167,9 +174,7 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
         self.cleanup()
         # fail on existing table
-        create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
-        results = engine.query(create_table)
-        self.assertEqual(True, results.success)
+        self.create_table(engine)
 
         # update
         results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -182,14 +187,13 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_delete(self):
+    def test_delete(self):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
@@ -207,13 +211,12 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_show_tables(self):
+    def test_show_tables(self):
         """Show all tables in the database"""
         self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
 
             results = engine.query("SHOW TABLES")
             self.assertEqual(True, results.success)
@@ -223,13 +226,12 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_describe_table(self):
+    def test_describe_table(self):
         """Show table configuration"""
         self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
 
             results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
             ddb.output.factory.output_factory(query_results=results,output='term')
@@ -238,15 +240,14 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def t1est_upsert(self):
+    def test_upsert(self):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
 
         #try:
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
-        results = engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
-        self.assertEqual(True, results.success)
+        self.create_table(engine)
 
         results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
         self.assertEqual(True, results.success)
@@ -268,7 +269,7 @@ class test_engine(unittest.TestCase):
         #    print(ex)
         #    self.fail(ex)
 
-    def t1est_set(self):
+    def test_set(self):
         """Set a database variable """
         self.cleanup()
         try:
@@ -303,16 +304,14 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_rollback(self):
+    def test_rollback(self):
         """Rollback db changes"""
         self.cleanup()
         print("ROLLBACK")
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
-            create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
-            results = engine.query(create_table)
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
 
             results = engine.query("begin")
             self.assertEqual(True, results.success)
@@ -339,16 +338,14 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_commit(self):
+    def test_commit(self):
         """Rollback db changes"""
         try:
             self.cleanup()
             print("COMMIT")
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
 
-            create_table="create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data))
-            results = engine.query(create_table)
-            self.assertEqual(True, results.success)
+            self.create_table(engine)
 
             results = engine.query("begin")
             self.assertEqual(True, results.success)
