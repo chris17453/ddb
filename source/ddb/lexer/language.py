@@ -855,7 +855,7 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'comments': {'type': 'bool'}},
                              'type': 'single'},
                             {'data': [{'sig': ['strict',
-                                               'columns'
+                                               'columns',
                                                '=',
                                                '{strict columns}']}],
                              'name': 'strict columns',
