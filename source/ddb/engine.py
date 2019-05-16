@@ -135,11 +135,9 @@ class engine:
                 queries=self.database.get_db_sql()
                 logging.disabled = True
                 if queries:
-                    print queries
                     self.query(queries)
                 logging.disabled = False
         except Exception as ex:
-            print ex
             pass
 
         if None != query:

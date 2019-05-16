@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.99'
+__version__='1.2.100'
 
         
 # ############################################################################
@@ -2074,7 +2074,7 @@ class table_data:
         self.repo_password=None
         self.repo_dir=None
         self.repo_file=None
-        self.strict_columns=None
+        self.strict_columns=False
         if None != name:
             self.name = name
         if None != database:

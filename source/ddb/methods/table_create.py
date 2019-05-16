@@ -42,8 +42,8 @@ def method_create_table(context, query_object):
             found_errors = query_object['meta']['errors']
         if 'data_starts_on' in query_object['meta']:
             found_data_on = query_object['meta']['data_starts_on']
-        if 'strict columns' in query_object['meta']:
-            strict_columns = query_object['meta']['strict columns']
+        if 'strict' in query_object['meta']:
+            strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
 
