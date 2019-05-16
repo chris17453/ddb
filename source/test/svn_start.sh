@@ -1,5 +1,14 @@
 #!/bin/bash
 
+
+$(docker ps | grep ddb-svn)
+svn_stat="$?"
+
+if [[ $svn_stat == 0 ]]; then
+    print "ddb-svn already up"
+    exit 0
+fi
+
 echo $(pwd)
 # clear old svn stuff
 rm source/test/svn_test/.svn -rf
