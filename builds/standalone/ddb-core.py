@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.199'
+__version__='1.2.200'
 
         
 # ############################################################################
@@ -3079,6 +3079,24 @@ def set_ordinals(context,query_object):
         ordinals['{0}'.format(name)]=index                
         index+=1
     query_object['meta']['ordinals']=ordinals
+def cmp_to_key(mycmp):
+    'Convert a cmp= function into a key= function'
+    class K:
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+    return K
 def order_by(context,query_object,data):
     global context_sort
     if 'order by' not in query_object['meta']:
@@ -3096,7 +3114,11 @@ def order_by(context,query_object,data):
             direction = -1
         context_sort.append([ordinal, direction])
     context.info(context_sort)
-    ordered_data = sorted(data, sort_cmp)
+    try:
+      ordered_data = sorted(data, sort_cmp)
+    except:
+      ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
+      pass
     return ordered_data
 def group(context,data):
     return data
