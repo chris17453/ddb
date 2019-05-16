@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.197'
+__version__='1.2.198'
 
         
 # ############################################################################
@@ -4169,8 +4169,7 @@ class flextable:
                 text=self.text
             if None == text:
                 text=''
-            if not isinstance(text,unicode):
-                text=str(text)
+            text=str(text)
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
             text=text.rstrip()
