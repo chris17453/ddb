@@ -69,6 +69,17 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
     
     def test_show_output_modules(self):
+        """Test showint output modules and styles"""
+        try:
+            # single db change from default
+            self.cleanup()
+            engine = ddb.engine(config_file=False,debug=None)
+            results = engine.query("show output modules")
+            ddb.output.factory.output_factory(query_results=results,output='TERM')
+            self.assertEqual(True, results.success)
+        except Exception as ex: 
+            print(ex)
+            self.fail(ex)        
 
     def test_show_tables(self):
         """Show all tables in the database"""
@@ -184,9 +195,7 @@ class test_engine(unittest.TestCase):
         else:
             repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
-        
-        
-
+       
         query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
         results = engine.query(query)
         self.assertEqual(True, results.success)
@@ -410,8 +419,3 @@ class test_engine(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-    
