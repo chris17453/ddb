@@ -52,7 +52,7 @@ def process_line(context, query_object, line, line_number=0):
                     # add empty columns
                     if  cur_column_len != column_len:
                         for i in range(cur_column_len,column_len):
-                            line.data.append('')
+                            line_data.append('')
 
 
                 # fields are surrounded by something... trim
