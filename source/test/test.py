@@ -28,8 +28,8 @@ class test_engine(unittest.TestCase):
             'password',
             os.path.join(self.basedir,'svn_test'),
             'MOCK_DATA.csv')
-
-        if repo:
+        repo=''
+        if not repo:
             file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
             
         else:
@@ -210,17 +210,17 @@ class test_engine(unittest.TestCase):
     def test_show_tables(self):
         """Show all tables in the database"""
         self.cleanup()
-        try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            self.create_table(engine)
+        #try:
+        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+        self.create_table(engine)
 
-            results = engine.query("SHOW TABLES")
-            self.assertEqual(True, results.success)
-            
-            ddb.output.factory.output_factory(query_results=results,output='term')
-        except Exception as ex:
-            print(ex)
-            self.fail(ex)
+        results = engine.query("SHOW TABLES")
+        self.assertEqual(True, results.success)
+        
+        ddb.output.factory.output_factory(query_results=results,output='term')
+        #except Exception as ex:
+        #    print(ex)
+        #    self.fail(ex)
 
     def test_describe_table(self):
         """Show table configuration"""

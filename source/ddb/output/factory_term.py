@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
+from  subprocess import Popen
 
 class flextable:
 
@@ -188,10 +189,15 @@ class flextable:
             #text='{0}'.format(text)
             # make sure its a string
             try:
-                if not isinstance(text,unicode):
+                if isinstance(text,bool):
+                    text=str(text)
+                if isinstance(text,int):
+                    text=str(text)
+                elif not isinstance(text,unicode):
                     text=str(text)
             except:
                 pass
+            
             if text.find('\t')>-1:
                 text=text.replace('\t','       ')
             
@@ -421,9 +427,15 @@ class flextable:
             self.output_destination=None
 
         if self.column_width==-1:
+            pro=os.popen('stty -F /dev/tty size', 'r')
             try:
-                self.row_height,self.column_width = os.popen('stty -F /dev/tty size', 'r').read().split()
-            except:
+
+                stdout=pro.read().split()
+                process.close()
+                self.row_height,self.column_width =stdout.split()
+            except Exception as ex:
+                print (ex)
+                pro.close()
                 self.row_height=25
                 self.column_width=80
                 pass
