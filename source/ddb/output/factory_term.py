@@ -430,9 +430,9 @@ class flextable:
             pro=os.popen('stty -F /dev/tty size', 'r')
             try:
 
-                stdout=pro.read().split()
+                self.row_height,self.column_width =pro.read().split()
                 pro.close()
-                self.row_height,self.column_width =stdout.split()
+                
             except Exception as ex:
                 print (ex)
                 pro.close()
