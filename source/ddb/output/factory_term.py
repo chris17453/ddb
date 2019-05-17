@@ -431,7 +431,7 @@ class flextable:
             try:
 
                 stdout=pro.read().split()
-                process.close()
+                pro.close()
                 self.row_height,self.column_width =stdout.split()
             except Exception as ex:
                 print (ex)
