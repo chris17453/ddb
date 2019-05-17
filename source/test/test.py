@@ -20,26 +20,40 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
-    def create_table(self,engine):
-        repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
-            'svn',
-            'http://localhost/svn/SampleProject/',
-            'user',
-            'password',
-            os.path.join(self.basedir,'svn_test'),
-            'MOCK_DATA.csv')
-        repo=''
-        if not repo:
-            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
+    def test_set(self):
+        """Set a database variable """
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             
-        else:
-            file_name=os.path.join(self.basedir, self.temp_data)
-        
+            results = engine.query("set AUTOCOMMIT=False")
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT_MODULE=YAML")
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT_MODULE=TERM_RST")
+            self.assertEqual(True, results.success)
+            results = engine.query("set OUTPUT_MODULE=TERM_SINGLE")
+            self.assertEqual(True, results.success)
+            # Because it doesnt exist
+            results = engine.query("set OUTPUT=TERM_DOUBLE")
+            self.assertEqual(False, results.success)
+            # User var test
+            results = engine.query("set @time=1")
+            self.assertEqual(True, results.success)
+            results = engine.query("set @light=ON")
+            self.assertEqual(True, results.success)
+            results = engine.query("set @light=OFF")
+            self.assertEqual(True, results.success)
+            results = engine.query("set @config=FALSE")
+            self.assertEqual(True, results.success)
 
-        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
-        results = engine.query(query)
-        self.assertEqual(True, results.success)
-
+            results = engine.query("show variables")
+            ddb.output.factory.output_factory(query_results=results,output='TERM')
+            self.assertEqual(True, results.success)
+            
+        except Exception as ex:
+            self.fail(ex)
+    
     def test_use(self):
         """Test changing database context"""
         try:
@@ -55,6 +69,129 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
     
     def test_show_output_modules(self):
+
+    def test_show_tables(self):
+        """Show all tables in the database"""
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            self.create_table(engine,mode)
+
+            results = engine.query("SHOW TABLES")
+            self.assertEqual(True, results.success)
+            
+            ddb.output.factory.output_factory(query_results=results,output='term')
+        except Exception as ex:
+            print(ex)
+            self.fail(ex)
+
+    def test_describe_table(self,mode=None):
+        """Show table configuration"""
+        self.cleanup()
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            self.create_table(engine,mode)
+
+            results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
+            ddb.output.factory.output_factory(query_results=results,output='term')
+            self.assertEqual(True, results.success)
+        except Exception as ex:
+            print(ex)
+            self.fail(ex)
+
+    def test_rollback(self,mode=None):
+        """Rollback db changes"""
+        self.cleanup()
+        print("ROLLBACK")
+        try:
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+
+            self.create_table(engine,mode)
+
+            results = engine.query("begin")
+            self.assertEqual(True, results.success)
+            # update
+            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            #results.debug()
+            self.assertEqual(True, results.success)
+
+            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+            #results.debug()
+            self.assertEqual(True, results.success)
+            self.assertEqual(1001, results.data_length)
+            #results.debug()
+
+            results = engine.query("rollback")
+            self.assertEqual(True, results.success)
+            
+            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+            #results.debug()
+            self.assertEqual(True, results.success)
+            self.assertEqual(1000, results.data_length)
+                
+            
+        except Exception as ex:
+            self.fail(ex)
+
+    def test_commit(self,mode=None):
+        """Rollback db changes"""
+        try:
+            self.cleanup()
+            print("COMMIT")
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+
+            self.create_table(engine,mode)
+
+            results = engine.query("begin")
+            self.assertEqual(True, results.success)
+            # update
+            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            #results.debug()
+            self.assertEqual(True, results.success)
+
+            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+            #results.debug()
+            self.assertEqual(True, results.success)
+            self.assertEqual(1001, results.data_length)
+            #results.debug()
+
+            results = engine.query("commit")
+            self.assertEqual(True, results.success)
+            
+            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
+            #results.debug()
+            self.assertEqual(True, results.success)
+            self.assertEqual(1001, results.data_length)
+            
+            results = engine.query("delete from {} where id='1001'".format(self.table_name))
+            self.assertEqual(True, results.success)
+                
+            
+        except Exception as ex:
+            self.fail(ex)
+
+    def create_table(self,engine),mode:
+        if mode=='SVN':
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
+                'svn',
+                'http://localhost/svn/SampleProject/',
+                'user',
+                'password',
+                os.path.join(self.basedir,'svn_test'),
+                'MOCK_DATA.csv')
+            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
+            
+        else:
+            repo=''
+            file_name=os.path.join(self.basedir, self.temp_data)
+        
+        
+
+        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        results = engine.query(query)
+        self.assertEqual(True, results.success)
+
+    
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -67,13 +204,13 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_create_table(self):
+    def test_create_table(self,mode=None):
         """Test creating a table"""
         try:
             self.cleanup()
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
         
-            self.create_table(engine)
+            self.create_table(engine,mode)
         except Exception as ex:
             self.fail(ex)
 
@@ -81,12 +218,12 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def test_drop_table(self):
+    def test_drop_table(self,mode=None):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         
-        self.create_table(engine)
+        self.create_table(engine,mode)
         try:
         
             # fail on existing table
@@ -99,7 +236,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def test_select(self):
+    def test_select(self,mode=None):
         """Test selecting results using various clauses a table"""
         #try:
         print("SELECT")
@@ -107,7 +244,7 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
         # fail on existing table
         
-        self.create_table(engine)
+        self.create_table(engine,mode)
         
          # test results length
         
@@ -140,14 +277,14 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def test_update(self):
+    def test_update(self,mode=None):
         """Update a row in the test file"""
         try:
             self.cleanup()
             print("UPDATE")
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             # fail on existing table
-            self.create_table(engine)
+            self.create_table(engine,mode)
             
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
@@ -162,7 +299,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_insert(self):
+    def test_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -170,7 +307,7 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
         self.cleanup()
         # fail on existing table
-        self.create_table(engine)
+        self.create_table(engine,mode)
 
         # update
         results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -183,13 +320,13 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def test_delete(self):
+    def test_delete(self,mode=None):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            self.create_table(engine)
+            self.create_table(engine,mode)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
@@ -206,44 +343,15 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             print(ex)
             self.fail(ex)
-
-    def test_show_tables(self):
-        """Show all tables in the database"""
-        self.cleanup()
-        #try:
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-        self.create_table(engine)
-
-        results = engine.query("SHOW TABLES")
-        self.assertEqual(True, results.success)
-        
-        ddb.output.factory.output_factory(query_results=results,output='term')
-        #except Exception as ex:
-        #    print(ex)
-        #    self.fail(ex)
-
-    def test_describe_table(self):
-        """Show table configuration"""
-        self.cleanup()
-        try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
-            self.create_table(engine)
-
-            results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
-            ddb.output.factory.output_factory(query_results=results,output='term')
-            self.assertEqual(True, results.success)
-        except Exception as ex:
-            print(ex)
-            self.fail(ex)
     
-    def test_upsert(self):
+    def test_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
 
         #try:
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
-        self.create_table(engine)
+        self.create_table(engine,mode)
 
         results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
         self.assertEqual(True, results.success)
@@ -264,112 +372,40 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    print(ex)
         #    self.fail(ex)
+    
+    ##### SVN
+    ##### SVN
+    ##### SVN
 
-    def test_set(self):
-        """Set a database variable """
-        self.cleanup()
-        try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+    def test_svn_create_table(self):
+        self.test_create_table(mode="SVN")
 
-            
-            results = engine.query("set AUTOCOMMIT=False")
-            self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT_MODULE=YAML")
-            self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT_MODULE=TERM_RST")
-            self.assertEqual(True, results.success)
-            results = engine.query("set OUTPUT_MODULE=TERM_SINGLE")
-            self.assertEqual(True, results.success)
-            # Because it doesnt exist
-            results = engine.query("set OUTPUT=TERM_DOUBLE")
-            self.assertEqual(False, results.success)
-            # User var test
-            results = engine.query("set @time=1")
-            self.assertEqual(True, results.success)
-            results = engine.query("set @light=ON")
-            self.assertEqual(True, results.success)
-            results = engine.query("set @light=OFF")
-            self.assertEqual(True, results.success)
-            results = engine.query("set @config=FALSE")
-            self.assertEqual(True, results.success)
+    def test_svn_drop_table(self):
+        self.test_drop_table(mode="SVN")
 
-            results = engine.query("show variables")
-            ddb.output.factory.output_factory(query_results=results,output='TERM')
-            self.assertEqual(True, results.success)
-            
-        except Exception as ex:
-            self.fail(ex)
+    def test_svn_select(self):
+        self.test_select(mode="SVN")
 
-    def test_rollback(self):
-        """Rollback db changes"""
-        self.cleanup()
-        print("ROLLBACK")
-        try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+    def test_svn_update(self):
+        self.test_update(mode="SVN")
 
-            self.create_table(engine)
+    def test_svn_insert(self):
+        self.test_insert(mode="SVN")
 
-            results = engine.query("begin")
-            self.assertEqual(True, results.success)
-            # update
-            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            #results.debug()
-            self.assertEqual(True, results.success)
+    def test_svn_delete(self):
+        self.test_delete(mode="SVN")
 
-            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-            #results.debug()
-            self.assertEqual(True, results.success)
-            self.assertEqual(1001, results.data_length)
-            #results.debug()
+    def test_svn_upsert(self):
+        self.test_upsert(mode="SVN")
 
-            results = engine.query("rollback")
-            self.assertEqual(True, results.success)
-            
-            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-            #results.debug()
-            self.assertEqual(True, results.success)
-            self.assertEqual(1000, results.data_length)
-                
-            
-        except Exception as ex:
-            self.fail(ex)
+    def test_svn_rollback(self):
+        self.test_rollback(mode="SVN")
 
-    def test_commit(self):
-        """Rollback db changes"""
-        try:
-            self.cleanup()
-            print("COMMIT")
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+    def test_svn_commit(self):
+        self.test_commit(mode="SVN")
 
-            self.create_table(engine)
-
-            results = engine.query("begin")
-            self.assertEqual(True, results.success)
-            # update
-            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            #results.debug()
-            self.assertEqual(True, results.success)
-
-            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-            #results.debug()
-            self.assertEqual(True, results.success)
-            self.assertEqual(1001, results.data_length)
-            #results.debug()
-
-            results = engine.query("commit")
-            self.assertEqual(True, results.success)
-            
-            results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-            #results.debug()
-            self.assertEqual(True, results.success)
-            self.assertEqual(1001, results.data_length)
-            
-            results = engine.query("delete from {} where id='1001'".format(self.table_name))
-            self.assertEqual(True, results.success)
-                
-            
-        except Exception as ex:
-            self.fail(ex)
+    def test_svn_describe_table(self):
+        self.test_describe_table(mode="SVN")
 
 
 if __name__ == '__main__':
@@ -378,5 +414,4 @@ if __name__ == '__main__':
 
 
 
- 
-
+    
