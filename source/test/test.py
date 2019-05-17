@@ -181,7 +181,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def create_table(self,engine),mode:
+    def create_table(self,engine,mode):
         if mode=='SVN':
             repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
                 'svn',
