@@ -8,7 +8,7 @@ if [[ $svn_stat == 0 ]]; then
     echo "ddb-svn already up"
     exit 0
 fi
-
+svn_stop.sh
 echo $(pwd)
 # clear old svn stuff
 rm source/test/svn_test/.svn -rf
