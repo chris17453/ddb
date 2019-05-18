@@ -49,6 +49,57 @@ class lexer:
         if len(self.query_objects)==0:
             raise Exception("Invalid Syntax")
 
+    def get_argument(self,word,segment,tokens,token_index,w_index):
+       # if we have definitions
+        variable_data=tokens[token_index + w_index]['data']
+        first_char=word[0:1]
+        last_char=word[-1]
+        if first_char == '[' and last_char == ']': 
+            definition='array'
+        elif first_char == '{' and last_char == '}':
+                definition='single'
+        elif first_char='$'
+            definition='intternal'
+        else:
+            definition=None       
+        if definition:
+            variable=word[1:-1]
+            variable_type='string'
+            if 'specs' in segment:
+                # if this is in or definitions
+                if variable in segment['specs']:
+                    if 'type' in segment['specs'][variable]:
+                        variable_type=segment['specs'][variable]['type']
+                    
+            argument=None
+            if variable_type=='int':
+                try:
+                    argument = tokens[token_index + w_index]['data'] = int(variable_data)
+                except BaseException:
+                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                    raise Exception (err_msg)
+            elif variable_type=='bool':
+                if variable_data.lower()=='true':
+                    argument=True
+                elif variable_data.lower()=='false':
+                    argument =False
+                else:
+                    raise Exception("Variable Data not boolean")
+            elif variable_type=='char':
+                if len(variable_data)!=1:
+                    raise Exception("variable data length exceeded, type char")
+                argument =variable_data
+            #default catch
+            elif variable_type=='string':
+                argument =variable_data
+            
+            return argument
+        #else:
+         #   # normal keyword
+         #   if self.keep_non_keywords:
+         #       argument[word] = variable_data
+        
+
     def parse(self, tokens):
         # SOME TODO!
         # loop through commands, return the first matching result
@@ -173,7 +224,7 @@ class lexer:
                 match_len = 0
                 match = None
                 for sig in data:
-                    signature_compare = self.get_sub_array(sig, 'sig')
+                    signature_compare = data['sig']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
                         #    self.info("match", signature_compare,haystack)
@@ -196,56 +247,11 @@ class lexer:
                     w_index = 0
                     argument = base_argument
                     for word in match:
-                        variable_data=tokens[token_index + w_index]['data']
-                        if word[0:1] == '[' and word[-1] == ']': 
-                            definition='array'
-                        elif word[0:1] == '{' and word[-1] == '}':
-                                definition='single'
-                        else:
-                            definition=None
-
                         # is there an definition?
-                        if definition:
-                            # if we have definitions
-                            variable=word[1:-1]
-                            variable_type='string'
-                            if 'specs' in segment:
-                                # if this is in or definitions
-                                if variable in segment['specs']:
-                                    if 'type' in segment['specs'][variable]:
-                                        variable_type=segment['specs'][variable]['type']
-                                    
-                            if variable_type=='int':
-                                try:
-                                    argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
-                                except BaseException:
-                                    #err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
-                                    pass
-                                    break
-                                    #raise Exception (err_msg)
-                            elif variable_type=='bool':
-                                if variable_data.lower()=='true':
-                                    argument[variable] =True
-                                elif variable_data.lower()=='false':
-                                    argument[variable] =False
-                                else:
-                                    pass
-                                    break
-                                    #raise Exception("Variable Data not boolean")
-                            elif variable_type=='char':
-                                if len(variable_data)!=1:
-                                    pass
-                                    break
-                                    #raise Exception("variable data length exceeded, type char")
-                                argument[variable] =variable_data
-
-                            elif variable_type=='string':
-                                argument[variable] =variable_data
-                        else:
-                            # normal keyword
-                            if self.keep_non_keywords:
-                                argument[word] = variable_data
+                        argument[variable]=self.get_argument(word,segment,tokens,token_index,w_index):
                         w_index += 1
+
+
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
 
@@ -501,7 +507,6 @@ class lexer:
         else:
             return [array[key]]
 
-    # for tokens ['data']
 
     def get_sub_array_sub_key(self, array, key):
         temp_array = []
@@ -555,3 +560,4 @@ class lexer:
                 return
 
             print("[{0}]".format(msg))
+
