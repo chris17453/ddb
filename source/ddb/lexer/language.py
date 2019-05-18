@@ -934,7 +934,8 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': ['describe', 'table']}]}],
- 'functions': [{'arguments': None, 'name': 'database'},
+ 'operators':['>','<','>=',,'<=',,'!=','<>','not','is','like','=','in'],
+'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
                {'arguments': [{'name': 'where', 'required': True}],
                 'name': 'count'},
@@ -951,3 +952,35 @@ language={'commands': [{'name': 'show columns',
                {'arguments': None, 'name': 'date'},
                {'arguments': None, 'name': 'time'},
                {'arguments': None, 'name': 'datetime'}]}
+
+
+if 1==0 :
+        for command in language['commands']:
+                syn="## {0}\n".format(command['name'])
+                optional=None
+                if 'optional' in command:
+                if command['optional']==True:
+                        optional=True
+                if optional:
+                        syn+="["
+                for segment in command['segments']:
+                        for pattern in segment['data']:
+                                for part in pattern['sig']:
+                                        syn+=" {0} ".format(part)
+                                syn+=" | "
+                if optional:
+                        syn+="]"
+                print( syn)
+        
+
+
+
+
+
+
+
+# INSERT INTO [database.] table (column [, column ...]) VALUES (value [, value ...] )
+
+                                               
+
+                                       
