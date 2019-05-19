@@ -386,38 +386,38 @@ class test_engine(unittest.TestCase):
     ##### SVN
     ##### SVN
 
-    def test_svn_create_table(self):
-        self.test_create_table(mode='SVN')
+   # def test_svn_create_table(self):
+   #     self.test_create_table(mode='SVN')
 
-    def test_svn_drop_table(self):
-        self.test_drop_table(mode='SVN')
+   # def test_svn_drop_table(self):
+   #     self.test_drop_table(mode='SVN')
 
-    def test_svn_select(self):
-        self.test_select(mode='SVN')
+   # def test_svn_select(self):
+   #     self.test_select(mode='SVN')
 
-    def test_svn_update(self):
-        self.test_update(mode='SVN')
+   # def test_svn_update(self):
+   #     self.test_update(mode='SVN')
 
-    def test_svn_insert(self):
-        self.test_insert(mode='SVN')
+   # def test_svn_insert(self):
+   #     self.test_insert(mode='SVN')
 
-    def test_svn_delete(self):
-        self.test_delete(mode='SVN')
+   # def test_svn_delete(self):
+   #     self.test_delete(mode='SVN')
 
-    def test_svn_upsert(self):
-        self.test_upsert(mode='SVN')
+   # def test_svn_upsert(self):
+   #     self.test_upsert(mode='SVN')
 
-    def test_svn_rollback(self):
-        self.test_rollback(mode='SVN')
+   # def test_svn_rollback(self):
+   #     self.test_rollback(mode='SVN')
 
-    def test_svn_commit(self):
-        self.test_commit(mode='SVN')
+   # def test_svn_commit(self):
+   #     self.test_commit(mode='SVN')
 
-    def test_svn_describe_table(self):
-        self.test_describe_table(mode='SVN')
-    
-    def test_svn_show_tables(self):
-        self.test_show_tables(mode='SVN')
+   # def test_svn_describe_table(self):
+   #     self.test_describe_table(mode='SVN')
+   # 
+   # def test_svn_show_tables(self):
+   #     self.test_show_tables(mode='SVN')
 
 
 if __name__ == '__main__':

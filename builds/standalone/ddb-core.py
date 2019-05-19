@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.235'
+__version__='1.2.237'
 
         
 # ############################################################################
@@ -1198,7 +1198,7 @@ class lexer:
                             computed=self.get_argument(word,segment,tokens,token_index,w_index)
                             argument[computed['key']]=computed['value']
                         except Exception as ex:
-                            pass
+                            break
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
                     if arguments == 1:
