@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.217'
+__version__='1.2.218'
 
         
 # ############################################################################
@@ -1075,7 +1075,10 @@ class lexer:
                 argument =variable_data
             elif variable_type=='string':
                 argument =variable_data
-            return argument
+            return {'key':variable,'value':argument}
+        else:
+           if self.keep_non_keywords:
+               return {'key':word,'value':variable_data}
     def parse(self, tokens):
         highest_match=-1
         recent_match=None
@@ -1198,14 +1201,10 @@ class lexer:
                             base_argument[var_name]=signature['vars'][var_name]
                     w_index = 0
                     argument = base_argument
-                    for word in match:
+                    for windex in range(0,len(match)):
+                        word=match[w_index]
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        if computed==None:
-                            if self.keep_non_keywords:
-                                argument[word] = variable_data
-                        else:
-                            argument[variable]=computed
-                        w_index += 1
+                        argument[computed['key']]=computed['value']
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
                     if arguments == 1:
