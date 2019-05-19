@@ -58,7 +58,7 @@ class lexer:
             definition='array'
         elif first_char == '{' and last_char == '}':
                 definition='single'
-        elif first_char='$':
+        elif first_char=='$':
             definition='internal'
         else:
             definition=None       
