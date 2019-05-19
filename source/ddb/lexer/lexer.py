@@ -248,7 +248,13 @@ class lexer:
                     argument = base_argument
                     for word in match:
                         # is there an definition?
-                        argument[variable]=self.get_argument(word,segment,tokens,token_index,w_index):
+                        computed=self.get_argument(word,segment,tokens,token_index,w_index)
+                        if computed=None:
+                            if self.keep_non_keywords:
+                                argument[word] = variable_data
+                        else:
+                            argument[variable]=computed
+                        
                         w_index += 1
 
 

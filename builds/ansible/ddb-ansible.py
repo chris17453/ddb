@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.212'
+__version__='1.2.215'
 
         
 # ############################################################################
@@ -1050,7 +1050,8 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': ['describe', 'table']}]}],
- 'functions': [{'arguments': None, 'name': 'database'},
+ 'operators':['>','<','>=',,'<=',,'!=','<>','not','is','like','=','in'],
+'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
                {'arguments': [{'name': 'where', 'required': True}],
                 'name': 'count'},
@@ -1067,6 +1068,23 @@ language={'commands': [{'name': 'show columns',
                {'arguments': None, 'name': 'date'},
                {'arguments': None, 'name': 'time'},
                {'arguments': None, 'name': 'datetime'}]}
+if 1==0 :
+        for command in language['commands']:
+                syn="## {0}\n".format(command['name'])
+                optional=None
+                if 'optional' in command:
+                if command['optional']==True:
+                        optional=True
+                if optional:
+                        syn+="["
+                for segment in command['segments']:
+                        for pattern in segment['data']:
+                                for part in pattern['sig']:
+                                        syn+=" {0} ".format(part)
+                                syn+=" | "
+                if optional:
+                        syn+="]"
+                print( syn)
 
         
 # ############################################################################
@@ -1104,6 +1122,46 @@ class lexer:
                 self.query_objects.append(parsed['results'])
         if len(self.query_objects)==0:
             raise Exception("Invalid Syntax")
+    def get_argument(self,word,segment,tokens,token_index,w_index):
+        variable_data=tokens[token_index + w_index]['data']
+        first_char=word[0:1]
+        last_char=word[-1]
+        if first_char == '[' and last_char == ']': 
+            definition='array'
+        elif first_char == '{' and last_char == '}':
+                definition='single'
+        elif first_char='$'
+            definition='intternal'
+        else:
+            definition=None       
+        if definition:
+            variable=word[1:-1]
+            variable_type='string'
+            if 'specs' in segment:
+                if variable in segment['specs']:
+                    if 'type' in segment['specs'][variable]:
+                        variable_type=segment['specs'][variable]['type']
+            argument=None
+            if variable_type=='int':
+                try:
+                    argument = tokens[token_index + w_index]['data'] = int(variable_data)
+                except BaseException:
+                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                    raise Exception (err_msg)
+            elif variable_type=='bool':
+                if variable_data.lower()=='true':
+                    argument=True
+                elif variable_data.lower()=='false':
+                    argument =False
+                else:
+                    raise Exception("Variable Data not boolean")
+            elif variable_type=='char':
+                if len(variable_data)!=1:
+                    raise Exception("variable data length exceeded, type char")
+                argument =variable_data
+            elif variable_type=='string':
+                argument =variable_data
+            return argument
     def parse(self, tokens):
         highest_match=-1
         recent_match=None
@@ -1207,7 +1265,7 @@ class lexer:
                 match_len = 0
                 match = None
                 for sig in data:
-                    signature_compare = self.get_sub_array(sig, 'sig')
+                    signature_compare = data['sig']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
                         if len(signature_compare) > match_len:
@@ -1227,44 +1285,7 @@ class lexer:
                     w_index = 0
                     argument = base_argument
                     for word in match:
-                        variable_data=tokens[token_index + w_index]['data']
-                        if word[0:1] == '[' and word[-1] == ']': 
-                            definition='array'
-                        elif word[0:1] == '{' and word[-1] == '}':
-                                definition='single'
-                        else:
-                            definition=None
-                        if definition:
-                            variable=word[1:-1]
-                            variable_type='string'
-                            if 'specs' in segment:
-                                if variable in segment['specs']:
-                                    if 'type' in segment['specs'][variable]:
-                                        variable_type=segment['specs'][variable]['type']
-                            if variable_type=='int':
-                                try:
-                                    argument[variable] = tokens[token_index + w_index]['data'] = int(variable_data)
-                                except BaseException:
-                                    pass
-                                    break
-                            elif variable_type=='bool':
-                                if variable_data.lower()=='true':
-                                    argument[variable] =True
-                                elif variable_data.lower()=='false':
-                                    argument[variable] =False
-                                else:
-                                    pass
-                                    break
-                            elif variable_type=='char':
-                                if len(variable_data)!=1:
-                                    pass
-                                    break
-                                argument[variable] =variable_data
-                            elif variable_type=='string':
-                                argument[variable] =variable_data
-                        else:
-                            if self.keep_non_keywords:
-                                argument[word] = variable_data
+                        argument[variable]=self.get_argument(word,segment,tokens,token_index,w_index):
                         w_index += 1
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
@@ -4508,9 +4529,8 @@ class flextable:
         if self.column_width==-1:
             pro=os.popen('stty -F /dev/tty size', 'r')
             try:
-                stdout=pro.read().split()
+                self.row_height,self.column_width =pro.read().split()
                 pro.close()
-                self.row_height,self.column_width =stdout.split()
             except Exception as ex:
                 print (ex)
                 pro.close()

@@ -11,6 +11,9 @@ fi
 
 source/test/svn_stop.sh
 
+# incase I deleted it from the repo
+mkdir -p source/test/svn_test
+
 echo $(pwd)
 # clear old svn stuff
 rm source/test/svn_test/.svn -rf

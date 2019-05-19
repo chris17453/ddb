@@ -56,11 +56,7 @@ ddb/file_io/locking.py
 ddb/functions/__init__.py
 ddb/functions/functions.py
 ddb/lexer/__init__.py
-ddb/lexer/lang.py
-ddb/lexer/lang2.py
-ddb/lexer/language.old.py
 ddb/lexer/language.py
-ddb/lexer/lexer.old.py
 ddb/lexer/lexer.py
 ddb/lexer/tokenize.py
 ddb/methods/__init__.py
