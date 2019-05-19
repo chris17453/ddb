@@ -200,18 +200,6 @@ class test_engine(unittest.TestCase):
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
-    
-        """Test showint output modules and styles"""
-        try:
-            # single db change from default
-            self.cleanup()
-            engine = ddb.engine(config_file=False,debug=None)
-            results = engine.query("show output modules")
-            ddb.output.factory.output_factory(query_results=results,output='TERM')
-            self.assertEqual(True, results.success)
-        except Exception as ex: 
-            print(ex)
-            self.fail(ex)
 
     def t1est_create_table(self,mode=None):
         """Test creating a table"""
