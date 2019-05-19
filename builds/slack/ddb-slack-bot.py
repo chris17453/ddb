@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.238'
+__version__='1.2.239'
 
         
 # ############################################################################
@@ -1085,6 +1085,7 @@ class lexer:
         for command in language['commands']:
             res=self.test_syntax(command,tokens)
             if res['success']:
+                print (res)
                 return res
             else:
                 if res['match']>highest_match:
