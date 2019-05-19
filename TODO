@@ -1,5 +1,9 @@
 # MyTODO LIST
 
+- create compare funciton for 2 tables / generate inserts
+- add test for non strict rows
+- suspect failing lengths in lexer match other items and excute those
+- handle exceptions for testing command statments... with PRE and ACTUAL
 - convert output format to return an array based on output_stream. STDIO vs STRING
 - update slack bot, disconnect issues? maybe to many reads?
 - make docker for slack bot

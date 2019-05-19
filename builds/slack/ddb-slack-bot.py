@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.233'
+__version__='1.2.234'
 
         
 # ############################################################################
@@ -1201,8 +1201,11 @@ class lexer:
                     argument = base_argument
                     for w_index in range(0,len(match)):
                         word=match[w_index]
-                        computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        argument[computed['key']]=computed['value']
+                        try:
+                            computed=self.get_argument(word,segment,tokens,token_index,w_index)
+                            argument[computed['key']]=computed['value']
+                        except Exception as ex:
+                            pass
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
                     if arguments == 1:
