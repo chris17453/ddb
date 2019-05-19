@@ -93,11 +93,11 @@ class lexer:
             elif variable_type=='string':
                 argument =variable_data
             
-            return argument
-        #else:
-         #   # normal keyword
-         #   if self.keep_non_keywords:
-         #       argument[word] = variable_data
+            return {'key':variable,'value':argument}
+        else:
+           # normal keyword
+           if self.keep_non_keywords:
+               return {'key':word,'value':variable_data}
         
 
     def parse(self, tokens):
@@ -246,17 +246,13 @@ class lexer:
 
                     w_index = 0
                     argument = base_argument
-                    for word in match:
-                        # is there an definition?
+                    for windex in range(0,len(match)):
+                        word=match[w_index]
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        if computed==None:
-                            if self.keep_non_keywords:
-                                argument[word] = variable_data
-                        else:
-                            argument[variable]=computed
                         
-                        w_index += 1
-
+                        argument[computed['key']]=computed['value']
+                        
+                        
 
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
