@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.220'
+__version__='1.2.221'
 
         
 # ############################################################################
@@ -964,7 +964,7 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': ['describe', 'table']}]}],
- 'operators':['>','<','>=',,'<=',,'!=','<>','not','is','like','=','in'],
+ 'operators':['>','<','>=','<=','!=','<>','not','is','like','=','in'],
 'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
                {'arguments': [{'name': 'where', 'required': True}],

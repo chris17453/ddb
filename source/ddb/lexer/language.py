@@ -956,9 +956,9 @@ language={'commands': [{'name': 'show columns',
 
 if 1==0 :
         for command in language['commands']:
-                syn="## {0}\n".format(command['name'])
-                optional=None
-                if 'optional' in command:
+            syn="## {0}\n".format(command['name'])
+            optional=None
+            if 'optional' in command:
                 if command['optional']==True:
                         optional=True
                 if optional:
