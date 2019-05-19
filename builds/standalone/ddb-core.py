@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.218'
+__version__='1.2.219'
 
         
 # ############################################################################
@@ -1197,6 +1197,7 @@ class lexer:
                     for windex in range(0,len(match)):
                         word=match[w_index]
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
+                        print computed
                         argument[computed['key']]=computed['value']
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
