@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.229'
+__version__='1.2.230'
 
         
 # ############################################################################
@@ -1174,7 +1174,6 @@ class lexer:
                 match_len = 0
                 match = None
                 for partial in segment['data']:
-                    print partial
                     signature_compare = partial['sig']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
@@ -1194,7 +1193,7 @@ class lexer:
                             base_argument[var_name]=signature['vars'][var_name]
                     w_index = 0
                     argument = base_argument
-                    for windex in range(0,len(match)):
+                    for w_index in range(0,len(match)):
                         word=match[w_index]
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
                         print computed
