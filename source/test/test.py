@@ -20,6 +20,26 @@ class test_engine(unittest.TestCase):
         #if os.path.exists(config_file):
             #print("Still here")
 
+    def create_table(self,engine,mode):
+        if mode=='SVN':
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
+                'svn',
+                'http://localhost/svn/SampleProject/',
+                'user',
+                'password',
+                os.path.join(self.basedir,'svn_test'),
+                'MOCK_DATA.csv')
+            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
+            
+        else:
+            repo=''
+            file_name=os.path.join(self.basedir, self.temp_data)
+       
+        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        results = engine.query(query)
+        self.assertEqual(True, results.success)
+
+
     def test_set(self):
         """Set a database variable """
         self.cleanup()
@@ -180,27 +200,7 @@ class test_engine(unittest.TestCase):
             
         except Exception as ex:
             self.fail(ex)
-
-    def create_table(self,engine,mode):
-        if mode=='SVN':
-            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
-                'svn',
-                'http://localhost/svn/SampleProject/',
-                'user',
-                'password',
-                os.path.join(self.basedir,'svn_test'),
-                'MOCK_DATA.csv')
-            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
-            
-        else:
-            repo=''
-            file_name=os.path.join(self.basedir, self.temp_data)
-       
-        query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
-        results = engine.query(query)
-        self.assertEqual(True, results.success)
-
-
+    
     def test_create_table(self,mode=None):
         """Test creating a table"""
         try:
@@ -374,38 +374,38 @@ class test_engine(unittest.TestCase):
     ##### SVN
     ##### SVN
 
-   # def test_svn_create_table(self):
-   #     self.test_create_table(mode='SVN')
+    def test_svn_create_table(self):
+        self.test_create_table(mode='SVN')
 
-   # def test_svn_drop_table(self):
-   #     self.test_drop_table(mode='SVN')
+    def test_svn_drop_table(self):
+        self.test_drop_table(mode='SVN')
 
-   # def test_svn_select(self):
-   #     self.test_select(mode='SVN')
+    def test_svn_select(self):
+        self.test_select(mode='SVN')
 
-   # def test_svn_update(self):
-   #     self.test_update(mode='SVN')
+    def test_svn_update(self):
+        self.test_update(mode='SVN')
 
-   # def test_svn_insert(self):
-   #     self.test_insert(mode='SVN')
+    def test_svn_insert(self):
+        self.test_insert(mode='SVN')
 
-   # def test_svn_delete(self):
-   #     self.test_delete(mode='SVN')
+    def test_svn_delete(self):
+        self.test_delete(mode='SVN')
 
-   # def test_svn_upsert(self):
-   #     self.test_upsert(mode='SVN')
+    def test_svn_upsert(self):
+        self.test_upsert(mode='SVN')
 
-   # def test_svn_rollback(self):
-   #     self.test_rollback(mode='SVN')
+    def test_svn_rollback(self):
+        self.test_rollback(mode='SVN')
 
-   # def test_svn_commit(self):
-   #     self.test_commit(mode='SVN')
+    def test_svn_commit(self):
+        self.test_commit(mode='SVN')
 
-   # def test_svn_describe_table(self):
-   #     self.test_describe_table(mode='SVN')
-   # 
-   # def test_svn_show_tables(self):
-   #     self.test_show_tables(mode='SVN')
+    def test_svn_describe_table(self):
+        self.test_describe_table(mode='SVN')
+    
+    def test_svn_show_tables(self):
+        self.test_show_tables(mode='SVN')
 
 
 if __name__ == '__main__':
