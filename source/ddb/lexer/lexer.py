@@ -220,18 +220,18 @@ class lexer:
                     arguments = 1
                 self.info("Number of arguments", arguments)
 
-                data = self.get_sub_array(segment, 'data')
+                
                 match_len = 0
                 match = None
-                for sig in data:
-                    signature_compare = data['sig']
+                for partial in segment['data']:
+                    signature_compare = partial['sig']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
                         #    self.info("match", signature_compare,haystack)
                         if len(signature_compare) > match_len:
                             match_len = len(signature_compare)
                             match = signature_compare
-                            signature=sig
+                            signature=partial
                             self.info("Best Match", match_len)
                 if None == match:
                     self.info("No match")
