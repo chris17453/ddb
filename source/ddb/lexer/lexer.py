@@ -109,6 +109,7 @@ class lexer:
         for command in language['commands']:
             res=self.test_syntax(command,tokens)
             if res['success']:
+                print (res)
                 return res
             else:
                 if res['match']>highest_match:
