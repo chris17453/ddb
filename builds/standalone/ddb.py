@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.221'
+__version__='1.2.222'
 
         
 # ############################################################################
@@ -983,9 +983,9 @@ language={'commands': [{'name': 'show columns',
                {'arguments': None, 'name': 'datetime'}]}
 if 1==0 :
         for command in language['commands']:
-                syn="## {0}\n".format(command['name'])
-                optional=None
-                if 'optional' in command:
+            syn="## {0}\n".format(command['name'])
+            optional=None
+            if 'optional' in command:
                 if command['optional']==True:
                         optional=True
                 if optional:
