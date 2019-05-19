@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.228'
+__version__='1.2.229'
 
         
 # ############################################################################
@@ -1173,7 +1173,6 @@ class lexer:
                 self.info("Number of arguments", arguments)
                 match_len = 0
                 match = None
-                print  segment
                 for partial in segment['data']:
                     print partial
                     signature_compare = partial['sig']
