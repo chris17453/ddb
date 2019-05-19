@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.225'
+__version__='1.2.226'
 
         
 # ############################################################################
@@ -1267,6 +1267,7 @@ class lexer:
                 match_len = 0
                 match = None
                 for partial in segment['data']:
+                    print partial
                     signature_compare = partial['sig']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
