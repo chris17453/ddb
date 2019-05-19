@@ -223,6 +223,7 @@ class lexer:
                 
                 match_len = 0
                 match = None
+                print  segment
                 for partial in segment['data']:
                     print partial
                     signature_compare = partial['sig']
