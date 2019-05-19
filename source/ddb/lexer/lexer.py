@@ -249,7 +249,7 @@ class lexer:
                     for word in match:
                         # is there an definition?
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        if computed=None:
+                        if computed==None:
                             if self.keep_non_keywords:
                                 argument[word] = variable_data
                         else:

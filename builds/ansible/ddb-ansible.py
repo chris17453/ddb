@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.215'
+__version__='1.2.216'
 
         
 # ############################################################################
@@ -1285,7 +1285,12 @@ class lexer:
                     w_index = 0
                     argument = base_argument
                     for word in match:
-                        argument[variable]=self.get_argument(word,segment,tokens,token_index,w_index):
+                        computed=self.get_argument(word,segment,tokens,token_index,w_index)
+                        if computed=None:
+                            if self.keep_non_keywords:
+                                argument[word] = variable_data
+                        else:
+                            argument[variable]=computed
                         w_index += 1
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
