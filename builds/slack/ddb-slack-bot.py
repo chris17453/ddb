@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.230'
+__version__='1.2.231'
 
         
 # ############################################################################
@@ -1198,12 +1198,10 @@ class lexer:
                         for var_name in signature['vars']:
                             self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
                             base_argument[var_name]=signature['vars'][var_name]
-                    w_index = 0
                     argument = base_argument
                     for w_index in range(0,len(match)):
                         word=match[w_index]
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        print computed
                         argument[computed['key']]=computed['value']
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
