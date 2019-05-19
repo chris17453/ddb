@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.216'
+__version__='1.2.217'
 
         
 # ############################################################################
@@ -1193,7 +1193,7 @@ class lexer:
                     argument = base_argument
                     for word in match:
                         computed=self.get_argument(word,segment,tokens,token_index,w_index)
-                        if computed=None:
+                        if computed==None:
                             if self.keep_non_keywords:
                                 argument[word] = variable_data
                         else:
