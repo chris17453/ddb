@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.222'
+__version__='1.2.223'
 
         
 # ############################################################################
@@ -1037,8 +1037,8 @@ class lexer:
             definition='array'
         elif first_char == '{' and last_char == '}':
                 definition='single'
-        elif first_char='$'
-            definition='intternal'
+        elif first_char='$':
+            definition='internal'
         else:
             definition=None       
         if definition:
