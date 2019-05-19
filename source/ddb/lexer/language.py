@@ -5,7 +5,7 @@
 #     arguments: optional, 1 or 0 for unlimited (comma seperated)
 #     data: optional
 #          vars: variabls to manually set
-#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped
+#          sig: signature to match, {viariable} places any data in that position into that variable, [ ] makes it an array plain strings are dropped, "$" classifies it as an internal variable of that name
 #     name: initial string to match against to enter this name, this is the index of the object
 #     optional: can we skip this
 #     key: override name key
@@ -934,7 +934,7 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': ['describe', 'table']}]}],
- 'operators':['>','<','>=',,'<=',,'!=','<>','not','is','like','=','in'],
+ 'operators':['>','<','>=','<=','!=','<>','not','is','like','=','in'],
 'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
                {'arguments': [{'name': 'where', 'required': True}],
