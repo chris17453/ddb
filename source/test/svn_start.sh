@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ownership issues, validate...
 
 res=$(docker ps | grep ddb-svn)
 svn_stat="$?"
@@ -20,8 +21,8 @@ rm source/test/svn_test/.svn -rf
 
 # start docker
 docker run -d  --name ddb-svn -p 80:80 krisdavison/svn-server:v3.0 
-
 sleep 3
+
 # pull empty repo
 cd source/test/svn_test
 svn co --no-auth-cache  --username user  --password password http://localhost/svn/SampleProject . --depth empty
