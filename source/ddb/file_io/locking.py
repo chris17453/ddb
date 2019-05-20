@@ -58,7 +58,7 @@ class lock:
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                 except Exception as ex:
-                    lock.info("Lock","error".format(ex))
+                    lock.info("Lock","error {0}".format(ex))
                     lock.release(path)
                     pass
         lock.info("Lock","No Lock")
