@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.249'
+__version__='1.2.250'
 
         
 # ############################################################################
@@ -2522,10 +2522,13 @@ def f_cat(context,arg1,arg2):
 
 logging.basicConfig(filename='/tmp/ddb.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 logging.propagate = False
-def enum(**enums):
-    return type('Enum', (), enums)
 class engine:
     """A serverless flat file database engine"""
+    class data_type:
+        COMMENT=1
+        ERROR=2
+        DATA=3
+        WHITESPACE=4
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             if isinstance(arg1,str) :
@@ -2541,7 +2544,6 @@ class engine:
         if config_file is None:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
-        self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
         self.debug = debug
         self.results = None
         self.mode = mode
