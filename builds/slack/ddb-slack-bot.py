@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.250'
+__version__='1.2.251'
 
         
 # ############################################################################
@@ -1061,7 +1061,7 @@ class lexer:
                 try:
                     argument = tokens[token_index + w_index]['data'] = int(variable_data)
                 except BaseException:
-                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                    err_msg="Variable data not an integer '{0}'".format(variable_data,)
                     raise Exception (err_msg)
             elif variable_type=='bool':
                 if variable_data.lower()=='true':
