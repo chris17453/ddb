@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.252'
+__version__='1.2.253'
 
         
 # ############################################################################
@@ -1359,7 +1359,7 @@ class lexer:
                         for f in language['functions']:
                             if f['name'] == node['function']:
                                 argindex = 1
-                                if f['arguments'] is not None:
+                                if f['arguments'] != None:
                                     for arg in f['arguments']:
                                         if arg['required']:
                                             if 'argument{0}'.format(argindex) not in node:
