@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.250'
+__version__='1.2.251'
 
         
 # ############################################################################
@@ -1060,7 +1060,7 @@ class lexer:
                 try:
                     argument = tokens[token_index + w_index]['data'] = int(variable_data)
                 except BaseException:
-                    err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
+                    err_msg="Variable data not an integer '{0}'".format(variable_data,)
                     raise Exception (err_msg)
             elif variable_type=='bool':
                 if variable_data.lower()=='true':
@@ -4777,10 +4777,11 @@ class factory_yaml:
             if parent_fragment:
                 if  parent_fragment['type']!='list':
                     arr_depth=0
-                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
-                    arr_depth+=1
-                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
-                    arr_depth-=1
+                if last_fragment!=None:
+                    if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
+                        arr_depth+=1
+                    if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
+                        arr_depth-=1
             obj=fragment['obj']
             if fragment['type']=='class':
                 self.info("Yaml-Render",'Its a class')
