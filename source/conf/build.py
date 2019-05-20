@@ -82,7 +82,7 @@ import time
 import pprint
 import uuid
 import logging
-
+from subprocess import Popen,PIPE
 
 
 """
@@ -115,6 +115,7 @@ import time
 import pprint
 import uuid
 import logging
+from subprocess import Popen,PIPE
 
 from cmd import Cmd
 import argparse
@@ -153,6 +154,7 @@ import time
 import pprint
 import uuid
 import logging
+from subprocess import Popen,PIPE
 
 
 
@@ -199,6 +201,7 @@ import time
 import pprint
 import uuid
 import logging
+from subprocess import Popen,PIPE
 
 
 
