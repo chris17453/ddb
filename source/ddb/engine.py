@@ -46,15 +46,16 @@ from .methods.record_delete import method_delete
 from .methods.record_core import query_results
 from .file_io.locking import lock,create_temporary_copy, swap_files, remove_temp_file
 
-def enum(**enums):
-    return type('Enum', (), enums)
-
-
 class engine:
     """A serverless flat file database engine"""
     
 
-    
+    class data_type:
+        COMMENT=1
+        ERROR=2
+        DATA=3
+        WHITESPACE=4
+
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         #logging.info("PID:{0} : {1}, {2}, {3}".format(self.pid,msg,arg1,arg2))
         if True == self.debug:
@@ -78,7 +79,6 @@ class engine:
             home = os.path.expanduser("~")
             config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
-        self.data_type = enum(COMMENT=1, ERROR=2, DATA=3, WHITESPACE=4)
         self.debug = debug
         self.results = None
         self.mode = mode
