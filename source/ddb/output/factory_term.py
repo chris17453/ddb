@@ -3,143 +3,150 @@ import sys
 import os
 from  subprocess import Popen
 
-class flextable:
-
+class tty_code:
+    
+    @staticmethod
     def escape(c):
         return '\033[{0}m'.format(c)
 
-    def enum(**enums):
-        return type('Enum', (), enums)
-
-    attributes=enum( BOLD    =escape(1),
-                DIM          =escape(2),
-                UNDERLINED   =escape(4),
-                BLINK        =escape(5),
-                REVERSE      =escape(7),
-                HIDDEN       =escape(8))
+    class attributes:
+        BOLD         =tty_code.escape(1)
+        DIM          =tty_code.escape(2)
+        UNDERLINED   =tty_code.escape(4)
+        BLINK        =tty_code.escape(5)
+        REVERSE      =tty_code.escape(7)
+        HIDDEN       =tty_code.escape(8)
         
-    reset=enum( ALL          =escape(0),
-                BOLD         =escape(21),
-                DIM          =escape(22),
-                UNDERLINED   =escape(24),
-                BLINK        =escape(25),
-                REVERSE      =escape(27),
-                HIDDEN       =escape(28))
+    class reset:
+        ALL          =tty_code.escape(0)
+        BOLD         =tty_code.escape(21)
+        DIM          =tty_code.escape(22)
+        UNDERLINED   =tty_code.escape(24)
+        BLINK        =tty_code.escape(25)
+        REVERSE      =tty_code.escape(27)
+        HIDDEN       =tty_code.escape(28)
 
-    fg=enum(    DEFAULT      =escape(39),
-                BLACK        =escape(30),
-                RED          =escape(31),
-                GREEN        =escape(32),
-                YELLOW       =escape(33),
-                BLUE         =escape(34),
-                MAGENTA      =escape(35),
-                CYAN         =escape(36),
-                LIGHT_GRAY   =escape(37),
-                DARK_GRAY    =escape(90),
-                LIGHT_RED    =escape(91),
-                LIGHT_GREEN  =escape(92),
-                LIGHT_YELLOW =escape(93),
-                LIGHT_BLUE   =escape(94),
-                LIGHT_MAGENTA=escape(95),
-                LIGHT_CYAN   =escape(96),
-                WHITE        =escape(97))
+    class foreground:
+        DEFAULT      =tty_code.escape(39)
+        BLACK        =tty_code.escape(30)
+        RED          =tty_code.escape(31)
+        GREEN        =tty_code.escape(32)
+        YELLOW       =tty_code.escape(33)
+        BLUE         =tty_code.escape(34)
+        MAGENTA      =tty_code.escape(35)
+        CYAN         =tty_code.escape(36)
+        LIGHT_GRAY   =tty_code.escape(37)
+        DARK_GRAY    =tty_code.escape(90)
+        LIGHT_RED    =tty_code.escape(91)
+        LIGHT_GREEN  =tty_code.escape(92)
+        LIGHT_YELLOW =tty_code.escape(93)
+        LIGHT_BLUE   =tty_code.escape(94)
+        LIGHT_MAGENTA=tty_code.escape(95)
+        LIGHT_CYAN   =tty_code.escape(96)
+        WHITE        =tty_code.escape(97)
 
-    bg=enum(    DEFAULT      =escape(49),
-                BLACK        =escape(40),
-                RED          =escape(41),
-                GREEN        =escape(42),
-                YELLOW       =escape(43),
-                BLUE         =escape(44),
-                MAGENTA      =escape(45),
-                CYAN         =escape(46),
-                LIGHT_GRAY   =escape(47),
-                DARK_GRAY    =escape(100),
-                LIGHT_RED    =escape(101),
-                LIGHT_GREEN  =escape(102),
-                LIGHT_YELLOW =escape(103),
-                LIGHT_BLUE   =escape(104),
-                LIGHT_MAGENTA=escape(105),
-                LIGHT_CYAN   =escape(106),
-                WHITE        =escape(107))
+    class background:
+        DEFAULT      =tty_code.escape(49)
+        BLACK        =tty_code.escape(40)
+        RED          =tty_code.escape(41)
+        GREEN        =tty_code.escape(42)
+        YELLOW       =tty_code.escape(43)
+        BLUE         =tty_code.escape(44)
+        MAGENTA      =tty_code.escape(45)
+        CYAN         =tty_code.escape(46)
+        LIGHT_GRAY   =tty_code.escape(47)
+        DARK_GRAY    =tty_code.escape(100)
+        LIGHT_RED    =tty_code.escape(101)
+        LIGHT_GREEN  =tty_code.escape(102)
+        LIGHT_YELLOW =tty_code.escape(103)
+        LIGHT_BLUE   =tty_code.escape(104)
+        LIGHT_MAGENTA=tty_code.escape(105)
+        LIGHT_CYAN   =tty_code.escape(106)
+        WHITE        =tty_code.escape(107)
+
+
+
+
+class flextable:
 
     @staticmethod
     def colors(foreground,background,dim=None,bold=None):
         color=''
         if dim !=None:
-            color+=flextable.attributes.DIM
+            color+=tty_code.attributes.DIM
         if bold !=None:
-            color+=flextable.attributes.BOLD
+            color+=tty_code.attributes.BOLD
             
         if None != foreground:
             if foreground.upper() == 'DEFAULT' :
-                color+=flextable.fg.DEFAULT
+                color+=tty_code.foreground.DEFAULT
             if foreground.upper() == 'BLACK' :
-                color+=flextable.fg.BLACK
+                color+=tty_code.foreground.BLACK
             if foreground.upper() == 'RED' :
-                color+=flextable.fg.RED
+                color+=tty_code.foreground.RED
             if foreground.upper() == 'GREEN' :
-                color+=flextable.fg.GREEN
+                color+=tty_code.foreground.GREEN
             if foreground.upper() == 'YELLOW' :
-                color+=flextable.fg.YELLOW
+                color+=tty_code.foreground.YELLOW
             if foreground.upper() == 'BLUE' :
-                color+=flextable.fg.BLUE
+                color+=tty_code.foreground.BLUE
             if foreground.upper() == 'MAGENTA' :
-                color+=flextable.fg.MAGENTA
+                color+=tty_code.foreground.MAGENTA
             if foreground.upper() == 'CYAN' :
-                color+=flextable.fg.CYAN
+                color+=tty_code.foreground.CYAN
             if foreground.upper() == 'LIGHT GRAY' :
-                color+=flextable.fg.LIGHT_GRAY
+                color+=tty_code.foreground.LIGHT_GRAY
             if foreground.upper() == 'DARK GRAY' :
-                color+=flextable.fg.DARK_GRAY
+                color+=tty_code.foreground.DARK_GRAY
             if foreground.upper() == 'LIGHT RED' :
-                color+=flextable.fg.LIGHT_RED
+                color+=tty_code.foreground.LIGHT_RED
             if foreground.upper() == 'LIGHT GREEN' :
-                color+=flextable.fg.LIGHT_GREEN
+                color+=tty_code.foreground.LIGHT_GREEN
             if foreground.upper() == 'LIGHT YELLOW' :
-                color+=flextable.fg.LIGHT_YELLOW
+                color+=tty_code.foreground.LIGHT_YELLOW
             if foreground.upper() == 'LIGHT BLUE' :
-                color+=flextable.fg.LIGHT_BLUE
+                color+=tty_code.foreground.LIGHT_BLUE
             if foreground.upper() == 'LIGHT MAGENTA' :
-                color+=flextable.fg.LIGHT_MAGENTA
+                color+=tty_code.foreground.LIGHT_MAGENTA
             if foreground.upper() == 'LIGHT CYAN' :
-                color+=flextable.fg.LIGHT_CYAN
+                color+=tty_code.foreground.LIGHT_CYAN
             if foreground.upper() == 'WHITE' :
-                color+=flextable.fg.WHITE
+                color+=tty_code.foreground.WHITE
         if None != background:
             if  background.upper() == 'DEFAULT' :
-                color+=flextable.bg.DEFAULT
+                color+=tty_code.background.DEFAULT
             if  background.upper() == 'BLACK' :
-                color+=flextable.bg.BLACK
+                color+=tty_code.background.BLACK
             if  background.upper() == 'RED' :
-                color+=flextable.bg.RED
+                color+=tty_code.background.RED
             if  background.upper() == 'GREEN' :
-                color+=flextable.bg.GREEN
+                color+=tty_code.background.GREEN
             if  background.upper() == 'YELLOW' :
-                color+=flextable.bg.YELLOW
+                color+=tty_code.background.YELLOW
             if  background.upper() == 'BLUE' :
-                color+=flextable.bg.BLUE
+                color+=tty_code.background.BLUE
             if  background.upper() == 'MAGENTA' :
-                color+=flextable.bg.MAGENTA
+                color+=tty_code.background.MAGENTA
             if  background.upper() == 'CYAN' :
-                color+=flextable.bg.CYAN
+                color+=tty_code.background.CYAN
             if  background.upper() == 'LIGHT GRAY' :
-                color+=flextable.bg.LIGHT_GRAY
+                color+=tty_code.background.LIGHT_GRAY
             if  background.upper() == 'DARK GRAY' :
-                color+=flextable.bg.DARK_GRAY
+                color+=tty_code.background.DARK_GRAY
             if  background.upper() == 'LIGHT RED' :
-                color+=flextable.bg.LIGHT_RED
+                color+=tty_code.background.LIGHT_RED
             if  background.upper() == 'LIGHT GREEN' :
-                color+=flextable.bg.LIGHT_GREEN
+                color+=tty_code.background.LIGHT_GREEN
             if  background.upper() == 'LIGHT YELLOW' :
-                color+=flextable.bg.LIGHT_YELLOW
+                color+=tty_code.background.LIGHT_YELLOW
             if  background.upper() == 'LIGHT BLUE' :
-                color+=flextable.bg.LIGHT_BLUE
+                color+=tty_code.background.LIGHT_BLUE
             if  background.upper() == 'LIGHT MAGENTA' :
-                color+=flextable.bg.LIGHT_MAGENTA
+                color+=tty_code.background.LIGHT_MAGENTA
             if  background.upper() == 'LIGHT CYAN' :
-                color+=flextable.bg.LIGHT_CYAN
+                color+=tty_code.background.LIGHT_CYAN
             if  background.upper() == 'WHITE' :
-                color+=flextable.bg.WHITE
+                color+=tty_code.background.WHITE
         return color
 
     class flextable_style:
@@ -156,7 +163,7 @@ class flextable:
             self.background=background
             self.dim=dim
             self.bold=bold
-            self.reset=flextable.reset.ALL
+            self.reset=tty_code.reset.ALL
             #override missing colors
             if None != default :
                 if None== foreground:
@@ -377,7 +384,11 @@ class flextable:
 
 
 
-    data_type=enum(COMMENT=1,ERROR=2,DATA=3,WHITESPACE=4)
+    class data_type:
+        COMMENT=1
+        ERROR=2
+        DATA=3
+        WHITESPACE=4
     
     def __init__(self,      data,
                             display_style='single',
@@ -541,7 +552,7 @@ class flextable:
                 index+=1
         header+=base.right.render(use_color=self.render_color)
         if self.render_color==True:
-            header+='{0}'.format(flextable.reset.ALL)
+            header+='{0}'.format(tty_code.reset.ALL)
 
 
         return header
@@ -566,7 +577,7 @@ class flextable:
                         
                     #only happend if we allow errored rows            
                     if data_len < self.column_count:
-                        wall_color=flextable.bg.LIGHT_BLUE
+                        wall_color=tty_code.background.LIGHT_BLUE
                         for c in range(data_len,self.column_count):
                             columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
                             columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
@@ -588,7 +599,7 @@ class flextable:
                                                 center,
                                                 right)
                 if self.render_color==True:
-                    columns+='{0}'.format(flextable.reset.ALL)
+                    columns+='{0}'.format(tty_code.reset.ALL)
 
                 rows.append(columns)
                 index+=1
@@ -596,7 +607,7 @@ class flextable:
                 #    index=0
                 #    rows.append(self.)
         else:
-            raise Exception ("data is invalid: ->".format(buffer))
+            raise Exception ("data is invalid: -> {0}".format(buffer))
 
         return rows
 
@@ -612,7 +623,7 @@ class flextable:
             row+=self.style.characters.rst.edge.render()
 
         if self.render_color==True:
-            row+='{0}'.format(flextable.reset.ALL)
+            row+='{0}'.format(tty_code.reset.ALL)
 
         return row
      

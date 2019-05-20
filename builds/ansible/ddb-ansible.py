@@ -27,6 +27,7 @@ import time
 import pprint
 import uuid
 import logging
+from subprocess import Popen,PIPE
 
 
 
@@ -128,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.246'
+__version__='1.2.247'
 
         
 # ############################################################################
