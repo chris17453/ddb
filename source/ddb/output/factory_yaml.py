@@ -168,7 +168,7 @@ class factory_yaml:
         path=[]
         line=""
         lines=[]
-        last_fragment=None
+        last_fragment={'depth':0}
         arr_depth=0
         newline=False
         fragment=True
