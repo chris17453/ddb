@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.251'
+__version__='1.2.252'
 
         
 # ############################################################################
@@ -4943,7 +4943,7 @@ class factory_yaml:
         hash_map=[{'indent':0,'obj':obj}]
         obj_parent=root
         obj_parent_key=None
-        obj_hash=[]
+        obj_hash={}
         for line in lines:
             if self.is_start(line):
                 continue

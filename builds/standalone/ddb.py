@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.251'
+__version__='1.2.252'
 
         
 # ############################################################################
@@ -4761,7 +4761,7 @@ class factory_yaml:
         path=[]
         line=""
         lines=[]
-        last_fragment=None
+        last_fragment={'depth':0}
         arr_depth=0
         newline=False
         fragment=True
@@ -4777,11 +4777,10 @@ class factory_yaml:
             if parent_fragment:
                 if  parent_fragment['type']!='list':
                     arr_depth=0
-                if last_fragment!=None:
-                    if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
-                        arr_depth+=1
-                    if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
-                        arr_depth-=1
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']<fragment['depth']:
+                    arr_depth+=1
+                if  parent_fragment['type']=='list' and fragment['type']=='list' and last_fragment['depth']>fragment['depth']:
+                    arr_depth-=1
             obj=fragment['obj']
             if fragment['type']=='class':
                 self.info("Yaml-Render",'Its a class')
@@ -4943,7 +4942,7 @@ class factory_yaml:
         hash_map=[{'indent':0,'obj':obj}]
         obj_parent=root
         obj_parent_key=None
-        obj_hash=[]
+        obj_hash={}
         for line in lines:
             if self.is_start(line):
                 continue
