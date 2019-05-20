@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.252'
+__version__='1.2.253'
 
         
 # ############################################################################
@@ -4848,7 +4848,7 @@ class factory_yaml:
         path=[]
         line=""
         lines=[]
-        last_fragment=None
+        last_fragment={'depth':0}
         arr_depth=0
         newline=False
         fragment=True
