@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.267'
+__version__='1.2.268'
 
         
 # ############################################################################
@@ -364,7 +364,7 @@ language={'commands': [{'name': 'show columns',
                              'parent': 'on'},
                             {'data': [{'sig': ['where',
                                                '{e1}',
-                                               '$operators',
+                                               '$operators:c',
                                                '{e2}']}],
                              'depends_on': 'from',
                              'name': 'where',
@@ -989,9 +989,11 @@ class lexer:
         last_char=word[-1]
         if first_char == '{' and last_char == '}':
                 definition='single'
+        elif if first_char == '$'
+            definition='internal'
         else:
             definition=None       
-        if definition:
+        if definition=='single':
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
@@ -1020,6 +1022,12 @@ class lexer:
             elif variable_type=='string':
                 argument =variable_data
             return {'key':variable,'value':argument}
+        elif definition=='internal'
+            variable=word[1:]
+            index_of_colon=variable.find(':')
+            variable=word[0:index_of_colon-1]
+            key=word[index_of_colon+1:]
+            return {'key':key,'value':variable_data}
         else:
            if self.keep_non_keywords:
                return {'key':word,'value':variable_data}
@@ -1379,6 +1387,14 @@ class lexer:
             if first_char!='$':
                 if first_char != '{' and last_char != '}':
                     if needle.lower() != haystack.lower():
+                        return False
+            if needle[0]=='$':
+                variable=needle[1:]
+                index_of_colon=variable.first(':')
+                if index_of_colon!=-1:
+                    variable=variable[0:index_of_colon]
+                if variable in language:
+                    if haystack not in language[variable]:
                         return False
             index += 1
         return True
