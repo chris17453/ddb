@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.257'
+__version__='1.2.258'
 
         
 # ############################################################################
@@ -990,7 +990,7 @@ class lexer:
                 definition='single'
         else:
             definition=None       
-        if definition':
+        if definition:
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
