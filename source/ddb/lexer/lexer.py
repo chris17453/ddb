@@ -547,16 +547,17 @@ class lexer:
                 return False
             haystack = temp_haystacks[index]
             # not a match
-            if (needle[0:1] != '{' and needle[-1] != '}') or needle[0]!='$':
-                if needle.lower() != haystack.lower():
-                    return False
+            if needle[0]!='$':
+                if (needle[0] != '{' and needle[-1] != '}'):
+                    if needle.lower() != haystack.lower():
+                        return False
             if needle[0]=='$':
                 variable=needle[1:]
                 print(needle,haystack)
                 print(variable)
-                if variable in language:
-                    if haystack not in language[variable]:
-                        return False
+            #    if variable in language:
+            #        if haystack not in language[variable]:
+            #            return False
 
             index += 1
         # if we got here it must match
