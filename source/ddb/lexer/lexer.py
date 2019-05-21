@@ -568,7 +568,7 @@ class lexer:
                         return False
             if needle[0]=='$':
                 variable=needle[1:]
-                index_of_colon=variable.first(':')
+                index_of_colon=variable.find(':')
                 if index_of_colon!=-1:
                     variable=variable[0:index_of_colon]
 
