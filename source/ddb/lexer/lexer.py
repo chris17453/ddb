@@ -97,11 +97,14 @@ class lexer:
             
             return {'key':variable,'value':argument}
         elif definition=='internal':
+            print word
+            print variable
             variable=word[1:]
             argument=None
             if variable in language:
                 if variable_data in language[variable]:
                     argument=variable_data
+                    print argument
                     return {'key':variable,'value':variable_data}
         else:
            # normal keyword
