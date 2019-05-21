@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.266'
+__version__='1.2.267'
 
         
 # ############################################################################
@@ -1463,7 +1463,7 @@ class lexer:
                 return False
             haystack = temp_haystacks[index]
             if first_char!='$':
-                if first_char != '{' and last_char != '}'):
+                if first_char != '{' and last_char != '}':
                     if needle.lower() != haystack.lower():
                         return False
             index += 1
