@@ -35,7 +35,7 @@ import logging
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.273'
+__version__='1.2.274'
 
         
 # ############################################################################
@@ -1018,7 +1018,7 @@ class lexer:
         elif definition=='internal':
             variable=word[1:]
             index_of_colon=variable.find(':')
-            if index_of_colon==-1
+            if index_of_colon==-1:
                 key=variable[index_of_colon+1:]
             else:
                 key=variable
