@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.250'
+__version__='1.2.255'
 
         
 # ############################################################################
@@ -1109,9 +1109,9 @@ class lexer:
                 argument =variable_data
             return {'key':variable,'value':argument}
         elif definition=='internal':
-            print word
-            print variable
             variable=word[1:]
+            print(word)
+            print(variable)
             argument=None
             if variable in language:
                 if variable_data in language[variable]:
