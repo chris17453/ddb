@@ -543,14 +543,16 @@ class lexer:
         index = 0
 
         for needle in temp_needles:
-            print needle[0]
+            first_char=needle[0]
+            last_char=needle[-1]
+            
             # ran out of haystack to test. not a match
             if index >= len(temp_haystacks):
                 return False
             haystack = temp_haystacks[index]
             # not a match
-            if needle[0]!='$':
-                if (needle[0] != '{' and needle[-1] != '}'):
+            if first_char!='$':
+                if first_char != '{' and last_char != '}'):
                     if needle.lower() != haystack.lower():
                         return False
             #if needle[0]=='$':
