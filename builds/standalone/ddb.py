@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.255'
+__version__='1.2.256'
 
         
 # ############################################################################
@@ -989,6 +989,7 @@ class lexer:
         if first_char == '{' and last_char == '}':
                 definition='single'
         elif first_char=='$':
+            print ("INTERNAL")
             definition='internal'
         else:
             definition=None       
