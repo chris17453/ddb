@@ -99,6 +99,7 @@ class lexer:
             
             return {'key':variable,'value':argument}
         elif definition=='internal':
+            # here we map the possible approved calue to the keywrd or alternate, pre approved in matching function at end of file
             variable=word[1:]
             index_of_colon=variable.find(':')
             if index_of_colon!=-1:
