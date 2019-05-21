@@ -6,7 +6,7 @@
 #     data: optional
 #          vars: variabls to manually set
 #          sig: signature to match, {viariable} places any data in that position into that variable, ** array not supported yet[ ] 
-#                 makes it an array plain strings are dropped, "$" classifies it as an internal variable of that name
+#                 makes it an array plain strings are dropped, "$" classifies it as an internal variable of that name, : will store in alternate variable location
 #     name: initial string to match against to enter this name, this is the index of the object
 #     optional: can we skip this
 #     key: override name key
@@ -331,7 +331,7 @@ language={'commands': [{'name': 'show columns',
                              'parent': 'on'},
                             {'data': [{'sig': ['where',
                                                '{e1}',
-                                               '$operators',
+                                               '$operators:c',
                                                '{e2}']}],
                              'depends_on': 'from',
                              'name': 'where',

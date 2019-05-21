@@ -58,10 +58,14 @@ class lexer:
         #    definition='array'
         if first_char == '{' and last_char == '}':
                 definition='single'
+        elif if first_char == '$'
+            definition='internal'
         else:
             definition=None       
+
+        # HERE ADD stuff to handle variable name reassigment after colon            
         
-        if definition:
+        if definition=='single':
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
@@ -94,6 +98,13 @@ class lexer:
                 argument =variable_data
             
             return {'key':variable,'value':argument}
+        elif definition=='internal'
+            variable=word[1:]
+            index_of_colon=variable.find(':')
+            variable=word[0:index_of_colon-1]
+            key=word[index_of_colon+1:]
+            return {'key':key,'value':variable_data}
+            
         else:
            # normal keyword
            if self.keep_non_keywords:
@@ -555,13 +566,17 @@ class lexer:
                 if first_char != '{' and last_char != '}':
                     if needle.lower() != haystack.lower():
                         return False
-            #if needle[0]=='$':
-            #    variable=needle[1:]
+            if needle[0]=='$':
+                variable=needle[1:]
+                index_of_colon=variable.first(':')
+                if index_of_colon!=-1:
+                    variable=variable[0:index_of_colon]
+
             #    print(needle,haystack)
             #    print(variable)
-            #    if variable in language:
-            #        if haystack not in language[variable]:
-            #            return False
+                if variable in language:
+                    if haystack not in language[variable]:
+                        return False
 
             index += 1
         # if we got here it must match
