@@ -61,7 +61,7 @@ class lexer:
         else:
             definition=None       
         
-        if definition':
+        if definition:
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
