@@ -543,7 +543,7 @@ class lexer:
         index = 0
 
         for needle in temp_needles:
-            print needle
+            print needle[0],haystack
             # ran out of haystack to test. not a match
             if index >= len(temp_haystacks):
                 return False
