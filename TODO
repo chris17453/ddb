@@ -12,3 +12,5 @@
   - add minimum scale instead of full width / make it an option
 - ddb flask
 - jquery ui front end ? npm?
+- validate filed are operating on correct path for SVN AND regular testing...
+- output more data in test
