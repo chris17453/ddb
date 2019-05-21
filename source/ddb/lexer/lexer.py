@@ -541,7 +541,9 @@ class lexer:
         # now we have 2 plain array/lists to compare
 
         index = 0
+
         for needle in temp_needles:
+            print needle
             # ran out of haystack to test. not a match
             if index >= len(temp_haystacks):
                 return False
@@ -551,10 +553,10 @@ class lexer:
                 if (needle[0] != '{' and needle[-1] != '}'):
                     if needle.lower() != haystack.lower():
                         return False
-            if needle[0]=='$':
-                variable=needle[1:]
-                print(needle,haystack)
-                print(variable)
+            #if needle[0]=='$':
+            #    variable=needle[1:]
+            #    print(needle,haystack)
+            #    print(variable)
             #    if variable in language:
             #        if haystack not in language[variable]:
             #            return False
