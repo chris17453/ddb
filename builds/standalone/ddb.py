@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.259'
+__version__='1.2.260'
 
         
 # ############################################################################
@@ -1373,7 +1373,7 @@ class lexer:
             if index >= len(temp_haystacks):
                 return False
             haystack = temp_haystacks[index]
-            if needle[0:1] != '{' and needle[-1] != '}':
+            if (needle[0:1] != '{' and needle[-1] != '}') or needel[0]!='$':
                 if needle.lower() != haystack.lower():
                     return False
             if needle[0]=='$':
