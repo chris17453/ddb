@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.256'
+__version__='1.2.257'
 
         
 # ############################################################################
@@ -988,12 +988,9 @@ class lexer:
         last_char=word[-1]
         if first_char == '{' and last_char == '}':
                 definition='single'
-        elif first_char=='$':
-            print ("INTERNAL")
-            definition='internal'
         else:
             definition=None       
-        if definition=='single':
+        if definition':
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
@@ -1022,16 +1019,6 @@ class lexer:
             elif variable_type=='string':
                 argument =variable_data
             return {'key':variable,'value':argument}
-        elif definition=='internal':
-            variable=word[1:]
-            print(word)
-            print(variable)
-            argument=None
-            if variable in language:
-                if variable_data in language[variable]:
-                    argument=variable_data
-                    print argument
-                    return {'key':variable,'value':variable_data}
         else:
            if self.keep_non_keywords:
                return {'key':word,'value':variable_data}
@@ -1389,6 +1376,13 @@ class lexer:
             if needle[0:1] != '{' and needle[-1] != '}':
                 if needle.lower() != haystack.lower():
                     return False
+            if needel[0]=='$':
+                variable=needle[1:]
+                print(needle,haystack)
+                print(variable)
+                if variable in language:
+                    if haystack not in language[variable]:
+                        return False
             index += 1
         return True
     def info(self,msg, arg1=None, arg2=None, arg3=None):
