@@ -101,8 +101,11 @@ class lexer:
         elif definition=='internal':
             variable=word[1:]
             index_of_colon=variable.find(':')
-            variable=word[0:index_of_colon-1]
-            key=word[index_of_colon+1:]
+            if index_of_colon==-1
+                #variable=word[0:index_of_colon-1]
+                key=variable[index_of_colon+1:]
+            else:
+                key=variable
             return {'key':key,'value':variable_data}
             
         else:

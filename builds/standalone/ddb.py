@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.271'
+__version__='1.2.272'
 
         
 # ############################################################################
@@ -1389,7 +1389,7 @@ class lexer:
                         return False
             if needle[0]=='$':
                 variable=needle[1:]
-                index_of_colon=variable.first(':')
+                index_of_colon=variable.find(':')
                 if index_of_colon!=-1:
                     variable=variable[0:index_of_colon]
                 if variable in language:
