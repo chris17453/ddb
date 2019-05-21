@@ -63,7 +63,7 @@ class lexer:
         else:
             definition=None       
 
-        # HERE ADD stuff to handle variable name reassigment after colon            
+        # HERE ADD add string length enforcment for colon +1 -1 same for brackets
         
         if definition=='single':
             variable=word[1:-1]
@@ -98,7 +98,7 @@ class lexer:
                 argument =variable_data
             
             return {'key':variable,'value':argument}
-        elif definition=='internal'
+        elif definition=='internal':
             variable=word[1:]
             index_of_colon=variable.find(':')
             variable=word[0:index_of_colon-1]
