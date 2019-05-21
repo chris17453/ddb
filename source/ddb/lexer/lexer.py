@@ -101,8 +101,7 @@ class lexer:
         elif definition=='internal':
             variable=word[1:]
             index_of_colon=variable.find(':')
-            print "COLON",index_of_colon,variable
-            if index_of_colon==-1:
+            if index_of_colon!=-1:
                 #variable=word[0:index_of_colon-1]
                 key=variable[index_of_colon+1:]
             else:
