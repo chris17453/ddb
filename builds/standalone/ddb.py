@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.281'
+__version__='1.2.282'
 
         
 # ############################################################################
@@ -317,7 +317,8 @@ language={'commands': [{'name': 'show columns',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
-                             'parent': 'where'},
+                             'parent': 'where'
+                             },
                             {'data': [{'sig': ['or','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
