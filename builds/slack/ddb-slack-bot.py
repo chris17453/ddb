@@ -42,7 +42,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.258'
+__version__='1.2.259'
 
         
 # ############################################################################
@@ -1377,7 +1377,7 @@ class lexer:
             if needle[0:1] != '{' and needle[-1] != '}':
                 if needle.lower() != haystack.lower():
                     return False
-            if needel[0]=='$':
+            if needle[0]=='$':
                 variable=needle[1:]
                 print(needle,haystack)
                 print(variable)

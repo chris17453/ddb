@@ -547,7 +547,7 @@ class lexer:
                 return False
             haystack = temp_haystacks[index]
             # not a match
-            if needle[0:1] != '{' and needle[-1] != '}':
+            if (needle[0:1] != '{' and needle[-1] != '}') or needel[0]!='$':
                 if needle.lower() != haystack.lower():
                     return False
             if needle[0]=='$':
