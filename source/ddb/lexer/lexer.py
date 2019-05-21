@@ -54,15 +54,16 @@ class lexer:
         variable_data=tokens[token_index + w_index]['data']
         first_char=word[0:1]
         last_char=word[-1]
-        if first_char == '[' and last_char == ']': 
-            definition='array'
-        elif first_char == '{' and last_char == '}':
+        #if first_char == '[' and last_char == ']': 
+        #    definition='array'
+        if first_char == '{' and last_char == '}':
                 definition='single'
         elif first_char=='$':
             definition='internal'
         else:
             definition=None       
-        if definition:
+        
+        if definition=='single':
             variable=word[1:-1]
             variable_type='string'
             if 'specs' in segment:
@@ -74,7 +75,8 @@ class lexer:
             argument=None
             if variable_type=='int':
                 try:
-                    argument = tokens[token_index + w_index]['data'] = int(variable_data)
+                    tokens[token_index + w_index]['data'] = int(variable_data)
+                    argument = tokens[token_index + w_index]['data'] 
                 except BaseException:
                     err_msg="Variable data not an integer '{0}' {1}".format(variable_data,)
                     raise Exception (err_msg)
@@ -94,10 +96,19 @@ class lexer:
                 argument =variable_data
             
             return {'key':variable,'value':argument}
+        elif definition=='internal':
+            variable=word[1:]
+            argument=None
+            if variable in language:
+                if variable_data in language[variable]:
+                    argument=variable_data
+                    return {'key':variable,'value':variable_data}
         else:
            # normal keyword
            if self.keep_non_keywords:
                return {'key':word,'value':variable_data}
+        
+        raise Exception ("Not found argument")
         
 
     def parse(self, tokens):
