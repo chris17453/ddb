@@ -242,7 +242,7 @@ class lexer:
                 match_len = 0
                 match = None
                 for partial in segment['data']:
-                    signature_compare = partial['sig']
+                    signature_compare = partial['signature']
                     haystack = self.get_sub_array_sub_key(tokens[token_index:], 'data')
                     if True == self.single_array_match(signature_compare, haystack):
                         #    self.info("match", signature_compare,haystack)

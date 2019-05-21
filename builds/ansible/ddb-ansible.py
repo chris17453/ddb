@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.283'
+__version__='1.2.284'
 
         
 # ############################################################################
@@ -462,7 +462,6 @@ language={'commands': [{'name': 'show columns',
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {
                             {'data': [{'sig': ['and','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
