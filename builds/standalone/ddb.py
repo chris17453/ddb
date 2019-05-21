@@ -41,7 +41,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.264'
+__version__='1.2.265'
 
         
 # ############################################################################
@@ -1370,7 +1370,7 @@ class lexer:
             temp_haystacks = haystacks
         index = 0
         for needle in temp_needles:
-            print needle[0],haystack
+            print needle[0]
             if index >= len(temp_haystacks):
                 return False
             haystack = temp_haystacks[index]
