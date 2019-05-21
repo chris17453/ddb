@@ -346,7 +346,6 @@ language={'commands': [{'name': 'show columns',
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {
                             {'data': [{'sig': ['and','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
