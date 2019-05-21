@@ -59,6 +59,7 @@ class lexer:
         if first_char == '{' and last_char == '}':
                 definition='single'
         elif first_char=='$':
+            print ("INTERNAL")
             definition='internal'
         else:
             definition=None       
