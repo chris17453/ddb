@@ -128,7 +128,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.263'
+__version__='1.2.264'
 
         
 # ############################################################################
@@ -1457,7 +1457,7 @@ class lexer:
             temp_haystacks = haystacks
         index = 0
         for needle in temp_needles:
-            print needle
+            print needle[0],haystack
             if index >= len(temp_haystacks):
                 return False
             haystack = temp_haystacks[index]
