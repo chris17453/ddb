@@ -87,6 +87,8 @@ class output_factory:
             for column_index in range(0,len(query_results.columns)):
                 print('{0}_data[{1}][{2}]="{3}"'.format(name,row_index,column_index,row['data'][column_index]))
             row_index+=1
+        # TODO return output for this
+        return ""
         
 
     def format_raw(self,query_results,output_stream):
@@ -111,6 +113,8 @@ class output_factory:
         factory=factory_yaml()
         dump=factory.dump(results)
         print(dump)
+        # TODO return output for this
+        return ""
 
     def format_json(self,query_results):
         """ouput results data in the json format"""
@@ -118,6 +122,8 @@ class output_factory:
         factory=factory_json()
         dump=factory.dumps(results)
         print(dump)
+        # TODO return output for this
+        return ""
         
     def format_xml(self,query_results):
         """ouput results data in the xml format"""
@@ -125,3 +131,5 @@ class output_factory:
         factory=factory_xml()
         dump=factory.dumps({'data':results})
         print(dump)
+        # TODO return output for this
+        return ""

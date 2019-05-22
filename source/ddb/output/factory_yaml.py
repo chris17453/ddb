@@ -168,7 +168,7 @@ class factory_yaml:
         path=[]
         line=""
         lines=[]
-        last_fragment=None
+        last_fragment={'depth':0}
         arr_depth=0
         newline=False
         fragment=True
@@ -390,7 +390,7 @@ class factory_yaml:
         hash_map=[{'indent':0,'obj':obj}]
         obj_parent=root
         obj_parent_key=None
-        obj_hash=[]
+        obj_hash={}
         for line in lines:
             if self.is_start(line):
                 continue

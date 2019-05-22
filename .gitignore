@@ -11,6 +11,7 @@ dist/
 *.zip
 *.tar
 .svn/
-svn_test
+__pycache__/
+svn_test/
 ddb.egg-info/
 
