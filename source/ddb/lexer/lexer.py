@@ -1,6 +1,3 @@
-# cython: linetrace=True
-# cython: binding=True
-# distutils: define_macros=CYTHON_TRACE_NOGIL=1
 from .language import language
 from .tokenize import tokenizer
 
