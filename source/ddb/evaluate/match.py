@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 
 class match():
 
