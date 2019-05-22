@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.293'
+__version__='1.2.294'
 
         
 # ############################################################################
@@ -651,6 +651,7 @@ if 1==0 :
 # ############################################################################
 
 class lexer:
+    __slots__=['keep_non_keywords','debug','query_objects']
     def __init__(self, query, debug=None):
         self.keep_non_keywords=True
         self.debug = debug
@@ -744,6 +745,7 @@ class lexer:
                     recent_match=res
         return recent_match
     class flags:
+        __slots__=['dispose','no_keyword','store_array','parent','meta_type','optional','object_id','arg_key']
         def __init__(self,command_fragment):
             if 'dispose' in command_fragment:
                 self.dispose = command_fragment['dispose']
