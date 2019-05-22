@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 class factory_xml:
 
     def dumps(self,data):

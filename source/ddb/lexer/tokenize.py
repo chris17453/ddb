@@ -1,3 +1,4 @@
+# cython: linetrace=True
 
 # yes, this could be a giant regex, but no.
 # TODO: memory optimization.. maybe not sure how wastefull this is

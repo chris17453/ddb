@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from .record_core import query_results
 
 def method_system_show_columns(context,database, query_object):

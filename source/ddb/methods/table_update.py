@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from .record_core import query_results
 
 def method_update_table(context, query_object):

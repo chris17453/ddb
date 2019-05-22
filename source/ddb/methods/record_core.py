@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 import os
 import tempfile, shutil
 from ..file_io.locking import lock

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# cython: linetrace=True
+
 import sys
 import os
 from  subprocess import Popen

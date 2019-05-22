@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 class factory_json:
     def dumps(self,data):
         output_string=self.render(data)

@@ -1,3 +1,4 @@
+# cython: linetrace=True
 
 class column_v1:
 
