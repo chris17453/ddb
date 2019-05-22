@@ -6,7 +6,7 @@ from .tokenize import tokenizer
 
 class lexer:
    
-
+    __slots__=['keep_non_keywords','debug','query_objects']
     def __init__(self, query, debug=None):
         # select distinct,* from table where x=y and y=2 order by x,y limit 10,2
         # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
@@ -138,6 +138,9 @@ class lexer:
         return recent_match
     # place holder for the status of a command fragment
     class flags:
+        __slots__=['dispose','no_keyword','store_array','parent','meta_type','optional','object_id','arg_key']
+
+
         def __init__(self,command_fragment):
             if 'dispose' in command_fragment:
                 self.dispose = command_fragment['dispose']

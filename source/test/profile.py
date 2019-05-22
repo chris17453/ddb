@@ -100,7 +100,8 @@ for dir in dirs:
         print("Created Directory {0}".format(dir))
 
 for func in run:
-    profile_name="../profile/{0}/proc/profile_{1}.prof".format(ddb.version.__version__,func)
+    profile_name="../profile/{0}/proc/{1}.prof".format(ddb.version.__version__,func)
+    callgraph_name="../profile/{0}/callgraph/{1}.png".format(ddb.version.__version__,func)
     if os.path.exists(profile_name)==True:
         os.remove(profile_name)
         print("Deleted {0}".format(profile_name))
@@ -108,6 +109,6 @@ for func in run:
     s = pstats.Stats(profile_name)
     s.strip_dirs().sort_stats("time").print_stats()
     print "gprof2dot -f pstats {0} | dot -Tpng -o output.png".format(profile_name)
-
-    #os_cmd(cmd,"Callgrapoh failed")
+    print 'test/callgraph.sh',profile_name,callgraph_name
+    os_cmd(['test/callgraph.sh',profile_name,callgraph_name],"Callgrapoh failed")
 
