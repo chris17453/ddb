@@ -94,7 +94,7 @@ class tokenizer():
                 fragment = text[c:c + delimter_len]
                 # only check for block start if not in one
                 if None == in_block:
-                    if True == self.compare_text_fragment(fragment, b[0]):
+                    if fragment==b[0] and fragment!=None:
                         just_crossed_block = True
                         self.info("IN BLOCK", c)
                         in_block = b
@@ -103,7 +103,7 @@ class tokenizer():
                         self.info("IN BLOCK", c)
                         break
                 # check for block end
-                if True == self.compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
+                if (fragment== b[1] and fragment!=None) or c >= text_length - 1:
                     just_crossed_block = True
                     self.info("NOT IN BLOCK", c)
                     in_block = None
@@ -139,7 +139,7 @@ class tokenizer():
 
                 #if fragment_before_alpha==True  and fragment_after_alpha==True:
 
-                if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
+                if (fragment== d and fragment!=None) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
