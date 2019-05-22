@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from .record_core import query_results
 from ..file_io.locking import swap_files, lock, remove_temp_file
 

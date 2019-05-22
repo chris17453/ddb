@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from .factory_term import flextable
 from .factory_json import factory_json
 from .factory_yaml import factory_yaml

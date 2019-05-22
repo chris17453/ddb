@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 import argparse
 import os
 import sys

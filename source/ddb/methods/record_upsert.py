@@ -1,3 +1,4 @@
+# cython: linetrace=True
 
 import tempfile  # from table import table
 from .record_core import process_line, query_results

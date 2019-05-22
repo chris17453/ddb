@@ -19,7 +19,6 @@ else:
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
-    Extension("test", ["test.pyx"], define_macros=[('CYTHON_TRACE', '1')])
 extensions = [
     Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),

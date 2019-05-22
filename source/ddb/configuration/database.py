@@ -1,3 +1,4 @@
+# cython: linetrace=True
 import os
 from .table import table
 import warnings

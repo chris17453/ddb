@@ -1,3 +1,5 @@
+# cython: linetrace=True
+
 from .record_core import  process_line, query_results
 
 
