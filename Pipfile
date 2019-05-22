@@ -9,6 +9,8 @@ autopep8 = "*"
 
 [packages]
 cython = "*"
+graphviz = "*"
+gprof2dot = "*"
 
 [requires]
 python_version = "2.7"

@@ -14,3 +14,5 @@
 - jquery ui front end ? npm?
 - validate filed are operating on correct path for SVN AND regular testing...
 - output more data in test
+- named tupel
+- __slots__

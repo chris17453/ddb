@@ -1,3 +1,6 @@
+# cython: linetrace=True
+# cython: binding=True
+# distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 
 class match():
