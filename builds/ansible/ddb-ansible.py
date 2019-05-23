@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.296'
+__version__='1.2.297'
 
         
 # ############################################################################
@@ -2113,7 +2113,7 @@ class match():
                 index = table.ordinals[column.data.name]
                 compare1 = row[index]  # table.ordinals[].get_data_from_column(column,row)
                 compare1_is_column = True
-            if column.data.name == test['e2']:
+            elif column.data.name == test['e2']:
                 index = table.ordinals[column.data.name]
                 compare2 = row[index]  # table.get_data_from_column(column,row)
                 compare2_is_column = True
