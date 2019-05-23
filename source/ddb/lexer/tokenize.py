@@ -94,7 +94,7 @@ class tokenizer():
                 fragment = text[c:c + delimter_len]
                 # only check for block start if not in one
                 if None == in_block:
-                    if fragment==b[0] and fragment!=None:
+                    if fragment==b[0] and fragment is not None:
                         just_crossed_block = True
                         self.info("IN BLOCK", c)
                         in_block = b
@@ -103,14 +103,14 @@ class tokenizer():
                         self.info("IN BLOCK", c)
                         break
                 # check for block end
-                if (fragment== b[1] and fragment!=None) or c >= text_length - 1:
+                if (fragment== b[1] and fragment is not None) or c >= text_length - 1:
                     just_crossed_block = True
                     self.info("NOT IN BLOCK", c)
                     in_block = None
                     c += delimter_len
                     break
             # skip stuff in block
-            if None != in_block:
+            if in_block  is not None:
                 self.info("in block skip")
                 if not just_crossed_block:
                     c += 1
@@ -139,7 +139,7 @@ class tokenizer():
 
                 #if fragment_before_alpha==True  and fragment_after_alpha==True:
 
-                if (fragment== d and fragment!=None) or c >= text_length - 1:
+                if (fragment== d and fragment is not None) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
@@ -149,7 +149,7 @@ class tokenizer():
                             word_end = text_length
                         not_delimiter = text[word_start:word_end]
                         token_type = 'data'
-                        if None != block:
+                        if block is not None:
                             block_left = block[0]
                             block_right = block[1]
                             block_type = block[2]
