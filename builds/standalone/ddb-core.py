@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.294'
+__version__='1.2.295'
 
         
 # ############################################################################
@@ -1175,7 +1175,7 @@ class tokenizer():
                 delimter_len = len(b[0])
                 fragment = text[c:c + delimter_len]
                 if None == in_block:
-                    if True == self.compare_text_fragment(fragment, b[0]):
+                    if fragment==b[0] and fragment!=None:
                         just_crossed_block = True
                         self.info("IN BLOCK", c)
                         in_block = b
@@ -1183,7 +1183,7 @@ class tokenizer():
                         c += delimter_len
                         self.info("IN BLOCK", c)
                         break
-                if True == self.compare_text_fragment(fragment, b[1]) or c >= text_length - 1:
+                if (fragment== b[1] and fragment!=None) or c >= text_length - 1:
                     just_crossed_block = True
                     self.info("NOT IN BLOCK", c)
                     in_block = None
@@ -1201,7 +1201,7 @@ class tokenizer():
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if True == self.compare_text_fragment(fragment, d) or c >= text_length - 1:
+                if (fragment== d and fragment!=None) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
