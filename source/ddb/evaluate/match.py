@@ -25,7 +25,7 @@ class match():
                 compare1 = row[index]  # table.ordinals[].get_data_from_column(column,row)
                 # compare1=table.get_data_from_column(column,row)
                 compare1_is_column = True
-            if column.data.name == test['e2']:
+            elif column.data.name == test['e2']:
                 index = table.ordinals[column.data.name]
                 #print "found2", column.data.name
                 compare2 = row[index]  # table.get_data_from_column(column,row)
