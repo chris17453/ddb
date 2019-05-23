@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.295'
+__version__='1.2.296'
 
         
 # ############################################################################
@@ -1269,7 +1269,7 @@ class tokenizer():
                 delimter_len = len(b[0])
                 fragment = text[c:c + delimter_len]
                 if None == in_block:
-                    if fragment==b[0] and fragment!=None:
+                    if fragment==b[0] and fragment is not None:
                         just_crossed_block = True
                         self.info("IN BLOCK", c)
                         in_block = b
@@ -1277,13 +1277,13 @@ class tokenizer():
                         c += delimter_len
                         self.info("IN BLOCK", c)
                         break
-                if (fragment== b[1] and fragment!=None) or c >= text_length - 1:
+                if (fragment== b[1] and fragment is not None) or c >= text_length - 1:
                     just_crossed_block = True
                     self.info("NOT IN BLOCK", c)
                     in_block = None
                     c += delimter_len
                     break
-            if None != in_block:
+            if in_block  is not None:
                 self.info("in block skip")
                 if not just_crossed_block:
                     c += 1
@@ -1295,7 +1295,7 @@ class tokenizer():
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if (fragment== d and fragment!=None) or c >= text_length - 1:
+                if (fragment== d and fragment is not None) or c >= text_length - 1:
                     self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
@@ -1305,7 +1305,7 @@ class tokenizer():
                             word_end = text_length
                         not_delimiter = text[word_start:word_end]
                         token_type = 'data'
-                        if None != block:
+                        if block is not None:
                             block_left = block[0]
                             block_right = block[1]
                             block_type = block[2]
