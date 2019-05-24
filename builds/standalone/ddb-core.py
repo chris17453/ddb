@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.297'
+__version__='1.2.298'
 
         
 # ############################################################################
@@ -2031,12 +2031,10 @@ class match():
             compare1 = test['e1']
         if None == compare2:
             compare2 = test['e2']
-        if None == compare1 and None == compare2:
-            raise Exception("Where invalid {0}".format(test))
         if comparitor == '=' or comparitor == 'is':
             if compare1 == compare2:
                 return True
-        if comparitor == 'like':  # paritial match
+        elif comparitor == 'like':  # paritial match
             if True == compare1_is_column and True == compare2_is_column:
                 raise Exception("Where invalid {0}, like cant be between 2 columns".format(test))
             if True == compare1_is_column:
@@ -2071,7 +2069,7 @@ class match():
                 else:
                     return False
             return False
-        if comparitor == '<':
+        elif comparitor == '<':
             if compare1 < compare2:
                 return True
         elif comparitor == '>':

@@ -106,9 +106,9 @@ class lexer:
             index_of_colon=variable.find(':')
             if index_of_colon!=-1:
                 #variable=word[0:index_of_colon-1]
-                key=variable[index_of_colon+1:]
+                key=variable[index_of_colon+1:].lower()
             else:
-                key=variable
+                key=variable.lower()
             return {'key':key,'value':variable_data}
             
         else:
