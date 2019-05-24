@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.308'
+__version__='1.2.309'
 
         
 # ############################################################################
@@ -2484,12 +2484,14 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                         line_type = context.data_type.ERROR
                 else:
                     if  cur_column_len != column_count:
-                        for i in range(cur_column_len,column_count):
-                            line_data.append('')
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
                 if None != table.delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:
-                        line_data_cleaned.append(d[1:-1])
+                        line_data_cleaned+=d[1:-1]
                     line_data = line_data_cleaned
         if 'where' not in query_object['meta']:
             match_results = True
@@ -2719,12 +2721,12 @@ def select_process_file(context,query_object):
                     continue
                 if None != processed_line['data']:
                     restructured_line = process_select_row(context,query_object,processed_line) 
-                    data.append(restructured_line)
+                    data+=[restructured_line]
                 line_number += 1
         context.auto_commit(table)
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
-        data.append(row)
+        data+=[row]
     return data
 def select_validate_columns_and_from(context, query_object, parser):
     has_functions = select_has_functions(context,query_object)
