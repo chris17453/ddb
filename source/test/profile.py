@@ -7,11 +7,11 @@ from subprocess import Popen,PIPE
 
 class test_profile:
     temp_config = 'temp_config.yaml'
-    temp_data = 'MOCK_DATA.csv'
+    temp_data = 'MOCK_DATA_LARGE.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))
     table_name = 'test'
     debug=None
-    loop=10
+    loop=1
 
     def cleanup(self):
         # print ("#--->Fresh init")

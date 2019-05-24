@@ -10,7 +10,7 @@ def process_line(context, query_object, line, line_number=0):
     err = None
     table=query_object['table']
     column_len = table.column_count()
-    line_cleaned = line.rstrip()
+    line_cleaned = line#.rstrip()
     line_data = None
     match_results=False
     if table.data.starts_on_line > line_number:
@@ -70,6 +70,7 @@ def process_line(context, query_object, line, line_number=0):
             match_results = True
         else:
             # if a where, only return data, comments/whites/space/errors are ignored
+            
             if line_type == context.data_type.DATA:
                 match_results = context.match.evaluate_match(context,query_object, line_data)
             else:

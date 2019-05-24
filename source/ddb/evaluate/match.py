@@ -10,7 +10,7 @@ class match():
         compare1_is_column = False
         compare2_is_column = False
 
-        comparitor = test['c'].lower()
+        comparitor = test['c']
         #cdef int index 
         #cdef str like = None
         #cdef str data = None
@@ -123,9 +123,6 @@ class match():
         if None == row:
             return False
 
-        if 0 == len(where):
-            #print "0 len"
-            return True
         success = None
         skip_section = False
         operation = ""
