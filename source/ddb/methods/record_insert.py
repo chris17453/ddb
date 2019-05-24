@@ -26,7 +26,7 @@ def method_insert(context, query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         
         temp_data_file=context.get_data_file(table,"SRC_INSERT")
