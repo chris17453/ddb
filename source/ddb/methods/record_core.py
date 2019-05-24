@@ -176,12 +176,12 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
     if table.data.starts_on_line > line_number:
         line_type = context.data_type.COMMENT
         line_data = line
-        match=False
+        try_match=False
         #print table.data.starts_on_line,line_number
     else:
         line_type = context.data_type.DATA
-        match=True
-    if match:
+        try_match=True
+    if try_match:
         if not line_cleaned:
             if True == visible_whitespace:
                 line_data = ['']
