@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.301'
+__version__='1.2.302'
 
         
 # ############################################################################
@@ -2554,7 +2554,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(table.delimiters.field,column_len)
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
