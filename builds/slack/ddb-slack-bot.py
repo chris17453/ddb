@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.303'
+__version__='1.2.304'
 
         
 # ############################################################################
@@ -2572,7 +2572,7 @@ def method_delete(context, query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
@@ -2619,7 +2619,7 @@ def method_insert(context, query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         temp_data_file=context.get_data_file(table,"SRC_INSERT")
         diff=[]
@@ -2709,7 +2709,7 @@ def select_process_file(context,query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
@@ -3011,7 +3011,7 @@ def method_update(context, query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
@@ -3077,7 +3077,7 @@ def method_upsert(context, query_object):
         column_count=table.column_count()
         delimiter=table.delimiters.field
         visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.visible_comments
+        visible_comments=table.visible.comments
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
