@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.299'
+__version__='1.2.300'
 
         
 # ############################################################################
@@ -2530,10 +2530,9 @@ class engine:
 # File   : ./source/ddb/methods/record_core.py
 # ############################################################################
 
-def process_line(context, query_object, line, line_number=0):
+def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     err = None
     table=query_object['table']
-    column_len = table.column_count()
     line_cleaned = line#.rstrip()
     line_data = None
     match_results=False
@@ -2558,11 +2557,11 @@ def process_line(context, query_object, line, line_number=0):
                 line_data = line_cleaned.split(table.delimiters.field,column_len)
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
-                    if  cur_column_len != column_len:
-                        if cur_column_len > column_len:
-                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
                         else:
-                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, table.data.name)
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
                         line_type = context.data_type.ERROR
                         if True == table.visible.errors:
                             line_data = line_cleaned
@@ -2570,8 +2569,8 @@ def process_line(context, query_object, line, line_number=0):
                             line_data = None
                         line_type = context.data_type.ERROR
                 else:
-                    if  cur_column_len != column_len:
-                        for i in range(cur_column_len,column_len):
+                    if  cur_column_len != column_count:
+                        for i in range(cur_column_len,column_count):
                             line_data.append('')
                 if None != table.delimiters.block_quote:
                     line_data_cleaned = []
@@ -2585,11 +2584,11 @@ def process_line(context, query_object, line, line_number=0):
                 match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
-        if table.visible.whitespace is False and line_type==context.data_type.WHITESPACE:
+        ifvisible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
-        elif table.visible.comments is False and line_type==context.data_type.COMMENT:
+        elif visible_comments is False and line_type==context.data_type.COMMENT:
             match_results=False
-        elif table.visible.errors is False and line_type==context.data_type.ERROR:
+        elif visible_errors is False and line_type==context.data_type.ERROR:
             match_results=False
     return {'data': line_data, 
             'type': line_type, 
@@ -2656,10 +2655,15 @@ def method_delete(context, query_object):
         affected_rows = 0
         temp_data_file=context.get_data_file(table)
         diff=[]
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
             for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number)
+                 processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if None != processed_line['error']:
                     context.add_error(processed_line['error'])
                 line_number += 1
@@ -2698,12 +2702,17 @@ def method_insert(context, query_object):
         line_number = 1
         affected_rows = 0
         requires_new_line = False
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
         temp_data_file=context.get_data_file(table,"SRC_INSERT")
         diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
@@ -2783,9 +2792,14 @@ def select_process_file(context,query_object):
         else:
             raise Exception ('table configuration has no data file')
         temp_data_file=context.get_data_file(table)
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number)
+                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
                     line_number += 1
                     continue
@@ -3080,10 +3094,15 @@ def method_update(context, query_object):
         affected_rows = 0
         temp_data_file=context.get_data_file(table)
         diff=[]
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
@@ -3141,10 +3160,15 @@ def method_upsert(context, query_object):
         affected_rows = 0
         temp_data_file=context.get_data_file(table)
         diff=[]
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
