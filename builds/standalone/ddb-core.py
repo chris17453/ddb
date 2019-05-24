@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.302'
+__version__='1.2.303'
 
         
 # ############################################################################
@@ -2569,7 +2569,7 @@ def method_delete(context, query_object):
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
             for line in content_file:
-                 processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if None != processed_line['error']:
                     context.add_error(processed_line['error'])
                 line_number += 1
