@@ -75,7 +75,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                 match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
-        ifvisible_whitespace is False and line_type==context.data_type.WHITESPACE:
+        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
         elif visible_comments is False and line_type==context.data_type.COMMENT:
             match_results=False
