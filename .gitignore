@@ -11,6 +11,7 @@ dist/
 *.zip
 *.tar
 .svn/
+MOCK_DATA_LARGE.csv
 __pycache__/
 svn_test/
 ddb.egg-info/
