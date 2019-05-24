@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.305'
+__version__='1.2.306'
 
         
 # ############################################################################
@@ -2469,6 +2469,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                 line_type = context.data_type.COMMENT
             else:
                 line_data = line_cleaned.split(table.delimiters.field,column_count)
+                line_data[-1]=line_data[-1].rstrip()
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
