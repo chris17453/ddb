@@ -75,9 +75,16 @@ def select_process_file(context,query_object):
         # if batch transaction, make 1 copy, always pull from that
         temp_data_file=context.get_data_file(table)
 
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
+
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number)
+                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+
 
                 # not a match, skip
                 if False == processed_line['match']:

@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.298'
+__version__='1.2.299'
 
         
 # ############################################################################
@@ -732,9 +732,9 @@ class lexer:
             variable=word[1:]
             index_of_colon=variable.find(':')
             if index_of_colon!=-1:
-                key=variable[index_of_colon+1:]
+                key=variable[index_of_colon+1:].lower()
             else:
-                key=variable
+                key=variable.lower()
             return {'key':key,'value':variable_data}
         else:
            if self.keep_non_keywords:
@@ -2021,7 +2021,7 @@ class match():
         compare2 = None
         compare1_is_column = False
         compare2_is_column = False
-        comparitor = test['c'].lower()
+        comparitor = test['c']
         for column in table.columns:
             if column.data.name == test['e1']:
                 index = table.ordinals[column.data.name]
@@ -2098,8 +2098,6 @@ class match():
         where=query_object['meta']['where']
         if None == row:
             return False
-        if 0 == len(where):
-            return True
         success = None
         skip_section = False
         operation = ""
@@ -2450,7 +2448,7 @@ def process_line(context, query_object, line, line_number=0):
     err = None
     table=query_object['table']
     column_len = table.column_count()
-    line_cleaned = line.rstrip()
+    line_cleaned = line#.rstrip()
     line_data = None
     match_results=False
     if table.data.starts_on_line > line_number:

@@ -64,11 +64,19 @@ def method_update(context, query_object):
         affected_rows = 0
         temp_data_file=context.get_data_file(table)
         diff=[]
+
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.visible_comments
+        visible_errors=table.visible.errors
+
+
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
       
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number)
+                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1

@@ -6,10 +6,10 @@ from ..file_io.locking import lock
 from pprint import pprint
 
 
-def process_line(context, query_object, line, line_number=0):
+def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     err = None
     table=query_object['table']
-    column_len = table.column_count()
+    
     line_cleaned = line#.rstrip()
     line_data = None
     match_results=False
@@ -36,11 +36,11 @@ def process_line(context, query_object, line, line_number=0):
                 cur_column_len = len(line_data)
                 
                 if table.data.strict_columns==True:
-                    if  cur_column_len != column_len:
-                        if cur_column_len > column_len:
-                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len - column_len, table.data.name)
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
                         else:
-                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_len - cur_column_len, table.data.name)
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
                         # table.add_error(err)
                         line_type = context.data_type.ERROR
 
@@ -52,8 +52,8 @@ def process_line(context, query_object, line, line_number=0):
                         line_type = context.data_type.ERROR
                 else:
                     # add empty columns
-                    if  cur_column_len != column_len:
-                        for i in range(cur_column_len,column_len):
+                    if  cur_column_len != column_count:
+                        for i in range(cur_column_len,column_count):
                             line_data.append('')
 
 
@@ -75,11 +75,11 @@ def process_line(context, query_object, line, line_number=0):
                 match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
-        if table.visible.whitespace is False and line_type==context.data_type.WHITESPACE:
+        ifvisible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
-        elif table.visible.comments is False and line_type==context.data_type.COMMENT:
+        elif visible_comments is False and line_type==context.data_type.COMMENT:
             match_results=False
-        elif table.visible.errors is False and line_type==context.data_type.ERROR:
+        elif visible_errors is False and line_type==context.data_type.ERROR:
             match_results=False
 
 
