@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.307'
+__version__='1.2.308'
 
         
 # ############################################################################
@@ -2533,7 +2533,7 @@ class engine:
 def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     err = None
     table=query_object['table']
-    line_cleaned = line#.rstrip()
+    line_cleaned = line.rstrip()
     line_data = None
     match_results=False
     if table.data.starts_on_line > line_number:
@@ -2545,17 +2545,16 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
         match=True
     if match:
         if not line_cleaned:
-            if True == table.visible.whitespace:
+            if True == visible_whitespace:
                 line_data = ['']
             line_type = context.data_type.WHITESPACE
         else:
             if line_cleaned[0] in table.delimiters.comment:
-                if True == table.visible.comments:
+                if True == visible_comments:
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
                 line_data = line_cleaned.split(table.delimiters.field,column_count)
-                line_data[-1]=line_data[-1].rstrip()
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
@@ -2564,7 +2563,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                         else:
                             err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
                         line_type = context.data_type.ERROR
-                        if True == table.visible.errors:
+                        if True == visible_errors:
                             line_data = line_cleaned
                         else:
                             line_data = None

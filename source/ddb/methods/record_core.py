@@ -9,7 +9,7 @@ from pprint import pprint
 def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     err = None
     table=query_object['table']
-    
+    # TODO move rstrip to after split for limited data copy operations
     line_cleaned = line.rstrip()
     line_data = None
     match_results=False
@@ -56,8 +56,10 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                 else:
                     # add empty columns
                     if  cur_column_len != column_count:
-                        for i in range(cur_column_len,column_count):
-                            line_data.append('')
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
 
 
                 # fields are surrounded by something... trim
@@ -65,7 +67,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
                 if None != table.delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:
-                        line_data_cleaned.append(d[1:-1])
+                        line_data_cleaned+=d[1:-1]
                     line_data = line_data_cleaned
 
         # If no where. return everything

@@ -94,7 +94,7 @@ def select_process_file(context,query_object):
                 # there is data, rebuild and add
                 if None != processed_line['data']:
                     restructured_line = process_select_row(context,query_object,processed_line) 
-                    data.append(restructured_line)
+                    data+=[restructured_line]
                 line_number += 1
         
         # release lock ans swap files if need be.
@@ -102,7 +102,7 @@ def select_process_file(context,query_object):
     # file is closed at this point, proccess the no "FROM" statement
     if False == has_columns and True == has_functions:
         row=process_select_row(context,query_object,None)
-        data.append(row)
+        data+=[row]
 
     # return the acumulated data
     return data
