@@ -1,5 +1,6 @@
+# cython: profile=True
 # cython: linetrace=True
-
+# cython: binding=True
 
 class match():
 

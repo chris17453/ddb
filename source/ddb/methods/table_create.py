@@ -1,4 +1,8 @@
+
+# cython: profile=True
 # cython: linetrace=True
+# cython: binding=True
+
 
 from .record_core import  process_line, query_results
 
