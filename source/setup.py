@@ -3,16 +3,20 @@ import sys
 from distutils.core import setup, Command
 from distutils.extension import Extension
 
-# dist style
-ext = '.c'
+
 if '--build-cython' in sys.argv:
+    # if this is is the system building the package from source, use the py files (or pyx)
     index = sys.argv.index('--build-cython')
     sys.argv.pop(index)  # Removes the '--foo'
     ext = '.py'
+    ext2='.pyx'
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
 else:
+    # if this is a package install, use the c files and build/register modules
+    ext = '.c'
+    ext2 = '.c'
     prefix=''
     USE_CYTHON=None    
 # cython: linetrace=True
@@ -20,7 +24,7 @@ else:
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 extensions = [
-    Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext], define_macros=[('CYTHON_TRACE', '1')]),
