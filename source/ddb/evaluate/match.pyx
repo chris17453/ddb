@@ -8,10 +8,10 @@ class match():
 
     def evaluate_single_match(self,context,test, row, table):
         
-        compare1 = None
-        compare2 = None
-        compare1_is_column = False
-        compare2_is_column = False
+        cdef char* compare1 = None
+        cdef char* compare2 = None
+        cdef bool compare1_is_column = False
+        cdef bool compare2_is_column = False
 
         comparitor = test['c']
         #cdef int index 

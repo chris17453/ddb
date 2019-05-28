@@ -2,8 +2,6 @@
 # cython: linetrace=True
 # cython: binding=True
 
-
-
 class match():
 
     def evaluate_single_match(self,context,test, row, table):

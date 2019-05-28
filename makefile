@@ -89,7 +89,7 @@ buildc: bump svn_start
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --use-cython
+	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) unittest
