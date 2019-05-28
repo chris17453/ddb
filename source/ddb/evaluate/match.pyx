@@ -1,9 +1,12 @@
 # cython: profile=True
 # cython: linetrace=True
 # cython: binding=True
-from libcpp cimport bool
+from cpython cimport bool
 
-
+# PYVERSION=2.7
+# foobar: foobar.py
+#     cython --embed foobar.py -o foobar.c#
+#     $(CC) -I /usr/include/python$(PYVERSION) foobar.c -lpython$(PYVERSION) -o foobar
 
 class match():
 
