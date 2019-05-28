@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.316'
+__version__='1.2.317'
 
         
 # ############################################################################
@@ -2582,7 +2582,7 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
             match_results = True
         else:
             if line_type == context.data_type.DATA:
-                match_results = match().evaluate_match(context,query_object, line_data)
+                match_results = context.match.evaluate_match(context,query_object, line_data)
             else:
                 match_results = False
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
