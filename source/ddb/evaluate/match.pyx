@@ -1,6 +1,7 @@
 # cython: profile=True
 # cython: linetrace=True
 # cython: binding=True
+from libcpp cimport bool
 
 
 
