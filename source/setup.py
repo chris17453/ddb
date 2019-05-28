@@ -24,7 +24,7 @@ else:
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 extensions = [
-    Extension("ddb.evaluate.ls",                     [prefix+"./ddb/evaluate/match" + ext2], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext], define_macros=[('CYTHON_TRACE', '1')]),
@@ -40,7 +40,7 @@ extensions = [
     Extension("ddb.file_io.locking",                    [prefix+"./ddb/file_io/locking" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     Extension("ddb.methods.database_show_errors",       [prefix+"./ddb/methods/database_show_errors" + ext], define_macros=[('CYTHON_TRACE', '1')] ),            
     Extension("ddb.methods.database_use",               [prefix+"./ddb/methods/database_use" + ext], define_macros=[('CYTHON_TRACE', '1')] ),    
-    Extension("ddb.methods.record_core",                [prefix+"./ddb/methods/record_core" + ext], define_macros=[('CYTHON_TRACE', '1')] ),   
+    Extension("ddb.methods.record_core",                [prefix+"./ddb/methods/record_core" + ext2], define_macros=[('CYTHON_TRACE', '1')] ),   
     Extension("ddb.methods.record_delete",              [prefix+"./ddb/methods/record_delete" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
     Extension("ddb.methods.record_insert",              [prefix+"./ddb/methods/record_insert" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
     Extension("ddb.methods.record_select",              [prefix+"./ddb/methods/record_select" + ext], define_macros=[('CYTHON_TRACE', '1')] ),     
