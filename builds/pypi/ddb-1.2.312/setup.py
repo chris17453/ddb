@@ -5,8 +5,8 @@ from distutils.extension import Extension
 
 # dist style
 ext = '.c'
-if '--build-cython' in sys.argv:
-    index = sys.argv.index('--build-cython')
+if '--use-cython' in sys.argv:
+    index = sys.argv.index('--use-cython')
     sys.argv.pop(index)  # Removes the '--foo'
     ext = '.py'
     prefix=''
@@ -57,7 +57,7 @@ extensions = [
     Extension("ddb.version",                            [prefix+"./ddb/version" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     Extension("ddb.engine",                             [prefix+"./ddb/engine" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     Extension("ddb.interactive",                        [prefix+"./ddb/interactive" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    Extension("ddb.cli",                                [prefix+"./ddb/cli" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
+#    Extension("ddb.cli", ["./ddb/cli" + ext], ),
 ]
 if USE_CYTHON:
     try:
@@ -70,16 +70,15 @@ if USE_CYTHON:
 else:
     print("Not using CYTHON")
 
-
 packages=['ddb',
-          'ddb.lexer',
-          'ddb.evaluate',
-          'ddb.file_io',
-          'ddb.methods',
-          'ddb.functions',
-          'ddb.configuration',
-          'ddb.output',
-         ]
+            'ddb.lexer',
+            'ddb.evaluate',
+            'ddb.file_io',
+            'ddb.methods',
+            'ddb.functions',
+            'ddb.configuration',
+            'ddb.output',
+            ]
     
 
 exec(open('ddb/version.py').read())
