@@ -17,3 +17,5 @@ svn_test/
 ddb.egg-info/
 
 profile/
+builds/Python/
+Python-2.7.16/
