@@ -4,7 +4,7 @@
 
 
 
-class match():
+class match:
 
     def evaluate_single_match(self,context,test, row, table):
         

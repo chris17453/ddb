@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.322'
+__version__='1.2.323'
 
         
 # ############################################################################
@@ -1212,7 +1212,7 @@ class lexer:
 # File   : ./source/ddb/lexer/tokenize.py
 # ############################################################################
 
-class tokenizer():
+class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
         self.debug_on = None
         tokens = []
