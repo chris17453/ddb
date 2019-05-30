@@ -108,8 +108,7 @@ install:
 uninstall:
 	pip uninstall ddb
 
-
 buildpython:
-	@mkdir -p builds/Python/2.7.16
-	@cd source/Python; docker build -t static-python-2.7.16 .
-	@docker run -it -v $(shell pwd)/builds/Python/2.7.16/:/transfer/ static-python-2.7.16  bash -c "/usr/bin/cp -r /python/* /transfer/"
+	@cd source/Python; docker build -t pybin-onator .
+	@docker run -it -v $(shell pwd)/builds/standalone/:/build/ -e PY_SCRIPT=ddb.c -e PY_SCRIPT_OUTPUT=ddb pybin-onator
+	
