@@ -2,7 +2,7 @@
 
 # yes, this could be a giant regex, but no.
 # TODO: memory optimization.. maybe not sure how wastefull this is
-class tokenizer():
+class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
         self.debug_on = None
