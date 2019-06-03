@@ -28,7 +28,8 @@ class table:
                  repo_password=None,
                  repo_dir=None,
                  repo_file=None,
-                 strict_columns=None
+                 strict_columns=None,
+                 mode=None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -57,7 +58,8 @@ class table:
                     repo_password=repo_password,
                     repo_dir=repo_dir,
                     repo_file=repo_file,
-                    strict_columns=strict_columns
+                    strict_columns=strict_columns,
+                    mode=mode
 
                     )
 
@@ -82,7 +84,8 @@ class table:
                 repo_password=None,
                 repo_dir=None,
                 repo_file=None,
-                strict_columns=None
+                strict_columns=None,
+                mode=None
                 ):
         
         if repo_type:
@@ -116,6 +119,9 @@ class table:
 
         if data_file:
             self.data.path = data_file
+
+        if mode:
+            self.data.mode = mode
 
         if columns:
             self.columns = []
@@ -371,6 +377,7 @@ class table_visible_attributes:
 class table_data:
 
     def __init__(self, yaml=None, name=None, database=None):
+        self.mode = None
         self.type = 'Temp'
         self.name = None
         self.database = 'main'

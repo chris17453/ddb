@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 flake8 = "*"
 autopep8 = "*"
+yapf = "*"
+black = "*"
 
 [packages]
 cython = "*"
@@ -14,3 +16,6 @@ gprof2dot = "*"
 
 [requires]
 python_version = "2.7"
+
+[pipenv]
+allow_prereleases = true
