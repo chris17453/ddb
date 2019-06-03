@@ -16,3 +16,11 @@
 - output more data in test
 - named tupel
 - __slots__
+
+Notes...
+
+# Tried to convert to GO
+- Tried to convert to GO with grumpy
+- total failure. some classes worked, others didnt
+- failed on importing modules like uuid, which I would have to impliment myself
+- I feel my efforts are best left to coding in c/c++, and exporting to python

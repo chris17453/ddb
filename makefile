@@ -30,7 +30,6 @@ help:
 	@echo "make uninstall      | uninstall ddb from your user directory"
 	@echo "make svn_start      | start svn docker"
 	@echo "make svn_stop       | stop svn docker"
-	@echo "make buildpython	   | creates a lambda style python static build docker, and copies results to builds/Python"
 
 
 clean:
@@ -108,7 +107,3 @@ install:
 uninstall:
 	pip uninstall ddb
 
-buildpython:
-	@cd source/Python; docker build -t pybin-onator .
-	@docker run -it -v $(shell pwd)/builds/standalone/:/build/ -e PY_SCRIPT=ddb.c -e PY_SCRIPT_OUTPUT=ddb pybin-onator
-	

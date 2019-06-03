@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.323'
+__version__='1.2.324'
 
         
 # ############################################################################
@@ -2007,7 +2007,7 @@ class database:
 # File   : ./source/ddb/evaluate/match.py
 # ############################################################################
 
-class match():
+class match:
     def evaluate_single_match(self,context,test, row, table):
         compare1 = None
         compare2 = None

@@ -224,14 +224,14 @@ class engine:
             elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,query_object)
 
-            elif mode == 'use':
+            # TABLE 
+            elif mode == 'use table':
                 self.results = method_use(self,query_object)
 
-            # TABLE 
-            elif mode == 'drop' and self.internal['READONLY']==None:
+            elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
 
-            elif mode == 'create' and self.internal['READONLY']==None:
+            elif mode == 'create table' and self.internal['READONLY']==None:
                 self.results = method_create_table(self,query_object)
 
             elif mode == 'update table' and self.internal['READONLY']==None:
