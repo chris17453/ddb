@@ -113,7 +113,7 @@ def select_validate_columns_and_from(context, query_object, parser):
     has_functions = select_has_functions(context,query_object)
     has_columns = select_has_columns(context,query_object)
 
-    if False == has_columns and 'from' in query_object['meta']:
+    if False == has_columns and 'source' in query_object['meta']:
         raise Exception("Invalid FROM, all columns are functions")
 
     if False == has_columns and False == has_functions:
@@ -122,16 +122,16 @@ def select_validate_columns_and_from(context, query_object, parser):
 
     # if has functions, tables may not be needed
     if True == has_columns:
-        if 'from' in query_object['meta']:
+        if 'source' in query_object['meta']:
             # get DB name
-            if 'database' in query_object['meta']['from']:
+            if 'database' in query_object['meta']['source']:
                 context.info('Database specified')
-                database_name=query_object['meta']['from']['database']
+                database_name=query_object['meta']['source']['database']
             else:
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
 
-            table_name = query_object['meta']['from']['table']
+            table_name = query_object['meta']['source']['table']
             table= context.database.get(table_name,database_name)
             if None == table:
                 except_str="Table '{0}' does not exist.".format(table_name)

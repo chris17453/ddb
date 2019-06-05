@@ -10,24 +10,24 @@ if [[ $svn_stat == 0 ]]; then
     exit 0
 fi
 
-source/test/svn_stop.sh
+test/svn_stop.sh
 
 # incase I deleted it from the repo
-mkdir -p source/test/svn_test
+mkdir -p test/svn_test
 
 echo $(pwd)
 # clear old svn stuff
-rm source/test/svn_test/.svn -rf
+rm test/svn_test/.svn -rf
 
 # start docker
 docker run -d  --name ddb-svn -p 80:80 krisdavison/svn-server:v3.0 
 sleep 3
 
 # pull empty repo
-cd source/test/svn_test
+cd test/svn_test
 svn co --no-auth-cache  --username user  --password password http://localhost/svn/SampleProject . --depth empty
 
 # add file
-cp ../MOCK_DATA.csv .
+cp ../data/MOCK_DATA.csv .
 svn add MOCK_DATA.csv  --no-auth-cache  --username user  --password password
 

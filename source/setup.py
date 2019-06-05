@@ -9,7 +9,7 @@ if '--build-cython' in sys.argv:
     index = sys.argv.index('--build-cython')
     sys.argv.pop(index)  # Removes the '--foo'
     ext = '.py'
-    ext2='.pyx'
+    ext2= '.py' # X when needed
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
@@ -29,6 +29,7 @@ extensions = [
     Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext], define_macros=[('CYTHON_TRACE', '1')]),
+    Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext], define_macros=[('CYTHON_TRACE', '1')]),
@@ -77,6 +78,7 @@ else:
 
 packages=['ddb',
           'ddb.lexer',
+          'ddb.meta',
           'ddb.evaluate',
           'ddb.file_io',
           'ddb.methods',

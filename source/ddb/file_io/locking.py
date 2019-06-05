@@ -7,7 +7,8 @@ import tempfile, shutil
 
 
 class lock:
-    max_lock_time=30
+    max_lock_time=5
+    max_lock_wait_time=max_lock_time+1
     sleep_time=0.02
     LOCK_NONE=0
     LOCK_OWNER=1
@@ -90,9 +91,9 @@ class lock:
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
             lock_cycle+=1
-            if lock_time>lock.max_lock_time:
+            if lock_time>lock.max_lock_wait_time:
                 lock.info("Lock","Cannot aquire lock, timeout")
-                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
+                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_wait_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
         #if os.path.exists(lock_path):

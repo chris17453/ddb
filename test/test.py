@@ -9,7 +9,7 @@ import pstats
 class test_engine(unittest.TestCase):
     temp_config = 'temp_config.yaml'
     temp_data = 'MOCK_DATA.csv'
-    basedir = os.path.dirname(os.path.abspath(__file__))
+    basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
     table_name = 'test'
     debug=None
     def cleanup(self):

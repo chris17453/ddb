@@ -8,6 +8,7 @@ def src_build():
         {'name':'lexer-language','file':source_dir+'/ddb/lexer/language.py'},
         {'name':'lexer-parse','file':source_dir+'/ddb/lexer/lexer.py'},
         {'name':'lexer-token','file':source_dir+'/ddb/lexer/tokenize.py'},
+        {'name':'meta','file':source_dir+'/ddb/meta/meta.py'},
         {'name':'column','file':source_dir+'/ddb/configuration/column.py'},
         {'name':'table','file':source_dir+'/ddb/configuration/table.py'},
         {'name':'database','file':source_dir+'/ddb/configuration/database.py'},

@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.324'
+__version__='1.2.365'
 
         
 # ############################################################################
@@ -139,19 +139,19 @@ __version__='1.2.324'
 
 language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'signature': ['show', 'columns']}],
-                             'name': ['show', 'columns']},
+                             'name': 'show columns'},
                             {'data': [{'signature': ['from', '{table}']},
                                       {'signature': ['from',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'from'}]},
+                             'name': 'source'}]},
               {'name': 'show tables',
                'segments': [{'data': [{'signature': ['show', 'tables']}],
-                             'name': ['show', 'tables']}]},
+                             'name': 'show tables'}]},
               {'name': 'show variables',
                'segments': [{'data': [{'signature': ['show', 'variables']}],
-                             'name': ['show', 'variables']}]},
+                             'name': 'show variables'}]},
               {'name': 'select',
                'segments': [{'data': [{'signature': ['select']}],
                              'name': 'select',
@@ -230,59 +230,10 @@ language={'commands': [{'name': 'show columns',
                                                '{table}',
                                                'as',
                                                '{display}']}],
-                             'name': 'from',
+                             'name': 'source',
                              'optional': True},
-                            {'data': [{'signature': ['join', '{table}']},
-                                      {'signature': ['join',
-                                               '{table}',
-                                               'as',
-                                               '{display}']}],
-                             'depends_on': 'from',
-                             'name': 'join',
-                             'optional': True},
-                            {'data': [{'signature': ['left join', '{table}']},
-                                      {'signature': ['left join',
-                                               '{table}',
-                                               'as',
-                                               '{display}']}],
-                             'depends_on': 'from',
-                             'name': 'left join',
-                             'optional': True},
-                            {'data': [{'signature': ['right join', '{table}']},
-                                      {'signature': ['right join',
-                                               '{table}',
-                                               'as',
-                                               '{display}']}],
-                             'depends_on': 'from',
-                             'name': 'right join',
-                             'optional': True},
-                            {'data': [{'signature': ['full join', '{table}']},
-                                      {'signature': ['full join',
-                                               '{table}',
-                                               'as',
-                                               '{display}']}],
-                             'depends_on': 'from',
-                             'name': 'full join',
-                             'optional': True},
-                            {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] } ] ,
-                             'depends_on': 'join',
-                             'name': 'on',
-                             'optional': True,
-                             'store_array': True},
-                             {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
-                             'depends_on': 'on',
-                             'jump': 'on',
-                             'name': 'and',
-                             'optional': True,
-                             'parent': 'on'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
-                             'depends_on': 'on',
-                             'jump': 'on',
-                             'name': 'or',
-                             'optional': True,
-                             'parent': 'on'},
                             {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] } ] ,
-                             'depends_on': 'from',
+                             'depends_on': 'source',
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
@@ -298,11 +249,6 @@ language={'commands': [{'name': 'show columns',
                              'name': 'or',
                              'optional': True,
                              'parent': 'where'},
-                            {'array': True,
-                             'data': [{'signature': ['union']}],
-                             'jump': 'select',
-                             'name': 'union',
-                             'optional': True},
                             {'data': [{'signature': ['group', 'by']}],
                              'name': 'group by header',
                              'optional': True},
@@ -356,15 +302,15 @@ language={'commands': [{'name': 'show columns',
                                                'procedure',
                                                '(']}],
                              'dispose': True,
-                             'name': ['create', 'procedure'],
+                             'name': 'create procedure',
                              'optional': False},
                             {'arguments': 0,
                              'data': [{'signature': ['{parameter}']}],
-                             'name': ['parameters'],
+                             'name': 'parameters',
                              'optional': True},
                             {'data': [{'signature': [')']}],
                              'dispose': True,
-                             'name': [')'],
+                             'name': ')',
                              'optional': False}]},
               {'name': 'delimiter',
                'segments': [{'data': [{'signature': ['delimiter',
@@ -393,8 +339,12 @@ language={'commands': [{'name': 'show columns',
               {'name': 'delete',
                'segments': [{'data': [{'signature': ['delete']}],
                              'name': 'delete'},
-                            {'data': [{'signature': ['from', '{table}']}],
-                             'name': 'from'},
+                            {'data': [{'signature': ['from', '{table}']},
+                                      {'signature': ['from',
+                                               '{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'source'},
                             {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] } ] ,
                              'name': 'where',
                              'optional': True,
@@ -420,7 +370,7 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'into'},
+                             'name': 'source'},
                             {'data': [{'signature': ['(']}],
                              'dispose': True,
                              'name': '('},
@@ -450,7 +400,7 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                            'name': 'update'},
+                            'name': 'source'},
                             {'name':'set header',
                              'data': [{'signature': ['set']}],},
                             {'arguments': 0,
@@ -483,7 +433,7 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'into'},
+                             'name': 'source'},
                             {'data': [{'signature': ['(']}],
                              'dispose': True,
                              'name': '('},
@@ -528,10 +478,15 @@ language={'commands': [{'name': 'show columns',
                              'name': 'update',
                              'depends_on':'set'
                              }]},
-              {'name': 'use',
-               'segments': [{'data': [{'signature': ['use', '{table}']}],
-                             'name': 'use'}]},
-              {'name': 'drop',
+              {'name': 'use table',
+               'segments': [{'data': [{'signature': ['use',
+                                               '{table}']},
+                                      {'signature': ['use',
+                                               '{database}',
+                                               '.',
+                                               '{table}']}],
+                             'name': 'source'}]},
+              {'name': 'drop table',
                'segments': [{'data': [{'signature': ['drop',
                                                'table',
                                                '{table}']},
@@ -540,8 +495,8 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'drop'}]},
-              {'name': 'create',
+                             'name': 'source'}]},
+              {'name': 'create table',
                'segments': [{'data': [{'signature': ['create']}],
                              'name': 'create',
                              'optional': False},
@@ -553,7 +508,7 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': 'table',
+                             'name': 'source',
                              'optional': False,
                              'type': 'single'},
                             {'data': [{'signature': ['(']}],
@@ -575,31 +530,39 @@ language={'commands': [{'name': 'show columns',
                              'type': 'single'},
                             {'data': [{'signature': ['repo',
                                                '=',
-                                               '{repo_type}',
+                                               '{protocol}',
                                                'url',
                                                '=',
-                                               '{repo_url}',
+                                               '{url}',
                                                'user',
                                                '=',
-                                               '{repo_user}',
+                                               '{user}',
                                                'password',
                                                '=',
-                                               '{repo_password}',
+                                               '{password}',
                                                'repo_dir',
                                                '=',
-                                               '{repo_dir}',
+                                               '{directory}',
                                                'repo_file',
                                                '=',
-                                               '{repo_file}']}],
+                                               '{file}']}],
+                             'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git']}},
                              'name': 'repo',
                              'optional': True,
+                             'type': 'single'},
+                            {'data': [{'signature': ['mode',
+                                               '=',
+                                               '{mode}']}],
+                             'name': 'mode',
+                             'optional': True,
+                             'specs': {'mode': {'default': 'delimited','type': 'string','values':['delimited','ini']}},
                              'type': 'single'},
                             {'data': [{'signature': ['delimiter',
                                                '=',
                                                '{delimiter}']}],
                              'name': 'delimiter',
                              'optional': True,
-                             'specs': {'field': {'default': ',',
+                             'specs': {'delimiter': {'default': ',',
                                                  'type': 'char'}},
                              'type': 'single'},
                             {'data': [{'signature': ['whitespace',
@@ -641,8 +604,13 @@ language={'commands': [{'name': 'show columns',
               {'name': 'update table',
                'segments': [{'data': [{'signature': ['update',
                                                'table',
+                                               '{table}']},
+                                      {'signature': ['update',
+                                               'table',
+                                               '{database}',
+                                               '.',
                                                '{table}']}],
-                             'name': 'update'},
+                             'name': 'source'},
                             {'data': [{'signature': ['(']}],
                              'dispose': True,
                              'name': '(',
@@ -676,7 +644,7 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'whitespace': {'type': 'bool'}}},
                             {'data': [{'signature': ['errors',
                                                '=',
-                                               '{whitespace}']}],
+                                               '{errors}']}],
                              'name': 'errors',
                              'optional': True,
                              'specs': {'errors': {'type': 'bool'}}},
@@ -701,7 +669,8 @@ language={'commands': [{'name': 'show columns',
                                                '{database}',
                                                '.',
                                                '{table}']}],
-                             'name': ['describe', 'table']}]}],
+                             'name': 'source'}]}
+                             ],
  'operators':['>','<','>=','<=','!=','<>','not','is','like','=','in'],
 'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
@@ -720,23 +689,6 @@ language={'commands': [{'name': 'show columns',
                {'arguments': None, 'name': 'date'},
                {'arguments': None, 'name': 'time'},
                {'arguments': None, 'name': 'datetime'}]}
-if 1==0 :
-        for command in language['commands']:
-            syn="## {0}\n".format(command['name'])
-            optional=None
-            if 'optional' in command:
-                if command['optional']==True:
-                        optional=True
-                if optional:
-                        syn+="["
-                for segment in command['segments']:
-                        for pattern in segment['data']:
-                                for part in pattern['signature']:
-                                        syn+=" {0} ".format(part)
-                                syn+=" | "
-                if optional:
-                        syn+="]"
-                print( syn)
 
         
 # ############################################################################
@@ -1373,6 +1325,911 @@ class tokenizer:
 
         
 # ############################################################################
+# Module : meta
+# File   : ./source/ddb/meta/meta.py
+# ############################################################################
+
+def gv(o,keys):
+    print ("GV")
+    if o:
+        if isinstance(keys,str):
+            if keys in o:
+                o=o[keys]
+            else:
+                print ("NO STRING")
+                return None
+        else:
+            for key in keys:
+                if key in o:
+                    o=o[key]
+                else:
+                    print ("NO ARRAY")
+                    return None
+    else:     
+        print ("NO OBJECT")
+        return None
+    print ("GV -exit ")
+    return o
+class show_columns:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    source               = _source()
+    def __init__(self,so):
+            if gv(so,['meta','show_columns','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+    def debug(self):
+        print('Debug Info: show_columns')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+class show_tables:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: show_tables')
+        print('No variables')
+class show_variables:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: show_variables')
+        print('No variables')
+class select:
+    __slots__=()
+    class _and:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: and')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _group_by:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: group_by')
+            print('  column:              '.format(self.column))
+    class _source:
+        __slots__=()
+        table                = None
+        display              = None
+        database             = None
+        def __init__(self,table=None,display=None,database=None):
+            if table               :  self.table=table
+            if display             :  self.display=display
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  display:             '.format(self.display))
+            print('  database:            '.format(self.database))
+    class _limit:
+        __slots__=()
+        start                = 0
+        length               = 0
+        def __init__(self,start=None,length=None):
+            if start               :  self.start=start
+            if length              :  self.length=length
+        def debug(self):
+            print('  Debug Info: limit')
+            print('  start:               '.format(self.start))
+            print('  length:              '.format(self.length))
+    class _where:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: where')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _or:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: or')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _columns:
+        __slots__=()
+        function             = None
+        column               = None
+        argument2            = None
+        argument3            = None
+        argument1            = None
+        display              = None
+        def __init__(self,function=None,column=None,argument2=None,argument3=None,argument1=None,display=None):
+            if function            :  self.function=function
+            if column              :  self.column=column
+            if argument2           :  self.argument2=argument2
+            if argument3           :  self.argument3=argument3
+            if argument1           :  self.argument1=argument1
+            if display             :  self.display=display
+        def debug(self):
+            print('  Debug Info: columns')
+            print('  function:            '.format(self.function))
+            print('  column:              '.format(self.column))
+            print('  argument2:           '.format(self.argument2))
+            print('  argument3:           '.format(self.argument3))
+            print('  argument1:           '.format(self.argument1))
+            print('  display:             '.format(self.display))
+    class _order_by:
+        __slots__=()
+        column               = None
+        direction            = None
+        def __init__(self,column=None,direction=None):
+            if column              :  self.column=column
+            if direction           :  self.direction=direction
+        def debug(self):
+            print('  Debug Info: order_by')
+            print('  column:              '.format(self.column))
+            print('  direction:           '.format(self.direction))
+    group_by             = None        # optional [ group by() ]
+    source               = None        # optional source()
+    limit                = None        # optional limit()
+    where                = None        # optional [ where() ]
+    columns              = []          #          columns()
+    order_by             = None        # optional [ order by() ]
+    def __init__(self,so):
+            if gv(so,['meta','select','group by']):
+                self.group_by            =[]
+                for item in so['meta']['select']['group by']:
+                    self.group_by            .append( self._group_by(column = gv(item,['column'])) )
+            if gv(so,['meta','select','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','select','limit']):
+                self.limit               = self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
+            if gv(so,['meta','select','where']):
+                self.where               =[]
+                for item in so['meta']['select']['where']:
+                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+            if gv(so,['meta','select','columns']):
+                self.columns             =[]
+                for item in so['meta']['select']['columns']:
+                    self.columns             .append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
+            if gv(so,['meta','select','order by']):
+                self.order_by            =[]
+                for item in so['meta']['select']['order by']:
+                    self.order_by            .append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
+    def debug(self):
+        print('Debug Info: select')
+        if self.group_by:
+            for item in self.group_by:
+                self.item.debug()
+        else:
+            print('group_by:           '.format(self.group_by))
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        if self.limit:
+            self.limit.debug()
+        else:
+            print('limit:              '.format(self.limit))
+        if self.where:
+            for item in self.where:
+                self.item.debug()
+        else:
+            print('where:              '.format(self.where))
+        if self.columns:
+            for item in self.columns:
+                self.item.debug()
+        else:
+            print('columns:            '.format(self.columns))
+        if self.order_by:
+            for item in self.order_by:
+                self.item.debug()
+        else:
+            print('order_by:           '.format(self.order_by))
+class set:
+    __slots__=()
+    class _set:
+        __slots__=()
+        variable             = None
+        type                 = None
+        value                = None
+        def __init__(self,variable=None,type=None,value=None):
+            if variable            :  self.variable=variable
+            if type                :  self.type=type
+            if value               :  self.value=value
+        def debug(self):
+            print('  Debug Info: set')
+            print('  variable:            '.format(self.variable))
+            print('  type:                '.format(self.type))
+            print('  value:               '.format(self.value))
+    set                  = None        # optional [ set() ]
+    def __init__(self,so):
+            if gv(so,['meta','set','set']):
+                self.set                 =[]
+                for item in so['meta']['set']['set']:
+                    self.set                 .append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
+    def debug(self):
+        print('Debug Info: set')
+        if self.set:
+            for item in self.set:
+                self.item.debug()
+        else:
+            print('set:                '.format(self.set))
+class create_procedure:
+    __slots__=()
+    class _parameters:
+        __slots__=()
+        parameter            = None
+        def __init__(self,parameter=None):
+            if parameter           :  self.parameter=parameter
+        def debug(self):
+            print('  Debug Info: parameters')
+            print('  parameter:           '.format(self.parameter))
+    parameters           = None        # optional [ parameters() ]
+    def __init__(self,so):
+            if gv(so,['meta','create_procedure','parameters']):
+                self.parameters          =[]
+                for item in so['meta']['create_procedure']['parameters']:
+                    self.parameters          .append( self._parameters(parameter = gv(item,['parameter'])) )
+    def debug(self):
+        print('Debug Info: create_procedure')
+        if self.parameters:
+            for item in self.parameters:
+                self.item.debug()
+        else:
+            print('parameters:         '.format(self.parameters))
+class delimiter:
+    __slots__=()
+    delimiter            = None
+    def __init__(self,so):
+            self.delimiter            = gv(so,['meta','delimiter','delimiter'])
+    def debug(self):
+        print('Debug Info: delimiter')
+        print('delimiter:           '.format(self.delimiter))
+class end:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: end')
+        print('No variables')
+class begin:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: begin')
+        print('No variables')
+class commit:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: commit')
+        print('No variables')
+class rollback:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: rollback')
+        print('No variables')
+class show_output_modules:
+    __slots__=()
+    def __init__(self,so=None):
+          a=1
+    def debug(self):
+        print('Debug Info: show_output_modules')
+        print('No variables')
+class delete:
+    __slots__=()
+    class _and:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: and')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _where:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: where')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _or:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: or')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    source               = _source()
+    where                = None        # optional [ where() ]
+    def __init__(self,so):
+            if gv(so,['meta','delete','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','delete','where']):
+                self.where               =[]
+                for item in so['meta']['delete']['where']:
+                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+    def debug(self):
+        print('Debug Info: delete')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        if self.where:
+            for item in self.where:
+                self.item.debug()
+        else:
+            print('where:              '.format(self.where))
+class insert:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _values:
+        __slots__=()
+        value                = None
+        def __init__(self,value=None):
+            if value               :  self.value=value
+        def debug(self):
+            print('  Debug Info: values')
+            print('  value:               '.format(self.value))
+    class _columns:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: columns')
+            print('  column:              '.format(self.column))
+    source               = _source()
+    values               = []          #          values()
+    columns              = []          #          columns()
+    def __init__(self,so):
+            if gv(so,['meta','insert','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','insert','values']):
+                self.values              =[]
+                for item in so['meta']['insert']['values']:
+                    self.values              .append( self._values(value = gv(item,['value'])) )
+            if gv(so,['meta','insert','columns']):
+                self.columns             =[]
+                for item in so['meta']['insert']['columns']:
+                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+    def debug(self):
+        print('Debug Info: insert')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        if self.values:
+            for item in self.values:
+                self.item.debug()
+        else:
+            print('values:             '.format(self.values))
+        if self.columns:
+            for item in self.columns:
+                self.item.debug()
+        else:
+            print('columns:            '.format(self.columns))
+class update:
+    __slots__=()
+    class _and:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: and')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _set:
+        __slots__=()
+        column               = None
+        expression           = None
+        def __init__(self,column=None,expression=None):
+            if column              :  self.column=column
+            if expression          :  self.expression=expression
+        def debug(self):
+            print('  Debug Info: set')
+            print('  column:              '.format(self.column))
+            print('  expression:          '.format(self.expression))
+    class _where:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: where')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    class _or:
+        __slots__=()
+        c                    = None
+        e1                   = None
+        e2                   = None
+        def __init__(self,c=None,e1=None,e2=None):
+            if c                   :  self.c=c
+            if e1                  :  self.e1=e1
+            if e2                  :  self.e2=e2
+        def debug(self):
+            print('  Debug Info: or')
+            print('  c:                   '.format(self.c))
+            print('  e1:                  '.format(self.e1))
+            print('  e2:                  '.format(self.e2))
+    source               = _source()
+    set                  = []          #          set()
+    where                = None        # optional [ where() ]
+    def __init__(self,so):
+            if gv(so,['meta','update','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','update','set']):
+                self.set                 =[]
+                for item in so['meta']['update']['set']:
+                    self.set                 .append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
+            if gv(so,['meta','update','where']):
+                self.where               =[]
+                for item in so['meta']['update']['where']:
+                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+    def debug(self):
+        print('Debug Info: update')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        if self.set:
+            for item in self.set:
+                self.item.debug()
+        else:
+            print('set:                '.format(self.set))
+        if self.where:
+            for item in self.where:
+                self.item.debug()
+        else:
+            print('where:              '.format(self.where))
+class upsert:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _values:
+        __slots__=()
+        value                = None
+        def __init__(self,value=None):
+            if value               :  self.value=value
+        def debug(self):
+            print('  Debug Info: values')
+            print('  value:               '.format(self.value))
+    class _update:
+        __slots__=()
+        column               = None
+        expression           = None
+        def __init__(self,column=None,expression=None):
+            if column              :  self.column=column
+            if expression          :  self.expression=expression
+        def debug(self):
+            print('  Debug Info: update')
+            print('  column:              '.format(self.column))
+            print('  expression:          '.format(self.expression))
+    class _columns:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: columns')
+            print('  column:              '.format(self.column))
+    class _on_duplicate_key:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: on_duplicate_key')
+            print('  column:              '.format(self.column))
+    source               = _source()
+    values               = []          #          values()
+    update               = []          #          update()
+    columns              = []          #          columns()
+    on_duplicate_key     = []          #          on duplicate key()
+    def __init__(self,so):
+            if gv(so,['meta','upsert','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','upsert','values']):
+                self.values              =[]
+                for item in so['meta']['upsert']['values']:
+                    self.values              .append( self._values(value = gv(item,['value'])) )
+            if gv(so,['meta','upsert','update']):
+                self.update              =[]
+                for item in so['meta']['upsert']['update']:
+                    self.update              .append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
+            if gv(so,['meta','upsert','columns']):
+                self.columns             =[]
+                for item in so['meta']['upsert']['columns']:
+                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+            if gv(so,['meta','upsert','on duplicate key']):
+                self.on_duplicate_key    =[]
+                for item in so['meta']['upsert']['on duplicate key']:
+                    self.on_duplicate_key    .append( self._on_duplicate_key(column = gv(item,['column'])) )
+    def debug(self):
+        print('Debug Info: upsert')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        if self.values:
+            for item in self.values:
+                self.item.debug()
+        else:
+            print('values:             '.format(self.values))
+        if self.update:
+            for item in self.update:
+                self.item.debug()
+        else:
+            print('update:             '.format(self.update))
+        if self.columns:
+            for item in self.columns:
+                self.item.debug()
+        else:
+            print('columns:            '.format(self.columns))
+        if self.on_duplicate_key:
+            for item in self.on_duplicate_key:
+                self.item.debug()
+        else:
+            print('on_duplicate_key:   '.format(self.on_duplicate_key))
+class use_table:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    source               = _source()
+    def __init__(self,so):
+            if gv(so,['meta','use_table','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+    def debug(self):
+        print('Debug Info: use_table')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+class drop_table:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    source               = _source()
+    def __init__(self,so):
+            if gv(so,['meta','drop_table','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+    def debug(self):
+        print('Debug Info: drop_table')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+class create_table:
+    __slots__=()
+    class _repo:
+        __slots__=()
+        protocol             = 'svn'
+        url                  = None
+        user                 = None
+        file                 = None
+        directory            = None
+        password             = None
+        def __init__(self,protocol=None,url=None,user=None,file=None,directory=None,password=None):
+            if protocol            :  self.protocol=protocol
+            if url                 :  self.url=url
+            if user                :  self.user=user
+            if file                :  self.file=file
+            if directory           :  self.directory=directory
+            if password            :  self.password=password
+        def debug(self):
+            print('  Debug Info: repo')
+            print('  protocol:            '.format(self.protocol))
+            print('  url:                 '.format(self.url))
+            print('  user:                '.format(self.user))
+            print('  file:                '.format(self.file))
+            print('  directory:           '.format(self.directory))
+            print('  password:            '.format(self.password))
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _columns:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: columns')
+            print('  column:              '.format(self.column))
+    errors               = None        # optional 
+    whitespace           = None        # optional 
+    strict               = None        # optional 
+    data_starts_on       = None        # optional 
+    fifo                 = None        # optional 
+    repo                 = None        # optional repo()
+    source               = _source()
+    delimiter            = None        # optional 
+    mode                 = None        # optional 
+    file                 = None
+    columns              = []          #          columns()
+    comments             = None        # optional 
+    def __init__(self,so):
+            self.errors               = gv(so,['meta','errors'])
+            self.whitespace           = gv(so,['meta','whitespace'])
+            self.strict               = gv(so,['meta','strict'])
+            self.data_starts_on       = gv(so,['meta','data_starts_on'])
+            self.fifo                 = gv(so,['meta','fifo'])
+            if gv(so,['meta','create_table','repo']):
+                self.repo                = self._repo(protocol = gv(so,['meta','protocol']),url = gv(so,['meta','url']),user = gv(so,['meta','user']),file = gv(so,['meta','file']),directory = gv(so,['meta','directory']),password = gv(so,['meta','password']))
+            if gv(so,['meta','create_table','source']):
+                self.source              = self._source(table = gv(so,['meta','table']),database = gv(so,['meta','database']))
+            self.delimiter            = gv(so,['meta','delimiter'])
+            self.mode                 = gv(so,['meta','mode'])
+            self.file                 = gv(so,['meta','file'])
+            if gv(so,['meta','create_table','columns']):
+                self.columns             =[]
+                for item in so['meta']['create_table']['columns']:
+                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+            self.comments             = gv(so,['meta','comments'])
+    def debug(self):
+        print('Debug Info: create_table')
+        print('errors:              '.format(self.errors))
+        print('whitespace:          '.format(self.whitespace))
+        print('strict:              '.format(self.strict))
+        print('data_starts_on:      '.format(self.data_starts_on))
+        print('fifo:                '.format(self.fifo))
+        if self.repo:
+            self.repo.debug()
+        else:
+            print('repo:               '.format(self.repo))
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        print('delimiter:           '.format(self.delimiter))
+        print('mode:                '.format(self.mode))
+        print('file:                '.format(self.file))
+        if self.columns:
+            for item in self.columns:
+                self.item.debug()
+        else:
+            print('columns:            '.format(self.columns))
+        print('comments:            '.format(self.comments))
+class update_table:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    class _columns:
+        __slots__=()
+        column               = None
+        def __init__(self,column=None):
+            if column              :  self.column=column
+        def debug(self):
+            print('  Debug Info: columns')
+            print('  column:              '.format(self.column))
+    errors               = None        # optional 
+    whitespace           = None        # optional 
+    data_starts_on       = None        # optional 
+    comments             = None        # optional 
+    source               = _source()
+    delimiter            = None        # optional 
+    file                 = None        # optional 
+    columns              = None        # optional [ columns() ]
+    def __init__(self,so):
+            self.errors               = gv(so,['meta','errors','errors'])
+            self.whitespace           = gv(so,['meta','whitespace','whitespace'])
+            self.data_starts_on       = gv(so,['meta','data_starts_on','data_starts_on'])
+            self.comments             = gv(so,['meta','comments','comments'])
+            if gv(so,['meta','update_table','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            self.field                = gv(so,['meta','delimiter','field'])
+            self.file                 = gv(so,['meta','file','file'])
+            if gv(so,['meta','update_table','columns']):
+                self.columns             =[]
+                for item in so['meta']['update_table']['columns']:
+                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+    def debug(self):
+        print('Debug Info: update_table')
+        print('errors:              '.format(self.errors))
+        print('whitespace:          '.format(self.whitespace))
+        print('data_starts_on:      '.format(self.data_starts_on))
+        print('comments:            '.format(self.comments))
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+        print('field:               '.format(self.field))
+        print('file:                '.format(self.file))
+        if self.columns:
+            for item in self.columns:
+                self.item.debug()
+        else:
+            print('columns:            '.format(self.columns))
+class describe_table:
+    __slots__=()
+    class _source:
+        __slots__=()
+        table                = None
+        database             = None
+        def __init__(self,table=None,database=None):
+            if table               :  self.table=table
+            if database            :  self.database=database
+        def debug(self):
+            print('  Debug Info: source')
+            print('  table:               '.format(self.table))
+            print('  database:            '.format(self.database))
+    source               = _source()
+    def __init__(self,so):
+            if gv(so,['meta','describe_table','source']):
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+    def debug(self):
+        print('Debug Info: describe_table')
+        if self.source:
+            self.source.debug()
+        else:
+            print('source:             '.format(self.source))
+def convert_to_class(o):
+    if o['mode']=='show columns': return show_columns(o)
+    elif o['mode']=='show tables': return show_tables(o)
+    elif o['mode']=='show variables': return show_variables(o)
+    elif o['mode']=='select': return select(o)
+    elif o['mode']=='set': return set(o)
+    elif o['mode']=='create procedure': return create_procedure(o)
+    elif o['mode']=='delimiter': return delimiter(o)
+    elif o['mode']=='end': return end(o)
+    elif o['mode']=='begin': return begin(o)
+    elif o['mode']=='commit': return commit(o)
+    elif o['mode']=='rollback': return rollback(o)
+    elif o['mode']=='show output modules': return show_output_modules(o)
+    elif o['mode']=='delete': return delete(o)
+    elif o['mode']=='insert': return insert(o)
+    elif o['mode']=='update': return update(o)
+    elif o['mode']=='upsert': return upsert(o)
+    elif o['mode']=='use table': return use_table(o)
+    elif o['mode']=='drop table': return drop_table(o)
+    elif o['mode']=='create table': return create_table(o)
+    elif o['mode']=='update table': return update_table(o)
+    elif o['mode']=='describe table': return describe_table(o)
+    return None
+
+        
+# ############################################################################
 # Module : column
 # File   : ./source/ddb/configuration/column.py
 # ############################################################################
@@ -1607,7 +2464,8 @@ class table:
                  repo_password=None,
                  repo_dir=None,
                  repo_file=None,
-                 strict_columns=None
+                 strict_columns=None,
+                 mode=None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -1635,7 +2493,8 @@ class table:
                     repo_password=repo_password,
                     repo_dir=repo_dir,
                     repo_file=repo_file,
-                    strict_columns=strict_columns
+                    strict_columns=strict_columns,
+                    mode=mode
                     )
         self.update_ordinals()
         if self.data.path:
@@ -1656,7 +2515,8 @@ class table:
                 repo_password=None,
                 repo_dir=None,
                 repo_file=None,
-                strict_columns=None
+                strict_columns=None,
+                mode=None
                 ):
         if repo_type:
             if repo_type=='svn':
@@ -1682,6 +2542,8 @@ class table:
             self.set_field_delimiter(field_delimiter)
         if data_file:
             self.data.path = data_file
+        if mode:
+            self.data.mode = mode
         if columns:
             self.columns = []
             for column in columns:
@@ -1849,6 +2711,7 @@ class table_visible_attributes:
         self.whitespace = False
 class table_data:
     def __init__(self, yaml=None, name=None, database=None):
+        self.mode = None
         self.type = 'Temp'
         self.name = None
         self.database = 'main'
@@ -1997,8 +2860,10 @@ class database:
                      repo_password=None,
                      repo_dir=None,
                      repo_file=None,
-                     strict_columns=None
+                     strict_columns=None,
+                     mode=None
                     ):
+        print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
@@ -2029,7 +2894,8 @@ class database:
                     repo_password=repo_password,
                     repo_dir=repo_dir,
                     repo_file=repo_file,
-                    strict_columns=strict_columns)
+                    strict_columns=strict_columns,
+                    mode=mode)
         t.data.path = data_file
         self.tables.append(t)
         if not temporary:
@@ -2339,17 +3205,14 @@ class engine:
         self.system['DELIMITER']=';'
         self.user={}
         self.internal['IN_TRANSACTION']=0
-        try:        
-            self.database = database(config_file=config_file)
-            self.current_database = self.database.get_default_database()
-            if config_file!=False:
-                queries=self.database.get_db_sql()
-                logging.disabled = True
-                if queries:
-                    self.query(queries)
-                logging.disabled = False
-        except Exception as ex:
-            pass
+        self.database = database(config_file=config_file)
+        self.current_database = self.database.get_default_database()
+        if config_file!=False:
+            queries=self.database.get_db_sql()
+            logging.disabled = True
+            if queries:
+                self.query(queries)
+            logging.disabled = False
         if None != query:
             self.query(query)
     def init_state_variables(self):
@@ -2380,6 +3243,8 @@ class engine:
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
         for query_object in parser.query_objects:
+            meta_class=meta.convert_to_class(query_object)
+            meta_class.debug()
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
@@ -2394,11 +3259,11 @@ class engine:
                 self.results = method_upsert(self,query_object)
             elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,query_object)
-            elif mode == 'use':
+            elif mode == 'use table':
                 self.results = method_use(self,query_object)
-            elif mode == 'drop' and self.internal['READONLY']==None:
+            elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
-            elif mode == 'create' and self.internal['READONLY']==None:
+            elif mode == 'create table' and self.internal['READONLY']==None:
                 self.results = method_create_table(self,query_object)
             elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,query_object)
@@ -2641,13 +3506,13 @@ class query_results:
 
 def method_delete(context, query_object):
     try:
-        if 'database' in query_object['meta']['from']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['from']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['from']['table']
+        table_name = query_object['meta']['source']['table']
         table= context.database.get(table_name,database_name)
         query_object['table']=table
         if None == query_object['table']:
@@ -2689,13 +3554,13 @@ def method_delete(context, query_object):
 # ############################################################################
 
 def method_insert(context, query_object):
-        if 'database' in query_object['meta']['into']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['into']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['into']['table']
+        table_name = query_object['meta']['source']['table']
         table= context.database.get(table_name,database_name)
         query_object['table']=table
         if None == query_object['table']:
@@ -2816,19 +3681,19 @@ def select_process_file(context,query_object):
 def select_validate_columns_and_from(context, query_object, parser):
     has_functions = select_has_functions(context,query_object)
     has_columns = select_has_columns(context,query_object)
-    if False == has_columns and 'from' in query_object['meta']:
+    if False == has_columns and 'source' in query_object['meta']:
         raise Exception("Invalid FROM, all columns are functions")
     if False == has_columns and False == has_functions:
         raise Exception("no columns defined in query")
     if True == has_columns:
-        if 'from' in query_object['meta']:
-            if 'database' in query_object['meta']['from']:
+        if 'source' in query_object['meta']:
+            if 'database' in query_object['meta']['source']:
                 context.info('Database specified')
-                database_name=query_object['meta']['from']['database']
+                database_name=query_object['meta']['source']['database']
             else:
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
-            table_name = query_object['meta']['from']['table']
+            table_name = query_object['meta']['source']['table']
             table= context.database.get(table_name,database_name)
             if None == table:
                 except_str="Table '{0}' does not exist.".format(table_name)
@@ -3080,13 +3945,13 @@ def update_single(context,query_object, temp_file, requires_new_line, processed_
         return {'success':False,'line':new_line}
 def method_update(context, query_object):
     try:
-        if 'database' in query_object['meta']['update']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['update']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['update']['table']
+        table_name = query_object['meta']['source']['table']
         table= context.database.get(table_name,database_name)
         query_object['table']=table
         if None == query_object['table']:
@@ -3130,13 +3995,13 @@ def method_update(context, query_object):
 
 def method_upsert(context, query_object):
     try:
-        if 'database' in query_object['meta']['into']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['into']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['into']['table']
+        table_name = query_object['meta']['source']['table']
         table= context.database.get(table_name,database_name)
         query_object['table']=table
         if None == query_object['table']:
@@ -3205,7 +4070,7 @@ def method_upsert(context, query_object):
 def method_use(context, query_object):
     context.info("Use")
     try:
-        target_db = query_object['meta']['use']['table']
+        target_db = query_object['meta']['source']['table']
         if context.database.get_curent_database()!=target_db:
             context.database.set_database(target_db)
         temp_table = context.database.temp_table()
@@ -3249,6 +4114,7 @@ def method_create_table(context, query_object):
         found_data_on = None
         found_errors = None
         fifo = None
+        mode = None
         if 'delimiter' in query_object['meta']:
             found_delimiter = query_object['meta']['delimiter']
         if 'whitespace' in query_object['meta']:
@@ -3263,6 +4129,8 @@ def method_create_table(context, query_object):
             strict_columns = query_object['meta']['strict']
         if 'fifo' in query_object['meta']:
             fifo = query_object['meta']['fifo']
+        if 'mode' in query_object['meta']:
+            mode = query_object['meta']['mode']
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
             if 'repo_type' in repo:
@@ -3301,10 +4169,12 @@ def method_create_table(context, query_object):
                                                 repo_password=repo_password,
                                                 repo_dir=repo_dir,
                                                 repo_file=repo_file,                                                
-                                                strict_columns=strict_columns
+                                                strict_columns=strict_columns,
+                                                mode=mode
                                                 )
         return query_results(success=results)
     except Exception as ex:
+        print ex
         return query_results(success=False, error=ex)
 
         
@@ -3319,13 +4189,13 @@ def method_describe_table(context, query_object):
     context.info("Describe Table")
     try:
         temp_table = context.database.temp_table()
-        if 'database' in query_object['meta']['describe table']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['describe table']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table_name=query_object['meta']['describe table']['table']
+        table_name=query_object['meta']['source']['table']
         target_table= context.database.get(table_name,database_name=database_name)
         if None ==target_table:
             raise Exception("Table not found")
@@ -3363,10 +4233,10 @@ def method_describe_table(context, query_object):
 def method_drop_table(context, query_object):
     context.info("Drop Table")
     try:
-        table_name=query_object['meta']['drop']['table']
-        if 'database' in query_object['meta']['drop']:
+        table_name=query_object['meta']['source']['table']
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['drop']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
@@ -3389,7 +4259,13 @@ def method_update_table(context, query_object):
             columns = []
             for c in query_object['meta']['columns']:
                 columns.append(c['column'])
-        table_name=query_object['meta']['update']['table']
+        table_name=query_object['meta']['source']['table']
+        if 'database' in query_object['meta']['source']:
+            context.info('Database specified')
+            database_name = query_object['meta']['source']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
         found_delimiter=None
         found_comments=None
         found_whitespace=None
@@ -3408,7 +4284,7 @@ def method_update_table(context, query_object):
             found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
         if 'file' in query_object['meta']:
             found_file=query_object['meta']['file']['file']
-        target_table= context.database.get(table_name)
+        target_table= context.database.get(table_name,database_name)
         target_table.update(columns=columns,
                             data_file=found_file,
                             field_delimiter=found_delimiter,
@@ -3536,13 +4412,13 @@ def method_system_rollback(context, query_object):
 
 def method_system_show_columns(context,database, query_object):
     try:
-        if 'database' in query_object['meta']['from']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['from']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table = database.get(query_object['meta']['from']['table'],database_name=database_name)
+        table = database.get(query_object['meta']['source']['table'],database_name=database_name)
         temp_table = database.temp_table(columns=['database','table', 'column'])
         if table:
             for c in table.columns:
@@ -3616,7 +4492,8 @@ def method_system_show_output_modules(context,query_object):
 # ############################################################################
 
 class lock:
-    max_lock_time=30
+    max_lock_time=5
+    max_lock_wait_time=max_lock_time+1
     sleep_time=0.02
     LOCK_NONE=0
     LOCK_OWNER=1
@@ -3686,9 +4563,9 @@ class lock:
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
             lock_cycle+=1
-            if lock_time>lock.max_lock_time:
+            if lock_time>lock.max_lock_wait_time:
                 lock.info("Lock","Cannot aquire lock, timeout")
-                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_time,lock_cycle))
+                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_wait_time,lock_cycle))
         lock_path=lock.get_lock_filename(path)
         with open(lock_path,'w') as lockfile:
             lock_time=datetime.datetime.now()

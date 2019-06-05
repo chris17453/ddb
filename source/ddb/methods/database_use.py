@@ -5,7 +5,7 @@ from .record_core import query_results
 def method_use(context, query_object):
     context.info("Use")
     try:
-        target_db = query_object['meta']['use']['table']
+        target_db = query_object['meta']['source']['table']
         if context.database.get_curent_database()!=target_db:
             context.database.set_database(target_db)
 

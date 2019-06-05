@@ -16,6 +16,8 @@ conf_dir="source/conf"
  
 .DEFAULT: help
 
+.PHONY: all test clean profile
+
 help:
 	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
@@ -30,6 +32,9 @@ help:
 	@echo "make uninstall      | uninstall ddb from your user directory"
 	@echo "make svn_start      | start svn docker"
 	@echo "make svn_stop       | stop svn docker"
+	@echo "make test           | run unit test"
+	@echo "make profile        | callgraphs and profilling"
+	@echo "make meta           | rebuild the meta classes from the language file"
 
 
 clean:
@@ -67,32 +72,36 @@ bump:
 	@git commit -m 'Bump Version $(shell cat source/conf/version)'
 
 
-unittest:
-	@cd source; python -m test.test
-	
+test:
+	@cp test/data//MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
+	@python -m test.test
+
+profile:
+	@python -m test.profile
+
 svn_stop:
-	@source/test/svn_stop.sh
+	@test/svn_stop.sh
 
 svn_start:
-	@source/test/svn_start.sh
+	@test/svn_start.sh
 
-build: bump svn_start
+build: bump svn_start meta
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
 	@python $(conf_dir)/build.py
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/ 
 	# --use-cython
 	# @$(MAKE) -f $(THIS_FILE) standalone
-	@$(MAKE) -f $(THIS_FILE) unittest
+	@$(MAKE) -f $(THIS_FILE) test
 
-buildc: bump svn_start
+buildc: bump svn_start meta
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
 	@python $(conf_dir)/build.py
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
-	@$(MAKE) -f $(THIS_FILE) unittest
+	@$(MAKE) -f $(THIS_FILE) test
 
 
 standalone:
@@ -107,3 +116,5 @@ install:
 uninstall:
 	pip uninstall ddb
 
+meta:
+	@python -m tools.generate_meta_class >source/ddb/meta/meta.py

@@ -10,8 +10,14 @@ def method_update_table(context, query_object):
             columns = []
             for c in query_object['meta']['columns']:
                 columns.append(c['column'])
-        
-        table_name=query_object['meta']['update']['table']
+
+        table_name=query_object['meta']['source']['table']
+        if 'database' in query_object['meta']['source']:
+            context.info('Database specified')
+            database_name = query_object['meta']['source']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
 
         found_delimiter=None
         found_comments=None
@@ -33,7 +39,7 @@ def method_update_table(context, query_object):
         if 'file' in query_object['meta']:
             found_file=query_object['meta']['file']['file']
 
-        target_table= context.database.get(table_name)
+        target_table= context.database.get(table_name,database_name)
         target_table.update(columns=columns,
                             data_file=found_file,
                             field_delimiter=found_delimiter,

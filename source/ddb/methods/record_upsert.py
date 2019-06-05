@@ -6,14 +6,14 @@ from .record_update  import update_single
 from .record_insert  import create_single
 def method_upsert(context, query_object):
     try:
-        if 'database' in query_object['meta']['into']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['into']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-        table_name = query_object['meta']['into']['table']
+        table_name = query_object['meta']['source']['table']
         table= context.database.get(table_name,database_name)
         query_object['table']=table
         if None == query_object['table']:
