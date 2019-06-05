@@ -137,7 +137,7 @@ def sub_class (command,classes,class_spec):
         for variable in classes[_class]:
             if variable[0]=='_':
                 continue
-            print ("            print('  {1:<20} '.format(self.{0}))".format(variable,variable+':'))
+            print ("            print('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
 
 
 
