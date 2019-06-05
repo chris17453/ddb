@@ -249,6 +249,7 @@ def init(command,classes,class_spec):
                             sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
 
+                if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                         #print ("            print(so)")
                         print ("            if gv(so,['meta','{0}','{1}']):".format(command_name,_class,",".join(var)))
                         print ("                self.{1:<20}=[]".format(command_name,_class.replace(" ","_")))
