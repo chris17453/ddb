@@ -4,6 +4,7 @@
 
 def gv(o,keys):
     print ("GV")
+    print keys
     print o
     if o:
         if isinstance(keys,str):
@@ -25,6 +26,7 @@ def gv(o,keys):
         print ("NO OBJECT")
         return None
     print ("GV -exit ")
+    print o
     return o
 
 
