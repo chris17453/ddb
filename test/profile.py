@@ -8,7 +8,7 @@ from subprocess import Popen,PIPE
 class test_profile:
     temp_config = 'temp_config.yaml'
     temp_data = 'MOCK_DATA_LARGE.csv'
-    basedir = os.path.dirname(os.path.abspath(__file__))
+    basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
     table_name = 'test'
     debug=None
     loop=1
@@ -90,22 +90,27 @@ def os_cmd(cmd,err_msg):
 
 run=['select','select_w','select_o','select_wo','select_wol']
 
-dirs=[  "../profile/{0}".format(ddb.version.__version__),
-        "../profile/{0}/proc".format(ddb.version.__version__),
-        "../profile/{0}/callgraph".format(ddb.version.__version__)
+dirs=[  "profile/{0}".format(ddb.version.__version__),
+        "profile/{0}/proc".format(ddb.version.__version__),
+        "profile/{0}/callgraph".format(ddb.version.__version__)
 ]
+print ("Director creation")
 for dir in dirs:
     if os.path.exists(dir)==False:
         os.mkdir(dir)
         print("Created Directory {0}".format(dir))
 
+print ("Function execution")
+
 for func in run:
-    profile_name="../profile/{0}/proc/{1}.prof".format(ddb.version.__version__,func)
-    callgraph_name="../profile/{0}/callgraph/{1}.png".format(ddb.version.__version__,func)
+    profile_name="profile/{0}/proc/{1}.prof".format(ddb.version.__version__,func)
+    callgraph_name="profile/{0}/callgraph/{1}.png".format(ddb.version.__version__,func)
     if os.path.exists(profile_name)==True:
         os.remove(profile_name)
         print("Deleted {0}".format(profile_name))
     cProfile.runctx("test_profile().{0}()".format(func)   , globals(), locals(), profile_name)
+    
+    print profile_name
     s = pstats.Stats(profile_name)
     s.strip_dirs().sort_stats("time").print_stats()
     print "gprof2dot -f pstats {0} | dot -Tpng -o output.png".format(profile_name)

@@ -4,7 +4,35 @@ from .data import meta_str, get_data, variable_def,init,debug,sub_class
 # meta file header
 print ("# This is an auto generated assembly ")
 print ("# dont edit this, edit the template generator, in tools ")
-print ("")
+print ("""
+
+def gv(o,keys):
+    print ("GV")
+    if o:
+        if isinstance(keys,str):
+            if keys in o:
+                o=o[keys]
+            else:
+                print ("NO STRING")
+                return None
+        else:
+            for key in keys:
+                if key in o:
+                    o=o[key]
+                else:
+                    print ("NO ARRAY")
+                    return None
+    else:     
+        print ("NO OBJECT")
+        return None
+    print ("GV -exit ")
+    return o
+
+
+""")
+
+
+
 
 for command in ddb.lexer.language.language['commands']:
     command_name=command['name'].replace(' ','_')
@@ -16,7 +44,6 @@ for command in ddb.lexer.language.language['commands']:
     
     # create the sub classes
     sub_class (command,classes,class_spec)
-
 
     # create the other class header and class vars
     variable_def (command,classes,class_spec)

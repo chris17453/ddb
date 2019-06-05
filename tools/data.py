@@ -9,7 +9,9 @@ def get_data(command,classes,class_spec):
         optional=None
         if 'optional' in segment:
                 optional=segment['optional']
-
+        seg_type=None
+        if 'type' in segment:
+                seg_type=segment['type']
         storage=None
         if 'store_array' in segment:
                 storage='array'
@@ -17,7 +19,7 @@ def get_data(command,classes,class_spec):
         if 'parent' in segment:
             parent=segment['parent']
         #print class_spec,segment['name']
-        class_spec[segment['name']]={'optional':optional,'storage':storage,'parent':parent}
+        class_spec[segment['name']]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type}
         optional=None
 
         for fragment in segment['data']:
@@ -95,6 +97,7 @@ def sub_class (command,classes,class_spec):
         if len(classes[_class])<2:
             continue
 
+        print ("")
         print ("    class _{0}:".format(_class.replace(" ","_")))
         print ("        __slots__=()")
 
@@ -111,7 +114,7 @@ def sub_class (command,classes,class_spec):
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(variable,value,pad))
+            print ("{2}    {0:<20} = {1}".format(variable,value,pad))
         
         args=[]
         if len(classes[_class])>1:
@@ -119,24 +122,22 @@ def sub_class (command,classes,class_spec):
                 if '_arguments' in variable:
                         continue
                 args.append(variable+"=None")
+            print ("")
             print ("        def __init__(self,{0}):".format(",".join(args)))
             for variable in classes[_class]:
                 if '_arguments' in variable:
                         continue
-                print ("            if {0}:".format(variable))
-                print ("                self.{0}={0}".format(variable))
-                        
-                
+                print ("            if {0:<20}:  self.{0}={0}".format(variable))
 
 
      
-        if len(classes[_class])>1 and  class_spec[_class]['parent']!=None:
-            print("\n        def debug(self):")
-            print("            print('  Debug Info: {0}')".format(class_name))
-            for variable in classes[_class]:
-                if variable[0]=='_':
-                    continue
-                print ("            print('  {1:<20} '.format(self.{0}))".format(variable,variable+':'))
+#        if len(classes[_class])>1 and  class_spec[_class]['parent']!=None:
+        print("\n        def debug(self):")
+        print("            print('  Debug Info: {0}')".format(class_name))
+        for variable in classes[_class]:
+            if variable[0]=='_':
+                continue
+            print ("            print('  {1:<20} '.format(self.{0}))".format(variable,variable+':'))
 
 
 
@@ -201,7 +202,7 @@ def variable_def (command,classes,class_spec):
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
             print ("{2}    {0:<20} = {1}".format(variable,value,pad))
-        
+
 
 
 def init(command,classes,class_spec):
@@ -215,7 +216,7 @@ def init(command,classes,class_spec):
                     if '_arguments' == variable or  class_spec[_class]['parent']!=None:
                         continue;
 
-                    if classes[_class][variable]['storage']=='single':
+                    if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
                         sqo="gv(so,['meta','{1}'])".format(_class,variable)
                         print ("            self.{0:<20} = {1}".format(variable,sqo))
                     else:
@@ -228,14 +229,15 @@ def init(command,classes,class_spec):
                             if variable[0]=='_':
                                     continue
                             #print classes[_class],variable
-                            sqo="gv(item,['{1}'])".format(_class,variable)
+                            sqo="gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
                 else:
                     for variable in classes[_class]:
                         if variable[0]=='_':
                                 continue
                         #print classes[_class],variable
-                        if classes[_class][variable]['storage']=='single':
+                        
+                        if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
                             sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                         else:
                             sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
@@ -251,22 +253,39 @@ def init(command,classes,class_spec):
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{0}','{1}']):".format(command_name,_class))
                         print ("                self.{1:<20}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
-                
+
 
 
 def debug(command,classes,class_spec):  
     command_name=command['name'].replace(' ','_')
     if len(classes)>0:
+        print("")
+        print("    def debug(self):")
         print("        print('Debug Info: {0}')".format(command_name))
         for _class in classes:
-            if len(classes[_class])>1:
+            class_name=_class.replace(' ',"_")
+            #$print len(classes[_class])
+            if len(classes[_class])<2:
                 for variable in classes[_class]:
                     if '_arguments' == variable or  class_spec[_class]['parent']==None:
                         if variable[0]=='_':
                             continue
                         print ("        print('{1:<20} '.format(self.{0}))".format(variable,variable+':'))
             else:
-                print("        self.{0}.debug()".format(_class.replace(' ',"_")))
+                #print class_spec
+                if class_spec[_class]['parent']:
+                    continue
+                print("        if self.{0}:".format(class_name))
+                if class_spec[_class]['storage']=='array' or  '_arguments' in classes[_class]:
+                    pad="    "
+                    name='item'
+                    print("            for item in self.{0}:".format(class_name))
+                else:
+                    name=class_name
+                    pad=""
+                print("{1}            self.{0}.debug()".format(name,pad))
+                print("        else:".format(pad))
+                print("            print('{1:<20}'.format(self.{0}))".format(class_name,class_name+':',pad))
     else:
         print("\n    def __init__(self,so=None):")
         print("          a=1")
@@ -279,7 +298,7 @@ def debug(command,classes,class_spec):
 
 def meta_str():
     print """
-        def get_meta(o):
+def convert_to_class(o):
     """
 
     index=0
@@ -290,10 +309,10 @@ def meta_str():
             el="el"
         index+=1
         command_name=command['name'].replace(' ','_')
-        print ("    {1}if o['mode']=='{0}':".format(command['name'],el))
-        print ("        return {1}(o)".format(command['name'],command_name))
+        print ("    {1}if o['mode']=='{0}': return {2}(o)".format(command['name'],el,command_name))
+        
 
     print """
-        return None
+    return None
 
-    """
+"""

@@ -4,13 +4,13 @@ from .record_core import query_results
 
 def method_system_show_columns(context,database, query_object):
     try:
-        if 'database' in query_object['meta']['from']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['from']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
-        table = database.get(query_object['meta']['from']['table'],database_name=database_name)
+        table = database.get(query_object['meta']['source']['table'],database_name=database_name)
         
         temp_table = database.temp_table(columns=['database','table', 'column'])
         if table:

@@ -8,14 +8,14 @@ def method_describe_table(context, query_object):
     context.info("Describe Table")
     try:
         temp_table = context.database.temp_table()
-        if 'database' in query_object['meta']['describe table']:
+        if 'database' in query_object['meta']['source']:
             context.info('Database specified')
-            database_name = query_object['meta']['describe table']['database']
+            database_name = query_object['meta']['source']['database']
         else:
             context.info('Using curent database context')
             database_name = context.database.get_curent_database()
 
-        table_name=query_object['meta']['describe table']['table']
+        table_name=query_object['meta']['source']['table']
         target_table= context.database.get(table_name,database_name=database_name)
         if None ==target_table:
             raise Exception("Table not found")

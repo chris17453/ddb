@@ -48,6 +48,9 @@ from .methods.record_delete import method_delete
 from .methods.record_core import query_results
 from .file_io.locking import lock,create_temporary_copy, swap_files, remove_temp_file
 
+# Dynamic metadata class abstraction layer
+from .meta import meta 
+
 class engine:
     """A serverless flat file database engine"""
     
@@ -129,20 +132,20 @@ class engine:
         
         self.user={}
         self.internal['IN_TRANSACTION']=0
-        try:        
+        #try:        
             # print "Config",config_file
-            self.database = database(config_file=config_file)
-            self.current_database = self.database.get_default_database()
-            # load tables
-            # dont load empty stuff
-            if config_file!=False:
-                queries=self.database.get_db_sql()
-                logging.disabled = True
-                if queries:
-                    self.query(queries)
-                logging.disabled = False
-        except Exception as ex:
-            pass
+        self.database = database(config_file=config_file)
+        self.current_database = self.database.get_default_database()
+        # load tables
+        # dont load empty stuff
+        if config_file!=False:
+            queries=self.database.get_db_sql()
+            logging.disabled = True
+            if queries:
+                self.query(queries)
+            logging.disabled = False
+        #except Exception as ex:
+        #    pass
 
         if None != query:
             self.query(query)
@@ -195,6 +198,8 @@ class engine:
      
 
         for query_object in parser.query_objects:
+            meta_class=meta.convert_to_class(query_object)
+            meta_class.debug()
             # clear all per state variables per run
             self.init_state_variables()
             
