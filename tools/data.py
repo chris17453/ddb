@@ -270,7 +270,7 @@ def debug(command,classes,class_spec):
                     if '_arguments' == variable or  class_spec[_class]['parent']==None:
                         if variable[0]=='_':
                             continue
-                        print ("        print('{1:<20} '.format(self.{0}))".format(variable,variable+':'))
+                        print ("        print('{1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
             else:
                 #print class_spec
                 if class_spec[_class]['parent']:
@@ -285,7 +285,7 @@ def debug(command,classes,class_spec):
                     pad=""
                 print("{1}            self.{0}.debug()".format(name,pad))
                 print("        else:".format(pad))
-                print("            print('{1:<20}'.format(self.{0}))".format(class_name,class_name+':',pad))
+                print("            print('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
     else:
         print("\n    def __init__(self,so=None):")
         print("          a=1")
