@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.366'
+__version__='1.2.367'
 
         
 # ############################################################################
@@ -1237,14 +1237,17 @@ class tokenizer:
 
 def gv(o,keys):
     print ("GV")
+    print o
     if o:
         if isinstance(keys,str):
+            print("It's a string")
             if keys in o:
                 o=o[keys]
             else:
                 print ("NO STRING")
                 return None
         else:
+            print("It's not a string")
             for key in keys:
                 if key in o:
                     o=o[key]
