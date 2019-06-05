@@ -28,6 +28,7 @@ def gv(o,keys):
         print ("NO OBJECT")
         return None
     print ("GV -exit ")
+    print ("o")
     return o
 
 
