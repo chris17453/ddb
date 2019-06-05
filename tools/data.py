@@ -127,9 +127,7 @@ def sub_class (command,classes,class_spec):
             for variable in classes[_class]:
                 if '_arguments' in variable:
                         continue
-                if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-
-                    print ("            if {0:<20}:  self.{0}={0}".format(variable))
+                print ("            if {0:<20}:  self.{0}={0}".format(variable))
 
 
      
@@ -139,7 +137,7 @@ def sub_class (command,classes,class_spec):
         for variable in classes[_class]:
             if variable[0]=='_':
                 continue
-            print ("            print('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
+            print ("            print('  {1:<20} '.format(self.{0}))".format(variable,variable+':'))
 
 
 
