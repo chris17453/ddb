@@ -16,17 +16,24 @@ def gv(o,keys):
                 return None
         else:
             print("It's not a string")
+            
+            
             for key in keys:
-                if key in o:
-                    o=o[key]
-                else:
-                    print ("NO ARRAY")
+                if isinstance(o,dict):
+                    print("Dictionary")
+                    if key in o:
+                        o=o[key]
+                    else:
+                        print ("NO ARRAY")
+                        return None
+                elif isinstance(o,list):
+                    print ("LIST ???")
                     return None
+
     else:     
         print ("NO OBJECT")
         return None
     print ("GV -exit ")
-    print o
     return o
 
 
