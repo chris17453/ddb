@@ -3,32 +3,32 @@
 
 
 def gv(o,keys):
-    print ("GV")
-    print keys
-    print o
+    #print ("GV")
+    #print keys
+    #print o
     if o:
         if isinstance(keys,str):
-            print("It's a string")
+            #print("It's a string")
             if keys in o:
                 o=o[keys]
             else:
-                print ("NO STRING")
+                #print ("NO STRING")
                 return None
         else:
-            print("It's not a string")
+            #print("It's not a string")
             for key in keys:
                 print ("->{0}".format(key))
                 if key in o:
-                    print ("GOT It")
+                    #print ("Got It")
                     o=o[key]
                 else:
-                    print ("NO ARRAY")
+                    #print ("NO ARRAY")
                     return None
     else:     
-        print ("NO OBJECT")
+        #print ("NO OBJECT")
         return None
-    print ("GV -exit ")
-    print (o)
+    #print ("GV -exit ")
+    #print (o)
     return o
 
 

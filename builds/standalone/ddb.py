@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.374'
+__version__='1.2.375'
 
         
 # ############################################################################
@@ -1243,32 +1243,21 @@ class tokenizer:
 # ############################################################################
 
 def gv(o,keys):
-    print ("GV")
-    print keys
-    print o
     if o:
         if isinstance(keys,str):
-            print("It's a string")
             if keys in o:
                 o=o[keys]
             else:
-                print ("NO STRING")
                 return None
         else:
-            print("It's not a string")
             for key in keys:
                 print ("->{0}".format(key))
                 if key in o:
-                    print ("GOT It")
                     o=o[key]
                 else:
-                    print ("NO ARRAY")
                     return None
     else:     
-        print ("NO OBJECT")
         return None
-    print ("GV -exit ")
-    print (o)
     return o
 class show_columns:
     __slots__=()
