@@ -15,11 +15,17 @@ def get_data(command,classes,class_spec):
         storage=None
         if 'store_array' in segment:
                 storage='array'
+        no_keyword=None
+        if 'no_keyword' in segment:
+                no_keyword=True
+
+        if no_keyword:
+             class_spec[_class]['type]=='single'
         parent=None
         if 'parent' in segment:
             parent=segment['parent']
         #print class_spec,segment['name']
-        class_spec[segment['name']]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type}
+        class_spec[segment['name']]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword}
         optional=None
 
         for fragment in segment['data']:
