@@ -129,7 +129,7 @@ def sub_class (command,classes,class_spec):
                         continue
                 if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
 
-                print ("            if {0:<20}:  self.{0}={0}".format(variable))
+                    print ("            if {0:<20}:  self.{0}={0}".format(variable))
 
 
      
