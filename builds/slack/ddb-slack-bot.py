@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.367'
+__version__='1.2.368'
 
         
 # ############################################################################
@@ -1245,6 +1245,7 @@ class tokenizer:
 
 def gv(o,keys):
     print ("GV")
+    print keys
     print o
     if o:
         if isinstance(keys,str):
