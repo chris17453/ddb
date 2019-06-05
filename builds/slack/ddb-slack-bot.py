@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.375'
+__version__='1.2.376'
 
         
 # ############################################################################
@@ -1252,7 +1252,6 @@ def gv(o,keys):
                 return None
         else:
             for key in keys:
-                print ("->{0}".format(key))
                 if key in o:
                     o=o[key]
                 else:
