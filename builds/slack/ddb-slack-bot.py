@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.372'
+__version__='1.2.373'
 
         
 # ############################################################################
@@ -1269,6 +1269,7 @@ def gv(o,keys):
         print ("NO OBJECT")
         return None
     print ("GV -exit ")
+    print ("o")
     return o
 class show_columns:
     __slots__=()
