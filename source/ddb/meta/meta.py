@@ -61,7 +61,7 @@ class show_columns:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
 
 
 class show_tables:
@@ -259,30 +259,30 @@ class select:
             for item in self.group_by:
                 self.item.debug()
         else:
-            print('group_by:           '.format(self.group_by))
+            print('group_by:            {0}'.format(self.group_by))
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
         if self.limit:
             self.limit.debug()
         else:
-            print('limit:              '.format(self.limit))
+            print('limit:               {0}'.format(self.limit))
         if self.where:
             for item in self.where:
                 self.item.debug()
         else:
-            print('where:              '.format(self.where))
+            print('where:               {0}'.format(self.where))
         if self.columns:
             for item in self.columns:
                 self.item.debug()
         else:
-            print('columns:            '.format(self.columns))
+            print('columns:             {0}'.format(self.columns))
         if self.order_by:
             for item in self.order_by:
                 self.item.debug()
         else:
-            print('order_by:           '.format(self.order_by))
+            print('order_by:            {0}'.format(self.order_by))
 
 
 class set:
@@ -319,7 +319,7 @@ class set:
             for item in self.set:
                 self.item.debug()
         else:
-            print('set:                '.format(self.set))
+            print('set:                 {0}'.format(self.set))
 
 
 class create_procedure:
@@ -350,7 +350,7 @@ class create_procedure:
             for item in self.parameters:
                 self.item.debug()
         else:
-            print('parameters:         '.format(self.parameters))
+            print('parameters:          {0}'.format(self.parameters))
 
 
 class delimiter:
@@ -363,7 +363,7 @@ class delimiter:
 
     def debug(self):
         print('Debug Info: delimiter')
-        print('delimiter:           '.format(self.delimiter))
+        print('delimiter:           {0}'.format(self.delimiter))
 
 
 class end:
@@ -510,12 +510,12 @@ class delete:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
         if self.where:
             for item in self.where:
                 self.item.debug()
         else:
-            print('where:              '.format(self.where))
+            print('where:               {0}'.format(self.where))
 
 
 class insert:
@@ -578,17 +578,17 @@ class insert:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
         if self.values:
             for item in self.values:
                 self.item.debug()
         else:
-            print('values:             '.format(self.values))
+            print('values:              {0}'.format(self.values))
         if self.columns:
             for item in self.columns:
                 self.item.debug()
         else:
-            print('columns:            '.format(self.columns))
+            print('columns:             {0}'.format(self.columns))
 
 
 class update:
@@ -694,17 +694,17 @@ class update:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
         if self.set:
             for item in self.set:
                 self.item.debug()
         else:
-            print('set:                '.format(self.set))
+            print('set:                 {0}'.format(self.set))
         if self.where:
             for item in self.where:
                 self.item.debug()
         else:
-            print('where:              '.format(self.where))
+            print('where:               {0}'.format(self.where))
 
 
 class upsert:
@@ -802,27 +802,27 @@ class upsert:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
         if self.values:
             for item in self.values:
                 self.item.debug()
         else:
-            print('values:             '.format(self.values))
+            print('values:              {0}'.format(self.values))
         if self.update:
             for item in self.update:
                 self.item.debug()
         else:
-            print('update:             '.format(self.update))
+            print('update:              {0}'.format(self.update))
         if self.columns:
             for item in self.columns:
                 self.item.debug()
         else:
-            print('columns:            '.format(self.columns))
+            print('columns:             {0}'.format(self.columns))
         if self.on_duplicate_key:
             for item in self.on_duplicate_key:
                 self.item.debug()
         else:
-            print('on_duplicate_key:   '.format(self.on_duplicate_key))
+            print('on_duplicate_key:    {0}'.format(self.on_duplicate_key))
 
 
 class use_table:
@@ -853,7 +853,7 @@ class use_table:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
 
 
 class drop_table:
@@ -884,7 +884,7 @@ class drop_table:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
 
 
 class create_table:
@@ -975,28 +975,28 @@ class create_table:
 
     def debug(self):
         print('Debug Info: create_table')
-        print('errors:              '.format(self.errors))
-        print('whitespace:          '.format(self.whitespace))
-        print('strict:              '.format(self.strict))
-        print('data_starts_on:      '.format(self.data_starts_on))
-        print('fifo:                '.format(self.fifo))
+        print('errors:              {0}'.format(self.errors))
+        print('whitespace:          {0}'.format(self.whitespace))
+        print('strict:              {0}'.format(self.strict))
+        print('data_starts_on:      {0}'.format(self.data_starts_on))
+        print('fifo:                {0}'.format(self.fifo))
         if self.repo:
             self.repo.debug()
         else:
-            print('repo:               '.format(self.repo))
+            print('repo:                {0}'.format(self.repo))
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
-        print('delimiter:           '.format(self.delimiter))
-        print('mode:                '.format(self.mode))
-        print('file:                '.format(self.file))
+            print('source:              {0}'.format(self.source))
+        print('delimiter:           {0}'.format(self.delimiter))
+        print('mode:                {0}'.format(self.mode))
+        print('file:                {0}'.format(self.file))
         if self.columns:
             for item in self.columns:
                 self.item.debug()
         else:
-            print('columns:            '.format(self.columns))
-        print('comments:            '.format(self.comments))
+            print('columns:             {0}'.format(self.columns))
+        print('comments:            {0}'.format(self.comments))
 
 
 class update_table:
@@ -1052,21 +1052,21 @@ class update_table:
 
     def debug(self):
         print('Debug Info: update_table')
-        print('errors:              '.format(self.errors))
-        print('whitespace:          '.format(self.whitespace))
-        print('data_starts_on:      '.format(self.data_starts_on))
-        print('comments:            '.format(self.comments))
+        print('errors:              {0}'.format(self.errors))
+        print('whitespace:          {0}'.format(self.whitespace))
+        print('data_starts_on:      {0}'.format(self.data_starts_on))
+        print('comments:            {0}'.format(self.comments))
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
-        print('field:               '.format(self.field))
-        print('file:                '.format(self.file))
+            print('source:              {0}'.format(self.source))
+        print('field:               {0}'.format(self.field))
+        print('file:                {0}'.format(self.file))
         if self.columns:
             for item in self.columns:
                 self.item.debug()
         else:
-            print('columns:            '.format(self.columns))
+            print('columns:             {0}'.format(self.columns))
 
 
 class describe_table:
@@ -1097,7 +1097,7 @@ class describe_table:
         if self.source:
             self.source.debug()
         else:
-            print('source:             '.format(self.source))
+            print('source:              {0}'.format(self.source))
 
 
 
