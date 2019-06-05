@@ -251,7 +251,10 @@ def init(command,classes,class_spec):
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                         #print ("            print(so)")
-                        print ("            if gv(so,['meta','{0}','{1}']):".format(command_name,_class,",".join(var)))
+                        if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
+                            print ("            if gv(so,['meta','{0}']):".format(_class)
+                        else:
+                            print ("            if gv(so,['meta','{0}','{1}']):".format(command_name,_class,",".join(var)))
                         print ("                self.{1:<20}=[]".format(command_name,_class.replace(" ","_")))
                         print ("                for item in {0}:".format(sqo))
                         print ("                    self.{1:<20}.append( self._{1}({2}) )".format(command_name,_class.replace(" ","_"),",".join(var)))
