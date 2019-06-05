@@ -20,7 +20,7 @@ def get_data(command,classes,class_spec):
                 no_keyword=True
 
         if no_keyword:
-             class_spec[_class]['type]=='single'
+             class_spec[_class]['type']='single'
         parent=None
         if 'parent' in segment:
             parent=segment['parent']
