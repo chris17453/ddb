@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.399'
+__version__='1.2.400'
 
         
 # ############################################################################
@@ -1416,7 +1416,7 @@ class select:
     def __init__(self,so):
             if gv(so,['meta','select','group by']):
                 self.group_by            =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','select','group by']):
                     self.group_by            .append( self._group_by(column = gv(item,['column'])) )
             if gv(so,['meta','select','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
@@ -1424,15 +1424,15 @@ class select:
                 self.limit               = self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
             if gv(so,['meta','select','where']):
                 self.where               =[]
-                for item in gv(item,['e2']):
+                for item in gv(so,['meta','select','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
             if gv(so,['meta','columns']):
                 self.columns             =[]
-                for item in gv(item,['display']):
+                for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
             if gv(so,['meta','select','order by']):
                 self.order_by            =[]
-                for item in gv(item,['direction']):
+                for item in gv(so,['meta','select','order by']):
                     self.order_by            .append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
     def debug(self):
         print('Debug Info: select')
@@ -1484,7 +1484,7 @@ class set:
     def __init__(self,so):
             if gv(so,['meta','set','set']):
                 self.set                 =[]
-                for item in gv(item,['value']):
+                for item in gv(so,['meta','set','set']):
                     self.set                 .append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
     def debug(self):
         print('Debug Info: set')
@@ -1507,7 +1507,7 @@ class create_procedure:
     def __init__(self,so):
             if gv(so,['meta','create_procedure','parameters']):
                 self.parameters          =[]
-                for item in gv(item,['parameter']):
+                for item in gv(so,['meta','create_procedure','parameters']):
                     self.parameters          .append( self._parameters(parameter = gv(item,['parameter'])) )
     def debug(self):
         print('Debug Info: create_procedure')
@@ -1621,7 +1621,7 @@ class delete:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','delete','where']):
                 self.where               =[]
-                for item in gv(item,['e2']):
+                for item in gv(so,['meta','delete','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
         print('Debug Info: delete')
@@ -1671,11 +1671,11 @@ class insert:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
                 self.values              =[]
-                for item in gv(item,['value']):
+                for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
             if gv(so,['meta','insert','columns']):
                 self.columns             =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','insert','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
         print('Debug Info: insert')
@@ -1767,11 +1767,11 @@ class update:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','update','set']):
                 self.set                 =[]
-                for item in gv(item,['expression']):
+                for item in gv(so,['meta','update','set']):
                     self.set                 .append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
             if gv(so,['meta','update','where']):
                 self.where               =[]
-                for item in gv(item,['e2']):
+                for item in gv(so,['meta','update','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
         print('Debug Info: update')
@@ -1847,19 +1847,19 @@ class upsert:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
                 self.values              =[]
-                for item in gv(item,['value']):
+                for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
             if gv(so,['meta','upsert','update']):
                 self.update              =[]
-                for item in gv(item,['expression']):
+                for item in gv(so,['meta','upsert','update']):
                     self.update              .append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
             if gv(so,['meta','columns']):
                 self.columns             =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
             if gv(so,['meta','upsert','on duplicate key']):
                 self.on_duplicate_key    =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','upsert','on duplicate key']):
                     self.on_duplicate_key    .append( self._on_duplicate_key(column = gv(item,['column'])) )
     def debug(self):
         print('Debug Info: upsert')
@@ -2004,7 +2004,7 @@ class create_table:
             self.file                 = gv(so,['meta','file'])
             if gv(so,['meta','columns']):
                 self.columns             =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
             self.comments             = gv(so,['meta','comments'])
     def debug(self):
@@ -2071,7 +2071,7 @@ class update_table:
             self.file                 = gv(so,['meta','file','file'])
             if gv(so,['meta','columns']):
                 self.columns             =[]
-                for item in gv(item,['column']):
+                for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
         print('Debug Info: update_table')
