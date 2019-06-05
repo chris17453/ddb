@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.373'
+__version__='1.2.374'
 
         
 # ############################################################################
@@ -1268,7 +1268,7 @@ def gv(o,keys):
         print ("NO OBJECT")
         return None
     print ("GV -exit ")
-    print ("o")
+    print (o)
     return o
 class show_columns:
     __slots__=()
