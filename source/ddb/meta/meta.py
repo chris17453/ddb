@@ -17,7 +17,7 @@ def gv(o,keys):
         else:
             print("It's not a string")
             for key in keys:
-                print ("->{{0}}".format(key))
+                print ("->{0}".format(key))
                 if key in o:
                     print ("GOT It")
                     o=o[key]

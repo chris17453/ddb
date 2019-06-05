@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.371'
+__version__='1.2.372'
 
         
 # ############################################################################
@@ -1344,7 +1344,7 @@ def gv(o,keys):
         else:
             print("It's not a string")
             for key in keys:
-                print ("->{{0}}".format(key))
+                print ("->{0}".format(key))
                 if key in o:
                     print ("GOT It")
                     o=o[key]
