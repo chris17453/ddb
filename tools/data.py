@@ -293,10 +293,11 @@ def debug(command,classes,class_spec):
                     pad="    "
                     name='item'
                     print("            for item in self.{0}:".format(class_name))
+                    print("{1}            {0}.debug()".format(name,pad))
                 else:
                     name=class_name
                     pad=""
-                print("{1}            self.{0}.debug()".format(name,pad))
+                    print("{1}            self.{0}.debug()".format(name,pad))
                 print("        else:".format(pad))
                 print("            print('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
     else:
