@@ -47,8 +47,8 @@ class show_columns:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     source               = _source()
 
@@ -104,9 +104,9 @@ class select:
 
         def debug(self):
             print('  Debug Info: and')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _group_by:
         __slots__=()
@@ -117,7 +117,7 @@ class select:
 
         def debug(self):
             print('  Debug Info: group_by')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     class _source:
         __slots__=()
@@ -132,9 +132,9 @@ class select:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  display:             '.format(self.display))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  display:             {0}'.format(self.display))
+            print('  database:            {0}'.format(self.database))
 
     class _limit:
         __slots__=()
@@ -147,8 +147,8 @@ class select:
 
         def debug(self):
             print('  Debug Info: limit')
-            print('  start:               '.format(self.start))
-            print('  length:              '.format(self.length))
+            print('  start:               {0}'.format(self.start))
+            print('  length:              {0}'.format(self.length))
 
     class _where:
         __slots__=()
@@ -163,9 +163,9 @@ class select:
 
         def debug(self):
             print('  Debug Info: where')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _or:
         __slots__=()
@@ -180,9 +180,9 @@ class select:
 
         def debug(self):
             print('  Debug Info: or')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _columns:
         __slots__=()
@@ -203,12 +203,12 @@ class select:
 
         def debug(self):
             print('  Debug Info: columns')
-            print('  function:            '.format(self.function))
-            print('  column:              '.format(self.column))
-            print('  argument2:           '.format(self.argument2))
-            print('  argument3:           '.format(self.argument3))
-            print('  argument1:           '.format(self.argument1))
-            print('  display:             '.format(self.display))
+            print('  function:            {0}'.format(self.function))
+            print('  column:              {0}'.format(self.column))
+            print('  argument2:           {0}'.format(self.argument2))
+            print('  argument3:           {0}'.format(self.argument3))
+            print('  argument1:           {0}'.format(self.argument1))
+            print('  display:             {0}'.format(self.display))
 
     class _order_by:
         __slots__=()
@@ -221,8 +221,8 @@ class select:
 
         def debug(self):
             print('  Debug Info: order_by')
-            print('  column:              '.format(self.column))
-            print('  direction:           '.format(self.direction))
+            print('  column:              {0}'.format(self.column))
+            print('  direction:           {0}'.format(self.direction))
 
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
@@ -301,9 +301,9 @@ class set:
 
         def debug(self):
             print('  Debug Info: set')
-            print('  variable:            '.format(self.variable))
-            print('  type:                '.format(self.type))
-            print('  value:               '.format(self.value))
+            print('  variable:            {0}'.format(self.variable))
+            print('  type:                {0}'.format(self.type))
+            print('  value:               {0}'.format(self.value))
 
     set                  = None        # optional [ set() ]
 
@@ -334,7 +334,7 @@ class create_procedure:
 
         def debug(self):
             print('  Debug Info: parameters')
-            print('  parameter:           '.format(self.parameter))
+            print('  parameter:           {0}'.format(self.parameter))
 
     parameters           = None        # optional [ parameters() ]
 
@@ -442,9 +442,9 @@ class delete:
 
         def debug(self):
             print('  Debug Info: and')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _source:
         __slots__=()
@@ -457,8 +457,8 @@ class delete:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _where:
         __slots__=()
@@ -473,9 +473,9 @@ class delete:
 
         def debug(self):
             print('  Debug Info: where')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _or:
         __slots__=()
@@ -490,9 +490,9 @@ class delete:
 
         def debug(self):
             print('  Debug Info: or')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     source               = _source()
     where                = None        # optional [ where() ]
@@ -532,8 +532,8 @@ class insert:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _values:
         __slots__=()
@@ -544,7 +544,7 @@ class insert:
 
         def debug(self):
             print('  Debug Info: values')
-            print('  value:               '.format(self.value))
+            print('  value:               {0}'.format(self.value))
 
     class _columns:
         __slots__=()
@@ -555,7 +555,7 @@ class insert:
 
         def debug(self):
             print('  Debug Info: columns')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     source               = _source()
     values               = []          #          values()
@@ -607,9 +607,9 @@ class update:
 
         def debug(self):
             print('  Debug Info: and')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _source:
         __slots__=()
@@ -622,8 +622,8 @@ class update:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _set:
         __slots__=()
@@ -636,8 +636,8 @@ class update:
 
         def debug(self):
             print('  Debug Info: set')
-            print('  column:              '.format(self.column))
-            print('  expression:          '.format(self.expression))
+            print('  column:              {0}'.format(self.column))
+            print('  expression:          {0}'.format(self.expression))
 
     class _where:
         __slots__=()
@@ -652,9 +652,9 @@ class update:
 
         def debug(self):
             print('  Debug Info: where')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     class _or:
         __slots__=()
@@ -669,9 +669,9 @@ class update:
 
         def debug(self):
             print('  Debug Info: or')
-            print('  c:                   '.format(self.c))
-            print('  e1:                  '.format(self.e1))
-            print('  e2:                  '.format(self.e2))
+            print('  c:                   {0}'.format(self.c))
+            print('  e1:                  {0}'.format(self.e1))
+            print('  e2:                  {0}'.format(self.e2))
 
     source               = _source()
     set                  = []          #          set()
@@ -721,8 +721,8 @@ class upsert:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _values:
         __slots__=()
@@ -733,7 +733,7 @@ class upsert:
 
         def debug(self):
             print('  Debug Info: values')
-            print('  value:               '.format(self.value))
+            print('  value:               {0}'.format(self.value))
 
     class _update:
         __slots__=()
@@ -746,8 +746,8 @@ class upsert:
 
         def debug(self):
             print('  Debug Info: update')
-            print('  column:              '.format(self.column))
-            print('  expression:          '.format(self.expression))
+            print('  column:              {0}'.format(self.column))
+            print('  expression:          {0}'.format(self.expression))
 
     class _columns:
         __slots__=()
@@ -758,7 +758,7 @@ class upsert:
 
         def debug(self):
             print('  Debug Info: columns')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     class _on_duplicate_key:
         __slots__=()
@@ -769,7 +769,7 @@ class upsert:
 
         def debug(self):
             print('  Debug Info: on_duplicate_key')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     source               = _source()
     values               = []          #          values()
@@ -839,8 +839,8 @@ class use_table:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     source               = _source()
 
@@ -870,8 +870,8 @@ class drop_table:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     source               = _source()
 
@@ -909,12 +909,12 @@ class create_table:
 
         def debug(self):
             print('  Debug Info: repo')
-            print('  protocol:            '.format(self.protocol))
-            print('  url:                 '.format(self.url))
-            print('  user:                '.format(self.user))
-            print('  file:                '.format(self.file))
-            print('  directory:           '.format(self.directory))
-            print('  password:            '.format(self.password))
+            print('  protocol:            {0}'.format(self.protocol))
+            print('  url:                 {0}'.format(self.url))
+            print('  user:                {0}'.format(self.user))
+            print('  file:                {0}'.format(self.file))
+            print('  directory:           {0}'.format(self.directory))
+            print('  password:            {0}'.format(self.password))
 
     class _source:
         __slots__=()
@@ -927,8 +927,8 @@ class create_table:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _columns:
         __slots__=()
@@ -939,7 +939,7 @@ class create_table:
 
         def debug(self):
             print('  Debug Info: columns')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     errors               = None        # optional 
     whitespace           = None        # optional 
@@ -1013,8 +1013,8 @@ class update_table:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     class _columns:
         __slots__=()
@@ -1025,7 +1025,7 @@ class update_table:
 
         def debug(self):
             print('  Debug Info: columns')
-            print('  column:              '.format(self.column))
+            print('  column:              {0}'.format(self.column))
 
     errors               = None        # optional 
     whitespace           = None        # optional 
@@ -1083,8 +1083,8 @@ class describe_table:
 
         def debug(self):
             print('  Debug Info: source')
-            print('  table:               '.format(self.table))
-            print('  database:            '.format(self.database))
+            print('  table:               {0}'.format(self.table))
+            print('  database:            {0}'.format(self.database))
 
     source               = _source()
 
