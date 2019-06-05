@@ -244,7 +244,7 @@ def init(command,classes,class_spec):
                         #print classes[_class],variable
                         
                         if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-                            sqo="gv(so,['{2}','{0}'])".format(_class,variable,'meta')
+                            sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                         else:
                             sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
