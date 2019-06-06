@@ -226,7 +226,7 @@ def init(command,classes,class_spec):
                         sqo="gv(so,['meta','{1}'])".format(_class,variable)
                         print ("            self.{0:<20} = {1}".format(variable,sqo))
                     else:
-                        sqo="gv(so,['meta','{1}'])".format(_class,variable)
+                        sqo="gv(so,['meta','{0}','{1}'])".format(_class,variable)
                         print ("            self.{0:<20} = {1}".format(variable,sqo))
             else:
                 var=[]
@@ -244,9 +244,9 @@ def init(command,classes,class_spec):
                         #print classes[_class],variable
                         
                         if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-                            sqo="gv(so,['{1}'])".format(_class,variable,'meta')
+                            sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                         else:
-                            sqo="gv(so,['{1}'])".format(_class,variable,'meta')
+                            sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
