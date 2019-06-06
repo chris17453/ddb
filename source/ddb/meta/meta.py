@@ -3,9 +3,9 @@
 
 
 def gv(o,keys):
-    print ("GV")
-    print keys
-    print o
+    #print ("GV")
+    #print keys
+    #print o
     if o:
         if isinstance(keys,str):
             #print("It's a string")
@@ -17,9 +17,9 @@ def gv(o,keys):
         else:
             #print("It's not a string")
             for key in keys:
-                print ("->{0}".format(key))
+                #print ("->{0}".format(key))
                 if key in o:
-                    print ("Got It")
+                    #print ("Got It")
                     o=o[key]
                 else:
                     #print ("NO ARRAY")
@@ -28,7 +28,7 @@ def gv(o,keys):
         #print ("NO OBJECT")
         return None
     #print ("GV -exit ")
-    print (o)
+    #print (o)
     return o
 
 
