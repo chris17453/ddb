@@ -53,7 +53,7 @@ class show_columns:
     source               = _source()
 
     def __init__(self,so):
-            if gv(so,['meta','show_columns','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
 
     def debug(self):
@@ -236,9 +236,9 @@ class select:
                 self.group_by            =[]
                 for item in gv(so,['meta','group by']):
                     self.group_by            .append( self._group_by(column = gv(item,['column'])) )
-            if gv(so,['meta','select','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),display = gv(so,['display']),database = gv(so,['database']))
-            if gv(so,['meta','select','limit']):
+            if gv(so,['meta','limit']):
                 self.limit               = self._limit(start = gv(so,['start']),length = gv(so,['length']))
             if gv(so,['meta','where']):
                 self.where               =[]
@@ -498,7 +498,7 @@ class delete:
     where                = None        # optional [ where() ]
 
     def __init__(self,so):
-            if gv(so,['meta','delete','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             if gv(so,['meta','where']):
                 self.where               =[]
@@ -562,7 +562,7 @@ class insert:
     columns              = []          #          columns()
 
     def __init__(self,so):
-            if gv(so,['meta','insert','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             if gv(so,['meta','values']):
                 self.values              =[]
@@ -678,7 +678,7 @@ class update:
     where                = None        # optional [ where() ]
 
     def __init__(self,so):
-            if gv(so,['meta','update','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             if gv(so,['meta','set']):
                 self.set                 =[]
@@ -778,7 +778,7 @@ class upsert:
     on_duplicate_key     = []          #          on duplicate key()
 
     def __init__(self,so):
-            if gv(so,['meta','upsert','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             if gv(so,['meta','values']):
                 self.values              =[]
@@ -845,7 +845,7 @@ class use_table:
     source               = _source()
 
     def __init__(self,so):
-            if gv(so,['meta','use_table','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
 
     def debug(self):
@@ -876,7 +876,7 @@ class drop_table:
     source               = _source()
 
     def __init__(self,so):
-            if gv(so,['meta','drop_table','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
 
     def debug(self):
@@ -960,9 +960,9 @@ class create_table:
             self.strict               = gv(so,['meta','strict'])
             self.data_starts_on       = gv(so,['meta','data_starts_on'])
             self.fifo                 = gv(so,['meta','fifo'])
-            if gv(so,['meta','create_table','repo']):
+            if gv(so,['meta','repo']):
                 self.repo                = self._repo(protocol = gv(so,['protocol']),url = gv(so,['url']),user = gv(so,['user']),file = gv(so,['file']),directory = gv(so,['directory']),password = gv(so,['password']))
-            if gv(so,['meta','create_table','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             self.delimiter            = gv(so,['meta','delimiter'])
             self.mode                 = gv(so,['meta','mode'])
@@ -1041,7 +1041,7 @@ class update_table:
             self.whitespace           = gv(so,['meta','whitespace'])
             self.data_starts_on       = gv(so,['meta','data_starts_on'])
             self.comments             = gv(so,['meta','comments'])
-            if gv(so,['meta','update_table','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
             self.field                = gv(so,['meta','field'])
             self.file                 = gv(so,['meta','file'])
@@ -1089,7 +1089,7 @@ class describe_table:
     source               = _source()
 
     def __init__(self,so):
-            if gv(so,['meta','describe_table','source']):
+            if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['table']),database = gv(so,['database']))
 
     def debug(self):
