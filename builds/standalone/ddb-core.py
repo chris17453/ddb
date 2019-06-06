@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.409'
+__version__='1.2.410'
 
         
 # ############################################################################
@@ -251,18 +251,18 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': 'source'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'variables':{ 'type':'where' }} ] ,
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'variables':{ 'type':'and' } } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
                              'parent': 'where'
                              },
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'variables':{ 'type':'or' }} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'or',
