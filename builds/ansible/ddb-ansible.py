@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.400'
+__version__='1.2.401'
 
         
 # ############################################################################
@@ -1524,7 +1524,7 @@ class select:
         print('Debug Info: select')
         if self.group_by:
             for item in self.group_by:
-                self.item.debug()
+                item.debug()
         else:
             print('group_by:            {0}'.format(self.group_by))
         if self.source:
@@ -1537,17 +1537,17 @@ class select:
             print('limit:               {0}'.format(self.limit))
         if self.where:
             for item in self.where:
-                self.item.debug()
+                item.debug()
         else:
             print('where:               {0}'.format(self.where))
         if self.columns:
             for item in self.columns:
-                self.item.debug()
+                item.debug()
         else:
             print('columns:             {0}'.format(self.columns))
         if self.order_by:
             for item in self.order_by:
-                self.item.debug()
+                item.debug()
         else:
             print('order_by:            {0}'.format(self.order_by))
 class set:
@@ -1576,7 +1576,7 @@ class set:
         print('Debug Info: set')
         if self.set:
             for item in self.set:
-                self.item.debug()
+                item.debug()
         else:
             print('set:                 {0}'.format(self.set))
 class create_procedure:
@@ -1599,7 +1599,7 @@ class create_procedure:
         print('Debug Info: create_procedure')
         if self.parameters:
             for item in self.parameters:
-                self.item.debug()
+                item.debug()
         else:
             print('parameters:          {0}'.format(self.parameters))
 class delimiter:
@@ -1717,7 +1717,7 @@ class delete:
             print('source:              {0}'.format(self.source))
         if self.where:
             for item in self.where:
-                self.item.debug()
+                item.debug()
         else:
             print('where:               {0}'.format(self.where))
 class insert:
@@ -1771,12 +1771,12 @@ class insert:
             print('source:              {0}'.format(self.source))
         if self.values:
             for item in self.values:
-                self.item.debug()
+                item.debug()
         else:
             print('values:              {0}'.format(self.values))
         if self.columns:
             for item in self.columns:
-                self.item.debug()
+                item.debug()
         else:
             print('columns:             {0}'.format(self.columns))
 class update:
@@ -1867,12 +1867,12 @@ class update:
             print('source:              {0}'.format(self.source))
         if self.set:
             for item in self.set:
-                self.item.debug()
+                item.debug()
         else:
             print('set:                 {0}'.format(self.set))
         if self.where:
             for item in self.where:
-                self.item.debug()
+                item.debug()
         else:
             print('where:               {0}'.format(self.where))
 class upsert:
@@ -1955,22 +1955,22 @@ class upsert:
             print('source:              {0}'.format(self.source))
         if self.values:
             for item in self.values:
-                self.item.debug()
+                item.debug()
         else:
             print('values:              {0}'.format(self.values))
         if self.update:
             for item in self.update:
-                self.item.debug()
+                item.debug()
         else:
             print('update:              {0}'.format(self.update))
         if self.columns:
             for item in self.columns:
-                self.item.debug()
+                item.debug()
         else:
             print('columns:             {0}'.format(self.columns))
         if self.on_duplicate_key:
             for item in self.on_duplicate_key:
-                self.item.debug()
+                item.debug()
         else:
             print('on_duplicate_key:    {0}'.format(self.on_duplicate_key))
 class use_table:
@@ -2113,7 +2113,7 @@ class create_table:
         print('file:                {0}'.format(self.file))
         if self.columns:
             for item in self.columns:
-                self.item.debug()
+                item.debug()
         else:
             print('columns:             {0}'.format(self.columns))
         print('comments:            {0}'.format(self.comments))
@@ -2173,7 +2173,7 @@ class update_table:
         print('file:                {0}'.format(self.file))
         if self.columns:
             for item in self.columns:
-                self.item.debug()
+                item.debug()
         else:
             print('columns:             {0}'.format(self.columns))
 class describe_table:
