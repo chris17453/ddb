@@ -359,7 +359,7 @@ class delimiter:
     delimiter            = None
 
     def __init__(self,so):
-            self.delimiter            = gv(so,['meta','delimiter','delimiter'])
+            self.delimiter            = gv(so,['meta','delimiter'])
 
     def debug(self):
         print('Debug Info: delimiter')
@@ -1037,14 +1037,14 @@ class update_table:
     columns              = None        # optional [ columns() ]
 
     def __init__(self,so):
-            self.errors               = gv(so,['meta','errors','errors'])
-            self.whitespace           = gv(so,['meta','whitespace','whitespace'])
-            self.data_starts_on       = gv(so,['meta','data_starts_on','data_starts_on'])
-            self.comments             = gv(so,['meta','comments','comments'])
+            self.errors               = gv(so,['meta','errors'])
+            self.whitespace           = gv(so,['meta','whitespace'])
+            self.data_starts_on       = gv(so,['meta','data_starts_on'])
+            self.comments             = gv(so,['meta','comments'])
             if gv(so,['meta','update_table','source']):
                 self.source              = self._source(table = gv(so,['meta','table']),database = gv(so,['meta','database']))
-            self.field                = gv(so,['meta','delimiter','field'])
-            self.file                 = gv(so,['meta','file','file'])
+            self.field                = gv(so,['meta','field'])
+            self.file                 = gv(so,['meta','file'])
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
