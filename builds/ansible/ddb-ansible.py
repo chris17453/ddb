@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.403'
+__version__='1.2.404'
 
         
 # ############################################################################
@@ -1330,9 +1330,6 @@ class tokenizer:
 # ############################################################################
 
 def gv(o,keys):
-    print ("GV")
-    print keys
-    print o
     if o:
         if isinstance(keys,str):
             if keys in o:
@@ -1341,15 +1338,12 @@ def gv(o,keys):
                 return None
         else:
             for key in keys:
-                print ("->{0}".format(key))
                 if key in o:
-                    print ("Got It")
                     o=o[key]
                 else:
                     return None
     else:     
         return None
-    print (o)
     return o
 class show_columns:
     __slots__=()
