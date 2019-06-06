@@ -226,7 +226,7 @@ def init(command,classes,class_spec):
                         sqo="gv(so,['meta','{1}'])".format(_class,variable)
                         print ("            self.{0:<20} = {1}".format(variable,sqo))
                     else:
-                        sqo="gv(so,['meta','{0}','{1}'])".format(_class,variable)
+                        sqo="gv(so,['meta','{1}'])".format(_class,variable)
                         print ("            self.{0:<20} = {1}".format(variable,sqo))
             else:
                 var=[]
