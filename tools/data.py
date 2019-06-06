@@ -264,7 +264,7 @@ def init(command,classes,class_spec):
                         print ("                    self.{1:<20}.append( self._{1}({2}) )".format(command_name,_class.replace(" ","_"),",".join(var)))
                 else:
                     if class_spec[_class]['parent']==None:
-                        print ("            if gv(so,['meta','{0}','{1}']):".format(command_name,_class))
+                        print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
                         print ("                self.{1:<20}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
 
 
