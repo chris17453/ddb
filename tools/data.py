@@ -359,7 +359,7 @@ class debugger:
                     if len(value)==1:
                         try:
                             print(value)
-                            #debugger(value,var,depth+4)
+                            debugger(value.index(0),var,depth+4)
                             value.debug()
                         except:
                             pass
