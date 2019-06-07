@@ -2,9 +2,10 @@
 class debugger:
     def __init__(self,obj):
         print ("Debug:")
-        print 
+        variables = [i for i in dir(obj) if not callable(i)]
 
-        print ( [method_name for method_name in dir(obj)]        )
+
+        print (variables )
 
 
 # This is an auto generated assembly 

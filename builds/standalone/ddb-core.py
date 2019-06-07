@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.421'
+__version__='1.2.422'
 
         
 # ############################################################################
@@ -1238,8 +1238,8 @@ class tokenizer:
 class debugger:
     def __init__(self,obj):
         print ("Debug:")
-        print 
-        print ( [method_name for method_name in dir(obj)]        )
+        variables = [i for i in dir(obj) if not callable(i)]
+        print (variables )
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
