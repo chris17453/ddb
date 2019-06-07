@@ -373,9 +373,9 @@ class debugger:
                 var_count+=1
                 empty.append(var)
             else:
+                var_count+=1
                 debugger(value,var,depth+4)
-                print value
-                continue
+                
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
         #print variables
