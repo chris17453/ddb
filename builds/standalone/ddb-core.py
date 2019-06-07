@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.451'
+__version__='1.2.452'
 
         
 # ############################################################################
@@ -1241,7 +1241,7 @@ class debugger:
         for i in range(0,depth):
             pad+=' '
         if depth==0:
-            print ("Debug:")
+            print ("Debug: {0}".format(name))
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
         for var in variables:
