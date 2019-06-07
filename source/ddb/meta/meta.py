@@ -95,6 +95,7 @@ class show_tables:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'show tables')
 
@@ -105,6 +106,7 @@ class show_variables:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'show variables')
 
@@ -299,6 +301,7 @@ class end:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'end')
 
@@ -309,6 +312,7 @@ class begin:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'begin')
 
@@ -319,6 +323,7 @@ class commit:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'commit')
 
@@ -329,6 +334,7 @@ class rollback:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'rollback')
 
@@ -339,6 +345,7 @@ class show_output_modules:
 
     def __init__(self,so):
         a=0 # holder
+
     def debug(self):
         debugger(self,'show output modules')
 
