@@ -19,14 +19,12 @@ class debugger:
             if  isinstance(value,float):
                 print("{2}{0} {1}".format(var+':',value,pad))
             elif isinstance(value,list):
-                
                 if len(value)==1:
-                    #print ("{0}- {1} :".format(pad,var))
-                    debugger(value,var,depth+2)
+                    debugger(value,var,depth+4)
                 else:
                     print ("{0}- {1} :".format(pad,var))
                     for item in value:
-                        debugger(item,var,depth+2)
+                        debugger(item,var,depth+4)
             elif callable(value):
                 continue
             if value==None:
