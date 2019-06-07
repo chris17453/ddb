@@ -4,8 +4,8 @@ class debugger:
         print ("Debug:")
         print 
 
-object_methods = [method_name for method_name in dir(object)
-                  if callable(getattr(object, method_name))]        
+    print ( [method_name for method_name in dir(obj)
+                    if callable(getattr(object, method_name))]        )
 
 
 # This is an auto generated assembly 

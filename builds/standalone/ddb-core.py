@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.417'
+__version__='1.2.418'
 
         
 # ############################################################################
@@ -1239,8 +1239,8 @@ class debugger:
     def __init__(self,ob):
         print ("Debug:")
         print 
-object_methods = [method_name for method_name in dir(object)
-                  if callable(getattr(object, method_name))]        
+    print ( [method_name for method_name in dir(obj)
+                    if callable(getattr(object, method_name))]        )
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
