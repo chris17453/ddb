@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.476'
+__version__='1.2.477'
 
         
 # ############################################################################
@@ -1261,12 +1261,8 @@ class debugger:
                     print("{2}{0} {1}".format(var+':',value,pad))
                 elif isinstance(value,list):
                     print ("{0}- {1} :".format(pad,var))
-                    try:
-                        for item in value:
-                            debugger(item,var,depth+4)
-                    except Exception as ex:
-                        print ("EH",ex)
-                        pass
+                    for item in value:
+                        debugger(item,var,depth+4)
                 elif callable(value):
                     continue
                 if value==None:
@@ -1310,10 +1306,14 @@ class show_columns:
         debugger(self,'show columns')
 class show_tables:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'show tables')
 class show_variables:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'show variables')
 class select:
@@ -1466,22 +1466,32 @@ class delimiter:
         debugger(self,'delimiter')
 class end:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'end')
 class begin:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'begin')
 class commit:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'commit')
 class rollback:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'rollback')
 class show_output_modules:
     __slots__=()
+    def __init__(self,so):
+        a=0 # holder
     def debug(self):
         debugger(self,'show output modules')
 class delete:

@@ -268,6 +268,7 @@ def init(command,classes,class_spec):
     else:
         print("\n    def __init__(self,so):")
         print("        a=0 # holder")
+        print("")
                 
 
 
