@@ -431,17 +431,20 @@ class delete:
 
     class _and:
         __slots__=()
+        type                 = None
         c                    = None
         e1                   = None
         e2                   = None
 
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,type=None,c=None,e1=None,e2=None):
+            if type                :  self.type=type
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
             if e2                  :  self.e2=e2
 
         def debug(self):
             print('  Debug Info: and')
+            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
             print('  e2:                  {0}'.format(self.e2))
@@ -462,34 +465,40 @@ class delete:
 
     class _where:
         __slots__=()
+        type                 = None
         c                    = None
         e1                   = None
         e2                   = None
 
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,type=None,c=None,e1=None,e2=None):
+            if type                :  self.type=type
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
             if e2                  :  self.e2=e2
 
         def debug(self):
             print('  Debug Info: where')
+            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
             print('  e2:                  {0}'.format(self.e2))
 
     class _or:
         __slots__=()
+        type                 = None
         c                    = None
         e1                   = None
         e2                   = None
 
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,type=None,c=None,e1=None,e2=None):
+            if type                :  self.type=type
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
             if e2                  :  self.e2=e2
 
         def debug(self):
             print('  Debug Info: or')
+            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
             print('  e2:                  {0}'.format(self.e2))
@@ -503,7 +512,7 @@ class delete:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(type = gv(item,['type']),c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
 
     def debug(self):
         print('Debug Info: delete')
