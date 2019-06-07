@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.488'
+__version__='1.2.489'
 
         
 # ############################################################################
@@ -1249,10 +1249,10 @@ class debugger:
             if  isinstance(value,str):
                 print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
-            if  isinstance(value,int):
+            elif  isinstance(value,int):
                 print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
-            if  isinstance(value,float):
+            elif  isinstance(value,float):
                 print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
             elif isinstance(value,list):
