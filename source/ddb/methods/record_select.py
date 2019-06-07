@@ -132,7 +132,7 @@ class match2:
         return False
 
 
-    def __init__(self,meta, row):
+    def evaluate_match(self,meta, row):
         if None == row:
             return False
         #print where
@@ -678,7 +678,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
             # if a where, only return data, comments/whites/space/errors are ignored
             
             if line_type == context.data_type.DATA:
-                match_results = match2(meta=meta, row=line_data)
+                match_results = match2().evaluate_match(meta=meta, row=line_data)
             else:
                 match_results = False
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
