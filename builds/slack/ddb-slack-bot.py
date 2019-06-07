@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.495'
+__version__='1.2.496'
 
         
 # ############################################################################
@@ -3357,7 +3357,7 @@ def add_table_columns(context,meta,temp_table):
             context.info("RENAME COLUMN", display)
         if column.column:
             context.info("adding data column")
-            temp_table.add_column(column.colu mn, display)
+            temp_table.add_column(column.column, display)
         if  column.function:
             context.info("adding function column")
             temp_table.add_column(column.function, display)    
