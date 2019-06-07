@@ -336,9 +336,12 @@ def convert_to_class(o):
 
 
 print("""
-def debuger:
+class debugger:
     def __init__(self,ob):
         print ("Debug:")
+        print 
 
+object_methods = [method_name for method_name in dir(object)
+                  if callable(getattr(object, method_name))]        
 
 """)
