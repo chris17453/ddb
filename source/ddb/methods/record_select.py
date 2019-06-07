@@ -169,9 +169,9 @@ class match2:
             if hasattr( test,'where'):
                 test_operation = test.where
             elif hasattr( test,'and'):
-                test_operation = test.and
+                test_operation = getattr(test,'and')
             elif hasattr( test,'or'):
-                test_operation = test.or
+                test_operation = getattr(test,'or')
 
             success = self.evaluate_single_match(test_operation, row, table)
 

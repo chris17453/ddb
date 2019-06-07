@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.522'
+__version__='1.2.523'
 
         
 # ############################################################################
@@ -3366,7 +3366,12 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
-            test_operation = test[operation]
+            if hasattr( test,'where'):
+                test_operation = test.where
+            elif hasattr( test,'and'):
+                test_operation = test.and
+            elif hasattr( test,'or'):
+                test_operation = test.or
             success = self.evaluate_single_match(test_operation, row, table)
         if success is None:
             return False
@@ -3475,7 +3480,6 @@ def select_has_functions(context,meta):
 def add_table_columns(context,meta,temp_table):
     for column in meta.columns:
         display = None
-        print meta.columns
         if column.display:
             display = column.display
             context.info("RENAME COLUMN", display)
