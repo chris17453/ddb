@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.445'
+__version__='1.2.446'
 
         
 # ############################################################################
@@ -1264,8 +1264,10 @@ class debugger:
                     debugger(item,depth+1)
             elif callable(value):
                 continue
-            else:
+            if value==None:
                 empty.append(var)
+            else:
+                continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
 def gv(o,keys):
