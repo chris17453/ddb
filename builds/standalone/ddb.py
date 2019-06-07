@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.502'
+__version__='1.2.503'
 
         
 # ############################################################################
@@ -3346,7 +3346,7 @@ def expand_columns(meta):
                         expanded_select.append({'column': column})
                 else:
                     expanded_select.append(item)
-            if 'function' in item:
+            if item.function:
                 expanded_select.append(item)
         meta.columns = expanded_select
 def select_has_columns(context,meta):
