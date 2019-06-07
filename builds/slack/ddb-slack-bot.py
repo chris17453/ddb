@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.496'
+__version__='1.2.498'
 
         
 # ############################################################################
@@ -3475,17 +3475,17 @@ def process_select_row(context,meta,processed_line):
                 if c.column:
                     row.append(processed_line['data'][ordinals[c.column]])
                 elif c.function:
-                    if c.function'] == 'database':
+                    if c.function == 'database':
                         row.append(f_database(context))
-                    elif c.function'] == 'datetime':
+                    elif c.function == 'datetime':
                             row.append(f_datetime(context))
-                    elif c.function'] == 'date':
+                    elif c.function == 'date':
                             row.append(f_date(context))
-                    elif c.function'] == 'time':
+                    elif c.function == 'time':
                             row.append(f_time(context))
-                    elif c.function'] == 'version':
+                    elif c.function == 'version':
                             row.append(f_version(context,__version__))
-                    elif c.function'] == 'row_number':
+                    elif c.function == 'row_number':
                             row.append(f_row_number(context))
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 def sort_cmp( x, y):
