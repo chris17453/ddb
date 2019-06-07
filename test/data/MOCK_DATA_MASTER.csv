@@ -9,7 +9,6 @@ id,first_name,last_name,email,gender,ip_address
 8,Flinn,Mulchrone,fmulchrone7@naver.com,Male,22.84.116.46
 9,Seamus,Tocque,stocque8@cnet.com,Male,79.30.35.75
 10,Lazare,Abbett,labbett9@who.int,Male,17.173.76.145
-11,Fraze,Signorelli,fsignorellia@sfgate.com,Male,255.7.238.134
 12,Thorsten,Dottridge,tdottridgeb@cargocollective.com,Male,113.209.189.216
 13,Dolorita,Reisen,dreisenc@squidoo.com,Female,152.228.242.226
 14,Kiel,Gilcrist,kgilcristd@oakley.com,Male,30.36.236.217
@@ -999,4 +998,3 @@ id,first_name,last_name,email,gender,ip_address
 998,Calvin,Hedger,chedgerrp@geocities.com,Male,171.110.129.104
 999,Karlik,Terrett,kterrettrq@vimeo.com,Male,55.93.204.45
 1000,Curcio,Kemm,ckemmrr@irs.gov,Male,14.143.73.253
-
