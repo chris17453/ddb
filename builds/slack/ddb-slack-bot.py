@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.450'
+__version__='1.2.451'
 
         
 # ############################################################################
@@ -1264,7 +1264,7 @@ class debugger:
                 if len(value)==1:
                     print ("{0} - {1} :{2}".format(pad,var,value))
                 else:
-                    print ("{0} - {1} :".format(pad,name))
+                    print ("{0} - {1} :".format(pad,var))
                     for item in value:
                         debugger(item,var,depth+3)
             elif callable(value):
