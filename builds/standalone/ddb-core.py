@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.524'
+__version__='1.2.525'
 
         
 # ############################################################################
@@ -3359,8 +3359,9 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
+            print test
             if hasattr( test,'where'):
-                test_operation = test.where
+                test_operation = getattr(test,'where')
             elif hasattr( test,'and'):
                 test_operation = getattr(test,'and')
             elif hasattr( test,'or'):
