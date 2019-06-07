@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.441'
+__version__='1.2.442'
 
         
 # ############################################################################
@@ -1250,11 +1250,9 @@ class debugger:
             elif isinstance(value,list):
                 for item in value:
                     debugger(item,depth+1)
-            elif False==callable(value):
-                print("{2}{0:<20}{1}".format(var+':','class',pad))
+            elif callable(value):
+                debugger(value,depth+1)
             else:
-                if callable(value):
-                    continue
                 empty.append(var)
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
