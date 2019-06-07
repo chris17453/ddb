@@ -286,12 +286,12 @@ def select_validate_columns_and_from(context, meta, parser):
     has_functions = select_has_functions(context,meta)
     has_columns = select_has_columns(context,meta)
 
-    if False == has_columns and (not meta.source):
-        err_msg="Invalid FROM, all columns are functions. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+    if False == has_columns and meta.source:
+        err_msg="Invalid FROM, all columns are functions. Columns:{0}, Functions:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
         raise Exception(err_msg)
 
     if False == has_columns and False == has_functions:
-        err_msg="No columns defined in query. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+        err_msg="No columns defined in query. Columns:{0}, Functions:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
         raise Exception(err_msg)
         
 
