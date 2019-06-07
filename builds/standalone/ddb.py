@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.517'
+__version__='1.2.518'
 
         
 # ############################################################################
@@ -3607,7 +3607,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
             match_results = True
         else:
             if line_type == context.data_type.DATA:
-                match_results = match.evaluate_match(context,meta, line_data)
+                match_results = match2.evaluate_match(context,meta, line_data)
             else:
                 match_results = False
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
@@ -3622,7 +3622,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
             'line_number': line_number, 
             'match': match_results, 
             'error': err}
-class match:
+class match2:
     def evaluate_single_match(self,test, row, table):
         compare1 = None
         compare2 = None
