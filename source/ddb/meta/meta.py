@@ -14,7 +14,7 @@ class debugger:
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif value!=None:
                 print("{2}{0:<20}{1}".format(var+':','class',pad))
-                debugger(var,depth+1)
+                debugger(value,depth+1)
             else:
                 empty.append(var)
         if len(empty)>0:
