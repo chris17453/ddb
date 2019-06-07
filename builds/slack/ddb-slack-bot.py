@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.504'
+__version__='1.2.505'
 
         
 # ############################################################################
@@ -3296,7 +3296,7 @@ def select_process_file(context,meta):
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line3(context,meta,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
                     line_number += 1
                     continue
