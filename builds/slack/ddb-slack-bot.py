@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.473'
+__version__='1.2.474'
 
         
 # ############################################################################
@@ -1303,10 +1303,6 @@ class show_columns:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1334,20 +1330,11 @@ class select:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: and')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _group_by:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: group_by')
-            print('  column:              {0}'.format(self.column))
     class _source:
         __slots__=()
         table                = None
@@ -1357,11 +1344,6 @@ class select:
             if table               :  self.table=table
             if display             :  self.display=display
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  display:             {0}'.format(self.display))
-            print('  database:            {0}'.format(self.database))
     class _limit:
         __slots__=()
         start                = 0
@@ -1369,10 +1351,6 @@ class select:
         def __init__(self,start=None,length=None):
             if start               :  self.start=start
             if length              :  self.length=length
-        def debug(self):
-            print('  Debug Info: limit')
-            print('  start:               {0}'.format(self.start))
-            print('  length:              {0}'.format(self.length))
     class _where:
         __slots__=()
         c                    = None
@@ -1384,12 +1362,6 @@ class select:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: where')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _or:
         __slots__=()
         c                    = None
@@ -1401,12 +1373,6 @@ class select:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: or')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _columns:
         __slots__=()
         function             = None
@@ -1422,14 +1388,6 @@ class select:
             if argument3           :  self.argument3=argument3
             if argument1           :  self.argument1=argument1
             if display             :  self.display=display
-        def debug(self):
-            print('  Debug Info: columns')
-            print('  function:            {0}'.format(self.function))
-            print('  column:              {0}'.format(self.column))
-            print('  argument2:           {0}'.format(self.argument2))
-            print('  argument3:           {0}'.format(self.argument3))
-            print('  argument1:           {0}'.format(self.argument1))
-            print('  display:             {0}'.format(self.display))
     class _order_by:
         __slots__=()
         column               = None
@@ -1437,10 +1395,6 @@ class select:
         def __init__(self,column=None,direction=None):
             if column              :  self.column=column
             if direction           :  self.direction=direction
-        def debug(self):
-            print('  Debug Info: order_by')
-            print('  column:              {0}'.format(self.column))
-            print('  direction:           {0}'.format(self.direction))
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
@@ -1481,11 +1435,6 @@ class set:
             if variable            :  self.variable=variable
             if type                :  self.type=type
             if value               :  self.value=value
-        def debug(self):
-            print('  Debug Info: set')
-            print('  variable:            {0}'.format(self.variable))
-            print('  type:                {0}'.format(self.type))
-            print('  value:               {0}'.format(self.value))
     set                  = None        # optional [ set() ]
     def __init__(self,so):
             if gv(so,['meta','set']):
@@ -1501,9 +1450,6 @@ class create_procedure:
         parameter            = None
         def __init__(self,parameter=None):
             if parameter           :  self.parameter=parameter
-        def debug(self):
-            print('  Debug Info: parameters')
-            print('  parameter:           {0}'.format(self.parameter))
     parameters           = None        # optional [ parameters() ]
     def __init__(self,so):
             if gv(so,['meta','parameters']):
@@ -1552,12 +1498,6 @@ class delete:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: and')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _source:
         __slots__=()
         table                = None
@@ -1565,10 +1505,6 @@ class delete:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _where:
         __slots__=()
         c                    = None
@@ -1580,12 +1516,6 @@ class delete:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: where')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _or:
         __slots__=()
         c                    = None
@@ -1597,12 +1527,6 @@ class delete:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: or')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     source               = _source()
     where                = None        # optional [ where() ]
     def __init__(self,so):
@@ -1623,26 +1547,16 @@ class insert:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _values:
         __slots__=()
         value                = None
         def __init__(self,value=None):
             if value               :  self.value=value
-        def debug(self):
-            print('  Debug Info: values')
-            print('  value:               {0}'.format(self.value))
     class _columns:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: columns')
-            print('  column:              {0}'.format(self.column))
     source               = _source()
     values               = []          #          values()
     columns              = []          #          columns()
@@ -1672,12 +1586,6 @@ class update:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: and')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _source:
         __slots__=()
         table                = None
@@ -1685,10 +1593,6 @@ class update:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _set:
         __slots__=()
         column               = None
@@ -1696,10 +1600,6 @@ class update:
         def __init__(self,column=None,expression=None):
             if column              :  self.column=column
             if expression          :  self.expression=expression
-        def debug(self):
-            print('  Debug Info: set')
-            print('  column:              {0}'.format(self.column))
-            print('  expression:          {0}'.format(self.expression))
     class _where:
         __slots__=()
         c                    = None
@@ -1711,12 +1611,6 @@ class update:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: where')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     class _or:
         __slots__=()
         c                    = None
@@ -1728,12 +1622,6 @@ class update:
             if e1                  :  self.e1=e1
             if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
-        def debug(self):
-            print('  Debug Info: or')
-            print('  c:                   {0}'.format(self.c))
-            print('  e1:                  {0}'.format(self.e1))
-            print('  condition:           {0}'.format(self.condition))
-            print('  e2:                  {0}'.format(self.e2))
     source               = _source()
     set                  = []          #          set()
     where                = None        # optional [ where() ]
@@ -1759,18 +1647,11 @@ class upsert:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _values:
         __slots__=()
         value                = None
         def __init__(self,value=None):
             if value               :  self.value=value
-        def debug(self):
-            print('  Debug Info: values')
-            print('  value:               {0}'.format(self.value))
     class _update:
         __slots__=()
         column               = None
@@ -1778,26 +1659,16 @@ class upsert:
         def __init__(self,column=None,expression=None):
             if column              :  self.column=column
             if expression          :  self.expression=expression
-        def debug(self):
-            print('  Debug Info: update')
-            print('  column:              {0}'.format(self.column))
-            print('  expression:          {0}'.format(self.expression))
     class _columns:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: columns')
-            print('  column:              {0}'.format(self.column))
     class _on_duplicate_key:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: on_duplicate_key')
-            print('  column:              {0}'.format(self.column))
     source               = _source()
     values               = []          #          values()
     update               = []          #          update()
@@ -1833,10 +1704,6 @@ class use_table:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1852,10 +1719,6 @@ class drop_table:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1879,14 +1742,6 @@ class create_table:
             if file                :  self.file=file
             if directory           :  self.directory=directory
             if password            :  self.password=password
-        def debug(self):
-            print('  Debug Info: repo')
-            print('  protocol:            {0}'.format(self.protocol))
-            print('  url:                 {0}'.format(self.url))
-            print('  user:                {0}'.format(self.user))
-            print('  file:                {0}'.format(self.file))
-            print('  directory:           {0}'.format(self.directory))
-            print('  password:            {0}'.format(self.password))
     class _source:
         __slots__=()
         table                = None
@@ -1894,18 +1749,11 @@ class create_table:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _columns:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: columns')
-            print('  column:              {0}'.format(self.column))
     errors               = None        # optional 
     whitespace           = None        # optional 
     strict               = None        # optional 
@@ -1947,18 +1795,11 @@ class update_table:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     class _columns:
         __slots__=()
         column               = None
         def __init__(self,column=None):
             if column              :  self.column=column
-        def debug(self):
-            print('  Debug Info: columns')
-            print('  column:              {0}'.format(self.column))
     errors               = None        # optional 
     whitespace           = None        # optional 
     data_starts_on       = None        # optional 
@@ -1991,10 +1832,6 @@ class describe_table:
         def __init__(self,table=None,database=None):
             if table               :  self.table=table
             if database            :  self.database=database
-        def debug(self):
-            print('  Debug Info: source')
-            print('  table:               {0}'.format(self.table))
-            print('  database:            {0}'.format(self.database))
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
