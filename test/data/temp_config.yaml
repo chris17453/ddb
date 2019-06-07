@@ -1,4 +1,0 @@
-main: 
- test: 
-  path: '/home/cwatkin1/repos/chris17453/ddb/test/data/main.test.create.sql'
-  name: 'test'

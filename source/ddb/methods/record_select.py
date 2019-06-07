@@ -166,8 +166,13 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
+            if hasattr( test,'where'):
+                test_operation = test.where
+            elif hasattr( test,'and'):
+                test_operation = test.and
+            elif hasattr( test,'or'):
+                test_operation = test.or
 
-            test_operation = test[operation]
             success = self.evaluate_single_match(test_operation, row, table)
 
         # never matched anytthing...
@@ -355,7 +360,7 @@ def add_table_columns(context,meta,temp_table):
     #print meta
     for column in meta.columns:
         display = None
-        print meta.columns
+        #print meta.columns
         if column.display:
             display = column.display
             context.info("RENAME COLUMN", display)

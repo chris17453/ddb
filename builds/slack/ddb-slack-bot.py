@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.521'
+__version__='1.2.522'
 
         
 # ############################################################################
@@ -3341,7 +3341,7 @@ class match2:
             if compare1 != compare2:
                 return True
         return False
-    def __init__(self,meta, row):
+    def evaluate_match(self,meta, row):
         if None == row:
             return False
         table=meta.table
@@ -3717,7 +3717,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
             match_results = True
         else:
             if line_type == context.data_type.DATA:
-                match_results = match2(meta=meta, row=line_data)
+                match_results = match2().evaluate_match(meta=meta, row=line_data)
             else:
                 match_results = False
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
