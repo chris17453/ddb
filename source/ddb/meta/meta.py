@@ -22,7 +22,7 @@ class debugger:
                 
                 if len(value)==1:
                     #print ("{0}- {1} :{2}".format(pad,var,value))
-                    debugger(item,var,depth+2)
+                    debugger(value,var,depth+2)
                 else:
                     print ("{0}- {1} :".format(pad,var))
                     for item in value:

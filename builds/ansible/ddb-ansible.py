@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.458'
+__version__='1.2.459'
 
         
 # ############################################################################
@@ -1347,7 +1347,7 @@ class debugger:
                 print("{2}{0} {1}".format(var+':',value,pad))
             elif isinstance(value,list):
                 if len(value)==1:
-                    debugger(item,var,depth+2)
+                    debugger(value,var,depth+2)
                 else:
                     print ("{0}- {1} :".format(pad,var))
                     for item in value:

@@ -358,7 +358,7 @@ class debugger:
             elif isinstance(value,list):
                 
                 if len(value)==1:
-                    #print ("{0}- {1} :{2}".format(pad,var,value))
+                    #print ("{0}- {1} :".format(pad,var))
                     debugger(value,var,depth+2)
                 else:
                     print ("{0}- {1} :".format(pad,var))
