@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.512'
+__version__='1.2.513'
 
         
 # ############################################################################
@@ -3344,7 +3344,7 @@ def expand_columns(meta):
             if item.column:
                 if item.column == '*':
                     for column in table_columns:
-                        expanded_select.append({'column': column})
+                        expanded_select.append(meta.column(column=column))
                 else:
                     expanded_select.append(item)
             if item.function:
