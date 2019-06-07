@@ -12,6 +12,10 @@ class debugger:
             value=getattr(obj,var)
             if  isinstance(value,str):
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
+            if  isinstance(value,int):
+                print("{2}{0:<20}{1}".format(var+':',value,pad))
+            if  isinstance(value,float):
+                print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif isinstance(value,list):
                 for item in value:
                     debugger(item,depth+1)
