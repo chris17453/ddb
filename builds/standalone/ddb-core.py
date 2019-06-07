@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.513'
+__version__='1.2.514'
 
         
 # ############################################################################
@@ -3336,7 +3336,7 @@ def expand_columns(meta):
             if item.column:
                 if item.column == '*':
                     for column in table_columns:
-                        expanded_select.append(meta.column(column=column))
+                        expanded_select.append(meta._columns(column=column))
                 else:
                     expanded_select.append(item)
             if item.function:
