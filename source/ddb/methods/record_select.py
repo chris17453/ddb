@@ -671,7 +671,7 @@ class match:
                 skip_section = False
 
             operation = None
-            if test.condition='where':
+            if test.condition=='where':
                 operation = 'where'
 
             elif test.condition=='or':
