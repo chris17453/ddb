@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.423'
+__version__='1.2.424'
 
         
 # ############################################################################
@@ -1239,7 +1239,8 @@ class debugger:
     def __init__(self,obj):
         print ("Debug:")
         variables = [i for i in vars(obj)]
-        print (variables )
+        for var in variables:
+            print("{0<20}{1}".format(var+':',x))
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
