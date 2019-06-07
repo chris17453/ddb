@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.493'
+__version__='1.2.494'
 
         
 # ############################################################################
@@ -1297,7 +1297,6 @@ def gv(o,keys):
         return None
     return o
 class show_columns:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1312,19 +1311,16 @@ class show_columns:
     def debug(self):
         debugger(self,'show columns')
 class show_tables:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'show tables')
 class show_variables:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'show variables')
 class select:
-    __slots__=()
     class _and:
         __slots__=()
         c = None
@@ -1431,7 +1427,6 @@ class select:
     def debug(self):
         debugger(self,'select')
 class set:
-    __slots__=()
     class _set:
         __slots__=()
         variable = None
@@ -1450,7 +1445,6 @@ class set:
     def debug(self):
         debugger(self,'set')
 class create_procedure:
-    __slots__=()
     class _parameters:
         __slots__=()
         parameter = None
@@ -1465,44 +1459,37 @@ class create_procedure:
     def debug(self):
         debugger(self,'create procedure')
 class delimiter:
-    __slots__=()
     delimiter            = None
     def __init__(self,so):
             self.delimiter = gv(so,['meta','delimiter','delimiter'])
     def debug(self):
         debugger(self,'delimiter')
 class end:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'end')
 class begin:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'begin')
 class commit:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'commit')
 class rollback:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'rollback')
 class show_output_modules:
-    __slots__=()
     def __init__(self,so):
         a=0 # holder
     def debug(self):
         debugger(self,'show output modules')
 class delete:
-    __slots__=()
     class _and:
         __slots__=()
         c = None
@@ -1555,7 +1542,6 @@ class delete:
     def debug(self):
         debugger(self,'delete')
 class insert:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1590,7 +1576,6 @@ class insert:
     def debug(self):
         debugger(self,'insert')
 class update:
-    __slots__=()
     class _and:
         __slots__=()
         c = None
@@ -1655,7 +1640,6 @@ class update:
     def debug(self):
         debugger(self,'update')
 class upsert:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1712,7 +1696,6 @@ class upsert:
     def debug(self):
         debugger(self,'upsert')
 class use_table:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1727,7 +1710,6 @@ class use_table:
     def debug(self):
         debugger(self,'use table')
 class drop_table:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1742,7 +1724,6 @@ class drop_table:
     def debug(self):
         debugger(self,'drop table')
 class create_table:
-    __slots__=()
     class _repo:
         __slots__=()
         protocol = 'svn'
@@ -1803,7 +1784,6 @@ class create_table:
     def debug(self):
         debugger(self,'create table')
 class update_table:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -1840,7 +1820,6 @@ class update_table:
     def debug(self):
         debugger(self,'update table')
 class describe_table:
-    __slots__=()
     class _source:
         __slots__=()
         table = None
@@ -3316,7 +3295,7 @@ def select_process_file(context,meta):
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line(meta=meta,context,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line3(meta=meta,context,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
                     line_number += 1
                     continue
@@ -3559,6 +3538,74 @@ def compare_data(context,data1, data2):
             if data1[key] != data2[key]:
                 return None
     return True
+def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
+    err = None
+    table=meta.table
+    line_cleaned = line.rstrip()
+    line_data = None
+    match_results=False
+    if table.data.starts_on_line > line_number:
+        line_type = context.data_type.COMMENT
+        line_data = line
+        try_match=False
+    else:
+        line_type = context.data_type.DATA
+        try_match=True
+    if try_match:
+        if not line_cleaned:
+            if True == visible_whitespace:
+                line_data = ['']
+            line_type = context.data_type.WHITESPACE
+        else:
+            if line_cleaned[0] in table.delimiters.comment:
+                if True == visible_comments:
+                    line_data = [line_cleaned]
+                line_type = context.data_type.COMMENT
+            else:
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
+                cur_column_len = len(line_data)
+                if table.data.strict_columns==True:
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
+                        line_type = context.data_type.ERROR
+                        if True == visible_errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
+                else:
+                    if  cur_column_len != column_count:
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
+                if None != table.delimiters.block_quote:
+                    line_data_cleaned = []
+                    for d in line_data:
+                        line_data_cleaned+=d[1:-1]
+                    line_data = line_data_cleaned
+        if not meta.where:
+            match_results = True
+        else:
+            if line_type == context.data_type.DATA:
+                match_results = context.match.evaluate_match(context,meta, line_data)
+            else:
+                match_results = False
+        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
+            match_results=False
+        elif visible_comments is False and line_type==context.data_type.COMMENT:
+            match_results=False
+        elif visible_errors is False and line_type==context.data_type.ERROR:
+            match_results=False
+    return {'data': line_data, 
+            'type': line_type, 
+            'raw': line_cleaned, 
+            'line_number': line_number, 
+            'match': match_results, 
+            'error': err}
 
         
 # ############################################################################
