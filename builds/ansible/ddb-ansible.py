@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.443'
+__version__='1.2.444'
 
         
 # ############################################################################
@@ -1344,8 +1344,8 @@ class debugger:
             elif isinstance(value,list):
                 for item in value:
                     debugger(item,depth+1)
-            elif callable(value) and value!='debug':
-                debugger(var,depth+1)
+            elif callable(value):
+                continue
             else:
                 empty.append(var)
         if len(empty)>0:
