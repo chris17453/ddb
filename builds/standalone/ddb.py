@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.434'
+__version__='1.2.435'
 
         
 # ############################################################################
@@ -1245,7 +1245,7 @@ class tokenizer:
 class debugger:
     def __init__(self,obj,depth=0):
         print ("Debug:")
-        variables = [i for i in vars(obj)]
+        variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
         pad=''
         for i in range(0,depth):

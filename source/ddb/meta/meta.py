@@ -2,7 +2,7 @@
 class debugger:
     def __init__(self,obj,depth=0):
         print ("Debug:")
-        variables = [i for i in vars(obj)]
+        variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
         pad=''
         for i in range(0,depth):
