@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.455'
+__version__='1.2.456'
 
         
 # ############################################################################
@@ -1446,7 +1446,7 @@ class select:
                 self.where               =[]
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
-            if gv(so,['meta','columns']):
+            if gv(so,['meta','select','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
@@ -1635,7 +1635,7 @@ class insert:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','values']):
+            if gv(so,['meta','insert','values']):
                 self.values              =[]
                 for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
@@ -1783,7 +1783,7 @@ class upsert:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','values']):
+            if gv(so,['meta','upsert','values']):
                 self.values              =[]
                 for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
@@ -1791,7 +1791,7 @@ class upsert:
                 self.update              =[]
                 for item in gv(so,['meta','update']):
                     self.update              .append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
-            if gv(so,['meta','columns']):
+            if gv(so,['meta','upsert','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
@@ -1908,7 +1908,7 @@ class create_table:
             self.delimiter            = gv(so,['meta','delimiter'])
             self.mode                 = gv(so,['meta','mode'])
             self.file                 = gv(so,['meta','file'])
-            if gv(so,['meta','columns']):
+            if gv(so,['meta','create_table','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
@@ -1953,7 +1953,7 @@ class update_table:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.field                = gv(so,['meta','delimiter','field'])
             self.file                 = gv(so,['meta','file','file'])
-            if gv(so,['meta','columns']):
+            if gv(so,['meta','update_table','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
