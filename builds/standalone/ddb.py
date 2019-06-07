@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.516'
+__version__='1.2.517'
 
         
 # ############################################################################
@@ -3312,9 +3312,11 @@ def select_validate_columns_and_from(context, meta, parser):
     has_functions = select_has_functions(context,meta)
     has_columns = select_has_columns(context,meta)
     if False == has_columns and (not meta.source):
-        raise Exception("Invalid FROM, all columns are functions")
+        err_msg="Invalid FROM, all columns are functions. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+        raise Exception(err_msg)
     if False == has_columns and False == has_functions:
-        raise Exception("no columns defined in query")
+        err_msg="No columns defined in query. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+        raise Exception(err_msg)
     if True == has_columns:
         if meta.source:
             if meta.source.database:
