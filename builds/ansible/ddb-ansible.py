@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.479'
+__version__='1.2.480'
 
         
 # ############################################################################
@@ -1335,7 +1335,7 @@ class debugger:
             pad+=' '
         if depth==0:
             print ("
-[31;1;4mDebug: {0}[0m".format(name))
+\033[31;1;4mDebug: {0}\033[0m".format(name))
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
         try:

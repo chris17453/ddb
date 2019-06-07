@@ -346,7 +346,7 @@ class debugger:
         for i in range(0,depth):
             pad+=' '
         if depth==0:
-            print ("\n\\033[31;1;4mDebug: {0}\\033[0m".format(name))
+            print ("\\n\\033[31;1;4mDebug: {0}\\033[0m".format(name))
 
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
