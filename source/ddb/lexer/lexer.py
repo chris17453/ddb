@@ -503,7 +503,7 @@ class lexer:
         sql_object = {'success':True,'mode': query_mode, 'meta': query_object}
         return sql_object
 
-    # expand columns
+    # expand columns...TODO: REMOVE AFTER MIGRATION 
     # TODO null trapping
     def expand_columns(self, meta, columns):
         if meta.columns:

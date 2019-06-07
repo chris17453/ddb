@@ -1,7 +1,7 @@
 # cython: linetrace=True
 
 from ..functions.functions import *
-from .record_core import process_line, query_results
+from .record_core import  query_results
 from ..file_io.locking import lock
 from ..version import __version__
 import os
@@ -137,13 +137,30 @@ def select_validate_columns_and_from(context, meta, parser):
                 except_str="Table '{0}' does not exist.".format(table_name)
                 raise Exception(except_str)
             meta.table = table
-            table_columns = table.get_columns()
-            parser.expand_columns(meta, table_columns)
+            expand_columns(meta)
             column_len = table.column_count()
             if column_len == 0:
                 raise Exception("No defined columns in configuration")
         else:
             raise Exception("Missing FROM in select")
+
+
+def expand_columns(meta):
+    table_columns = meta.table.get_columns()
+    if meta.columns:
+        expanded_select = []
+        for item in meta.columns:
+            if item.column:
+                if item.column == '*':
+                    for column in table_columns:
+                        expanded_select.append({'column': column})
+                else:
+                    expanded_select.append(item)
+            if 'function' in item:
+                expanded_select.append(item)
+
+        meta.columns = expanded_select
+    # ?? needed
 
 
 
