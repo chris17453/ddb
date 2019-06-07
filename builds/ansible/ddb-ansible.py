@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.424'
+__version__='1.2.425'
 
         
 # ############################################################################
@@ -1334,7 +1334,7 @@ class debugger:
         print ("Debug:")
         variables = [i for i in vars(obj)]
         for var in variables:
-            print("{0<20}{1}".format(var+':',x))
+            print("{0<20}{1}".format(var+':',var))
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
