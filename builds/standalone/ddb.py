@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.515'
+__version__='1.2.516'
 
         
 # ############################################################################
@@ -3713,7 +3713,7 @@ class match:
             else:
                 skip_section = False
             operation = None
-            if test.condition='where':
+            if test.condition=='where':
                 operation = 'where'
             elif test.condition=='or':
                 operation = 'or'
