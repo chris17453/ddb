@@ -369,7 +369,7 @@ class debugger:
                     debugger(item,var,depth+4)
             elif callable(value):
                 continue
-            if value==None:
+            elif value==None:
                 var_count+=1
                 empty.append(var)
             else:
