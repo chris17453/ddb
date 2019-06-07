@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.464'
+__version__='1.2.465'
 
         
 # ############################################################################
@@ -1349,7 +1349,7 @@ class debugger:
                 elif isinstance(value,list):
                     if len(value)==1:
                         try:
-                            print("Tryin")
+                            print(value)
                             value.debug()
                         except:
                             pass

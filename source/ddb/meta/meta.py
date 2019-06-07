@@ -21,7 +21,7 @@ class debugger:
                 elif isinstance(value,list):
                     if len(value)==1:
                         try:
-                            print("Tryin")
+                            print(value)
                             #debugger(value,var,depth+4)
                             value.debug()
                         except:
