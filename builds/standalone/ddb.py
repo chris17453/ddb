@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.510'
+__version__='1.2.511'
 
         
 # ############################################################################
@@ -3336,12 +3336,13 @@ def select_validate_columns_and_from(context, meta, parser):
         else:
             raise Exception("Missing FROM in select")
 def expand_columns(meta):
+    print meta
     table_columns = meta.table.get_columns()
     if meta.columns:
         expanded_select = []
         for item in meta.columns:
-            if item['column']:
-                if item['column'] == '*':
+            if item.column:
+                if item.column == '*':
                     for column in table_columns:
                         expanded_select.append({'column': column})
                 else:
