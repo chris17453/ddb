@@ -970,9 +970,9 @@ class create_table:
             self.data_starts_on       = gv(so,['meta','data_starts_on'])
             self.fifo                 = gv(so,['meta','fifo'])
             if gv(so,['meta','repo']):
-                self.repo                = self._repo(protocol = gv(so,['meta','protocol']),url = gv(so,['meta','url']),user = gv(so,['meta','user']),file = gv(so,['meta','file']),directory = gv(so,['meta','directory']),password = gv(so,['meta','password']))
+                self.repo                = self._repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','table']),database = gv(so,['meta','database']))
+                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.delimiter            = gv(so,['meta','delimiter'])
             self.mode                 = gv(so,['meta','mode'])
             self.file                 = gv(so,['meta','file'])

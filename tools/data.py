@@ -250,7 +250,7 @@ def init(command,classes,class_spec):
                         var.append("{1} = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
-                        #print ("            print(so)")
+                        print ("            print(so)")
                         if class_spec[_class]['type']=='single':
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
