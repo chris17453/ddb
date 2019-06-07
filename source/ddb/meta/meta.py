@@ -20,8 +20,12 @@ class debugger:
                     print("{2}{0} {1}".format(var+':',value,pad))
                 elif isinstance(value,list):
                     if len(value)==1:
-                        #debugger(value,var,depth+4)
-                        print ("H")
+                        try:
+                            print("Tryin")
+                            #debugger(value,var,depth+4)
+                            value.debug()
+                        except:
+                            pass
                     else:
                         print ("{0}- {1} :".format(pad,var))
                         for item in value:
