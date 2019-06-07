@@ -83,7 +83,7 @@ def select_process_file(context,meta):
 
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line3(context,meta,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
 
 
                 # not a match, skip
