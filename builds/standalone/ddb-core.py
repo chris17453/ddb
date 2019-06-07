@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.415'
+__version__='1.2.416'
 
         
 # ############################################################################
@@ -1235,6 +1235,9 @@ class tokenizer:
 # File   : ./source/ddb/meta/meta.py
 # ############################################################################
 
+def debuger:
+    def __init__(self,ob):
+        print ("Debug:")
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
@@ -1269,25 +1272,15 @@ class show_columns:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        print('Debug Info: show_columns')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
+        debugger(self)
 class show_tables:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: show_tables')
-        print('No variables')
+        debugger(self)
 class show_variables:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: show_variables')
-        print('No variables')
+        debugger(self)
 class select:
     __slots__=()
     class _and:
@@ -1406,7 +1399,6 @@ class select:
     columns              = []          #          columns()
     order_by             = None        # optional [ order by() ]
     def __init__(self,so):
-            print(so)
             if gv(so,['meta','select','group by']):
                 self.group_by            =[]
                 for item in gv(so,['meta','group by']):
@@ -1415,51 +1407,20 @@ class select:
                 self.source              = self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
                 self.limit               = self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
-            print(so)
             if gv(so,['meta','select','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
-            print(so)
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
-            print(so)
             if gv(so,['meta','select','order by']):
                 self.order_by            =[]
                 for item in gv(so,['meta','order by']):
                     self.order_by            .append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
     def debug(self):
-        print('Debug Info: select')
-        if self.group_by:
-            for item in self.group_by:
-                item.debug()
-        else:
-            print('group_by:            {0}'.format(self.group_by))
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        if self.limit:
-            self.limit.debug()
-        else:
-            print('limit:               {0}'.format(self.limit))
-        if self.where:
-            for item in self.where:
-                item.debug()
-        else:
-            print('where:               {0}'.format(self.where))
-        if self.columns:
-            for item in self.columns:
-                item.debug()
-        else:
-            print('columns:             {0}'.format(self.columns))
-        if self.order_by:
-            for item in self.order_by:
-                item.debug()
-        else:
-            print('order_by:            {0}'.format(self.order_by))
+        debugger(self)
 class set:
     __slots__=()
     class _set:
@@ -1478,18 +1439,12 @@ class set:
             print('  value:               {0}'.format(self.value))
     set                  = None        # optional [ set() ]
     def __init__(self,so):
-            print(so)
             if gv(so,['meta','set','set']):
                 self.set                 =[]
                 for item in gv(so,['meta','set']):
                     self.set                 .append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
     def debug(self):
-        print('Debug Info: set')
-        if self.set:
-            for item in self.set:
-                item.debug()
-        else:
-            print('set:                 {0}'.format(self.set))
+        debugger(self)
 class create_procedure:
     __slots__=()
     class _parameters:
@@ -1502,61 +1457,39 @@ class create_procedure:
             print('  parameter:           {0}'.format(self.parameter))
     parameters           = None        # optional [ parameters() ]
     def __init__(self,so):
-            print(so)
             if gv(so,['meta','create_procedure','parameters']):
                 self.parameters          =[]
                 for item in gv(so,['meta','parameters']):
                     self.parameters          .append( self._parameters(parameter = gv(item,['parameter'])) )
     def debug(self):
-        print('Debug Info: create_procedure')
-        if self.parameters:
-            for item in self.parameters:
-                item.debug()
-        else:
-            print('parameters:          {0}'.format(self.parameters))
+        debugger(self)
 class delimiter:
     __slots__=()
     delimiter            = None
     def __init__(self,so):
             self.delimiter            = gv(so,['meta','delimiter','delimiter'])
     def debug(self):
-        print('Debug Info: delimiter')
-        print('delimiter:           {0}'.format(self.delimiter))
+        debugger(self)
 class end:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: end')
-        print('No variables')
+        debugger(self)
 class begin:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: begin')
-        print('No variables')
+        debugger(self)
 class commit:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: commit')
-        print('No variables')
+        debugger(self)
 class rollback:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: rollback')
-        print('No variables')
+        debugger(self)
 class show_output_modules:
     __slots__=()
-    def __init__(self,so=None):
-          a=1
     def debug(self):
-        print('Debug Info: show_output_modules')
-        print('No variables')
+        debugger(self)
 class delete:
     __slots__=()
     class _and:
@@ -1626,22 +1559,12 @@ class delete:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            print(so)
             if gv(so,['meta','delete','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(type = gv(item,['type']),c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
-        print('Debug Info: delete')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        if self.where:
-            for item in self.where:
-                item.debug()
-        else:
-            print('where:               {0}'.format(self.where))
+        debugger(self)
 class insert:
     __slots__=()
     class _source:
@@ -1677,32 +1600,16 @@ class insert:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            print(so)
             if gv(so,['meta','values']):
                 self.values              =[]
                 for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
-            print(so)
             if gv(so,['meta','insert','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
-        print('Debug Info: insert')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        if self.values:
-            for item in self.values:
-                item.debug()
-        else:
-            print('values:              {0}'.format(self.values))
-        if self.columns:
-            for item in self.columns:
-                item.debug()
-        else:
-            print('columns:             {0}'.format(self.columns))
+        debugger(self)
 class update:
     __slots__=()
     class _and:
@@ -1775,32 +1682,16 @@ class update:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            print(so)
             if gv(so,['meta','update','set']):
                 self.set                 =[]
                 for item in gv(so,['meta','set']):
                     self.set                 .append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
-            print(so)
             if gv(so,['meta','update','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
-        print('Debug Info: update')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        if self.set:
-            for item in self.set:
-                item.debug()
-        else:
-            print('set:                 {0}'.format(self.set))
-        if self.where:
-            for item in self.where:
-                item.debug()
-        else:
-            print('where:               {0}'.format(self.where))
+        debugger(self)
 class upsert:
     __slots__=()
     class _source:
@@ -1857,52 +1748,24 @@ class upsert:
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            print(so)
             if gv(so,['meta','values']):
                 self.values              =[]
                 for item in gv(so,['meta','values']):
                     self.values              .append( self._values(value = gv(item,['value'])) )
-            print(so)
             if gv(so,['meta','upsert','update']):
                 self.update              =[]
                 for item in gv(so,['meta','update']):
                     self.update              .append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
-            print(so)
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
-            print(so)
             if gv(so,['meta','upsert','on duplicate key']):
                 self.on_duplicate_key    =[]
                 for item in gv(so,['meta','on duplicate key']):
                     self.on_duplicate_key    .append( self._on_duplicate_key(column = gv(item,['column'])) )
     def debug(self):
-        print('Debug Info: upsert')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        if self.values:
-            for item in self.values:
-                item.debug()
-        else:
-            print('values:              {0}'.format(self.values))
-        if self.update:
-            for item in self.update:
-                item.debug()
-        else:
-            print('update:              {0}'.format(self.update))
-        if self.columns:
-            for item in self.columns:
-                item.debug()
-        else:
-            print('columns:             {0}'.format(self.columns))
-        if self.on_duplicate_key:
-            for item in self.on_duplicate_key:
-                item.debug()
-        else:
-            print('on_duplicate_key:    {0}'.format(self.on_duplicate_key))
+        debugger(self)
 class use_table:
     __slots__=()
     class _source:
@@ -1921,11 +1784,7 @@ class use_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        print('Debug Info: use_table')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
+        debugger(self)
 class drop_table:
     __slots__=()
     class _source:
@@ -1944,11 +1803,7 @@ class drop_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        print('Debug Info: drop_table')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
+        debugger(self)
 class create_table:
     __slots__=()
     class _repo:
@@ -2018,36 +1873,13 @@ class create_table:
             self.delimiter            = gv(so,['meta','delimiter'])
             self.mode                 = gv(so,['meta','mode'])
             self.file                 = gv(so,['meta','file'])
-            print(so)
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
             self.comments             = gv(so,['meta','comments'])
     def debug(self):
-        print('Debug Info: create_table')
-        print('errors:              {0}'.format(self.errors))
-        print('whitespace:          {0}'.format(self.whitespace))
-        print('strict:              {0}'.format(self.strict))
-        print('data_starts_on:      {0}'.format(self.data_starts_on))
-        print('fifo:                {0}'.format(self.fifo))
-        if self.repo:
-            self.repo.debug()
-        else:
-            print('repo:                {0}'.format(self.repo))
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        print('delimiter:           {0}'.format(self.delimiter))
-        print('mode:                {0}'.format(self.mode))
-        print('file:                {0}'.format(self.file))
-        if self.columns:
-            for item in self.columns:
-                item.debug()
-        else:
-            print('columns:             {0}'.format(self.columns))
-        print('comments:            {0}'.format(self.comments))
+        debugger(self)
 class update_table:
     __slots__=()
     class _source:
@@ -2086,28 +1918,12 @@ class update_table:
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.field                = gv(so,['meta','delimiter','field'])
             self.file                 = gv(so,['meta','file','file'])
-            print(so)
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
-        print('Debug Info: update_table')
-        print('errors:              {0}'.format(self.errors))
-        print('whitespace:          {0}'.format(self.whitespace))
-        print('data_starts_on:      {0}'.format(self.data_starts_on))
-        print('comments:            {0}'.format(self.comments))
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
-        print('field:               {0}'.format(self.field))
-        print('file:                {0}'.format(self.file))
-        if self.columns:
-            for item in self.columns:
-                item.debug()
-        else:
-            print('columns:             {0}'.format(self.columns))
+        debugger(self)
 class describe_table:
     __slots__=()
     class _source:
@@ -2126,11 +1942,7 @@ class describe_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        print('Debug Info: describe_table')
-        if self.source:
-            self.source.debug()
-        else:
-            print('source:              {0}'.format(self.source))
+        debugger(self)
 def convert_to_class(o):
     if o['mode']=='show columns': return show_columns(o)
     elif o['mode']=='show tables': return show_tables(o)
