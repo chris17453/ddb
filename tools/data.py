@@ -120,7 +120,7 @@ def sub_class (command,classes,class_spec):
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0:<20} = {1}".format(variable,value,pad))
+            print ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
         if len(classes[_class])>1:
@@ -133,7 +133,7 @@ def sub_class (command,classes,class_spec):
             for variable in classes[_class]:
                 if '_arguments' in variable:
                         continue
-                print ("            if {0:<20}:  self.{0}={0}".format(variable))
+                print ("            if {0}:  self.{0}={0}".format(variable))
 
 
      

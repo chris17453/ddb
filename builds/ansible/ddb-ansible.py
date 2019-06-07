@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.474'
+__version__='1.2.475'
 
         
 # ############################################################################
@@ -1392,7 +1392,7 @@ class show_columns:
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'show columns')
 class show_tables:
@@ -1489,25 +1489,25 @@ class select:
     order_by             = None        # optional [ order by() ]
     def __init__(self,so):
             if gv(so,['meta','group by']):
-                self.group_by            =[]
+                self.group_by=[]
                 for item in gv(so,['meta','group by']):
-                    self.group_by            .append( self._group_by(column = gv(item,['column'])) )
+                    self.group_by.append( self._group_by(column = gv(item,['column'])) )
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
-                self.limit               = self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
+                self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
             if gv(so,['meta','where']):
-                self.where               =[]
+                self.where=[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
+                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
             if gv(so,['meta','columns']):
-                self.columns             =[]
+                self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    self.columns             .append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
+                    self.columns.append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
             if gv(so,['meta','order by']):
-                self.order_by            =[]
+                self.order_by=[]
                 for item in gv(so,['meta','order by']):
-                    self.order_by            .append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
+                    self.order_by.append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
     def debug(self):
         debugger(self,'select')
 class set:
@@ -1524,9 +1524,9 @@ class set:
     set                  = None        # optional [ set() ]
     def __init__(self,so):
             if gv(so,['meta','set']):
-                self.set                 =[]
+                self.set=[]
                 for item in gv(so,['meta','set']):
-                    self.set                 .append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
+                    self.set.append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
     def debug(self):
         debugger(self,'set')
 class create_procedure:
@@ -1539,16 +1539,16 @@ class create_procedure:
     parameters           = None        # optional [ parameters() ]
     def __init__(self,so):
             if gv(so,['meta','parameters']):
-                self.parameters          =[]
+                self.parameters=[]
                 for item in gv(so,['meta','parameters']):
-                    self.parameters          .append( self._parameters(parameter = gv(item,['parameter'])) )
+                    self.parameters.append( self._parameters(parameter = gv(item,['parameter'])) )
     def debug(self):
         debugger(self,'create procedure')
 class delimiter:
     __slots__=()
     delimiter            = None
     def __init__(self,so):
-            self.delimiter            = gv(so,['meta','delimiter','delimiter'])
+            self.delimiter = gv(so,['meta','delimiter','delimiter'])
     def debug(self):
         debugger(self,'delimiter')
 class end:
@@ -1617,11 +1617,11 @@ class delete:
     where                = None        # optional [ where() ]
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','where']):
-                self.where               =[]
+                self.where=[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
+                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
     def debug(self):
         debugger(self,'delete')
 class insert:
@@ -1648,15 +1648,15 @@ class insert:
     columns              = []          #          columns()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
-                self.values              =[]
+                self.values=[]
                 for item in gv(so,['meta','values']):
-                    self.values              .append( self._values(value = gv(item,['value'])) )
+                    self.values.append( self._values(value = gv(item,['value'])) )
             if gv(so,['meta','columns']):
-                self.columns             =[]
+                self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+                    self.columns.append( self._columns(column = gv(item,['column'])) )
     def debug(self):
         debugger(self,'insert')
 class update:
@@ -1713,15 +1713,15 @@ class update:
     where                = None        # optional [ where() ]
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','set']):
-                self.set                 =[]
+                self.set=[]
                 for item in gv(so,['meta','set']):
-                    self.set                 .append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
+                    self.set.append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
             if gv(so,['meta','where']):
-                self.where               =[]
+                self.where=[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
+                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
     def debug(self):
         debugger(self,'update')
 class upsert:
@@ -1762,23 +1762,23 @@ class upsert:
     on_duplicate_key     = []          #          on duplicate key()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
-                self.values              =[]
+                self.values=[]
                 for item in gv(so,['meta','values']):
-                    self.values              .append( self._values(value = gv(item,['value'])) )
+                    self.values.append( self._values(value = gv(item,['value'])) )
             if gv(so,['meta','update']):
-                self.update              =[]
+                self.update=[]
                 for item in gv(so,['meta','update']):
-                    self.update              .append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
+                    self.update.append( self._update(column = gv(item,['column']),expression = gv(item,['expression'])) )
             if gv(so,['meta','columns']):
-                self.columns             =[]
+                self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+                    self.columns.append( self._columns(column = gv(item,['column'])) )
             if gv(so,['meta','on duplicate key']):
-                self.on_duplicate_key    =[]
+                self.on_duplicate_key=[]
                 for item in gv(so,['meta','on duplicate key']):
-                    self.on_duplicate_key    .append( self._on_duplicate_key(column = gv(item,['column'])) )
+                    self.on_duplicate_key.append( self._on_duplicate_key(column = gv(item,['column'])) )
     def debug(self):
         debugger(self,'upsert')
 class use_table:
@@ -1793,7 +1793,7 @@ class use_table:
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'use table')
 class drop_table:
@@ -1808,7 +1808,7 @@ class drop_table:
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'drop table')
 class create_table:
@@ -1853,23 +1853,23 @@ class create_table:
     columns              = []          #          columns()
     comments             = None        # optional 
     def __init__(self,so):
-            self.errors               = gv(so,['meta','errors'])
-            self.whitespace           = gv(so,['meta','whitespace'])
-            self.strict               = gv(so,['meta','strict'])
-            self.data_starts_on       = gv(so,['meta','data_starts_on'])
-            self.fifo                 = gv(so,['meta','fifo'])
+            self.errors = gv(so,['meta','errors'])
+            self.whitespace = gv(so,['meta','whitespace'])
+            self.strict = gv(so,['meta','strict'])
+            self.data_starts_on = gv(so,['meta','data_starts_on'])
+            self.fifo = gv(so,['meta','fifo'])
             if gv(so,['meta','repo']):
-                self.repo                = self._repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
+                self.repo= self._repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            self.delimiter            = gv(so,['meta','delimiter'])
-            self.mode                 = gv(so,['meta','mode'])
-            self.file                 = gv(so,['meta','file'])
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            self.delimiter = gv(so,['meta','delimiter'])
+            self.mode = gv(so,['meta','mode'])
+            self.file = gv(so,['meta','file'])
             if gv(so,['meta','columns']):
-                self.columns             =[]
+                self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    self.columns             .append( self._columns(column = gv(item,['column'])) )
-            self.comments             = gv(so,['meta','comments'])
+                    self.columns.append( self._columns(column = gv(item,['column'])) )
+            self.comments = gv(so,['meta','comments'])
     def debug(self):
         debugger(self,'create table')
 class update_table:
@@ -1895,18 +1895,18 @@ class update_table:
     file                 = None        # optional 
     columns              = None        # optional [ columns() ]
     def __init__(self,so):
-            self.errors               = gv(so,['meta','errors','errors'])
-            self.whitespace           = gv(so,['meta','whitespace','whitespace'])
-            self.data_starts_on       = gv(so,['meta','data_starts_on','data_starts_on'])
-            self.comments             = gv(so,['meta','comments','comments'])
+            self.errors = gv(so,['meta','errors','errors'])
+            self.whitespace = gv(so,['meta','whitespace','whitespace'])
+            self.data_starts_on = gv(so,['meta','data_starts_on','data_starts_on'])
+            self.comments = gv(so,['meta','comments','comments'])
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            self.field                = gv(so,['meta','delimiter','field'])
-            self.file                 = gv(so,['meta','file','file'])
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            self.field = gv(so,['meta','delimiter','field'])
+            self.file = gv(so,['meta','file','file'])
             if gv(so,['meta','columns']):
-                self.columns             =[]
+                self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    self.columns             .append( self._columns(column = gv(item,['column'])) )
+                    self.columns.append( self._columns(column = gv(item,['column'])) )
     def debug(self):
         debugger(self,'update table')
 class describe_table:
@@ -1921,7 +1921,7 @@ class describe_table:
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'describe table')
 def convert_to_class(o):
