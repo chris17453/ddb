@@ -379,7 +379,7 @@ def sort_cmp( x, y):
             return 1 * direction
     return 0
     
-def limit(context, query_object, data):
+def limit(context, meta, data):
     index = 0
     length = None
 
