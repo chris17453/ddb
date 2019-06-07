@@ -156,7 +156,7 @@ def expand_columns(meta):
                         expanded_select.append({'column': column})
                 else:
                     expanded_select.append(item)
-            if 'function' in item:
+            if item.function:
                 expanded_select.append(item)
 
         meta.columns = expanded_select
