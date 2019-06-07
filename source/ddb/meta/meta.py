@@ -3,9 +3,15 @@ class debugger:
     def __init__(self,obj):
         print ("Debug:")
         variables = [i for i in vars(obj)]
+        empty=[]
         for var in variables:
-
-            print("{0<20}{1}".format(var+':',var))
+            value=getattr(obj,var)
+            if value!=None:
+                print("{0:<20}{1}".format(var+':',value))
+            else:
+                empty.append(var)
+        if len(empty)>0:
+            print ("Empty Vars: {0}".format(",".join(empty)))
 
 
 
