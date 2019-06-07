@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.507'
+__version__='1.2.508'
 
         
 # ############################################################################
@@ -3364,6 +3364,7 @@ def select_has_functions(context,meta):
 def add_table_columns(context,meta,temp_table):
     for column in meta.columns:
         display = None
+        print columns
         if column.display:
             display = column.display
             context.info("RENAME COLUMN", display)
