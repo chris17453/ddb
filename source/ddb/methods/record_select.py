@@ -114,10 +114,13 @@ def select_validate_columns_and_from(context, meta, parser):
     has_columns = select_has_columns(context,meta)
 
     if False == has_columns and (not meta.source):
-        raise Exception("Invalid FROM, all columns are functions")
+        err_msg="Invalid FROM, all columns are functions. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+        raise Exception(err_msg)
 
     if False == has_columns and False == has_functions:
-        raise Exception("no columns defined in query")
+        err_msg="No columns defined in query. Columns:{0}, Funcitons:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
+        raise Exception(err_msg)
+        
 
 
     # if has functions, tables may not be needed
