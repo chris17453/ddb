@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.489'
+__version__='1.2.490'
 
         
 # ############################################################################
@@ -1273,9 +1273,8 @@ class debugger:
                 var_count+=1
                 empty.append(var)
             else:
+                var_count+=1
                 debugger(value,var,depth+4)
-                print value
-                continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
         if var_count==0:
