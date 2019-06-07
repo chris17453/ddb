@@ -3,9 +3,10 @@ class debugger:
     def __init__(self,obj):
         print ("Debug:")
         variables = [i for i in vars(obj)]
+        for var in variables:
+            
+            print("{0<20}{1}".format(var+':',x))
 
-
-        print (variables )
 
 
 # This is an auto generated assembly 
