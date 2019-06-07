@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.422'
+__version__='1.2.423'
 
         
 # ############################################################################
@@ -1245,7 +1245,7 @@ class tokenizer:
 class debugger:
     def __init__(self,obj):
         print ("Debug:")
-        variables = [i for i in dir(obj) if not callable(i)]
+        variables = [i for i in vars(obj)]
         print (variables )
 def gv(o,keys):
     if o:
