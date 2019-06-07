@@ -33,6 +33,7 @@ class debugger:
                 empty.append(var)
             else:
                 var_count+=1
+                print ("{0}- {1} :".format(pad,var))
                 debugger(value,var,depth+4)
                 
         if len(empty)>0:
