@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.492'
+__version__='1.2.493'
 
         
 # ############################################################################
@@ -3305,7 +3305,7 @@ def select_process_file(context,meta):
     line_number = 1
     data=[]
     if True == has_columns:
-        if meta.table
+        if meta.table:
             table= meta.table
         else:
             raise Exception ('table configuration has no data file')

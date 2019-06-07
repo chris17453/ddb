@@ -83,7 +83,7 @@ def select_process_file(context,meta):
 
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line(meta=meta,context,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line3(meta=meta,context,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
 
 
                 # not a match, skip
@@ -414,3 +414,94 @@ def compare_data(context,data1, data2):
     return True
 
 
+
+
+def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
+    err = None
+    table=meta.table
+    # TODO move rstrip to after split for limited data copy operations
+    line_cleaned = line.rstrip()
+    line_data = None
+    match_results=False
+    if table.data.starts_on_line > line_number:
+        line_type = context.data_type.COMMENT
+        line_data = line
+        try_match=False
+        #print table.data.starts_on_line,line_number
+    else:
+        line_type = context.data_type.DATA
+        try_match=True
+    if try_match:
+        if not line_cleaned:
+            if True == visible_whitespace:
+                line_data = ['']
+            line_type = context.data_type.WHITESPACE
+        else:
+            if line_cleaned[0] in table.delimiters.comment:
+                if True == visible_comments:
+                    line_data = [line_cleaned]
+                line_type = context.data_type.COMMENT
+            else:
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
+                #cur_column_len = len(line_data)
+                
+                #line_data[-1]=line_data[-1].rstrip()
+                cur_column_len = len(line_data)
+                
+                if table.data.strict_columns==True:
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
+                        # table.add_error(err)
+                        line_type = context.data_type.ERROR
+
+                        # turn error into coment
+                        if True == visible_errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
+                else:
+                    # add empty columns
+                    if  cur_column_len != column_count:
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
+
+
+                # fields are surrounded by something... trim
+                #print context.table.delimiters.block_quote
+                if None != table.delimiters.block_quote:
+                    line_data_cleaned = []
+                    for d in line_data:
+                        line_data_cleaned+=d[1:-1]
+                    line_data = line_data_cleaned
+
+        # If no where. return everything
+        if not meta.where:
+            match_results = True
+        else:
+            # if a where, only return data, comments/whites/space/errors are ignored
+            
+            if line_type == context.data_type.DATA:
+                match_results = context.match.evaluate_match(context,meta, line_data)
+            else:
+                match_results = False
+        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
+            match_results=False
+        elif visible_comments is False and line_type==context.data_type.COMMENT:
+            match_results=False
+        elif visible_errors is False and line_type==context.data_type.ERROR:
+            match_results=False
+
+
+    # raw has rstrip for line.. maybe configuration option? Extra data anyway...
+    return {'data': line_data, 
+            'type': line_type, 
+            'raw': line_cleaned, 
+            'line_number': line_number, 
+            'match': match_results, 
+            'error': err}

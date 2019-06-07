@@ -3,7 +3,7 @@ from .context import ddb
 def get_data(command,classes,class_spec):
     command_name=command['name'].replace(' ','_')
     print ("class {0}:".format(command_name))
-    print ("    __slots__=()")
+    #print ("    __slots__=()")
     
     for segment in command['segments']:
         optional=None
