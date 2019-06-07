@@ -9,29 +9,29 @@ class debugger:
 
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
-        try:
-            for var in variables:
-                value=getattr(obj,var)
-                if  isinstance(value,str):
-                    print("{2}{0} {1}".format(var+':',value,pad))
-                if  isinstance(value,int):
-                    print("{2}{0} {1}".format(var+':',value,pad))
-                if  isinstance(value,float):
-                    print("{2}{0} {1}".format(var+':',value,pad))
-                elif isinstance(value,list):
-                    print ("{0}- {1} :".format(pad,var))
-                    for item in value:
-                        debugger(item,var,depth+4)
-                elif callable(value):
-                    continue
-                if value==None:
-                    empty.append(var)
-                else:
-                    continue
-        except:
-            pass
+        for var in variables:
+            value=getattr(obj,var)
+            if  isinstance(value,str):
+                print("{2}{0} {1}".format(var+':',value,pad))
+            if  isinstance(value,int):
+                print("{2}{0} {1}".format(var+':',value,pad))
+            if  isinstance(value,float):
+                print("{2}{0} {1}".format(var+':',value,pad))
+            elif isinstance(value,list):
+                print ("{0}- {1} :".format(pad,var))
+                for item in value:
+                    debugger(item,var,depth+4)
+            elif callable(value):
+                continue
+            if value==None:
+                empty.append(var)
+            else:
+                continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
+        if len(variables)==0:
+            print("{2}{0} {1}".format("No attributes"+':',"",pad))
+
 
 # This is an auto generated assembly 
 # dont edit this, edit the template generator, in tools 
