@@ -224,10 +224,10 @@ def init(command,classes,class_spec):
 
                     if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
                         sqo="gv(so,['meta','{1}'])".format(_class,variable)
-                        print ("            self.{0:<20} = {1}".format(variable,sqo))
+                        print ("            self.{0} = {1}".format(variable,sqo))
                     else:
                         sqo="gv(so,['meta','{0}','{1}'])".format(_class,variable)
-                        print ("            self.{0:<20} = {1}".format(variable,sqo))
+                        print ("            self.{0} = {1}".format(variable,sqo))
             else:
                 var=[]
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
@@ -258,13 +258,13 @@ def init(command,classes,class_spec):
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
                             print ("            if gv(so,['meta','{0}']):".format(_class))
-                        print ("                self.{1:<20}=[]".format(command_name,_class.replace(" ","_")))
+                        print ("                self.{1}=[]".format(command_name,_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
-                        print ("                    self.{1:<20}.append( self._{1}({2}) )".format(command_name,_class.replace(" ","_"),",".join(var)))
+                        print ("                    self.{1}.append( self._{1}({2}) )".format(command_name,_class.replace(" ","_"),",".join(var)))
                 else:
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
-                        print ("                self.{1:<20}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
+                        print ("                self.{1}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
 
 
 
