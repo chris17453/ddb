@@ -373,6 +373,7 @@ class debugger:
                 var_count+=1
                 empty.append(var)
             else:
+                print value
                 continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))

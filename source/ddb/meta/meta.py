@@ -29,12 +29,13 @@ class debugger:
             elif callable(value):
                 continue
             if value==None:
+                var_count+=1
                 empty.append(var)
             else:
                 continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
-        print variables
+        #print variables
         if var_count==0:
             print("{2}{0} {1}".format("No attributes"+':',"",pad))
 
