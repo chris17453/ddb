@@ -337,7 +337,7 @@ def convert_to_class(o):
 
 print("""
 class debugger:
-    def __init__(self,obj):
+    def __init__(self,obj,depth=0):
         print ("Debug:")
         variables = [i for i in vars(obj)]
         empty=[]
@@ -347,6 +347,7 @@ class debugger:
                 print("{0:<20}{1}".format(var+':',value))
             elif value!=None:
                 print("{0:<20}{1}".format(var+':','class'))
+                debugger(var,depth+1)
             else:
                 empty.append(var)
         if len(empty)>0:
