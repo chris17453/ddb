@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.486'
+__version__='1.2.487'
 
         
 # ############################################################################
@@ -1266,6 +1266,7 @@ class debugger:
                 var_count+=1
                 empty.append(var)
             else:
+                debugger(value,var,depth+4)
                 print value
                 continue
         if len(empty)>0:
