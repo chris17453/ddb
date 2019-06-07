@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.511'
+__version__='1.2.512'
 
         
 # ############################################################################
@@ -3337,7 +3337,6 @@ def select_validate_columns_and_from(context, meta, parser):
         else:
             raise Exception("Missing FROM in select")
 def expand_columns(meta):
-    print meta
     table_columns = meta.table.get_columns()
     if meta.columns:
         expanded_select = []
@@ -3364,6 +3363,7 @@ def select_has_functions(context,meta):
             return True
     return False
 def add_table_columns(context,meta,temp_table):
+    print meta
     for column in meta.columns:
         display = None
         print meta.columns

@@ -155,7 +155,7 @@ def expand_columns(meta):
             if item.column:
                 if item.column == '*':
                     for column in table_columns:
-                        expanded_select.append({'column': column})
+                        expanded_select.append(meta.column(column=column))
                 else:
                     expanded_select.append(item)
             if item.function:
