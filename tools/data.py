@@ -271,7 +271,7 @@ def init(command,classes,class_spec):
 
 def debug(command,classes,class_spec):  
     print("    def debug(self):")
-    print("        debugger(self)")
+    print("        debugger(self,'{0}')".format(command['name']))
 
     #command_name=command['name'].replace(' ','_')
     #if len(classes)>0:
