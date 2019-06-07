@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.465'
+__version__='1.2.466'
 
         
 # ############################################################################
@@ -1256,6 +1256,7 @@ class debugger:
                     if len(value)==1:
                         try:
                             print(value)
+                            debugger(value.index(0),var,depth+4)
                             value.debug()
                         except:
                             pass
