@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.446'
+__version__='1.2.447'
 
         
 # ############################################################################
@@ -1236,13 +1236,17 @@ class tokenizer:
 # ############################################################################
 
 class debugger:
-    def __init__(self,obj,depth=0):
-        print ("Debug:")
-        variables = [i for i in dir(obj) if not i.startswith('__')]
-        empty=[]
+    def __init__(self,obj,name,depth=0):
         pad=''
         for i in range(0,depth):
             pad+=' '
+        if depth==0:
+            print ("Debug:")
+        else:
+            print ("{0}->{1}".format(pad,name))
+            pad+=" "
+        variables = [i for i in dir(obj) if not i.startswith('__')]
+        empty=[]
         for var in variables:
             value=getattr(obj,var)
             if  isinstance(value,str):
@@ -1253,7 +1257,7 @@ class debugger:
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif isinstance(value,list):
                 for item in value:
-                    debugger(item,depth+1)
+                    debugger(item,var,depth+1)
             elif callable(value):
                 continue
             if value==None:
