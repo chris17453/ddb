@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.471'
+__version__='1.2.472'
 
         
 # ############################################################################
@@ -1543,7 +1543,7 @@ class select:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),condition = gv(item,['condition']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
             print(so)
             if gv(so,['meta','columns']):
                 self.columns             =[]
@@ -1700,7 +1700,7 @@ class delete:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),condition = gv(item,['condition']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
     def debug(self):
         debugger(self,'delete')
 class insert:
@@ -1840,7 +1840,7 @@ class update:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),condition = gv(item,['condition']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
     def debug(self):
         debugger(self,'update')
 class upsert:
