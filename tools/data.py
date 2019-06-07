@@ -339,7 +339,7 @@ print("""
 class debugger:
     def __init__(self,obj):
         print ("Debug:")
-        variables = [i for i in dir(obj) if not callable(i)]
+        variables = [i for i in vars(obj)]
 
 
         print (variables )
