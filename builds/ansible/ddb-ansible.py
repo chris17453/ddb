@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.418'
+__version__='1.2.419'
 
         
 # ############################################################################
@@ -1330,7 +1330,7 @@ class tokenizer:
 # ############################################################################
 
 class debugger:
-    def __init__(self,ob):
+    def __init__(self,obj):
         print ("Debug:")
         print 
     print ( [method_name for method_name in dir(obj)

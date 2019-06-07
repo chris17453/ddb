@@ -1,6 +1,6 @@
 
 class debugger:
-    def __init__(self,ob):
+    def __init__(self,obj):
         print ("Debug:")
         print 
 
