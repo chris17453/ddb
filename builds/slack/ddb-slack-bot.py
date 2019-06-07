@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.505'
+__version__='1.2.506'
 
         
 # ############################################################################
@@ -3512,7 +3512,7 @@ def sort_cmp( x, y):
         else:
             return 1 * direction
     return 0
-def limit(context, query_object, data):
+def limit(context, meta, data):
     index = 0
     length = None
     if meta.limit:
