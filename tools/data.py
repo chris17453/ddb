@@ -373,6 +373,7 @@ class debugger:
                 var_count+=1
                 empty.append(var)
             else:
+                debugger(value,var,depth+4)
                 print value
                 continue
         if len(empty)>0:
