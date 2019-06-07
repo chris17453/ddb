@@ -357,7 +357,8 @@ class debugger:
                     print("{2}{0} {1}".format(var+':',value,pad))
                 elif isinstance(value,list):
                     if len(value)==1:
-                        debugger(value,var,depth+4)
+                        #debugger(value,var,depth+4)
+                        print ("H")
                     else:
                         print ("{0}- {1} :".format(pad,var))
                         for item in value:

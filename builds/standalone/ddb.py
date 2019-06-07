@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.461'
+__version__='1.2.462'
 
         
 # ############################################################################
@@ -1250,27 +1250,30 @@ class debugger:
             print ("Debug: {0}".format(name))
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
-        for var in variables:
-            value=getattr(obj,var)
-            if  isinstance(value,str):
-                print("{2}{0} {1}".format(var+':',value,pad))
-            if  isinstance(value,int):
-                print("{2}{0} {1}".format(var+':',value,pad))
-            if  isinstance(value,float):
-                print("{2}{0} {1}".format(var+':',value,pad))
-            elif isinstance(value,list):
-                if len(value)==1:
-                    debugger(value,var,depth+4)
+        try:
+            for var in variables:
+                value=getattr(obj,var)
+                if  isinstance(value,str):
+                    print("{2}{0} {1}".format(var+':',value,pad))
+                if  isinstance(value,int):
+                    print("{2}{0} {1}".format(var+':',value,pad))
+                if  isinstance(value,float):
+                    print("{2}{0} {1}".format(var+':',value,pad))
+                elif isinstance(value,list):
+                    if len(value)==1:
+                        debugger(value,var,depth+4)
+                    else:
+                        print ("{0}- {1} :".format(pad,var))
+                        for item in value:
+                            debugger(item,var,depth+4)
+                elif callable(value):
+                    continue
+                if value==None:
+                    empty.append(var)
                 else:
-                    print ("{0}- {1} :".format(pad,var))
-                    for item in value:
-                        debugger(item,var,depth+4)
-            elif callable(value):
-                continue
-            if value==None:
-                empty.append(var)
-            else:
-                continue
+                    continue
+        except:
+            pass
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
 def gv(o,keys):
