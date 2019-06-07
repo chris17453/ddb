@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.436'
+__version__='1.2.437'
 
         
 # ############################################################################
@@ -1249,7 +1249,7 @@ class debugger:
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif value!=None:
                 print("{2}{0:<20}{1}".format(var+':','class',pad))
-                debugger(var,depth+1)
+                debugger(value,depth+1)
             else:
                 empty.append(var)
         if len(empty)>0:
