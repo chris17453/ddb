@@ -166,8 +166,9 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
+            print test
             if hasattr( test,'where'):
-                test_operation = test.where
+                test_operation = getattr(test,'where')
             elif hasattr( test,'and'):
                 test_operation = getattr(test,'and')
             elif hasattr( test,'or'):
