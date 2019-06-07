@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.523'
+__version__='1.2.524'
 
         
 # ############################################################################
@@ -3362,9 +3362,9 @@ class match2:
             if hasattr( test,'where'):
                 test_operation = test.where
             elif hasattr( test,'and'):
-                test_operation = test.and
+                test_operation = getattr(test,'and')
             elif hasattr( test,'or'):
-                test_operation = test.or
+                test_operation = getattr(test,'or')
             success = self.evaluate_single_match(test_operation, row, table)
         if success is None:
             return False
