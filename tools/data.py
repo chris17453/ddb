@@ -265,6 +265,10 @@ def init(command,classes,class_spec):
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
                         print ("                self.{1}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
+    else:
+        print("\n    def __init__(self,so):")
+        print("        a=0 # holder")
+                
 
 
 
@@ -356,12 +360,8 @@ class debugger:
                     print("{2}{0} {1}".format(var+':',value,pad))
                 elif isinstance(value,list):
                     print ("{0}- {1} :".format(pad,var))
-                    try:
-                        for item in value:
-                            debugger(item,var,depth+4)
-                    except Exception as ex:
-                        print ("EH",ex)
-                        pass
+                    for item in value:
+                        debugger(item,var,depth+4)
                 elif callable(value):
                     continue
                 if value==None:

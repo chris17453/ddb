@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.475'
+__version__='1.2.476'
 
         
 # ############################################################################
@@ -1297,11 +1297,11 @@ class show_columns:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1320,80 +1320,80 @@ class select:
     __slots__=()
     class _and:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _group_by:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     class _source:
         __slots__=()
-        table                = None
-        display              = None
-        database             = None
+        table = None
+        display = None
+        database = None
         def __init__(self,table=None,display=None,database=None):
-            if table               :  self.table=table
-            if display             :  self.display=display
-            if database            :  self.database=database
+            if table:  self.table=table
+            if display:  self.display=display
+            if database:  self.database=database
     class _limit:
         __slots__=()
-        start                = 0
-        length               = 0
+        start = 0
+        length = 0
         def __init__(self,start=None,length=None):
-            if start               :  self.start=start
-            if length              :  self.length=length
+            if start:  self.start=start
+            if length:  self.length=length
     class _where:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _or:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _columns:
         __slots__=()
-        function             = None
-        column               = None
-        argument2            = None
-        argument3            = None
-        argument1            = None
-        display              = None
+        function = None
+        column = None
+        argument2 = None
+        argument3 = None
+        argument1 = None
+        display = None
         def __init__(self,function=None,column=None,argument2=None,argument3=None,argument1=None,display=None):
-            if function            :  self.function=function
-            if column              :  self.column=column
-            if argument2           :  self.argument2=argument2
-            if argument3           :  self.argument3=argument3
-            if argument1           :  self.argument1=argument1
-            if display             :  self.display=display
+            if function:  self.function=function
+            if column:  self.column=column
+            if argument2:  self.argument2=argument2
+            if argument3:  self.argument3=argument3
+            if argument1:  self.argument1=argument1
+            if display:  self.display=display
     class _order_by:
         __slots__=()
-        column               = None
-        direction            = None
+        column = None
+        direction = None
         def __init__(self,column=None,direction=None):
-            if column              :  self.column=column
-            if direction           :  self.direction=direction
+            if column:  self.column=column
+            if direction:  self.direction=direction
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
@@ -1427,13 +1427,13 @@ class set:
     __slots__=()
     class _set:
         __slots__=()
-        variable             = None
-        type                 = None
-        value                = None
+        variable = None
+        type = None
+        value = None
         def __init__(self,variable=None,type=None,value=None):
-            if variable            :  self.variable=variable
-            if type                :  self.type=type
-            if value               :  self.value=value
+            if variable:  self.variable=variable
+            if type:  self.type=type
+            if value:  self.value=value
     set                  = None        # optional [ set() ]
     def __init__(self,so):
             if gv(so,['meta','set']):
@@ -1446,9 +1446,9 @@ class create_procedure:
     __slots__=()
     class _parameters:
         __slots__=()
-        parameter            = None
+        parameter = None
         def __init__(self,parameter=None):
-            if parameter           :  self.parameter=parameter
+            if parameter:  self.parameter=parameter
     parameters           = None        # optional [ parameters() ]
     def __init__(self,so):
             if gv(so,['meta','parameters']):
@@ -1488,44 +1488,44 @@ class delete:
     __slots__=()
     class _and:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _where:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _or:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     source               = _source()
     where                = None        # optional [ where() ]
     def __init__(self,so):
@@ -1541,21 +1541,21 @@ class insert:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _values:
         __slots__=()
-        value                = None
+        value = None
         def __init__(self,value=None):
-            if value               :  self.value=value
+            if value:  self.value=value
     class _columns:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     source               = _source()
     values               = []          #          values()
     columns              = []          #          columns()
@@ -1576,51 +1576,51 @@ class update:
     __slots__=()
     class _and:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _set:
         __slots__=()
-        column               = None
-        expression           = None
+        column = None
+        expression = None
         def __init__(self,column=None,expression=None):
-            if column              :  self.column=column
-            if expression          :  self.expression=expression
+            if column:  self.column=column
+            if expression:  self.expression=expression
     class _where:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     class _or:
         __slots__=()
-        c                    = None
-        e1                   = None
-        condition            = None
-        e2                   = None
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
         def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c                   :  self.c=c
-            if e1                  :  self.e1=e1
-            if condition           :  self.condition=condition
-            if e2                  :  self.e2=e2
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
     source               = _source()
     set                  = []          #          set()
     where                = None        # optional [ where() ]
@@ -1641,33 +1641,33 @@ class upsert:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _values:
         __slots__=()
-        value                = None
+        value = None
         def __init__(self,value=None):
-            if value               :  self.value=value
+            if value:  self.value=value
     class _update:
         __slots__=()
-        column               = None
-        expression           = None
+        column = None
+        expression = None
         def __init__(self,column=None,expression=None):
-            if column              :  self.column=column
-            if expression          :  self.expression=expression
+            if column:  self.column=column
+            if expression:  self.expression=expression
     class _columns:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     class _on_duplicate_key:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     source               = _source()
     values               = []          #          values()
     update               = []          #          update()
@@ -1698,11 +1698,11 @@ class use_table:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1713,11 +1713,11 @@ class drop_table:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -1728,31 +1728,31 @@ class create_table:
     __slots__=()
     class _repo:
         __slots__=()
-        protocol             = 'svn'
-        url                  = None
-        user                 = None
-        file                 = None
-        directory            = None
-        password             = None
+        protocol = 'svn'
+        url = None
+        user = None
+        file = None
+        directory = None
+        password = None
         def __init__(self,protocol=None,url=None,user=None,file=None,directory=None,password=None):
-            if protocol            :  self.protocol=protocol
-            if url                 :  self.url=url
-            if user                :  self.user=user
-            if file                :  self.file=file
-            if directory           :  self.directory=directory
-            if password            :  self.password=password
+            if protocol:  self.protocol=protocol
+            if url:  self.url=url
+            if user:  self.user=user
+            if file:  self.file=file
+            if directory:  self.directory=directory
+            if password:  self.password=password
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _columns:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     errors               = None        # optional 
     whitespace           = None        # optional 
     strict               = None        # optional 
@@ -1789,16 +1789,16 @@ class update_table:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     class _columns:
         __slots__=()
-        column               = None
+        column = None
         def __init__(self,column=None):
-            if column              :  self.column=column
+            if column:  self.column=column
     errors               = None        # optional 
     whitespace           = None        # optional 
     data_starts_on       = None        # optional 
@@ -1826,11 +1826,11 @@ class describe_table:
     __slots__=()
     class _source:
         __slots__=()
-        table                = None
-        database             = None
+        table = None
+        database = None
         def __init__(self,table=None,database=None):
-            if table               :  self.table=table
-            if database            :  self.database=database
+            if table:  self.table=table
+            if database:  self.database=database
     source               = _source()
     def __init__(self,so):
             if gv(so,['meta','source']):
