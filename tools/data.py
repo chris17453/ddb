@@ -250,7 +250,7 @@ def init(command,classes,class_spec):
                         var.append("{1} = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
-                        print ("            print(so)")
+                        #print ("            print(so)")
                         if class_spec[_class]['type']=='single':
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
@@ -270,43 +270,46 @@ def init(command,classes,class_spec):
 
 
 def debug(command,classes,class_spec):  
-    command_name=command['name'].replace(' ','_')
-    if len(classes)>0:
-        print("")
-        print("    def debug(self):")
-        print("        print('Debug Info: {0}')".format(command_name))
-        for _class in classes:
-            class_name=_class.replace(' ',"_")
-            #$print len(classes[_class])
-            if len(classes[_class])<2:
-                for variable in classes[_class]:
-                    if '_arguments' == variable or  class_spec[_class]['parent']==None:
-                        if variable[0]=='_':
-                            continue
-                        print ("        print('{1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
-            else:
-                #print class_spec
-                if class_spec[_class]['parent']:
-                    continue
-                print("        if self.{0}:".format(class_name))
-                if class_spec[_class]['storage']=='array' or  '_arguments' in classes[_class]:
-                    pad="    "
-                    name='item'
-                    print("            for item in self.{0}:".format(class_name))
-                    print("{1}            {0}.debug()".format(name,pad))
-                else:
-                    name=class_name
-                    pad=""
-                    print("{1}            self.{0}.debug()".format(name,pad))
-                print("        else:".format(pad))
-                print("            print('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
-    else:
-        print("\n    def __init__(self,so=None):")
-        print("          a=1")
-        print("")
-        print("    def debug(self):")
-        print("        print('Debug Info: {0}')".format(command_name))
-        print("        print('No variables')")
+    print("    def debug(self):")
+    print("        debugger(self)")
+
+    #command_name=command['name'].replace(' ','_')
+    #if len(classes)>0:
+    #    print("")
+    #    print("    def debug(self):")
+    #    print("        print('Debug Info: {0}')".format(command_name))
+    #    for _class in classes:
+    #        class_name=_class.replace(' ',"_")
+    #        #$print len(classes[_class])
+    #        if len(classes[_class])<2:
+    #            for variable in classes[_class]:
+    #                if '_arguments' == variable or  class_spec[_class]['parent']==None:
+    #                    if variable[0]=='_':
+    #                        continue
+    #                    print ("        print('{1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
+    #        else:
+    #            #print class_spec
+    #            if class_spec[_class]['parent']:
+    #                continue
+    #            print("        if self.{0}:".format(class_name))
+    #            if class_spec[_class]['storage']=='array' or  '_arguments' in classes[_class]:
+    #                pad="    "
+    #                name='item'
+    #                print("            for item in self.{0}:".format(class_name))
+    #                print("{1}            {0}.debug()".format(name,pad))
+    #            else:
+    #                name=class_name
+    #                pad=""
+    #                print("{1}            self.{0}.debug()".format(name,pad))
+    #            print("        else:".format(pad))
+    #            print("            print('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
+    #else:
+    #    print("\n    def __init__(self,so=None):")
+    #    print("          a=1")
+    #    print("")
+    #    print("    def debug(self):")
+    #    print("        print('Debug Info: {0}')".format(command_name))
+    #    print("        print('No variables')")
 
 
 
@@ -330,3 +333,12 @@ def convert_to_class(o):
     return None
 
 """
+
+
+print("""
+def debuger:
+    def __init__(self,ob):
+        print ("Debug:")
+
+
+""")
