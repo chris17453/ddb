@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.468'
+__version__='1.2.469'
 
         
 # ############################################################################
@@ -145,18 +145,18 @@ language={'commands': [{'name': 'show columns',
                                                '{display}']}],
                              'name': 'source',
                              'optional': True},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
                              'depends_on': 'source',
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
                              'parent': 'where'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'or',
@@ -258,18 +258,18 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': 'source'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'vars':{ 'type':'where' }} ] ,
+                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'vars':{ 'condition':'where' }} ] ,
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'vars':{ 'type':'and' } } ] ,
+                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'vars':{ 'condition':'and' } } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
                              'parent': 'where'
                              },
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'vars':{ 'type':'or' }} ] ,
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'vars':{ 'condition':'or' }} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'or',
