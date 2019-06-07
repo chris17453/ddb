@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.449'
+__version__='1.2.450'
 
         
 # ############################################################################
@@ -1341,18 +1341,18 @@ class debugger:
         for var in variables:
             value=getattr(obj,var)
             if  isinstance(value,str):
-                print("{2}{0:<20}{1}".format(var+':',value,pad))
+                print("{2} {0}{1}".format(var+':',value,pad))
             if  isinstance(value,int):
-                print("{2}{0:<20}{1}".format(var+':',value,pad))
+                print("{2} {0}{1}".format(var+':',value,pad))
             if  isinstance(value,float):
-                print("{2}{0:<20}{1}".format(var+':',value,pad))
+                print("{2} {0}{1}".format(var+':',value,pad))
             elif isinstance(value,list):
                 if len(value)==1:
-                    print ("{0} - {1} :{2}".format(pad,name,value))
+                    print ("{0} - {1} :{2}".format(pad,var,value))
                 else:
                     print ("{0} - {1} :".format(pad,name))
                     for item in value:
-                        debugger(item,var,depth+1)
+                        debugger(item,var,depth+3)
             elif callable(value):
                 continue
             if value==None:
