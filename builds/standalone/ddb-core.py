@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.447'
+__version__='1.2.448'
 
         
 # ############################################################################
@@ -1300,15 +1300,15 @@ class show_columns:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        debugger(self)
+        debugger(self,'show columns')
 class show_tables:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'show tables')
 class show_variables:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'show variables')
 class select:
     __slots__=()
     class _and:
@@ -1448,7 +1448,7 @@ class select:
                 for item in gv(so,['meta','order by']):
                     self.order_by            .append( self._order_by(column = gv(item,['column']),direction = gv(item,['direction'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'select')
 class set:
     __slots__=()
     class _set:
@@ -1472,7 +1472,7 @@ class set:
                 for item in gv(so,['meta','set']):
                     self.set                 .append( self._set(variable = gv(item,['variable']),type = gv(item,['type']),value = gv(item,['value'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'set')
 class create_procedure:
     __slots__=()
     class _parameters:
@@ -1490,34 +1490,34 @@ class create_procedure:
                 for item in gv(so,['meta','parameters']):
                     self.parameters          .append( self._parameters(parameter = gv(item,['parameter'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'create procedure')
 class delimiter:
     __slots__=()
     delimiter            = None
     def __init__(self,so):
             self.delimiter            = gv(so,['meta','delimiter','delimiter'])
     def debug(self):
-        debugger(self)
+        debugger(self,'delimiter')
 class end:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'end')
 class begin:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'begin')
 class commit:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'commit')
 class rollback:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'rollback')
 class show_output_modules:
     __slots__=()
     def debug(self):
-        debugger(self)
+        debugger(self,'show output modules')
 class delete:
     __slots__=()
     class _and:
@@ -1592,7 +1592,7 @@ class delete:
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(type = gv(item,['type']),c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'delete')
 class insert:
     __slots__=()
     class _source:
@@ -1637,7 +1637,7 @@ class insert:
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'insert')
 class update:
     __slots__=()
     class _and:
@@ -1719,7 +1719,7 @@ class update:
                 for item in gv(so,['meta','where']):
                     self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'update')
 class upsert:
     __slots__=()
     class _source:
@@ -1793,7 +1793,7 @@ class upsert:
                 for item in gv(so,['meta','on duplicate key']):
                     self.on_duplicate_key    .append( self._on_duplicate_key(column = gv(item,['column'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'upsert')
 class use_table:
     __slots__=()
     class _source:
@@ -1812,7 +1812,7 @@ class use_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        debugger(self)
+        debugger(self,'use table')
 class drop_table:
     __slots__=()
     class _source:
@@ -1831,7 +1831,7 @@ class drop_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        debugger(self)
+        debugger(self,'drop table')
 class create_table:
     __slots__=()
     class _repo:
@@ -1907,7 +1907,7 @@ class create_table:
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
             self.comments             = gv(so,['meta','comments'])
     def debug(self):
-        debugger(self)
+        debugger(self,'create table')
 class update_table:
     __slots__=()
     class _source:
@@ -1951,7 +1951,7 @@ class update_table:
                 for item in gv(so,['meta','columns']):
                     self.columns             .append( self._columns(column = gv(item,['column'])) )
     def debug(self):
-        debugger(self)
+        debugger(self,'update table')
 class describe_table:
     __slots__=()
     class _source:
@@ -1970,7 +1970,7 @@ class describe_table:
             if gv(so,['meta','source']):
                 self.source              = self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
-        debugger(self)
+        debugger(self,'describe table')
 def convert_to_class(o):
     if o['mode']=='show columns': return show_columns(o)
     elif o['mode']=='show tables': return show_tables(o)

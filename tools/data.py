@@ -343,9 +343,7 @@ class debugger:
             pad+=' '
         if depth==0:
             print ("Debug:")
-        else:
-            print ("{0}->{1}".format(pad,name))
-            pad+=" "
+
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
 
@@ -358,8 +356,13 @@ class debugger:
             if  isinstance(value,float):
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif isinstance(value,list):
-                for item in value:
-                    debugger(item,var,depth+1)
+                
+                if len(value)==1:
+                    print ("{0} - {1} :{2}".format(pad,name,value))
+                else:
+                    print ("{0} - {1} :".format(pad,name))
+                    for item in value:
+                        debugger(item,var,depth+1)
             elif callable(value):
                 continue
             if value==None:
