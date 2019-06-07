@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.466'
+__version__='1.2.467'
 
         
 # ############################################################################
@@ -1262,9 +1262,8 @@ class debugger:
                 elif isinstance(value,list):
                     if len(value)==1:
                         try:
-                            print(value)
+                            print(value.index(0))
                             debugger(value.index(0),var,depth+4)
-                            value.debug()
                         except:
                             pass
                     else:
