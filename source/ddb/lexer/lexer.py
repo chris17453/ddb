@@ -505,12 +505,12 @@ class lexer:
 
     # expand columns
     # TODO null trapping
-    def expand_columns(self, query_object, columns):
-        if 'columns' in query_object['meta']:
+    def expand_columns(self, meta, columns):
+        if meta.columns:
             expanded_select = []
-            for item in query_object['meta']['columns']:
-                if 'column' in item:
-                    if item['column'] == '*':
+            for item in meta.columns:
+                if item.column:
+                    if item.column == '*':
                         for column in columns:
                             expanded_select.append({'column': column})
                     else:
@@ -518,7 +518,7 @@ class lexer:
                 if 'function' in item:
                     expanded_select.append(item)
 
-            query_object['meta']['columns'] = expanded_select
+            meta.columns = expanded_select
         # ?? needed
 
     # support funcitons

@@ -198,8 +198,6 @@ class engine:
      
 
         for query_object in parser.query_objects:
-            meta_class=meta.convert_to_class(query_object)
-            meta_class.debug()
             # clear all per state variables per run
             self.init_state_variables()
             
@@ -215,7 +213,10 @@ class engine:
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             # RECORDS
             if mode == 'select':
-                self.results = method_select(self,query_object, parser)
+                meta_class=meta.convert_to_class(query_object)
+                if self.debug:
+                    meta_class.debug()
+                self.results = method_select(self,meta_class, parser)
             
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,query_object)
