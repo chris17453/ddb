@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.454'
+__version__='1.2.455'
 
         
 # ############################################################################
@@ -619,7 +619,6 @@ language={'commands': [{'name': 'show columns',
                              'data': [{'signature': ['{column}']}],
                              'depends_on': '(',
                              'name': 'columns',
-                             ,
                              'optional': True},
                             {'data': [{'signature': [')']}],
                              'depends_on': '(',
