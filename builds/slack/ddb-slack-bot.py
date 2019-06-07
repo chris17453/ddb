@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.433'
+__version__='1.2.434'
 
         
 # ############################################################################
@@ -1248,17 +1248,20 @@ class debugger:
         print ("Debug:")
         variables = [i for i in vars(obj)]
         empty=[]
+        pad=''
+        for i in range(0,depth):
+            pad+=' '
         for var in variables:
             value=getattr(obj,var)
             if  isinstance(value,str):
-                print("{0:<20}{1}".format(var+':',value))
+                print("{2}{0:<20}{1}".format(var+':',value,pad))
             elif value!=None:
-                print("{0:<20}{1}".format(var+':','class'))
+                print("{2}{0:<20}{1}".format(var+':','class',pad))
                 debugger(var,depth+1)
             else:
                 empty.append(var)
         if len(empty)>0:
-            print ("Empty Vars: {0}".format(",".join(empty)))
+            print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
 def gv(o,keys):
     if o:
         if isinstance(keys,str):
