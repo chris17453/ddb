@@ -235,7 +235,10 @@ def init(command,classes,class_spec):
                             if variable[0]=='_':
                                     continue
                             #print classes[_class],variable
-                            sqo="gv(item,['{0}'])".format(variable)
+                            if class_spec[_class]['storage']=='array':
+                                sqo="gv(item,['{1}','{0}'])".format(variable,_class)
+                            else:
+                                sqo="gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
                 else:
                     for variable in classes[_class]:
@@ -256,13 +259,7 @@ def init(command,classes,class_spec):
                         else:
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         print ("                self.{1:<20}=[]".format(command_name,_class.replace(" ","_")))
-                        if class_spec[_class]['type']=='single':
-                            print ("                for item in gv(so,['meta','{0}']):".format(_class))
-                        elif class_spec[_class]['storage']=='array':
-                            print ("                for item in gv(so,['meta','{1}']):".format(command_name,_class,",".join(var)))
-                        else:
-                            print ("                for item in gv(so,['meta','{1}']):".format(command_name,_class,",".join(var)))
-
+                        print ("                for item in gv(so,['meta','{0}']):".format(_class))
                         print ("                    self.{1:<20}.append( self._{1}({2}) )".format(command_name,_class.replace(" ","_"),",".join(var)))
                 else:
                     if class_spec[_class]['parent']==None:
