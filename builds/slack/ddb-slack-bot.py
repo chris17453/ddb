@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.491'
+__version__='1.2.492'
 
         
 # ############################################################################
@@ -999,19 +999,19 @@ class lexer:
         self.info("SUCCESS")
         sql_object = {'success':True,'mode': query_mode, 'meta': query_object}
         return sql_object
-    def expand_columns(self, query_object, columns):
-        if 'columns' in query_object['meta']:
+    def expand_columns(self, meta, columns):
+        if meta.columns:
             expanded_select = []
-            for item in query_object['meta']['columns']:
-                if 'column' in item:
-                    if item['column'] == '*':
+            for item in meta.columns:
+                if item.column:
+                    if item.column == '*':
                         for column in columns:
                             expanded_select.append({'column': column})
                     else:
                         expanded_select.append(item)
                 if 'function' in item:
                     expanded_select.append(item)
-            query_object['meta']['columns'] = expanded_select
+            meta.columns = expanded_select
     def get_sub_array(self, array, key=None):
         if None == key:
             if isinstance(array, str):
@@ -2894,14 +2894,15 @@ class engine:
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
         for query_object in parser.query_objects:
-            meta_class=meta.convert_to_class(query_object)
-            meta_class.debug()
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             if mode == 'select':
-                self.results = method_select(self,query_object, parser)
+                meta_class=meta.convert_to_class(query_object)
+                if self.debug:
+                    meta_class.debug()
+                self.results = method_select(self,meta_class, parser)
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,query_object)
             elif mode == 'update' and self.internal['READONLY']==None:
@@ -3284,28 +3285,28 @@ def create_single(context, query_object, temp_file, requires_new_line):
 # ############################################################################
 
 context_sort=[]
-def method_select(context, query_object, parser):
-        context.info(query_object)
-        select_validate_columns_and_from(context,query_object,parser)
+def method_select(context, meta, parser):
+        context.info(meta)
+        select_validate_columns_and_from(context,meta,parser)
         temp_table = context.database.temp_table()
-        add_table_columns(context,query_object,temp_table)
-        set_ordinals(context,query_object)
-        temp_data=select_process_file(context,query_object)
+        add_table_columns(context,meta,temp_table)
+        set_ordinals(context,meta)
+        temp_data=select_process_file(context,meta)
         all_records_count=len(temp_data)
-        temp_data=order_by(context,query_object,temp_data)
-        temp_data=distinct(context,query_object,temp_data)
-        temp_data = limit(context, query_object, temp_data)
+        temp_data=order_by(context,meta,temp_data)
+        temp_data=distinct(context,meta,temp_data)
+        temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
-def select_process_file(context,query_object):
-    has_columns = select_has_columns(context,query_object)
-    has_functions = select_has_functions(context,query_object)
+def select_process_file(context,meta):
+    has_columns = select_has_columns(context,meta)
+    has_functions = select_has_functions(context,meta)
     table=None
     line_number = 1
     data=[]
     if True == has_columns:
-        if 'table' in  query_object:
-            table= query_object['table']
+        if meta.table
+            table= meta.table
         else:
             raise Exception ('table configuration has no data file')
         temp_data_file=context.get_data_file(table)
@@ -3316,87 +3317,87 @@ def select_process_file(context,query_object):
         visible_errors=table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line(meta=meta,context,None, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
                     line_number += 1
                     continue
                 if None != processed_line['data']:
-                    restructured_line = process_select_row(context,query_object,processed_line) 
+                    restructured_line = process_select_row(context,meta,processed_line) 
                     data+=[restructured_line]
                 line_number += 1
         context.auto_commit(table)
     if False == has_columns and True == has_functions:
-        row=process_select_row(context,query_object,None)
+        row=process_select_row(context,meta,None)
         data+=[row]
     return data
-def select_validate_columns_and_from(context, query_object, parser):
-    has_functions = select_has_functions(context,query_object)
-    has_columns = select_has_columns(context,query_object)
-    if False == has_columns and 'source' in query_object['meta']:
+def select_validate_columns_and_from(context, meta, parser):
+    has_functions = select_has_functions(context,meta)
+    has_columns = select_has_columns(context,meta)
+    if False == has_columns and (not meta.source):
         raise Exception("Invalid FROM, all columns are functions")
     if False == has_columns and False == has_functions:
         raise Exception("no columns defined in query")
     if True == has_columns:
-        if 'source' in query_object['meta']:
-            if 'database' in query_object['meta']['source']:
+        if meta.source:
+            if meta.source.database:
                 context.info('Database specified')
-                database_name=query_object['meta']['source']['database']
+                database_name=meta.source.database
             else:
                 context.info('Using curent database context')
                 database_name=context.database.get_curent_database()
-            table_name = query_object['meta']['source']['table']
+            table_name = meta.source.table
             table= context.database.get(table_name,database_name)
             if None == table:
                 except_str="Table '{0}' does not exist.".format(table_name)
                 raise Exception(except_str)
-            query_object['table']= table
+            meta.table = table
             table_columns = table.get_columns()
-            parser.expand_columns(query_object, table_columns)
+            parser.expand_columns(meta, table_columns)
             column_len = table.column_count()
             if column_len == 0:
                 raise Exception("No defined columns in configuration")
         else:
             raise Exception("Missing FROM in select")
-def select_has_columns(context,query_object):
-    for c in query_object['meta']['columns']:
-        if 'column' in c:
+def select_has_columns(context,meta):
+    for c in meta.columns:
+        if c.column:
             context.info("Has columns, needs a table")
             return  True
     return False
-def select_has_functions(context,query_object):
-    for c in query_object['meta']['columns']:
-        if 'function' in c:
+def select_has_functions(context,meta):
+    for c in meta.columns:
+        if c.function:
             context.info("Has functions, doesnt need a table")
             return True
     return False
-def add_table_columns(context,query_object,temp_table):
-    for column in query_object['meta']['columns']:
+def add_table_columns(context,meta,temp_table):
+    for column in meta.columns:
         display = None
-        if 'display' in column:
-            display = column['display']
+        if column.display:
+            display = column.display
             context.info("RENAME COLUMN", display)
-        if 'column' in column:
+        if column.column:
             context.info("adding data column")
-            temp_table.add_column(column['column'], display)
-        if 'function' in column:
+            temp_table.add_column(column.colu mn, display)
+        if  column.function:
             context.info("adding function column")
-            temp_table.add_column(column['function'], display)    
-def set_ordinals(context,query_object):
+            temp_table.add_column(column.function, display)    
+def set_ordinals(context,meta):
     ordinals={}
     index=0
-    for column in query_object['meta']['columns']:
-        if 'display' in column:
-            name=column['display']
+    for column in meta.columns:
+        if  column.display:
+            name=column.display
             if '{0}'.format(name) in ordinals:
                 raise Exception("ambigious column {0}".format(name))
             ordinals['{0}'.format(name)]=index                
-        if  'function' in column:
-            name=column['function']
+        if  column.function:
+            name=column.function
             if '{0}'.format(name) in ordinals:
                 raise Exception("ambigious column {0}".format(name))
             ordinals['{0}'.format(name)]=index                
-        if 'column' in column:
-            name=column['column']
+        if  column.column:
+            name=column.column
             if '{0}'.format(name) in ordinals:
                 raise Exception("ambigious column {0}".format(name))
             ordinals['{0}'.format(name)]=index                
@@ -3404,7 +3405,7 @@ def set_ordinals(context,query_object):
             continue
         ordinals['{0}'.format(name)]=index                
         index+=1
-    query_object['meta']['ordinals']=ordinals
+    meta.ordinals=ordinals ##################################################
 def cmp_to_key(mycmp):
     'Convert a cmp= function into a key= function'
     class K:
@@ -3423,16 +3424,16 @@ def cmp_to_key(mycmp):
         def __ne__(self, other):
             return mycmp(self.obj, other.obj) != 0
     return K
-def order_by(context,query_object,data):
+def order_by(context,meta,data):
     global context_sort
-    if 'order by' not in query_object['meta']:
+    if not meta.order_by:
         return data
     context.info("Select has Order By")
     context_sort = []
-    for c in query_object['meta']['order by']:
-        if c['column'] not in query_object['meta']['ordinals']:
+    for c in meta.order_by:
+        if c.column not in meta.ordinals:
             raise Exception ("ORDER BY column not present in the result set")
-        ordinal = query_object['meta']['ordinals'][c['column']]
+        ordinal =meta.ordinals[c.column]
         direction = 1
         if 'asc' in c:
             direction = 1
@@ -3448,8 +3449,8 @@ def order_by(context,query_object,data):
     return ordered_data
 def group(context,data):
     return data
-def distinct(context,query_object,data):
-    if 'distinct' not in query_object['meta']:
+def distinct(context,meta,data):
+    if not meta.distinct:
         return data
     context.info("Select has Distinct")
     group=[]
@@ -3462,50 +3463,50 @@ def distinct(context,query_object,data):
         if no_item:
             group.append(item)
     return group    
-def process_select_row(context,query_object,processed_line):
+def process_select_row(context,meta,processed_line):
     row=[]
-    if 'table' in query_object:
-        ordinals=query_object['table'].ordinals
+    if meta.table:
+        ordinals=meta.table.ordinals
     else:
         ordinals=None
     if None == processed_line:
         line_type=context.data_type.DATA
         error= None
         raw= None
-        for c in query_object['meta']['columns']:
-            if 'function' in c:
-                if c['function'] == 'database':
+        for c in meta.columns:
+            if c.function:
+                if c.function == 'database':
                     row.append(f_database(context))
-                elif c['function'] == 'datetime':
+                elif c.function == 'datetime':
                         row.append(f_datetime(context))
-                elif c['function'] == 'date':
+                elif c.function == 'date':
                         row.append(f_date(context))
-                elif c['function'] == 'time':
+                elif c.function == 'time':
                         row.append(f_time(context))
-                elif c['function'] == 'version':
+                elif c.function == 'version':
                         row.append(f_version(context,__version__))
-                elif c['function'] == 'row_number':
+                elif c.function == 'row_number':
                         row.append(f_row_number(context))
     else:
         line_type=processed_line['type']
         error= processed_line['error']
         raw= processed_line['raw']
         if line_type!=context.data_type.ERROR:
-            for c in query_object['meta']['columns']:
-                if 'column' in c:
-                    row.append(processed_line['data'][ordinals[c['column']]])
-                elif 'function' in c:
-                    if c['function'] == 'database':
+            for c in meta.columns:
+                if c.column:
+                    row.append(processed_line['data'][ordinals[c.column]])
+                elif c.function:
+                    if c.function'] == 'database':
                         row.append(f_database(context))
-                    elif c['function'] == 'datetime':
+                    elif c.function'] == 'datetime':
                             row.append(f_datetime(context))
-                    elif c['function'] == 'date':
+                    elif c.function'] == 'date':
                             row.append(f_date(context))
-                    elif c['function'] == 'time':
+                    elif c.function'] == 'time':
                             row.append(f_time(context))
-                    elif c['function'] == 'version':
+                    elif c.function'] == 'version':
                             row.append(f_version(context,__version__))
-                    elif c['function'] == 'row_number':
+                    elif c.function'] == 'row_number':
                             row.append(f_row_number(context))
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 def sort_cmp( x, y):
@@ -3522,11 +3523,11 @@ def sort_cmp( x, y):
 def limit(context, query_object, data):
     index = 0
     length = None
-    if 'limit' in query_object['meta']:
-        if 'start' in query_object['meta']['limit']:
-            index = query_object['meta']['limit']['start']
-        if 'length' in query_object['meta']['limit']:
-            length = query_object['meta']['limit']['length']
+    if meta.limit:
+        if meta.limit.start:
+            index = meta.limit.start
+        if meta.limit.length:
+            length = meta.limit.length
             if length<0:
                 raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
     context.info("Limit:{0},Length:{1}".format(index, length))
