@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.428'
+__version__='1.2.429'
 
         
 # ############################################################################
@@ -1242,7 +1242,7 @@ class debugger:
         empty=[]
         for var in variables:
             value=getattr(obj,var)
-            if  hasattr(value,'__class__')
+            if  hasattr(value,'__class__'):
                 print("{0:<20}{1}".format(var+':',"CLASS"))
             elif value!=None:
                 print("{0:<20}{1}".format(var+':',value))
