@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.439'
+__version__='1.2.440'
 
         
 # ############################################################################
@@ -1346,7 +1346,6 @@ class debugger:
                     debugger(item,depth+1)
             elif value!=None:
                 print("{2}{0:<20}{1}".format(var+':','class',pad))
-                debugger(value,depth+1)
             else:
                 empty.append(var)
         if len(empty)>0:
