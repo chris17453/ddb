@@ -253,7 +253,7 @@ def init(command,classes,class_spec):
                         var.append("{1} = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
-                        print ("            print(so)")
+                        #print ("            print(so)")
                         if class_spec[_class]['type']=='single':
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
@@ -356,8 +356,12 @@ class debugger:
                     print("{2}{0} {1}".format(var+':',value,pad))
                 elif isinstance(value,list):
                     print ("{0}- {1} :".format(pad,var))
-                    for item in value:
-                        debugger(item,var,depth+4)
+                    try:
+                        for item in value:
+                            debugger(item,var,depth+4)
+                    except Exception as ex:
+                        print ("EH",ex)
+                        pass
                 elif callable(value):
                     continue
                 if value==None:
