@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.410'
+__version__='1.2.411'
 
         
 # ############################################################################
@@ -259,18 +259,18 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': 'source'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'variables':{ 'type':'where' }} ] ,
+                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'vars':{ 'type':'where' }} ] ,
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'variables':{ 'type':'and' } } ] ,
+                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'vars':{ 'type':'and' } } ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
                              'parent': 'where'
                              },
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'variables':{ 'type':'or' }} ] ,
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'vars':{ 'type':'or' }} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'or',
@@ -585,7 +585,7 @@ language={'commands': [{'name': 'show columns',
                                                '{table}']}],
                              'name': 'source'}]}
                              ],
- 'operators':['>','<','>=','<=','!=','<>','not','is','like','=','in'],
+'operators':['>','<','>=','<=','!=','<>','not','is','like','=','in'],
 'functions': [{'arguments': None, 'name': 'database'},
                {'arguments': None, 'name': 'row_number'},
                {'arguments': [{'name': 'where', 'required': True}],
