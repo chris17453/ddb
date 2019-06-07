@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.469'
+__version__='1.2.470'
 
         
 # ############################################################################
@@ -315,17 +315,17 @@ language={'commands': [{'name': 'show columns',
                                                '{expression}']}],
                              'name': 'set',
                              'depends_on':'set header'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
                              'name': 'where',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'and',
                              'optional': True,
                              'parent': 'where'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}} ] ,
                              'depends_on': 'where',
                              'jump': 'where',
                              'name': 'or',
@@ -1315,15 +1315,18 @@ class select:
         __slots__=()
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: and')
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     class _group_by:
         __slots__=()
@@ -1362,29 +1365,35 @@ class select:
         __slots__=()
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: where')
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     class _or:
         __slots__=()
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,c=None,e1=None,e2=None):
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: or')
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     class _columns:
         __slots__=()
@@ -1438,7 +1447,7 @@ class select:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),condition = gv(item,['condition']),e2 = gv(item,['e2'])) )
             if gv(so,['meta','columns']):
                 self.columns             =[]
                 for item in gv(so,['meta','columns']):
@@ -1522,20 +1531,20 @@ class delete:
     __slots__=()
     class _and:
         __slots__=()
-        type                 = None
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,type=None,c=None,e1=None,e2=None):
-            if type                :  self.type=type
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: and')
-            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     class _source:
         __slots__=()
@@ -1550,37 +1559,37 @@ class delete:
             print('  database:            {0}'.format(self.database))
     class _where:
         __slots__=()
-        type                 = None
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,type=None,c=None,e1=None,e2=None):
-            if type                :  self.type=type
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: where')
-            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     class _or:
         __slots__=()
-        type                 = None
         c                    = None
         e1                   = None
+        condition            = None
         e2                   = None
-        def __init__(self,type=None,c=None,e1=None,e2=None):
-            if type                :  self.type=type
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
             if c                   :  self.c=c
             if e1                  :  self.e1=e1
+            if condition           :  self.condition=condition
             if e2                  :  self.e2=e2
         def debug(self):
             print('  Debug Info: or')
-            print('  type:                {0}'.format(self.type))
             print('  c:                   {0}'.format(self.c))
             print('  e1:                  {0}'.format(self.e1))
+            print('  condition:           {0}'.format(self.condition))
             print('  e2:                  {0}'.format(self.e2))
     source               = _source()
     where                = None        # optional [ where() ]
@@ -1590,7 +1599,7 @@ class delete:
             if gv(so,['meta','where']):
                 self.where               =[]
                 for item in gv(so,['meta','where']):
-                    self.where               .append( self._where(type = gv(item,['type']),c = gv(item,['c']),e1 = gv(item,['e1']),e2 = gv(item,['e2'])) )
+                    self.where               .append( self._where(c = gv(item,['c']),e1 = gv(item,['e1']),condition = gv(item,['condition']),e2 = gv(item,['e2'])) )
     def debug(self):
         debugger(self,'delete')
 class insert:

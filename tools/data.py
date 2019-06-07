@@ -250,7 +250,7 @@ def init(command,classes,class_spec):
                         var.append("{1} = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
-                        #print ("            print(so)")
+                        print ("            print(so)")
                         if class_spec[_class]['type']=='single':
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
@@ -258,6 +258,8 @@ def init(command,classes,class_spec):
                         print ("                self.{1:<20}=[]".format(command_name,_class.replace(" ","_")))
                         if class_spec[_class]['type']=='single':
                             print ("                for item in gv(so,['meta','{0}']):".format(_class))
+                        elif class_spec[_class]['storage']=='array':
+                            print ("                for item in gv(so,['meta','{1}']):".format(command_name,_class,",".join(var)))
                         else:
                             print ("                for item in gv(so,['meta','{1}']):".format(command_name,_class,",".join(var)))
 
