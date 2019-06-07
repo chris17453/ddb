@@ -138,12 +138,12 @@ def sub_class (command,classes,class_spec):
 
      
 #        if len(classes[_class])>1 and  class_spec[_class]['parent']!=None:
-        print("\n        def debug(self):")
-        print("            print('  Debug Info: {0}')".format(class_name))
-        for variable in classes[_class]:
-            if variable[0]=='_':
-                continue
-            print ("            print('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
+#        print("\n        def debug(self):")
+#        print("            print('  Debug Info: {0}')".format(class_name))
+#        for variable in classes[_class]:
+#            if variable[0]=='_':
+#                continue
+#            print ("            print('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
 
 
 
