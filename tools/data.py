@@ -350,17 +350,22 @@ class debugger:
 
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
+        var_count=0
         for var in variables:
             value=getattr(obj,var)
             if  isinstance(value,str):
                 print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
             if  isinstance(value,int):
                 print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
             if  isinstance(value,float):
                 print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
             elif isinstance(value,list):
                 print ("{0}- {1} :".format(pad,var))
                 for item in value:
+                    var_count+=1
                     debugger(item,var,depth+4)
             elif callable(value):
                 continue
@@ -371,7 +376,7 @@ class debugger:
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
         print variables
-        if len(variables)==0:
+        if var_count==0:
             print("{2}{0} {1}".format("No attributes"+':',"",pad))
 
 """)
