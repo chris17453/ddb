@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.438'
+__version__='1.2.439'
 
         
 # ############################################################################
@@ -1341,7 +1341,7 @@ class debugger:
             value=getattr(obj,var)
             if  isinstance(value,str):
                 print("{2}{0:<20}{1}".format(var+':',value,pad))
-            efif isinstance(value,list):
+            elif isinstance(value,list):
                 for item in value:
                     debugger(item,depth+1)
             elif value!=None:
