@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.484'
+__version__='1.2.485'
 
         
 # ############################################################################
@@ -1263,12 +1263,12 @@ class debugger:
             elif callable(value):
                 continue
             if value==None:
+                var_count+=1
                 empty.append(var)
             else:
                 continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
-        print variables
         if var_count==0:
             print("{2}{0} {1}".format("No attributes"+':',"",pad))
 def gv(o,keys):
