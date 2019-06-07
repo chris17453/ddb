@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.482'
+__version__='1.2.483'
 
         
 # ############################################################################
@@ -1357,6 +1357,7 @@ class debugger:
                 continue
         if len(empty)>0:
             print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
+        print variables
         if len(variables)==0:
             print("{2}{0} {1}".format("No attributes"+':',"",pad))
 def gv(o,keys):
