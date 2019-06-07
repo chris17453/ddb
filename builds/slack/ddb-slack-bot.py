@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.487'
+__version__='1.2.488'
 
         
 # ############################################################################
@@ -1270,7 +1270,7 @@ class debugger:
                     debugger(item,var,depth+4)
             elif callable(value):
                 continue
-            if value==None:
+            elif value==None:
                 var_count+=1
                 empty.append(var)
             else:
