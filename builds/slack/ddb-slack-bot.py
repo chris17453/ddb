@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.508'
+__version__='1.2.509'
 
         
 # ############################################################################
@@ -3365,7 +3365,7 @@ def select_has_functions(context,meta):
 def add_table_columns(context,meta,temp_table):
     for column in meta.columns:
         display = None
-        print columns
+        print meta.columns
         if column.display:
             display = column.display
             context.info("RENAME COLUMN", display)
