@@ -79,7 +79,6 @@ def gv(o,keys):
 
 
 class show_columns:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -100,7 +99,6 @@ class show_columns:
 
 
 class show_tables:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -111,7 +109,6 @@ class show_tables:
 
 
 class show_variables:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -122,7 +119,6 @@ class show_variables:
 
 
 class select:
-    __slots__=()
 
     class _and:
         __slots__=()
@@ -249,7 +245,6 @@ class select:
 
 
 class set:
-    __slots__=()
 
     class _set:
         __slots__=()
@@ -274,7 +269,6 @@ class set:
 
 
 class create_procedure:
-    __slots__=()
 
     class _parameters:
         __slots__=()
@@ -295,7 +289,6 @@ class create_procedure:
 
 
 class delimiter:
-    __slots__=()
 
     delimiter            = None
 
@@ -306,7 +299,6 @@ class delimiter:
 
 
 class end:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -317,7 +309,6 @@ class end:
 
 
 class begin:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -328,7 +319,6 @@ class begin:
 
 
 class commit:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -339,7 +329,6 @@ class commit:
 
 
 class rollback:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -350,7 +339,6 @@ class rollback:
 
 
 class show_output_modules:
-    __slots__=()
 
 
     def __init__(self,so):
@@ -361,7 +349,6 @@ class show_output_modules:
 
 
 class delete:
-    __slots__=()
 
     class _and:
         __slots__=()
@@ -426,7 +413,6 @@ class delete:
 
 
 class insert:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -471,7 +457,6 @@ class insert:
 
 
 class update:
-    __slots__=()
 
     class _and:
         __slots__=()
@@ -550,7 +535,6 @@ class update:
 
 
 class upsert:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -621,7 +605,6 @@ class upsert:
 
 
 class use_table:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -642,7 +625,6 @@ class use_table:
 
 
 class drop_table:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -663,7 +645,6 @@ class drop_table:
 
 
 class create_table:
-    __slots__=()
 
     class _repo:
         __slots__=()
@@ -734,7 +715,6 @@ class create_table:
 
 
 class update_table:
-    __slots__=()
 
     class _source:
         __slots__=()
@@ -779,7 +759,6 @@ class update_table:
 
 
 class describe_table:
-    __slots__=()
 
     class _source:
         __slots__=()
