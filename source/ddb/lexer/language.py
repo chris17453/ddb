@@ -36,6 +36,7 @@ language={'commands': [{'name': 'show columns',
               
                'segments': [{'data': [{'signature': ['select'],'vars':{'table':None }}],
                              'name': 'select',
+                             ,'vars':{'table':None }
                              'optional': False},
                             {'data': [{'signature': ['distinct']}],
                              'name': 'distinct',
