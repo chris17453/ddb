@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.532'
+__version__='1.2.533'
 
         
 # ############################################################################
@@ -67,7 +67,7 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'signature': ['show', 'variables']}],
                              'name': 'show variables'}]},
               {'name': 'select',
-               'segments': [{'data': [{'signature': ['select'],'vars':'table':None }],
+               'segments': [{'data': [{'signature': ['select'],'vars':{'table':None }}],
                              'name': 'select',
                              'optional': False},
                             {'data': [{'signature': ['distinct']}],
