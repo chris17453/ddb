@@ -26,7 +26,7 @@ class match2:
         compare1_is_column = False
         compare2_is_column = False
 
-        comparitor = test['c']
+        comparitor = test.c
         #cdef int index 
         #cdef str like = None
         #cdef str data = None
