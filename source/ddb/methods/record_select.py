@@ -213,7 +213,7 @@ def method_select(context, meta, parser):
         temp_data=order_by(context,meta,temp_data)
 
         # Distinct, a custom grouping
-        temp_data=distinct(context,meta,temp_data)
+        #temp_data=distinct(context,meta,temp_data)
         
         # Grouping
         # group(context, data)
