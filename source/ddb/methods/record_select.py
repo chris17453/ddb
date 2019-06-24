@@ -173,7 +173,7 @@ class match2:
             #    test_operation = getattr(test,'and')
             #elif hasattr( test,'or'):
             #    test_operation = getattr(test,'or')
-
+            test.debug()
             success = self.evaluate_single_match(test, row, table)
 
         # never matched anytthing...
