@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.539'
+__version__='1.2.540'
 
         
 # ############################################################################
@@ -153,9 +153,10 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'signature': ['show', 'variables']}],
                              'name': 'show variables'}]},
               {'name': 'select',
-               'segments': [{'data': [{'signature': ['select'],'vars':{'table':None }}],
+              'vars':{'table':None },
+               'segments': [{'data': [{'signature': ['select']}],
                              'name': 'select',
-                             'vars':{'table':None },
+                             ,
                              'optional': False},
                             {'data': [{'signature': ['distinct']}],
                              'name': 'distinct',
@@ -1488,6 +1489,7 @@ class select:
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
+    table                = None
     where                = None        # optional [ where() ]
     columns              = []          #          columns()
     order_by             = None        # optional [ order by() ]
@@ -1500,6 +1502,7 @@ class select:
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
                 self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
+            self.table = gv(so,['meta','select','table'])
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
