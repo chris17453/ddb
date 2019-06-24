@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.534'
+__version__='1.2.535'
 
         
 # ############################################################################
@@ -1402,7 +1402,6 @@ class select:
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
-    table                = None
     where                = None        # optional [ where() ]
     columns              = []          #          columns()
     order_by             = None        # optional [ order by() ]
@@ -1415,7 +1414,6 @@ class select:
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
                 self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
-            self.table = gv(so,['meta','select','table'])
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
@@ -3272,7 +3270,7 @@ class match2:
         compare2 = None
         compare1_is_column = False
         compare2_is_column = False
-        comparitor = test['c']
+        comparitor = test.c
         for column in table.columns:
             if column.data.name == test.e1:
                 index = table.ordinals[column.data.name]

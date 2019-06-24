@@ -76,8 +76,8 @@ class test_engine(unittest.TestCase):
             self.fail(ex)
     
     def test_use(self):
-        """Test changing database context"""
-        try:
+        #"""Test changing database context"""
+        #try:
             # single db change from default
             self.cleanup()
             engine = ddb.engine(config_file=False)
@@ -86,8 +86,8 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             results = engine.query("select database()")
             self.assertEqual(True, results.success)
-        except Exception as ex:
-            self.fail(ex)
+        #except Exception as ex:
+        #    self.fail(ex)
     
     def test_show_output_modules(self):
         """Test showint output modules and styles"""
