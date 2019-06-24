@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.527'
+__version__='1.2.528'
 
         
 # ############################################################################
@@ -3380,7 +3380,6 @@ def method_select(context, meta, parser):
         temp_data=select_process_file(context,meta)
         all_records_count=len(temp_data)
         temp_data=order_by(context,meta,temp_data)
-        temp_data=distinct(context,meta,temp_data)
         temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
