@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.541'
+__version__='1.2.543'
 
         
 # ############################################################################
@@ -1488,7 +1488,6 @@ class select:
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
-    table                = None
     where                = None        # optional [ where() ]
     columns              = []          #          columns()
     order_by             = None        # optional [ order by() ]
@@ -1501,7 +1500,6 @@ class select:
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
                 self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
-            self.table = gv(so,['meta','select','table'])
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
@@ -3456,6 +3454,7 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
+            test.debug()
             success = self.evaluate_single_match(test, row, table)
         if success is None:
             return False
@@ -5651,6 +5650,8 @@ class factory_json:
     def dumps(self,data):
         output_string=self.render(data)
         return output_string
+    def props(cls):   
+        return [i for i in cls.__dict__.keys() if i[:1] != '_']
     def render(self,obj,depth=0):
         """json like output for python objects, very loose"""
         unk_template='"???{0}???"'
@@ -5678,6 +5679,10 @@ class factory_json:
                 partial.append(self.render(item,depth=depth+1))
             if len(partial)>0:
                 fragment+=array_template.format(",".join(map(str, partial)))
+        elif isinstance(obj,class):
+            items=self.props(obj)
+            for item in items:
+                partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
         elif isinstance(obj,object):
             partial=[]
             for item in obj:
