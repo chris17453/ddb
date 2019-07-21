@@ -40,10 +40,10 @@ class factory_json:
                 partial.append(self.render(item,depth=depth+1))
             if len(partial)>0:
                 fragment+=array_template.format(",".join(map(str, partial)))
-        elif isinstance(obj,class):
-            items=self.props(obj)
-            for item in items:
-                partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
+        #elif isinstance(obj,class):
+        #    items=self.props(obj)
+        #    for item in items:
+        #        partial.append(tuple_template.format(item,self.render( obj[item],depth=depth+1)))
 
         elif isinstance(obj,object):
             partial=[]
