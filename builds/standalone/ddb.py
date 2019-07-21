@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.544'
+__version__='1.2.545'
 
         
 # ############################################################################
@@ -999,19 +999,6 @@ class lexer:
         self.info("SUCCESS")
         sql_object = {'success':True,'mode': query_mode, 'meta': query_object}
         return sql_object
-    def expand_columns(self, meta, columns):
-        if meta.columns:
-            expanded_select = []
-            for item in meta.columns:
-                if item.column:
-                    if item.column == '*':
-                        for column in columns:
-                            expanded_select.append({'column': column})
-                    else:
-                        expanded_select.append(item)
-                if 'function' in item:
-                    expanded_select.append(item)
-            meta.columns = expanded_select
     def get_sub_array(self, array, key=None):
         if None == key:
             if isinstance(array, str):
