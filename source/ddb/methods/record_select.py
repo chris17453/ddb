@@ -414,7 +414,7 @@ def cmp_to_key(mycmp):
 
 def order_by(context,meta,data):
     global context_sort
-
+    meta.debug()
     if not meta.order_by:
         return data
     context.info("Select has Order By")
