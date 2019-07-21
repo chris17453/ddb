@@ -414,7 +414,7 @@ def cmp_to_key(mycmp):
 
 def order_by(context,meta,data):
     global context_sort
-    meta.debug()
+    #meta.debug()
     if not meta.order_by:
         return data
     context.info("Select has Order By")
@@ -537,7 +537,7 @@ def process_select_row(context,meta,processed_line):
 
 
 def sort_cmp( x, y):
-    #print("Sort", context_sort)
+    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
