@@ -414,8 +414,9 @@ def cmp_to_key(mycmp):
 
 def order_by(context,meta,data):
     global context_sort
-    #meta.debug()
+    
     if not meta.order_by:
+        context.info("NO order by")
         return data
     context.info("Select has Order By")
     context_sort = []
@@ -423,12 +424,7 @@ def order_by(context,meta,data):
         if c.column not in meta.ordinals:
             raise Exception ("ORDER BY column not present in the result set")
         ordinal =meta.ordinals[c.column]
-        direction = 1
-        if c.direction=='asc':
-            direction = 1
-        if c.direction=='desc':
-            direction = -1
-        context_sort.append([ordinal, direction])
+        context_sort.append([ordinal, c.direction])
     
     context.info(context_sort)
     try:

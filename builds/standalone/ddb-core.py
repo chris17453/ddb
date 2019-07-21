@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.551'
+__version__='1.2.552'
 
         
 # ############################################################################
@@ -3508,7 +3508,6 @@ def cmp_to_key(mycmp):
     return K
 def order_by(context,meta,data):
     global context_sort
-    meta.debug()
     if not meta.order_by:
         return data
     context.info("Select has Order By")
@@ -3593,6 +3592,7 @@ def process_select_row(context,meta,processed_line):
                             row.append(f_row_number(context))
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 def sort_cmp( x, y):
+    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
