@@ -135,7 +135,7 @@ class match2:
         success = None
         skip_section = False
         operation = ""
-        for test in meta.conditions:
+        for test in meta.where:
 
             test.condition=test.condition.lower()
             #print test
@@ -679,7 +679,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = line_data_cleaned
 
         # If no where. return everything
-        if not meta.conditions:
+        if not meta.where:
             match_results = True
         else:
             # if a where, only return data, comments/whites/space/errors are ignored
