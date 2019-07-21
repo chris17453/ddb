@@ -137,6 +137,7 @@ class match2:
         skip_section = False
         operation = ""
         for test in where:
+
             test.condition=test.condition.lower()
             #print test
             # if a evaluation chain failed, continue until out of that section
@@ -180,6 +181,7 @@ context_sort=[]
 
 def method_select(context, meta, parser):
     #try:
+        meta.debug()
         context.info(meta)
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,meta,parser)

@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.558'
+__version__='1.2.559'
 
         
 # ############################################################################
@@ -3354,7 +3354,6 @@ class match2:
                 if not success:
                     skip_section = True
                     continue
-            test.debug()
             success = self.evaluate_single_match(test, row, table)
         if success is None:
             return False
