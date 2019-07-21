@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.555'
+__version__='1.2.556'
 
         
 # ############################################################################
@@ -3617,7 +3617,7 @@ def limit(context, meta, data):
         index = 0
     if None == length:
         length = len(data) - index
-    print index,limit
+    print index,length
     data_length = len(data)
     if index >= data_length:
         return []
