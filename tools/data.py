@@ -241,6 +241,7 @@ def init(command,classes,class_spec):
                                 sqo2="gv(item,[instance_type,'{0}'])".format(variable)
                             else:
                                 sqo="gv(item,['{0}'])".format(variable)
+                                sqo2="gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
                             var_dict.append("'{1}': {0}".format(sqo2,variable))    
                 else:
@@ -253,7 +254,7 @@ def init(command,classes,class_spec):
                        #     sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                        # else:
                         sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
-                        sqo="gv(so,[{2},instance_type,'{1}'])".format(_class,variable,'meta')
+                        sqo2="gv(so,[{2},instance_type,'{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
                         var_dict.append("'{1}' : {0}".format(sqo2,variable))    
 
