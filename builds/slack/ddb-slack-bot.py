@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.549'
+__version__='1.2.550'
 
         
 # ############################################################################
@@ -3525,9 +3525,9 @@ def order_by(context,meta,data):
             raise Exception ("ORDER BY column not present in the result set")
         ordinal =meta.ordinals[c.column]
         direction = 1
-        if 'asc' in c:
+        if c.direction=='asc':
             direction = 1
-        elif 'desc' in c:
+        if c.direction=='desc':
             direction = -1
         context_sort.append([ordinal, direction])
     context.info(context_sort)
