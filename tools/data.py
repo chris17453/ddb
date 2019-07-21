@@ -238,10 +238,11 @@ def init(command,classes,class_spec):
                             #print classes[_class],variable
                             if class_spec[_class]['storage']=='array':
                                 sqo="gv(item,['{1}','{0}'])".format(variable,_class)
+                                sqo2="gv(item,[instance_type,'{0}'])".format(variable)
                             else:
                                 sqo="gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
-                            var_dict.append("'{1}': {0}".format(sqo,variable))    
+                            var_dict.append("'{1}': {0}".format(sqo2,variable))    
                 else:
                     for variable in classes[_class]:
                         if variable[0]=='_':
@@ -252,8 +253,9 @@ def init(command,classes,class_spec):
                        #     sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                        # else:
                         sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
+                        sqo="gv(so,[{2},instance_type,'{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
-                        var_dict.append("'{1}' = {0}".format(sqo,variable))    
+                        var_dict.append("'{1}' : {0}".format(sqo2,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                         #print ("            print(so)")
