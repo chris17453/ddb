@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.560'
+__version__='1.2.561'
 
         
 # ############################################################################
@@ -146,23 +146,16 @@ language={'commands': [{'name': 'show columns',
                                                '{display}']}],
                              'name': 'source',
                              'optional': True},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
+                            {'data': [
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                ] ,
                              'depends_on': 'source',
-                             'name': 'where',
+                             'name': 'condition',
+                             'jump': 'condition',
                              'optional': True,
                              'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}} ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'and',
-                             'optional': True,
-                             'parent': 'where'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}} ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'or',
-                             'optional': True,
-                             'parent': 'where'},
                             {'data': [{'signature': ['group', 'by']}],
                              'name': 'group by header',
                              'optional': True},
@@ -259,23 +252,17 @@ language={'commands': [{'name': 'show columns',
                                                '.',
                                                '{table}']}],
                              'name': 'source'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] , 'vars':{ 'condition':'where' }} ] ,
-                             'name': 'where',
+                            {'data': [
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                ] ,
+                             'depends_on': 'source',
+                             'name': 'condition',
+                             'jump': 'condition',
                              'optional': True,
-                             'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] , 'vars':{ 'condition':'and' } } ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'and',
-                             'optional': True,
-                             'parent': 'where'
-                             },
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}']  , 'vars':{ 'condition':'or' }} ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'or',
-                             'optional': True,
-                             'parent': 'where'}]},
+                             'store_array': True}
+                             ,]},
               {'name': 'insert',
                'segments': [{'data': [{'signature': ['insert']}],
                              'name': 'insert'},
@@ -323,22 +310,17 @@ language={'commands': [{'name': 'show columns',
                                                '{expression}']}],
                              'name': 'set',
                              'depends_on':'set header'},
-                            {'data': [{'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
-                             'name': 'where',
+                            {'data': [
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                ] ,
+                             'depends_on': 'source',
+                             'name': 'condition',
+                             'jump': 'condition',
                              'optional': True,
-                             'store_array': True},
-                            {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}} ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'and',
-                             'optional': True,
-                             'parent': 'where'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}} ] ,
-                             'depends_on': 'where',
-                             'jump': 'where',
-                             'name': 'or',
-                             'optional': True,
-                             'parent': 'where'}]},
+                             'store_array': True}
+                             ,]},
               {'name': 'upsert',
                'segments': [{'data': [{'signature': ['upsert']}],
                              'name': 'upsert'},
