@@ -1,4 +1,6 @@
+# cython: profile=True
 # cython: linetrace=True
+# cython: binding=True
 
 from ..functions.functions import *
 from .record_core import  query_results
@@ -6,14 +8,6 @@ from ..file_io.locking import lock
 from ..version import __version__
 import os
 import tempfile
-
-
-
-
-
-# cython: profile=True
-# cython: linetrace=True
-# cython: binding=True
 
 
 
