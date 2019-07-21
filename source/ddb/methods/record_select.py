@@ -568,12 +568,21 @@ def limit(context, meta, data):
     if index<0:
         raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
 
+    # only 1 variable and its 0, so its really a 0 length query.
+    if meta.limit.start==0 and meta.length==None:
+        return []
+
+    # its 0 length
+    if meta.length==0:
+        return []
+
+
     if None == index:
         index = 0
     if None == length:
         length = len(data) - index
 
-    print index,length
+    #print index,length
     data_length = len(data)
     if index >= data_length:
         #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
