@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.570'
+__version__='1.2.572'
 
         
 # ############################################################################
@@ -1493,7 +1493,7 @@ class select:
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,['where','c']),'e1': gv(item,['where','e1']),'condition': gv(item,['where','condition']),'e2': gv(item,['where','e2']) }) )
+                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
@@ -1621,7 +1621,7 @@ class delete:
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,['where','c']),'e1': gv(item,['where','e1']),'condition': gv(item,['where','condition']),'e2': gv(item,['where','e2']) }) )
+                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'delete')
 class insert:
@@ -1723,7 +1723,7 @@ class update:
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,['where','c']),'e1': gv(item,['where','e1']),'condition': gv(item,['where','condition']),'e2': gv(item,['where','e2']) }) )
+                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'update')
 class upsert:
