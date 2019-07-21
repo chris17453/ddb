@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.554'
+__version__='1.2.555'
 
         
 # ############################################################################
@@ -3624,6 +3624,7 @@ def limit(context, meta, data):
         index = 0
     if None == length:
         length = len(data) - index
+    print index,limit
     data_length = len(data)
     if index >= data_length:
         return []

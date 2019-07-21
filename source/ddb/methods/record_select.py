@@ -573,7 +573,7 @@ def limit(context, meta, data):
     if None == length:
         length = len(data) - index
 
-    print index,limit
+    print index,length
     data_length = len(data)
     if index >= data_length:
         #print("-Index is out of range for query. {} of {}".format(index,data_stream_lenght))
