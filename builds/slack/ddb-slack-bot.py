@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.557'
+__version__='1.2.558'
 
         
 # ############################################################################
@@ -3597,7 +3597,6 @@ def process_select_row(context,meta,processed_line):
                             row.append(f_row_number(context))
     return {'data': row, 'type': line_type, 'error': error,'raw':raw} 
 def sort_cmp( x, y):
-    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
@@ -3621,9 +3620,9 @@ def limit(context, meta, data):
     context.info("Limit:{0},Length:{1}".format(index, length))
     if index<0:
         raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
-    if meta.limit.start==0 and meta.length==None:
+    if meta.limit.start==0 and meta.limit.length==None:
         return []
-    if meta.length==0:
+    if meta.limit.length==0:
         return []
     if None == index:
         index = 0
