@@ -115,7 +115,7 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
 
                             {'data': [
-                                {'signature': ['conditions','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
                              'depends_on': 'source',
                              'name': 'where',
                              'optional': True,
