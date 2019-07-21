@@ -230,6 +230,7 @@ def init(command,classes,class_spec):
                         print ("            self.{0} = {1}".format(variable,sqo))
             else:
                 var=[]
+                var_dict=[]
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                     for variable in classes[_class]:
                             if variable[0]=='_':
@@ -240,6 +241,7 @@ def init(command,classes,class_spec):
                             else:
                                 sqo="gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
+                            var_dict.append("'{1}': {0}".format(sqo,variable))    
                 else:
                     for variable in classes[_class]:
                         if variable[0]=='_':
@@ -251,6 +253,7 @@ def init(command,classes,class_spec):
                        # else:
                         sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
+                        var_dict.append("'{1}' = {0}".format(sqo,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                         #print ("            print(so)")
@@ -261,9 +264,7 @@ def init(command,classes,class_spec):
                         print ("                self.{1}=[]".format(command_name,_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
                         print ("                    instance_type=item.keys()[0]")
-                        var2=",".join(var)
-                        var2=var2.replace('=',':')
-                        print ("                    self.{1}.append( type('_'+instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),var2))
+                        print ("                    self.{1}.append( type('_'+instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),var_dict))
                 else:
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
