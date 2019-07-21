@@ -120,19 +120,6 @@ class show_variables:
 
 class select:
 
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
     class _group_by:
         __slots__=()
         column = None
@@ -160,32 +147,6 @@ class select:
             if start:  self.start=start
             if length:  self.length=length
 
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
-    class _or:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
     class _columns:
         __slots__=()
         function = None
@@ -203,6 +164,19 @@ class select:
             if argument1:  self.argument1=argument1
             if display:  self.display=display
 
+    class _condition:
+        __slots__=()
+        c = None
+        e1 = None
+        condition = None
+        e2 = None
+
+        def __init__(self,c=None,e1=None,condition=None,e2=None):
+            if c:  self.c=c
+            if e1:  self.e1=e1
+            if condition:  self.condition=condition
+            if e2:  self.e2=e2
+
     class _order_by:
         __slots__=()
         column = None
@@ -215,8 +189,8 @@ class select:
     group_by             = None        # optional [ group by() ]
     source               = None        # optional source()
     limit                = None        # optional limit()
-    where                = None        # optional [ where() ]
     columns              = []          #          columns()
+    condition            = None        # optional [ condition() ]
     order_by             = None        # optional [ order by() ]
 
     def __init__(self,so):
@@ -228,14 +202,14 @@ class select:
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','limit']):
                 self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     self.columns.append( self._columns(function = gv(item,['function']),column = gv(item,['column']),argument2 = gv(item,['argument2']),argument3 = gv(item,['argument3']),argument1 = gv(item,['argument1']),display = gv(item,['display'])) )
+            if gv(so,['meta','condition']):
+                self.condition=[]
+                for item in gv(so,['meta','condition']):
+                    self.condition.append( self._condition(c = gv(item,['condition','c']),e1 = gv(item,['condition','e1']),condition = gv(item,['condition','condition']),e2 = gv(item,['condition','e2'])) )
             if gv(so,['meta','order by']):
                 self.order_by=[]
                 for item in gv(so,['meta','order by']):
@@ -350,19 +324,6 @@ class show_output_modules:
 
 class delete:
 
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
     class _source:
         __slots__=()
         table = None
@@ -372,20 +333,7 @@ class delete:
             if table:  self.table=table
             if database:  self.database=database
 
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
-    class _or:
+    class _condition:
         __slots__=()
         c = None
         e1 = None
@@ -399,15 +347,15 @@ class delete:
             if e2:  self.e2=e2
 
     source               = _source()
-    where                = None        # optional [ where() ]
+    condition            = None        # optional [ condition() ]
 
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
+            if gv(so,['meta','condition']):
+                self.condition=[]
+                for item in gv(so,['meta','condition']):
+                    self.condition.append( self._condition(c = gv(item,['condition','c']),e1 = gv(item,['condition','e1']),condition = gv(item,['condition','condition']),e2 = gv(item,['condition','e2'])) )
     def debug(self):
         debugger(self,'delete')
 
@@ -458,19 +406,6 @@ class insert:
 
 class update:
 
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
     class _source:
         __slots__=()
         table = None
@@ -489,20 +424,7 @@ class update:
             if column:  self.column=column
             if expression:  self.expression=expression
 
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-
-    class _or:
+    class _condition:
         __slots__=()
         c = None
         e1 = None
@@ -517,7 +439,7 @@ class update:
 
     source               = _source()
     set                  = []          #          set()
-    where                = None        # optional [ where() ]
+    condition            = None        # optional [ condition() ]
 
     def __init__(self,so):
             if gv(so,['meta','source']):
@@ -526,10 +448,10 @@ class update:
                 self.set=[]
                 for item in gv(so,['meta','set']):
                     self.set.append( self._set(column = gv(item,['column']),expression = gv(item,['expression'])) )
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    self.where.append( self._where(c = gv(item,['where','c']),e1 = gv(item,['where','e1']),condition = gv(item,['where','condition']),e2 = gv(item,['where','e2'])) )
+            if gv(so,['meta','condition']):
+                self.condition=[]
+                for item in gv(so,['meta','condition']):
+                    self.condition.append( self._condition(c = gv(item,['condition','c']),e1 = gv(item,['condition','e1']),condition = gv(item,['condition','condition']),e2 = gv(item,['condition','e2'])) )
     def debug(self):
         debugger(self,'update')
 
