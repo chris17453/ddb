@@ -505,23 +505,23 @@ class lexer:
 
     # expand columns...TODO: REMOVE AFTER MIGRATION 
     # TODO null trapping
-    def expand_columns(self, meta, columns):
-        if meta.columns:
-            expanded_select = []
-            for item in meta.columns:
-                if item.column:
-                    if item.column == '*':
-                        for column in columns:
-                            expanded_select.append({'column': column})
-                    else:
-                        expanded_select.append(item)
-                if 'function' in item:
-                    expanded_select.append(item)
-
-            meta.columns = expanded_select
-        # ?? needed
-
-    # support funcitons
+    #def expand_columns(self, meta, columns):
+    #    if meta.columns:
+    #        expanded_select = []
+    #        for item in meta.columns:
+    #            if item.column:
+    #                if item.column == '*':
+    #                    for column in columns:
+    #                        expanded_select.append({'column': column})
+    #                else:
+    #                    expanded_select.append(item)
+    #            if 'function' in item:
+    #                expanded_select.append(item)
+#
+    #        meta.columns = expanded_select
+    #    # ?? needed
+#
+    ## support funcitons
 
     def get_sub_array(self, array, key=None):
         if None == key:
