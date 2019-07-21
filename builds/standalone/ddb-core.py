@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.559'
+__version__='1.2.560'
 
         
 # ############################################################################
@@ -3353,6 +3353,7 @@ class match2:
         return success
 context_sort=[]
 def method_select(context, meta, parser):
+        meta.debug()
         context.info(meta)
         select_validate_columns_and_from(context,meta,parser)
         temp_table = context.database.temp_table()
