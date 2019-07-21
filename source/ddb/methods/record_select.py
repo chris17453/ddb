@@ -534,7 +534,6 @@ def process_select_row(context,meta,processed_line):
 
 
 def sort_cmp( x, y):
-    print("Sort", context_sort)
     for c in context_sort:
         ordinal = c[0]
         direction = c[1]
@@ -569,11 +568,11 @@ def limit(context, meta, data):
         raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
 
     # only 1 variable and its 0, so its really a 0 length query.
-    if meta.limit.start==0 and meta.length==None:
+    if meta.limit.start==0 and meta.limit.length==None:
         return []
 
     # its 0 length
-    if meta.length==0:
+    if meta.limit.length==0:
         return []
 
 

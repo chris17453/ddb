@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.556'
+__version__='1.2.557'
 
         
 # ############################################################################
@@ -3620,11 +3620,14 @@ def limit(context, meta, data):
     context.info("Limit:{0},Length:{1}".format(index, length))
     if index<0:
         raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
+    if meta.limit.start==0 and meta.length==None:
+        return []
+    if meta.length==0:
+        return []
     if None == index:
         index = 0
     if None == length:
         length = len(data) - index
-    print index,length
     data_length = len(data)
     if index >= data_length:
         return []
