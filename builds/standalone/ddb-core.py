@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.553'
+__version__='1.2.554'
 
         
 # ############################################################################
@@ -3515,7 +3515,8 @@ def order_by(context,meta,data):
     context_sort = []
     for c in meta.order_by:
         if c.column not in meta.ordinals:
-            raise Exception ("ORDER BY column not present in the result set")
+            err="ORDER BY column not present in the result set '{0}'".format(c.column)
+            raise Exception (err)
         ordinal =meta.ordinals[c.column]
         context_sort.append([ordinal, c.direction])
     context.info(context_sort)
