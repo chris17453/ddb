@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.550'
+__version__='1.2.551'
 
         
 # ############################################################################
@@ -3602,6 +3602,7 @@ def cmp_to_key(mycmp):
     return K
 def order_by(context,meta,data):
     global context_sort
+    meta.debug()
     if not meta.order_by:
         return data
     context.info("Select has Order By")
