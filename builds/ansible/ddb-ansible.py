@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.561'
+__version__='1.2.562'
 
         
 # ############################################################################
@@ -234,9 +234,9 @@ language={'commands': [{'name': 'show columns',
                              'name': 'source',
                              'optional': True},
                             {'data': [
-                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
-                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
-                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}}, 
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}},
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}},
                                 ] ,
                              'depends_on': 'source',
                              'name': 'condition',
@@ -340,9 +340,9 @@ language={'commands': [{'name': 'show columns',
                                                '{table}']}],
                              'name': 'source'},
                             {'data': [
-                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
-                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
-                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ,
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}},
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}},
                                 ] ,
                              'depends_on': 'source',
                              'name': 'condition',
@@ -398,9 +398,9 @@ language={'commands': [{'name': 'show columns',
                              'name': 'set',
                              'depends_on':'set header'},
                             {'data': [
-                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} 
-                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}}
-                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}}
+                                {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ,
+                                {'signature': ['and'  ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}},
+                                {'signature': ['or'   ,'{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}},
                                 ] ,
                              'depends_on': 'source',
                              'name': 'condition',
