@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.615'
+__version__='1.2.616'
 
         
 # ############################################################################
@@ -3912,7 +3912,7 @@ def method_upsert(context, meta):
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line3(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line.error:
                         context.add_error(processed_line.error)
                     line_number += 1
