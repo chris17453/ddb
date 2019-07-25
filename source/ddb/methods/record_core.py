@@ -183,16 +183,20 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                         line_data_cleaned+=d[1:-1]
                     line_data = line_data_cleaned
 
-        # If no where. return everything
-        if not meta.where:
-            match_results = True
-        else:
-            # if a where, only return data, comments/whites/space/errors are ignored
-            
-            if line_type == context.data_type.DATA:
-                match_results = match2().evaluate_match(meta=meta, row=line_data)
+        # If no where. return everything, not everythin has a where
+        try:
+            if not meta.where:
+                match_results = True
             else:
-                match_results = False
+                # if a where, only return data, comments/whites/space/errors are ignored
+                
+                if line_type == context.data_type.DATA:
+                    match_results = match2().evaluate_match(meta=meta, row=line_data)
+                else:
+                    match_results = False
+        except ex:
+            match_results = True
+            
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
         elif visible_comments is False and line_type==context.data_type.COMMENT:

@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.598'
+__version__='1.2.599'
 
         
 # ############################################################################
@@ -3394,8 +3394,8 @@ def method_insert(context, meta):
                     diff.append(results['line'])
                     affected_rows += 1
                 temp_file.close()
-                context.autocommit_write(table,temp_file.name)
-        context.auto_commit(table)
+                context.autocommit_write(meta.table,temp_file.name)
+        context.auto_commit(meta.table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
 def create_single(context, meta, temp_file, requires_new_line):
     err = False
