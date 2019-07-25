@@ -432,10 +432,11 @@ def order_by(context,meta,data):
     try:
       # the python2 way
       ordered_data = sorted(data, sort_cmp)
-    except:
+    except  Exception as ex:
+        raise Exception ("Error sorting. {0}".format(ex))
       # the python3 way
-      ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
-      pass
+      #ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
+      #pass
 
     return ordered_data
 
