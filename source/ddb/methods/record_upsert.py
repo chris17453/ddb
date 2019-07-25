@@ -70,7 +70,7 @@ def method_upsert(context, meta):
                     context.info("row found in upsert")
 
                 temp_file.close()
-                context.autocommit_write(mtea.table,temp_file.name)
+                context.autocommit_write(meta.table,temp_file.name)
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
