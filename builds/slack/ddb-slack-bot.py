@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.575'
+__version__='1.2.576'
 
         
 # ############################################################################
@@ -3547,9 +3547,8 @@ def order_by(context,meta,data):
     context.info(context_sort)
     try:
       ordered_data = sorted(data, sort_cmp)
-    except:
-      ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
-      pass
+    except  Exception as ex:
+        raise Exception ("Error sorting. {0}".format(ex))
     return ordered_data
 def group(context,data):
     return data
