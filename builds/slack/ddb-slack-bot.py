@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.601'
+__version__='1.2.602'
 
         
 # ############################################################################
@@ -3380,6 +3380,7 @@ def method_delete(context, query_object):
 
 def method_insert(context, meta):
         meta.table=get_table(context,meta)
+        meta.debug()
         line_number = 1
         affected_rows = 0
         requires_new_line = False
