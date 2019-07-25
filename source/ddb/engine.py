@@ -239,8 +239,6 @@ class engine:
 
             elif mode == 'create table' and self.internal['READONLY']==None:
                 meta_class=meta.convert_to_class(query_object)
-                meta_class.debug()
-                pprint.pprint (query_object)
                 
                 self.results = method_create_table(self,query_object)
 

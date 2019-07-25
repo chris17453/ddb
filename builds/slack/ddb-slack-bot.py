@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.592'
+__version__='1.2.593'
 
         
 # ############################################################################
@@ -446,28 +446,16 @@ language={'commands': [{'name': 'show columns',
                              'name': 'fifo',
                              'optional': True,
                              'type': 'single'},
-                            {'data': [{'signature': ['repo',
-                                               '=',
-                                               '{protocol}',
-                                               'url',
-                                               '=',
-                                               '{url}',
-                                               'user',
-                                               '=',
-                                               '{user}',
-                                               'password',
-                                               '=',
-                                               '{password}',
-                                               'repo_dir',
-                                               '=',
-                                               '{directory}',
-                                               'repo_file',
-                                               '=',
-                                               '{file}']}],
+                            {'data': [{'signature': ['repo','=','{protocol}',
+                                               'url','=','{url}',
+                                               'user','=','{user}',
+                                               'password','=','{password}',
+                                               'repo_dir','=','{directory}',
+                                               'repo_file','=','{file}']}],
                              'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git']}},
                              'name': 'repo',
                              'optional': True,
-                             'type': 'single'},
+                             },
                             {'data': [{'signature': ['mode',
                                                '=',
                                                '{mode}']}],
