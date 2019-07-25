@@ -3,7 +3,7 @@
 from .record_core import process_line3, query_results, get_table
 import tempfile
 
-def method_delete(context, query_object):
+def method_delete(context, meta):
     try:
         meta.table=get_table(context,meta)
 

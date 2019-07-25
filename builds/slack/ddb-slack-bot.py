@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.608'
+__version__='1.2.609'
 
         
 # ############################################################################
@@ -2874,22 +2874,19 @@ class engine:
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
+            meta_class=meta.convert_to_class(query_object)
+            if self.debug:
+                meta_class.debug()
             if mode == 'select':
-                meta_class=meta.convert_to_class(query_object)
-                if self.debug:
-                    meta_class.debug()
                 self.results = method_select(self,meta_class, parser)
             elif mode == 'insert' and self.internal['READONLY']==None:
-                meta_class=meta.convert_to_class(query_object)
-                if self.debug:
-                    meta_class.debug()
                 self.results = method_insert(self,meta_class)
             elif mode == 'update' and self.internal['READONLY']==None:
-                self.results = method_update(self,query_object)
+                self.results = method_update(self,meta_class)
             elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,query_object)
+                self.results = method_upsert(self,meta_class)
             elif mode == 'delete' and self.internal['READONLY']==None:
-                self.results = method_delete(self,query_object)
+                self.results = method_delete(self,meta_class)
             elif mode == 'use table':
                 self.results = method_use(self,query_object)
             elif mode == 'drop table' and self.internal['READONLY']==None:
@@ -3331,30 +3328,20 @@ class query_results:
 
 def method_delete(context, query_object):
     try:
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['source']['table']
-        table= context.database.get(table_name,database_name)
-        query_object['table']=table
-        if None == query_object['table']:
-            raise Exception("Table '{0}' does not exist.".format(table_name))
+        meta.table=get_table(context,meta)
         line_number = 1
         affected_rows = 0
-        temp_data_file=context.get_data_file(table)
+        temp_data_file=context.get_data_file(meta.table)
         diff=[]
-        column_count=table.column_count()
-        delimiter=table.delimiters.field
-        visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.comments
-        visible_errors=table.visible.errors
+        column_count      =meta.table.column_count()
+        delimiter         =meta.table.delimiters.field
+        visible_whitespace=meta.table.visible.whitespace
+        visible_comments  =meta.table.visible.comments
+        visible_errors    =meta.table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
             for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if None != processed_line['error']:
                     context.add_error(processed_line['error'])
                 line_number += 1
@@ -3363,10 +3350,10 @@ def method_delete(context, query_object):
                     diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                     continue
                 temp_file.write(processed_line['raw'])
-                temp_file.write(query_object['table'].delimiters.get_new_line())
+                temp_file.write(meta.table.delimiters.get_new_line())
             temp_file.close()
-            context.autocommit_write(table,temp_file.name)
-        context.auto_commit(table)
+            context.autocommit_write(meta.table,temp_file.name)
+        context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         print(ex)
@@ -3414,12 +3401,9 @@ def create_single(context, meta, temp_file, requires_new_line):
     try:
         err = False
         new_line = ''
-        print "HI"
-        print meta
         if len(meta.columns) != meta.table.column_count():
             context.add_error("Cannot insert, column count does not match table column count")
         else:
-            print "WOW"
             if len(meta.values) != meta.table.column_count():
                 context.add_error("Cannot insert, column value count does not match table column count")
             else:
@@ -3744,73 +3728,63 @@ def compare_data(context,data1, data2):
 # File   : ./source/ddb/methods/record_update.py
 # ############################################################################
 
-def update_single(context,query_object, temp_file, requires_new_line, processed_line):
+def update_single(context,meta, temp_file, requires_new_line, processed_line):
     err = False
     new_line = ''
     err = False
-    for c2 in range(0, len(query_object['meta']['set'])):
-        column_name = query_object['meta']['set'][c2]['column']
-        if None == query_object['table'].get_column_by_name(column_name):
+    for c2 in range(0, len(meta.set)):
+        column_name = meta.set[c2].column
+        if None == meta.table.get_column_by_name(column_name):
             context.add_error("column in update statement does not exist in table: {0}".format(column_name))
             err = True
     if False == err:
-        for c in range(0, query_object['table'].column_count()):
-            column_name = query_object['table'].get_column_at_data_ordinal(c)
-            value = processed_line['data'][c]
-            for c2 in range(0, len(query_object['meta']['set'])):
-                if query_object['meta']['set'][c2]['column'] == column_name:
-                    value = query_object['meta']['set'][c2]['expression']
+        for c in range(0, meta.table.column_count()):
+            column_name = meta.table.get_column_at_data_ordinal(c)
+            value = processed_line.data[c]
+            for c2 in range(0, len(meta..set)):
+                if meta.set[c2].column == column_name:
+                    value = meta.set[c2].expression
             if c > 0:
-                new_line += '{0}'.format(query_object['table'].delimiters.field)
+                new_line += '{0}'.format(meta.table.delimiters.field)
             new_line += '{0}'.format(value)
     if False == err:
         if True == requires_new_line:
-            temp_file.write(query_object['table'].delimiters.get_new_line())
+            temp_file.write(meta.table.delimiters.get_new_line())
         temp_file.write(new_line)
-        temp_file.write(query_object['table'].delimiters.get_new_line())
+        temp_file.write(meta.table.delimiters.get_new_line())
     if False == err:
         return {'success':True,'line':new_line}
     else:
         return {'success':False,'line':new_line}
-def method_update(context, query_object):
+def method_update(context, meta):
     try:
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['source']['table']
-        table= context.database.get(table_name,database_name)
-        query_object['table']=table
-        if None == query_object['table']:
-            raise Exception("Table '{0}' does not exist.".format(table_name))
+        meta.table=get_table(context,meta)
         line_number = 1
         affected_rows = 0
-        temp_data_file=context.get_data_file(table)
+        temp_data_file=context.get_data_file(meta.table)
         diff=[]
-        column_count=table.column_count()
-        delimiter=table.delimiters.field
-        visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.comments
-        visible_errors=table.visible.errors
+        column_count      =meta.table.column_count()
+        delimiter         =meta.table.delimiters.field
+        visible_whitespace=meta.table.visible.whitespace
+        visible_comments  =meta.table.visible.comments
+        visible_errors    =meta.table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
+                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line.error:
+                        context.add_error(processed_line.error)
                     line_number += 1
-                    if True == processed_line['match']:
-                        results = update_single(context,query_object, temp_file,  False, processed_line)
-                        if True == results['success']:
-                            diff.append(results['line'])
+                    if True == processed_line.match:
+                        results = update_single(context,meta, temp_file,  False, processed_line)
+                        if True == results.success:
+                            diff.append(results.line)
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.get_new_line())
+                    temp_file.write(processed_line.raw)
+                    temp_file.write(meta.table.delimiters.get_new_line())
                 temp_file.close()
-                context.autocommit_write(table,temp_file.name)
+                context.autocommit_write(meta.table,temp_file.name)
         context.auto_commit(table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
@@ -3822,69 +3796,59 @@ def method_update(context, query_object):
 # File   : ./source/ddb/methods/record_upsert.py
 # ############################################################################
 
-def method_upsert(context, query_object):
+def method_upsert(context, meta):
     try:
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['source']['table']
-        table= context.database.get(table_name,database_name)
-        query_object['table']=table
-        if None == query_object['table']:
-            raise Exception("Table '{0}' does not exist.".format(table_name))
-        if 'on duplicate key' not in query_object['meta']:
+        meta.table=get_table(context,meta)
+        if not meta.on_duplicate_key:
             raise Exception("Upsert missing duplicate keys")
         where=[]
-        for item in query_object['meta']['on duplicate key']:
-            column=item['column']
-            for index in range(0,len(query_object['meta']['columns'])):
-                column_compare=query_object['meta']['columns'][index]['column']
+        for item in meta.on_duplicate_key:
+            column=item.column
+            for index in range(0,len(meta.columns)):
+                column_compare=meta.columns[index].column
                 if column_compare==column:
-                    value=query_object['meta']['values'][index]['value']
+                    value=meta.values[index].value
                     if len(where)==0:
                         mode='where'
                     else:
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
-        query_object['meta']['where']=where
+        meta.where=where
         context.info("Query object",query_object)
         line_number = 1
         affected_rows = 0
-        temp_data_file=context.get_data_file(table)
+        temp_data_file=context.get_data_file(meta.table)
         diff=[]
-        column_count=table.column_count()
-        delimiter=table.delimiters.field
-        visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.comments
-        visible_errors=table.visible.errors
+        column_count       =meta.table.column_count()
+        delimiter          =meta.table.delimiters.field
+        visible_whitespace =meta.table.visible.whitespace
+        visible_comments   =meta.table.visible.comments
+        visible_errors     =meta.table.visible.errors
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
+                    processed_line = process_line3(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line.error:
+                        context.add_error(processed_line.error)
                     line_number += 1
-                    if True == processed_line['match']:
+                    if True == processed_line.match:
                         results = update_single(context,query_object, temp_file,  False, processed_line)
-                        if True == results['success']:
-                            diff.append(results['line'])
+                        if True == results.success:
+                            diff.append(results.line)
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.get_new_line())
+                    temp_file.write(processed_line.raw)
+                    temp_file.write(meta.table.delimiters.get_new_line())
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
-                    results = create_single(context,query_object, temp_file,False)
-                    if True==results['success']:
-                        diff.append(results['line'])
+                    results = create_single(context,meta, temp_file,False)
+                    if True==results.success:
+                        diff.append(results.line)
                 else:
                     context.info("row found in upsert")
                 temp_file.close()
-                context.autocommit_write(table,temp_file.name)
-        context.auto_commit(table)                
+                context.autocommit_write(mtea.table,temp_file.name)
+        context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
         print ("ERR",ex)
