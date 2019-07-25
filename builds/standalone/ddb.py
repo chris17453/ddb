@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.606'
+__version__='1.2.607'
 
         
 # ############################################################################
@@ -3400,6 +3400,7 @@ def method_insert(context, meta):
                     temp_file.write(processed_line['raw'])
                     temp_file.write(meta.table.delimiters.get_new_line())
                     requires_new_line = False
+                meta.debug()
                 results = create_single(context,meta, temp_file, requires_new_line)
                 if True == results['success']:
                     diff.append(results['line'])
