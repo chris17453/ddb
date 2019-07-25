@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.603'
+__version__='1.2.604'
 
         
 # ############################################################################
@@ -3443,7 +3443,7 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':False,'line':new_line}
     except Exception as ex:
         print ex
-            return {'success':False,'line':new_line}
+        return {'success':False,'line':new_line}
 
         
 # ############################################################################
