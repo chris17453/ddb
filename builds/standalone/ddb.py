@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.583'
+__version__='1.2.584'
 
         
 # ############################################################################
@@ -3133,8 +3133,8 @@ class query_results:
             pass
         return None
     def debug(self):
-        pprint.pprint(self.error)
-        pprint.pprint(self.data)
+        pprint(self.error)
+        pprint(self.data)
 
         
 # ############################################################################
