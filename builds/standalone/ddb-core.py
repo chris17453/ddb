@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.579'
+__version__='1.2.580'
 
         
 # ############################################################################
@@ -3434,7 +3434,7 @@ def select_validate_columns_and_from(context, meta, parser):
                 raise Exception("No defined columns in configuration")
         else:
             raise Exception("Missing FROM in select")
-def get_table(self,context,meta):
+def get_table(context,meta):
     if meta.source:
         if meta.source.database:
             context.info('Database specified')
