@@ -94,5 +94,5 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':False,'line':new_line}
     except Exception as ex:
         print ex
-            return {'success':False,'line':new_line}
+        return {'success':False,'line':new_line}
 

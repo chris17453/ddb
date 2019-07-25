@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.604'
+__version__='1.2.605'
 
         
 # ############################################################################
@@ -3404,13 +3404,15 @@ def method_insert(context, meta):
 def create_single(context, meta, temp_file, requires_new_line):
     try:
         err = False
+        new_line = ''
+        print "HI"
         if len(meta.columns) != meta.table.column_count():
             context.add_error("Cannot insert, column count does not match table column count")
         else:
+            print "WOW"
             if len(meta.values) != meta.table.column_count():
                 context.add_error("Cannot insert, column value count does not match table column count")
             else:
-                new_line = ''
                 err = False
                 for c in range(0, len(meta.columns)):
                     column_name =meta.table.get_column_at_data_ordinal(c)
@@ -3436,7 +3438,7 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':False,'line':new_line}
     except Exception as ex:
         print ex
-        return {'success':False,'line':new_line}
+            return {'success':False,'line':new_line}
 
         
 # ############################################################################
