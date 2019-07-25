@@ -62,8 +62,8 @@ def method_upsert(context, meta):
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     results = create_single(context,meta, temp_file,False)
-                    if True==results.success:
-                        diff.append(results.line)
+                    if True==results['success']:
+                        diff.append(results['line'])
                 else:
                     context.info("row found in upsert")
 
