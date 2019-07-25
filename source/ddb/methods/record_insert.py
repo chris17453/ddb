@@ -36,7 +36,7 @@ def method_insert(context, meta):
                     requires_new_line = False
                     #else:
                     #    requires_new_line = True
-
+                meta.debug()
                 results = create_single(context,meta, temp_file, requires_new_line)
                 if True == results['success']:
                     diff.append(results['line'])
