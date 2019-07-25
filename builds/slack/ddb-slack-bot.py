@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.599'
+__version__='1.2.600'
 
         
 # ############################################################################
@@ -3158,13 +3158,16 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     for d in line_data:
                         line_data_cleaned+=d[1:-1]
                     line_data = line_data_cleaned
-        if not meta.where:
-            match_results = True
-        else:
-            if line_type == context.data_type.DATA:
-                match_results = match2().evaluate_match(meta=meta, row=line_data)
+        try:
+            if not meta.where:
+                match_results = True
             else:
-                match_results = False
+                if line_type == context.data_type.DATA:
+                    match_results = match2().evaluate_match(meta=meta, row=line_data)
+                else:
+                    match_results = False
+        except ex:
+            match_results = True
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
         elif visible_comments is False and line_type==context.data_type.COMMENT:
