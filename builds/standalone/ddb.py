@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.580'
+__version__='1.2.581'
 
         
 # ############################################################################
@@ -3436,7 +3436,7 @@ def select_validate_columns_and_from(context, meta, parser):
         if meta.source:
             meta.table = get_table(context,meta)
             expand_columns(meta)
-            column_len = table.column_count()
+            column_len = meta.table.column_count()
             if column_len == 0:
                 raise Exception("No defined columns in configuration")
         else:

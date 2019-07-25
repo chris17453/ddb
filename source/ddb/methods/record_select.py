@@ -571,6 +571,9 @@ def limit(context, meta, data):
             length = meta.limit.length
             if length<0:
                 raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
+    else:
+        # no limit...
+        return data
 
 
     context.info("Limit:{0},Length:{1}".format(index, length))
@@ -578,6 +581,7 @@ def limit(context, meta, data):
         raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
 
     # only 1 variable and its 0, so its really a 0 length query.
+
     if meta.limit.start==0 and meta.limit.length==None:
         return []
 
