@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.586'
+__version__='1.2.587'
 
         
 # ############################################################################
@@ -3969,8 +3969,8 @@ def method_create_table(context, query_object):
             mode = query_object['meta']['mode']
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
-            if 'repo_type' in repo:
-                repo_type=repo['repo_type']
+            if 'repo' in repo:
+                repo_type=repo['repo']
             if 'repo_url' in repo:
                 repo_url=repo['repo_url']
             if 'repo_user' in repo:
