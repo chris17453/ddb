@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.588'
+__version__='1.2.589'
 
         
 # ############################################################################
@@ -2991,6 +2991,8 @@ class engine:
             elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
             elif mode == 'create table' and self.internal['READONLY']==None:
+                meta_class=meta.convert_to_class(query_object)
+                meta_class.debug()
                 self.results = method_create_table(self,query_object)
             elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,query_object)
