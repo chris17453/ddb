@@ -24,7 +24,7 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
             column_name = meta.table.get_column_at_data_ordinal(c)
             value = processed_line.data[c]
             for c2 in range(0, len(meta.set)):
-                #print column_name,meta..set
+                #print column_name,meta.set
                 if meta.set[c2].column == column_name:
                     #print("Column {} at table index {} located at query index {}".format(column_name,c, c2))
                     value = meta.set[c2].expression
@@ -78,7 +78,7 @@ def method_update(context, meta):
                     temp_file.write(meta.table.delimiters.get_new_line())
                 temp_file.close()
                 context.autocommit_write(meta.table,temp_file.name)
-        context.auto_commit(table)
+        context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         #print (ex)
