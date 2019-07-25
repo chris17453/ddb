@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.616'
+__version__='1.2.617'
 
         
 # ############################################################################
@@ -3823,7 +3823,7 @@ def method_upsert(context, meta):
                         context.add_error(processed_line.error)
                     line_number += 1
                     if True == processed_line.match:
-                        results = update_single(context,query_object, temp_file,  False, processed_line)
+                        results = update_single(context,meta, temp_file,  False, processed_line)
                         if True == results.success:
                             diff.append(results.line)
                             affected_rows += 1
