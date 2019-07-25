@@ -6,7 +6,7 @@ from .record_core import process_line3, query_results, get_table
 def method_insert(context, meta):
 
         meta.table=get_table(context,meta)
-        meta.debug()
+        #meta.debug()
 
         line_number = 1
         affected_rows = 0
@@ -36,7 +36,7 @@ def method_insert(context, meta):
                     requires_new_line = False
                     #else:
                     #    requires_new_line = True
-                meta.debug()
+               # meta.debug()
                 results = create_single(context,meta, temp_file, requires_new_line)
                 if True == results['success']:
                     diff.append(results['line'])

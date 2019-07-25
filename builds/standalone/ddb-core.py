@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.617'
+__version__='1.2.618'
 
         
 # ############################################################################
@@ -3819,16 +3819,16 @@ def method_upsert(context, meta):
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line.error:
-                        context.add_error(processed_line.error)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
                     line_number += 1
-                    if True == processed_line.match:
+                    if True == processed_line['match']:
                         results = update_single(context,meta, temp_file,  False, processed_line)
                         if True == results.success:
                             diff.append(results.line)
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line.raw)
+                    temp_file.write(processed_line['raw'])
                     temp_file.write(meta.table.delimiters.get_new_line())
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
