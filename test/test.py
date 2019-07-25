@@ -272,7 +272,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def test_upsert(self,mode=None):
+    def t1est_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
@@ -394,7 +394,7 @@ class test_engine(unittest.TestCase):
     def test_svn_delete(self):
         self.test_delete(mode='SVN')
 
-    def test_svn_upsert(self):
+    def t1est_svn_upsert(self):
         self.test_upsert(mode='SVN')
 
     def t1est_svn_rollback(self):
