@@ -117,7 +117,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_describe_table(self,mode=None):
+    def test_describe_table(self,mode=None):
         """Show table configuration"""
         self.cleanup()
         try:

@@ -180,7 +180,7 @@ context_sort=[]
 
 def method_select(context, meta, parser):
     #try:
-        meta.debug()
+        #meta.debug()
         context.info(meta)
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,meta,parser)
@@ -482,7 +482,7 @@ def distinct(context,meta,data):
 
 def process_select_row(context,meta,processed_line):
     row=[]
-    meta.debug()
+    #meta.debug()
     if meta.source:
     
         ordinals=meta.table.ordinals
