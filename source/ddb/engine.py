@@ -219,7 +219,10 @@ class engine:
                 self.results = method_select(self,meta_class, parser)
             
             elif mode == 'insert' and self.internal['READONLY']==None:
-                self.results = method_insert(self,query_object)
+                meta_class=meta.convert_to_class(query_object)
+                if self.debug:
+                    meta_class.debug()
+                self.results = method_insert(self,meta_class)
 
             elif mode == 'update' and self.internal['READONLY']==None:
                 self.results = method_update(self,query_object)
