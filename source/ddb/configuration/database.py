@@ -149,7 +149,8 @@ class database:
         
         if repo_type!='svn':
             if False == os.path.isfile(normalize_path(data_file)):
-                raise Exception("Data file does not exist")
+                err="Data file does not exist. {0}".format(normalize_path(data_file))
+                raise Exception(err)
 
         if not temporary:
             if None == self.config_file:

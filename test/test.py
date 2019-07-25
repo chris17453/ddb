@@ -10,6 +10,7 @@ class test_engine(unittest.TestCase):
     temp_config = 'temp_config.yaml'
     temp_data = 'MOCK_DATA.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
+    basedir_svn = os.path.dirname(os.path.abspath(__file__))
     table_name = 'test'
     debug=None
     def cleanup(self):
@@ -28,15 +29,15 @@ class test_engine(unittest.TestCase):
                 'http://localhost/svn/SampleProject/',
                 'user',
                 'password',
-                os.path.join(self.basedir,'svn_test'),
+                os.path.join(self.basedir_svn,'svn_test'),
                 'MOCK_DATA.csv')
-            file_name=os.path.join(self.basedir,'svn_test',"MOCK_DATA.csv")
-            
+            file_name=os.path.join(self.basedir_svn,'svn_test',"MOCK_DATA.csv")
         else:
             repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
        
         query="create table {0}('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        print query
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
