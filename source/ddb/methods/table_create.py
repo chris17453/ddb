@@ -61,17 +61,17 @@ def method_create_table(context, query_object):
         if 'repo_type' in query_object['meta']:
             repo=query_object['meta']
             if 'repo' in repo:
-                repo_type=repo['repo']
+                repo_type=repo['protocol']
             if 'repo_url' in repo:
-                repo_url=repo['repo_url']
+                repo_url=repo['url']
             if 'repo_user' in repo:
-                repo_user=repo['repo_user']
+                repo_user=repo['user']
             if 'repo_password' in repo:
-                repo_password=repo['repo_password']
+                repo_password=repo['password']
             if 'repo_dir' in repo:
-                repo_dir=repo['repo_dir']
+                repo_dir=repo['directory']
             if 'repo_file' in repo:
-                repo_file=repo['repo_file']
+                repo_file=repo['file']
         else:
             repo_type=None
             repo_url=None
