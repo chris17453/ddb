@@ -6,6 +6,7 @@ from .record_core import process_line3, query_results, get_table
 def method_insert(context, meta):
 
         meta.table=get_table(context,meta)
+        meta.debug()
 
         line_number = 1
         affected_rows = 0
