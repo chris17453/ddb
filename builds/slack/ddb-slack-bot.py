@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.596'
+__version__='1.2.597'
 
         
 # ############################################################################
@@ -2880,7 +2880,10 @@ class engine:
                     meta_class.debug()
                 self.results = method_select(self,meta_class, parser)
             elif mode == 'insert' and self.internal['READONLY']==None:
-                self.results = method_insert(self,query_object)
+                meta_class=meta.convert_to_class(query_object)
+                if self.debug:
+                    meta_class.debug()
+                self.results = method_insert(self,meta_class)
             elif mode == 'update' and self.internal['READONLY']==None:
                 self.results = method_update(self,query_object)
             elif mode == 'upsert' and self.internal['READONLY']==None:
@@ -3091,176 +3094,89 @@ def process_line(context, query_object, line, line_number=0,column_count=0,delim
             'line_number': line_number, 
             'match': match_results, 
             'error': err}
-class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
-        self.success=success
-        self.affected_rows=affected_rows
-        self.data=[]
-        self.diff=diff
-        self.error=error
-        self.data_length=0
-        self.column_length=0
-        self.total_data_length=0
-        self.delimiter=delimiter
-        self.new_line=new_line
-        self.columns=[]
-        if data and data.results:
-            self.data=data.results
-            self.data_length=len(data.results)
-        if data:
-            self.columns = data.get_columns_display()
-            self.column_length=len(self.columns)
-    def get_first(self):
-        try:
-            return self.data[0]['data'][0]
-        except:
-            pass
-        return None
-    def is_single(self):
-        try:
-            if len(self.data)==1:
-                return True
-        except:
-            pass
-        return None
-    def debug(self):
-        pprint(self.error)
-        pprint(self.data)
-
-        
-# ############################################################################
-# Module : methods-records-delete
-# File   : ./source/ddb/methods/record_delete.py
-# ############################################################################
-
-def method_delete(context, query_object):
-    try:
-        if 'database' in query_object['meta']['source']:
+def get_table(context,meta):
+    if meta.source:
+        if meta.source.database:
             context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
+            database_name=meta.source.database
         else:
             context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['source']['table']
+            database_name=context.database.get_curent_database()
+        table_name = meta.source.table
         table= context.database.get(table_name,database_name)
-        query_object['table']=table
-        if None == query_object['table']:
-            raise Exception("Table '{0}' does not exist.".format(table_name))
-        line_number = 1
-        affected_rows = 0
-        temp_data_file=context.get_data_file(table)
-        diff=[]
-        column_count=table.column_count()
-        delimiter=table.delimiters.field
-        visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.comments
-        visible_errors=table.visible.errors
-        with open(temp_data_file, 'r') as content_file:
-            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
-            for line in content_file:
-                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                if None != processed_line['error']:
-                    context.add_error(processed_line['error'])
-                line_number += 1
-                if True == processed_line['match']:
-                    affected_rows += 1
-                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
-                    continue
-                temp_file.write(processed_line['raw'])
-                temp_file.write(query_object['table'].delimiters.get_new_line())
-            temp_file.close()
-            context.autocommit_write(table,temp_file.name)
-        context.auto_commit(table)
-        return  query_results(success=True,affected_rows=affected_rows,diff=diff)
-    except Exception as ex:
-        print(ex)
-        return  query_results(success=False, error=ex)
-
-        
-# ############################################################################
-# Module : methods-records-insert
-# File   : ./source/ddb/methods/record_insert.py
-# ############################################################################
-
-def method_insert(context, query_object):
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name = query_object['meta']['source']['table']
-        table= context.database.get(table_name,database_name)
-        query_object['table']=table
-        if None == query_object['table']:
-            raise Exception("Table '{0}' does not exist.".format(table_name))
-        line_number = 1
-        affected_rows = 0
-        requires_new_line = False
-        column_count=table.column_count()
-        delimiter=table.delimiters.field
-        visible_whitespace=table.visible.whitespace
-        visible_comments=table.visible.comments
-        visible_errors=table.visible.errors
-        temp_data_file=context.get_data_file(table,"SRC_INSERT")
-        diff=[]
-        with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=False) as temp_file:
-                for line in content_file:
-                    processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
-                    line_number += 1
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(query_object['table'].delimiters.get_new_line())
-                    requires_new_line = False
-                results = create_single(context,query_object, temp_file, requires_new_line)
-                if True == results['success']:
-                    diff.append(results['line'])
-                    affected_rows += 1
-                temp_file.close()
-                context.autocommit_write(table,temp_file.name)
-        context.auto_commit(table)
-        return query_results(success=True,affected_rows=affected_rows,diff=diff)
-def create_single(context, query_object, temp_file, requires_new_line):
-    err = False
-    if len(query_object['meta']['columns']) != query_object['table'].column_count():
-        context.add_error("Cannot insert, column count does not match table column count")
+        if None == table:
+            except_str="Table '{0}' does not exist.".format(table_name)
+            raise Exception(except_str)
+        return table
+    return None
+def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
+    err = None
+    table=meta.table
+    line_cleaned = line.rstrip()
+    line_data = None
+    match_results=False
+    if table.data.starts_on_line > line_number:
+        line_type = context.data_type.COMMENT
+        line_data = line
+        try_match=False
     else:
-        if len(query_object['meta']['values']) != query_object['table'].column_count():
-            context.add_error("Cannot insert, column value count does not match table column count")
+        line_type = context.data_type.DATA
+        try_match=True
+    if try_match:
+        if not line_cleaned:
+            if True == visible_whitespace:
+                line_data = ['']
+            line_type = context.data_type.WHITESPACE
         else:
-            new_line = ''
-            err = False
-            for c in range(0, len(query_object['meta']['columns'])):
-                column_name = query_object['table'].get_column_at_data_ordinal(c)
-                found = False
-                for c2 in range(0, len(query_object['meta']['columns'])):
-                    if query_object['meta']['columns'][c2]['column'] == column_name:
-                        found = True
-                        if c > 0:
-                            new_line += '{0}'.format(query_object['table'].delimiters.field)
-                        new_line += '{0}'.format(query_object['meta']['values'][c2]['value'])
-                if False == found:
-                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
-                    err = True
-                    break
-            if False == err:
-                if True == requires_new_line:
-                    temp_file.write(query_object['table'].delimiters.get_new_line())
-                temp_file.write(new_line)
-                temp_file.write(query_object['table'].delimiters.get_new_line())
-    if False == err:
-        return {'success':True,'line':new_line}
-    else:
-        return {'success':False,'line':new_line}
-
-        
-# ############################################################################
-# Module : methods-records-select
-# File   : ./source/ddb/methods/record_select.py
-# ############################################################################
-
+            if line_cleaned[0] in table.delimiters.comment:
+                if True == visible_comments:
+                    line_data = [line_cleaned]
+                line_type = context.data_type.COMMENT
+            else:
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
+                cur_column_len = len(line_data)
+                if table.data.strict_columns==True:
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
+                        line_type = context.data_type.ERROR
+                        if True == visible_errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
+                else:
+                    if  cur_column_len != column_count:
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
+                if None != table.delimiters.block_quote:
+                    line_data_cleaned = []
+                    for d in line_data:
+                        line_data_cleaned+=d[1:-1]
+                    line_data = line_data_cleaned
+        if not meta.where:
+            match_results = True
+        else:
+            if line_type == context.data_type.DATA:
+                match_results = match2().evaluate_match(meta=meta, row=line_data)
+            else:
+                match_results = False
+        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
+            match_results=False
+        elif visible_comments is False and line_type==context.data_type.COMMENT:
+            match_results=False
+        elif visible_errors is False and line_type==context.data_type.ERROR:
+            match_results=False
+    return {'data': line_data, 
+            'type': line_type, 
+            'raw': line_cleaned, 
+            'line_number': line_number, 
+            'match': match_results, 
+            'error': err}
 class match2:
     def evaluate_single_match(self,test, row, table):
         compare1 = None
@@ -3368,6 +3284,166 @@ class match2:
         if success is None:
             return False
         return success
+class query_results:
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
+        self.success=success
+        self.affected_rows=affected_rows
+        self.data=[]
+        self.diff=diff
+        self.error=error
+        self.data_length=0
+        self.column_length=0
+        self.total_data_length=0
+        self.delimiter=delimiter
+        self.new_line=new_line
+        self.columns=[]
+        if data and data.results:
+            self.data=data.results
+            self.data_length=len(data.results)
+        if data:
+            self.columns = data.get_columns_display()
+            self.column_length=len(self.columns)
+    def get_first(self):
+        try:
+            return self.data[0]['data'][0]
+        except:
+            pass
+        return None
+    def is_single(self):
+        try:
+            if len(self.data)==1:
+                return True
+        except:
+            pass
+        return None
+    def debug(self):
+        pprint(self.error)
+        pprint(self.data)
+
+        
+# ############################################################################
+# Module : methods-records-delete
+# File   : ./source/ddb/methods/record_delete.py
+# ############################################################################
+
+def method_delete(context, query_object):
+    try:
+        if 'database' in query_object['meta']['source']:
+            context.info('Database specified')
+            database_name = query_object['meta']['source']['database']
+        else:
+            context.info('Using curent database context')
+            database_name = context.database.get_curent_database()
+        table_name = query_object['meta']['source']['table']
+        table= context.database.get(table_name,database_name)
+        query_object['table']=table
+        if None == query_object['table']:
+            raise Exception("Table '{0}' does not exist.".format(table_name))
+        line_number = 1
+        affected_rows = 0
+        temp_data_file=context.get_data_file(table)
+        diff=[]
+        column_count=table.column_count()
+        delimiter=table.delimiters.field
+        visible_whitespace=table.visible.whitespace
+        visible_comments=table.visible.comments
+        visible_errors=table.visible.errors
+        with open(temp_data_file, 'r') as content_file:
+            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
+            for line in content_file:
+                processed_line = process_line(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                if None != processed_line['error']:
+                    context.add_error(processed_line['error'])
+                line_number += 1
+                if True == processed_line['match']:
+                    affected_rows += 1
+                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
+                    continue
+                temp_file.write(processed_line['raw'])
+                temp_file.write(query_object['table'].delimiters.get_new_line())
+            temp_file.close()
+            context.autocommit_write(table,temp_file.name)
+        context.auto_commit(table)
+        return  query_results(success=True,affected_rows=affected_rows,diff=diff)
+    except Exception as ex:
+        print(ex)
+        return  query_results(success=False, error=ex)
+
+        
+# ############################################################################
+# Module : methods-records-insert
+# File   : ./source/ddb/methods/record_insert.py
+# ############################################################################
+
+def method_insert(context, meta):
+        meta.table=get_table(context,meta)
+        line_number = 1
+        affected_rows = 0
+        requires_new_line = False
+        column_count      = meta.table.column_count()
+        delimiter         = meta.table.delimiters.field
+        visible_whitespace= meta.table.visible.whitespace
+        visible_comments  = meta.table.visible.comments
+        visible_errors    = meta.table.visible.errors
+        temp_data_file=context.get_data_file(table,"SRC_INSERT")
+        diff=[]
+        with open(temp_data_file, 'r') as content_file:
+            with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=False) as temp_file:
+                for line in content_file:
+                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
+                    line_number += 1
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
+                    requires_new_line = False
+                results = create_single(context,meta, temp_file, requires_new_line)
+                if True == results['success']:
+                    diff.append(results['line'])
+                    affected_rows += 1
+                temp_file.close()
+                context.autocommit_write(table,temp_file.name)
+        context.auto_commit(table)
+        return query_results(success=True,affected_rows=affected_rows,diff=diff)
+def create_single(context, meta, temp_file, requires_new_line):
+    err = False
+    if len(meta.columns) != meta.table.column_count():
+        context.add_error("Cannot insert, column count does not match table column count")
+    else:
+        if len(meta.values) != meta.table.column_count():
+            context.add_error("Cannot insert, column value count does not match table column count")
+        else:
+            new_line = ''
+            err = False
+            for c in range(0, len(meta.columns)):
+                column_name =meta.table.get_column_at_data_ordinal(c)
+                found = False
+                for c2 in range(0, len(meta.columns)):
+                    if meta.columns[c2].column == column_name:
+                        found = True
+                        if c > 0:
+                            new_line += '{0}'.format(meta.table.delimiters.field)
+                        new_line += '{0}'.format(meta.values[c2].value)
+                if False == found:
+                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
+                    err = True
+                    break
+            if False == err:
+                if True == requires_new_line:
+                    temp_file.write(meta.table.delimiters.get_new_line())
+                temp_file.write(new_line)
+                temp_file.write(meta.table.delimiters.get_new_line())
+    if False == err:
+        return {'success':True,'line':new_line}
+    else:
+        return {'success':False,'line':new_line}
+
+        
+# ############################################################################
+# Module : methods-records-select
+# File   : ./source/ddb/methods/record_select.py
+# ############################################################################
+
 context_sort=[]
 def method_select(context, meta, parser):
         context.info(meta)
@@ -3431,21 +3507,6 @@ def select_validate_columns_and_from(context, meta, parser):
                 raise Exception("No defined columns in configuration")
         else:
             raise Exception("Missing FROM in select")
-def get_table(context,meta):
-    if meta.source:
-        if meta.source.database:
-            context.info('Database specified')
-            database_name=meta.source.database
-        else:
-            context.info('Using curent database context')
-            database_name=context.database.get_curent_database()
-        table_name = meta.source.table
-        table= context.database.get(table_name,database_name)
-        if None == table:
-            except_str="Table '{0}' does not exist.".format(table_name)
-            raise Exception(except_str)
-        return table
-    return None
 def expand_columns(meta):
     table_columns = meta.table.get_columns()
     if meta.columns:
@@ -3664,74 +3725,6 @@ def compare_data(context,data1, data2):
             if data1[key] != data2[key]:
                 return None
     return True
-def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    err = None
-    table=meta.table
-    line_cleaned = line.rstrip()
-    line_data = None
-    match_results=False
-    if table.data.starts_on_line > line_number:
-        line_type = context.data_type.COMMENT
-        line_data = line
-        try_match=False
-    else:
-        line_type = context.data_type.DATA
-        try_match=True
-    if try_match:
-        if not line_cleaned:
-            if True == visible_whitespace:
-                line_data = ['']
-            line_type = context.data_type.WHITESPACE
-        else:
-            if line_cleaned[0] in table.delimiters.comment:
-                if True == visible_comments:
-                    line_data = [line_cleaned]
-                line_type = context.data_type.COMMENT
-            else:
-                line_data = line_cleaned.split(table.delimiters.field,column_count)
-                cur_column_len = len(line_data)
-                if table.data.strict_columns==True:
-                    if  cur_column_len != column_count:
-                        if cur_column_len > column_count:
-                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
-                        else:
-                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
-                        line_type = context.data_type.ERROR
-                        if True == visible_errors:
-                            line_data = line_cleaned
-                        else:
-                            line_data = None
-                        line_type = context.data_type.ERROR
-                else:
-                    if  cur_column_len != column_count:
-                        i=cur_column_len
-                        while i<column_count:
-                            line_data+=['']
-                            i+=1
-                if None != table.delimiters.block_quote:
-                    line_data_cleaned = []
-                    for d in line_data:
-                        line_data_cleaned+=d[1:-1]
-                    line_data = line_data_cleaned
-        if not meta.where:
-            match_results = True
-        else:
-            if line_type == context.data_type.DATA:
-                match_results = match2().evaluate_match(meta=meta, row=line_data)
-            else:
-                match_results = False
-        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
-            match_results=False
-        elif visible_comments is False and line_type==context.data_type.COMMENT:
-            match_results=False
-        elif visible_errors is False and line_type==context.data_type.ERROR:
-            match_results=False
-    return {'data': line_data, 
-            'type': line_type, 
-            'raw': line_cleaned, 
-            'line_number': line_number, 
-            'match': match_results, 
-            'error': err}
 
         
 # ############################################################################
