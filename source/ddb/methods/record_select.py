@@ -294,20 +294,7 @@ def select_validate_columns_and_from(context, meta, parser):
     # if has functions, tables may not be needed
     if True == has_columns:
         if meta.source:
-            # get DB name
-            if meta.source.database:
-                context.info('Database specified')
-                database_name=meta.source.database
-            else:
-                context.info('Using curent database context')
-                database_name=context.database.get_curent_database()
-
-            table_name = meta.source.table
-            table= context.database.get(table_name,database_name)
-            if None == table:
-                except_str="Table '{0}' does not exist.".format(table_name)
-                raise Exception(except_str)
-            meta.table = table
+            meta.table = get_table(context,meta)
             expand_columns(meta)
             column_len = table.column_count()
             if column_len == 0:
@@ -315,6 +302,25 @@ def select_validate_columns_and_from(context, meta, parser):
         else:
             raise Exception("Missing FROM in select")
 
+
+
+def get_table(self,context,meta):
+    if meta.source:
+        if meta.source.database:
+            context.info('Database specified')
+            database_name=meta.source.database
+        else:
+            context.info('Using curent database context')
+            database_name=context.database.get_curent_database()
+        table_name = meta.source.table
+        table= context.database.get(table_name,database_name)
+        if None == table:
+            except_str="Table '{0}' does not exist.".format(table_name)
+            raise Exception(except_str)
+        return table
+    return None
+
+    
 
 def expand_columns(meta):
     #print meta
@@ -476,7 +482,9 @@ def distinct(context,meta,data):
 
 def process_select_row(context,meta,processed_line):
     row=[]
-    if meta.table:
+    meta.debug()
+    if meta.source:
+    
         ordinals=meta.table.ordinals
     else:
         ordinals=None
