@@ -164,7 +164,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def t1est_select(self,mode=None):
+    def test_select(self,mode=None):
         """Test selecting results using various clauses a table"""
         #try:
         print("SELECT")
@@ -382,7 +382,7 @@ class test_engine(unittest.TestCase):
     def t1est_svn_drop_table(self):
         self.test_drop_table(mode='SVN')
 
-    def t1est_svn_select(self):
+    def test_svn_select(self):
         self.test_select(mode='SVN')
 
     def t1est_svn_update(self):
