@@ -75,7 +75,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def t1est_use(self):
+    def test_use(self):
         #"""Test changing database context"""
         #try:
             # single db change from default
@@ -89,7 +89,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -102,7 +102,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)        
 
-    def t1est_show_tables(self,mode=None):
+    def test_show_tables(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         try:
@@ -202,7 +202,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def t1est_create_table(self,mode=None):
+    def test_create_table(self,mode=None):
         """Test creating a table"""
         try:
             self.cleanup()
@@ -216,7 +216,7 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def t1est_drop_table(self,mode=None):
+    def test_drop_table(self,mode=None):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
@@ -275,7 +275,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_update(self,mode=None):
+    def test_update(self,mode=None):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -297,7 +297,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_insert(self,mode=None):
+    def test_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -318,7 +318,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_delete(self,mode=None):
+    def test_delete(self,mode=None):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")
@@ -342,7 +342,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def t1est_upsert(self,mode=None):
+    def t2est_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
