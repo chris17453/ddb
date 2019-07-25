@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.585'
+__version__='1.2.586'
 
         
 # ############################################################################
@@ -2594,6 +2594,7 @@ class database:
         if None != exists:
             raise Exception("table already exists")
         if repo_type!='svn':
+            print repo_type
             if False == os.path.isfile(normalize_path(data_file)):
                 err="Data file does not exist. {0}".format(normalize_path(data_file))
                 raise Exception(err)
