@@ -41,7 +41,7 @@ class test_engine(unittest.TestCase):
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
-    def t1est_set(self):
+    def test_set(self):
         """Set a database variable """
         self.cleanup()
         try:
@@ -75,7 +75,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def t1est_use(self):
+    def test_use(self):
         #"""Test changing database context"""
         #try:
             # single db change from default
@@ -89,7 +89,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -110,7 +110,7 @@ class test_engine(unittest.TestCase):
             self.create_table(engine,mode)
 
             results = engine.query("SHOW TABLES")
-            results.debug()
+            #results.debug()
             self.assertEqual(True, results.success)
             
             ddb.output.factory.output_factory(query_results=results,output='term')
@@ -118,7 +118,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_describe_table(self,mode=None):
+    def test_describe_table(self,mode=None):
         """Show table configuration"""
         self.cleanup()
         try:
@@ -132,7 +132,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_create_table(self,mode=None):
+    def test_create_table(self,mode=None):
         """Test creating a table"""
         try:
             self.cleanup()
@@ -146,7 +146,7 @@ class test_engine(unittest.TestCase):
         results=engine.query("create table {} ('id','first_name','last_name','email','gender','ip_address') file='{}' data_starts_on=2".format(self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
 
-    def t1est_drop_table(self,mode=None):
+    def test_drop_table(self,mode=None):
         """Test dropping a table"""
         self.cleanup()
         engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
@@ -205,7 +205,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_update(self,mode=None):
+    def test_update(self,mode=None):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -227,7 +227,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def t1est_insert(self,mode=None):
+    def test_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -248,7 +248,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def t1est_delete(self,mode=None):
+    def test_delete(self,mode=None):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")
@@ -272,7 +272,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def t1est_upsert(self,mode=None):
+    def test_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
@@ -376,25 +376,25 @@ class test_engine(unittest.TestCase):
     ##### SVN
     ##### SVN
 
-    def t1est_svn_create_table(self):
+    def test_svn_create_table(self):
         self.test_create_table(mode='SVN')
 
-    def t1est_svn_drop_table(self):
+    def test_svn_drop_table(self):
         self.test_drop_table(mode='SVN')
 
     def test_svn_select(self):
         self.test_select(mode='SVN')
 
-    def t1est_svn_update(self):
+    def test_svn_update(self):
         self.test_update(mode='SVN')
 
-    def t1est_svn_insert(self):
+    def test_svn_insert(self):
         self.test_insert(mode='SVN')
 
-    def t1est_svn_delete(self):
+    def test_svn_delete(self):
         self.test_delete(mode='SVN')
 
-    def t1est_svn_upsert(self):
+    def test_svn_upsert(self):
         self.test_upsert(mode='SVN')
 
     def t1est_svn_rollback(self):
@@ -403,7 +403,7 @@ class test_engine(unittest.TestCase):
     def t1est_svn_commit(self):
         self.test_commit(mode='SVN')
 
-    def t1est_svn_describe_table(self):
+    def test_svn_describe_table(self):
         self.test_describe_table(mode='SVN')
     
     def test_svn_show_tables(self):
