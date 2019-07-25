@@ -57,12 +57,9 @@ def create_single(context, meta, temp_file, requires_new_line):
         ###
         # insert new data at end of file
         new_line = ''
-        print "HI"
-        print meta
         if len(meta.columns) != meta.table.column_count():
             context.add_error("Cannot insert, column count does not match table column count")
         else:
-            print "WOW"
         
             if len(meta.values) != meta.table.column_count():
                 context.add_error("Cannot insert, column value count does not match table column count")

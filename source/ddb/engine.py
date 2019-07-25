@@ -211,27 +211,24 @@ class engine:
 
             
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
+            meta_class=meta.convert_to_class(query_object)
+            if self.debug:
+                meta_class.debug()
             # RECORDS
             if mode == 'select':
-                meta_class=meta.convert_to_class(query_object)
-                if self.debug:
-                    meta_class.debug()
                 self.results = method_select(self,meta_class, parser)
             
             elif mode == 'insert' and self.internal['READONLY']==None:
-                meta_class=meta.convert_to_class(query_object)
-                if self.debug:
-                    meta_class.debug()
                 self.results = method_insert(self,meta_class)
 
             elif mode == 'update' and self.internal['READONLY']==None:
-                self.results = method_update(self,query_object)
+                self.results = method_update(self,meta_class)
 
             elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,query_object)
+                self.results = method_upsert(self,meta_class)
             
             elif mode == 'delete' and self.internal['READONLY']==None:
-                self.results = method_delete(self,query_object)
+                self.results = method_delete(self,meta_class)
 
             # TABLE 
             elif mode == 'use table':
