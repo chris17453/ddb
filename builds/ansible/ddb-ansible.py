@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.621'
+__version__='1.2.622'
 
         
 # ############################################################################
@@ -3861,8 +3861,8 @@ def method_update(context, meta):
                     line_number += 1
                     if True == processed_line['match']:
                         results = update_single(context,meta, temp_file,  False, processed_line)
-                        if True == results.success:
-                            diff.append(results.line)
+                        if True == results['success']:
+                            diff.append(results['line'])
                             affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
@@ -3925,8 +3925,8 @@ def method_upsert(context, meta):
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     results = create_single(context,meta, temp_file,False)
-                    if True==results.success:
-                        diff.append(results.line)
+                    if True==results['success']:
+                        diff.append(results['line'])
                 else:
                     context.info("row found in upsert")
                 temp_file.close()

@@ -52,8 +52,8 @@ def method_upsert(context, meta):
                     # skip matches
                     if True == processed_line['match']:
                         results = update_single(context,meta, temp_file,  False, processed_line)
-                        if True == results.success:
-                            diff.append(results.line)
+                        if True == results['success']:
+                            diff.append(results['line'])
                             affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
