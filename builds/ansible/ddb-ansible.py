@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.582'
+__version__='1.2.583'
 
         
 # ############################################################################
@@ -3466,7 +3466,6 @@ class match2:
         return success
 context_sort=[]
 def method_select(context, meta, parser):
-        meta.debug()
         context.info(meta)
         select_validate_columns_and_from(context,meta,parser)
         temp_table = context.database.temp_table()
@@ -3660,7 +3659,6 @@ def distinct(context,meta,data):
     return group    
 def process_select_row(context,meta,processed_line):
     row=[]
-    meta.debug()
     if meta.source:
         ordinals=meta.table.ordinals
     else:

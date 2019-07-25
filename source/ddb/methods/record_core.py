@@ -140,6 +140,6 @@ class query_results:
             pass
         return None
     def debug(self):
-        pprint.pprint(self.error)
-        pprint.pprint(self.data)
+        pprint(self.error)
+        pprint(self.data)
         #print("Success: {0} Error:{1}".format(success,error))
