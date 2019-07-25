@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.614'
+__version__='1.2.615'
 
         
 # ############################################################################
@@ -3814,7 +3814,6 @@ def method_upsert(context, meta):
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         meta.where=where
-        context.info("Query object",query_object)
         line_number = 1
         affected_rows = 0
         temp_data_file=context.get_data_file(meta.table)
