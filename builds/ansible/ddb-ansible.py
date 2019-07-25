@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.609'
+__version__='1.2.610'
 
         
 # ############################################################################
@@ -3412,7 +3412,7 @@ class query_results:
 # File   : ./source/ddb/methods/record_delete.py
 # ############################################################################
 
-def method_delete(context, query_object):
+def method_delete(context, meta):
     try:
         meta.table=get_table(context,meta)
         line_number = 1
