@@ -37,7 +37,7 @@ class test_engine(unittest.TestCase):
             file_name=os.path.join(self.basedir, self.temp_data)
        
         query="create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
-        print query
+        #print query
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
