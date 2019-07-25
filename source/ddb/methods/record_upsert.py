@@ -45,7 +45,7 @@ def method_upsert(context, meta):
       
                 for line in content_file:
                     #print line
-                    processed_line = process_line3(context,query_object, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line.error:
                         context.add_error(processed_line.error)
                     line_number += 1
