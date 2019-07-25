@@ -22,7 +22,7 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
     if False == err:
         for c in range(0, meta.table.column_count()):
             column_name = meta.table.get_column_at_data_ordinal(c)
-            value = processed_line.data[c]
+            value = processed_line['data'][c]
             for c2 in range(0, len(meta.set)):
                 #print column_name,meta.set
                 if meta.set[c2].column == column_name:

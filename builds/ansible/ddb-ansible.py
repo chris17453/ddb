@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.622'
+__version__='1.2.623'
 
         
 # ############################################################################
@@ -3872,6 +3872,7 @@ def method_update(context, meta):
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
+        print (ex)
         return query_results(success=False,error=ex)
 
         
@@ -3916,8 +3917,8 @@ def method_upsert(context, meta):
                     line_number += 1
                     if True == processed_line['match']:
                         results = update_single(context,meta, temp_file,  False, processed_line)
-                        if True == results.success:
-                            diff.append(results.line)
+                        if True == results['success']:
+                            diff.append(results['line'])
                             affected_rows += 1
                         continue
                     temp_file.write(processed_line['raw'])
