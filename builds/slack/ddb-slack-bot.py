@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.620'
+__version__='1.2.621'
 
         
 # ############################################################################
@@ -3770,7 +3770,7 @@ def method_update(context, meta):
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']':
+                    if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
                     if True == processed_line['match']:
