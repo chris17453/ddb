@@ -304,7 +304,7 @@ def select_validate_columns_and_from(context, meta, parser):
 
 
 
-def get_table(self,context,meta):
+def get_table(context,meta):
     if meta.source:
         if meta.source.database:
             context.info('Database specified')
