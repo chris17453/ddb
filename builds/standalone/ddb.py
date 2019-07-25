@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.612'
+__version__='1.2.613'
 
         
 # ############################################################################
@@ -3846,7 +3846,7 @@ def method_upsert(context, meta):
                 else:
                     context.info("row found in upsert")
                 temp_file.close()
-                context.autocommit_write(mtea.table,temp_file.name)
+                context.autocommit_write(meta.table,temp_file.name)
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:

@@ -1,7 +1,7 @@
 # cython: linetrace=True
 
 import tempfile  # from table import table
-from .record_core import process_line, query_results
+from .record_core import process_line3, query_results, get_table
 from .record_update  import update_single
 from .record_insert  import create_single
 
