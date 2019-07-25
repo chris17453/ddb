@@ -26,9 +26,7 @@ def method_upsert(context, meta):
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         meta.where=where
-            
 
-        context.info("Query object",query_object)
         #return None
         
     
