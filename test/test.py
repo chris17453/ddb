@@ -215,12 +215,15 @@ class test_engine(unittest.TestCase):
             self.create_table(engine,mode)
             
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            print("UPDATE 1")
             self.assertEqual(True, results.success)
             # update
             results = engine.query('update {} set email="test@test.com" where id="1002"'.format(self.table_name))
+            print("UPDATE 2")
             self.assertEqual(True, results.success)
             
             results = engine.query("delete from {} where id='1002'".format(self.table_name))
+            print("UPDATE 3")
             self.assertEqual(True, results.success)
 
         except Exception as ex:

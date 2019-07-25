@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.618'
+__version__='1.2.619'
 
         
 # ############################################################################
@@ -3366,7 +3366,6 @@ def method_delete(context, meta):
 
 def method_insert(context, meta):
         meta.table=get_table(context,meta)
-        meta.debug()
         line_number = 1
         affected_rows = 0
         requires_new_line = False
@@ -3387,7 +3386,6 @@ def method_insert(context, meta):
                     temp_file.write(processed_line['raw'])
                     temp_file.write(meta.table.delimiters.get_new_line())
                     requires_new_line = False
-                meta.debug()
                 results = create_single(context,meta, temp_file, requires_new_line)
                 if True == results['success']:
                     diff.append(results['line'])
