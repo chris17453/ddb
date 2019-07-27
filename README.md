@@ -78,13 +78,10 @@ pip install ddb --user
 - [changelog](docs/changelog.md)
 
 # ddb WorkFlow
-![Workflow](https://raw.githubusercontent.com/chris17453/ddb/source/resources/ddb-internal-flow-diagram.png)
+![Workflow](https://raw.githubusercontent.com/chris17453/ddb/master/source/resources/ddb-internal-flow-diagram.png)
 
 ### BASH Demo
 ![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-bash-demo.gif)
-
-### Python Demo
-![Demo](https://raw.githubusercontent.com/chris17453/ddb/master/docs/ddb-python-demo.gif)
 
 ### DDB Icon
 ![DDB](https://raw.githubusercontent.com/chris17453/ddb/master/source/resources/ddb-icon.png)
