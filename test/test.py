@@ -75,7 +75,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
     
-    def test_use(self):
+    def test_use(self,mode=None):
         #"""Test changing database context"""
         #try:
             print("USE")
