@@ -11,7 +11,7 @@ def method_create_table(context, meta):
     context.info("Create Table")
     try:
         columns = []
-        if meta.column==None:
+        if meta.columns==None:
             raise Exception("Missing columns, cannot create table")
 
         # TODO convert to meta class
