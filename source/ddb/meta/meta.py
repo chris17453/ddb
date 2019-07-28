@@ -695,6 +695,7 @@ class create_table:
             if column:  self.column=column
 
     errors               = None        # optional 
+    temporary            = None        # optional 
     whitespace           = None        # optional 
     strict               = None        # optional 
     data_starts_on       = None        # optional 
@@ -709,6 +710,7 @@ class create_table:
 
     def __init__(self,so):
             self.errors = gv(so,['meta','errors'])
+            self.temporary = gv(so,['meta','temporary','temporary'])
             self.whitespace = gv(so,['meta','whitespace'])
             self.strict = gv(so,['meta','strict'])
             self.data_starts_on = gv(so,['meta','data_starts_on'])
