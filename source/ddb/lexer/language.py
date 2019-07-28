@@ -172,7 +172,7 @@ language={'commands': [{'name': 'show columns',
                                                   'type': 'int'},
                                        'start': {'default': 0,
                                                  'type': 'int'}}}]},
-              {'name': 'set_variable',
+              {'name': 'set',
                'segments': [{'data':[{'signature':['set']}],
                             'name':'set header',
                             'optional':True
