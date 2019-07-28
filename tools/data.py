@@ -16,7 +16,7 @@ def safe_name(name):
 
 
 def get_data(command,classes,class_spec):
-    command_name=command['name'].replace(' ','_')
+    command_name=safe_name(command['name'])
     print ("class {0}:".format(command_name))
     #print ("    __slots__=()")
     
