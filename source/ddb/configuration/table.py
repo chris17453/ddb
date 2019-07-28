@@ -11,20 +11,20 @@ from ..lexer import lexer
 class table:
     def __init__(self,
                  table_config_file=None,
-                 database=None,
-                 columns=None,
-                 name=None,
-                 data_file=None,
-                 field_delimiter=None,
-                 config_directory=None,
-                 comments=None,
-                 whitespace=None,
-                 errors=None,
-                 data_on=None,
-                 fifo=None,
-                 repo=None
-                 strict_columns=None,
-                 mode=None
+                 database         =None,
+                 columns          =None,
+                 name             =None,
+                 data_file        =None,
+                 field_delimiter  =None,
+                 config_directory =None,
+                 comments         =None,
+                 whitespace       =None,
+                 errors           =None,
+                 data_on          =None,
+                 fifo             =None,
+                 repo             =None,
+                 strict_columns   =None,
+                 mode             =None
                  ):
         self.version = 1
         self.ownership = table_ownership()
