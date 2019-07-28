@@ -206,7 +206,7 @@ def variable_def (command,classes,class_spec):
 
         #print classes[_class]
         if '_arguments' in classes[safe_class]:
-                print ("    {0:<20} = []          #          {1}".format(safe_class),class_name))
+                print ("    {0:<20} = []          #          {1}".format(safe_class,class_name))
                 continue
 
         if len(classes[safe_class])>1:
