@@ -212,7 +212,7 @@ def variable_def (command,classes,class_spec):
                 continue
 
         if len(classes[_class])>1:
-            print ("    {1:<20} = _{1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
+            print ("    {1:<20} = {1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
             continue
 
         for variable in classes[_class]:
@@ -228,7 +228,7 @@ def variable_def (command,classes,class_spec):
 
 
 def init(command,classes,class_spec):
-    command_name=command['name'].replace(' ','_')
+    command_name=safe_name(command['name'])
     if len(classes)>0:
         print("\n    def __init__(self,so):")
         for _class in classes:
@@ -282,12 +282,12 @@ def init(command,classes,class_spec):
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         print ("                self.{1}=[]".format(command_name,_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
-                        print ("                    instance_type=item.keys()[0]")
-                        print ("                    self.{1}.append( type('_'+instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
+                        print ("                    instance_type=safe_name(item.keys()[0])")
+                        print ("                    self.{1}.append( type(instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
                 else:
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
-                        print ("                self.{1}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
+                        print ("                self.{1}= self.{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
     else:
         print("\n    def __init__(self,so):")
         print("        a=0 # holder")
