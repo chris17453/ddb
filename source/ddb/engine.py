@@ -230,7 +230,7 @@ class engine:
 
             # TABLE 
             elif mode == 'use table':
-                self.results = method_use(self,query_object)
+                self.results = method_use(self,meta_class)
 
             elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,query_object)
