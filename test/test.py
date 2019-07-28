@@ -81,7 +81,7 @@ class test_engine(unittest.TestCase):
             print("USE")
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=False)
+            engine = ddb.engine(config_file=False,debug=True)
             test_db_name = self.table_name
             results = engine.query("use {}".format(test_db_name))
             self.assertEqual(True, results.success)
