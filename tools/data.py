@@ -162,7 +162,7 @@ def sub_class (command,classes,class_spec):
 
 def variable_def (command,classes,class_spec):
     for _class in classes:
-        class_name=_class.replace(" ","_")
+        class_name=safe_name(_class.replace)
         if len(classes[_class])>1:
             continue
 
@@ -191,7 +191,7 @@ def variable_def (command,classes,class_spec):
     for _class in classes:
 
         if len(classes[_class])>1:
-            class_name="{1}()".format(command['name'].replace(' ','_'),_class)
+            class_name="{1}()".format(safe_name(command['name']),_class)
         else:
             class_name=''
 
@@ -210,7 +210,7 @@ def variable_def (command,classes,class_spec):
                 continue
 
         if len(classes[_class])>1:
-            print ("    {1:<20} = _{1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
+            print ("    {1:<20} = _{1}()".format(safe_name(command['name']),_class.replace(" ","_")))
             continue
 
         for variable in classes[_class]:
@@ -226,7 +226,7 @@ def variable_def (command,classes,class_spec):
 
 
 def init(command,classes,class_spec):
-    command_name=command['name'].replace(' ','_')
+    command_name=safe_name(command['name'])
     if len(classes)>0:
         print("\n    def __init__(self,so):")
         for _class in classes:
@@ -297,7 +297,7 @@ def debug(command,classes,class_spec):
     print("    def debug(self):")
     print("        debugger(self,'{0}')".format(command['name']))
 
-    #command_name=command['name'].replace(' ','_')
+    #command_name=safe_name(command['name'])
     #if len(classes)>0:
     #    print("")
     #    print("    def debug(self):")
@@ -349,7 +349,7 @@ def convert_to_class(o):
         else:
             el="el"
         index+=1
-        command_name=command['name'].replace(' ','_')
+        command_name=safe_name(command['name'])
         print ("    {1}if o['mode']=='{0}': return {2}(o)".format(command['name'],el,command_name))
         
 
