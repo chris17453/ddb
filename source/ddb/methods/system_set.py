@@ -8,8 +8,8 @@ def method_system_set(context, meta):
         #print query_object
         for item in meta.set:
             
-            variable=item['variable'].upper()
-            value=item['value']
+            variable=item.variable.upper()
+            value=item.value
             value_up=value.upper()
             
             if len(variable)>0 and variable[0]=='@':
