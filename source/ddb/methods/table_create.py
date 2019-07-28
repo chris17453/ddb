@@ -30,7 +30,7 @@ def method_create_table(context, meta):
                                                 comments      = meta.comments,
                                                 errors        = meta.errors,
                                                 whitespace    = meta.whitespace,
-                                                data_on       = meta.data_on,
+                                                data_on       = meta.data_starts_on,
                                                 temporary     = meta.temporary,
                                                 fifo          = meta.fifo,
                                                 repo_type     = meta.repo.protocol,
