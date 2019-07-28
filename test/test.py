@@ -81,11 +81,11 @@ class test_engine(unittest.TestCase):
             print("USE")
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=False,debug=True)
+            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
             self.create_table(engine,mode)
                  
-            test_db_name = self.table_name
-            results = engine.query("use {}".format(test_db_name))
+            
+            results = engine.query("use {}".format(self.table_name))
             self.assertEqual(True, results.success)
             results = engine.query("select database()")
             self.assertEqual(True, results.success)
