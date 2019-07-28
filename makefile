@@ -19,7 +19,7 @@ conf_dir="source/conf"
 .PHONY: all test clean profile
 
 help:
-	@echo "make build          | build bython files and make pypi package(runs unittest and standalone)"
+	@echo "make build          | build python files and make pypi package(runs unittest and standalone)"
 	@echo "make bump           | bump the package version"
 	@echo "make clean          | delete pypi packages and cython files"
 	@echo "make init           | init git, create base directories"
@@ -85,19 +85,19 @@ svn_stop:
 svn_start:
 	@test/svn_start.sh
 
+#build: bump svn_start meta
+#	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
+## makes ansible single script
+#	#@python $(conf_dir)/build.py
+#	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/ 
+#	# --use-cython
+#	# @$(MAKE) -f $(THIS_FILE) standalone
+#	@$(MAKE) -f $(THIS_FILE) test
+
 build: bump svn_start meta
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
-	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/ 
-	# --use-cython
-	# @$(MAKE) -f $(THIS_FILE) standalone
-	@$(MAKE) -f $(THIS_FILE) test
-
-buildc: bump svn_start meta
-	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
-# makes ansible single script
-	@python $(conf_dir)/build.py
+	#@python $(conf_dir)/build.py
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
