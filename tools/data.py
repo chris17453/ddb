@@ -182,7 +182,7 @@ def variable_def (command,classes,class_spec):
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(variable,value,pad))
+            print ("{2}    {0} = _{1}".format(variable,value,pad))
         
         args=[]
 
