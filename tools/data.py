@@ -167,19 +167,20 @@ def variable_def (command,classes,class_spec):
             continue
 
         for variable in classes[_class]:
-            if variable[0]=='_':
+            safe_variable=safe_name(variable)
+            if safe_variable[0]=='_':
                 continue
             if len(classes[_class])<2:
                 continue
             pad='    '
-            var=classes[_class][variable]
+            var=classes[_class][safe_variable]
           #  print var
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(variable,value,pad))
+            print ("{2}    {0} = {1}".format(safe_variable,value,pad))
         
         args=[]
 
