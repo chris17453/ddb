@@ -83,7 +83,6 @@ else:
 packages=['ddb',
           'ddb.lexer',
           'ddb.meta',
-          'ddb.evaluate',
           'ddb.file_io',
           'ddb.methods',
           'ddb.functions',
