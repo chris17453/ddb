@@ -130,12 +130,7 @@ class database:
                      data_on=None,
                      temporary=None,
                      fifo=None,
-                     repo_type=None,
-                     repo_url=None,
-                     repo_user=None,
-                     repo_password=None,
-                     repo_dir=None,
-                     repo_file=None,
+                     repo=None
                      strict_columns=None,
                      mode=None
                     ):
@@ -147,7 +142,9 @@ class database:
         if None != exists:
             raise Exception("table already exists")
         
-        if repo_type!='svn':
+        
+        if repo:
+            if repo.protocol!='svn':
             if False == os.path.isfile(normalize_path(data_file)):
                 err="Data file does not exist. {0}".format(normalize_path(data_file))
                 raise Exception(err)
@@ -171,12 +168,7 @@ class database:
                     whitespace=whitespace,
                     errors=errors,
                     fifo=fifo,
-                    repo_type=repo_type,
-                    repo_url=repo_url,
-                    repo_user=repo_user,
-                    repo_password=repo_password,
-                    repo_dir=repo_dir,
-                    repo_file=repo_file,
+                    repo=repo,
                     strict_columns=strict_columns,
                     mode=mode)
         t.data.path = data_file
