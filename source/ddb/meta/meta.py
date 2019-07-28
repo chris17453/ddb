@@ -77,6 +77,19 @@ def gv(o,keys):
     return o
 
 
+def safe_name(name):
+    forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
+                'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
+                'abs','divmod','input','open','staticmethod','all','enumerate','int','ord','str','any','eval','isinstance','pow','sum','basestring','execfile',
+                'issubclass','print','super','bin','file','iter','property','tuple','bool','filter','len','range','type','bytearray','float','list','raw_input',
+                'unichr','callable','format','locals','reduce','unicode','chr','frozenset','long','reload','vars','classmethod','getattr','map','repr','xrange',
+                'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
+                'setattr','dict','hex','object','slice','dir','id','oct','sorted']
+    name=name.replace(" ","_")
+    if name in forbidden:
+        name=name+"_"
+    return name
+
 
 class show_columns:
 
@@ -89,11 +102,11 @@ class show_columns:
             if table:  self.table=table
             if database:  self.database=database
 
-    source               = _source()
+    source               = source()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'show columns')
 
@@ -223,27 +236,27 @@ class select:
             if gv(so,['meta','order_by']):
                 self.order_by=[]
                 for item in gv(so,['meta','order_by']):
-                    instance_type=item.keys()[0]
-                    self.order_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.order_by.append( type(instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','group_by']):
                 self.group_by=[]
                 for item in gv(so,['meta','group_by']):
-                    instance_type=item.keys()[0]
-                    self.group_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.group_by.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
             if gv(so,['meta','limit']):
-                self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
+                self.limit= self.limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.where.append( type(instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'function': gv(item,['function']),'column': gv(item,['column']),'argument2': gv(item,['argument2']),'argument3': gv(item,['argument3']),'argument1': gv(item,['argument1']),'display': gv(item,['display']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.columns.append( type(instance_type,(),{ 'function': gv(item,['function']),'column': gv(item,['column']),'argument2': gv(item,['argument2']),'argument3': gv(item,['argument3']),'argument1': gv(item,['argument1']),'display': gv(item,['display']) }) )
     def debug(self):
         debugger(self,'select')
 
@@ -265,8 +278,8 @@ class set_:
             if gv(so,['meta','set_']):
                 self.set_=[]
                 for item in gv(so,['meta','set_']):
-                    instance_type=item.keys()[0]
-                    self.set_.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'value': gv(item,['value']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.set_.append( type(instance_type,(),{ 'variable': gv(item,['variable']),'value': gv(item,['value']) }) )
     def debug(self):
         debugger(self,'set')
 
@@ -286,8 +299,8 @@ class create_procedure:
             if gv(so,['meta','parameters']):
                 self.parameters=[]
                 for item in gv(so,['meta','parameters']):
-                    instance_type=item.keys()[0]
-                    self.parameters.append( type('_'+instance_type,(),{ 'parameter': gv(item,['parameter']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.parameters.append( type(instance_type,(),{ 'parameter': gv(item,['parameter']) }) )
     def debug(self):
         debugger(self,'create procedure')
 
@@ -402,17 +415,17 @@ class delete:
             if condition:  self.condition=condition
             if e2:  self.e2=e2
 
-    source               = _source()
+    source               = source()
     where                = None        # optional [ where() ]
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.where.append( type(instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'delete')
 
@@ -442,23 +455,23 @@ class insert:
         def __init__(self,column=None):
             if column:  self.column=column
 
-    source               = _source()
+    source               = source()
     values               = []          #          values()
     columns              = []          #          columns()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
                 self.values=[]
                 for item in gv(so,['meta','values']):
-                    instance_type=item.keys()[0]
-                    self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.values.append( type(instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.columns.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'insert')
 
@@ -522,23 +535,23 @@ class update:
             if condition:  self.condition=condition
             if e2:  self.e2=e2
 
-    source               = _source()
+    source               = source()
     set_                 = []          #          set_()
     where                = None        # optional [ where() ]
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','set_']):
                 self.set_=[]
                 for item in gv(so,['meta','set_']):
-                    instance_type=item.keys()[0]
-                    self.set_.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.set_.append( type(instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.where.append( type(instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'update')
 
@@ -584,7 +597,7 @@ class upsert:
         def __init__(self,column=None):
             if column:  self.column=column
 
-    source               = _source()
+    source               = source()
     values               = []          #          values()
     update               = []          #          update()
     columns              = []          #          columns()
@@ -592,27 +605,27 @@ class upsert:
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
                 self.values=[]
                 for item in gv(so,['meta','values']):
-                    instance_type=item.keys()[0]
-                    self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.values.append( type(instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','update']):
                 self.update=[]
                 for item in gv(so,['meta','update']):
-                    instance_type=item.keys()[0]
-                    self.update.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.update.append( type(instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.columns.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
             if gv(so,['meta','on_duplicate_key']):
                 self.on_duplicate_key=[]
                 for item in gv(so,['meta','on_duplicate_key']):
-                    instance_type=item.keys()[0]
-                    self.on_duplicate_key.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.on_duplicate_key.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'upsert')
 
@@ -628,11 +641,11 @@ class use_table:
             if table:  self.table=table
             if database:  self.database=database
 
-    source               = _source()
+    source               = source()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'use table')
 
@@ -648,11 +661,11 @@ class drop_table:
             if table:  self.table=table
             if database:  self.database=database
 
-    source               = _source()
+    source               = source()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'drop table')
 
@@ -700,7 +713,7 @@ class create_table:
     file                 = None
     fifo                 = None        # optional 
     repo                 = None        # optional repo()
-    source               = _source()
+    source               = source()
     delimiter            = None        # optional 
     mode                 = None        # optional 
     columns              = []          #          columns()
@@ -715,16 +728,16 @@ class create_table:
             self.file = gv(so,['meta','file'])
             self.fifo = gv(so,['meta','fifo'])
             if gv(so,['meta','repo']):
-                self.repo= self._repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
+                self.repo= self.repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.delimiter = gv(so,['meta','delimiter'])
             self.mode = gv(so,['meta','mode'])
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.columns.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
             self.comments = gv(so,['meta','comments'])
     def debug(self):
         debugger(self,'create table')
@@ -753,7 +766,7 @@ class update_table:
     data_starts_on       = None        # optional 
     file_                = None        # optional 
     comments             = None        # optional 
-    source               = _source()
+    source               = source()
     delimiter            = None        # optional 
     columns              = None        # optional [ columns() ]
 
@@ -764,13 +777,13 @@ class update_table:
             self.file = gv(so,['meta','file_','file'])
             self.comments = gv(so,['meta','comments','comments'])
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.field = gv(so,['meta','delimiter','field'])
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
+                    instance_type=safe_name(item.keys()[0])
+                    self.columns.append( type(instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'update table')
 
@@ -786,11 +799,11 @@ class describe_table:
             if table:  self.table=table
             if database:  self.database=database
 
-    source               = _source()
+    source               = source()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+                self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
     def debug(self):
         debugger(self,'describe table')
 
