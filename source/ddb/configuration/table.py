@@ -22,12 +22,7 @@ class table:
                  errors=None,
                  data_on=None,
                  fifo=None,
-                 repo_type=None,
-                 repo_url=None,
-                 repo_user=None,
-                 repo_password=None,
-                 repo_dir=None,
-                 repo_file=None,
+                 repo=None
                  strict_columns=None,
                  mode=None
                  ):
@@ -52,12 +47,7 @@ class table:
                     errors=errors,
                     data_on=data_on,
                     fifo=fifo,
-                    repo_type=repo_type,
-                    repo_url=repo_url,
-                    repo_user=repo_user,
-                    repo_password=repo_password,
-                    repo_dir=repo_dir,
-                    repo_file=repo_file,
+                    repo=repo,
                     strict_columns=strict_columns,
                     mode=mode
 
@@ -78,24 +68,19 @@ class table:
                 errors=None,
                 data_on=None,
                 fifo=None,
-                repo_type=None,
-                repo_url=None,
-                repo_user=None,
-                repo_password=None,
-                repo_dir=None,
-                repo_file=None,
+                repo=None,
                 strict_columns=None,
                 mode=None
                 ):
         
-        if repo_type:
-            if repo_type=='svn':
-                self.data.repo_type=repo_type
-                self.data.repo_url=repo_url
-                self.data.repo_user=repo_user
-                self.data.repo_password=repo_password
-                self.data.repo_dir=repo_dir
-                self.data.repo_file=repo_file
+        if repo:
+            if repo.protocol=='svn':
+                self.data.repo_type=repo.protocol
+                self.data.repo_url=repo.url
+                self.data.repo_user=repo.user
+                self.data.repo_password=repo.password
+                self.data.repo_dir=repo.directory
+                self.data.repo_file=repo.file
 
         if strict_columns:
             self.data.strict_columns=strict_columns

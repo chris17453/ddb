@@ -33,12 +33,7 @@ def method_create_table(context, meta):
                                                 data_on       = meta.data_starts_on,
                                                 temporary     = meta.temporary,
                                                 fifo          = meta.fifo,
-                                                repo_type     = meta.repo.protocol,
-                                                repo_url      = meta.repo.url,
-                                                repo_user     = meta.repo.user,
-                                                repo_password = meta.repo.password,
-                                                repo_file     = meta.repo.file,                                                
-                                                repo_dir      = meta.repo.directory,
+                                                repo          = meta.repo
                                                 strict_columns= meta.strict,
                                                 mode          = meta.mode
                                                 )
