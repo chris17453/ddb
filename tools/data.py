@@ -162,7 +162,7 @@ def sub_class (command,classes,class_spec):
 
 def variable_def (command,classes,class_spec):
     for _class in classes:
-        class_name=safe_name(_class.replace)
+        class_name=safe_name(_class)
         if len(classes[_class])>1:
             continue
 
