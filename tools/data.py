@@ -120,7 +120,7 @@ def sub_class (command,classes,class_spec):
             continue
 
         print ("")
-        print ("    class {0}:".format(_class.replace(" ","_")))
+        print ("    class _{0}:".format(_class.replace(" ","_")))
         print ("        __slots__=()")
 
         for variable in classes[_class]:
@@ -283,7 +283,7 @@ def init(command,classes,class_spec):
                         print ("                self.{1}=[]".format(command_name,_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
                         print ("                    instance_type=safe_name(item.keys()[0])")
-                        print ("                    self.{1}.append( type(instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
+                        print ("                    self.{1}.append( type('_'+instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
                 else:
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
