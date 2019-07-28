@@ -24,25 +24,25 @@ def method_create_table(context, meta):
         if None==meta.source.database:
             meta.source.database=context.database.get_curent_database()
 
-        results = context.database.create_table(table_name    =meta.source.table,
-                                                database_name =meta.source.database,
-                                                columns       =columns,
-                                                data_file     =meta.file,
-                                                delimiter     =meta.delimiter,
-                                                comments      =meta.comments,
-                                                errors        =meta.errors,
-                                                whitespace    =meta.whitespace,
-                                                data_on       =meta.data_on,
-                                                temporary     =meta.temporary,
-                                                fifo          =meta.fifo,
-                                                repo_type     =meta.repo.protocol,
-                                                repo_url      =meta.repo.url,
-                                                repo_user     =meta.repo.user,
-                                                repo_password =meta.repo.password,
-                                                repo_file     =meta.repo.file,                                                
-                                                repo_dir      =meta.repo.directory,
-                                                strict_columns=meta.strict,
-                                                mode=mode
+        results = context.database.create_table(table_name    = meta.source.table,
+                                                database_name = meta.source.database,
+                                                columns       = columns,
+                                                data_file     = meta.file,
+                                                delimiter     = meta.delimiter,
+                                                comments      = meta.comments,
+                                                errors        = meta.errors,
+                                                whitespace    = meta.whitespace,
+                                                data_on       = meta.data_on,
+                                                temporary     = meta.temporary,
+                                                fifo          = meta.fifo,
+                                                repo_type     = meta.repo.protocol,
+                                                repo_url      = meta.repo.url,
+                                                repo_user     = meta.repo.user,
+                                                repo_password = meta.repo.password,
+                                                repo_file     = meta.repo.file,                                                
+                                                repo_dir      = meta.repo.directory,
+                                                strict_columns= meta.strict,
+                                                mode          = meta.mode
                                                 )
       
         return query_results(success=results)
