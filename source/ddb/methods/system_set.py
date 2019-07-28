@@ -2,11 +2,11 @@
 
 from .record_core import query_results
 
-def method_system_set(context, query_object):
+def method_system_set(context, meta):
     context.info("set")
     try:
         #print query_object
-        for item in query_object['meta']['set']:
+        for item in meta.set:
             
             variable=item['variable'].upper()
             value=item['value']
