@@ -130,7 +130,7 @@ class database:
                      data_on=None,
                      temporary=None,
                      fifo=None,
-                     repo=None
+                     repo=None,
                      strict_columns=None,
                      mode=None
                     ):
