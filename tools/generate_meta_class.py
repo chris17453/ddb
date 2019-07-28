@@ -1,4 +1,8 @@
-from .context import ddb
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from source.ddb.lexer.language import language
 from .data import meta_str, get_data, variable_def,init,debug,sub_class
 
 # meta file header
@@ -54,7 +58,7 @@ def safe_name(name):
 
 
 
-for command in ddb.lexer.language.language['commands']:
+for command in language['commands']:
     command_name=command['name'].replace(' ','_')
     classes={}
     class_spec={}
