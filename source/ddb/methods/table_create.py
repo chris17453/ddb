@@ -33,7 +33,7 @@ def method_create_table(context, meta):
                                                 data_on       = meta.data_starts_on,
                                                 temporary     = meta.temporary,
                                                 fifo          = meta.fifo,
-                                                repo          = meta.repo
+                                                repo          = meta.repo,
                                                 strict_columns= meta.strict,
                                                 mode          = meta.mode
                                                 )
