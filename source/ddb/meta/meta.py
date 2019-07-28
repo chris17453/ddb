@@ -248,7 +248,7 @@ class select:
         debugger(self,'select')
 
 
-class set:
+class set_:
 
     class _set_:
         __slots__=()
