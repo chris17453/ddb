@@ -2,7 +2,7 @@
 
 from .record_core import query_results, get_table
 
-def method_update_table(context, query_object):
+def method_update_table(context, meta):
     context.info("Update Table")
     try:
         columns=[]
