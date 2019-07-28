@@ -236,11 +236,10 @@ class engine:
                 self.results = method_drop_table(self,query_object)
 
             elif mode == 'create table' and self.internal['READONLY']==None:
-                meta_class.debug()
                 self.results = method_create_table(self,meta_class)
 
             elif mode == 'update table' and self.internal['READONLY']==None:
-                self.results = method_update_table(self,query_object)
+                self.results = method_update_table(self,meta_class)
 
             # SYSTEM 
             elif mode == 'set':
