@@ -162,18 +162,18 @@ def sub_class (command,classes,class_spec):
 
 def variable_def (command,classes,class_spec):
     for _class in classes:
-        class_name=safe_name(_class)
-        if len(classes[_class])>1:
+        safe_class=safe_name(_class)
+        if len(classes[safe_class])>1:
             continue
 
-        for variable in classes[_class]:
+        for variable in classes[safe_class]:
             safe_variable=safe_name(variable)
             if safe_variable[0]=='_':
                 continue
-            if len(classes[_class])<2:
+            if len(classes[safe_class])<2:
                 continue
             pad='    '
-            var=classes[_class][safe_variable]
+            var=classes[safe_class][safe_variable]
           #  print var
             value=var['default']
 
