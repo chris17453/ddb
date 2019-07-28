@@ -78,7 +78,7 @@ class test_engine(unittest.TestCase):
     def test_use(self):
         #"""Test changing database context"""
         #try:
-        print("USE")
+            print("USE")
             # single db change from default
             self.cleanup()
             engine = ddb.engine(config_file=False)
