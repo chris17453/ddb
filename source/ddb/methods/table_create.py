@@ -10,8 +10,6 @@ from .record_core import  query_results,get_table
 def method_create_table(context, meta):
     context.info("Create Table")
     try:
-        table=get_table(context,meta)
-
         columns = []
         if meta.column==None:
             raise Exception("Missing columns, cannot create table")
