@@ -78,6 +78,7 @@ class test_engine(unittest.TestCase):
     def test_use(self):
         #"""Test changing database context"""
         #try:
+        print("USE")
             # single db change from default
             self.cleanup()
             engine = ddb.engine(config_file=False)
@@ -275,7 +276,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def test_upsert(self,mode=None):
+    def t1est_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
