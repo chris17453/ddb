@@ -1,7 +1,20 @@
 from .context import ddb
 
+def safe_name(name):
+    forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
+                'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
+                'abs','divmod','input','open','staticmethod','all','enumerate','int','ord','str','any','eval','isinstance','pow','sum','basestring','execfile',
+                'issubclass','print','super','bin','file','iter','property','tuple','bool','filter','len','range','type','bytearray','float','list','raw_input',
+                'unichr','callable','format','locals','reduce','unicode','chr','frozenset','long','reload','vars','classmethod','getattr','map','repr','xrange',
+                'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
+                'setattr','dict','hex','object','slice','dir','id','oct','sorted']
+    name=name.replace(" ","_")
+    if name in forbidden:
+        name=name+"_FUNC"
+    return name
+
 def get_data(command,classes,class_spec):
-    command_name=command['name'].replace(' ','_')
+    command_name=safe_name(command['name'])
     print ("class {0}:".format(command_name))
     #print ("    __slots__=()")
     
@@ -99,7 +112,7 @@ def get_data(command,classes,class_spec):
 
 def sub_class (command,classes,class_spec):
     for _class in classes:
-        class_name=_class.replace(" ","_")
+        class_name=safe_name(_class)
         if len(classes[_class])<2:
             continue
 
@@ -277,7 +290,6 @@ def init(command,classes,class_spec):
         print("        a=0 # holder")
         print("")
                 
-
 
 
 def debug(command,classes,class_spec):  

@@ -248,7 +248,7 @@ class select:
         debugger(self,'select')
 
 
-class set:
+class set_variable:
 
     class _set:
         __slots__=()
@@ -268,7 +268,7 @@ class set:
                     instance_type=item.keys()[0]
                     self.set.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'value': gv(item,['value']) }) )
     def debug(self):
-        debugger(self,'set')
+        debugger(self,'set_variable')
 
 
 class create_procedure:
@@ -802,7 +802,7 @@ def convert_to_class(o):
     elif o['mode']=='show tables': return show_tables(o)
     elif o['mode']=='show variables': return show_variables(o)
     elif o['mode']=='select': return select(o)
-    elif o['mode']=='set': return set(o)
+    elif o['mode']=='set_variable': return set_variable(o)
     elif o['mode']=='create procedure': return create_procedure(o)
     elif o['mode']=='delimiter': return delimiter(o)
     elif o['mode']=='end': return end(o)
