@@ -1,5 +1,6 @@
 from .context import ddb
 
+
 def safe_name(name):
     forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
                 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
@@ -13,12 +14,14 @@ def safe_name(name):
         name=name+"_"
     return name
 
+
 def get_data(command,classes,class_spec):
-    command_name=safe_name(command['name'])
+    command_name=command['name'].replace(' ','_')
     print ("class {0}:".format(command_name))
     #print ("    __slots__=()")
     
     for segment in command['segments']:
+        segment_name=safe_name(segment['name'])
         optional=None
         if 'optional' in segment:
                 optional=segment['optional']
@@ -37,8 +40,8 @@ def get_data(command,classes,class_spec):
         parent=None
         if 'parent' in segment:
             parent=segment['parent']
-        #print class_spec,segment['name']
-        class_spec[segment['name']]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword}
+        #print class_spec,segment_name
+        class_spec[segment_name]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword}
         optional=None
 
         for fragment in segment['data']:
@@ -50,12 +53,12 @@ def get_data(command,classes,class_spec):
                 first_char=word[0:1]
                 last_char=word[-1]
                 if first_char == '{' and last_char == '}':
-                    if segment['name'] not in classes:
-                        classes[segment['name']]={}
-                    if word[1:-1] not in classes[segment['name']]:
-                        classes[segment['name']][word[1:-1]]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
+                    if segment_name not in classes:
+                        classes[segment_name]={}
+                    if word[1:-1] not in classes[segment_name]:
+                        classes[segment_name][word[1:-1]]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
                     else:
-                        classes[segment['name']][word[1:-1]]['count']+=1
+                        classes[segment_name][word[1:-1]]['count']+=1
                 if first_char=='$':
                     variable=word[1:]
                     index_of_colon=variable.find(':')
@@ -64,23 +67,23 @@ def get_data(command,classes,class_spec):
                         key=variable[index_of_colon+1:].lower()
                     else:
                         key=variable.lower()
-                    if key not in classes[segment['name']]:
-                        classes[segment['name']][key]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
+                    if key not in classes[segment_name]:
+                        classes[segment_name][key]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
                     else:
-                        classes[segment['name']][key]['count']+=1
+                        classes[segment_name][key]['count']+=1
 
             if 'vars' in fragment:
                 for word in fragment['vars']:
-                    if segment['name'] not in classes:
-                        classes[segment['name']]={}
-                    if word not in classes[segment['name']]:
-                        classes[segment['name']][word]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
+                    if segment_name not in classes:
+                        classes[segment_name]={}
+                    if word not in classes[segment_name]:
+                        classes[segment_name][word]={'count':1,'default':None,'type':'string','values':None,'optional':optional,'storage':storage}
                     else:
-                        classes[segment['name']][word]['count']+=1
+                        classes[segment_name][word]['count']+=1
 
             if 'arguments' in segment:
                 if segment['arguments']!=1 and segment['arguments']!=None:
-                    classes[segment['name']]['_arguments']=segment['arguments']
+                    classes[segment_name]['_arguments']=segment['arguments']
 
             if 'specs' in segment:
                 fragment=segment
@@ -99,20 +102,20 @@ def get_data(command,classes,class_spec):
                     if 'values' in fragment['specs'][variable]:
                         values=fragment['specs'][variable]['values']
                         
-                    if variable not in classes[segment['name']]:
-                        classes[segment['name']][variable]={'count':1,'default':default,'type':_type,'values':values,'optional':optional,'storage':storage}
+                    if variable not in classes[segment_name]:
+                        classes[segment_name][variable]={'count':1,'default':default,'type':_type,'values':values,'optional':optional,'storage':storage}
                     else:
-                       classes[segment['name']][variable]['optional']=optional
-                       classes[segment['name']][variable]['default']=default
-                       classes[segment['name']][variable]['type']=_type
-                       classes[segment['name']][variable]['values']=values
+                       classes[segment_name][variable]['optional']=optional
+                       classes[segment_name][variable]['default']=default
+                       classes[segment_name][variable]['type']=_type
+                       classes[segment_name][variable]['values']=values
 
 
 
 
 def sub_class (command,classes,class_spec):
     for _class in classes:
-        class_name=safe_name(_class)
+        class_name=_class.replace(" ","_")
         if len(classes[_class])<2:
             continue
 
@@ -162,25 +165,24 @@ def sub_class (command,classes,class_spec):
 
 def variable_def (command,classes,class_spec):
     for _class in classes:
-        safe_class=safe_name(_class)
-        if len(classes[safe_class])>1:
+        class_name=_class.replace(" ","_")
+        if len(classes[_class])>1:
             continue
 
-        for variable in classes[safe_class]:
-            safe_variable=safe_name(variable)
-            if safe_variable[0]=='_':
+        for variable in classes[_class]:
+            if variable[0]=='_':
                 continue
-            if len(classes[safe_class])<2:
+            if len(classes[_class])<2:
                 continue
             pad='    '
-            var=classes[safe_class][safe_variable]
+            var=classes[_class][variable]
           #  print var
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(safe_variable,value,pad))
+            print ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
 
@@ -189,45 +191,44 @@ def variable_def (command,classes,class_spec):
     #print(class_spec)  
     print ("")
     for _class in classes:
-        safe_class=safe_name(_class)
-        if len(classes[safe_class])>1:
-            class_name="{1}()".format(safe_name(command['name']),safe_class)
+
+        if len(classes[_class])>1:
+            class_name="{1}()".format(command['name'].replace(' ','_'),_class)
         else:
             class_name=''
 
-        if class_spec[safe_class]['parent']!=None:
+        if class_spec[_class]['parent']!=None:
                 continue
 
-        if class_spec[safe_class]['optional']:
-            if '_arguments' in classes[safe_class] or  class_spec[safe_class]['storage']=='array':
+        if class_spec[_class]['optional']:
+            if '_arguments' in classes[_class] or  class_spec[_class]['storage']=='array':
                 class_name='[ {0} ]'.format(class_name)
-            print ("    {0:<20} = None        # optional {1}".format(safe_class,class_name))
+            print ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
             continue
 
         #print classes[_class]
-        if '_arguments' in classes[safe_class]:
-                print ("    {0:<20} = []          #          {1}".format(safe_class,class_name))
+        if '_arguments' in classes[_class]:
+                print ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
                 continue
 
-        if len(classes[safe_class])>1:
-            print ("    {1:<20} = _{1}()".format(safe_name(command['name']),safe_class))
+        if len(classes[_class])>1:
+            print ("    {1:<20} = _{1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
             continue
 
-        for variable in classes[safe_class]:
-            safe_variable=safe_name(variable)
+        for variable in classes[_class]:
             pad=''
-            var=classes[safe_class][safe_variable]
+            var=classes[_class][variable]
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0:<20} = {1}".format(safe_variable,value,pad))
+            print ("{2}    {0:<20} = {1}".format(variable,value,pad))
 
 
 
 def init(command,classes,class_spec):
-    command_name=safe_name(command['name'])
+    command_name=command['name'].replace(' ','_')
     if len(classes)>0:
         print("\n    def __init__(self,so):")
         for _class in classes:
@@ -294,11 +295,12 @@ def init(command,classes,class_spec):
                 
 
 
+
 def debug(command,classes,class_spec):  
     print("    def debug(self):")
     print("        debugger(self,'{0}')".format(command['name']))
 
-    #command_name=safe_name(command['name'])
+    #command_name=command['name'].replace(' ','_')
     #if len(classes)>0:
     #    print("")
     #    print("    def debug(self):")
@@ -350,7 +352,7 @@ def convert_to_class(o):
         else:
             el="el"
         index+=1
-        command_name=safe_name(command['name'])
+        command_name=command['name'].replace(' ','_')
         print ("    {1}if o['mode']=='{0}': return {2}(o)".format(command['name'],el,command_name))
         
 

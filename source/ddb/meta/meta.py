@@ -211,4 +211,3 @@ class select:
         def __init__(self,column=None,direction=None):
             if column:  self.column=column
             if direction:  self.direction=direction
-
