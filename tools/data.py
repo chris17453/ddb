@@ -10,7 +10,7 @@ def safe_name(name):
                 'setattr','dict','hex','object','slice','dir','id','oct','sorted']
     name=name.replace(" ","_")
     if name in forbidden:
-        name=name+"_FUNC"
+        name=name+"_"
     return name
 
 def get_data(command,classes,class_spec):
@@ -189,39 +189,40 @@ def variable_def (command,classes,class_spec):
     #print(class_spec)  
     print ("")
     for _class in classes:
-
-        if len(classes[_class])>1:
-            class_name="{1}()".format(safe_name(command['name']),_class)
+        safe_class=safe_name(_class)
+        if len(classes[safe_class])>1:
+            class_name="{1}()".format(safe_name(command['name']),safe_class)
         else:
             class_name=''
 
-        if class_spec[_class]['parent']!=None:
+        if class_spec[safe_class]['parent']!=None:
                 continue
 
-        if class_spec[_class]['optional']:
-            if '_arguments' in classes[_class] or  class_spec[_class]['storage']=='array':
+        if class_spec[safe_class]['optional']:
+            if '_arguments' in classes[safe_class] or  class_spec[safe_class]['storage']=='array':
                 class_name='[ {0} ]'.format(class_name)
-            print ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
+            print ("    {0:<20} = None        # optional {1}".format(safe_class,class_name))
             continue
 
         #print classes[_class]
-        if '_arguments' in classes[_class]:
-                print ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
+        if '_arguments' in classes[safe_class]:
+                print ("    {0:<20} = []          #          {1}".format(safe_class),class_name))
                 continue
 
-        if len(classes[_class])>1:
-            print ("    {1:<20} = _{1}()".format(safe_name(command['name']),_class.replace(" ","_")))
+        if len(classes[safe_class])>1:
+            print ("    {1:<20} = _{1}()".format(safe_name(command['name']),safe_class))
             continue
 
-        for variable in classes[_class]:
+        for variable in classes[safe_class]:
+            safe_variable=safe_name(variable)
             pad=''
-            var=classes[_class][variable]
+            var=classes[safe_class][safe_variable]
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0:<20} = {1}".format(variable,value,pad))
+            print ("{2}    {0:<20} = {1}".format(safe_variable,value,pad))
 
 
 
