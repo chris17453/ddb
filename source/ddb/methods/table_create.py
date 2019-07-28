@@ -16,7 +16,7 @@ def method_create_table(context, meta):
 
         # TODO convert to meta class
         for c in meta.columns:
-            columns.append(c['column'])
+            columns.append(c.column)
         context.info("Columns to create", columns)
 
         if None==meta.source.database:
