@@ -116,7 +116,4 @@ setup(
         ddb-pipes = ddb.pipes:cli_main
         """,
     compiler_directives={"language_level": "2"},
-
 )
-
-

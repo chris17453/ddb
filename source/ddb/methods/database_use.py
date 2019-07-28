@@ -1,13 +1,12 @@
 # cython: linetrace=True
 
-from .record_core import query_results
+from .record_core import query_results, get_table
 
-def method_use(context, query_object):
+def method_use(context, meta):
     context.info("Use")
     try:
-        target_db = query_object['meta']['source']['table']
-        if context.database.get_curent_database()!=target_db:
-            context.database.set_database(target_db)
+        table=get_table(context,meta)
+        target_db=table.data.database
 
         temp_table = context.database.temp_table()
         temp_table.add_column('changed_db')
