@@ -29,7 +29,6 @@ else:
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
 
 extensions = [
-    Extension("ddb.evaluate.match",                     [prefix+"./ddb/evaluate/match" + ext2], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext], define_macros=[('CYTHON_TRACE', '1')]),
     Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext], define_macros=[('CYTHON_TRACE', '1')]),
