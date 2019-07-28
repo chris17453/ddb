@@ -204,7 +204,9 @@ class engine:
             # exit(9)
             # get columns, doesnt need a table
             #print query_object
-            
+            if query_object['mode']=='set':
+                query_object['mode']='set_variable'
+
             mode=query_object['mode']
 
             
@@ -243,10 +245,10 @@ class engine:
 
             # SYSTEM 
             elif mode == 'set':
-                self.results = method_system_set(self,query_object)
+                self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':
-                self.results = method_system_begin(self,query_object)
+                self.results = method_system_begin(self,meta_class)
 
             elif mode == 'rollback':
                 self.results = method_system_rollback(self,query_object)

@@ -253,12 +253,10 @@ class set:
     class _set:
         __slots__=()
         variable = None
-        type = None
         value = None
 
-        def __init__(self,variable=None,type=None,value=None):
+        def __init__(self,variable=None,value=None):
             if variable:  self.variable=variable
-            if type:  self.type=type
             if value:  self.value=value
 
     set                  = None        # optional [ set() ]
@@ -268,7 +266,7 @@ class set:
                 self.set=[]
                 for item in gv(so,['meta','set']):
                     instance_type=item.keys()[0]
-                    self.set.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'type': gv(item,['type']),'value': gv(item,['value']) }) )
+                    self.set.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'value': gv(item,['value']) }) )
     def debug(self):
         debugger(self,'set')
 
