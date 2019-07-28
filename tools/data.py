@@ -120,7 +120,7 @@ def sub_class (command,classes,class_spec):
             continue
 
         print ("")
-        print ("    class _{0}:".format(_class.replace(" ","_")))
+        print ("    class {0}:".format(_class.replace(" ","_")))
         print ("        __slots__=()")
 
         for variable in classes[_class]:
