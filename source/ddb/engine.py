@@ -10,7 +10,6 @@ from subprocess import Popen,PIPE
 from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
-from .evaluate.match import match
 from .version import __version__
 
 
@@ -89,7 +88,6 @@ class engine:
         self.mode = mode
         self.output=output
         self.output_file=output_file
-        self.match=match()
         self.system={}
         self.system_trigger={}
         self.internal={}
