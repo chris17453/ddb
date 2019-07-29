@@ -11,6 +11,7 @@ def method_describe_table(context, meta):
         target_table=get_table(context,meta)
         if None ==target_table:
             raise Exception("Table not found")
+        temp_table = context.database.temp_table()
         temp_table.add_column('option')
         temp_table.add_column('value')
         
