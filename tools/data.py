@@ -164,6 +164,7 @@ def sub_class (command,classes,class_spec):
 
 
 def variable_def (command,classes,class_spec):
+    print ("    #variable_def")
     for _class in classes:
         class_name=_class.replace(" ","_")
         if len(classes[_class])>1:
@@ -182,7 +183,7 @@ def variable_def (command,classes,class_spec):
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = _{1}".format(variable,value,pad))
+            print ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
 
@@ -190,10 +191,11 @@ def variable_def (command,classes,class_spec):
  #print(classes)
     #print(class_spec)  
     print ("")
+    print ("    #variable_class_def")
     for _class in classes:
 
         if len(classes[_class])>1:
-            class_name="{1}()".format(command['name'].replace(' ','_'),_class)
+            class_name="_{1}()".format(command['name'].replace(' ','_'),_class)
         else:
             class_name=''
 
@@ -212,7 +214,7 @@ def variable_def (command,classes,class_spec):
                 continue
 
         if len(classes[_class])>1:
-            print ("    {1:<20} = {1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
+            print ("    {1:<20} = _{1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
             continue
 
         for variable in classes[_class]:
