@@ -205,20 +205,16 @@ class engine:
             # get columns, doesnt need a table
             #print query_object
             # todo safe_name
-            if query_object['mode']=='set':
-                query_object['mode']='Set'
 
             mode=query_object['mode']
 
             
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
-            print mode
             meta_class=meta.convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
             meta_class.debug()
-            print mode+"END"
             
             if self.debug:
                 meta_class.debug()
@@ -252,7 +248,7 @@ class engine:
                 self.results = method_update_table(self,meta_class)
 
             # SYSTEM 
-            elif mode == 'Set':
+            elif mode == 'set':
                 self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':
