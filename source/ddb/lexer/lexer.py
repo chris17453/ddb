@@ -22,14 +22,14 @@ class lexer:
         list_of_strings=[]                     # the list of split strings
 
         for c in data:
-            if not in_quote:
+            if not in_block:
                 for block in blocks:
                     if c==block[0]:
                         in_block=True
                         curent_block=block
                         break
 
-            if in_quote:
+            else:
                 if c==curent_block[1]:
                     in_block=None
                     curent_block=None
