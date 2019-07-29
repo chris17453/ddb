@@ -287,7 +287,8 @@ def init(command,classes,class_spec):
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
                         print ("                    instance_type=item.keys()[0]")
                         print ("                    safe_instance_type=safe_name(instance_type)")
-#                        print ("                    print('*'+instance_type+'*')")
+                        print ("                    print('*'+safe_instance_type+'*')")
+                        print ("                    print('*'+instance_type+'*')")
 #                        print ("                    print(item)")
                         print ("                    self.{1}.append( type('_'+safe_instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
                 else:
