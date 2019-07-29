@@ -36,7 +36,7 @@ class lexer:
                 index+=1
                 continue
 
-            if c=='delimiter':
+            if c==delimiter:
                 if last_index!=index-1:
                     list_of_strings.append(data[last_index:index-1])
                 last_index=index+1
