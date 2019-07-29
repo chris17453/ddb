@@ -87,7 +87,7 @@ def safe_name(name):
                 'setattr','dict','hex','object','slice','dir','id','oct','sorted']
     name=name.replace(" ","_")
     if name in forbidden:
-        name=name+"_"
+        name=name.title()
     return name
 
 
