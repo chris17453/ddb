@@ -282,7 +282,7 @@ def init(command,classes,class_spec):
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         else:
                             print ("            if gv(so,['meta','{0}']):".format(_class))
-                        print ("                self.{1}=[]".format(command_name,_class.replace(" ","_")))
+                        print ("                self._{0}=[]".format(_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
                         print ("                    instance_type=safe_name(item.keys()[0])")
                         print ("                    print('*'+instance_type+'*')")
