@@ -43,8 +43,8 @@ class test_engine(unittest.TestCase):
 
     def test_set(self):
             """Set a database variable """
-            print ("SET")
-            self.cleanup()
+        print ("SET")
+        self.cleanup()
         try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             
