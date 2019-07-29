@@ -4,7 +4,7 @@ from .record_core import query_results
 from ..file_io.locking import lock, remove_temp_file
 
 
-def method_system_rollback(context, query_object):
+def method_system_rollback(context):
     context.info("set")
     try:
         if context.internal['IN_TRANSACTION']==1:
