@@ -361,7 +361,7 @@ def convert_to_class(o):
             el="el"
         index+=1
         command_name=command['name'].replace(' ','_')
-        print ("    {1}if o['mode']=='{0}': return {2}(o)".format(safe_name(command['name']),el,command_name))
+        print ("    {1}if o['mode']=='{0}': return {2}(o)".format(command['name'],el,safe_name(command_name)))
         
 
     print """
