@@ -204,8 +204,9 @@ class engine:
             # exit(9)
             # get columns, doesnt need a table
             #print query_object
+            # todo safe_name
             if query_object['mode']=='set':
-                query_object['mode']='set_variable'
+                query_object['mode']='Set'
 
             mode=query_object['mode']
 
