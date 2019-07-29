@@ -46,11 +46,11 @@ class lexer:
 
 
     def __init__(self, query, debug=None):
-        queries=self.split(query,';')
-        print "****"
-        for q in queries:
-            print q
-        print "****"
+        #queries=self.split(query,';')
+        #print "****"
+        #for q in queries:
+        #    print q
+        #print "****"
 
         # select distinct,* from table where x=y and y=2 order by x,y limit 10,2
         # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
