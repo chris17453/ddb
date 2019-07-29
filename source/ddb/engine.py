@@ -212,12 +212,14 @@ class engine:
 
             
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
+            print mode
             meta_class=meta.convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
             meta_class.debug()
-
+            print mode+"END"
+            
             if self.debug:
                 meta_class.debug()
             # RECORDS
