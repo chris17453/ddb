@@ -250,6 +250,7 @@ class engine:
 
             # SYSTEM 
             elif mode == 'Set':
+                meta_class.debug()
                 self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':

@@ -5,8 +5,7 @@ from .record_core import query_results
 def method_system_set(context, meta):
     context.info("set")
     try:
-        meta.debug()
-        #print query_object
+        # meta.debug()
         for item in meta.set:
             
             variable=item.variable.upper()
