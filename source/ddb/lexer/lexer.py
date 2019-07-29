@@ -68,12 +68,12 @@ class lexer:
     
         #print query
         
-        print("---------------------")
+        #print("---------------------")
         querys = self.split(query,';')
-        print querys
-        querys = query.split(';')
+        #print querys
+        #querys = query.split(';')
         self.info("Queries", querys)
-        print querys
+        #print querys
         for q in querys:
             self.info("-----------------------------------")
             if q and q.isspace():
