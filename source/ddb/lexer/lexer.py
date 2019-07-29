@@ -41,7 +41,7 @@ class lexer:
                 last_index=index+1
             index+=1
         if index!=last_index:
-            list_of_strings.append(data.substring,last_index,index)
+                list_of_strings.append(data[last_index:])
         return list_of_strings
 
 
