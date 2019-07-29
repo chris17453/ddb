@@ -7,6 +7,42 @@ from .tokenize import tokenizer
 class lexer:
    
     __slots__=['keep_non_keywords','debug','query_objects']
+
+    def split(self,data):
+        in_block=None
+        curent_block=None
+        last_index=0
+        index=0
+        blocks = [
+            ['\'', '\'', 'quote'],   # string block
+            ['"', '"', 'quote'],   # string block
+            ['[', ']', 'db'],   # mssql column
+            ['`', '`', 'db'],   # mysql column
+        ]
+        
+        for c in data:
+            
+            index+=1
+            if not in_quote:
+                for block in blocks:
+                    if c==block[0]:
+                        in_block=True
+                        curent_block=block
+                        break
+
+            if in_quote:
+                if c==curent_block[1]:
+                    in_block=None
+                    curent_block=None
+                continue
+
+            if c=='delimiter':
+                list_of_strings.append(data.substring,last_index,index)
+                last_index=index+1
+
+        list_of_strings.append(data.substring,last_index,index)
+
+
     def __init__(self, query, debug=None):
         # select distinct,* from table where x=y and y=2 order by x,y limit 10,2
         # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
@@ -23,6 +59,7 @@ class lexer:
             raise Exception("Invalid Syntax")
     
         #print query
+        
         querys = query.split(';')
         self.info("Queries", querys)
         for q in querys:
