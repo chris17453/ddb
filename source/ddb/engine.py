@@ -260,18 +260,18 @@ class engine:
                 self.results = method_system_commit(self)
 
             elif mode == "show tables":
-                self.results = method_system_show_tables(self,self.database)
+                self.results = method_system_show_tables(self)
 
             elif mode == "show output modules":
-                self.results = method_system_show_output_modules(self,query_object)
+                self.results = method_system_show_output_modules(self)
 
             elif mode == "show columns":
-                self.results = method_system_show_columns(self,self.database, query_object)
+                self.results = method_system_show_columns(self, meta_class)
 
             elif mode == "show variables":
-                self.results = method_system_show_variables(self, query_object)
+                self.results = method_system_show_variables(self)
+
             elif mode == "describe table":
-                print (query_object)
                 self.results = method_describe_table(self, meta_class)
 
             if False==self.results.success:
