@@ -94,7 +94,7 @@ svn_start:
 #	# @$(MAKE) -f $(THIS_FILE) standalone
 #	@$(MAKE) -f $(THIS_FILE) test
 
-build: bump svn_start meta
+build: svn_start meta bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
 	#@python $(conf_dir)/build.py
