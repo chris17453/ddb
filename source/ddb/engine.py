@@ -245,7 +245,7 @@ class engine:
                 self.results = method_update_table(self,meta_class)
 
             # SYSTEM 
-            elif mode == 'set':
+            elif mode == 'Set':
                 self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':
