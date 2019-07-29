@@ -286,10 +286,11 @@ def init(command,classes,class_spec):
                             print ("            if gv(so,['meta','{0}']):".format(_class))
                         print ("                self.{0}=[]".format(_class.replace(" ","_")))
                         print ("                for item in gv(so,['meta','{0}']):".format(_class))
-                        print ("                    instance_type=safe_name(item.keys()[0])")
-                        print ("                    print('*'+instance_type+'*')")
-                        print ("                    print(item)")
-                        print ("                    self.{1}.append( type('_'+instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
+                        print ("                    instance_type=item.keys()[0]")
+                        print ("                    safe_instance_type=safe_name(instance_type)")
+#                        print ("                    print('*'+instance_type+'*')")
+#                        print ("                    print(item)")
+                        print ("                    self.{1}.append( type('_'+safe_instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
                 else:
                     if class_spec[_class]['parent']==None:
                         print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
