@@ -214,7 +214,6 @@ class engine:
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
-            meta_class.debug()
             
             if self.debug:
                 meta_class.debug()
