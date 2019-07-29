@@ -70,6 +70,7 @@ class lexer:
         
         querys = self.split(query,';')
         self.info("Queries", querys)
+        print queries
         for q in querys:
             self.info("-----------------------------------")
             if q and q.isspace():
