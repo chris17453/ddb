@@ -17,7 +17,7 @@ context_sort=[]
 
 def method_select(context, meta, parser):
     #try:
-        #meta.debug()
+        meta.debug()
         context.info(meta)
         # make sure columns are valid, and from is good
         select_validate_columns_and_from(context,meta,parser)
