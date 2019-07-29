@@ -254,7 +254,7 @@ class engine:
                 self.results = method_system_begin(self,meta_class)
 
             elif mode == 'rollback':
-                self.results = method_system_rollback(self,query_object)
+                self.results = method_system_rollback(self)
 
             elif mode == 'commit':
                 self.results = method_system_commit(self)
