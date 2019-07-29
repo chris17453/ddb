@@ -282,7 +282,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
     
-    def t1est_upsert(self,mode=None):
+    def test_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
         print("UPSERT")
