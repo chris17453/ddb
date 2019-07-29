@@ -8,21 +8,20 @@ class lexer:
    
     __slots__=['keep_non_keywords','debug','query_objects']
 
-    def split(self,data):
-        in_block=None
-        curent_block=None
-        last_index=0
-        index=0
-        blocks = [
-            ['\'', '\'', 'quote'],   # string block
-            ['"', '"', 'quote'],   # string block
-            ['[', ']', 'db'],   # mssql column
-            ['`', '`', 'db'],   # mysql column
-        ]
+    def split(self,data,delimiter=';'):
+        in_block    = None
+        curent_block= None
+        last_index  = 0
+        index       = 0
+        blocks      = [ ['\'', '\'', 'quote'], # string block
+                        ['"' , '"' , 'quote'], # string block
+                        ['[' , ']' , 'db'   ], # mssql column
+                        ['`' , '`' , 'db'   ], # mysql column
+                    ]
         
+        list_of_strings=[]                     # the list of split strings
+
         for c in data:
-            
-            index+=1
             if not in_quote:
                 for block in blocks:
                     if c==block[0]:
@@ -34,16 +33,25 @@ class lexer:
                 if c==curent_block[1]:
                     in_block=None
                     curent_block=None
+                index+=1
                 continue
 
             if c=='delimiter':
-                list_of_strings.append(data.substring,last_index,index)
+                list_of_strings.append(data[last_index:index])
                 last_index=index+1
-
-        list_of_strings.append(data.substring,last_index,index)
+            index+=1
+        if index!=last_index:
+            list_of_strings.append(data.substring,last_index,index)
+        return list_of_strings
 
 
     def __init__(self, query, debug=None):
+        queries=self.split(query,';')
+        print "****"
+        for q in queries:
+            print q
+        print "****"
+
         # select distinct,* from table where x=y and y=2 order by x,y limit 10,2
         # select c1,c2,c3,c4 as x,* from table where x=y and y=2 order by x,y limit 10,2
         # select top 10 * from table where x=y and y=2 order by x,y
