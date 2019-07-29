@@ -68,7 +68,8 @@ class lexer:
     
         #print query
         
-        querys = self.split(query,';')
+        #querys = self.split(query,';')
+        querys = query.split(';')
         self.info("Queries", querys)
         print querys
         for q in querys:
