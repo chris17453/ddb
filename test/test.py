@@ -42,7 +42,7 @@ class test_engine(unittest.TestCase):
         self.assertEqual(True, results.success)
 
     def test_set(self):
-            """Set a database variable """
+        """Set a database variable """
         print ("SET")
         self.cleanup()
         try:
