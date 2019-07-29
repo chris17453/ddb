@@ -42,9 +42,9 @@ class test_engine(unittest.TestCase):
         self.assertEqual(True, results.success)
 
     def test_set(self):
-        """Set a database variable """
-        self.cleanup()
-        try:
+            """Set a database variable """
+            self.cleanup()
+        #try:
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             
             results = engine.query("set AUTOCOMMIT=False")
@@ -72,8 +72,8 @@ class test_engine(unittest.TestCase):
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
             
-        except Exception as ex:
-            self.fail(ex)
+        #except Exception as ex:
+        #    self.fail(ex)
     
     def test_use(self,mode=None):
         #"""Test changing database context"""
