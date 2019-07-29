@@ -242,7 +242,7 @@ class select:
 
     def __init__(self,so):
             if gv(so,['meta','order_by']):
-                self.order_by=[]
+                self._order_by=[]
                 for item in gv(so,['meta','order_by']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -250,7 +250,7 @@ class select:
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','group_by']):
-                self.group_by=[]
+                self._group_by=[]
                 for item in gv(so,['meta','group_by']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -258,13 +258,13 @@ class select:
             if gv(so,['meta','limit']):
                 self.limit= self.limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
             if gv(so,['meta','where']):
-                self.where=[]
+                self._where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
             if gv(so,['meta','columns']):
-                self.columns=[]
+                self._columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -290,7 +290,7 @@ class set_:
 
     def __init__(self,so):
             if gv(so,['meta','set_']):
-                self.set_=[]
+                self._set_=[]
                 for item in gv(so,['meta','set_']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -314,7 +314,7 @@ class create_procedure:
 
     def __init__(self,so):
             if gv(so,['meta','parameters']):
-                self.parameters=[]
+                self._parameters=[]
                 for item in gv(so,['meta','parameters']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -454,7 +454,7 @@ class delete:
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','where']):
-                self.where=[]
+                self._where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -498,13 +498,13 @@ class insert:
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
-                self.values=[]
+                self._values=[]
                 for item in gv(so,['meta','values']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','columns']):
-                self.columns=[]
+                self._columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -582,13 +582,13 @@ class update:
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','set_']):
-                self.set_=[]
+                self._set_=[]
                 for item in gv(so,['meta','set_']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.set_.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','where']):
-                self.where=[]
+                self._where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -650,25 +650,25 @@ class upsert:
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','values']):
-                self.values=[]
+                self._values=[]
                 for item in gv(so,['meta','values']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','update']):
-                self.update=[]
+                self._update=[]
                 for item in gv(so,['meta','update']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.update.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','columns']):
-                self.columns=[]
+                self._columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
                     self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
             if gv(so,['meta','on_duplicate_key']):
-                self.on_duplicate_key=[]
+                self._on_duplicate_key=[]
                 for item in gv(so,['meta','on_duplicate_key']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -787,7 +787,7 @@ class create_table:
             self.delimiter = gv(so,['meta','delimiter'])
             self.mode = gv(so,['meta','mode'])
             if gv(so,['meta','columns']):
-                self.columns=[]
+                self._columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
@@ -836,7 +836,7 @@ class update_table:
                 self.source= self.source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
             self.field = gv(so,['meta','delimiter','field'])
             if gv(so,['meta','columns']):
-                self.columns=[]
+                self._columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
                     print('*'+instance_type+'*')
