@@ -20,7 +20,6 @@ def safe_name(name,no_match=None):
 def get_data(command,classes,class_spec):
     command_name=safe_name(command['name'])
     print ("class {0}:".format(command_name))
-    #print ("    __slots__=()")
     
     for segment in command['segments']:
         segment_name=safe_name(segment['name'],1)
