@@ -245,6 +245,7 @@ class select:
                 self.order_by=[]
                 for item in gv(so,['meta','order_by']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.order_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
             if gv(so,['meta','source']):
                 self.source= self.source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
@@ -252,6 +253,7 @@ class select:
                 self.group_by=[]
                 for item in gv(so,['meta','group_by']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.group_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
             if gv(so,['meta','limit']):
                 self.limit= self.limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
@@ -259,11 +261,13 @@ class select:
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.columns.append( type('_'+instance_type,(),{ 'function': gv(item,['function']),'column': gv(item,['column']),'argument2': gv(item,['argument2']),'argument3': gv(item,['argument3']),'argument1': gv(item,['argument1']),'display': gv(item,['display']) }) )
     def debug(self):
         debugger(self,'select')
@@ -289,6 +293,7 @@ class set_:
                 self.set_=[]
                 for item in gv(so,['meta','set_']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.set_.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'value': gv(item,['value']) }) )
     def debug(self):
         debugger(self,'set')
@@ -312,6 +317,7 @@ class create_procedure:
                 self.parameters=[]
                 for item in gv(so,['meta','parameters']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.parameters.append( type('_'+instance_type,(),{ 'parameter': gv(item,['parameter']) }) )
     def debug(self):
         debugger(self,'create procedure')
@@ -451,6 +457,7 @@ class delete:
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'delete')
@@ -494,11 +501,13 @@ class insert:
                 self.values=[]
                 for item in gv(so,['meta','values']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'insert')
@@ -576,11 +585,13 @@ class update:
                 self.set_=[]
                 for item in gv(so,['meta','set_']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.set_.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','where']):
                 self.where=[]
                 for item in gv(so,['meta','where']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
     def debug(self):
         debugger(self,'update')
@@ -642,21 +653,25 @@ class upsert:
                 self.values=[]
                 for item in gv(so,['meta','values']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
             if gv(so,['meta','update']):
                 self.update=[]
                 for item in gv(so,['meta','update']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.update.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
             if gv(so,['meta','on_duplicate_key']):
                 self.on_duplicate_key=[]
                 for item in gv(so,['meta','on_duplicate_key']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.on_duplicate_key.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'upsert')
@@ -775,6 +790,7 @@ class create_table:
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
             self.comments = gv(so,['meta','comments'])
     def debug(self):
@@ -823,6 +839,7 @@ class update_table:
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
                     instance_type=safe_name(item.keys()[0])
+                    print(instance_type)
                     self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
     def debug(self):
         debugger(self,'update table')
