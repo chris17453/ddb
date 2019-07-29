@@ -216,6 +216,7 @@ class engine:
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
+            meta_class.debug()
 
             if self.debug:
                 meta_class.debug()
@@ -250,7 +251,6 @@ class engine:
 
             # SYSTEM 
             elif mode == 'Set':
-                meta_class.debug()
                 self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':
