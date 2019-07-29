@@ -9,6 +9,7 @@ def safe_name(name,no_match=None):
                 'unichr','callable','format','locals','reduce','unicode','chr','frozenset','long','reload','vars','classmethod','getattr','map','repr','xrange',
                 'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
                 'setattr','dict','hex','object','slice','dir','id','oct','sorted']
+    name=name.title()
     name=name.replace(" ","_")
     if no_match:
         return name
