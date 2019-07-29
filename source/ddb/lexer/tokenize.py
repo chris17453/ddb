@@ -15,9 +15,9 @@ class tokenizer:
         # these are solid non depth related blocks
         blocks = [
             ['\'', '\'', 'quote'],   # string block
-            ['"', '"', 'quote'],   # string block
-            ['[', ']', 'db'],   # mssql column
-            ['`', '`', 'db'],   # mysql column
+            ['"' , '"' , 'quote'],   # string block
+            ['[' , ']' , 'db'],   # mssql column
+            ['`' , '`' , 'db'],   # mysql column
         ]
 
         # blocks that must match depth

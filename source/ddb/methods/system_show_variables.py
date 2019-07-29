@@ -2,7 +2,7 @@
 
 from .record_core import query_results
 
-def method_system_show_variables(context, query_object):
+def method_system_show_variables(context):
     context.info("show variables")
     try:
          
