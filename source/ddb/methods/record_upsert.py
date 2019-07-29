@@ -6,7 +6,7 @@ from .record_update  import update_single
 from .record_insert  import create_single
 
 
-def method_upsert(context, meta):
+def method_upsert(context, meta,query_object):
     try:
         meta.table=get_table(context,meta)
         
@@ -25,7 +25,7 @@ def method_upsert(context, meta):
                     else:
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
-        meta.where=where
+        query_object['where']=where
 
         #return None
         
@@ -51,7 +51,8 @@ def method_upsert(context, meta):
                     line_number += 1
                     # skip matches
                     if True == processed_line['match']:
-                        results = update_single(context,meta, temp_file,  False, processed_line)
+                        meta_class=meta.convert_to_class(query_object)
+                        results = update_single(context,meta_class, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
@@ -61,7 +62,8 @@ def method_upsert(context, meta):
                 # NO update occured.. Lets Insert...
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
-                    results = create_single(context,meta, temp_file,False)
+                    meta_class=meta.convert_to_class(query_object)
+                    results = create_single(context,meta_class, temp_file,False)
                     if True==results['success']:
                         diff.append(results['line'])
                 else:
