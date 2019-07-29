@@ -125,8 +125,10 @@ class test_engine(unittest.TestCase):
 
     def test_describe_table(self,mode=None):
         """Show table configuration"""
+        print ("DESCRIBE TABLE")
         self.cleanup()
         try:
+
             engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
             self.create_table(engine,mode)
 

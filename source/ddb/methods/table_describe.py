@@ -11,10 +11,8 @@ def method_describe_table(context, meta):
         target_table=get_table(context,meta)
         if None ==target_table:
             raise Exception("Table not found")
-        temp_table = context.database.temp_table()
-        temp_table.add_column('option')
-        temp_table.add_column('value')
-        
+        temp_table = context.database.temp_table(columns=['option','value'])
+
         
         temp_table.append_data( { 'data': [ 'active'             , target_table.active              ], 'type': context.data_type.DATA, 'error': None} )
         temp_table.append_data( { 'data': [ 'table_name'         , target_table.data.name           ], 'type': context.data_type.DATA, 'error': None} )
@@ -38,7 +36,7 @@ def method_describe_table(context, meta):
 
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-       #print ex
+       print ex
         return query_results(success=False,error=ex)
 
 
