@@ -271,7 +271,8 @@ class engine:
             elif mode == "show variables":
                 self.results = method_system_show_variables(self, query_object)
             elif mode == "describe table":
-                self.results = method_describe_table(self, query_object)
+                print (query_object)
+                self.results = method_describe_table(self, meta_class)
 
             if False==self.results.success:
 
