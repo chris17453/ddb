@@ -1,7 +1,7 @@
 from .context import ddb
 
 
-def safe_name(name):
+def safe_name(name,no_match=None`):
     forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
                 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
                 'abs','divmod','input','open','staticmethod','all','enumerate','int','ord','str','any','eval','isinstance','pow','sum','basestring','execfile',
@@ -10,6 +10,8 @@ def safe_name(name):
                 'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
                 'setattr','dict','hex','object','slice','dir','id','oct','sorted']
     name=name.replace(" ","_")
+    if no_match:
+        return name
     if name in forbidden:
         name=name+"_"
     return name
@@ -21,7 +23,7 @@ def get_data(command,classes,class_spec):
     #print ("    __slots__=()")
     
     for segment in command['segments']:
-        segment_name=safe_name(segment['name'])
+        segment_name=safe_name(segment['name'],1)
         optional=None
         if 'optional' in segment:
                 optional=segment['optional']
