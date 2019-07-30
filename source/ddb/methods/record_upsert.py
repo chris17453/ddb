@@ -8,6 +8,8 @@ from .record_insert  import create_single
 
 def method_upsert(context, meta,query_object):
     try:
+        meta.debug()
+        print(query_object)
         meta.table=get_table(context,meta)
         
         if not meta.on_duplicate_key:
