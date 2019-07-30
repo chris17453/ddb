@@ -42,7 +42,7 @@ def get_data(command,classes,class_spec):
         if 'parent' in segment:
             parent=segment['parent']
         #print class_spec,segment_name
-        class_spec[segment_name]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword}
+        class_spec[segment_name]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword,'key':segment['name']}
         optional=None
 
         for fragment in segment['data']:
@@ -235,17 +235,17 @@ def init(command,classes,class_spec):
     if len(classes)>0:
         print("\n    def __init__(self,so):")
         for _class in classes:
-
+            safe_class=class_spec[_class]['key']
             if len(classes[_class])==1:
                 for variable in classes[_class]:
                     if '_arguments' == variable or  class_spec[_class]['parent']!=None:
                         continue;
 
                     if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-                        sqo="gv(so,['meta','{1}'])".format(_class,variable)
+                        sqo="gv(so,['meta','{0}'])".format(variable)
                         print ("            self.{0} = {1}".format(variable,sqo))
                     else:
-                        sqo="gv(so,['meta','{0}','{1}'])".format(_class,variable)
+                        sqo="gv(so,['meta','{0}','{1}'])".format(safe_class,variable)
                         print ("            self.{0} = {1}".format(variable,sqo))
             else:
                 var=[]
@@ -256,7 +256,7 @@ def init(command,classes,class_spec):
                                     continue
                             #print classes[_class],variable
                             if class_spec[_class]['storage']=='array':
-                                sqo="gv(item,['{1}','{0}'])".format(variable,_class)
+                                sqo="gv(item,['{1}','{0}'])".format(variable,safe_class)
                                 sqo2="gv(item,[instance_type,'{0}'])".format(variable)
                             else:
                                 sqo="gv(item,['{0}'])".format(variable)
@@ -272,19 +272,19 @@ def init(command,classes,class_spec):
                        # if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
                        #     sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                        # else:
-                        sqo="gv(so,['{2}','{0}','{1}'])".format(_class,variable,'meta')
-                        sqo2="gv(so,[{2},instance_type,'{1}'])".format(_class,variable,'meta')
+                        sqo="gv(so,['{2}','{0}','{1}'])".format(safe_class,variable,'meta')
+                        sqo2="gv(so,[{1},instance_type,'{0}'])".format(variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
                         var_dict.append("'{1}' : {0}".format(sqo2,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
                         #print ("            print(so)")
                         if class_spec[_class]['type']=='single':
-                            print ("            if gv(so,['meta','{0}']):".format(_class))
+                            print ("            if gv(so,['meta','{0}']):".format(safe_class))
                         else:
-                            print ("            if gv(so,['meta','{0}']):".format(_class))
+                            print ("            if gv(so,['meta','{0}']):".format(safe_class))
                         print ("                self.{0}=[]".format(_class.replace(" ","_")))
-                        print ("                for item in gv(so,['meta','{0}']):".format(_class))
+                        print ("                for item in gv(so,['meta','{0}']):".format(safe_class))
                         print ("                    instance_type=item.keys()[0]")
                         print ("                    safe_instance_type='_'+instance_type")
 #                        print ("                    print('*'+safe_instance_type+'*')")
@@ -293,7 +293,7 @@ def init(command,classes,class_spec):
                         print ("                    self.{1}.append( type(safe_instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
                 else:
                     if class_spec[_class]['parent']==None:
-                        print ("            if gv(so,['meta','{1}']):".format(command_name,_class))
+                        print ("            if gv(so,['meta','{1}']):".format(command_name,safe_class))
                         print ("                self.{1}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
     else:
         print("\n    def __init__(self,so):")
