@@ -65,7 +65,6 @@ def create_single(context, meta, temp_file, requires_new_line):
                 context.add_error("Cannot insert, column value count does not match table column count")
             else:
                 err = False
-                #print query_object['meta']['columns']
                 for c in range(0, len(meta.columns)):
                     column_name =meta.table.get_column_at_data_ordinal(c)
                     found = False
