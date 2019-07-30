@@ -242,17 +242,17 @@ class select:
     columns              = []          #          _columns()
 
     def __init__(self,so):
-            if gv(so,['meta','order_by']):
+            if gv(so,['meta','order by']):
                 self.order_by=[]
-                for item in gv(so,['meta','order_by']):
+                for item in gv(so,['meta','order by']):
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.order_by.append( type(safe_instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
             if gv(so,['meta','source']):
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','group_by']):
+            if gv(so,['meta','group by']):
                 self.group_by=[]
-                for item in gv(so,['meta','group_by']):
+                for item in gv(so,['meta','group by']):
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.group_by.append( type(safe_instance_type,(),{ 'column': gv(item,['column']) }) )
@@ -668,9 +668,9 @@ class upsert:
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.columns.append( type(safe_instance_type,(),{ 'column': gv(item,['column']) }) )
-            if gv(so,['meta','on_duplicate_key']):
+            if gv(so,['meta','on duplicate key']):
                 self.on_duplicate_key=[]
-                for item in gv(so,['meta','on_duplicate_key']):
+                for item in gv(so,['meta','on duplicate key']):
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.on_duplicate_key.append( type(safe_instance_type,(),{ 'column': gv(item,['column']) }) )
