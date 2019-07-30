@@ -4,6 +4,7 @@ import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
 from .record_update  import update_single
 from .record_insert  import create_single
+from .meta import main_meta
 
 
 def method_upsert(context, meta,query_object):
@@ -53,7 +54,7 @@ def method_upsert(context, meta,query_object):
                     line_number += 1
                     # skip matches
                     if True == processed_line['match']:
-                        meta_class=meta.convert_to_class(query_object)
+                        meta_class=main_meta.convert_to_class(query_object)
                         results = update_single(context,meta_class, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
@@ -64,7 +65,7 @@ def method_upsert(context, meta,query_object):
                 # NO update occured.. Lets Insert...
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
-                    meta_class=meta.convert_to_class(query_object)
+                    meta_class=main_meta.convert_to_class(query_object)
                     results = create_single(context,meta_class, temp_file,False)
                     if True==results['success']:
                         diff.append(results['line'])
