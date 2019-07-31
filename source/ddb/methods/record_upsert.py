@@ -1,5 +1,6 @@
 # cython: linetrace=True
 
+import pprint
 import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
 from .record_update  import update_single
@@ -28,7 +29,7 @@ def method_upsert(context, meta,query_object,main_meta):
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         query_object['where']=where
-
+        pprint.pprint query_object
         #return None
         
     

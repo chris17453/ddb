@@ -311,7 +311,7 @@ class test_engine(unittest.TestCase):
         #    print(ex)
         #    self.fail(ex)
 
-    def test_rollback(self,mode=None):
+    def t1est_rollback(self,mode=None):
         """Rollback db changes"""
         self.cleanup()
         print("ROLLBACK")
@@ -345,7 +345,7 @@ class test_engine(unittest.TestCase):
         except Exception as ex:
             self.fail(ex)
 
-    def test_commit(self,mode=None):
+    def t1est_commit(self,mode=None):
         """Rollback db changes"""
         try:
             self.cleanup()
@@ -407,10 +407,10 @@ class test_engine(unittest.TestCase):
     def t1est_svn_upsert(self):
         self.test_upsert(mode='SVN')
 
-    def test_svn_rollback(self):
+    def t1st_svn_rollback(self):
         self.test_rollback(mode='SVN')
 
-    def test_svn_commit(self):
+    def t1est_svn_commit(self):
         self.test_commit(mode='SVN')
 
     def test_svn_describe_table(self):
