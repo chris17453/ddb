@@ -464,4 +464,4 @@ class query_results:
         return None
     def debug(self):
         print("Query Results")
-        debugger(self)
+        debugger(self,"Query Results")
