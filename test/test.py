@@ -323,8 +323,8 @@ class test_engine(unittest.TestCase):
             results = engine.query("begin")
             self.assertEqual(True, results.success)
             # update
-            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            #results.debug()
+            results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            results.debug()
             self.assertEqual(True, results.success)
 
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
@@ -343,6 +343,7 @@ class test_engine(unittest.TestCase):
                 
             
         except Exception as ex:
+            print ex
             self.fail(ex)
 
     def test_commit(self,mode=None):
