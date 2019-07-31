@@ -7,7 +7,7 @@ from .record_insert  import create_single
 
 
 def method_upsert(context, meta,query_object,main_meta):
-    try:
+    #try:
         #meta.debug()
         #print(query_object)
         meta.table=get_table(context,meta)
@@ -76,10 +76,10 @@ def method_upsert(context, meta,query_object,main_meta):
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception as ex:
-        print ("ERR",ex)
+#    except Exception as ex:
+#        print ("ERR",ex)
         #Sremove_temp_file(temp_data_file)      
-        return query_results(success=False,error=ex)
+#        return query_results(success=False,error=ex)
 
 
 
