@@ -331,7 +331,7 @@ class test_engine(unittest.TestCase):
 
             print ("Select")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
-            #results.debug()
+            results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
