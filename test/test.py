@@ -321,18 +321,22 @@ class test_engine(unittest.TestCase):
             self.create_table(engine,mode)
 
             results = engine.query("begin")
+            print ("Begin")
             self.assertEqual(True, results.success)
             # update
+            print ("Insert")
             results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             results.debug()
             self.assertEqual(True, results.success)
 
+            print ("Select")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
 
+            print ("rollback")
             results = engine.query("rollback")
             self.assertEqual(True, results.success)
             
