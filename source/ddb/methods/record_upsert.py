@@ -27,7 +27,7 @@ def method_upsert(context, meta,query_object,main_meta):
                         mode='where'
                     else:
                         mode='and'
-                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
+                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value,'condition':mode}})
         
         query_object['meta']['where']=where
         #pprint.pprint(query_object)
