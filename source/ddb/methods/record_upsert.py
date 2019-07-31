@@ -69,6 +69,7 @@ def method_upsert(context, meta,query_object,main_meta):
                     meta_class.table=meta.table
 
                     results = create_single(context,meta_class, temp_file,False)
+                    affected_rows+=1
                     if True==results['success']:
                         diff.append(results['line'])
                 else:
