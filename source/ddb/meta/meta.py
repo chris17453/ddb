@@ -609,14 +609,7 @@ class upsert:
             if table:  self.table=table
             if database:  self.database=database
 
-    class _values:
-        __slots__=()
-        value = None
-
-        def __init__(self,value=None):
-            if value:  self.value=value
-
-    class _update:
+    class _set:
         __slots__=()
         column = None
         expression = None
@@ -624,6 +617,13 @@ class upsert:
         def __init__(self,column=None,expression=None):
             if column:  self.column=column
             if expression:  self.expression=expression
+
+    class _values:
+        __slots__=()
+        value = None
+
+        def __init__(self,value=None):
+            if value:  self.value=value
 
     class _columns:
         __slots__=()
@@ -642,26 +642,26 @@ class upsert:
 
     #variable_class_def
     source               = _source()
+    set                  = []          #          _set()
     values               = []          #          _values()
-    update               = []          #          _update()
     columns              = []          #          _columns()
     on_duplicate_key     = []          #          _on_duplicate_key()
 
     def __init__(self,so):
             if gv(so,['meta','source']):
                 self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
+            if gv(so,['meta','set']):
+                self.set=[]
+                for item in gv(so,['meta','set']):
+                    instance_type=item.keys()[0]
+                    safe_instance_type='_'+instance_type
+                    self.set.append( type(safe_instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','values']):
                 self.values=[]
                 for item in gv(so,['meta','values']):
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.values.append( type(safe_instance_type,(),{ 'value': gv(item,['value']) }) )
-            if gv(so,['meta','update']):
-                self.update=[]
-                for item in gv(so,['meta','update']):
-                    instance_type=item.keys()[0]
-                    safe_instance_type='_'+instance_type
-                    self.update.append( type(safe_instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
             if gv(so,['meta','columns']):
                 self.columns=[]
                 for item in gv(so,['meta','columns']):
