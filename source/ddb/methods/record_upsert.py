@@ -30,10 +30,13 @@ def method_upsert(context, meta,query_object,main_meta):
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         
         query_object['meta']['where']=where
-        pprint.pprint(query_object)
+        #pprint.pprint(query_object)
         #return None
         
-        
+        meta_update=main_meta.convert_to_class(query_object)
+        meta_update.debug()
+        meta_update.table=meta.table        
+
         line_number = 1
         affected_rows = 0
         temp_data_file=context.get_data_file(meta.table)
@@ -49,7 +52,7 @@ def method_upsert(context, meta,query_object,main_meta):
       
                 for line in content_file:
                     #print line
-                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
@@ -57,9 +60,8 @@ def method_upsert(context, meta,query_object,main_meta):
                     if True == processed_line['match']:
                         query_object['mode']="update"
                         meta_class=main_meta.convert_to_class(query_object)
-                        meta_class.debug()
-                        meta_class.table=meta.table
-                        results = update_single(context,meta_class, temp_file,  False, processed_line)
+                      
+                        results = update_single(context,meta_update, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
