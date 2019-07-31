@@ -35,7 +35,7 @@ def method_upsert(context, meta,query_object,main_meta):
         
         query_object['mode']="update"
         meta_update=main_meta.convert_to_class(query_object)
-        meta_update.debug()
+        #meta_update.debug()
         meta_update.table=meta.table        
 
         line_number = 1
