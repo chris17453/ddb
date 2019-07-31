@@ -33,6 +33,7 @@ def method_upsert(context, meta,query_object,main_meta):
         #pprint.pprint(query_object)
         #return None
         
+        query_object['mode']="update"
         meta_update=main_meta.convert_to_class(query_object)
         meta_update.debug()
         meta_update.table=meta.table        
@@ -58,7 +59,6 @@ def method_upsert(context, meta,query_object,main_meta):
                     line_number += 1
                     # skip matches
                     if True == processed_line['match']:
-                        query_object['mode']="update"
                         meta_class=main_meta.convert_to_class(query_object)
                       
                         results = update_single(context,meta_update, temp_file,  False, processed_line)
