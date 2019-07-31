@@ -29,7 +29,7 @@ def method_upsert(context, meta,query_object,main_meta):
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         query_object['where']=where
-        pprint.pprint query_object
+        pprint.pprint(query_object)
         #return None
         
     
