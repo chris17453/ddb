@@ -29,7 +29,7 @@ def method_upsert(context, meta,query_object,main_meta):
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
         
-        query_object['where']=where
+        query_object['meta']['where']=where
         pprint.pprint(query_object)
         #return None
         
@@ -57,8 +57,8 @@ def method_upsert(context, meta,query_object,main_meta):
                     if True == processed_line['match']:
                         query_object['mode']="update"
                         meta_class=main_meta.convert_to_class(query_object)
-                        meta_class.table=meta.table
                         meta_class.debug()
+                        meta_class.table=meta.table
                         results = update_single(context,meta_class, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
