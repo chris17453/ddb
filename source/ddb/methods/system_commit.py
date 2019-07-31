@@ -11,7 +11,7 @@ def method_system_commit(context):
             # TODO COMIT
             context.internal['IN_TRANSACTION']=0
             context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
-            pprint.pprint(context.internal['TEMP_FILES'])
+            #pprint.pprint(context.internal['TEMP_FILES'])
 
             for table_key in context.internal['TEMP_FILES']:
                 tmp=context.internal['TEMP_FILES'][table_key]
