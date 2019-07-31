@@ -20,7 +20,6 @@ def method_insert(context, meta):
         visible_errors    = meta.table.visible.errors
         
         temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
-        print ("Temp Data " +temp_data_file)
         diff=[]
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=False) as temp_file:

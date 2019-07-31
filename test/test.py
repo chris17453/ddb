@@ -350,7 +350,7 @@ class test_engine(unittest.TestCase):
             print ex
             self.fail(ex)
 
-    def test_commit(self,mode=None):
+    def t1est_commit(self,mode=None):
         """Rollback db changes"""
         try:
             self.cleanup()
