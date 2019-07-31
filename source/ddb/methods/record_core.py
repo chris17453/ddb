@@ -420,6 +420,5 @@ class query_results:
             pass
         return None
     def debug(self):
-        pprint(self.error)
-        pprint(self.data)
-        #print("Success: {0} Error:{1}".format(success,error))
+        print("Query Results")
+        meta.debugger(this)
