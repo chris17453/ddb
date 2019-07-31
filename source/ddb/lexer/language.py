@@ -362,16 +362,14 @@ language={'commands': [{'name': 'show columns',
                              'depends_on':'on duplicate key header'},
                             {
                              'data': [{'signature': ['update']}],
-                             'key':'set',
                              'name':'update header'
                              },
                             {'arguments': 0,
                              'data': [{'signature': ['{column}',
                                                '=',
                                                '{expression}']}],
-                             'key': 'set',
-                             'name': 'update',
-                             'depends_on':'set'
+                             'name': 'set',
+                             'depends_on':'update header'
                              
                              }]},
               {'name': 'use table',
