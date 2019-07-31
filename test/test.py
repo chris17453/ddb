@@ -9,9 +9,11 @@ import pstats
 class test_engine(unittest.TestCase):
     temp_config = 'temp_config.yaml'
     temp_data = 'MOCK_DATA.csv'
+    temp_data2 = 'MOCK_DATA2.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
     basedir_svn = os.path.dirname(os.path.abspath(__file__))
     table_name = 'test'
+    table_name2 = 'test2'
     debug=None
     def cleanup(self):
         # print ("#--->Fresh init")
@@ -37,6 +39,10 @@ class test_engine(unittest.TestCase):
             file_name=os.path.join(self.basedir, self.temp_data)
        
         query="create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+        #print query
+        results = engine.query(query)
+        self.assertEqual(True, results.success)
+        query="create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name2, file_name,repo)
         #print query
         results = engine.query(query)
         self.assertEqual(True, results.success)
@@ -320,13 +326,14 @@ class test_engine(unittest.TestCase):
 
             self.create_table(engine,mode)
 
-            results = engine.query("begin")
             print ("Begin")
+            results = engine.query("begin")
             self.assertEqual(True, results.success)
             # update
             print ("Insert")
             results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
-            results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            print ("Insert")
+            results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name2))
             results.debug()
             self.assertEqual(True, results.success)
 
@@ -334,7 +341,7 @@ class test_engine(unittest.TestCase):
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             
             self.assertEqual(True, results.success)
-            self.assertEqual(1001, results.data_length)
+            self.assertEqual(1002, results.data_length)
             #results.debug()
 
             print ("rollback")
