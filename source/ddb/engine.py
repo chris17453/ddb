@@ -251,7 +251,7 @@ class engine:
                 self.results = method_system_set(self,meta_class)
 
             elif mode == 'begin':
-                self.results = method_system_begin(self,meta_class)
+                self.results = method_system_begin(self)
 
             elif mode == 'rollback':
                 self.results = method_system_rollback(self)
