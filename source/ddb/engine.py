@@ -228,7 +228,7 @@ class engine:
                 self.results = method_update(self,meta_class)
 
             elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,meta_class,query_object)
+                self.results = method_upsert(self,meta_class,query_object,meta)
             
             elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,meta_class)
