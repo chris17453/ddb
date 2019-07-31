@@ -389,9 +389,7 @@ class engine:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
-            print("Creating temporary file: "+temp_data_file)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
-        print ("Returning Temporary: "+self.internal['TEMP_FILES'][data_file]['temp_source'])
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
     def autocommit_write(self,table,dest_file):
