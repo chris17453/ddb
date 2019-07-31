@@ -4,13 +4,12 @@ import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
 from .record_update  import update_single
 from .record_insert  import create_single
-from ..meta import main_meta
 
 
-def method_upsert(context, meta,query_object):
+def method_upsert(context, meta,query_object,main_meta):
     try:
-        meta.debug()
-        print(query_object)
+        #meta.debug()
+        #print(query_object)
         meta.table=get_table(context,meta)
         
         if not meta.on_duplicate_key:
