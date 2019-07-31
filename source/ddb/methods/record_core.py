@@ -421,4 +421,4 @@ class query_results:
         return None
     def debug(self):
         print("Query Results")
-        meta.debugger(this)
+        meta.debugger(self)
