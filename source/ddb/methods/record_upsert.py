@@ -28,11 +28,12 @@ def method_upsert(context, meta,query_object,main_meta):
                     else:
                         mode='and'
                     where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
+        
         query_object['where']=where
         pprint.pprint(query_object)
         #return None
         
-    
+        
         line_number = 1
         affected_rows = 0
         temp_data_file=context.get_data_file(meta.table)
@@ -54,6 +55,7 @@ def method_upsert(context, meta,query_object,main_meta):
                     line_number += 1
                     # skip matches
                     if True == processed_line['match']:
+                        query_object['mode']="update"
                         meta_class=main_meta.convert_to_class(query_object)
                         meta_class.table=meta.table
                         results = update_single(context,meta_class, temp_file,  False, processed_line)
@@ -66,6 +68,7 @@ def method_upsert(context, meta,query_object,main_meta):
                 # NO update occured.. Lets Insert...
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
+                    query_object['mode']="insert"
                     meta_class=main_meta.convert_to_class(query_object)
                     meta_class.table=meta.table
 
