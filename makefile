@@ -110,11 +110,12 @@ standalone:
 upload:
 	@pipenv run twine upload  builds/pypi/*.gz
 
-install:
-	pip install ddb --user
+install: uninstall
+
+	pip install builds/pypi/. --user
 
 uninstall:
-	pip uninstall ddb
+	pip uninstall ddb -y
 
 meta:
 	@python -m tools.generate_meta_class >source/ddb/meta/meta.py

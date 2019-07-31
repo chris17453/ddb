@@ -402,6 +402,7 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             # remove the previous source
             if dest_file and dest_file!=self.internal['TEMP_FILES'][table_key]['temp_source']:
+                print ("removing "+self.internal['TEMP_FILES'][table_key]['temp_source'])
                 remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
