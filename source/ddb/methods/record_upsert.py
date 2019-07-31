@@ -54,6 +54,7 @@ def method_upsert(context, meta,query_object,main_meta):
                     # skip matches
                     if True == processed_line['match']:
                         meta_class=main_meta.convert_to_class(query_object)
+                        meta_class.table=meta.table
                         results = update_single(context,meta_class, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
@@ -65,6 +66,8 @@ def method_upsert(context, meta,query_object,main_meta):
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     meta_class=main_meta.convert_to_class(query_object)
+                    meta_class.table=meta.table
+
                     results = create_single(context,meta_class, temp_file,False)
                     if True==results['success']:
                         diff.append(results['line'])
