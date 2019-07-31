@@ -365,11 +365,15 @@ class engine:
                     '--username','{0}'.format(table.data.repo_user),
                     '--password','{0}'.format(table.data.repo_password)
                     ]
-            #print " ".join(cmd)
+            print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
+        if False==os.path.exists(table.data.repo_dir):
+            self.info("Creating svn directory that does not exist {0}".format(table.dir.repo_dir))
+            os.mkdir(table.data.repo_dir)
+
         os.chdir(table.data.repo_dir)
         cmd=[   'svn',
                 'commit',
