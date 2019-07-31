@@ -389,6 +389,7 @@ class engine:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
+            print("Creating temporary")
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
