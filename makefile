@@ -112,7 +112,7 @@ upload:
 
 install: uninstall
 
-	pip install builds/pypi/. --user
+	pip install builds/pypi/ddb*.gz --user
 
 uninstall:
 	pip uninstall ddb -y
