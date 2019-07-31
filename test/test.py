@@ -334,7 +334,6 @@ class test_engine(unittest.TestCase):
             results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             print ("Insert")
             results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name2))
-            results.debug()
             self.assertEqual(True, results.success)
 
             print ("Select")
