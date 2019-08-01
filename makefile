@@ -119,3 +119,7 @@ uninstall:
 
 meta:
 	@python -m tools.generate_meta_class >source/ddb/meta/meta.py
+big_data:
+	@python  tools/generate_data.py>test/data/MOCK_DATA_LARGE.csv
+	
+

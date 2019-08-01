@@ -2,6 +2,3 @@ main:
  test: 
   path: '/home/nd/chris17453/ddb/test/data/main.test.create.sql'
   name: 'test'
- test2: 
-  path: '/home/nd/chris17453/ddb/test/data/main.test2.create.sql'
-  name: 'test2'
