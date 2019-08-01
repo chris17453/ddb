@@ -55,9 +55,10 @@ class table:
 
         self.update_ordinals()
         if self.data.path:
-            if False == os.path.exists(normalize_path(self.data.path)):
-                #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
-                self.active = False
+            if repo==None:
+                if False == os.path.exists(normalize_path(self.data.path)):
+                    #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
+                    self.active = False
 
     def update( self,
                 columns=None,
