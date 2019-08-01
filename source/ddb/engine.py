@@ -365,7 +365,7 @@ class engine:
                         table.data.repo_url,
                         table.data.repo_dir,
                         '--depth','empty']
-                print " ".join(cmd)
+                #print " ".join(cmd)
                 self.os_cmd(cmd,"SVN Repo Err")
 
             else:
@@ -381,7 +381,7 @@ class engine:
                     '--username','{0}'.format(table.data.repo_user),
                     '--password','{0}'.format(table.data.repo_password)
                     ]
-            print " ".join(cmd)
+            #print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_commit_file(self,table):
@@ -426,7 +426,7 @@ class engine:
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
-            print ("---Autocommit")
+            #print ("---Autocommit")
             method_system_commit(self)
 
 
