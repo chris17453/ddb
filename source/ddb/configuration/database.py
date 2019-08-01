@@ -167,11 +167,11 @@ class database:
                     comments=comments,
                     whitespace=whitespace,
                     errors=errors,
+                    data_file=data_file,
                     fifo=fifo,
                     repo=repo,
                     strict_columns=strict_columns,
                     mode=mode)
-        t.data.path = data_file
         # print("Appending table")
         self.tables.append(t)
         if not temporary:

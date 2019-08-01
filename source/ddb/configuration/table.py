@@ -61,8 +61,8 @@ class table:
                     self.active = False
 
     def update( self,
-                columns=None,
-                data_file=None,
+                columns         =None,
+                data_file      =None,
                 field_delimiter=None,
                 comments=None,
                 whitespace=None,
@@ -110,8 +110,7 @@ class table:
                 self.data.repo_password=repo.password
                 self.data.repo_dir=repo.directory
                 self.data.repo_file=repo.file
-                print("SVN PATH GENERATED "+self.data.path)
-
+                
         if columns:
             self.columns = []
             for column in columns:
