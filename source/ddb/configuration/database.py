@@ -134,7 +134,7 @@ class database:
                      strict_columns=None,
                      mode=None
                     ):
-        print("Creating table..")
+        #print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)

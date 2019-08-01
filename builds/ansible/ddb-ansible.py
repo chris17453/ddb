@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.624'
+__version__='1.2.823'
 
         
 # ############################################################################
@@ -157,7 +157,7 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'signature': ['select']}],
                              'name': 'select',
                              'optional': False},
-                            {'data': [{'signature': ['distinct']}],
+                            {'data': [{'signature': ['distinct'],'vars':{'distinct':True}}],
                              'name': 'distinct',
                              'optional': True},
                             {'arguments': 0,
@@ -295,8 +295,8 @@ language={'commands': [{'name': 'show columns',
                             {'arguments': 0,
                              'data': [{'signature': ['{variable}',
                                                '=',
-                                               '{value}'],
-                                       'vars': {'type': 'all'}}],
+                                               '{value}']
+                                       }],
                              'name': 'set',
                              'optional':True,
                              'depends_on':'set header'}]},
@@ -471,16 +471,14 @@ language={'commands': [{'name': 'show columns',
                              'depends_on':'on duplicate key header'},
                             {
                              'data': [{'signature': ['update']}],
-                             'key':'set',
                              'name':'update header'
                              },
                             {'arguments': 0,
                              'data': [{'signature': ['{column}',
                                                '=',
                                                '{expression}']}],
-                             'key': 'set',
-                             'name': 'update',
-                             'depends_on':'set'
+                             'name': 'set',
+                             'depends_on':'update header'
                              }]},
               {'name': 'use table',
                'segments': [{'data': [{'signature': ['use',
@@ -504,17 +502,17 @@ language={'commands': [{'name': 'show columns',
                'segments': [{'data': [{'signature': ['create']}],
                              'name': 'create',
                              'optional': False},
-                            {'data': [{'signature': ['temporary']}],
+                            {'data': [{'signature': ['temporary'],'vars':{'temporary':True}}],
                              'name': 'temporary',
                              'optional': True},
-                            {'data': [{'signature': ['table', '{table}']},
+                            {'data': [{'signature': ['table', '{table}'],'vars':{'database':None}},
                                       {'signature': ['table',
                                                '{database}',
                                                '.',
                                                '{table}']}],
                              'name': 'source',
                              'optional': False,
-                             'type': 'single'},
+                             },
                             {'data': [{'signature': ['(']}],
                              'dispose': True,
                              'name': '('},
@@ -526,6 +524,7 @@ language={'commands': [{'name': 'show columns',
                              'dispose': True,
                              'name': ')'},
                             {'data': [{'signature': ['file', '=', '{file}']}],
+                             'specs': {'file': {'default': None,'type': 'string'}},
                              'name': 'file',
                              'type': 'single'},
                             {'data': [{'signature': ['fifo', '=', '{fifo}']}],
@@ -689,13 +688,44 @@ language={'commands': [{'name': 'show columns',
 
 class lexer:
     __slots__=['keep_non_keywords','debug','query_objects']
+    def split(self,data,delimiter=';'):
+        in_block    = None
+        curent_block= None
+        last_index  = 0
+        index       = 0
+        blocks      = [ ['\'', '\'', 'quote'], # string block
+                        ['"' , '"' , 'quote'], # string block
+                        ['[' , ']' , 'db'   ], # mssql column
+                        ['`' , '`' , 'db'   ], # mysql column
+                    ]
+        list_of_strings=[]                     # the list of split strings
+        for c in data:
+            if not in_block:
+                for block in blocks:
+                    if c==block[0]:
+                        in_block=True
+                        curent_block=block
+                        break
+            else:
+                if c==curent_block[1]:
+                    in_block=None
+                    curent_block=None
+                index+=1
+                continue
+            if c==delimiter:
+                list_of_strings.append(data[last_index:index])
+                last_index=index+1
+            index+=1
+        if index!=last_index:
+                list_of_strings.append(data[last_index:])
+        return list_of_strings
     def __init__(self, query, debug=None):
         self.keep_non_keywords=True
         self.debug = debug
         self.query_objects = []
         if  query==None:
             raise Exception("Invalid Syntax")
-        querys = query.split(';')
+        querys = self.split(query,';')
         self.info("Queries", querys)
         for q in querys:
             self.info("-----------------------------------")
@@ -1150,9 +1180,9 @@ class tokenizer:
         whitespace = [' ', '\t', '\n', '\r' ]
         blocks = [
             ['\'', '\'', 'quote'],   # string block
-            ['"', '"', 'quote'],   # string block
-            ['[', ']', 'db'],   # mssql column
-            ['`', '`', 'db'],   # mysql column
+            ['"' , '"' , 'quote'],   # string block
+            ['[' , ']' , 'db'],   # mssql column
+            ['`' , '`' , 'db'],   # mysql column
         ]
         operators = [
             '&&',  # and short circuit
@@ -1307,638 +1337,674 @@ class tokenizer:
 # File   : ./source/ddb/meta/meta.py
 # ############################################################################
 
-class debugger:
-    def __init__(self,obj,name,depth=0):
-        pad=''
-        for i in range(0,depth):
-            pad+=' '
-        if depth==0:
-            print ("\n\033[31;1;4mDebug: {0}\033[0m".format(name))
-        variables = [i for i in dir(obj) if not i.startswith('__')]
-        empty=[]
-        var_count=0
-        for var in variables:
-            value=getattr(obj,var)
-            if  isinstance(value,str):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif  isinstance(value,int):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif  isinstance(value,float):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif isinstance(value,list):
-                print ("{0}- {1} :".format(pad,var))
-                for item in value:
+class meta:
+    class debugger:
+        def __init__(self,obj,name,depth=0):
+            pad=''
+            for i in range(0,depth):
+                pad+=' '
+            if depth==0:
+                print ("\n\033[31;1;4mDebug: {0}\033[0m".format(name))
+            variables = [i for i in dir(obj) if not i.startswith('__')]
+            empty=[]
+            var_count=0
+            for var in variables:
+                value=getattr(obj,var)
+                if  isinstance(value,str):
+                    print("{2}{0} {1}".format(var+':',value,pad))
                     var_count+=1
-                    debugger(item,var,depth+4)
-            elif callable(value):
-                continue
-            elif value==None:
-                var_count+=1
-                empty.append(var)
-            else:
-                var_count+=1
-                print ("{0}- {1} :".format(pad,var))
-                debugger(value,var,depth+4)
-        if len(empty)>0:
-            print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
-        if var_count==0:
-            print("{2}{0} {1}".format("No attributes"+':',"",pad))
-def gv(o,keys):
-    if o:
-        if isinstance(keys,str):
-            if keys in o:
-                o=o[keys]
-            else:
-                return None
-        else:
-            for key in keys:
-                if key in o:
-                    o=o[key]
+                elif  isinstance(value,int):
+                    print("{2}{0} {1}".format(var+':',value,pad))
+                    var_count+=1
+                elif  isinstance(value,float):
+                    print("{2}{0} {1}".format(var+':',value,pad))
+                    var_count+=1
+                elif isinstance(value,list):
+                    print ("{0}- {1} :".format(pad,var))
+                    for item in value:
+                        var_count+=1
+                        meta.debugger(item,var,depth+4)
+                elif callable(value):
+                    continue
+                elif value==None:
+                    var_count+=1
+                    empty.append(var)
+                else:
+                    var_count+=1
+                    print ("{0}- {1} :".format(pad,var))
+                    meta.debugger(value,var,depth+4)
+            if len(empty)>0:
+                print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
+            if var_count==0:
+                print("{2}{0} {1}".format("No attributes"+':',"",pad))
+    @staticmethod
+    def gv(o,keys):
+        if o:
+            if isinstance(keys,str):
+                if keys in o:
+                    o=o[keys]
                 else:
                     return None
-    else:     
+            else:
+                for key in keys:
+                    if key in o:
+                        o=o[key]
+                    else:
+                        return None
+        else:     
+            return None
+        return o
+    @staticmethod
+    def safe_name(name,no_match=None):
+        forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
+                    'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
+                    'abs','divmod','input','open','staticmethod','all','enumerate','int','ord','str','any','eval','isinstance','pow','sum','basestring','execfile',
+                    'issubclass','print','super','bin','file','iter','property','tuple','bool','filter','len','range','type','bytearray','float','list','raw_input',
+                    'unichr','callable','format','locals','reduce','unicode','chr','frozenset','long','reload','vars','classmethod','getattr','map','repr','xrange',
+                    'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
+                    'setattr','dict','hex','object','slice','dir','id','oct','sorted']
+        name=name.replace(" ","_")
+        if no_match:
+            return name
+        if name in forbidden:
+            name=name.title()
+        return name
+    class show_columns:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        source               = _source()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+        def debug(self):
+            meta.debugger(self,'show columns')
+    class show_tables:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'show tables')
+    class show_variables:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'show variables')
+    class select:
+        class _and:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _order_by:
+            __slots__=()
+            column = None
+            direction = None
+            def __init__(self,column=None,direction=None):
+                if column:  self.column=column
+                if direction:  self.direction=direction
+        class _source:
+            __slots__=()
+            table = None
+            display = None
+            database = None
+            def __init__(self,table=None,display=None,database=None):
+                if table:  self.table=table
+                if display:  self.display=display
+                if database:  self.database=database
+        class _group_by:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        class _limit:
+            __slots__=()
+            start = 0
+            length = 0
+            def __init__(self,start=None,length=None):
+                if start:  self.start=start
+                if length:  self.length=length
+        class _where:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _or:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _columns:
+            __slots__=()
+            function = None
+            column = None
+            argument2 = None
+            argument3 = None
+            argument1 = None
+            display = None
+            def __init__(self,function=None,column=None,argument2=None,argument3=None,argument1=None,display=None):
+                if function:  self.function=function
+                if column:  self.column=column
+                if argument2:  self.argument2=argument2
+                if argument3:  self.argument3=argument3
+                if argument1:  self.argument1=argument1
+                if display:  self.display=display
+        order_by             = None        # optional [ _order_by() ]
+        distinct             = None        # optional 
+        source               = None        # optional _source()
+        group_by             = None        # optional [ _group_by() ]
+        limit                = None        # optional _limit()
+        where                = None        # optional [ _where() ]
+        columns              = []          #          _columns()
+        def __init__(self,so):
+                if meta.gv(so,['meta','order by']):
+                    self.order_by=[]
+                    for item in meta.gv(so,['meta','order by']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.order_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'direction': meta.gv(item,['direction']) }) )
+                self.distinct = meta.gv(so,['meta','distinct','distinct'])
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),display = meta.gv(so,['meta','source','display']),database = meta.gv(so,['meta','source','database']))
+                if meta.gv(so,['meta','group by']):
+                    self.group_by=[]
+                    for item in meta.gv(so,['meta','group by']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.group_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+                if meta.gv(so,['meta','limit']):
+                    self.limit= self._limit(start = meta.gv(so,['meta','limit','start']),length = meta.gv(so,['meta','limit','length']))
+                if meta.gv(so,['meta','where']):
+                    self.where=[]
+                    for item in meta.gv(so,['meta','where']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.where.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'condition': meta.gv(item,[instance_type,'condition']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+                if meta.gv(so,['meta','columns']):
+                    self.columns=[]
+                    for item in meta.gv(so,['meta','columns']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.columns.append( type(safe_instance_type,(),{ 'function': meta.gv(item,['function']),'column': meta.gv(item,['column']),'argument2': meta.gv(item,['argument2']),'argument3': meta.gv(item,['argument3']),'argument1': meta.gv(item,['argument1']),'display': meta.gv(item,['display']) }) )
+        def debug(self):
+            meta.debugger(self,'select')
+    class Set:
+        class _set:
+            __slots__=()
+            variable = None
+            value = None
+            def __init__(self,variable=None,value=None):
+                if variable:  self.variable=variable
+                if value:  self.value=value
+        set                  = None        # optional [ _set() ]
+        def __init__(self,so):
+                if meta.gv(so,['meta','set']):
+                    self.set=[]
+                    for item in meta.gv(so,['meta','set']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.set.append( type(safe_instance_type,(),{ 'variable': meta.gv(item,['variable']),'value': meta.gv(item,['value']) }) )
+        def debug(self):
+            meta.debugger(self,'set')
+    class create_procedure:
+        class _parameters:
+            __slots__=()
+            parameter = None
+            def __init__(self,parameter=None):
+                if parameter:  self.parameter=parameter
+        parameters           = None        # optional [ _parameters() ]
+        def __init__(self,so):
+                if meta.gv(so,['meta','parameters']):
+                    self.parameters=[]
+                    for item in meta.gv(so,['meta','parameters']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.parameters.append( type(safe_instance_type,(),{ 'parameter': meta.gv(item,['parameter']) }) )
+        def debug(self):
+            meta.debugger(self,'create procedure')
+    class delimiter:
+        delimiter            = None
+        def __init__(self,so):
+                self.delimiter = meta.gv(so,['meta','delimiter','delimiter'])
+        def debug(self):
+            meta.debugger(self,'delimiter')
+    class end:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'end')
+    class begin:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'begin')
+    class commit:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'commit')
+    class rollback:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'rollback')
+    class show_output_modules:
+        def __init__(self,so):
+            a=0 # holder
+        def debug(self):
+            meta.debugger(self,'show output modules')
+    class delete:
+        class _and:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _where:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _or:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        source               = _source()
+        where                = None        # optional [ _where() ]
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                if meta.gv(so,['meta','where']):
+                    self.where=[]
+                    for item in meta.gv(so,['meta','where']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.where.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'condition': meta.gv(item,[instance_type,'condition']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+        def debug(self):
+            meta.debugger(self,'delete')
+    class insert:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _values:
+            __slots__=()
+            value = None
+            def __init__(self,value=None):
+                if value:  self.value=value
+        class _columns:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        source               = _source()
+        values               = []          #          _values()
+        columns              = []          #          _columns()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                if meta.gv(so,['meta','values']):
+                    self.values=[]
+                    for item in meta.gv(so,['meta','values']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.values.append( type(safe_instance_type,(),{ 'value': meta.gv(item,['value']) }) )
+                if meta.gv(so,['meta','columns']):
+                    self.columns=[]
+                    for item in meta.gv(so,['meta','columns']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+        def debug(self):
+            meta.debugger(self,'insert')
+    class update:
+        class _and:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _set:
+            __slots__=()
+            column = None
+            expression = None
+            def __init__(self,column=None,expression=None):
+                if column:  self.column=column
+                if expression:  self.expression=expression
+        class _where:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        class _or:
+            __slots__=()
+            c = None
+            e1 = None
+            condition = None
+            e2 = None
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if condition:  self.condition=condition
+                if e2:  self.e2=e2
+        source               = _source()
+        set                  = []          #          _set()
+        where                = None        # optional [ _where() ]
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                if meta.gv(so,['meta','set']):
+                    self.set=[]
+                    for item in meta.gv(so,['meta','set']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.set.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'expression': meta.gv(item,['expression']) }) )
+                if meta.gv(so,['meta','where']):
+                    self.where=[]
+                    for item in meta.gv(so,['meta','where']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.where.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'condition': meta.gv(item,[instance_type,'condition']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+        def debug(self):
+            meta.debugger(self,'update')
+    class upsert:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _set:
+            __slots__=()
+            column = None
+            expression = None
+            def __init__(self,column=None,expression=None):
+                if column:  self.column=column
+                if expression:  self.expression=expression
+        class _values:
+            __slots__=()
+            value = None
+            def __init__(self,value=None):
+                if value:  self.value=value
+        class _columns:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        class _on_duplicate_key:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        source               = _source()
+        set                  = []          #          _set()
+        values               = []          #          _values()
+        columns              = []          #          _columns()
+        on_duplicate_key     = []          #          _on_duplicate_key()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                if meta.gv(so,['meta','set']):
+                    self.set=[]
+                    for item in meta.gv(so,['meta','set']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.set.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'expression': meta.gv(item,['expression']) }) )
+                if meta.gv(so,['meta','values']):
+                    self.values=[]
+                    for item in meta.gv(so,['meta','values']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.values.append( type(safe_instance_type,(),{ 'value': meta.gv(item,['value']) }) )
+                if meta.gv(so,['meta','columns']):
+                    self.columns=[]
+                    for item in meta.gv(so,['meta','columns']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+                if meta.gv(so,['meta','on duplicate key']):
+                    self.on_duplicate_key=[]
+                    for item in meta.gv(so,['meta','on duplicate key']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.on_duplicate_key.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+        def debug(self):
+            meta.debugger(self,'upsert')
+    class use_table:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        source               = _source()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+        def debug(self):
+            meta.debugger(self,'use table')
+    class drop_table:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        source               = _source()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+        def debug(self):
+            meta.debugger(self,'drop table')
+    class create_table:
+        class _repo:
+            __slots__=()
+            protocol = 'svn'
+            url = None
+            user = None
+            file = None
+            directory = None
+            password = None
+            def __init__(self,protocol=None,url=None,user=None,file=None,directory=None,password=None):
+                if protocol:  self.protocol=protocol
+                if url:  self.url=url
+                if user:  self.user=user
+                if file:  self.file=file
+                if directory:  self.directory=directory
+                if password:  self.password=password
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _columns:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        errors               = None        # optional 
+        temporary            = None        # optional 
+        whitespace           = None        # optional 
+        strict               = None        # optional 
+        data_starts_on       = None        # optional 
+        fifo                 = None        # optional 
+        repo                 = None        # optional _repo()
+        source               = _source()
+        delimiter            = None        # optional 
+        mode                 = None        # optional 
+        file                 = None
+        columns              = []          #          _columns()
+        comments             = None        # optional 
+        def __init__(self,so):
+                self.errors = meta.gv(so,['meta','errors'])
+                self.temporary = meta.gv(so,['meta','temporary','temporary'])
+                self.whitespace = meta.gv(so,['meta','whitespace'])
+                self.strict = meta.gv(so,['meta','strict'])
+                self.data_starts_on = meta.gv(so,['meta','data_starts_on'])
+                self.fifo = meta.gv(so,['meta','fifo'])
+                if meta.gv(so,['meta','repo']):
+                    self.repo= self._repo(protocol = meta.gv(so,['meta','repo','protocol']),url = meta.gv(so,['meta','repo','url']),user = meta.gv(so,['meta','repo','user']),file = meta.gv(so,['meta','repo','file']),directory = meta.gv(so,['meta','repo','directory']),password = meta.gv(so,['meta','repo','password']))
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                self.delimiter = meta.gv(so,['meta','delimiter'])
+                self.mode = meta.gv(so,['meta','mode'])
+                self.file = meta.gv(so,['meta','file'])
+                if meta.gv(so,['meta','columns']):
+                    self.columns=[]
+                    for item in meta.gv(so,['meta','columns']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+                self.comments = meta.gv(so,['meta','comments'])
+        def debug(self):
+            meta.debugger(self,'create table')
+    class update_table:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        class _columns:
+            __slots__=()
+            column = None
+            def __init__(self,column=None):
+                if column:  self.column=column
+        errors               = None        # optional 
+        whitespace           = None        # optional 
+        data_starts_on       = None        # optional 
+        comments             = None        # optional 
+        source               = _source()
+        delimiter            = None        # optional 
+        file                 = None        # optional 
+        columns              = None        # optional [ _columns() ]
+        def __init__(self,so):
+                self.errors = meta.gv(so,['meta','errors','errors'])
+                self.whitespace = meta.gv(so,['meta','whitespace','whitespace'])
+                self.data_starts_on = meta.gv(so,['meta','data_starts_on','data_starts_on'])
+                self.comments = meta.gv(so,['meta','comments','comments'])
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                self.field = meta.gv(so,['meta','delimiter','field'])
+                self.file = meta.gv(so,['meta','file','file'])
+                if meta.gv(so,['meta','columns']):
+                    self.columns=[]
+                    for item in meta.gv(so,['meta','columns']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
+        def debug(self):
+            meta.debugger(self,'update table')
+    class describe_table:
+        class _source:
+            __slots__=()
+            table = None
+            database = None
+            def __init__(self,table=None,database=None):
+                if table:  self.table=table
+                if database:  self.database=database
+        source               = _source()
+        def __init__(self,so):
+                if meta.gv(so,['meta','source']):
+                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+        def debug(self):
+            meta.debugger(self,'describe table')
+    def convert_to_class(self,o):
+        if o['mode']=='show columns': return self.show_columns(o)
+        elif o['mode']=='show tables': return self.show_tables(o)
+        elif o['mode']=='show variables': return self.show_variables(o)
+        elif o['mode']=='select': return self.select(o)
+        elif o['mode']=='set': return self.Set(o)
+        elif o['mode']=='create procedure': return self.create_procedure(o)
+        elif o['mode']=='delimiter': return self.delimiter(o)
+        elif o['mode']=='end': return self.end(o)
+        elif o['mode']=='begin': return self.begin(o)
+        elif o['mode']=='commit': return self.commit(o)
+        elif o['mode']=='rollback': return self.rollback(o)
+        elif o['mode']=='show output modules': return self.show_output_modules(o)
+        elif o['mode']=='delete': return self.delete(o)
+        elif o['mode']=='insert': return self.insert(o)
+        elif o['mode']=='update': return self.update(o)
+        elif o['mode']=='upsert': return self.upsert(o)
+        elif o['mode']=='use table': return self.use_table(o)
+        elif o['mode']=='drop table': return self.drop_table(o)
+        elif o['mode']=='create table': return self.create_table(o)
+        elif o['mode']=='update table': return self.update_table(o)
+        elif o['mode']=='describe table': return self.describe_table(o)
         return None
-    return o
-class show_columns:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    source               = _source()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-    def debug(self):
-        debugger(self,'show columns')
-class show_tables:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'show tables')
-class show_variables:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'show variables')
-class select:
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _group_by:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    class _source:
-        __slots__=()
-        table = None
-        display = None
-        database = None
-        def __init__(self,table=None,display=None,database=None):
-            if table:  self.table=table
-            if display:  self.display=display
-            if database:  self.database=database
-    class _limit:
-        __slots__=()
-        start = 0
-        length = 0
-        def __init__(self,start=None,length=None):
-            if start:  self.start=start
-            if length:  self.length=length
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _or:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _columns:
-        __slots__=()
-        function = None
-        column = None
-        argument2 = None
-        argument3 = None
-        argument1 = None
-        display = None
-        def __init__(self,function=None,column=None,argument2=None,argument3=None,argument1=None,display=None):
-            if function:  self.function=function
-            if column:  self.column=column
-            if argument2:  self.argument2=argument2
-            if argument3:  self.argument3=argument3
-            if argument1:  self.argument1=argument1
-            if display:  self.display=display
-    class _order_by:
-        __slots__=()
-        column = None
-        direction = None
-        def __init__(self,column=None,direction=None):
-            if column:  self.column=column
-            if direction:  self.direction=direction
-    group_by             = None        # optional [ group by() ]
-    source               = None        # optional source()
-    limit                = None        # optional limit()
-    where                = None        # optional [ where() ]
-    columns              = []          #          columns()
-    order_by             = None        # optional [ order by() ]
-    def __init__(self,so):
-            if gv(so,['meta','group by']):
-                self.group_by=[]
-                for item in gv(so,['meta','group by']):
-                    instance_type=item.keys()[0]
-                    self.group_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','limit']):
-                self.limit= self._limit(start = gv(so,['meta','limit','start']),length = gv(so,['meta','limit','length']))
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
-            if gv(so,['meta','columns']):
-                self.columns=[]
-                for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'function': gv(item,['function']),'column': gv(item,['column']),'argument2': gv(item,['argument2']),'argument3': gv(item,['argument3']),'argument1': gv(item,['argument1']),'display': gv(item,['display']) }) )
-            if gv(so,['meta','order by']):
-                self.order_by=[]
-                for item in gv(so,['meta','order by']):
-                    instance_type=item.keys()[0]
-                    self.order_by.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
-    def debug(self):
-        debugger(self,'select')
-class set:
-    class _set:
-        __slots__=()
-        variable = None
-        type = None
-        value = None
-        def __init__(self,variable=None,type=None,value=None):
-            if variable:  self.variable=variable
-            if type:  self.type=type
-            if value:  self.value=value
-    set                  = None        # optional [ set() ]
-    def __init__(self,so):
-            if gv(so,['meta','set']):
-                self.set=[]
-                for item in gv(so,['meta','set']):
-                    instance_type=item.keys()[0]
-                    self.set.append( type('_'+instance_type,(),{ 'variable': gv(item,['variable']),'type': gv(item,['type']),'value': gv(item,['value']) }) )
-    def debug(self):
-        debugger(self,'set')
-class create_procedure:
-    class _parameters:
-        __slots__=()
-        parameter = None
-        def __init__(self,parameter=None):
-            if parameter:  self.parameter=parameter
-    parameters           = None        # optional [ parameters() ]
-    def __init__(self,so):
-            if gv(so,['meta','parameters']):
-                self.parameters=[]
-                for item in gv(so,['meta','parameters']):
-                    instance_type=item.keys()[0]
-                    self.parameters.append( type('_'+instance_type,(),{ 'parameter': gv(item,['parameter']) }) )
-    def debug(self):
-        debugger(self,'create procedure')
-class delimiter:
-    delimiter            = None
-    def __init__(self,so):
-            self.delimiter = gv(so,['meta','delimiter','delimiter'])
-    def debug(self):
-        debugger(self,'delimiter')
-class end:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'end')
-class begin:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'begin')
-class commit:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'commit')
-class rollback:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'rollback')
-class show_output_modules:
-    def __init__(self,so):
-        a=0 # holder
-    def debug(self):
-        debugger(self,'show output modules')
-class delete:
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _or:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    source               = _source()
-    where                = None        # optional [ where() ]
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
-    def debug(self):
-        debugger(self,'delete')
-class insert:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _values:
-        __slots__=()
-        value = None
-        def __init__(self,value=None):
-            if value:  self.value=value
-    class _columns:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    source               = _source()
-    values               = []          #          values()
-    columns              = []          #          columns()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','values']):
-                self.values=[]
-                for item in gv(so,['meta','values']):
-                    instance_type=item.keys()[0]
-                    self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
-            if gv(so,['meta','columns']):
-                self.columns=[]
-                for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-    def debug(self):
-        debugger(self,'insert')
-class update:
-    class _and:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _set:
-        __slots__=()
-        column = None
-        expression = None
-        def __init__(self,column=None,expression=None):
-            if column:  self.column=column
-            if expression:  self.expression=expression
-    class _where:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    class _or:
-        __slots__=()
-        c = None
-        e1 = None
-        condition = None
-        e2 = None
-        def __init__(self,c=None,e1=None,condition=None,e2=None):
-            if c:  self.c=c
-            if e1:  self.e1=e1
-            if condition:  self.condition=condition
-            if e2:  self.e2=e2
-    source               = _source()
-    set                  = []          #          set()
-    where                = None        # optional [ where() ]
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','set']):
-                self.set=[]
-                for item in gv(so,['meta','set']):
-                    instance_type=item.keys()[0]
-                    self.set.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
-            if gv(so,['meta','where']):
-                self.where=[]
-                for item in gv(so,['meta','where']):
-                    instance_type=item.keys()[0]
-                    self.where.append( type('_'+instance_type,(),{ 'c': gv(item,[instance_type,'c']),'e1': gv(item,[instance_type,'e1']),'condition': gv(item,[instance_type,'condition']),'e2': gv(item,[instance_type,'e2']) }) )
-    def debug(self):
-        debugger(self,'update')
-class upsert:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _values:
-        __slots__=()
-        value = None
-        def __init__(self,value=None):
-            if value:  self.value=value
-    class _update:
-        __slots__=()
-        column = None
-        expression = None
-        def __init__(self,column=None,expression=None):
-            if column:  self.column=column
-            if expression:  self.expression=expression
-    class _columns:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    class _on_duplicate_key:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    source               = _source()
-    values               = []          #          values()
-    update               = []          #          update()
-    columns              = []          #          columns()
-    on_duplicate_key     = []          #          on duplicate key()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            if gv(so,['meta','values']):
-                self.values=[]
-                for item in gv(so,['meta','values']):
-                    instance_type=item.keys()[0]
-                    self.values.append( type('_'+instance_type,(),{ 'value': gv(item,['value']) }) )
-            if gv(so,['meta','update']):
-                self.update=[]
-                for item in gv(so,['meta','update']):
-                    instance_type=item.keys()[0]
-                    self.update.append( type('_'+instance_type,(),{ 'column': gv(item,['column']),'expression': gv(item,['expression']) }) )
-            if gv(so,['meta','columns']):
-                self.columns=[]
-                for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-            if gv(so,['meta','on duplicate key']):
-                self.on_duplicate_key=[]
-                for item in gv(so,['meta','on duplicate key']):
-                    instance_type=item.keys()[0]
-                    self.on_duplicate_key.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-    def debug(self):
-        debugger(self,'upsert')
-class use_table:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    source               = _source()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-    def debug(self):
-        debugger(self,'use table')
-class drop_table:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    source               = _source()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-    def debug(self):
-        debugger(self,'drop table')
-class create_table:
-    class _repo:
-        __slots__=()
-        protocol = 'svn'
-        url = None
-        user = None
-        file = None
-        directory = None
-        password = None
-        def __init__(self,protocol=None,url=None,user=None,file=None,directory=None,password=None):
-            if protocol:  self.protocol=protocol
-            if url:  self.url=url
-            if user:  self.user=user
-            if file:  self.file=file
-            if directory:  self.directory=directory
-            if password:  self.password=password
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _columns:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    errors               = None        # optional 
-    whitespace           = None        # optional 
-    strict               = None        # optional 
-    data_starts_on       = None        # optional 
-    fifo                 = None        # optional 
-    repo                 = None        # optional repo()
-    source               = _source()
-    delimiter            = None        # optional 
-    mode                 = None        # optional 
-    file                 = None
-    columns              = []          #          columns()
-    comments             = None        # optional 
-    def __init__(self,so):
-            self.errors = gv(so,['meta','errors'])
-            self.whitespace = gv(so,['meta','whitespace'])
-            self.strict = gv(so,['meta','strict'])
-            self.data_starts_on = gv(so,['meta','data_starts_on'])
-            self.fifo = gv(so,['meta','fifo'])
-            if gv(so,['meta','repo']):
-                self.repo= self._repo(protocol = gv(so,['meta','repo','protocol']),url = gv(so,['meta','repo','url']),user = gv(so,['meta','repo','user']),file = gv(so,['meta','repo','file']),directory = gv(so,['meta','repo','directory']),password = gv(so,['meta','repo','password']))
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            self.delimiter = gv(so,['meta','delimiter'])
-            self.mode = gv(so,['meta','mode'])
-            self.file = gv(so,['meta','file'])
-            if gv(so,['meta','columns']):
-                self.columns=[]
-                for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-            self.comments = gv(so,['meta','comments'])
-    def debug(self):
-        debugger(self,'create table')
-class update_table:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    class _columns:
-        __slots__=()
-        column = None
-        def __init__(self,column=None):
-            if column:  self.column=column
-    errors               = None        # optional 
-    whitespace           = None        # optional 
-    data_starts_on       = None        # optional 
-    comments             = None        # optional 
-    source               = _source()
-    delimiter            = None        # optional 
-    file                 = None        # optional 
-    columns              = None        # optional [ columns() ]
-    def __init__(self,so):
-            self.errors = gv(so,['meta','errors','errors'])
-            self.whitespace = gv(so,['meta','whitespace','whitespace'])
-            self.data_starts_on = gv(so,['meta','data_starts_on','data_starts_on'])
-            self.comments = gv(so,['meta','comments','comments'])
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-            self.field = gv(so,['meta','delimiter','field'])
-            self.file = gv(so,['meta','file','file'])
-            if gv(so,['meta','columns']):
-                self.columns=[]
-                for item in gv(so,['meta','columns']):
-                    instance_type=item.keys()[0]
-                    self.columns.append( type('_'+instance_type,(),{ 'column': gv(item,['column']) }) )
-    def debug(self):
-        debugger(self,'update table')
-class describe_table:
-    class _source:
-        __slots__=()
-        table = None
-        database = None
-        def __init__(self,table=None,database=None):
-            if table:  self.table=table
-            if database:  self.database=database
-    source               = _source()
-    def __init__(self,so):
-            if gv(so,['meta','source']):
-                self.source= self._source(table = gv(so,['meta','source','table']),database = gv(so,['meta','source','database']))
-    def debug(self):
-        debugger(self,'describe table')
-def convert_to_class(o):
-    if o['mode']=='show columns': return show_columns(o)
-    elif o['mode']=='show tables': return show_tables(o)
-    elif o['mode']=='show variables': return show_variables(o)
-    elif o['mode']=='select': return select(o)
-    elif o['mode']=='set': return set(o)
-    elif o['mode']=='create procedure': return create_procedure(o)
-    elif o['mode']=='delimiter': return delimiter(o)
-    elif o['mode']=='end': return end(o)
-    elif o['mode']=='begin': return begin(o)
-    elif o['mode']=='commit': return commit(o)
-    elif o['mode']=='rollback': return rollback(o)
-    elif o['mode']=='show output modules': return show_output_modules(o)
-    elif o['mode']=='delete': return delete(o)
-    elif o['mode']=='insert': return insert(o)
-    elif o['mode']=='update': return update(o)
-    elif o['mode']=='upsert': return upsert(o)
-    elif o['mode']=='use table': return use_table(o)
-    elif o['mode']=='drop table': return drop_table(o)
-    elif o['mode']=='create table': return create_table(o)
-    elif o['mode']=='update table': return update_table(o)
-    elif o['mode']=='describe table': return describe_table(o)
-    return None
 
         
 # ############################################################################
@@ -2159,25 +2225,20 @@ class column_sort:
 class table:
     def __init__(self,
                  table_config_file=None,
-                 database=None,
-                 columns=None,
-                 name=None,
-                 data_file=None,
-                 field_delimiter=None,
-                 config_directory=None,
-                 comments=None,
-                 whitespace=None,
-                 errors=None,
-                 data_on=None,
-                 fifo=None,
-                 repo_type=None,
-                 repo_url=None,
-                 repo_user=None,
-                 repo_password=None,
-                 repo_dir=None,
-                 repo_file=None,
-                 strict_columns=None,
-                 mode=None
+                 database         =None,
+                 columns          =None,
+                 name             =None,
+                 data_file        =None,
+                 field_delimiter  =None,
+                 config_directory =None,
+                 comments         =None,
+                 whitespace       =None,
+                 errors           =None,
+                 data_on          =None,
+                 fifo             =None,
+                 repo             =None,
+                 strict_columns   =None,
+                 mode             =None
                  ):
         self.version = 1
         self.ownership = table_ownership()
@@ -2199,45 +2260,28 @@ class table:
                     errors=errors,
                     data_on=data_on,
                     fifo=fifo,
-                    repo_type=repo_type,
-                    repo_url=repo_url,
-                    repo_user=repo_user,
-                    repo_password=repo_password,
-                    repo_dir=repo_dir,
-                    repo_file=repo_file,
+                    repo=repo,
                     strict_columns=strict_columns,
                     mode=mode
                     )
         self.update_ordinals()
         if self.data.path:
-            if False == os.path.exists(normalize_path(self.data.path)):
-                self.active = False
+            if repo==None:
+                if False == os.path.exists(normalize_path(self.data.path)):
+                    self.active = False
     def update( self,
-                columns=None,
-                data_file=None,
+                columns         =None,
+                data_file      =None,
                 field_delimiter=None,
                 comments=None,
                 whitespace=None,
                 errors=None,
                 data_on=None,
                 fifo=None,
-                repo_type=None,
-                repo_url=None,
-                repo_user=None,
-                repo_password=None,
-                repo_dir=None,
-                repo_file=None,
+                repo=None,
                 strict_columns=None,
                 mode=None
                 ):
-        if repo_type:
-            if repo_type=='svn':
-                self.data.repo_type=repo_type
-                self.data.repo_url=repo_url
-                self.data.repo_user=repo_user
-                self.data.repo_password=repo_password
-                self.data.repo_dir=repo_dir
-                self.data.repo_file=repo_file
         if strict_columns:
             self.data.strict_columns=strict_columns
         if fifo:
@@ -2256,6 +2300,15 @@ class table:
             self.data.path = data_file
         if mode:
             self.data.mode = mode
+        if repo:
+            if repo.protocol=='svn':
+                self.data.path=os.path.join(repo.directory,repo.file)
+                self.data.repo_type=repo.protocol
+                self.data.repo_url=repo.url
+                self.data.repo_user=repo.user
+                self.data.repo_password=repo.password
+                self.data.repo_dir=repo.directory
+                self.data.repo_file=repo.file
         if columns:
             self.columns = []
             for column in columns:
@@ -2566,12 +2619,7 @@ class database:
                      data_on=None,
                      temporary=None,
                      fifo=None,
-                     repo_type=None,
-                     repo_url=None,
-                     repo_user=None,
-                     repo_password=None,
-                     repo_dir=None,
-                     repo_file=None,
+                     repo=None,
                      strict_columns=None,
                      mode=None
                     ):
@@ -2581,10 +2629,11 @@ class database:
         exists = self.get(table_name, database_name)
         if None != exists:
             raise Exception("table already exists")
-        if repo_type!='svn':
-            if False == os.path.isfile(normalize_path(data_file)):
-                err="Data file does not exist. {0}".format(normalize_path(data_file))
-                raise Exception(err)
+        if repo:
+            if repo.protocol!='svn':
+                if False == os.path.isfile(normalize_path(data_file)):
+                    err="Data file does not exist. {0}".format(normalize_path(data_file))
+                    raise Exception(err)
         if not temporary:
             if None == self.config_file:
                 raise Exception("Not using a config file")
@@ -2600,16 +2649,11 @@ class database:
                     comments=comments,
                     whitespace=whitespace,
                     errors=errors,
+                    data_file=data_file,
                     fifo=fifo,
-                    repo_type=repo_type,
-                    repo_url=repo_url,
-                    repo_user=repo_user,
-                    repo_password=repo_password,
-                    repo_dir=repo_dir,
-                    repo_file=repo_file,
+                    repo=repo,
                     strict_columns=strict_columns,
                     mode=mode)
-        t.data.path = data_file
         self.tables.append(t)
         if not temporary:
             res = t.save()
@@ -2676,120 +2720,6 @@ class database:
 
         
 # ############################################################################
-# Module : match
-# File   : ./source/ddb/evaluate/match.py
-# ############################################################################
-
-class match:
-    def evaluate_single_match(self,context,test, row, table):
-        compare1 = None
-        compare2 = None
-        compare1_is_column = False
-        compare2_is_column = False
-        comparitor = test['c']
-        for column in table.columns:
-            if column.data.name == test['e1']:
-                index = table.ordinals[column.data.name]
-                compare1 = row[index]  # table.ordinals[].get_data_from_column(column,row)
-                compare1_is_column = True
-            elif column.data.name == test['e2']:
-                index = table.ordinals[column.data.name]
-                compare2 = row[index]  # table.get_data_from_column(column,row)
-                compare2_is_column = True
-            if None != compare1 and None != compare2:
-                break
-        if not compare1_is_column and not compare2_is_column:
-            raise Exception("expression invalid {0}".format(test))
-        if None == compare1:
-            compare1 = test['e1']
-        if None == compare2:
-            compare2 = test['e2']
-        if comparitor == '=' or comparitor == 'is':
-            if compare1 == compare2:
-                return True
-        elif comparitor == 'like':  # paritial match
-            if True == compare1_is_column and True == compare2_is_column:
-                raise Exception("Where invalid {0}, like cant be between 2 columns".format(test))
-            if True == compare1_is_column:
-                like = compare2
-                data = compare1
-            else:
-                like = compare1
-                data = compare2
-            if None == like:
-                return False
-            if like[0] == '%':
-                like_left = True
-            else:
-                like_left = False
-            if like[-1] == '%':
-                like_right = True
-            else:
-                like_right = False
-            if True == like_right and True == like_left:
-                if data.find(like[1:-1]) > -1:
-                    return True
-                else:
-                    return False
-            if True == like_left:
-                if data[-(len(like) - 1):] == like[1:]:
-                    return True
-                else:
-                    return False
-            if True == like_right:
-                if data[0:(len(like) - 1)] == like[0:-1]:
-                    return True
-                else:
-                    return False
-            return False
-        elif comparitor == '<':
-            if compare1 < compare2:
-                return True
-        elif comparitor == '>':
-            if compare1 > compare2:
-                return True
-        elif comparitor == '>=':
-            if compare1 >= compare2:
-                return True
-        elif comparitor == '<=':
-            if compare1 <= compare2:
-                return True
-        elif comparitor == '!=' or comparitor == '<>' or comparitor == 'not':
-            if compare1 != compare2:
-                return True
-        return False
-    def evaluate_match(self,context,query_object, row):
-        table=query_object['table']
-        where=query_object['meta']['where']
-        if None == row:
-            return False
-        success = None
-        skip_section = False
-        operation = ""
-        for test in where:
-            if 'and' in test and skip_section:
-                continue
-            else:
-                skip_section = False
-            operation = None
-            if 'where' in test:
-                operation = 'where'
-            elif 'or' in test:
-                operation = 'or'
-                if success:
-                    return True
-            elif 'and' in test:
-                operation = 'and'
-                if not success:
-                    skip_section = True
-                    continue
-            test_operation = test[operation]
-            success = self.evaluate_single_match(context,test_operation, row, table)
-        if success is None:
-            return False
-        return success
-        
-# ############################################################################
 # Module : functions
 # File   : ./source/ddb/functions/functions.py
 # ############################################################################
@@ -2802,7 +2732,7 @@ def f_row_number(context):
     except:
         row=0
     row+=1
-    row=context.internal['row']=row
+    context.internal['row']=row
     return row
 def f_database(context):
     if None==context:
@@ -2882,7 +2812,6 @@ class engine:
         self.mode = mode
         self.output=output
         self.output_file=output_file
-        self.match=match()
         self.system={}
         self.system_trigger={}
         self.internal={}
@@ -2960,7 +2889,10 @@ class engine:
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
-            meta_class=meta.convert_to_class(query_object)
+            meta_class=meta().convert_to_class(query_object)
+            if meta_class==None:
+                err="Meta class failed to init. [{0}]".format(mode)
+                raise Exception(err)
             if self.debug:
                 meta_class.debug()
             if mode == 'select':
@@ -2970,36 +2902,35 @@ class engine:
             elif mode == 'update' and self.internal['READONLY']==None:
                 self.results = method_update(self,meta_class)
             elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,meta_class)
+                self.results = method_upsert(self,meta_class,query_object,meta)
             elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,meta_class)
             elif mode == 'use table':
-                self.results = method_use(self,query_object)
+                self.results = method_use(self,meta_class)
             elif mode == 'drop table' and self.internal['READONLY']==None:
-                self.results = method_drop_table(self,query_object)
+                self.results = method_drop_table(self,meta_class)
             elif mode == 'create table' and self.internal['READONLY']==None:
-                meta_class=meta.convert_to_class(query_object)
-                self.results = method_create_table(self,query_object)
+                self.results = method_create_table(self,meta_class)
             elif mode == 'update table' and self.internal['READONLY']==None:
-                self.results = method_update_table(self,query_object)
+                self.results = method_update_table(self,meta_class)
             elif mode == 'set':
-                self.results = method_system_set(self,query_object)
+                self.results = method_system_set(self,meta_class)
             elif mode == 'begin':
-                self.results = method_system_begin(self,query_object)
+                self.results = method_system_begin(self)
             elif mode == 'rollback':
-                self.results = method_system_rollback(self,query_object)
+                self.results = method_system_rollback(self)
             elif mode == 'commit':
                 self.results = method_system_commit(self)
             elif mode == "show tables":
-                self.results = method_system_show_tables(self,self.database)
+                self.results = method_system_show_tables(self)
             elif mode == "show output modules":
-                self.results = method_system_show_output_modules(self,query_object)
+                self.results = method_system_show_output_modules(self)
             elif mode == "show columns":
-                self.results = method_system_show_columns(self,self.database, query_object)
+                self.results = method_system_show_columns(self, meta_class)
             elif mode == "show variables":
-                self.results = method_system_show_variables(self, query_object)
+                self.results = method_system_show_variables(self)
             elif mode == "describe table":
-                self.results = method_describe_table(self, query_object)
+                self.results = method_describe_table(self, meta_class)
             if False==self.results.success:
                 break
         if self.results:
@@ -3052,15 +2983,26 @@ class engine:
     def svn_checkout_file(self,table):
         self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
-            cmd=[   'svn',
-                    '--no-auth-cache',
-                    '--username','{0}'.format(table.data.repo_user),
-                    '--password','{0}'.format(table.data.repo_password),
-                    'co',
-                    table.data.repo_url,
-                    table.data.repo_dir,
-                    '--depth','empty']
-            self.os_cmd(cmd,"SVN Repo Err")
+            cmd=[   'svn','info','--show-item','url']
+            repo_url=None
+            try:
+                repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
+            except Exception as ex:
+                pass
+            if None==repo_url:
+                cmd=[   'svn',
+                        '--no-auth-cache',
+                        '--username','{0}'.format(table.data.repo_user),
+                        '--password','{0}'.format(table.data.repo_password),
+                        'co',
+                        table.data.repo_url,
+                        table.data.repo_dir,
+                        '--depth','empty']
+                self.os_cmd(cmd,"SVN Repo Err")
+            else:
+                if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
+                    err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
+                    raise Exception (err_msg)
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
                     'up',
@@ -3072,6 +3014,9 @@ class engine:
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
+        if False==os.path.exists(table.data.repo_dir):
+            self.info("Creating svn directory that does not exist {0}".format(table.dir.repo_dir))
+            os.mkdir(table.data.repo_dir)
         os.chdir(table.data.repo_dir)
         cmd=[   'svn',
                 'commit',
@@ -3109,6 +3054,45 @@ class engine:
 # File   : ./source/ddb/methods/record_core.py
 # ############################################################################
 
+class debugger:
+    def __init__(self,obj,name,depth=0):
+        pad=''
+        for i in range(0,depth):
+            pad+=' '
+        if depth==0:
+            print ("\n\033[31;1;4mDebug: {0}\033[0m".format(name))
+        variables = [i for i in dir(obj) if not i.startswith('__')]
+        empty=[]
+        var_count=0
+        for var in variables:
+            value=getattr(obj,var)
+            if  isinstance(value,str):
+                print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
+            elif  isinstance(value,int):
+                print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
+            elif  isinstance(value,float):
+                print("{2}{0} {1}".format(var+':',value,pad))
+                var_count+=1
+            elif isinstance(value,list):
+                print ("{0}- {1} :".format(pad,var))
+                for item in value:
+                    var_count+=1
+                    debugger(item,var,depth+4)
+            elif callable(value):
+                continue
+            elif value==None:
+                var_count+=1
+                empty.append(var)
+            else:
+                var_count+=1
+                print ("{0}- {1} :".format(pad,var))
+                debugger(value,var,depth+4)
+        if len(empty)>0:
+            print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
+        if var_count==0:
+            print("{2}{0} {1}".format("No attributes"+':',"",pad))
 def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     err = None
     table=query_object['table']
@@ -3403,8 +3387,8 @@ class query_results:
             pass
         return None
     def debug(self):
-        pprint(self.error)
-        pprint(self.data)
+        print("Query Results")
+        debugger(self,"Query Results")
 
         
 # ############################################################################
@@ -3534,6 +3518,7 @@ def method_select(context, meta, parser):
         temp_data=select_process_file(context,meta)
         all_records_count=len(temp_data)
         temp_data=order_by(context,meta,temp_data)
+        temp_data=distinct(context,meta,temp_data)
         temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
@@ -3881,8 +3866,7 @@ def method_update(context, meta):
 # File   : ./source/ddb/methods/record_upsert.py
 # ############################################################################
 
-def method_upsert(context, meta):
-    try:
+def method_upsert(context, meta,query_object,main_meta):
         meta.table=get_table(context,meta)
         if not meta.on_duplicate_key:
             raise Exception("Upsert missing duplicate keys")
@@ -3897,8 +3881,11 @@ def method_upsert(context, meta):
                         mode='where'
                     else:
                         mode='and'
-                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value}})
-        meta.where=where
+                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value,'condition':mode}})
+        query_object['meta']['where']=where
+        query_object['mode']="update"
+        meta_update=main_meta().convert_to_class(query_object)
+        meta_update.table=meta.table        
         line_number = 1
         affected_rows = 0
         temp_data_file=context.get_data_file(meta.table)
@@ -3911,12 +3898,13 @@ def method_upsert(context, meta):
         with open(temp_data_file, 'r') as content_file:
             with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
                 for line in content_file:
-                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
                     if True == processed_line['match']:
-                        results = update_single(context,meta, temp_file,  False, processed_line)
+                        meta_class=main_meta().convert_to_class(query_object)
+                        results = update_single(context,meta_update, temp_file,  False, processed_line)
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
@@ -3925,7 +3913,11 @@ def method_upsert(context, meta):
                     temp_file.write(meta.table.delimiters.get_new_line())
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
-                    results = create_single(context,meta, temp_file,False)
+                    query_object['mode']="insert"
+                    meta_class=main_meta().convert_to_class(query_object)
+                    meta_class.table=meta.table
+                    results = create_single(context,meta_class, temp_file,False)
+                    affected_rows+=1
                     if True==results['success']:
                         diff.append(results['line'])
                 else:
@@ -3934,9 +3926,6 @@ def method_upsert(context, meta):
                 context.autocommit_write(meta.table,temp_file.name)
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception as ex:
-        print ("ERR",ex)
-        return query_results(success=False,error=ex)
 
         
 # ############################################################################
@@ -3944,19 +3933,17 @@ def method_upsert(context, meta):
 # File   : ./source/ddb/methods/database_use.py
 # ############################################################################
 
-def method_use(context, query_object):
+def method_use(context, meta):
     context.info("Use")
     try:
-        target_db = query_object['meta']['source']['table']
-        if context.database.get_curent_database()!=target_db:
-            context.database.set_database(target_db)
+        table=get_table(context,meta)
+        target_db=table.data.database
         temp_table = context.database.temp_table()
         temp_table.add_column('changed_db')
         data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        print (ex)
         return query_results(success=False,error=ex)
         
 # ############################################################################
@@ -3964,90 +3951,31 @@ def method_use(context, query_object):
 # File   : ./source/ddb/methods/table_create.py
 # ############################################################################
 
-def method_create_table(context, query_object):
+def method_create_table(context, meta):
     context.info("Create Table")
     try:
-        if 'database' in query_object['meta']:
-            context.info('Database specified')
-            database_name = query_object['meta']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
         columns = []
-        if 'columns' not in query_object['meta']:
+        if meta.columns==None:
             raise Exception("Missing columns, cannot create table")
-        for c in query_object['meta']['columns']:
-            columns.append(c['column'])
+        for c in meta.columns:
+            columns.append(c.column)
         context.info("Columns to create", columns)
-        if 'temporary' in query_object['meta']:
-            temporary = True
-            context.info("Creating temporary table")
-        else:
-            temporary = None
-        strict_columns=None
-        found_delimiter = None
-        found_comments = None
-        found_whitespace = None
-        found_data_on = None
-        found_errors = None
-        fifo = None
-        mode = None
-        if 'delimiter' in query_object['meta']:
-            found_delimiter = query_object['meta']['delimiter']
-        if 'whitespace' in query_object['meta']:
-            found_whitespace = query_object['meta']['whitespace']
-        if 'comments' in query_object['meta']:
-            found_comments = query_object['meta']['comments']
-        if 'errors' in query_object['meta']:
-            found_errors = query_object['meta']['errors']
-        if 'data_starts_on' in query_object['meta']:
-            found_data_on = query_object['meta']['data_starts_on']
-        if 'strict' in query_object['meta']:
-            strict_columns = query_object['meta']['strict']
-        if 'fifo' in query_object['meta']:
-            fifo = query_object['meta']['fifo']
-        if 'mode' in query_object['meta']:
-            mode = query_object['meta']['mode']
-        if 'repo_type' in query_object['meta']:
-            repo=query_object['meta']
-            if 'repo' in repo:
-                repo_type=repo['protocol']
-            if 'repo_url' in repo:
-                repo_url=repo['url']
-            if 'repo_user' in repo:
-                repo_user=repo['user']
-            if 'repo_password' in repo:
-                repo_password=repo['password']
-            if 'repo_dir' in repo:
-                repo_dir=repo['directory']
-            if 'repo_file' in repo:
-                repo_file=repo['file']
-        else:
-            repo_type=None
-            repo_url=None
-            repo_user=None
-            repo_password=None
-            repo_dir=None
-            repo_file=None
-        results = context.database.create_table(table_name=query_object['meta']['table'],
-                                                database_name=database_name,
-                                                columns=columns,
-                                                data_file=query_object['meta']['file'],
-                                                delimiter=found_delimiter,
-                                                comments=found_comments,
-                                                errors=found_errors,
-                                                whitespace=found_whitespace,
-                                                data_on=found_data_on,
-                                                temporary=temporary,
-                                                fifo=fifo,
-                                                repo_type=repo_type,
-                                                repo_url=repo_url,
-                                                repo_user=repo_user,
-                                                repo_password=repo_password,
-                                                repo_dir=repo_dir,
-                                                repo_file=repo_file,                                                
-                                                strict_columns=strict_columns,
-                                                mode=mode
+        if None==meta.source.database:
+            meta.source.database=context.database.get_curent_database()
+        results = context.database.create_table(table_name    = meta.source.table,
+                                                database_name = meta.source.database,
+                                                columns       = columns,
+                                                data_file     = meta.file,
+                                                delimiter     = meta.delimiter,
+                                                comments      = meta.comments,
+                                                errors        = meta.errors,
+                                                whitespace    = meta.whitespace,
+                                                data_on       = meta.data_starts_on,
+                                                temporary     = meta.temporary,
+                                                fifo          = meta.fifo,
+                                                repo          = meta.repo,
+                                                strict_columns= meta.strict,
+                                                mode          = meta.mode
                                                 )
         return query_results(success=results)
     except Exception as ex:
@@ -4060,45 +3988,37 @@ def method_create_table(context, query_object):
 # File   : ./source/ddb/methods/table_describe.py
 # ############################################################################
 
-def method_describe_table(context, query_object):
+def method_describe_table(context, meta):
     """Populates metadata related to a table
     returns: table"""
     context.info("Describe Table")
     try:
-        temp_table = context.database.temp_table()
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table_name=query_object['meta']['source']['table']
-        target_table= context.database.get(table_name,database_name=database_name)
+        target_table=get_table(context,meta)
         if None ==target_table:
             raise Exception("Table not found")
-        temp_table.add_column('option')
-        temp_table.add_column('value')
-        temp_table.append_data({'data':['active',target_table.active], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['table_name',target_table.data.name], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['database',target_table.data.database], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['data_file',target_table.data.path], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['fifo',target_table.data.fifo], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['type',target_table.data.type], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['config_file',target_table.data.config], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['data_starts_on',target_table.data.starts_on_line], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['field_delimiter'  ,target_table.delimiters.field], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['comments_visible',target_table.visible.comments], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['errors_visible',target_table.visible.errors], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['whitespace_visible',target_table.visible.whitespace], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['strict_columns',target_table.data.strict_columns], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['repo_type',target_table.data.repo_type], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['repo_url',target_table.data.repo_url], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['repo_dir',target_table.data.repo_dir], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['repo_file',target_table.data.repo_file], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['user',target_table.data.repo_user], 'type': context.data_type.DATA, 'error': None})
-        temp_table.append_data({'data':['password',target_table.data.repo_password], 'type': context.data_type.DATA, 'error': None})
+        temp_table = context.database.temp_table(columns=['option','value'])
+        temp_table.append_data( { 'data': [ 'active'             , target_table.active              ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'table_name'         , target_table.data.name           ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'database'           , target_table.data.database       ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'data_file'          , target_table.data.path           ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'fifo'               , target_table.data.fifo           ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'type'               , target_table.data.type           ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'config_file'        , target_table.data.config         ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'data_starts_on'     , target_table.data.starts_on_line ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'field_delimiter'    , target_table.delimiters.field    ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'comments_visible'   , target_table.visible.comments    ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'errors_visible'     , target_table.visible.errors      ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'whitespace_visible' , target_table.visible.whitespace  ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'strict_columns'     , target_table.data.strict_columns ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'repo_type'          , target_table.data.repo_type      ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'repo_url'           , target_table.data.repo_url       ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'repo_dir'           , target_table.data.repo_dir       ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'repo_file'          , target_table.data.repo_file      ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'user'               , target_table.data.repo_user      ], 'type': context.data_type.DATA, 'error': None} )
+        temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print( ex)
         return query_results(success=False,error=ex)
 
         
@@ -4107,17 +4027,11 @@ def method_describe_table(context, query_object):
 # File   : ./source/ddb/methods/table_drop.py
 # ############################################################################
 
-def method_drop_table(context, query_object):
+def method_drop_table(context, meta):
     context.info("Drop Table")
     try:
-        table_name=query_object['meta']['source']['table']
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        results = context.database.drop_table(table_name=table_name,database_name=database_name)
+        table=get_table(context,meta)
+        results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
         return query_results(success=False,error=ex)
@@ -4128,51 +4042,25 @@ def method_drop_table(context, query_object):
 # File   : ./source/ddb/methods/table_update.py
 # ############################################################################
 
-def method_update_table(context, query_object):
+def method_update_table(context, meta):
     context.info("Update Table")
     try:
-        columns = None  
-        if 'columns'  in  query_object['meta'] :
-            columns = []
-            for c in query_object['meta']['columns']:
-                columns.append(c['column'])
-        table_name=query_object['meta']['source']['table']
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        found_delimiter=None
-        found_comments=None
-        found_whitespace=None
-        found_data_on=None
-        found_file=None
-        found_errors=None
-        if 'delimiter' in query_object['meta']:
-            found_delimiter= query_object['meta']['delimiter']['field']
-        if 'whitespace' in query_object['meta']:
-            found_whitespace= query_object['meta']['whitespace']['whitespace']
-        if 'comments' in query_object['meta']:
-            found_comments= query_object['meta']['comments']['comments']
-        if 'errors' in query_object['meta']:
-            found_errors= query_object['meta']['errors']['errors']
-        if 'data_starts_on' in query_object['meta']:
-            found_data_on= query_object['meta']['data_starts_on']['data_starts_on']
-        if 'file' in query_object['meta']:
-            found_file=query_object['meta']['file']['file']
-        target_table= context.database.get(table_name,database_name)
-        target_table.update(columns=columns,
-                            data_file=found_file,
-                            field_delimiter=found_delimiter,
-                            comments=found_comments,
-                            whitespace=found_whitespace,
-                            errors=found_errors,
-                            data_on=found_data_on)
+        columns=[]
+        for c in meta.columns:
+            columns.append(c.column)
+        context.info("Columns to create", columns)
+        target_table=get_table(context,meta)
+        target_table.update(columns        =columns,
+                            data_file      =meta.file,
+                            field_delimiter=meta.delimiter,
+                            comments       =meta.comments,
+                            whitespace     =meta.whitespace,
+                            errors         =meta.errors,
+                            data_on        =meta.data_starts_on)
         results=target_table.save()
         return query_results(success=results)
     except Exception as ex:
-        return query_object(success=False,error=ex)
+        return query_results(success=False,error=ex)
 
         
 # ############################################################################
@@ -4180,12 +4068,12 @@ def method_update_table(context, query_object):
 # File   : ./source/ddb/methods/system_set.py
 # ############################################################################
 
-def method_system_set(context, query_object):
+def method_system_set(context, meta):
     context.info("set")
     try:
-        for item in query_object['meta']['set']:
-            variable=item['variable'].upper()
-            value=item['value']
+        for item in meta.set:
+            variable=item.variable.upper()
+            value=item.value
             value_up=value.upper()
             if len(variable)>0 and variable[0]=='@':
                 var_type='user'
@@ -4216,8 +4104,8 @@ def method_system_set(context, query_object):
 # File   : ./source/ddb/methods/system_begin.py
 # ############################################################################
 
-def method_system_begin(context, query_object):
-    context.info("set")
+def method_system_begin(context):
+    context.info("begin")
     try:
         if context.internal['IN_TRANSACTION']==1:
             raise Exception("Already in a Batch Transaction")
@@ -4264,12 +4152,12 @@ def method_system_commit(context):
 # File   : ./source/ddb/methods/system_rollback.py
 # ############################################################################
 
-def method_system_rollback(context, query_object):
+def method_system_rollback(context):
     context.info("set")
     try:
         if context.internal['IN_TRANSACTION']==1:
             context.internal['IN_TRANSACTION']=0
-            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
+            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']
             for table_key in context.internal['TEMP_FILES']:
                 tmp=context.internal['TEMP_FILES'][table_key]
                 remove_temp_file(tmp['temp_source'])
@@ -4287,16 +4175,10 @@ def method_system_rollback(context, query_object):
 # File   : ./source/ddb/methods/system_show_columns.py
 # ############################################################################
 
-def method_system_show_columns(context,database, query_object):
+def method_system_show_columns(context, meta):
     try:
-        if 'database' in query_object['meta']['source']:
-            context.info('Database specified')
-            database_name = query_object['meta']['source']['database']
-        else:
-            context.info('Using curent database context')
-            database_name = context.database.get_curent_database()
-        table = database.get(query_object['meta']['source']['table'],database_name=database_name)
-        temp_table = database.temp_table(columns=['database','table', 'column'])
+        table =get_table(context,meta)
+        temp_table = context.database.temp_table(columns=['database','table', 'column'])
         if table:
             for c in table.columns:
                 columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
@@ -4312,10 +4194,10 @@ def method_system_show_columns(context,database, query_object):
 # File   : ./source/ddb/methods/system_show_tables.py
 # ############################################################################
 
-def method_system_show_tables(context,database):
+def method_system_show_tables(context):
     try:
-        temp_table = database.temp_table(columns=['database', 'table'])
-        for t in database.tables:
+        temp_table = context.database.temp_table(columns=['database', 'table'])
+        for t in context.database.tables:
             columns = [t.data.database, t .data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
@@ -4328,7 +4210,7 @@ def method_system_show_tables(context,database):
 # File   : ./source/ddb/methods/system_show_variables.py
 # ############################################################################
 
-def method_system_show_variables(context, query_object):
+def method_system_show_variables(context):
     context.info("show variables")
     try:
         temp_table = context.database.temp_table(columns=['type','name','value'])
@@ -4349,7 +4231,7 @@ def method_system_show_variables(context, query_object):
 # File   : ./source/ddb/methods/system_show_output_modules.py
 # ############################################################################
 
-def method_system_show_output_modules(context,query_object):
+def method_system_show_output_modules(context):
     try:
         temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
         for t in context.internal['OUTPUT_MODULES']:
