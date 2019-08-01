@@ -5,7 +5,7 @@ def safe_name(name,no_match=None):
     forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 
                 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield'
                 'abs','divmod','input','open','staticmethod','all','enumerate','int','ord','str','any','eval','isinstance','pow','sum','basestring','execfile',
-                'issubclass','print','super','bin','file','iter','property','tuple','bool','filter','len','range','type','bytearray','float','list','raw_input',
+                'issubclass','template_add','super','bin','file','iter','property','tuple','bool','filter','len','range','type','bytearray','float','list','raw_input',
                 'unichr','callable','format','locals','reduce','unicode','chr','frozenset','long','reload','vars','classmethod','getattr','map','repr','xrange',
                 'cmp','globals','max','reversed','zip','compile','hasattr','memoryview','round','__import__','complex','hash','min','set','delattr','help','next',
                 'setattr','dict','hex','object','slice','dir','id','oct','sorted']
@@ -16,10 +16,27 @@ def safe_name(name,no_match=None):
         name=name.title()
     return name
 
+output=""
+def template_add(data,pad=True):
+    global output
+
+
+    lines=data.split('\n')
+    if pad:
+        for line in lines:
+            output+="    "+line+"\n"
+    else:
+        for line in lines:
+            output+=line+"\n"
+
+
+def template_get():
+    global output
+    return output
 
 def get_data(command,classes,class_spec):
     command_name=safe_name(command['name'])
-    print ("class {0}:".format(command_name))
+    template_add("class {0}:".format(command_name))
     
     for segment in command['segments']:
         segment_name=safe_name(segment['name'],1)
@@ -41,7 +58,7 @@ def get_data(command,classes,class_spec):
         parent=None
         if 'parent' in segment:
             parent=segment['parent']
-        #print class_spec,segment_name
+        #template_add class_spec,segment_name
         class_spec[segment_name]={'optional':optional,'storage':storage,'parent':parent,'type':seg_type,'no_keyword':no_keyword,'key':segment['name']}
         optional=None
 
@@ -88,11 +105,11 @@ def get_data(command,classes,class_spec):
 
             if 'specs' in segment:
                 fragment=segment
-                #print segment
+                #template_add segment
                 for variable in fragment['specs']:
                     if variable[0]=='_':
                             continue
-                    #print variable
+                    #template_add variable
                     default=None
                     if 'default' in fragment['specs'][variable]:
                         default=fragment['specs'][variable]['default']
@@ -120,9 +137,9 @@ def sub_class (command,classes,class_spec):
         if len(classes[_class])<2:
             continue
 
-        print ("")
-        print ("    class _{0}:".format(_class.replace(" ","_")))
-        print ("        __slots__=()")
+        template_add ("")
+        template_add ("    class _{0}:".format(_class.replace(" ","_")))
+        template_add ("        __slots__=()")
 
         for variable in classes[_class]:
             if variable[0]=='_':
@@ -131,13 +148,13 @@ def sub_class (command,classes,class_spec):
                 continue
             pad='    '
             var=classes[_class][variable]
-          #  print var
+          #  template_add var
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(variable,value,pad))
+            template_add ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
         if len(classes[_class])>1:
@@ -145,27 +162,27 @@ def sub_class (command,classes,class_spec):
                 if '_arguments' in variable:
                         continue
                 args.append(variable+"=None")
-            print ("")
-            print ("        def __init__(self,{0}):".format(",".join(args)))
+            template_add ("")
+            template_add ("        def __init__(self,{0}):".format(",".join(args)))
             for variable in classes[_class]:
                 if '_arguments' in variable:
                         continue
-                print ("            if {0}:  self.{0}={0}".format(variable))
+                template_add ("            if {0}:  self.{0}={0}".format(variable))
 
 
      
 #        if len(classes[_class])>1 and  class_spec[_class]['parent']!=None:
-#        print("\n        def debug(self):")
-#        print("            print('  Debug Info: {0}')".format(class_name))
+#        template_add("\n        def debug(self):")
+#        template_add("            template_add('  Debug Info: {0}')".format(class_name))
 #        for variable in classes[_class]:
 #            if variable[0]=='_':
 #                continue
-#            print ("            print('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
+#            template_add ("            template_add('  {1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
 
 
 
 def variable_def (command,classes,class_spec):
-    print ("    #variable_def")
+    template_add ("    #variable_def")
     for _class in classes:
         class_name=_class.replace(" ","_")
         if len(classes[_class])>1:
@@ -178,25 +195,25 @@ def variable_def (command,classes,class_spec):
                 continue
             pad='    '
             var=classes[_class][variable]
-          #  print var
+          #  template_add var
             value=var['default']
 
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0} = {1}".format(variable,value,pad))
+            template_add ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
 
 
- #print(classes)
-    #print(class_spec)  
-    print ("")
-    print ("    #variable_class_def")
+ #template_add(classes)
+    #template_add(class_spec)  
+    template_add ("")
+    template_add ("    #variable_class_def")
     for _class in classes:
 
         if len(classes[_class])>1:
-            class_name="_{1}()".format(command['name'].replace(' ','_'),_class)
+            class_name="_{0}()".format(_class)
         else:
             class_name=''
 
@@ -206,16 +223,16 @@ def variable_def (command,classes,class_spec):
         if class_spec[_class]['optional']:
             if '_arguments' in classes[_class] or  class_spec[_class]['storage']=='array':
                 class_name='[ {0} ]'.format(class_name)
-            print ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
+            template_add ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
             continue
 
-        #print classes[_class]
+        #template_add classes[_class]
         if '_arguments' in classes[_class]:
-                print ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
+                template_add ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
                 continue
 
         if len(classes[_class])>1:
-            print ("    {1:<20} = _{1}()".format(command['name'].replace(' ','_'),_class.replace(" ","_")))
+            template_add ("    {0:<20} = _{0}()".format(_class.replace(" ","_")))
             continue
 
         for variable in classes[_class]:
@@ -226,14 +243,14 @@ def variable_def (command,classes,class_spec):
             if var['type']=='string' or var['type']=='char':
                 if var['default']!=None:
                     value="'{0}'".format(var['default'])
-            print ("{2}    {0:<20} = {1}".format(variable,value,pad))
+            template_add ("{2}    {0:<20} = {1}".format(variable,value,pad))
 
 
 
 def init(command,classes,class_spec):
     command_name=safe_name(command['name'])
     if len(classes)>0:
-        print("\n    def __init__(self,so):")
+        template_add("\n    def __init__(self,so):")
         for _class in classes:
             safe_class=class_spec[_class]['key']
             if len(classes[_class])==1:
@@ -242,11 +259,11 @@ def init(command,classes,class_spec):
                         continue;
 
                     if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-                        sqo="gv(so,['meta','{0}'])".format(variable)
-                        print ("            self.{0} = {1}".format(variable,sqo))
+                        sqo="meta.gv(so,['meta','{0}'])".format(variable)
+                        template_add ("            self.{0} = {1}".format(variable,sqo))
                     else:
-                        sqo="gv(so,['meta','{0}','{1}'])".format(safe_class,variable)
-                        print ("            self.{0} = {1}".format(variable,sqo))
+                        sqo="meta.gv(so,['meta','{0}','{1}'])".format(safe_class,variable)
+                        template_add ("            self.{0} = {1}".format(variable,sqo))
             else:
                 var=[]
                 var_dict=[]
@@ -254,103 +271,103 @@ def init(command,classes,class_spec):
                     for variable in classes[_class]:
                             if variable[0]=='_':
                                     continue
-                            #print classes[_class],variable
+                            #template_add classes[_class],variable
                             if class_spec[_class]['storage']=='array':
-                                sqo="gv(item,['{1}','{0}'])".format(variable,safe_class)
-                                sqo2="gv(item,[instance_type,'{0}'])".format(variable)
+                                sqo="meta.gv(item,['{1}','{0}'])".format(variable,safe_class)
+                                sqo2="meta.gv(item,[instance_type,'{0}'])".format(variable)
                             else:
-                                sqo="gv(item,['{0}'])".format(variable)
-                                sqo2="gv(item,['{0}'])".format(variable)
+                                sqo="meta.gv(item,['{0}'])".format(variable)
+                                sqo2="meta.gv(item,['{0}'])".format(variable)
                             var.append("{1} = {0}".format(sqo,variable))    
                             var_dict.append("'{1}': {0}".format(sqo2,variable))    
                 else:
                     for variable in classes[_class]:
                         if variable[0]=='_':
                                 continue
-                        #print classes[_class],variable
+                        #template_add classes[_class],variable
                         
                        # if classes[_class][variable]['storage']=='single' or class_spec[_class]['type']=='single':
-                       #     sqo="gv(so,['{2}','{1}'])".format(_class,variable,'meta')
+                       #     sqo="meta.gv(so,['{2}','{1}'])".format(_class,variable,'meta')
                        # else:
-                        sqo="gv(so,['{2}','{0}','{1}'])".format(safe_class,variable,'meta')
-                        sqo2="gv(so,[{1},instance_type,'{0}'])".format(variable,'meta')
+                        sqo="meta.gv(so,['{2}','{0}','{1}'])".format(safe_class,variable,'meta')
+                        sqo2="meta.gv(so,[{1},instance_type,'{0}'])".format(variable,'meta')
                         var.append("{1} = {0}".format(sqo,variable))    
                         var_dict.append("'{1}' : {0}".format(sqo2,variable))    
 
                 if '_arguments' in classes[_class]  or class_spec[_class]['storage']=='array':
-                        #print ("            print(so)")
+                        #template_add ("            template_add(so)")
                         if class_spec[_class]['type']=='single':
-                            print ("            if gv(so,['meta','{0}']):".format(safe_class))
+                            template_add ("            if meta.gv(so,['meta','{0}']):".format(safe_class))
                         else:
-                            print ("            if gv(so,['meta','{0}']):".format(safe_class))
-                        print ("                self.{0}=[]".format(_class.replace(" ","_")))
-                        print ("                for item in gv(so,['meta','{0}']):".format(safe_class))
-                        print ("                    instance_type=item.keys()[0]")
-                        print ("                    safe_instance_type='_'+instance_type")
-#                        print ("                    print('*'+safe_instance_type+'*')")
-#                        print ("                    print('*'+instance_type+'*')")
-#                        print ("                    print(item)")
-                        print ("                    self.{1}.append( type(safe_instance_type,(),{{ {2} }}) )".format(command_name,_class.replace(" ","_"),",".join(var_dict)))
+                            template_add ("            if meta.gv(so,['meta','{0}']):".format(safe_class))
+                        template_add ("                self.{0}=[]".format(_class.replace(" ","_")))
+                        template_add ("                for item in meta.gv(so,['meta','{0}']):".format(safe_class))
+                        template_add ("                    instance_type=item.keys()[0]")
+                        template_add ("                    safe_instance_type='_'+instance_type")
+#                        template_add ("                    template_add('*'+safe_instance_type+'*')")
+#                        template_add ("                    template_add('*'+instance_type+'*')")
+#                        template_add ("                    template_add(item)")
+                        template_add ("                    self.{0}.append( type(safe_instance_type,(),{{ {1} }}) )".format(_class.replace(" ","_"),",".join(var_dict)))
                 else:
                     if class_spec[_class]['parent']==None:
-                        print ("            if gv(so,['meta','{1}']):".format(command_name,safe_class))
-                        print ("                self.{1}= self._{1}({2})".format(command_name,_class.replace(" ","_"),",".join(var)))
+                        template_add ("            if meta.gv(so,['meta','{0}']):".format(safe_class))
+                        template_add ("                self.{0}= self._{0}({1})".format(_class.replace(" ","_"),",".join(var)))
     else:
-        print("\n    def __init__(self,so):")
-        print("        a=0 # holder")
-        print("")
+        template_add("\n    def __init__(self,so):")
+        template_add("        a=0 # holder")
+        template_add("")
                 
 
 
 
 def debug(command,classes,class_spec):  
-    print("    def debug(self):")
-    print("        debugger(self,'{0}')".format(command['name']))
+    template_add("    def debug(self):")
+    template_add("        meta.debugger(self,'{0}')".format(command['name']))
 
     #command_name=command['name'].replace(' ','_')
     #if len(classes)>0:
-    #    print("")
-    #    print("    def debug(self):")
-    #    print("        print('Debug Info: {0}')".format(command_name))
+    #    template_add("")
+    #    template_add("    def debug(self):")
+    #    template_add("        template_add('Debug Info: {0}')".format(command_name))
     #    for _class in classes:
     #        class_name=_class.replace(' ',"_")
-    #        #$print len(classes[_class])
+    #        #$template_add len(classes[_class])
     #        if len(classes[_class])<2:
     #            for variable in classes[_class]:
     #                if '_arguments' == variable or  class_spec[_class]['parent']==None:
     #                    if variable[0]=='_':
     #                        continue
-    #                    print ("        print('{1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
+    #                    template_add ("        template_add('{1:<20} {{0}}'.format(self.{0}))".format(variable,variable+':'))
     #        else:
-    #            #print class_spec
+    #            #template_add class_spec
     #            if class_spec[_class]['parent']:
     #                continue
-    #            print("        if self.{0}:".format(class_name))
+    #            template_add("        if self.{0}:".format(class_name))
     #            if class_spec[_class]['storage']=='array' or  '_arguments' in classes[_class]:
     #                pad="    "
     #                name='item'
-    #                print("            for item in self.{0}:".format(class_name))
-    #                print("{1}            {0}.debug()".format(name,pad))
+    #                template_add("            for item in self.{0}:".format(class_name))
+    #                template_add("{1}            {0}.debug()".format(name,pad))
     #            else:
     #                name=class_name
     #                pad=""
-    #                print("{1}            self.{0}.debug()".format(name,pad))
-    #            print("        else:".format(pad))
-    #            print("            print('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
+    #                template_add("{1}            self.{0}.debug()".format(name,pad))
+    #            template_add("        else:".format(pad))
+    #            template_add("            template_add('{1:<20} {{0}}'.format(self.{0}))".format(class_name,class_name+':',pad))
     #else:
-    #    print("\n    def __init__(self,so=None):")
-    #    print("          a=1")
-    #    print("")
-    #    print("    def debug(self):")
-    #    print("        print('Debug Info: {0}')".format(command_name))
-    #    print("        print('No variables')")
+    #    template_add("\n    def __init__(self,so=None):")
+    #    template_add("          a=1")
+    #    template_add("")
+    #    template_add("    def debug(self):")
+    #    template_add("        template_add('Debug Info: {0}')".format(command_name))
+    #    template_add("        template_add('No variables')")
 
 
 
 def meta_str():
-    print """
-def convert_to_class(o):
-    """
+    template_add("""
+def convert_to_class(self,o):
+    """)
 
     index=0
     for command in ddb.lexer.language.language['commands']:
@@ -360,57 +377,9 @@ def convert_to_class(o):
             el="el"
         index+=1
         command_name=command['name'].replace(' ','_')
-        print ("    {1}if o['mode']=='{0}': return {2}(o)".format(command['name'],el,safe_name(command_name)))
+        template_add ("    {1}if o['mode']=='{0}': return self.{2}(o)".format(command['name'],el,safe_name(command_name)))
         
 
-    print """
+    template_add("""
     return None
-
-"""
-
-
-print("""
-class debugger:
-    def __init__(self,obj,name,depth=0):
-        pad=''
-        for i in range(0,depth):
-            pad+=' '
-        if depth==0:
-            print ("\\n\\033[31;1;4mDebug: {0}\\033[0m".format(name))
-
-        variables = [i for i in dir(obj) if not i.startswith('__')]
-        empty=[]
-        var_count=0
-        for var in variables:
-            value=getattr(obj,var)
-            if  isinstance(value,str):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif  isinstance(value,int):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif  isinstance(value,float):
-                print("{2}{0} {1}".format(var+':',value,pad))
-                var_count+=1
-            elif isinstance(value,list):
-                print ("{0}- {1} :".format(pad,var))
-                for item in value:
-                    var_count+=1
-                    debugger(item,var,depth+4)
-            elif callable(value):
-                continue
-            elif value==None:
-                var_count+=1
-                empty.append(var)
-            else:
-                var_count+=1
-                print ("{0}- {1} :".format(pad,var))
-                debugger(value,var,depth+4)
-                
-        if len(empty)>0:
-            print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
-        #print variables
-        if var_count==0:
-            print("{2}{0} {1}".format("No attributes"+':',"",pad))
-
 """)
