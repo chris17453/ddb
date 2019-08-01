@@ -367,10 +367,11 @@ class engine:
                 #print " ".join(cmd)
                 self.os_cmd(cmd,"SVN Repo Err")
 
-            if table.data.repo_url!=repo_url:
+            else:
+                if table.data.repo_url!=repo_url:
                 err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
                 raise Exception (err_msg)
-                
+
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
                     'up',
