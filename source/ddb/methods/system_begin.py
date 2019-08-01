@@ -5,7 +5,6 @@ from .record_core import query_results
 def method_system_begin(context):
     context.info("begin")
     try:
-        print "BEGIN MAN"
         if context.internal['IN_TRANSACTION']==1:
             raise Exception("Already in a Batch Transaction")
         else:
