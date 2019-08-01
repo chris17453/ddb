@@ -409,7 +409,7 @@ class engine:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
-            print ("CREATED: "+temp_data_file)
+            #print ("CREATED: "+temp_data_file)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
@@ -419,8 +419,8 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             # remove the previous source
             if dest_file and dest_file!=self.internal['TEMP_FILES'][table_key]['temp_source']:
-                print ("removing "+self.internal['TEMP_FILES'][table_key]['temp_source'])
-                #remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
+                #print ("removing "+self.internal['TEMP_FILES'][table_key]['temp_source'])
+                remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
     def auto_commit(self,table):
