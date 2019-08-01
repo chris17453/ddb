@@ -364,7 +364,7 @@ class engine:
                         table.data.repo_url,
                         table.data.repo_dir,
                         '--depth','empty']
-                #print " ".join(cmd)
+                print " ".join(cmd)
                 self.os_cmd(cmd,"SVN Repo Err")
 
             else:
