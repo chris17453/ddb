@@ -48,7 +48,7 @@ from .methods.record_core import query_results
 from .file_io.locking import lock,create_temporary_copy, swap_files, remove_temp_file
 
 # Dynamic metadata class abstraction layer
-from .meta import meta 
+from .meta.meta import meta 
 
 class engine:
     """A serverless flat file database engine"""
@@ -210,7 +210,7 @@ class engine:
 
             
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
-            meta_class=meta.convert_to_class(query_object)
+            meta_class=meta().convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
