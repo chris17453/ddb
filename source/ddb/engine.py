@@ -241,6 +241,7 @@ class engine:
                 self.results = method_drop_table(self,meta_class)
 
             elif mode == 'create table' and self.internal['READONLY']==None:
+                meta_class.debug()
                 self.results = method_create_table(self,meta_class)
 
             elif mode == 'update table' and self.internal['READONLY']==None:
@@ -369,6 +370,7 @@ class engine:
 
             else:
                 if table.data.repo_url!=repo_url:
+                    if 
                     err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
                     raise Exception (err_msg)
 
