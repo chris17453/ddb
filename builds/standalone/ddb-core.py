@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.823'
+__version__='1.2.824'
 
         
 # ############################################################################
@@ -2529,7 +2529,6 @@ class database:
                      strict_columns=None,
                      mode=None
                     ):
-        print("Creating table..")
         if None == database_name:
             database_name = self.get_curent_database()
         exists = self.get(table_name, database_name)
