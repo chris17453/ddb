@@ -235,6 +235,7 @@ class select:
 
     #variable_class_def
     order_by             = None        # optional [ _order_by() ]
+    distinct             = None        # optional 
     source               = None        # optional _source()
     group_by             = None        # optional [ _group_by() ]
     limit                = None        # optional _limit()
@@ -248,6 +249,7 @@ class select:
                     instance_type=item.keys()[0]
                     safe_instance_type='_'+instance_type
                     self.order_by.append( type(safe_instance_type,(),{ 'column': gv(item,['column']),'direction': gv(item,['direction']) }) )
+            self.distinct = gv(so,['meta','distinct','distinct'])
             if gv(so,['meta','source']):
                 self.source= self._source(table = gv(so,['meta','source','table']),display = gv(so,['meta','source','display']),database = gv(so,['meta','source','database']))
             if gv(so,['meta','group by']):
