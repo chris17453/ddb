@@ -114,7 +114,7 @@ class lock:
 
   
 def create_temporary_copy(path,uuid,prefix='ddb_'):
-    """ Create a copy of a regular file in a temporary directory """
+    #""" Create a copy of a regular file in a temporary directory """
    # try:
         # dont over look this
         # it checks for a lock file in the temp dir
