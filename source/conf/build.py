@@ -12,7 +12,6 @@ def src_build():
         {'name':'column','file':source_dir+'/ddb/configuration/column.py'},
         {'name':'table','file':source_dir+'/ddb/configuration/table.py'},
         {'name':'database','file':source_dir+'/ddb/configuration/database.py'},
-        {'name':'match','file':source_dir+'/ddb/evaluate/match.py'},
         {'name':'functions','file':source_dir+'/ddb/functions/functions.py'},
         {'name':'sql_engine','file':source_dir+'/ddb/engine.py'},
         {'name':'methods-records_core','file':source_dir+'/ddb/methods/record_core.py'},
