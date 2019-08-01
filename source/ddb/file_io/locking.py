@@ -114,8 +114,8 @@ class lock:
 
   
 def create_temporary_copy(path,uuid,prefix='ddb_'):
-    #""" Create a copy of a regular file in a temporary directory """
-   # try:
+    """ Create a copy of a regular file in a temporary directory """
+    try:
         # dont over look this
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
@@ -132,8 +132,8 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         shutil.copy2(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
-   # except Exception as ex:
-   #     raise Exception("Temp File Error: {0}".format(ex))
+    except Exception as ex:
+        raise Exception("Temp File Error: {0}".format(ex))
 
 def remove_temp_file(path):
     try:
