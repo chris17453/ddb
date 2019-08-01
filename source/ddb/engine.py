@@ -350,11 +350,10 @@ class engine:
             cmd=[   'svn','info','--show-item','url']
             repo_url=None
             try:
-                repo_url=self.os_cmd(cmd,"SVN Repo Test").trim()
+                repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
             except Exception as ex:
-                print ex
                 pass
-            print "?",repo_url
+            #print "?",repo_url
             if None==repo_url:
 
                 cmd=[   'svn',
