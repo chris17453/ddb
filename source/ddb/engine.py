@@ -369,8 +369,8 @@ class engine:
 
             else:
                 if table.data.repo_url!=repo_url:
-                err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
-                raise Exception (err_msg)
+                    err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
+                    raise Exception (err_msg)
 
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
