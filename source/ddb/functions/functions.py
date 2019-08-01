@@ -9,7 +9,7 @@ def f_row_number(context):
     except:
         row=0
     row+=1
-    row=context.internal['row']=row
+    context.internal['row']=row
 
     return row
 
