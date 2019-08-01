@@ -101,6 +101,7 @@ class table:
 
         if repo:
             if repo.protocol=='svn':
+
                 self.data.path=os.path.join(repo.directory,repo.file)
                 self.data.repo_type=repo.protocol
                 self.data.repo_url=repo.url
@@ -108,6 +109,7 @@ class table:
                 self.data.repo_password=repo.password
                 self.data.repo_dir=repo.directory
                 self.data.repo_file=repo.file
+                print("SVN PATH GENERATED "+self.data.path)
 
         if columns:
             self.columns = []
