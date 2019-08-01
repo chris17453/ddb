@@ -75,6 +75,7 @@ class table:
         
         if repo:
             if repo.protocol=='svn':
+                self.data.file=os.path.join(repo.directory,repo.file)
                 self.data.repo_type=repo.protocol
                 self.data.repo_url=repo.url
                 self.data.repo_user=repo.user
