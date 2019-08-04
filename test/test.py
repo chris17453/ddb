@@ -15,6 +15,10 @@ class test_engine(unittest.TestCase):
     table_name = 'test'
     table_name2 = 'test2'
     debug=None
+    config_dir= os.path.dirname(os.path.abspath(__file__))+"/data/"
+
+
+
     def cleanup(self):
         # print ("#--->Fresh init")
         config_file = os.path.join(self.basedir, self.temp_config)
@@ -52,7 +56,7 @@ class test_engine(unittest.TestCase):
         print ("SET")
         self.cleanup()
         try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
             
             results = engine.query("set AUTOCOMMIT=False")
             self.assertEqual(True, results.success)
@@ -89,7 +93,7 @@ class test_engine(unittest.TestCase):
             print("USE")
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+            engine = ddb.engine(config_dir=self.config_dir,debug=None)
             self.create_table(engine,mode)
                  
             
@@ -117,7 +121,7 @@ class test_engine(unittest.TestCase):
         """Show all tables in the database"""
         self.cleanup()
         try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
             self.create_table(engine,mode)
 
             results = engine.query("SHOW TABLES")
@@ -135,7 +139,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         try:
 
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
             self.create_table(engine,mode)
 
             results = engine.query("DESCRIBE TABLE {0}".format(self.table_name))
@@ -149,7 +153,7 @@ class test_engine(unittest.TestCase):
         """Test creating a table"""
         try:
             self.cleanup()
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
         
             self.create_table(engine,mode)
         except Exception as ex:
@@ -162,7 +166,7 @@ class test_engine(unittest.TestCase):
     def test_drop_table(self,mode=None):
         """Test dropping a table"""
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.config_dir,debug=None)
         
         self.create_table(engine,mode)
         try:
@@ -182,7 +186,7 @@ class test_engine(unittest.TestCase):
         #try:
         print("SELECT")
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.config_dir,debug=None)
         # fail on existing table
         
         self.create_table(engine,mode)
@@ -223,7 +227,7 @@ class test_engine(unittest.TestCase):
         try:
             self.cleanup()
             print("UPDATE")
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+            engine = ddb.engine(config_dir=self.config_dir,debug=None)
             # fail on existing table
             self.create_table(engine,mode)
             
@@ -248,7 +252,7 @@ class test_engine(unittest.TestCase):
         #try:
         self.cleanup()
         print("INSERT")
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=self.debug)
+        engine = ddb.engine(config_dir=self.config_dir,debug=self.debug)
         self.cleanup()
         # fail on existing table
         self.create_table(engine,mode)
@@ -269,7 +273,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         print("DELETE")
         try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
             self.create_table(engine,mode)
 
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
@@ -294,7 +298,7 @@ class test_engine(unittest.TestCase):
         print("UPSERT")
 
         #try:
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.config_dir,debug=None)
         self.create_table(engine,mode)
 
         results = engine.query("upsert into {} ('id','first_name','last_name','email','gender','ip_address') values (1006,test_name,test_lname,'tag@bob.com','m','0.0.0.0') ON DUPLICATE KEY id UPDATE id='12345' ".format(self.table_name))
@@ -322,7 +326,7 @@ class test_engine(unittest.TestCase):
         self.cleanup()
         print("ROLLBACK")
         try:
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
 
             self.create_table(engine,mode)
 
@@ -362,7 +366,7 @@ class test_engine(unittest.TestCase):
         try:
             self.cleanup()
             print("COMMIT")
-            engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config))
+            engine = ddb.engine(config_dir=self.config_dir)
 
             self.create_table(engine,mode)
 
