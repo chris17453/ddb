@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.838'
+__version__='1.2.839'
 
         
 # ############################################################################
@@ -5489,6 +5489,9 @@ def cli_main():
     else:
         home = expanduser("~")
         config_dir = os.path.join(os.path.join(home, '.ddb'))
+    if config_dir:
+        if os.path.exists(config_dir)==False:
+            os.mkdir(config_dir)
     if len(args.query)!=0 or not sys.stdin.isatty():
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
