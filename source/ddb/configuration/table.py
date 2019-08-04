@@ -288,6 +288,21 @@ class table:
         #                break
         #    else:
         #        print(" HAS   {0,2} - {1}".format(column.ordinal,column.data.name))
+    def delete(self):
+        try:
+            if os.path.exists(self.data.config):
+                if os.path.isfile(self.data.config):
+                    os.remove(self.data.config)
+                else:
+                    err_msg="Table config is not a file! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+                    raise Exception (err_msg)
+            else:
+                err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+                raise Exception (err_msg)
+        except Exception as ex:
+            err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+            raise Exception (err_msg)
+
 
     def save(self):
         if None == self.data.name:
@@ -308,7 +323,7 @@ class table:
             home = self.config_directory
 
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.{1}.create.sql".format(self.data.database,self.data.name))
+            self.data.config = os.path.join(home, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
         
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
