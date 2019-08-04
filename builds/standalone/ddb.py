@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.840'
+__version__='1.2.841'
 
         
 # ############################################################################
@@ -2671,6 +2671,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
+        self.system['DATA_DIRECTORY']=config_dir
         self.system['VERSION']=__version__
         try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
