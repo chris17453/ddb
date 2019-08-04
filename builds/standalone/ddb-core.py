@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.824'
+__version__='1.2.825'
 
         
 # ############################################################################
@@ -2325,6 +2325,20 @@ class table:
                 self.ordinals[v.data.name] = self.columns[k].data.ordinal
             else:
                 self.ordinals[v.data.name] = v.data.ordinal
+    def delete(self):
+        try:
+            if os.path.exists(self.data.config):
+                if os.path.isfile(self.data.config):
+                    os.remove(self.data.config)
+                else:
+                    err_msg="Table config is not a file! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+                    raise Exception (err_msg)
+            else:
+                err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+                raise Exception (err_msg)
+        except Exception as ex:
+            err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
+            raise Exception (err_msg)
     def save(self):
         if None == self.data.name:
             raise Exception("Cannot save a table without a name")
@@ -2339,7 +2353,7 @@ class table:
         else:
             home = self.config_directory
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.{1}.create.sql".format(self.data.database,self.data.name))
+            self.data.config = os.path.join(home, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
         column_str=[]
@@ -2443,8 +2457,18 @@ class database:
         is_file = False
         if None != config_file and config_file != False:
             self.config_file = config_file
-    def set_database(self, database_name):
-        self.curent_database = database_name
+    def count(self):
+        """Return a count ot tables in the database"""
+        return len(self.tables)
+    def get_default_database(self):
+        """Return default database"""
+        if self.curent_database is None:
+            return 'main'
+    def get_curent_database(self):
+        """Return current or default database"""
+        if self.curent_database is None:
+            return self.get_default_database()
+        return self.curent_database
     def get(self, table_name, database_name=None):
         """Get a Table structure in the database."""
         if None == database_name:
@@ -2453,69 +2477,38 @@ class database:
             if c.data.name == table_name and database_name == c.data.database:
                 return c
         return None
-    def count(self):
-        """Return a count ot tables in the database"""
-        return len(self.tables)
-    def temp_table(self, name=None, columns=[], delimiter=None):
-        """Create a temporary table to preform operations in"""
-        if None == name:
-            name = "#table_temp"  # TODO make unique random name
-        return table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
-    def create_config(self, config_file):
-        try:
-            if False == os.path.exists(config_file):
-                dirname = os.path.dirname(config_file)
-                if False == os.path.exists(dirname):
-                    os.makedirs(dirname)
-            yaml_data = {}
-            yamlf_dump(yaml_data, file=config_file)
-            return
-        except Exception as ex:
-            print("Cant create configuration file: {0}".format(ex))
-    def create_table_config(self, name, db, columns, delimiter=None):
-        if None == self.config_file:
-            raise Exception("Not using a config file")
-        t = table(name=name, database=db, columns=columns,
-                  field_delimiter=delimiter)
-        t.save()
-        self.add_config(t.data.path)
-    def add_config(self, table_config=None, table=None):
-        if None == self.config_file:
-            raise Exception("Not using a config file")
-        if not os.path.exists(self.config_file):
-            self.create_config(self.config_file)
-        if None != table_config:
-            self.create_config(self.config_file)
-            config = table(table_config)
-            yaml_data = yamlf_load(file=self.config_file)
-            db = config.data.database
-            if None == db:
-                db = self.get_default_database()
-            if db not in yaml_data:
-                yaml_data[db] = {}
-            yaml_data[db][config.data.name] = {
-                'name': config.data.name, 'path': table_config}
-            yamlf_dump(yaml_data, file=self.config_file)
-        if table is not None:
-            yaml_data = yamlf_load(file=self.config_file)
-            if None == yaml_data:
-                yaml_data = {}
-            db = table.data.database
-            if None == db:
-                db = self.get_default_database()
-            if db not in yaml_data:
-                yaml_data[db] = {}
-            yaml_data[db][table.data.name] = {
-                'name': table.data.name, 'path': table.data.config}
-            yamlf_dump(yaml_data, file=self.config_file)
-        return True
-    def get_default_database(self):
-        if self.curent_database is None:
-            return 'main'
-    def get_curent_database(self):
-        if self.curent_database is None:
-            return self.get_default_database()
-        return self.curent_database
+ def get_db_sql(self):
+        """Return a string of table creation queries"""
+        temp_tables = self.get_sql_definition_paths()
+        queries=[]
+        for sql_path in temp_tables:
+            with open(sql_path,'r') as table_config:
+                queries.append(table_config.read())
+        return ";\n".join(queries)
+    def get_sql_definition_paths(self):
+        """Return a list of paths to text files containing sql queries"""
+        if None == self.config_dir:
+            return []
+        tables = []
+        for file in os.listdir(self.config_dir):
+            if file.endswith(".table.sql"):
+                table_path=os.path.join(self.config_dir, file)
+                tables.append(table_path)
+        return tables
+    def drop_table(self, table_name, database_name=None):
+        """Remove a table configuration"""
+        if None == database_name:
+            database_name = self.get_curent_database()
+        for index in range(0, len(self.tables)):
+            if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
+                if self.tables[index].data.type=="Temp":
+                    self.tables.pop(index)
+                    return True
+                table.delete()
+                self.tables.pop(index)
+                return True
+                break
+        raise Exception("Failed to drop table. Does not exist")
     def create_table(self, table_name, columns, data_file,
                      database_name=None,
                      delimiter=None,
@@ -2562,66 +2555,14 @@ class database:
         self.tables.append(t)
         if not temporary:
             res = t.save()
-            self.add_config(table=t)
             if False == res:
                 raise Exception("Couldn't save table configuation")
         return True
-    def drop_table(self, table_name, database_name=None):
-        if None == database_name:
-            database_name = self.get_curent_database()
-        for index in range(0, len(self.tables)):
-            if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
-                if self.tables[index].data.type=="Temp":
-                    self.tables.pop(index)
-                    return True
-                res = self.remove_config(table_object=self.tables[index])
-                if False == res:
-                    raise Exception("Failed to remove configuration for table")
-                self.tables.pop(index)
-                return True
-                break
-        raise Exception("Failed to drop table. Does not exist")
-    def remove_config(self, table_config=None, table_object=None):
-        try:
-            if not os.path.exists(self.config_file):
-                self.create_config(self.config_file)
-            if table_object is None:
-                config = table(table_config)
-            else:
-                config = table_object
-            yaml_data = yamlf_load(file=self.config_file)
-            db = config.data.database
-            if None == db:
-                db = self.get_default_database()
-            if db not in yaml_data:
-                yaml_data[db] = {}
-            table_name = config.data.name
-            if table_name in yaml_data[db]:
-                yaml_data[db].pop(table_name, None)
-            yamlf_dump(yaml_data, file=self.config_file)
-            return True
-        except Exception as ex:
-            raise Exception("failed to remove table from db configuration")
-    def get_db_sql(self):
-        temp_tables = self.get_tables()
-        queries=[]
-        for t in temp_tables:
-            with open(t,'r') as table_config:
-                queries.append(table_config.read())
-        return ";".join(queries)
-    def get_tables(self):
-        if None == self.config_file:
-            return []
-        if False == os.path.exists(self.config_file):
-            return []
-        tables = []
-        yaml_data = yamlf_load(file=self.config_file)
-        if yaml_data != None:
-            for db in yaml_data:
-                if yaml_data[db] != None:
-                    for table in yaml_data[db]:
-                        tables.append(yaml_data[db][table]['path'])
-        return tables
+    def temp_table(self, name=None, columns=[], delimiter=None):
+        """Create a temporary table to preform operations in"""
+        if None == name:
+            name = "#table_temp"  # TODO make unique random name
+        return table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
 
         
 # ############################################################################
