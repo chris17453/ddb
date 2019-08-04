@@ -73,16 +73,19 @@ class database:
         #print table_name,database_name
         for index in range(0, len(self.tables)):
             #print( self.tables[index].data.name, table_name,self.tables[index].data.database,database_name)
-            if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
+        
+            target_table=self.tables[index]
+            if target_table.data.name == table_name and target_table.data.database == database_name:
                 #print("Found table")
-                if self.tables[index].data.type=="Temp":
+                if target_table.data.type=="Temp":
                     self.tables.pop(index)
                     return True
                 # deletes tabels by "/{config}/{db}.{table}.table.sql"
-                table.delete()
+                target_table.delete()
                 self.tables.pop(index)
                 return True
                 break
+
         raise Exception("Failed to drop table. Does not exist")
 
 

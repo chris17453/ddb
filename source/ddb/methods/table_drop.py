@@ -9,11 +9,9 @@ def method_drop_table(context, meta):
         if table==None:
             raise Exception("Table not found")
         
-        print table.data.name
-        print table.data.database
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         # TODO Error Handeling
         return query_results(success=results)
     except Exception as ex:
-        print ex
+        #print ex
         return query_results(success=False,error=ex)
