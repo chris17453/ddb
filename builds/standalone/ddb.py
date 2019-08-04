@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.839'
+__version__='1.2.840'
 
         
 # ############################################################################
@@ -5490,8 +5490,12 @@ def cli_main():
         home = expanduser("~")
         config_dir = os.path.join(os.path.join(home, '.ddb'))
     if config_dir:
-        if os.path.exists(config_dir)==False:
-            os.mkdir(config_dir)
+        try:
+            if os.path.exists(config_dir)==False:
+                os.mkdir(config_dir)
+        except Exception:
+            print("Can not create ddb data directory: {0}".format(config_dir))
+            exit(1)
     if len(args.query)!=0 or not sys.stdin.isatty():
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)
