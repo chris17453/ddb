@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.836'
+__version__='1.2.837'
 
         
 # ############################################################################
@@ -5479,12 +5479,14 @@ class ddbPrompt(Cmd):
 # ############################################################################
 
 def cli_main():
-    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
-                    """, epilog="And that's how you ddb")
+    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access""", epilog="And that's how you ddb")
     parser.add_argument('query', help='query to return data', nargs= "*")
     args = parser.parse_args()
-    home = expanduser("~")
-    config_dir = os.path.join(os.path.join(home, '.ddb'))
+    if 'DDB_DATA' in os.environ:
+        config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
+    else:
+        home = expanduser("~")
+        config_dir = os.path.join(os.path.join(home, '.ddb'))
     if len(args.query)!=0 or not sys.stdin.isatty():
             if not sys.stdin.isatty():
                 new_stdin = os.fdopen(sys.stdin.fileno(), 'r', 1024)

@@ -36,7 +36,7 @@ class lock:
     @staticmethod
     def is_locked(path,key_uuid):
         lock_path=lock.get_lock_filename(path)
-        if os.path.exists(lock_path):
+        if os.path.exists(lock_path)==True:
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
@@ -74,7 +74,7 @@ class lock:
         
         #print ("Removing {0}".format(lock_path))
         os.remove(lock_path)
-        if os.path.exists(lock_path):
+        if os.path.exists(lock_path)==True:
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
 
@@ -139,7 +139,7 @@ def remove_temp_file(path):
     try:
         #print "Removing temp copy"
         os.remove(path)
-        if os.path.exists(path):
+        if os.path.exists(path)==True:
             raise Exception("Failed to delete: {0}".format(path))    
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
@@ -155,10 +155,10 @@ def swap_files(path, temp,key_uuid):
 
         # DELETE ORIGINAL
         norm_path=normalize_path(path)
-        if os.path.exists(norm_path):
+        if os.path.exists(norm_path)==True:
             os.remove(norm_path)
         
-        if os.path.exists(norm_path):
+        if os.path.exists(norm_path)==True:
             raise Exception("Deleting file {0} failed".format(norm_path))
         
         # REMOVE LOCK FROM ORIGINAL PATH
@@ -172,7 +172,7 @@ def swap_files(path, temp,key_uuid):
         
         os.remove(temp)
         #print("$Removed")
-        if os.path.exists(temp):
+        if os.path.exists(temp)==True:
             raise Exception("Deleting temp file {0} failed".format(temp))
         
     except Exception as ex:

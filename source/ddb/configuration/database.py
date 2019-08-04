@@ -45,6 +45,8 @@ class database:
         temp_tables = self.get_sql_definition_paths()
         queries=[]
         for sql_path in temp_tables:
+            if False==os.path.exists(sql_path):
+                raise Exception ("Path to table '{0}' is invalid".format(sql_path))
             with open(sql_path,'r') as table_config:
                 queries.append(table_config.read())
 
