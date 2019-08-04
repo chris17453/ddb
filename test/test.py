@@ -179,6 +179,7 @@ class test_engine(unittest.TestCase):
             results=engine.query('drop table {}'.format(self.table_name))
             self.assertEqual(False, results.success)
         except Exception as ex:
+            print ex
             self.fail(ex)
 
     def test_select(self,mode=None):
