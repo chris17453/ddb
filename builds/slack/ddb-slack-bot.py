@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.834'
+__version__='1.2.835'
 
         
 # ############################################################################
@@ -3877,6 +3877,10 @@ def method_drop_table(context, meta):
     context.info("Drop Table")
     try:
         table=get_table(context,meta)
+        if table==None:
+            raise Exception("Table not found")
+        print table.data.name
+        print table.data.database
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
