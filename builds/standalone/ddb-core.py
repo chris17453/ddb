@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.825'
+__version__='1.2.826'
 
         
 # ############################################################################
@@ -2450,13 +2450,10 @@ class table_delimiters:
 
 class database:
     tables = []
-    def __init__(self, config_file=None):
-        self.curent_database = None
+    def __init__(self, config_dir=None):
         self.tables = []
-        self.config_file = None
-        is_file = False
-        if None != config_file and config_file != False:
-            self.config_file = config_file
+        self.curent_database = None
+        self.config_dir=config_dir
     def count(self):
         """Return a count ot tables in the database"""
         return len(self.tables)
@@ -2477,7 +2474,7 @@ class database:
             if c.data.name == table_name and database_name == c.data.database:
                 return c
         return None
- def get_db_sql(self):
+    def get_db_sql(self):
         """Return a string of table creation queries"""
         temp_tables = self.get_sql_definition_paths()
         queries=[]
@@ -2648,11 +2645,8 @@ class engine:
                 pp.pprint(arg1)
             else:    
                 print(msg, arg1, arg2, arg3)
-    def __init__(self, config_file=None, query=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
-        if config_file is None:
-            home = os.path.expanduser("~")
-            config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -2693,16 +2687,14 @@ class engine:
         self.system['DELIMITER']=';'
         self.user={}
         self.internal['IN_TRANSACTION']=0
-        self.database = database(config_file=config_file)
+        self.database = database(config_dir=config_dir)
         self.current_database = self.database.get_default_database()
-        if config_file!=False:
+        if config_dir=None:
             queries=self.database.get_db_sql()
             logging.disabled = True
             if queries:
                 self.query(queries)
             logging.disabled = False
-        if None != query:
-            self.query(query)
     def init_state_variables(self):
         self.internal['row']=0
     def trigger_debug(self):
