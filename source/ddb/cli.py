@@ -17,26 +17,27 @@ import sys
 def cli_main():
 
 
-    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access
-                    """, epilog="And that's how you ddb")
+    parser = argparse.ArgumentParser("ddb", usage='%(prog)s [options]', description="""flat file database access""", epilog="And that's how you ddb")
 
-    # actions
-    #parser.add_argument('-v', '--debug', help='show debuging statistics', action='store_true')
-    #parser.add_argument('-c', '--config', help='yaml configuration file')
-    #parser.add_argument('-o', '--output', help='output type (raw,json,yaml,xml|bash,term) defaults to "term"', default='term')
-    #parser.add_argument('-f', '--file', help='output file (if nothing, output is redirected to stdio)', default= None)
     parser.add_argument('query', help='query to return data', nargs= "*")
 
     args = parser.parse_args()
     
-    # set the config q
-    # file location
-    # if args.config is not None:
-    #    config_file = args.config
-    # else:
-    home = expanduser("~")
-    config_dir = os.path.join(os.path.join(home, '.ddb'))
+    
+    # get the path set in the environment
+    # else expand the user path and look in the .ddb folder
+    # else start with NO config, and no place to save...
 
+    if 'DDB_DATA' in os.environ:
+        # expand user vars, then get the absolute
+        config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
+    else:
+        home = expanduser("~")
+        config_dir = os.path.join(os.path.join(home, '.ddb'))
+            
+    
+    
+    
     if len(args.query)!=0 or not sys.stdin.isatty():
         #try:
             if not sys.stdin.isatty():

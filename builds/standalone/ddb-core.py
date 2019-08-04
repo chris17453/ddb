@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.835'
+__version__='1.2.836'
 
         
 # ############################################################################
@@ -2497,11 +2497,12 @@ class database:
         if None == database_name:
             database_name = self.get_curent_database()
         for index in range(0, len(self.tables)):
-            if self.tables[index].data.name == table_name and self.tables[index].data.database == database_name:
-                if self.tables[index].data.type=="Temp":
+            target_table=self.tables[index]
+            if target_table.data.name == table_name and target_table.data.database == database_name:
+                if target_table.data.type=="Temp":
                     self.tables.pop(index)
                     return True
-                table.delete()
+                target_table.delete()
                 self.tables.pop(index)
                 return True
                 break
@@ -3871,12 +3872,9 @@ def method_drop_table(context, meta):
         table=get_table(context,meta)
         if table==None:
             raise Exception("Table not found")
-        print table.data.name
-        print table.data.database
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
-        print ex
         return query_results(success=False,error=ex)
 
         
