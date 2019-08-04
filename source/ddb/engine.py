@@ -133,7 +133,7 @@ class engine:
         self.current_database = self.database.get_default_database()
         # load tables
         # dont load empty stuff
-        if config_dir=None:
+        if config_dir:
             queries=self.database.get_db_sql()
             logging.disabled = True
             if queries:
