@@ -30,7 +30,11 @@ def cli_main():
 
     if 'DDB_DATA' in os.environ:
         # expand user vars, then get the absolute
-        config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
+        if not os.environ['DDB_DATA']:
+            home = expanduser("~")
+            config_dir = os.path.join(os.path.join(home, '.ddb'))
+        else:
+            config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
     else:
         home = expanduser("~")
         config_dir = os.path.join(os.path.join(home, '.ddb'))
