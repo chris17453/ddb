@@ -114,7 +114,7 @@ class database:
                     raise Exception(err)
 
         if not temporary:
-            if None == self.config_file:
+            if None == self.config_dir:
                 raise Exception("Not using a config file")
             config_directory = os.path.dirname(self.config_file)
         else:
