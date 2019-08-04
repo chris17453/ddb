@@ -109,7 +109,7 @@ class test_engine(unittest.TestCase):
         try:
             # single db change from default
             self.cleanup()
-            engine = ddb.engine(config_file=False,debug=None)
+            engine = ddb.engine(config_dir=self.config_dir,debug=None)
             results = engine.query("show output modules")
             ddb.output.factory.output_factory(query_results=results,output='TERM')
             self.assertEqual(True, results.success)
