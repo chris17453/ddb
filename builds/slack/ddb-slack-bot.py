@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.837'
+__version__='1.2.838'
 
         
 # ############################################################################
@@ -2487,6 +2487,8 @@ class database:
         temp_tables = self.get_sql_definition_paths()
         queries=[]
         for sql_path in temp_tables:
+            if False==os.path.exists(sql_path):
+                raise Exception ("Path to table '{0}' is invalid".format(sql_path))
             with open(sql_path,'r') as table_config:
                 queries.append(table_config.read())
         return ";\n".join(queries)
@@ -4126,7 +4128,7 @@ class lock:
     @staticmethod
     def is_locked(path,key_uuid):
         lock_path=lock.get_lock_filename(path)
-        if os.path.exists(lock_path):
+        if os.path.exists(lock_path)==True:
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
@@ -4156,7 +4158,7 @@ class lock:
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         os.remove(lock_path)
-        if os.path.exists(lock_path):
+        if os.path.exists(lock_path)==True:
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
     @staticmethod
@@ -4202,7 +4204,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
 def remove_temp_file(path):
     try:
         os.remove(path)
-        if os.path.exists(path):
+        if os.path.exists(path)==True:
             raise Exception("Failed to delete: {0}".format(path))    
     except Exception as ex:
         raise Exception("Temp File Error: {0}".format(ex))
@@ -4212,14 +4214,14 @@ def swap_files(path, temp,key_uuid):
         if lock.LOCK_OWNER != lock.is_locked(path,key_uuid):
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
         norm_path=normalize_path(path)
-        if os.path.exists(norm_path):
+        if os.path.exists(norm_path)==True:
             os.remove(norm_path)
-        if os.path.exists(norm_path):
+        if os.path.exists(norm_path)==True:
             raise Exception("Deleting file {0} failed".format(norm_path))
         lock.release(path)
         shutil.copy2(temp, norm_path)
         os.remove(temp)
-        if os.path.exists(temp):
+        if os.path.exists(temp)==True:
             raise Exception("Deleting temp file {0} failed".format(temp))
     except Exception as ex:
         raise Exception("File Error: {0}".format(ex))

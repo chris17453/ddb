@@ -34,6 +34,11 @@ def cli_main():
     else:
         home = expanduser("~")
         config_dir = os.path.join(os.path.join(home, '.ddb'))
+
+    # ddb always trys to create the config dir if non existant
+    if config_dir:
+        if os.path.exists(config_dir)==False:
+            os.mkdir(config_dir)
             
     
     
