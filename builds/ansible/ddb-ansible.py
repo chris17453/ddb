@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.826'
+__version__='1.2.827'
 
         
 # ############################################################################
@@ -2783,7 +2783,7 @@ class engine:
         self.internal['IN_TRANSACTION']=0
         self.database = database(config_dir=config_dir)
         self.current_database = self.database.get_default_database()
-        if config_dir=None:
+        if config_dir:
             queries=self.database.get_db_sql()
             logging.disabled = True
             if queries:
