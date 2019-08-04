@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.833'
+__version__='1.2.834'
 
         
 # ############################################################################
@@ -3872,6 +3872,7 @@ def method_drop_table(context, meta):
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
+        print ex
         return query_results(success=False,error=ex)
 
         
