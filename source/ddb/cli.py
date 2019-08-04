@@ -37,9 +37,13 @@ def cli_main():
 
     # ddb always trys to create the config dir if non existant
     if config_dir:
-        if os.path.exists(config_dir)==False:
-            os.mkdir(config_dir)
-            
+        try:
+            if os.path.exists(config_dir)==False:
+                os.mkdir(config_dir)
+        except Exception:
+            print("Can not create ddb data directory: {0}".format(config_dir))
+            exit(1)
+                
     
     
     
