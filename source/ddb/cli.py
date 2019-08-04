@@ -35,7 +35,7 @@ def cli_main():
     #    config_file = args.config
     # else:
     home = expanduser("~")
-    config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
+    config_dir = os.path.join(os.path.join(home, '.ddb'))
 
     if len(args.query)!=0 or not sys.stdin.isatty():
         #try:
@@ -48,7 +48,7 @@ def cli_main():
             else:
                 query=" ".join(args.query)
             #print (query)
-            e = engine( config_file=config_file, 
+            e = engine( config_dir=config_dir, 
                             debug=False, 
                             mode="full",
                             output='term',
@@ -75,7 +75,7 @@ def cli_main():
     else:
         # interactive session
         prompt = ddbPrompt()
-        prompt.set_vars(config_file=config_file,
+        prompt.set_vars(config_dir=config_dir,
                         debug=False)
         prompt.cmdloop_with_keyboard_interrupt()
 

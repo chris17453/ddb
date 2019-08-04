@@ -10,21 +10,10 @@ from ..file_io.locking import normalize_path
 class database:
     tables = []
 
-    def __init__(self, config_file=None):
-        self.curent_database = None
+    def __init__(self, config_dir=None):
         self.tables = []
-        self.config_file = None
-        is_file = False
-
-        if None != config_file and config_file != False:
-            self.config_file = config_file
-            # loads the config in a safe way
-            #self.reload_config()
-
-#    def set_database(self, database_name):
-#        # TODO validate database name
-#        self.curent_database = database_name
-# ***************************
+        self.curent_database = None
+        self.config_dir=config_dir
 
     def count(self):
         """Return a count ot tables in the database"""
@@ -51,7 +40,7 @@ class database:
                 return c
         return None
 
- def get_db_sql(self):
+    def get_db_sql(self):
         """Return a string of table creation queries"""
         temp_tables = self.get_sql_definition_paths()
         queries=[]

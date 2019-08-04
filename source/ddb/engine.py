@@ -75,13 +75,10 @@ class engine:
 
     
    
-    def __init__(self, config_file=None, query=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
-        if config_file is None:
-            home = os.path.expanduser("~")
-            config_file = os.path.join(os.path.join(home, '.ddb'), 'ddb.conf')
     
         self.debug = debug
         self.results = None
@@ -132,11 +129,11 @@ class engine:
         self.internal['IN_TRANSACTION']=0
         #try:        
             # print "Config",config_file
-        self.database = database(config_file=config_file)
+        self.database = database(config_dir=config_dir)
         self.current_database = self.database.get_default_database()
         # load tables
         # dont load empty stuff
-        if config_file!=False:
+        if config_dir=None:
             queries=self.database.get_db_sql()
             logging.disabled = True
             if queries:
@@ -145,8 +142,6 @@ class engine:
         #except Exception as ex:
         #    pass
 
-        if None != query:
-            self.query(query)
         
     # def set_configuration(self,database_instance):
     #    self.database=database
