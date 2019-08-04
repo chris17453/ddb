@@ -21,13 +21,13 @@ class test_engine(unittest.TestCase):
 
     def cleanup(self):
         # print ("#--->Fresh init")
-        config_file = os.path.join(self.basedir, self.temp_config)
-        if os.path.exists(config_file):
-           #print "Config file: {}".format(config_file)
-           os.remove(config_file)
-        #if os.path.exists(config_file):
-            #print("Still here")
-
+        
+        for file in os.listdir(self.config_dir):
+            if file.endswith(".table.sql"):
+                table_path=os.path.join(self.config_dir, file)
+                os.remove(table_path)
+           
+        
     def create_table(self,engine,mode):
         if mode=='SVN':
             repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(

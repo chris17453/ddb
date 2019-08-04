@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.831'
+__version__='1.2.832'
 
         
 # ############################################################################
@@ -2532,7 +2532,7 @@ class database:
         if not temporary:
             if None == self.config_dir:
                 raise Exception("Not using a config file")
-            config_directory = os.path.dirname(self.config_file)
+            config_directory = os.path.dirname(self.config_dir)
         else:
             config_directory = None
         t = table(  name=table_name,
