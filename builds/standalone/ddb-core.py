@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.828'
+__version__='1.2.829'
 
         
 # ############################################################################
@@ -2530,7 +2530,7 @@ class database:
                     err="Data file does not exist. {0}".format(normalize_path(data_file))
                     raise Exception(err)
         if not temporary:
-            if None == self.config_file:
+            if None == self.config_dir:
                 raise Exception("Not using a config file")
             config_directory = os.path.dirname(self.config_file)
         else:
