@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.841'
+__version__='1.2.842'
 
         
 # ############################################################################
@@ -5486,7 +5486,11 @@ def cli_main():
     parser.add_argument('query', help='query to return data', nargs= "*")
     args = parser.parse_args()
     if 'DDB_DATA' in os.environ:
-        config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
+        if not os.environ['DDB_DATA']:
+            home = expanduser("~")
+            config_dir = os.path.join(os.path.join(home, '.ddb'))
+        else:
+            config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
     else:
         home = expanduser("~")
         config_dir = os.path.join(os.path.join(home, '.ddb'))
