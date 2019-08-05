@@ -1,5 +1,8 @@
 import os
 import getpass
+import argparse
+from subprocess import Popen,PIPE
+
 username = getpass.getuser()
 
 
@@ -19,25 +22,32 @@ def try_bind(ddb_ip,ddb_port):
     try:
         s.bind((ddb_ip, ddb_port))
     except socket.error as e:
-    if e.errno == errno.EADDRINUSE:
-        print("Port is already in use: '{0}:{1}'".format(ddb_ip,ddb_port))
+        if e.errno == errno.EADDRINUSE:
+            print("Port is already in use: '{0}:{1}'".format(ddb_ip,ddb_port))
     else:
-        # something else raised the socket.error exception
         print(e)
 
     s.close()
 
-
+def get_ddb_cli():
+    cmd=["which","ddb-server"]
+    p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    output, err = p.communicate()
+    rc = p.returncode
+    if rc!=0:
+        raise Exception("ddb not found in the local path")
+    return output.strip()
 
 def install_service(ddb_ip,ddb_port):
     try:
         if os.path.exists(path)==False:
-            os.mkdir(path)
+            os.makedirs(path)
+        cli_path=get_ddb_cli()
 
         service_template="""
 [Unit]
 Description=delimited database (ddb) service for user {0}
-After=multi-user.target
+After=network.target
 
 [Service]
 Environment=PYTHONUNBUFFERED=1
@@ -46,19 +56,20 @@ RestartSec=2
 Type=notify
 Environment=DDB_DATA='{1}'
 Environment=DDB_PORT='{2}'
-ExecStartddb-server start
-ExecStop=ddb-server stop
-ExecReload=ddb-server restart
+ExecStart={3} start
+#ExecStop={3} stop
+#ExecReload={3} restart
 
 [Install]
 WantedBy=default.target
-    """.format(username,user_data_dir,ddb_port)
+    """.format(username,user_data_dir,ddb_port,cli_path)
         with open(service_path,"w",) as service:
             service.write(service_template)
-        os.chmod(service_path, 644)
+        os.chmod(service_path, 0644)
 
         restart_systemd()
-    except Exception:
+    except Exception as ex:
+        print ex
         print("Failed to init ddb service for user")
         exit(1)
 
@@ -72,25 +83,26 @@ def remove_service():
         exit(1)
 
 def restart_systemd():
-    os.exec
+    print ("You need to do a  ")
+    print ("  #systemctl ddb.service {0}".format(service_path))
+    print ("  #systemctl daemon-reload")
 
 def cli_main():
     parser = argparse.ArgumentParser("ddb-service", usage='%(prog)s [options]', description="""flat file database access""", epilog="And that's how you ddb")
 
-    parser.add_argument('--install' , help='install the service to the user systemd directory'), action='store_true')
-    parser.add_argument('--remove'  , help='remove  the service from the user systemd directory'),action='store_true')
-    parser.add_argument('--ip'      , help='the ip to bind to: Default "{0}"'.format(default_ddb_ip), default=default_ddb_ip)
-    parser.add_argument('--port'    , help='the port to bind to: Default "{0}"'.format(default_ddb_port), default=default_ddb_port)
+    parser.add_argument('action'    , help='[ install | remove ] the user service'                         , nargs='?')
+    parser.add_argument('--ip'      , help='the ip to bind to: Default "{0}"'.format(default_ddb_ip)       , default=default_ddb_ip)
+    parser.add_argument('--port'    , help='the port to bind to: Default "{0}"'.format(default_ddb_port)   , default=default_ddb_port)
 
     
     args = parser.parse_args()
     
     ddb_ip  =args.ip
     ddb_port=args.port
-    if args.install==True:
+    if args.action=='install':
         install_service(ddb_ip,ddb_port)
     
-    if args.remove==True:
+    if args.action=='remove':
         remove_service()
     
 

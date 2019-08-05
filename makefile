@@ -111,9 +111,9 @@ upload:
 	@pipenv run twine upload  builds/pypi/*.gz
 
 install: uninstall
-
-	pip install builds/pypi/ddb*.gz --user
-
+	pip install source/. --user
+install-build:
+	pip install builds/pypi/ddb*.gz  --user
 uninstall:
 	pip uninstall ddb -y
 
