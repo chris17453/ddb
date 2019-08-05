@@ -114,6 +114,7 @@ setup(
         [console_scripts]
         ddb = ddb.cli:cli_main
         ddb-pipes = ddb.pipes:cli_main
+        ddb-server = ddb.server:cli_main
         ddb-service = ddb.service:cli_main
         """,
     compiler_directives={"language_level": "2"},
