@@ -6,7 +6,6 @@ import signal
 import threading
 import logging
 from subprocess import Popen,PIPE
-import systemd.daemon
 from flask import Flask, request,send_from_directory, render_template, Blueprint
 import jsonpickle
 import ddb
@@ -26,7 +25,8 @@ def home():
 def fetch():
     e=ddb.engine(config_dir=ddb_config_dir,mode='array',debug=None)
     try:
-        res=e.query(req_data['query'])
+        
+        res=e.query(req_data['sp'])
         serialized = jsonpickle.encode( res,
                                         unpicklable=False,
                                         make_refs=False)
@@ -34,8 +34,17 @@ def fetch():
     except Exception as ex:
         return "{0} -> '{1}'".format(ex,req_data['query'])
 
-
-
+@app.route('/ddb/api/query', methods=['POST'])
+def fetch():
+    e=ddb.engine(config_dir=ddb_config_dir,mode='array',debug=None)
+    try:
+        res=e.query(req_data['query'])
+        serialized = jsonpickle.encode( res,
+                                        unpicklable=False,
+                                        make_refs=False)
+        return serialized
+    except Exception as ex:
+        return "{0} -> '{1}'".format(ex,req_data['query'])
 
 
 def cli_main():
@@ -64,7 +73,6 @@ def cli_main():
         ddb_config_dir= os.path.join(os.path.join(home, '.ddb'))
 
     app.run(host=ddb_ip,port=ddb_port)
-
 
 
 if __name__ == '__main__':

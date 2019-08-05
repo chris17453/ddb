@@ -2,6 +2,7 @@ import os
 import getpass
 import argparse
 from subprocess import Popen,PIPE
+import ddb
 
 username = getpass.getuser()
 
@@ -30,6 +31,9 @@ def try_bind(ddb_ip,ddb_port):
     s.close()
 
 def get_ddb_cli():
+    t_path=os.path.dirname(ddb.__file__)
+    include_directory =os.path.abspath(os.path.join(t_path,os.pardir))
+    print ( include_directory)
     cmd=["which","ddb-server"]
     p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
@@ -53,12 +57,14 @@ After=network.target
 Environment=PYTHONUNBUFFERED=1
 Restart=on-failure
 RestartSec=2
-Type=notify
+Type=idle
 Environment=DDB_DATA='{1}'
 Environment=DDB_PORT='{2}'
 ExecStart={3} start
 #ExecStop={3} stop
 #ExecReload={3} restart
+PrivateTmp=true
+NoNewPrivileges=true
 
 [Install]
 WantedBy=default.target
@@ -84,8 +90,11 @@ def remove_service():
 
 def restart_systemd():
     print ("You need to do a  ")
-    print ("  #systemctl ddb.service {0}".format(service_path))
-    print ("  #systemctl daemon-reload")
+    print ("  # systemctl --user enable {0}".format(service_path))
+    print ("  # systemctl daemon-reload")
+    print ("  # systemctl --user ddb start")
+    print ("  #    if you want the service to run after logout for this user enable linger....")
+    print ("  # loginctl enable-linger {0}".format(username)
 
 def cli_main():
     parser = argparse.ArgumentParser("ddb-service", usage='%(prog)s [options]', description="""flat file database access""", epilog="And that's how you ddb")
