@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.846'
+__version__='1.2.847'
 
         
 # ############################################################################
@@ -1811,7 +1811,7 @@ class meta:
         source               = _source()
         delimiter            = None        # optional 
         mode                 = None        # optional 
-        file                 = None
+        file                 = None        # optional 
         columns              = []          #          _columns()
         comments             = None        # optional 
         def __init__(self,so):
