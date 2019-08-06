@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.851'
+__version__='1.2.852'
 
         
 # ############################################################################
@@ -394,12 +394,7 @@ language={'commands': [{'name': 'show columns',
                              'depends_on':'update header'
                              }]},
               {'name': 'use table',
-               'segments': [{'data': [{'signature': ['use',
-                                               '{table}']},
-                                      {'signature': ['use',
-                                               '{database}',
-                                               '.',
-                                               '{table}']}],
+               'segments': [{'data': [{'signature': ['use','{database}']} ],
                              'name': 'source'}]},
               {'name': 'drop table',
                'segments': [{'data': [{'signature': ['drop',
@@ -1754,17 +1749,9 @@ class meta:
         def debug(self):
             meta.debugger(self,'upsert')
     class use_table:
-        class _source:
-            __slots__=()
-            table = None
-            database = None
-            def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
-        source               = _source()
+        database             = None
         def __init__(self,so):
-                if meta.gv(so,['meta','source']):
-                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                self.database = meta.gv(so,['meta','source','database'])
         def debug(self):
             meta.debugger(self,'use table')
     class drop_table:
@@ -3787,8 +3774,7 @@ def method_upsert(context, meta,query_object,main_meta):
 def method_use(context, meta):
     context.info("Use")
     try:
-        table=get_table(context,meta)
-        target_db=table.data.database
+        target_db=meta.source.database
         temp_table = context.database.temp_table()
         temp_table.add_column('changed_db')
         data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
