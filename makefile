@@ -97,6 +97,7 @@ svn_start:
 build: svn_start meta bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
+
 	@python $(conf_dir)/build.py
 	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
 	
@@ -118,6 +119,7 @@ uninstall:
 	pip uninstall ddb -y
 
 meta:
+	@cp source/ddb/lexer/language.py tools/language.py
 	@python -m tools.generate_meta_class >source/ddb/meta/meta.py
 big_data:
 	@python  tools/generate_data.py>test/data/MOCK_DATA_LARGE.csv

@@ -1,8 +1,7 @@
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from source.ddb.lexer.language import language
+from language import language
 from .data import meta_str, get_data, variable_def,init,debug,sub_class, template_add, template_get
 
 # meta file header
