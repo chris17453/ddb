@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.853'
+__version__='1.2.854'
 
         
 # ############################################################################
@@ -394,7 +394,7 @@ language={'commands': [{'name': 'show columns',
                              'name': 'set',
                              'depends_on':'update header'
                              }]},
-              {'name': 'use table',
+              {'name': 'use',
                'segments': [{'data': [{'signature': ['use','{database}']} ],
                              'name': 'source'}]},
               {'name': 'drop table',
@@ -1749,12 +1749,12 @@ class meta:
                         self.on_duplicate_key.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
         def debug(self):
             meta.debugger(self,'upsert')
-    class use_table:
+    class use:
         database             = None
         def __init__(self,so):
                 self.database = meta.gv(so,['meta','source','database'])
         def debug(self):
-            meta.debugger(self,'use table')
+            meta.debugger(self,'use')
     class drop_table:
         class _source:
             __slots__=()
@@ -1902,7 +1902,7 @@ class meta:
         elif o['mode']=='insert': return self.insert(o)
         elif o['mode']=='update': return self.update(o)
         elif o['mode']=='upsert': return self.upsert(o)
-        elif o['mode']=='use table': return self.use_table(o)
+        elif o['mode']=='use': return self.use(o)
         elif o['mode']=='drop table': return self.drop_table(o)
         elif o['mode']=='create table': return self.create_table(o)
         elif o['mode']=='update table': return self.update_table(o)

@@ -230,7 +230,7 @@ class engine:
                 self.results = method_delete(self,meta_class)
 
             # TABLE 
-            elif mode == 'use table':
+            elif mode == 'use':
                 self.results = method_use(self,meta_class)
 
             elif mode == 'drop table' and self.internal['READONLY']==None:
