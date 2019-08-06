@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.854'
+__version__='1.2.855'
 
         
 # ############################################################################
@@ -2744,7 +2744,7 @@ class engine:
                 self.results = method_upsert(self,meta_class,query_object,meta)
             elif mode == 'delete' and self.internal['READONLY']==None:
                 self.results = method_delete(self,meta_class)
-            elif mode == 'use table':
+            elif mode == 'use':
                 self.results = method_use(self,meta_class)
             elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,meta_class)

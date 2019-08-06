@@ -5,7 +5,7 @@ from .record_core import query_results, get_table
 def method_use(context, meta):
     context.info("Use")
     try:
-        target_db=meta.source.database
+        target_db=meta.database
 
         temp_table = context.database.temp_table()
         temp_table.add_column('changed_db')
