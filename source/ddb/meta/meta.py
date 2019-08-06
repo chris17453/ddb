@@ -754,7 +754,7 @@ class meta:
         source               = _source()
         delimiter            = None        # optional 
         mode                 = None        # optional 
-        file                 = None
+        file                 = None        # optional 
         columns              = []          #          _columns()
         comments             = None        # optional 
     

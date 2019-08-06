@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.845'
+__version__='1.2.846'
 
         
 # ############################################################################
@@ -432,6 +432,7 @@ language={'commands': [{'name': 'show columns',
                             {'data': [{'signature': ['file', '=', '{file}']}],
                              'specs': {'file': {'default': None,'type': 'string'}},
                              'name': 'file',
+                             'optional': True,
                              'type': 'single'},
                             {'data': [{'signature': ['fifo', '=', '{fifo}']}],
                              'name': 'fifo',
