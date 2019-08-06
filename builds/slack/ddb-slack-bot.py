@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.848'
+__version__='1.2.849'
 
         
 # ############################################################################
@@ -455,6 +455,7 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git']}},
                              'name': 'repo',
                              'optional': True,
+                              'type': 'array'
                              },
                             {'data': [{'signature': ['mode',
                                                '=',
