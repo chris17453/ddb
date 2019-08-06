@@ -434,6 +434,7 @@ language={'commands': [{'name': 'show columns',
                              'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git']}},
                              'name': 'repo',
                              'optional': True,
+                              'type': 'array'
                              },
                             {'data': [{'signature': ['mode',
                                                '=',
