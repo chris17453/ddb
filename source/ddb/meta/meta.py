@@ -666,23 +666,13 @@ class meta:
             meta.debugger(self,'upsert')
     # ****
     class use_table:
-    
-        class _source:
-            __slots__=()
-            table = None
-            database = None
-    
-            def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
         #variable_def
     
         #variable_class_def
-        source               = _source()
+        database             = None
     
         def __init__(self,so):
-                if meta.gv(so,['meta','source']):
-                    self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
+                self.database = meta.gv(so,['meta','source','database'])
         def debug(self):
             meta.debugger(self,'use table')
     # ****
