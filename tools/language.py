@@ -372,7 +372,7 @@ language={'commands': [{'name': 'show columns',
                              'depends_on':'update header'
                              
                              }]},
-              {'name': 'use table',
+              {'name': 'use',
                'segments': [{'data': [{'signature': ['use','{database}']} ],
                              'name': 'source'}]},
               {'name': 'drop table',

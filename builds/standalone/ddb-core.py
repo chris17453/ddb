@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.852'
+__version__='1.2.853'
 
         
 # ############################################################################
@@ -3774,6 +3774,7 @@ def method_use(context, meta):
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        print (ex)
         return query_results(success=False,error=ex)
         
 # ############################################################################
