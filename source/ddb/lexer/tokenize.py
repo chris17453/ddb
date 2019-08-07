@@ -131,7 +131,7 @@ class tokenizer:
         if self.debug==True:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("  -{0}-{1}".format(t['data'],t['type']) )
+                self.info("  -{0}     -{1}".format(t['data'],t['type']) )
             self.info("-[End-Tokens]------------")     
 
         return tokens
@@ -175,4 +175,4 @@ class tokenizer:
 
 
 #t=tokenizer()
-#t.chomp("select * from sam('bob whats up', 'aaa','ccc','vvv','ffdd') limit 10")
+#t.chomp("create temporary table etmeta.addresses2      (node,hostname,interface,ip,network,defaultroute,'routeset','MAC','link_setting') repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd]/Funhouse/etmeta' repo_file='addresses.2' delimiter=':';",debug=True)
