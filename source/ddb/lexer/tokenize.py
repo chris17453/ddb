@@ -128,7 +128,7 @@ class tokenizer:
                 fragment = text[c:c + delimter_len]
                 if (fragment== d and fragment is not None):
 
-                    token=self.get_token(self,text,c,d,block)
+                    token=self.get_token(self,text,c,d,block,word_start)
                     tokens.append(token)
 
                     self.info("After Data Append, Position", c, 'of', text_length)
@@ -158,7 +158,7 @@ class tokenizer:
 
                     break
             if c==text_length-1:
-                tokens.append(self.get_token(self,text,c,'',block))
+                tokens.append(self.get_token(self,text,c,'',block,word_start))
             c += delimter_len
         self.debug_on=True
         if True == self.debug_on:
@@ -169,7 +169,7 @@ class tokenizer:
         return tokens
 
 
-    def get_token(self,text,c,d,block):
+    def get_token(self,text,c,d,block,word_start):
         delimter_len = len(d)   
         text_length=len(text)
         if c >= text_length - 1:
@@ -183,6 +183,7 @@ class tokenizer:
                 self.info("Delemiter found, end of string", c, fragment)
             else:    
                 self.info("Delemiter found", c, fragment)
+            
             if c - word_start > 0:
                 self.info("Data word found", c - word_start)
                 word_end = c
