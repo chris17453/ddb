@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.890'
+__version__='1.2.891'
 
         
 # ############################################################################
@@ -1172,6 +1172,9 @@ class tokenizer:
                     end_of_string=None
                 if (fragment== d and fragment is not None) or end_of_string:
                     if end_of_string:
+                        if fragment!=d:
+                            fragment=None
+                            c+=1
                         self.info("Delemiter found, end of string", c, fragment)
                     else:    
                         self.info("Delemiter found", c, fragment)
