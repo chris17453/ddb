@@ -72,7 +72,7 @@ class tokenizer:
                         block_left =text[in_block]
                         block_right=text[string_index]
                         in_block=None
-                        if word!='':
+                        if True != discard_whitespace or word not whitespace:
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
 
@@ -83,7 +83,7 @@ class tokenizer:
                     if self.compare(text,string_index,block[0]):
                         print "in block"
                         in_block=string_index
-                        if word!='':
+                        if True != discard_whitespace or word not whitespace:
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
@@ -95,7 +95,8 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
+                            if True != discard_whitespace or word not whitespace:
+                                tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         
                         delimiter_type = "delimiter"
