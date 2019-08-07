@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.899'
+__version__='1.2.900'
 
         
 # ############################################################################
@@ -1253,7 +1253,7 @@ class tokenizer:
             for d in delimiters_sorted:
                 fragment = text[c:c + delimter_len]
                 if (fragment== d and fragment is not None):
-                    token=self.get_token(self,text,c,d,block,word_start)
+                    token=self.get_token(text,c,d,block,word_start)
                     tokens.append(token)
                     self.info("After Data Append, Position", c, 'of', text_length)
                     word_start = c + delimter_len
@@ -1271,7 +1271,7 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
                     break
             if c==text_length-1:
-                tokens.append(self.get_token(self,text,c,'',block,word_start))
+                tokens.append(self.get_token(text,c,'',block,word_start))
             c += delimter_len
         self.debug_on=True
         if True == self.debug_on:
