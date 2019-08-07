@@ -208,7 +208,7 @@ class tokenizer:
                     block_type = None
                 self.info("POSITION", c, not_delimiter)
            
-           return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
+            return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
         return None
 
     def compare_text_fragment(self,x, y):
