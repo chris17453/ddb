@@ -5,7 +5,7 @@
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = debug
+        self.debug_on = None
         tokens = []
 
         # clean leading and trailiong stuff
@@ -103,14 +103,12 @@ class tokenizer:
                         self.info("IN BLOCK", c)
                         break
                 # check for block end
-                else:
-                    if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
-                        just_crossed_block = True
-                        self.info("NOT IN BLOCK", c)
-                        in_block = None
-                        block=None
-                        c += delimter_len
-                        break
+                if (fragment== b[1] and fragment is not None) or c >= text_length - 1:
+                    just_crossed_block = True
+                    self.info("NOT IN BLOCK", c)
+                    in_block = None
+                    c += delimter_len
+                    break
             # skip stuff in block
             if in_block  is not None:
                 self.info("in block skip")
@@ -194,11 +192,11 @@ class tokenizer:
 
                     break
             c += delimter_len
-
+        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info(t)
+                self.info("{0}-{1}-{2}".format(t['block_left'],t['data'],t['block_left']) )
             self.info("-[End-Tokens]------------")
         return tokens
 

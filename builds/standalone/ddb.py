@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.861'
+__version__='1.2.862'
 
         
 # ############################################################################
@@ -1084,7 +1084,7 @@ class lexer:
 
 class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = None
+        self.debug_on = debug
         tokens = []
         text = text.strip()
         whitespace = [' ', '\t', '\n', '\r' ]
@@ -1210,7 +1210,6 @@ class tokenizer:
             for t in tokens:
                 self.info(t)
             self.info("-[End-Tokens]------------")
-        print tokens
         return tokens
     def compare_text_fragment(self,x, y):
         if None == x or None == y:
