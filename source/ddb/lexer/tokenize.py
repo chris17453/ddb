@@ -156,7 +156,7 @@ class tokenizer:
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
                             not_delimiter = text[word_start:word_end]
-                            fragment=None
+                            
                         else:
                             not_delimiter = text[word_start:word_end]
                         
