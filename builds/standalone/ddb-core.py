@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.902'
+__version__='1.2.903'
 
         
 # ############################################################################
@@ -1076,161 +1076,98 @@ class lexer:
 # ############################################################################
 
 class tokenizer:
-    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = True
-        tokens = []
-        text = text.strip()
-        whitespace = [' ', '\t', '\n', '\r' ]
-        blocks = [
-            ['\'', '\'', 'quote'],   # string block
-            ['"' , '"' , 'quote'],   # string block
-            ['[' , ']' , 'db'],   # mssql column
-            ['`' , '`' , 'db'],   # mysql column
-        ]
-        operators = [
-            '&&',  # and short circuit
-            '||',  # or short circuit
-            '!=',  # Not Equal
-            '<>',  # Not Equal
-            '<=',  # Less than or equal
-            '>=',  # Greater thanbor equal
-            '>',  # Greater than
-            '<',  # Less than
-            '=',  # Equality
-            '&',  # and
-            '!',  # not
-            '|',  # or
-            '+',  # addition
-            '-',  # subtraction
-            '/',  # divide
-            '*',  # multiple
-            '(',  # left paren   (grouping)
-            ')',  # right paren  (grouping)
-        ]
-        delimiters = [',', '.', ';']
-        for token in whitespace:
-            delimiters.append(token)
-        for token in operators:
-            delimiters.append(token)
-        for b in blocks:
-            if b[0] not in delimiters:
-                delimiters.append(b[0])
-            if b[1] not in delimiters:
-                delimiters.append(b[1])
-        delimiters_sorted = self.sort_array_by_length(delimiters)
-        text_length = len(text)
-        word_start = 0
-        tokens = []
-        c = 0
-        delimter_len = 1
-        in_block = None
-        block = None
-        while c < text_length:
-            self.info("-", c)
-            just_crossed_block = False
-            for b in blocks:
-                fragment = text[c]
-                if None == in_block:
-                    if fragment==b[0] and fragment is not None:
-                        just_crossed_block = True
-                        self.info("IN BLOCK", c)
-                        in_block = b
-                        block = b
-                        c += 1
-                        self.info("IN BLOCK", c)
-                        break
-                else:
-                    if block:
-                        if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
-                            just_crossed_block = True
-                            self.info("NOT IN BLOCK", c)
-                            in_block = None
-                            c += 1
+    def chomp(self,text):
+            self.debug_on = True
+            tokens = []
+            text = text.strip()
+            whitespace = [' ', '\t', '\n', '\r' ]
+            blocks = [
+                ['\'', '\'', 'quote'],   # string block
+                ['"' , '"' , 'quote'],   # string block
+            ]
+            operators = [
+                '&&',  # and short circuit
+                '||',  # or short circuit
+                '!=',  # Not Equal
+                '<>',  # Not Equal
+                '<=',  # Less than or equal
+                '>=',  # Greater thanbor equal
+                '>',  # Greater than
+                '<',  # Less than
+                '=',  # Equality
+                '&',  # and
+                '!',  # not
+                '|',  # or
+                '+',  # addition
+                '-',  # subtraction
+                '/',  # divide
+                '*',  # multiple
+                '(',  # left paren   (grouping)
+                ')',  # right paren  (grouping)
+            ]
+            delimiters = [',', '.', ';']
+            for token in whitespace:
+                delimiters.append(token)
+            for token in operators:
+                delimiters.append(token)
+            string_index=0
+            text_length=len(text)
+            word=""
+            in_block=None
+            while string_index<text_length:
+                print  text[string_index],string_index
+                for block in blocks:
+                    if in_block:
+                        if self.compare(text,string_index,block[1]):
+                            print "out block"
+                            string_index+=len(block[1])
+                            block_word =text[in_block:string_index]
+                            block_left =text[in_block]
+                            block_right=text[string_index]
+                            in_block=None
+                            if word!='':
+                                tokens.append({'block_left':None,'block_right':None,'data':word})
+                                word=''
+                            tokens.append({'block_left':block_left,'block_right':block_right,'data':block_word})
                             break
-            if in_block  is not None:
-                self.info("in block skip")
-                if not just_crossed_block:
-                    c += 1
-                continue
-            self.info("position1", c, text_length)
-            if c > text_length:
-                self.info("Greater than length of text. exiting")
-                break
-            for d in delimiters_sorted:
-                fragment = text[c:c + delimter_len]
-                if (fragment== d and fragment is not None):
-                    token=self.get_token(text,c,d,block,word_start)
-                    tokens.append(token)
-                    self.info("After Data Append, Position", c, 'of', text_length)
-                    word_start = c + delimter_len
-                    if not fragment or fragment == '':
-                        break
-                    if True == discard_whitespace and fragment in whitespace:
-                        break
-                    delimiter_type = "delimiter"
-                    if fragment in operators:
-                        delimiter_type = 'operator'
                     else:
-                        if fragment in whitespace:
-                            delimiter_type = 'whitespace'
-                    self.info("delemiter c/fragment- ", c, fragment)
-                    tokens.append({'type': delimiter_type, 'data': fragment.lower()})
-                    break
-            if c==text_length-1:
-                tokens.append(self.get_token(text,c,'',block,word_start))
-            c += delimter_len
-        self.debug_on=True
-        if True == self.debug_on:
+                        if self.compare(text,string_index,block[0]):
+                            print "in block"
+                            in_block=string_index
+                            if word!='':
+                                tokens.append({'block_left':None,'block_right':None,'data':word})
+                                word=''
+                            break
+                if not in_block:
+                    found=None
+                    for delimiter in delimiters:
+                        if self.compare(text,string_index,delimiter):
+                            print "delimiter -{0}-".format(delimiter)
+                            if word!='':
+                                tokens.append({'block_left':None,'block_right':None,'data':word})
+                                word=''
+                            tokens.append({'block_left':None,'block_right':None,'data':delimiter})
+                            string_index+=len(delimiter)
+                            found=True
+                            break
+                    if found:    
+                        continue
+                    word+=text[string_index]
+                string_index+=1
+            if word!='':
+                tokens.append({'block_left':None,'block_right':None,'data':word})
+                word=''
+            print ("DONE")
             self.info("-[Tokens]----------------")
             for t in tokens:
                 self.info("  -{0}".format(t['data']) )
-            self.info("-[End-Tokens]------------")
-        return tokens
-    def get_token(self,text,c,d,block,word_start):
-        delimter_len = len(d)   
-        fragment = text[c:c + delimter_len]
-        text_length=len(text)
-        if c >= text_length - 1:
-            end_of_string=True
-        else:
-            end_of_string=None
-        if end_of_string:
-            if fragment!=d:
-                c+=1
-                fragment=None
-            self.info("Delemiter found, end of string", c, fragment)
-        else:    
-            self.info("Delemiter found", c, fragment)
-        if c - word_start > 0:
-            self.info("Data word found", c - word_start)
-            word_end = c
-            if word_end >= text_length-1:
-                self.info("word ends on last character", word_end, text_length)
-                not_delimiter = text[word_start:word_end]
-            else:
-                not_delimiter = text[word_start:word_end]
-            token_type = 'data'
-            if block is not None:
-                self.info("HAS BLOCK")
-                block_left = block[0]
-                block_right = block[1]
-                block_type = block[2]
-                block = None
-                not_delimiter = not_delimiter[len(block_left):-len(block_right)]
-            else:
-                self.info("NO  BLOCK")
-                block_left = None
-                block_right = None
-                block_type = None
-            self.info("POSITION", c, not_delimiter)
-            return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
-        return None
-    def compare_text_fragment(self,x, y):
-        if None == x or None == y:
-            return False
-        if x == y:
+            self.info("-[End-Tokens]------------")     
+    def compare(self,text,string_index,fragment):
+        comparitor=fragment
+        comparitor_len=len(comparitor)
+        if text[string_index:string_index+comparitor_len]==comparitor:
             return True
-        return False
+        return None
     def sort_array_by_length(self,data):
         max_len = -1
         for d in data:
@@ -1246,17 +1183,14 @@ class tokenizer:
         return data
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug_on:
-            if arg3 is None and arg2 is None:
-                print("{0} {1}".format(msg, arg1))
-                return
-            if arg3 is None:
-                print("{0} {1} {2}".format(msg, arg1, arg2))
+            if arg1 is None:
+                print("{0}".format(msg))
                 return
             if arg2 is None:
                 print("{0} {1}".format(msg, arg1))
                 return
-            if arg1 is None:
-                print("{0}".format(msg))
+            if arg3 is None:
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
             print("[{0}]".format(msg))
 
