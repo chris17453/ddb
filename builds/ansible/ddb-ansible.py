@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.885'
+__version__='1.2.886'
 
         
 # ############################################################################
@@ -1253,8 +1253,12 @@ class tokenizer:
             for d in delimiters_sorted:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                if (fragment== d and fragment is not None) or c >= text_length - 1:
-                    if c >= text_length - 1:
+                if c >= text_length - 1:
+                    end_of_string=True
+                else:
+                    end_of_string=None
+                if (fragment== d and fragment is not None) or end_of_string:
+                    if end_of_string:
                         self.info("Delemiter found, end of string", c, fragment)
                     else:    
                         self.info("Delemiter found", c, fragment)
@@ -1264,9 +1268,9 @@ class tokenizer:
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
                             not_delimiter = text[word_start:]
+                            fragment=None
                         else:
                             not_delimiter = text[word_start:word_end]
-                        print not_delimiter
                         token_type = 'data'
                         if block is not None:
                             self.info("HAS BLOCK")
