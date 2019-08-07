@@ -237,6 +237,9 @@ class tokenizer:
             if arg2 is None:
                 print("{0} {1}".format(msg, arg1))
                 return
+            if arg1 is None:
+                print("{0}".format(msg))
+                return
 
             print("[{0}]".format(msg))
 
