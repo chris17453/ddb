@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.891'
+__version__='1.2.892'
 
         
 # ############################################################################
@@ -1167,7 +1167,6 @@ class tokenizer:
                     if end_of_string:
                         if fragment!=d:
                             fragment=None
-                            c+=1
                         self.info("Delemiter found, end of string", c, fragment)
                     else:    
                         self.info("Delemiter found", c, fragment)
