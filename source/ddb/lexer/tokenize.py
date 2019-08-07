@@ -193,10 +193,11 @@ class tokenizer:
 
                     break
             c += delimter_len
+        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("-{0}-".format(t['data']) )
+                self.info("  -{0}".format(t['data']) )
             self.info("-[End-Tokens]------------")
         return tokens
 
