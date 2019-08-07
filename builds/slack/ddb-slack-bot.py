@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.866'
+__version__='1.2.867'
 
         
 # ############################################################################
@@ -946,7 +946,7 @@ class lexer:
         for index in range(0,len(tokens)):
             if index==token_index:
                 query_err.append(" >>> ")    
-                query_err.append(tokens[index]['data'])
+                query_err.append('{0}'.format(tokens[index]['data']))
                 query_err.append(" <<< ")    
             else:
                 query_err.append(tokens[index]['data'])
@@ -1205,7 +1205,6 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
                     break
             c += delimter_len
-        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
