@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.909'
+__version__='1.2.910'
 
         
 # ############################################################################
@@ -1174,7 +1174,7 @@ class tokenizer:
         print ("DONE")
         self.info("-[Tokens]----------------")
         for t in tokens:
-            self.info("  -{0}".format(t['data']) )
+            self.info("  -{0}-{1}".format(t['data'],t['tyoe']) )
         self.info("-[End-Tokens]------------")     
     def compare(self,text,string_index,fragment):
         comparitor=fragment
