@@ -456,5 +456,5 @@ if __name__ == '__main__':
 
 
 
-    create temporary table etmeta.test2           ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/chris17453/ddb/test/svn_test/MOCK_DATA.csv' repo='svn' url='http://localhost/svn/SampleProject/' user='user' password='password' repo_dir='/home/nd/chris17453/ddb/test/svn_test' repo_file='MOCK_DATA.csv'
-    create temporary table etmeta.addresses2      ('node','hostname','interface','ip','network','defaultroute','routeset','MAC','link_setting')  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd/Funhouse/etmeta' repo_file='addresses.2' 
+    #create temporary table etmeta.test2           ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/chris17453/ddb/test/svn_test/MOCK_DATA.csv' repo='svn' url='http://localhost/svn/SampleProject/' user='user' password='password' repo_dir='/home/nd/chris17453/ddb/test/svn_test' repo_file='MOCK_DATA.csv'
+    #create temporary table etmeta.addresses2      ('node','hostname','interface','ip','network','defaultroute','routeset','MAC','link_setting')  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd/Funhouse/etmeta' repo_file='addresses.2' 
