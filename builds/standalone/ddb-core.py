@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.855'
+__version__='1.2.856'
 
         
 # ############################################################################
@@ -3767,7 +3767,7 @@ def method_upsert(context, meta,query_object,main_meta):
 def method_use(context, meta):
     context.info("Use")
     try:
-        target_db=meta.source.database
+        target_db=meta.database
         temp_table = context.database.temp_table()
         temp_table.add_column('changed_db')
         data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
