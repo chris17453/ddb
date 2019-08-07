@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.904'
+__version__='1.2.905'
 
         
 # ############################################################################
@@ -1220,16 +1220,16 @@ class tokenizer:
                         block_right=text[string_index]
                         in_block=None
                         if word!='':
-                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
-                        tokens.append({'block_left':block_left,'block_right':block_right,'data':block_word})
+                        tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
                         break
                 else:
                     if self.compare(text,string_index,block[0]):
                         print "in block"
                         in_block=string_index
                         if word!='':
-                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
             if not in_block:
@@ -1238,9 +1238,15 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            tokens.append({'type':'data',block_left':None,'block_right':None,'data':word})
                             word=''
-                        tokens.append({'block_left':None,'block_right':None,'data':delimiter})
+                         delimiter_type = "delimiter"
+                        if delimiter in operators:
+                            delimiter_type = 'operator'
+                        else:
+                            if delimiter in whitespace:
+                                delimiter_type = 'whitespace'
+                        tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
                         string_index+=len(delimiter)
                         found=True
                         break
