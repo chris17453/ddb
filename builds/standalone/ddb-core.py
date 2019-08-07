@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.863'
+__version__='1.2.864'
 
         
 # ############################################################################
@@ -1200,7 +1200,7 @@ class tokenizer:
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("{0}-{1}-{2}".format(t['block_left'],t['data'],t['block_left']) )
+                self.info("-{0}-".format(t['data']) )
             self.info("-[End-Tokens]------------")
         return tokens
     def compare_text_fragment(self,x, y):
