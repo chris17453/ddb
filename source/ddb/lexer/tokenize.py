@@ -5,7 +5,7 @@
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = None
+        self.debug_on = debug
         tokens = []
 
         # clean leading and trailiong stuff
@@ -200,7 +200,6 @@ class tokenizer:
             for t in tokens:
                 self.info(t)
             self.info("-[End-Tokens]------------")
-        print tokens
         return tokens
 
 
