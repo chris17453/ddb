@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.862'
+__version__='1.2.863'
 
         
 # ############################################################################
@@ -1077,7 +1077,7 @@ class lexer:
 
 class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = debug
+        self.debug_on = None
         tokens = []
         text = text.strip()
         whitespace = [' ', '\t', '\n', '\r' ]
@@ -1140,14 +1140,12 @@ class tokenizer:
                         c += delimter_len
                         self.info("IN BLOCK", c)
                         break
-                else:
-                    if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
-                        just_crossed_block = True
-                        self.info("NOT IN BLOCK", c)
-                        in_block = None
-                        block=None
-                        c += delimter_len
-                        break
+                if (fragment== b[1] and fragment is not None) or c >= text_length - 1:
+                    just_crossed_block = True
+                    self.info("NOT IN BLOCK", c)
+                    in_block = None
+                    c += delimter_len
+                    break
             if in_block  is not None:
                 self.info("in block skip")
                 if not just_crossed_block:
@@ -1198,10 +1196,11 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
                     break
             c += delimter_len
+        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info(t)
+                self.info("{0}-{1}-{2}".format(t['block_left'],t['data'],t['block_left']) )
             self.info("-[End-Tokens]------------")
         return tokens
     def compare_text_fragment(self,x, y):
