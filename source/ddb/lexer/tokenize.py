@@ -149,7 +149,6 @@ class tokenizer:
                     if end_of_string:
                         if fragment!=d:
                             fragment=None
-                            c+=1
                         self.info("Delemiter found, end of string", c, fragment)
                     else:    
                         self.info("Delemiter found", c, fragment)
