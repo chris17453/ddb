@@ -5,7 +5,7 @@
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = True
+        self.debug_on = None
         tokens = []
 
         # clean leading and trailiong stuff
@@ -155,7 +155,7 @@ class tokenizer:
                         word_end = c
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
-                            not_delimiter = text[word_start:]
+                            not_delimiter = text[word_start:word_end]
                             fragment=None
                         else:
                             not_delimiter = text[word_start:word_end]
