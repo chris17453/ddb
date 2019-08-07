@@ -5,7 +5,7 @@
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = True
+        self.debug = debug
         tokens = []
 
         # clean leading and trailiong stuff
@@ -127,7 +127,7 @@ class tokenizer:
             for t in tokens:
                 self.info("  -{0}-{1}".format(t['data'],t['type']) )
             self.info("-[End-Tokens]------------")     
-            
+
         return tokens
     
     def compare(self,text,string_index,fragment):
