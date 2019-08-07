@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.878'
+__version__='1.2.879'
 
         
 # ############################################################################
@@ -1084,7 +1084,7 @@ class lexer:
 
 class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = None
+        self.debug_on = True
         tokens = []
         text = text.strip()
         whitespace = [' ', '\t', '\n', '\r' ]
