@@ -10,7 +10,7 @@ class tokenizer:
 
         # clean leading and trailiong stuff
         text = text.strip()
-        text+=" "
+        
         # visual formatting characters
         whitespace = [' ', '\t', '\n', '\r' ]
         # these are solid non depth related blocks
@@ -125,63 +125,11 @@ class tokenizer:
 
                 break
             for d in delimiters_sorted:
-                delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
-                #if c>0 and text[c-1:1].isalpha():
-                #    fragment_before_alpha=True
-                #else:
-                #    fragment_before_alpha=False
+                if (fragment== d and fragment is not None):
 
-                #if c+1<text_length and   text[c+1:1].isalpha():
-                #    fragment_after_alpha=True
-                #else:
-                #    fragment_after_alpha=False
-                #    
-                #if c >= text_length - 1:
-                #    self.info("Last Cycle")
-
-                #if fragment_before_alpha==True  and fragment_after_alpha==True:
-
-                if c >= text_length - 1:
-                    end_of_string=True
-                else:
-                    end_of_string=None
-                if (fragment== d and fragment is not None) or end_of_string:
-                    if end_of_string:
-                        if fragment!=d:
-                            c+=1
-                            fragment=None
-                        self.info("Delemiter found, end of string", c, fragment)
-                    else:    
-                        self.info("Delemiter found", c, fragment)
-                    if c - word_start > 0:
-                        self.info("Data word found", c - word_start)
-                        word_end = c
-                        if word_end >= text_length-1:
-                            self.info("word ends on last character", word_end, text_length)
-                            not_delimiter = text[word_start:word_end]
-                            
-                        else:
-                            not_delimiter = text[word_start:word_end]
-                        
-                        token_type = 'data'
-                        if block is not None:
-                            self.info("HAS BLOCK")
-                            block_left = block[0]
-                            block_right = block[1]
-                            block_type = block[2]
-                            block = None
-                            not_delimiter = not_delimiter[len(block_left):-len(block_right)]
-                        else:
-                            self.info("NO  BLOCK")
-                            block_left = None
-                            block_right = None
-                            block_type = None
-                        self.info("POSITION", c, not_delimiter)
-                        # if not not_delimiter:
-                        #    break
-
-                        tokens.append({'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type})
+                    token=self.get_token(self,text,c,d,block)
+                    tokens.append(token)
 
                     self.info("After Data Append, Position", c, 'of', text_length)
                     # if  c>=text_length-1:
@@ -209,6 +157,8 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
 
                     break
+            if c==text_length-1:
+                tokens.append(self.get_token(self,text,c,'',block))
             c += delimter_len
         self.debug_on=True
         if True == self.debug_on:
@@ -218,6 +168,48 @@ class tokenizer:
             self.info("-[End-Tokens]------------")
         return tokens
 
+
+    def get_token(self,text,c,d,block):
+        delimter_len = len(d)   
+        text_length=len(text)
+        if c >= text_length - 1:
+            end_of_string=True
+        else:
+            end_of_string=None
+            if end_of_string:
+                if fragment!=d:
+                    c+=1
+                    fragment=None
+                self.info("Delemiter found, end of string", c, fragment)
+            else:    
+                self.info("Delemiter found", c, fragment)
+            if c - word_start > 0:
+                self.info("Data word found", c - word_start)
+                word_end = c
+                if word_end >= text_length-1:
+                    self.info("word ends on last character", word_end, text_length)
+                    not_delimiter = text[word_start:word_end]
+                    
+                else:
+                    not_delimiter = text[word_start:word_end]
+                
+                token_type = 'data'
+                if block is not None:
+                    self.info("HAS BLOCK")
+                    block_left = block[0]
+                    block_right = block[1]
+                    block_type = block[2]
+                    block = None
+                    not_delimiter = not_delimiter[len(block_left):-len(block_right)]
+                else:
+                    self.info("NO  BLOCK")
+                    block_left = None
+                    block_right = None
+                    block_type = None
+                self.info("POSITION", c, not_delimiter)
+           
+           return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
+        return None
 
     def compare_text_fragment(self,x, y):
         if None == x or None == y:

@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.893'
+__version__='1.2.894'
 
         
 # ############################################################################
@@ -1174,6 +1174,7 @@ class tokenizer:
         self.debug_on = True
         tokens = []
         text = text.strip()
+        text+=" "
         whitespace = [' ', '\t', '\n', '\r' ]
         blocks = [
             ['\'', '\'', 'quote'],   # string block
