@@ -103,7 +103,7 @@ class tokenizer:
                         self.info("IN BLOCK", c)
                         break
                 # check for block end
-                if block:
+                else:
                     if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
                         just_crossed_block = True
                         self.info("NOT IN BLOCK", c)

@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.858'
+__version__='1.2.859'
 
         
 # ############################################################################
@@ -1140,12 +1140,14 @@ class tokenizer:
                         c += delimter_len
                         self.info("IN BLOCK", c)
                         break
-                if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
-                    just_crossed_block = True
-                    self.info("NOT IN BLOCK", c)
-                    in_block = None
-                    c += delimter_len
-                    break
+                if block:
+                    if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
+                        just_crossed_block = True
+                        self.info("NOT IN BLOCK", c)
+                        in_block = None
+                        block=None
+                        c += delimter_len
+                        break
             if in_block  is not None:
                 self.info("in block skip")
                 if not just_crossed_block:
