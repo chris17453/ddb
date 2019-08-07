@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.903'
+__version__='1.2.904'
 
         
 # ############################################################################
@@ -1084,92 +1084,92 @@ class lexer:
 # ############################################################################
 
 class tokenizer:
-    def chomp(self,text):
-            self.debug_on = True
-            tokens = []
-            text = text.strip()
-            whitespace = [' ', '\t', '\n', '\r' ]
-            blocks = [
-                ['\'', '\'', 'quote'],   # string block
-                ['"' , '"' , 'quote'],   # string block
-            ]
-            operators = [
-                '&&',  # and short circuit
-                '||',  # or short circuit
-                '!=',  # Not Equal
-                '<>',  # Not Equal
-                '<=',  # Less than or equal
-                '>=',  # Greater thanbor equal
-                '>',  # Greater than
-                '<',  # Less than
-                '=',  # Equality
-                '&',  # and
-                '!',  # not
-                '|',  # or
-                '+',  # addition
-                '-',  # subtraction
-                '/',  # divide
-                '*',  # multiple
-                '(',  # left paren   (grouping)
-                ')',  # right paren  (grouping)
-            ]
-            delimiters = [',', '.', ';']
-            for token in whitespace:
-                delimiters.append(token)
-            for token in operators:
-                delimiters.append(token)
-            string_index=0
-            text_length=len(text)
-            word=""
-            in_block=None
-            while string_index<text_length:
-                print  text[string_index],string_index
-                for block in blocks:
-                    if in_block:
-                        if self.compare(text,string_index,block[1]):
-                            print "out block"
-                            string_index+=len(block[1])
-                            block_word =text[in_block:string_index]
-                            block_left =text[in_block]
-                            block_right=text[string_index]
-                            in_block=None
-                            if word!='':
-                                tokens.append({'block_left':None,'block_right':None,'data':word})
-                                word=''
-                            tokens.append({'block_left':block_left,'block_right':block_right,'data':block_word})
-                            break
-                    else:
-                        if self.compare(text,string_index,block[0]):
-                            print "in block"
-                            in_block=string_index
-                            if word!='':
-                                tokens.append({'block_left':None,'block_right':None,'data':word})
-                                word=''
-                            break
-                if not in_block:
-                    found=None
-                    for delimiter in delimiters:
-                        if self.compare(text,string_index,delimiter):
-                            print "delimiter -{0}-".format(delimiter)
-                            if word!='':
-                                tokens.append({'block_left':None,'block_right':None,'data':word})
-                                word=''
-                            tokens.append({'block_left':None,'block_right':None,'data':delimiter})
-                            string_index+=len(delimiter)
-                            found=True
-                            break
-                    if found:    
-                        continue
-                    word+=text[string_index]
-                string_index+=1
-            if word!='':
-                tokens.append({'block_left':None,'block_right':None,'data':word})
-                word=''
-            print ("DONE")
-            self.info("-[Tokens]----------------")
-            for t in tokens:
-                self.info("  -{0}".format(t['data']) )
-            self.info("-[End-Tokens]------------")     
+    def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
+        self.debug_on = True
+        tokens = []
+        text = text.strip()
+        whitespace = [' ', '\t', '\n', '\r' ]
+        blocks = [
+            ['\'', '\'', 'quote'],   # string block
+            ['"' , '"' , 'quote'],   # string block
+        ]
+        operators = [
+            '&&',  # and short circuit
+            '||',  # or short circuit
+            '!=',  # Not Equal
+            '<>',  # Not Equal
+            '<=',  # Less than or equal
+            '>=',  # Greater thanbor equal
+            '>',  # Greater than
+            '<',  # Less than
+            '=',  # Equality
+            '&',  # and
+            '!',  # not
+            '|',  # or
+            '+',  # addition
+            '-',  # subtraction
+            '/',  # divide
+            '*',  # multiple
+            '(',  # left paren   (grouping)
+            ')',  # right paren  (grouping)
+        ]
+        delimiters = [',', '.', ';']
+        for token in whitespace:
+            delimiters.append(token)
+        for token in operators:
+            delimiters.append(token)
+        string_index=0
+        text_length=len(text)
+        word=""
+        in_block=None
+        while string_index<text_length:
+            print  text[string_index],string_index
+            for block in blocks:
+                if in_block:
+                    if self.compare(text,string_index,block[1]):
+                        print "out block"
+                        string_index+=len(block[1])
+                        block_word =text[in_block:string_index]
+                        block_left =text[in_block]
+                        block_right=text[string_index]
+                        in_block=None
+                        if word!='':
+                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            word=''
+                        tokens.append({'block_left':block_left,'block_right':block_right,'data':block_word})
+                        break
+                else:
+                    if self.compare(text,string_index,block[0]):
+                        print "in block"
+                        in_block=string_index
+                        if word!='':
+                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            word=''
+                        break
+            if not in_block:
+                found=None
+                for delimiter in delimiters:
+                    if self.compare(text,string_index,delimiter):
+                        print "delimiter -{0}-".format(delimiter)
+                        if word!='':
+                            tokens.append({'block_left':None,'block_right':None,'data':word})
+                            word=''
+                        tokens.append({'block_left':None,'block_right':None,'data':delimiter})
+                        string_index+=len(delimiter)
+                        found=True
+                        break
+                if found:    
+                    continue
+                word+=text[string_index]
+            string_index+=1
+        if word!='':
+            tokens.append({'block_left':None,'block_right':None,'data':word})
+            word=''
+        print ("DONE")
+        self.info("-[Tokens]----------------")
+        for t in tokens:
+            self.info("  -{0}".format(t['data']) )
+        self.info("-[End-Tokens]------------")     
     def compare(self,text,string_index,fragment):
         comparitor=fragment
         comparitor_len=len(comparitor)
