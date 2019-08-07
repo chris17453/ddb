@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.869'
+__version__='1.2.870'
 
         
 # ############################################################################
@@ -1204,10 +1204,11 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
                     break
             c += delimter_len
+        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("-{0}-".format(t['data']) )
+                self.info("  -{0}".format(t['data']) )
             self.info("-[End-Tokens]------------")
         return tokens
     def compare_text_fragment(self,x, y):
