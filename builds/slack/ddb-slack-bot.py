@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.860'
+__version__='1.2.861'
 
         
 # ############################################################################
@@ -1211,6 +1211,7 @@ class tokenizer:
             for t in tokens:
                 self.info(t)
             self.info("-[End-Tokens]------------")
+        print tokens
         return tokens
     def compare_text_fragment(self,x, y):
         if None == x or None == y:
