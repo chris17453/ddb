@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.882'
+__version__='1.2.883'
 
         
 # ############################################################################
@@ -1180,12 +1180,14 @@ class tokenizer:
                         not_delimiter = text[word_start:word_end]
                         token_type = 'data'
                         if block is not None:
+                            self.info("HAS BLOCK")
                             block_left = block[0]
                             block_right = block[1]
                             block_type = block[2]
                             block = None
                             not_delimiter = not_delimiter[len(block_left):-len(block_right)]
                         else:
+                            self.info("NO  BLOCK")
                             block_left = None
                             block_right = None
                             block_type = None

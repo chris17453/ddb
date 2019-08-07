@@ -153,6 +153,7 @@ class tokenizer:
                             self.info("word ends on last character", word_end, text_length)
                             word_end = -1
                         not_delimiter = text[word_start:word_end]
+                        print not_delimiter
                         token_type = 'data'
                         if block is not None:
                             self.info("HAS BLOCK")
