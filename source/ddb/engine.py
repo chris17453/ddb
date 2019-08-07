@@ -345,6 +345,7 @@ class engine:
         self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
 
+            os.chdir(table.data.repo_dir)
             cmd=[   'svn','info','--show-item','url']
             repo_url=None
             try:
