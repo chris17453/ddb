@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.914'
+__version__='1.2.915'
 
         
 # ############################################################################
@@ -1173,11 +1173,11 @@ class tokenizer:
         if word!='':
             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
             word=''
-        print ("DONE")
         self.info("-[Tokens]----------------")
         for t in tokens:
             self.info("  -{0}-{1}".format(t['data'],t['type']) )
         self.info("-[End-Tokens]------------")     
+        return tokens
     def compare(self,text,string_index,fragment):
         comparitor=fragment
         comparitor_len=len(comparitor)
