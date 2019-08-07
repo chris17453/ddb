@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.884'
+__version__='1.2.885'
 
         
 # ############################################################################
@@ -1263,8 +1263,9 @@ class tokenizer:
                         word_end = c
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
-                            word_end = -1
-                        not_delimiter = text[word_start:word_end]
+                            not_delimiter = text[word_start:]
+                        else:
+                            not_delimiter = text[word_start:word_end]
                         print not_delimiter
                         token_type = 'data'
                         if block is not None:
