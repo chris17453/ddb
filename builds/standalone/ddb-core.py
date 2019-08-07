@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.915'
+__version__='1.2.916'
 
         
 # ############################################################################
@@ -1115,11 +1115,9 @@ class tokenizer:
         word=""
         in_block=None
         while string_index<text_length:
-            print  text[string_index],string_index
             for block in blocks:
                 if in_block:
                     if self.compare(text,string_index,block[1]):
-                        print "out block"
                         string_index+=len(block[1])
                         block_word =text[in_block:string_index]
                         block_left =text[in_block]
@@ -1132,7 +1130,6 @@ class tokenizer:
                         break
                 else:
                     if self.compare(text,string_index,block[0]):
-                        print "in block"
                         in_block=string_index
                         if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
@@ -1142,7 +1139,6 @@ class tokenizer:
                 found=None
                 for delimiter in delimiters:
                     if self.compare(text,string_index,delimiter):
-                        print "delimiter -{0}-".format(delimiter)
                         if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
@@ -1166,10 +1162,11 @@ class tokenizer:
         if word!='':
             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
             word=''
-        self.info("-[Tokens]----------------")
-        for t in tokens:
-            self.info("  -{0}-{1}".format(t['data'],t['type']) )
-        self.info("-[End-Tokens]------------")     
+        if self.debug==True:
+            self.info("-[Tokens]----------------")
+            for t in tokens:
+                self.info("  -{0}-{1}".format(t['data'],t['type']) )
+            self.info("-[End-Tokens]------------")     
         return tokens
     def compare(self,text,string_index,fragment):
         comparitor=fragment
