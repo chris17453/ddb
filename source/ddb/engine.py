@@ -337,6 +337,7 @@ class engine:
         if rc!=0:
             self.info(output)
             self.info(err)
+            print " ".join(cmd)
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     
@@ -361,7 +362,7 @@ class engine:
                         table.data.repo_url,
                         table.data.repo_dir,
                         '--depth','empty']
-                #print " ".join(cmd)
+            #    print " ".join(cmd)
                 self.os_cmd(cmd,"SVN Repo Err")
 
             else:
