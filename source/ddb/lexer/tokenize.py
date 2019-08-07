@@ -196,7 +196,7 @@ class tokenizer:
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("{0}-{1}-{2}".format(t['block_left'],t['data'],t['block_left']) )
+                self.info("-{0}-".format(t['data']) )
             self.info("-[End-Tokens]------------")
         return tokens
 
