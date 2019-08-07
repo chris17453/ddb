@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.925'
+__version__='1.2.926'
 
         
 # ############################################################################
@@ -2792,6 +2792,7 @@ class engine:
     def svn_checkout_file(self,table):
         self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
+            os.chdir(table.data.repo_dir)
             cmd=[   'svn','info','--show-item','url']
             repo_url=None
             try:
