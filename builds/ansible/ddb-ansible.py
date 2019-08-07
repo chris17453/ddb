@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.928'
+__version__='1.2.929'
 
         
 # ############################################################################
@@ -2873,7 +2873,7 @@ class engine:
         if rc!=0:
             self.info(output)
             self.info(err)
-            print " ".join(cmd)
+            self.info("OS CMD"," ".join(cmd))
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_checkout_file(self,table):
@@ -2901,7 +2901,6 @@ class engine:
                 if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
                     err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
                     raise Exception (err_msg)
-            print table.data.repo_dir
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
                     'up',
