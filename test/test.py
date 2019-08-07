@@ -47,9 +47,9 @@ class test_engine(unittest.TestCase):
         results = engine.query(query)
         self.assertEqual(True, results.success)
         query="create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name2, file_name,repo)
-        print ""
-        print query
-        print ""
+        #print ""
+        #print query
+        #print ""
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
@@ -448,9 +448,13 @@ class test_engine(unittest.TestCase):
 
         engine.query(query)
         
-        query="""create temporary table etmeta.addresses2      (node,hostname,interface,ip,network,defaultroute,routeset,MAC,link_setting) 
-                   file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd]/Funhouse/etmeta' repo_file='addresses.2' delimiter=':';"""
+        query="""create temporary table etmeta.addresses2      (node,hostname,interface,ip,network,defaultroute,routeset,MAC,link_setting)  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd]/Funhouse/etmeta' repo_file='addresses.2' delimiter=':';"""
         engine.query(query)
 
 if __name__ == '__main__':
     unittest.main()
+
+
+
+    create temporary table etmeta.test2           ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/chris17453/ddb/test/svn_test/MOCK_DATA.csv' repo='svn' url='http://localhost/svn/SampleProject/' user='user' password='password' repo_dir='/home/nd/chris17453/ddb/test/svn_test' repo_file='MOCK_DATA.csv'
+    create temporary table etmeta.addresses2      ('node','hostname','interface','ip','network','defaultroute','routeset','MAC','link_setting')  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd/Funhouse/etmeta' repo_file='addresses.2' 
