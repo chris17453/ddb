@@ -351,6 +351,7 @@ class engine:
             try:
                 repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
             except Exception as ex:
+                print ex
                 pass
             #print "?",repo_url
             if None==repo_url:
