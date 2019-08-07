@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.911'
+__version__='1.2.912'
 
         
 # ############################################################################
@@ -1132,7 +1132,7 @@ class tokenizer:
                         block_left =text[in_block]
                         block_right=text[string_index]
                         in_block=None
-                        if True != discard_whitespace or word not in whitespace:
+                        if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
@@ -1141,7 +1141,7 @@ class tokenizer:
                     if self.compare(text,string_index,block[0]):
                         print "in block"
                         in_block=string_index
-                        if True != discard_whitespace or word not in whitespace:
+                        if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
@@ -1151,7 +1151,6 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            if True != discard_whitespace or word not in whitespace:
                                 tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         delimiter_type = "delimiter"
@@ -1160,7 +1159,10 @@ class tokenizer:
                         else:
                             if delimiter in whitespace:
                                 delimiter_type = 'whitespace'
-                        tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
+                        if True == discard_whitespace and word in whitespace:
+                            pass
+                        else:
+                            tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
                         string_index+=len(delimiter)
                         found=True
                         break
