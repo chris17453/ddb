@@ -200,6 +200,7 @@ class tokenizer:
             for t in tokens:
                 self.info(t)
             self.info("-[End-Tokens]------------")
+        print tokens
         return tokens
 
 
