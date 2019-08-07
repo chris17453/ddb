@@ -78,7 +78,7 @@ class tokenizer:
                 if self.compare(text,string_index,curent_block[1]):
                     #print "out block"
                     string_index+=len(curent_block[1])
-                    block_word =text[in_block+len(curent_block) :string_index-len(curent_block[1])]
+                    block_word =text[in_block+len(curent_block[0]) :string_index-len(curent_block[1])]
                     block_left =text[in_block]
                     block_right=text[string_index]
                     in_block=None
@@ -89,7 +89,7 @@ class tokenizer:
 
                     tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
                     
-                    break
+                    
 
 
             if not in_block:
@@ -126,6 +126,7 @@ class tokenizer:
             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
             word=''
         
+        #self.debug=True
         if self.debug==True:
             self.info("-[Tokens]----------------")
             for t in tokens:
@@ -158,7 +159,7 @@ class tokenizer:
         return data
 
     def info(self,msg, arg1=None, arg2=None, arg3=None):
-        if True == self.debug_on:
+        if True == self.debug:
             if arg1 is None:
                 print("{0}".format(msg))
                 return

@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.917'
+__version__='1.2.918'
 
         
 # ############################################################################
@@ -1209,26 +1209,28 @@ class tokenizer:
         word=""
         in_block=None
         while string_index<text_length:
-            for block in blocks:
-                if in_block:
-                    if self.compare(text,string_index,block[1]):
-                        string_index+=len(block[1])
-                        block_word =text[in_block:string_index]
-                        block_left =text[in_block]
-                        block_right=text[string_index]
-                        in_block=None
-                        if word!='':
-                            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
-                            word=''
-                        tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
-                        break
-                else:
+            if not in_block:
+                for block in blocks:
                     if self.compare(text,string_index,block[0]):
                         in_block=string_index
+                        curent_block=block
                         if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
+            else:
+                if self.compare(text,string_index,curent_block[1]):
+                    string_index+=len(curent_block[1])
+                    block_word =text[in_block+len(curent_block) :string_index-len(curent_block[1])]
+                    block_left =text[in_block]
+                    block_right=text[string_index]
+                    in_block=None
+                    curent_block=None
+                    if word!='':
+                        tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
+                        word=''
+                    tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
+                    break
             if not in_block:
                 found=None
                 for delimiter in delimiters:
