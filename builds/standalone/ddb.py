@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.897'
+__version__='1.2.898'
 
         
 # ############################################################################
@@ -1194,6 +1194,7 @@ class tokenizer:
             self.info("-[End-Tokens]------------")
         return tokens
     def get_token(self,text,c,d,block,word_start):
+        fragment = text[c:c + delimter_len]
         delimter_len = len(d)   
         text_length=len(text)
         if c >= text_length - 1:
