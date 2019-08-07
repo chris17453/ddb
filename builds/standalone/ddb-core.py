@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.874'
+__version__='1.2.875'
 
         
 # ############################################################################
@@ -2525,6 +2525,10 @@ class database:
             raise Exception("table already exists")
         if repo:
             if repo.protocol!='svn':
+                for a in repo.protocol:
+                    print ord(a)
+                for a in 'svn':
+                    print ord(a)
                 abs_data_file=normalize_path(data_file)
                 print "??",repo.protocol
                 print "??",data_file,abs_data_file
