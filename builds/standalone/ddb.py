@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.922'
+__version__='1.2.923'
 
         
 # ############################################################################
@@ -2695,7 +2695,6 @@ class engine:
         for query_object in parser.query_objects:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
-            print query_object
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
