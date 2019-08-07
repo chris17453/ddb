@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.880'
+__version__='1.2.881'
 
         
 # ############################################################################
@@ -1160,7 +1160,10 @@ class tokenizer:
                 delimter_len = len(d)
                 fragment = text[c:c + delimter_len]
                 if (fragment== d and fragment is not None) or c >= text_length - 1:
-                    self.info("Delemiter found", c, fragment)
+                    if c >= text_length - 1:
+                        self.info("Delemiter found, end of string", c, fragment)
+                    else:    
+                        self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
                         word_end = c
