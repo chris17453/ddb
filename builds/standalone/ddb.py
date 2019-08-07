@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.873'
+__version__='1.2.874'
 
         
 # ############################################################################
@@ -2532,8 +2532,11 @@ class database:
             raise Exception("table already exists")
         if repo:
             if repo.protocol!='svn':
-                if False == os.path.isfile(normalize_path(data_file)):
-                    err="Data file does not exist. {0}".format(normalize_path(data_file))
+                abs_data_file=normalize_path(data_file)
+                print "??",repo.protocol
+                print "??",data_file,abs_data_file
+                if False == os.path.isfile(abs_data_file):
+                    err="Data file does not exist. {0}".format(abs_data_file)
                     raise Exception(err)
         if not temporary:
             if None == self.config_dir:

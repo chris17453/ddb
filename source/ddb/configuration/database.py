@@ -115,6 +115,10 @@ class database:
         if repo:
             
             if repo.protocol!='svn':
+                for a in repo.protocol:
+                    print ord(a)
+                for a in 'svn':
+                    print ord(a)
                 abs_data_file=normalize_path(data_file)
                 print "??",repo.protocol
                 print "??",data_file,abs_data_file
