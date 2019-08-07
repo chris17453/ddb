@@ -199,7 +199,7 @@ class engine:
             #d  query_object
             # exit(9)
             # get columns, doesnt need a table
-            #print query_object
+            print query_object
             # todo safe_name
 
             mode=query_object['mode']
@@ -207,6 +207,7 @@ class engine:
             
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
+            meta_class.debug()
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
