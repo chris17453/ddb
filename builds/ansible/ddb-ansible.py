@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.898'
+__version__='1.2.899'
 
         
 # ############################################################################
@@ -1281,8 +1281,8 @@ class tokenizer:
             self.info("-[End-Tokens]------------")
         return tokens
     def get_token(self,text,c,d,block,word_start):
-        fragment = text[c:c + delimter_len]
         delimter_len = len(d)   
+        fragment = text[c:c + delimter_len]
         text_length=len(text)
         if c >= text_length - 1:
             end_of_string=True

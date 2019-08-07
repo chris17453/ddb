@@ -128,7 +128,7 @@ class tokenizer:
                 fragment = text[c:c + delimter_len]
                 if (fragment== d and fragment is not None):
 
-                    token=self.get_token(self,text,c,d,block,word_start)
+                    token=self.get_token(text,c,d,block,word_start)
                     tokens.append(token)
 
                     self.info("After Data Append, Position", c, 'of', text_length)
@@ -158,7 +158,7 @@ class tokenizer:
 
                     break
             if c==text_length-1:
-                tokens.append(self.get_token(self,text,c,'',block,word_start))
+                tokens.append(self.get_token(text,c,'',block,word_start))
             c += delimter_len
         self.debug_on=True
         if True == self.debug_on:
