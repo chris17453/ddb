@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.908'
+__version__='1.2.909'
 
         
 # ############################################################################
@@ -1219,7 +1219,7 @@ class tokenizer:
                         block_left =text[in_block]
                         block_right=text[string_index]
                         in_block=None
-                        if True != discard_whitespace or word not whitespace:
+                        if True != discard_whitespace or word not in whitespace:
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         tokens.append({'type':'data','block_left':block_left,'block_right':block_right,'data':block_word})
@@ -1228,7 +1228,7 @@ class tokenizer:
                     if self.compare(text,string_index,block[0]):
                         print "in block"
                         in_block=string_index
-                        if True != discard_whitespace or word not whitespace:
+                        if True != discard_whitespace or word not in whitespace:
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
@@ -1238,7 +1238,7 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            if True != discard_whitespace or word not whitespace:
+                            if True != discard_whitespace or word not in whitespace:
                                 tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         delimiter_type = "delimiter"
