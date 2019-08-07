@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.886'
+__version__='1.2.887'
 
         
 # ############################################################################
@@ -1084,7 +1084,7 @@ class lexer:
 
 class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = True
+        self.debug_on = None
         tokens = []
         text = text.strip()
         whitespace = [' ', '\t', '\n', '\r' ]
@@ -1180,7 +1180,7 @@ class tokenizer:
                         word_end = c
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
-                            not_delimiter = text[word_start:]
+                            not_delimiter = text[word_start:word_end]
                             fragment=None
                         else:
                             not_delimiter = text[word_start:word_end]
