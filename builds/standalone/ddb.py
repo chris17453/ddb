@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.921'
+__version__='1.2.922'
 
         
 # ############################################################################
@@ -2494,14 +2494,7 @@ class database:
         if repo:
             if repo.protocol!='svn':
                 protocol_svn='svn'
-                for a in repo.protocol:
-                    print ord(a)
-                print "="
-                for a in protocol_svn:
-                    print ord(a)
                 abs_data_file=normalize_path(data_file)
-                print "??",repo.protocol
-                print "??",data_file,abs_data_file
                 if False == os.path.isfile(abs_data_file):
                     err="Data file does not exist. {0}".format(abs_data_file)
                     raise Exception(err)
@@ -2706,7 +2699,6 @@ class engine:
             mode=query_object['mode']
             logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
-            meta_class.debug()
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)

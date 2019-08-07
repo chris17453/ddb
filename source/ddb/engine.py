@@ -199,7 +199,7 @@ class engine:
             #d  query_object
             # exit(9)
             # get columns, doesnt need a table
-            print query_object
+            # print query_object
             # todo safe_name
 
             mode=query_object['mode']
