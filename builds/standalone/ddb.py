@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.896'
+__version__='1.2.897'
 
         
 # ############################################################################
@@ -1166,7 +1166,7 @@ class tokenizer:
             for d in delimiters_sorted:
                 fragment = text[c:c + delimter_len]
                 if (fragment== d and fragment is not None):
-                    token=self.get_token(self,text,c,d,block)
+                    token=self.get_token(self,text,c,d,block,word_start)
                     tokens.append(token)
                     self.info("After Data Append, Position", c, 'of', text_length)
                     word_start = c + delimter_len
@@ -1184,7 +1184,7 @@ class tokenizer:
                     tokens.append({'type': delimiter_type, 'data': fragment.lower()})
                     break
             if c==text_length-1:
-                tokens.append(self.get_token(self,text,c,'',block))
+                tokens.append(self.get_token(self,text,c,'',block,word_start))
             c += delimter_len
         self.debug_on=True
         if True == self.debug_on:
@@ -1193,7 +1193,7 @@ class tokenizer:
                 self.info("  -{0}".format(t['data']) )
             self.info("-[End-Tokens]------------")
         return tokens
-    def get_token(self,text,c,d,block):
+    def get_token(self,text,c,d,block,word_start):
         delimter_len = len(d)   
         text_length=len(text)
         if c >= text_length - 1:
