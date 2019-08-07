@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.924'
+__version__='1.2.925'
 
         
 # ############################################################################
@@ -1175,7 +1175,7 @@ class tokenizer:
         if self.debug==True:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info("  -{0}-{1}".format(t['data'],t['type']) )
+                self.info("  -{0}     -{1}".format(t['data'],t['type']) )
             self.info("-[End-Tokens]------------")     
         return tokens
     def compare(self,text,string_index,fragment):
@@ -2787,6 +2787,7 @@ class engine:
         if rc!=0:
             self.info(output)
             self.info(err)
+            print " ".join(cmd)
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_checkout_file(self,table):
