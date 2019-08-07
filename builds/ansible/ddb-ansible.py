@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.865'
+__version__='1.2.866'
 
         
 # ############################################################################
@@ -1327,6 +1327,9 @@ class tokenizer:
                 return
             if arg2 is None:
                 print("{0} {1}".format(msg, arg1))
+                return
+            if arg1 is None:
+                print("{0}".format(msg))
                 return
             print("[{0}]".format(msg))
 

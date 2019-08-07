@@ -458,7 +458,7 @@ class lexer:
         for index in range(0,len(tokens)):
             if index==token_index:
                 query_err.append(" >>> ")    
-                query_err.append(tokens[index]['data'])
+                query_err.append('{0}'.format(tokens[index]['data']))
                 query_err.append(" <<< ")    
             else:
                 query_err.append(tokens[index]['data'])
