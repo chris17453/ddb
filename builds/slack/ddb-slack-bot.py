@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.916'
+__version__='1.2.917'
 
         
 # ############################################################################
@@ -1085,7 +1085,7 @@ class lexer:
 
 class tokenizer:
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = True
+        self.debug = debug
         tokens = []
         text = text.strip()
         whitespace = [' ', '\t', '\n', '\r' ]
