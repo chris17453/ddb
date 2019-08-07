@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.906'
+__version__='1.2.907'
 
         
 # ############################################################################
@@ -1153,7 +1153,7 @@ class tokenizer:
                         if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
-                         delimiter_type = "delimiter"
+                        delimiter_type = "delimiter"
                         if delimiter in operators:
                             delimiter_type = 'operator'
                         else:
