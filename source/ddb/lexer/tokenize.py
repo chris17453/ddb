@@ -120,7 +120,8 @@ class tokenizer:
 
                 if found:    
                     continue
-                word+=text[string_index]
+                if string_index<text_length:
+                    word+=text[string_index]
             string_index+=1
         if word!='':
             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})

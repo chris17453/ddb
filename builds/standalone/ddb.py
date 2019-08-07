@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.919'
+__version__='1.2.920'
 
         
 # ############################################################################
@@ -1135,8 +1135,8 @@ class tokenizer:
                 if self.compare(text,string_index,curent_block[1]):
                     string_index+=len(curent_block[1])
                     block_word =text[in_block+len(curent_block[0]) :string_index-len(curent_block[1])]
-                    block_left =text[in_block]
-                    block_right=text[string_index]
+                    block_left =curent_block[0]
+                    block_right=curent_block[1]
                     in_block=None
                     curent_block=None
                     if word!='':
