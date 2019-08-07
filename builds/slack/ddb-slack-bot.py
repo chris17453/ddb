@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.926'
+__version__='1.2.927'
 
         
 # ############################################################################
@@ -2799,6 +2799,7 @@ class engine:
             try:
                 repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
             except Exception as ex:
+                print ex
                 pass
             if None==repo_url:
                 cmd=[   'svn',
