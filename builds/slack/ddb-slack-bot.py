@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.877'
+__version__='1.2.878'
 
         
 # ############################################################################
@@ -1137,7 +1137,7 @@ class tokenizer:
             self.info("-", c)
             just_crossed_block = False
             for b in blocks:
-                fragment = text[c:c + delimter_len]
+                fragment = text[c]
                 if None == in_block:
                     if fragment==b[0] and fragment is not None:
                         just_crossed_block = True
@@ -1153,7 +1153,6 @@ class tokenizer:
                             just_crossed_block = True
                             self.info("NOT IN BLOCK", c)
                             in_block = None
-                            block=None
                             c += 1
                             break
             if in_block  is not None:

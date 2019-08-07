@@ -5,7 +5,7 @@
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
-        self.debug_on = None
+        self.debug_on = True
         tokens = []
 
         # clean leading and trailiong stuff
