@@ -98,7 +98,7 @@ class tokenizer:
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         
-                         delimiter_type = "delimiter"
+                        delimiter_type = "delimiter"
                         if delimiter in operators:
                             delimiter_type = 'operator'
                         else:

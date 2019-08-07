@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.905'
+__version__='1.2.906'
 
         
 # ############################################################################
@@ -1152,7 +1152,7 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            tokens.append({'type':'data',block_left':None,'block_right':None,'data':word})
+                            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                          delimiter_type = "delimiter"
                         if delimiter in operators:
