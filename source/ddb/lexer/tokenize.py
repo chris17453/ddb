@@ -193,7 +193,6 @@ class tokenizer:
 
                     break
             c += delimter_len
-        self.debug_on=True
         if True == self.debug_on:
             self.info("-[Tokens]----------------")
             for t in tokens:
