@@ -106,7 +106,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -438,7 +438,7 @@ class test_engine(unittest.TestCase):
     def t1est_svn_show_tables(self):
         self.test_show_tables(mode='SVN')
 
-    def test_z(self):
+    def t1est_z(self):
         self.cleanup()
         print("COMMIT")
         engine = ddb.engine(config_dir=self.config_dir)
