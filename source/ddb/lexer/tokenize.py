@@ -91,7 +91,7 @@ class tokenizer:
             for b in blocks:
                 
                 # info(b[0],b[1],c,delimter_len)
-                fragment = text[c:c + delimter_len]
+                fragment = text[c]
                 # only check for block start if not in one
                 if None == in_block:
                     if fragment==b[0] and fragment is not None:
@@ -109,7 +109,6 @@ class tokenizer:
                             just_crossed_block = True
                             self.info("NOT IN BLOCK", c)
                             in_block = None
-                            block=None
                             c += 1
                             break
             # skip stuff in block
