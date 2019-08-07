@@ -337,7 +337,7 @@ class engine:
         if rc!=0:
             self.info(output)
             self.info(err)
-            print " ".join(cmd)
+            self.info("OS CMD"," ".join(cmd))
             raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     
@@ -364,15 +364,12 @@ class engine:
                         table.data.repo_url,
                         table.data.repo_dir,
                         '--depth','empty']
-            #    print " ".join(cmd)
                 self.os_cmd(cmd,"SVN Repo Err")
 
             else:
                 if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
                     err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
                     raise Exception (err_msg)
-
-            print table.data.repo_dir
 
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
@@ -382,7 +379,6 @@ class engine:
                     '--username','{0}'.format(table.data.repo_user),
                     '--password','{0}'.format(table.data.repo_password)
                     ]
-            #print " ".join(cmd)
             self.os_cmd(cmd,"SVN Checkout File Err")
     
     def svn_commit_file(self,table):
@@ -400,7 +396,6 @@ class engine:
                 '--username','{0}'.format(table.data.repo_user),
                 '--password','{0}'.format(table.data.repo_password)
                 ]
-        #print " ".join(cmd)
         self.os_cmd(cmd,"SVN Checkout File Err")        
 
     def get_data_file(self,table,prefix="ddb_"):
@@ -410,7 +405,6 @@ class engine:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
-            #print ("CREATED: "+temp_data_file)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         return self.internal['TEMP_FILES'][data_file]['temp_source']
     
@@ -420,19 +414,14 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             # remove the previous source
             if dest_file and dest_file!=self.internal['TEMP_FILES'][table_key]['temp_source']:
-                #print ("removing "+self.internal['TEMP_FILES'][table_key]['temp_source'])
                 remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
     def auto_commit(self,table):
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
-            #print ("---Autocommit")
             method_system_commit(self)
 
 
 
 
-        
-    
-    
