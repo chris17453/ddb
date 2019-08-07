@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.895'
+__version__='1.2.896'
 
         
 # ############################################################################
@@ -1222,7 +1222,7 @@ class tokenizer:
                     block_right = None
                     block_type = None
                 self.info("POSITION", c, not_delimiter)
-           return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
+            return {'type': token_type, 'data': not_delimiter, 'block_left': block_left, 'block_right': block_right, 'block_type': block_type}
         return None
     def compare_text_fragment(self,x, y):
         if None == x or None == y:
