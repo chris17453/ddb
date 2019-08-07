@@ -142,7 +142,10 @@ class tokenizer:
                 #if fragment_before_alpha==True  and fragment_after_alpha==True:
 
                 if (fragment== d and fragment is not None) or c >= text_length - 1:
-                    self.info("Delemiter found", c, fragment)
+                    if c >= text_length - 1:
+                        self.info("Delemiter found, end of string", c, fragment)
+                    else:    
+                        self.info("Delemiter found", c, fragment)
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
                         word_end = c
