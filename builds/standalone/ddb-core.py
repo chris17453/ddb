@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.856'
+__version__='1.2.857'
 
         
 # ############################################################################
@@ -1140,7 +1140,7 @@ class tokenizer:
                         c += delimter_len
                         self.info("IN BLOCK", c)
                         break
-                if (fragment== b[1] and fragment is not None) or c >= text_length - 1:
+                if (fragment== block[1] and fragment is not None) or c >= text_length - 1:
                     just_crossed_block = True
                     self.info("NOT IN BLOCK", c)
                     in_block = None
@@ -3774,7 +3774,6 @@ def method_use(context, meta):
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        print (ex)
         return query_results(success=False,error=ex)
         
 # ############################################################################
