@@ -72,7 +72,7 @@ class tokenizer:
                         block_left =text[in_block]
                         block_right=text[string_index]
                         in_block=None
-                        if True != discard_whitespace or word not in whitespace:
+                        if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
 
@@ -83,7 +83,7 @@ class tokenizer:
                     if self.compare(text,string_index,block[0]):
                         print "in block"
                         in_block=string_index
-                        if True != discard_whitespace or word not in whitespace:
+                        if word!='':
                             tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         break
@@ -95,7 +95,6 @@ class tokenizer:
                     if self.compare(text,string_index,delimiter):
                         print "delimiter -{0}-".format(delimiter)
                         if word!='':
-                            if True != discard_whitespace or word not in whitespace:
                                 tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
                             word=''
                         
@@ -106,7 +105,11 @@ class tokenizer:
                             if delimiter in whitespace:
                                 delimiter_type = 'whitespace'
 
-                        tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
+                        if True == discard_whitespace and word in whitespace:
+                            pass
+                        else:
+                            tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
+
                         string_index+=len(delimiter)
                         found=True
                         break
