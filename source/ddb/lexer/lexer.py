@@ -461,7 +461,7 @@ class lexer:
                 query_err.append('{0}'.format(tokens[index]['data']))
                 query_err.append(" <<< ")    
             else:
-                query_err.append(tokens[index]['data'])
+                query_err.append('{0}'.format(tokens[index]['data']))
         query_err.append("\n Syntax error near word {0}".format(token_index))
         err_msg=" ".join(query_err)
         self.info("FAILED MATCH")
