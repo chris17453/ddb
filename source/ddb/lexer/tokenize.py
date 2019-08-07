@@ -146,7 +146,7 @@ class tokenizer:
                     if c - word_start > 0:
                         self.info("Data word found", c - word_start)
                         word_end = c
-                        if word_end >= text_length:
+                        if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
                             word_end = text_length
                         not_delimiter = text[word_start:word_end]
