@@ -106,7 +106,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
     
-    def t1est_show_output_modules(self):
+    def test_show_output_modules(self):
         """Test showint output modules and styles"""
         try:
             # single db change from default
@@ -250,7 +250,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_insert(self,mode=None):
+    def t1est_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()

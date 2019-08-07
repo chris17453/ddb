@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.888'
+__version__='1.2.889'
 
         
 # ############################################################################
@@ -1174,7 +1174,6 @@ class tokenizer:
                         if word_end >= text_length-1:
                             self.info("word ends on last character", word_end, text_length)
                             not_delimiter = text[word_start:word_end]
-                            fragment=None
                         else:
                             not_delimiter = text[word_start:word_end]
                         token_type = 'data'
