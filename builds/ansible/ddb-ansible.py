@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.892'
+__version__='1.2.893'
 
         
 # ############################################################################
@@ -1260,6 +1260,7 @@ class tokenizer:
                 if (fragment== d and fragment is not None) or end_of_string:
                     if end_of_string:
                         if fragment!=d:
+                            c+=1
                             fragment=None
                         self.info("Delemiter found, end of string", c, fragment)
                     else:    
