@@ -170,6 +170,8 @@ class tokenizer:
 
 
     def get_token(self,text,c,d,block,word_start):
+        fragment = text[c:c + delimter_len]
+
         delimter_len = len(d)   
         text_length=len(text)
         if c >= text_length - 1:
