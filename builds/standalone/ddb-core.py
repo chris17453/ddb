@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.913'
+__version__='1.2.914'
 
         
 # ############################################################################
@@ -1152,7 +1152,7 @@ class tokenizer:
                         else:
                             if delimiter in whitespace:
                                 delimiter_type = 'whitespace'
-                        if True == discard_whitespace and word in whitespace:
+                        if True == discard_whitespace and delimiter in whitespace:
                             pass
                         else:
                             tokens.append({'type':delimiter_type,'block_left':None,'block_right':None,'data':delimiter})
@@ -1164,7 +1164,7 @@ class tokenizer:
                 word+=text[string_index]
             string_index+=1
         if word!='':
-            tokens.append({'block_left':None,'block_right':None,'data':word})
+            tokens.append({'type':'data','block_left':None,'block_right':None,'data':word})
             word=''
         print ("DONE")
         self.info("-[Tokens]----------------")

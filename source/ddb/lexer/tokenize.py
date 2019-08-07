@@ -123,11 +123,11 @@ class tokenizer:
             word=''
         
         
-        print ("DONE")
         self.info("-[Tokens]----------------")
         for t in tokens:
             self.info("  -{0}-{1}".format(t['data'],t['type']) )
         self.info("-[End-Tokens]------------")     
+        return tokens
     
     def compare(self,text,string_index,fragment):
         comparitor=fragment
