@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.931'
+__version__='1.2.932'
 
         
 # ############################################################################
@@ -2785,6 +2785,7 @@ class engine:
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
+        self.info("OSCMD INFO","{0}".format(output),"{0}".formta(err))
         if rc!=0:
             self.info(output)
             self.info(err)
@@ -2820,6 +2821,7 @@ class engine:
                     raise Exception (err_msg)
             self.info("SVN INFO","SVN Present, update file {0}".format(table.data.repo_file))
             os.chdir(table.data.repo_dir)
+            self.info("SVN INFO","CHDIR  {0}".format(table.data.repo_dir))
             cmd=[   'svn',
                     'up',
                     table.data.repo_file,
