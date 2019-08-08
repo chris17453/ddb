@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.946'
+__version__='1.2.947'
 
         
 # ############################################################################
@@ -2608,7 +2608,7 @@ class engine:
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,arg1,arg2,timestamp))
+        logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,pprint.pformat(msg, indent=4),arg1,arg2,timestamp))
         if True == self.debug:
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
