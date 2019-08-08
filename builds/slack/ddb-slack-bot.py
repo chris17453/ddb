@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.929'
+__version__='1.2.930'
 
         
 # ############################################################################
@@ -2606,6 +2606,7 @@ class engine:
         DATA=3
         WHITESPACE=4
     def info(self,msg, arg1=None, arg2=None, arg3=None):
+        logging.info("PID:{0} : {1}, {2}, {3}".format(self.pid,msg,arg1,arg2))
         if True == self.debug:
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
