@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.943'
+__version__='1.2.944'
 
         
 # ############################################################################
@@ -4093,7 +4093,7 @@ def method_system_show_output_modules(context):
 # ############################################################################
 
 class lock:
-    max_lock_time=5
+    max_lock_time=60
     max_lock_wait_time=max_lock_time+1
     sleep_time=0.02
     LOCK_NONE=0
