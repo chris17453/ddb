@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.930'
+__version__='1.2.931'
 
         
 # ############################################################################
@@ -2799,9 +2799,10 @@ class engine:
             try:
                 repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
             except Exception as ex:
-                print ex
+                self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             if None==repo_url:
+                self.info("SVN INFO","No repo present attempt, init")
                 cmd=[   'svn',
                         '--no-auth-cache',
                         '--username','{0}'.format(table.data.repo_user),
@@ -2814,7 +2815,9 @@ class engine:
             else:
                 if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
                     err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
+                    self.info("SVN ERROR",err_msg)
                     raise Exception (err_msg)
+            self.info("SVN INFO","SVN Present, update file {0}".format(table.data.repo_file))
             os.chdir(table.data.repo_dir)
             cmd=[   'svn',
                     'up',
