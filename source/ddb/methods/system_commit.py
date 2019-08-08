@@ -14,13 +14,20 @@ def method_system_commit(context):
             #pprint.pprint(context.internal['TEMP_FILES'])
 
             for table_key in context.internal['TEMP_FILES']:
+                context.info("Commit {0}".format(table_key))
                 tmp=context.internal['TEMP_FILES'][table_key]
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== tmp['written']:
+                    context.info("Release Lock for {0}",format(tmp['temp_source']))
+
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
+                    context.info("File was written {0}".format(table_key))
+                
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
+                    context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
+                
                     if tmp['table'].data.repo_type=='svn':
                        context.svn_commit_file(tmp['table'])
 
@@ -33,4 +40,5 @@ def method_system_commit(context):
             
         return query_results(success=True)
     except Exception as ex:
+        context.info("Commit Error",ex)
         return query_results(success=False,error=ex)
