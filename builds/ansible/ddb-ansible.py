@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.936'
+__version__='1.2.937'
 
         
 # ############################################################################
@@ -2890,8 +2890,7 @@ class engine:
                 url_index=response.find("URL:")
                 url_index+=4
                 tokens=response[url_index:].split("\n")
-                repo_url=tokens[0]
-                print repo_url
+                repo_url=tokens[0].trim()
             except Exception as ex:
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
