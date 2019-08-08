@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.942'
+__version__='1.2.943'
 
         
 # ############################################################################
@@ -3970,7 +3970,7 @@ def method_system_commit(context):
                 context.info("Commit {0}".format(table_key))
                 tmp=context.internal['TEMP_FILES'][table_key]
                 if None== tmp['written']:
-                    context.info("Release Lock for {0}",format(tmp['temp_source']))
+                    context.info("Release Lock for {0}".format(tmp['temp_source']))
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
