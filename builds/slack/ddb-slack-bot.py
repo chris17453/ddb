@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.941'
+__version__='1.2.942'
 
         
 # ############################################################################
@@ -3968,12 +3968,16 @@ def method_system_commit(context):
             context.internal['IN_TRANSACTION']=0
             context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
             for table_key in context.internal['TEMP_FILES']:
+                context.info("Commit {0}".format(table_key))
                 tmp=context.internal['TEMP_FILES'][table_key]
                 if None== tmp['written']:
+                    context.info("Release Lock for {0}",format(tmp['temp_source']))
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
                 else:
+                    context.info("File was written {0}".format(table_key))
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
+                    context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
                     if tmp['table'].data.repo_type=='svn':
                        context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
@@ -3981,6 +3985,7 @@ def method_system_commit(context):
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
+        context.info("Commit Error",ex)
         return query_results(success=False,error=ex)
 
         
