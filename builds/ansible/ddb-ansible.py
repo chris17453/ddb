@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.934'
+__version__='1.2.935'
 
         
 # ############################################################################
@@ -2868,10 +2868,10 @@ class engine:
     def add_error(self,error):
         self.info(error)
     def os_cmd(self,cmd,err_msg):
+        self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
-        self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
         self.info("OSCMD INFO","{0}".format(output),"{0}".format(err))
         if rc!=0:
             self.info(output)
@@ -2909,6 +2909,14 @@ class engine:
             self.info("SVN INFO","SVN Present, update file {0}".format(table.data.repo_file))
             os.chdir(table.data.repo_dir)
             self.info("SVN INFO","CHDIR  {0}".format(table.data.repo_dir))
+            cmd=[   'svn',
+                    'revert',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password)
+                    ]
+            self.os_cmd(cmd,"SVN Revert File Err")
             cmd=[   'svn',
                     'up',
                     table.data.repo_file,
