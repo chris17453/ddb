@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.939'
+__version__='1.2.940'
 
         
 # ############################################################################
@@ -2871,6 +2871,7 @@ class engine:
                 remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):
+        self.info("AUTO COMMIT",context.internal['TEMP_FILES'])
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
             method_system_commit(self)

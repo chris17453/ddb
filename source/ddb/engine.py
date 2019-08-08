@@ -443,7 +443,7 @@ class engine:
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
     def auto_commit(self,table):
-        self.info("AUTO COMMIT",context.internal['TEMP_FILES'])
+        self.info("AUTO COMMIT",self.internal['TEMP_FILES'])
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
             method_system_commit(self)
