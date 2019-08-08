@@ -333,6 +333,7 @@ class engine:
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
+        self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
         self.info("OSCMD INFO","{0}".format(output),"{0}".format(err))
         if rc!=0:
             self.info(output)
