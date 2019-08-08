@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.938'
+__version__='1.2.939'
 
         
 # ############################################################################
@@ -2816,7 +2816,8 @@ class engine:
                         'co',
                         table.data.repo_url,
                         table.data.repo_dir,
-                        '--depth','empty']
+                        '--depth','empty',
+                        '--non-interactive','--trust-server-cert']
                 self.os_cmd(cmd,"SVN Repo Err")
             else:
                 if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
@@ -2831,7 +2832,8 @@ class engine:
                     table.data.repo_file,
                     '--no-auth-cache',
                     '--username','{0}'.format(table.data.repo_user),
-                    '--password','{0}'.format(table.data.repo_password)
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Revert File Err")
             cmd=[   'svn',
@@ -2839,7 +2841,8 @@ class engine:
                     table.data.repo_file,
                     '--no-auth-cache',
                     '--username','{0}'.format(table.data.repo_user),
-                    '--password','{0}'.format(table.data.repo_password)
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
@@ -2854,7 +2857,8 @@ class engine:
                 '-m','ddb',
                 '--no-auth-cache',
                 '--username','{0}'.format(table.data.repo_user),
-                '--password','{0}'.format(table.data.repo_password)
+                '--password','{0}'.format(table.data.repo_password),
+                '--non-interactive','--trust-server-cert'
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
     def get_data_file(self,table,prefix="ddb_"):
