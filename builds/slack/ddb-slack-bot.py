@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.935'
+__version__='1.2.936'
 
         
 # ############################################################################
@@ -2797,10 +2797,15 @@ class engine:
         self.info("IN SVN PULL")
         if table.data.repo_type=='svn':
             os.chdir(table.data.repo_dir)
-            cmd=[   'svn','info','--show-item','url']
+            cmd=[   'svn','info']
             repo_url=None
             try:
-                repo_url=self.os_cmd(cmd,"SVN Repo Test").strip()
+                response=self.os_cmd(cmd,"SVN Repo Test").strip()
+                url_index=response.find("URL:")
+                url_index+=4
+                tokens=response[url_index:].split("\n")
+                repo_url=tokens[0]
+                print repo_url
             except Exception as ex:
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
@@ -2853,7 +2858,7 @@ class engine:
                 '--username','{0}'.format(table.data.repo_user),
                 '--password','{0}'.format(table.data.repo_password)
                 ]
-        self.os_cmd(cmd,"SVN Checkout File Err")        
+        self.os_cmd(cmd,"SVN Commit File Err")        
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
