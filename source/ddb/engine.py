@@ -66,7 +66,7 @@ class engine:
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
-        logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,pprint.pformat(msg, indent=4),arg1,arg2,timestamp))
+        logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         if True == self.debug:
             if isinstance(arg1,str) :
                 print(msg, arg1, arg2, arg3)
