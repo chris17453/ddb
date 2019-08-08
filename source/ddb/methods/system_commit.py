@@ -18,7 +18,7 @@ def method_system_commit(context):
                 tmp=context.internal['TEMP_FILES'][table_key]
                 # no need to swap files if nothing was written yea? Just delete the temp data
                 if None== tmp['written']:
-                    context.info("Release Lock for {0}",format(tmp['temp_source']))
+                    context.info("Release Lock for {0}".format(tmp['temp_source']))
 
                     remove_temp_file(tmp['temp_source'])
                     lock.release(table_key)
