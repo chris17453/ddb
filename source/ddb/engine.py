@@ -369,7 +369,8 @@ class engine:
                         'co',
                         table.data.repo_url,
                         table.data.repo_dir,
-                        '--depth','empty']
+                        '--depth','empty',
+                        '--non-interactive','--trust-server-cert']
                 self.os_cmd(cmd,"SVN Repo Err")
 
             else:
@@ -387,7 +388,8 @@ class engine:
                     table.data.repo_file,
                     '--no-auth-cache',
                     '--username','{0}'.format(table.data.repo_user),
-                    '--password','{0}'.format(table.data.repo_password)
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Revert File Err")
 
@@ -398,7 +400,8 @@ class engine:
                     table.data.repo_file,
                     '--no-auth-cache',
                     '--username','{0}'.format(table.data.repo_user),
-                    '--password','{0}'.format(table.data.repo_password)
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
     
@@ -415,7 +418,8 @@ class engine:
                 '-m','ddb',
                 '--no-auth-cache',
                 '--username','{0}'.format(table.data.repo_user),
-                '--password','{0}'.format(table.data.repo_password)
+                '--password','{0}'.format(table.data.repo_password),
+                '--non-interactive','--trust-server-cert'
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
 
