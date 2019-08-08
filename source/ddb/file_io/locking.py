@@ -7,7 +7,7 @@ import tempfile, shutil
 
 
 class lock:
-    max_lock_time=5
+    max_lock_time=60
     max_lock_wait_time=max_lock_time+1
     sleep_time=0.02
     LOCK_NONE=0
