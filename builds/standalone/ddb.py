@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.953'
+__version__='1.2.954'
 
         
 # ############################################################################
@@ -146,6 +146,28 @@ language={'commands': [{'name': 'show columns',
                                                '{display}']}],
                              'name': 'source',
                              'optional': True},
+                             {'data': [ {'signature': ['join', '{table}']},
+                                        {'signature': ['join', '{table}', 'as', '{display}']}],
+                             'depends_on': 'from',
+                             'name': 'join',
+                             'optional': True},
+                            {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] } ] ,
+                             'depends_on': 'join',
+                             'name': 'on',
+                             'optional': True,
+                             'store_array': True},
+                             {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
+                             'depends_on': 'on',
+                             'jump': 'on',
+                             'name': 'and',
+                             'optional': True,
+                             'parent': 'on'},
+                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
+                             'depends_on': 'on',
+                             'jump': 'on',
+                             'name': 'or',
+                             'optional': True,
+                             'parent': 'on'},
                             {'data': [
                                 {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
                              'depends_on': 'source',
@@ -1323,13 +1345,22 @@ class meta:
                 if e1:  self.e1=e1
                 if condition:  self.condition=condition
                 if e2:  self.e2=e2
-        class _order_by:
+        class _on:
             __slots__=()
-            column = None
-            direction = None
-            def __init__(self,column=None,direction=None):
-                if column:  self.column=column
-                if direction:  self.direction=direction
+            c = None
+            e1 = None
+            e2 = None
+            def __init__(self,c=None,e1=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if e2:  self.e2=e2
+        class _join:
+            __slots__=()
+            table = None
+            display = None
+            def __init__(self,table=None,display=None):
+                if table:  self.table=table
+                if display:  self.display=display
         class _source:
             __slots__=()
             table = None
@@ -1351,6 +1382,13 @@ class meta:
             def __init__(self,start=None,length=None):
                 if start:  self.start=start
                 if length:  self.length=length
+        class _order_by:
+            __slots__=()
+            column = None
+            direction = None
+            def __init__(self,column=None,direction=None):
+                if column:  self.column=column
+                if direction:  self.direction=direction
         class _where:
             __slots__=()
             c = None
@@ -1388,20 +1426,24 @@ class meta:
                 if argument3:  self.argument3=argument3
                 if argument1:  self.argument1=argument1
                 if display:  self.display=display
-        order_by             = None        # optional [ _order_by() ]
+        on                   = None        # optional [ _on() ]
+        join                 = None        # optional _join()
         distinct             = None        # optional 
         source               = None        # optional _source()
         group_by             = None        # optional [ _group_by() ]
         limit                = None        # optional _limit()
+        order_by             = None        # optional [ _order_by() ]
         where                = None        # optional [ _where() ]
         columns              = []          #          _columns()
         def __init__(self,so):
-                if meta.gv(so,['meta','order by']):
-                    self.order_by=[]
-                    for item in meta.gv(so,['meta','order by']):
+                if meta.gv(so,['meta','on']):
+                    self.on=[]
+                    for item in meta.gv(so,['meta','on']):
                         instance_type=item.keys()[0]
                         safe_instance_type='_'+instance_type
-                        self.order_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'direction': meta.gv(item,['direction']) }) )
+                        self.on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+                if meta.gv(so,['meta','join']):
+                    self.join= self._join(table = meta.gv(so,['meta','join','table']),display = meta.gv(so,['meta','join','display']))
                 self.distinct = meta.gv(so,['meta','distinct','distinct'])
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),display = meta.gv(so,['meta','source','display']),database = meta.gv(so,['meta','source','database']))
@@ -1413,6 +1455,12 @@ class meta:
                         self.group_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 if meta.gv(so,['meta','limit']):
                     self.limit= self._limit(start = meta.gv(so,['meta','limit','start']),length = meta.gv(so,['meta','limit','length']))
+                if meta.gv(so,['meta','order by']):
+                    self.order_by=[]
+                    for item in meta.gv(so,['meta','order by']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.order_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'direction': meta.gv(item,['direction']) }) )
                 if meta.gv(so,['meta','where']):
                     self.where=[]
                     for item in meta.gv(so,['meta','where']):
