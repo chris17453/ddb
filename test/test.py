@@ -278,7 +278,6 @@ class test_engine(unittest.TestCase):
         try:
             engine = ddb.engine(config_dir=self.config_dir)
             self.create_table(engine,mode)
-
             results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1003,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             self.assertEqual(True, results.success)
             # delete just inserted
@@ -438,23 +437,8 @@ class test_engine(unittest.TestCase):
     def test_svn_show_tables(self):
         self.test_show_tables(mode='SVN')
 
-    def test_z(self):
-        self.cleanup()
-        print("COMMIT")
-        engine = ddb.engine(config_dir=self.config_dir)
-
-
-        query="""create table test2 ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/chris17453/ddb/test/svn_test/MOCK_DATA.csv' repo='svn' url='http://localhost/svn/SampleProject/' user='user' password='password' repo_dir='/home/nd/chris17453/ddb/test/svn_test' repo_file='MOCK_DATA.csv' data_starts_on=2"""
-
-        engine.query(query)
-        
-        query="""create temporary table etmeta.addresses2      (node,hostname,interface,ip,network,defaultroute,routeset,MAC,link_setting)  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd]/Funhouse/etmeta' repo_file='addresses.2' delimiter=':';"""
-        engine.query(query)
 
 if __name__ == '__main__':
     unittest.main()
 
 
-
-    #create temporary table etmeta.test2           ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/chris17453/ddb/test/svn_test/MOCK_DATA.csv' repo='svn' url='http://localhost/svn/SampleProject/' user='user' password='password' repo_dir='/home/nd/chris17453/ddb/test/svn_test' repo_file='MOCK_DATA.csv'
-    #create temporary table etmeta.addresses2      ('node','hostname','interface','ip','network','defaultroute','routeset','MAC','link_setting')  file='/bob' repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd/Funhouse/etmeta' repo_file='addresses.2' 

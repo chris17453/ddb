@@ -30,4 +30,6 @@ svn co --no-auth-cache  --username user  --password password http://localhost/sv
 # add file
 cp ../data/MOCK_DATA.csv .
 svn add MOCK_DATA.csv  --no-auth-cache  --username user  --password password
+svn commit -m ddb MOCK_DATA.csv  --no-auth-cache  --username user  --password password
+
 
