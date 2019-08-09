@@ -155,22 +155,26 @@ class meta:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
     
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
     
         class _join_or:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
     
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
     
         class _join:
@@ -265,11 +269,13 @@ class meta:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
     
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
         #variable_def
     
@@ -321,7 +327,7 @@ class meta:
                     for item in meta.gv(so,['meta','join_on']):
                         instance_type=item.keys()[0]
                         safe_instance_type='_'+instance_type
-                        self.join_on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+                        self.join_on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'condition': meta.gv(item,[instance_type,'condition']),'e2': meta.gv(item,[instance_type,'e2']) }) )
         def debug(self):
             meta.debugger(self,'select')
     # ****
