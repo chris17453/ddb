@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.954'
+__version__='1.2.955'
 
         
 # ############################################################################
@@ -154,19 +154,19 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
                             {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'join',
-                             'name': 'on',
+                             'name': 'join_on',
                              'optional': True,
                              'store_array': True},
                              {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'on',
                              'jump': 'on',
-                             'name': 'and',
+                             'name': 'join_and',
                              'optional': True,
                              'parent': 'on'},
                             {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'on',
                              'jump': 'on',
-                             'name': 'or',
+                             'name': 'join_or',
                              'optional': True,
                              'parent': 'on'},
                             {'data': [
@@ -1346,7 +1346,16 @@ class meta:
                 if e1:  self.e1=e1
                 if condition:  self.condition=condition
                 if e2:  self.e2=e2
-        class _on:
+        class _join_and:
+            __slots__=()
+            c = None
+            e1 = None
+            e2 = None
+            def __init__(self,c=None,e1=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if e2:  self.e2=e2
+        class _join_or:
             __slots__=()
             c = None
             e1 = None
@@ -1427,7 +1436,15 @@ class meta:
                 if argument3:  self.argument3=argument3
                 if argument1:  self.argument1=argument1
                 if display:  self.display=display
-        on                   = None        # optional [ _on() ]
+        class _join_on:
+            __slots__=()
+            c = None
+            e1 = None
+            e2 = None
+            def __init__(self,c=None,e1=None,e2=None):
+                if c:  self.c=c
+                if e1:  self.e1=e1
+                if e2:  self.e2=e2
         join                 = None        # optional _join()
         distinct             = None        # optional 
         source               = None        # optional _source()
@@ -1436,13 +1453,8 @@ class meta:
         order_by             = None        # optional [ _order_by() ]
         where                = None        # optional [ _where() ]
         columns              = []          #          _columns()
+        join_on              = None        # optional [ _join_on() ]
         def __init__(self,so):
-                if meta.gv(so,['meta','on']):
-                    self.on=[]
-                    for item in meta.gv(so,['meta','on']):
-                        instance_type=item.keys()[0]
-                        safe_instance_type='_'+instance_type
-                        self.on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'e2': meta.gv(item,[instance_type,'e2']) }) )
                 if meta.gv(so,['meta','join']):
                     self.join= self._join(table = meta.gv(so,['meta','join','table']),display = meta.gv(so,['meta','join','display']))
                 self.distinct = meta.gv(so,['meta','distinct','distinct'])
@@ -1474,6 +1486,12 @@ class meta:
                         instance_type=item.keys()[0]
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'function': meta.gv(item,['function']),'column': meta.gv(item,['column']),'argument2': meta.gv(item,['argument2']),'argument3': meta.gv(item,['argument3']),'argument1': meta.gv(item,['argument1']),'display': meta.gv(item,['display']) }) )
+                if meta.gv(so,['meta','join_on']):
+                    self.join_on=[]
+                    for item in meta.gv(so,['meta','join_on']):
+                        instance_type=item.keys()[0]
+                        safe_instance_type='_'+instance_type
+                        self.join_on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'e2': meta.gv(item,[instance_type,'e2']) }) )
         def debug(self):
             meta.debugger(self,'select')
     class Set:
