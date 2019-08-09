@@ -123,19 +123,19 @@ language={'commands': [{'name': 'show columns',
                              'optional': True},
                             {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'join',
-                             'name': 'on',
+                             'name': 'join_on',
                              'optional': True,
                              'store_array': True},
                              {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'on',
                              'jump': 'on',
-                             'name': 'and',
+                             'name': 'join_and',
                              'optional': True,
                              'parent': 'on'},
                             {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
                              'depends_on': 'on',
                              'jump': 'on',
-                             'name': 'or',
+                             'name': 'join_or',
                              'optional': True,
                              'parent': 'on'},
 
@@ -598,3 +598,5 @@ language={'commands': [{'name': 'show columns',
                            
                              
 
+
+#for command in language['commands']:
