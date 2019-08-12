@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.955'
+__version__='1.2.956'
 
         
 # ############################################################################
@@ -152,23 +152,23 @@ language={'commands': [{'name': 'show columns',
                              'depends_on': 'from',
                              'name': 'join',
                              'optional': True},
-                            {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] } ] ,
+                             {'data': [{'signature': ['on','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'on'}} ] ,
                              'depends_on': 'join',
                              'name': 'join_on',
                              'optional': True,
                              'store_array': True},
-                             {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] } ] ,
+                             {'data': [{'signature': ['and','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'and'}} ] ,
                              'depends_on': 'on',
                              'jump': 'on',
                              'name': 'join_and',
                              'optional': True,
-                             'parent': 'on'},
-                            {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] } ] ,
+                             'parent': 'join_on'},
+                             {'data': [{'signature': ['or','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'or'}} ] ,
                              'depends_on': 'on',
                              'jump': 'on',
                              'name': 'join_or',
                              'optional': True,
-                             'parent': 'on'},
+                             'parent': 'join_on'},
                             {'data': [
                                 {'signature': ['where','{e1}','$operators:c','{e2}'] ,'vars':{'condition':'where'}} ] ,
                              'depends_on': 'source',
@@ -1350,19 +1350,23 @@ class meta:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
         class _join_or:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
         class _join:
             __slots__=()
@@ -1440,10 +1444,12 @@ class meta:
             __slots__=()
             c = None
             e1 = None
+            condition = None
             e2 = None
-            def __init__(self,c=None,e1=None,e2=None):
+            def __init__(self,c=None,e1=None,condition=None,e2=None):
                 if c:  self.c=c
                 if e1:  self.e1=e1
+                if condition:  self.condition=condition
                 if e2:  self.e2=e2
         join                 = None        # optional _join()
         distinct             = None        # optional 
@@ -1491,7 +1497,7 @@ class meta:
                     for item in meta.gv(so,['meta','join_on']):
                         instance_type=item.keys()[0]
                         safe_instance_type='_'+instance_type
-                        self.join_on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'e2': meta.gv(item,[instance_type,'e2']) }) )
+                        self.join_on.append( type(safe_instance_type,(),{ 'c': meta.gv(item,[instance_type,'c']),'e1': meta.gv(item,[instance_type,'e1']),'condition': meta.gv(item,[instance_type,'condition']),'e2': meta.gv(item,[instance_type,'e2']) }) )
         def debug(self):
             meta.debugger(self,'select')
     class Set:
