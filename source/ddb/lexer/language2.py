@@ -189,10 +189,10 @@ class variable:
 class segment:
     name         =None
     depends_on   =None
-    single  =None
+    single       =None
     store_single =None
     optional     =None
-    match      =None
+    match        =None
     variables    =None
     children     =None
     doc_depth    =None
@@ -204,8 +204,8 @@ class segment:
         self.depends_on   =depends_on
         self.store_single =store_single
         self.optional      =optional
-        self.single   =single
-        self.match       =self.create_patern(match)
+        self.single        =single
+        self.match         =self.create_patern(match)
         self.doc_depth     =doc_depth
     
     def create_patern(self,data):
@@ -213,6 +213,10 @@ class segment:
             return None
         match=re.split('( |,|=|[(]|[)])',data)
         #@print match
+        
+    
+                
+        
         return match
     
     def add_children(self,child):
@@ -221,6 +225,8 @@ class segment:
         self.children.append(child)
             
 
+
+                        
 
 class language:
     commands={}
@@ -287,8 +293,6 @@ class language:
         if command.optional:
             output.append("[")
 
-
-
         if command.match:
             last_command=True
             for a in command.match:
@@ -334,13 +338,96 @@ class language:
 
         return " ".join(output).replace("  "," ").replace('[ ','[').replace(' ]',']').replace('{ ','{').replace(' }','}')
 
+    def get_variables(self,target,path=None):
+        variables=[]
+        if path==None:
+            path=""
+        else:
+            path+="."
+        
+        #print target.match
+        if target.match:
+            for item in target.match:
+                #print item
+                if len(item)>=2 and item[0]=='{' and item[-1]=='}':
+                    token=item[1:-1]
+                    variable="."
+                    if token.find('|')>0:
+                        variable,segment=token.split("|")
+                        variables.append(path+variable)
+                        #print "getting ",segment
+                    else:
+                        segment=token
+                    res=self.get_variables(self.segments[segment],path+variable)
+                    if res:
+                        variables.append(res)
 
-l=language()
-groups=['system','record','table']
-for group in groups:
-    print "# SECTION: {0}".format(group)
-    for command in l.commands:
-        cmd=l.commands[command]
-        if cmd.group==group:
-            print l.permutate(cmd)
-            print ""
+                elif len(item)>0 and  item[0]=='$':
+                    variables.append(path+item[1:])
+        if target.children:
+            for child in target.children:
+                res=self.get_variables(child,path)
+                if res:
+                    variables.append(res)
+
+        return variables
+                
+    
+
+
+
+
+
+def build_rst():
+    l=language()
+    groups=['system','record','table']
+    for group in groups:
+        print "# SECTION: {0}".format(group)
+        for command in l.commands:
+            cmd=l.commands[command]
+            if cmd.group==group:
+                print l.permutate(cmd)
+                print ""
+
+
+def build_meta():
+    l=language()
+    for seg in l.segments :
+        segment=l.segments[seg]
+        print segment.name
+        variables=l.get_variables(segment)
+        print variables
+
+build_meta()
+#    for subclass in l.segments:
+#        name         =None
+#        depends_on   =None
+#        single  =None
+#        store_single =None
+#        optional     =None
+#        match      =None
+#        variables    =None
+#        children     =None
+#        doc_depth    =None
+#        group        =None
+#
+#
+#
+#
+#
+#                
+#
+#
+#                class _join_or:
+#                    __slots__=()
+#                    c = None
+#                    e1 = None
+#                    condition = None
+#                    e2 = None
+#            
+#                    def __init__(self,c=None,e1=None,condition=None,e2=None):
+#                        if c:  self.c=c
+#                        if e1:  self.e1=e1
+#                        if condition:  self.condition=condition
+#                        if e2:  self.e2=e2
+                            
