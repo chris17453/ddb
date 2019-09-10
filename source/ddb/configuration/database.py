@@ -125,12 +125,12 @@ class database:
         if not temporary:
             if None == self.config_dir:
                 raise Exception("Not using a config file")
-            config_directory = os.path.dirname(self.config_dir)
+
+            config_directory = self.config_dir
         else:
             config_directory = None
 
         # print("Creating {0}.{1}".format(database_name,table_name))
-
         t = table(  name=table_name,
                     database=database_name,
                     columns=columns,

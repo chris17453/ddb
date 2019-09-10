@@ -16,7 +16,7 @@ conf_dir="source/conf"
  
 .DEFAULT: help
 
-.PHONY: all test clean profile
+.PHONY: all test clean profile script
 
 help:
 	@echo "make build          | build python files and make pypi package(runs unittest and standalone)"
@@ -103,6 +103,9 @@ build: svn_start meta bump
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
+
+script:
+	@python $(conf_dir)/build.py
 
 
 standalone:
