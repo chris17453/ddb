@@ -24,3 +24,12 @@ Notes...
 - total failure. some classes worked, others didnt
 - failed on importing modules like uuid, which I would have to impliment myself
 - I feel my efforts are best left to coding in c/c++, and exporting to python
+
+
+
+# Lock errors
+
+y lock file per unique file path.... 
+ - Test this
+
+

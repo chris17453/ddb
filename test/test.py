@@ -442,3 +442,46 @@ if __name__ == '__main__':
     unittest.main()
 
 
+
+
+# str_data="bob,sam,dave,elvis,monster,pizza,car,woman"
+# 
+# config=record_configuration()
+# config.columns               = ['c1','c2','c3','c4','c5','c6','c7','c8']
+# config.column_count          = 8
+# config.line_number           = 0
+# config.data_starts_on_line   = 0
+# 
+# data=record(str_data,config)
+# 
+# print "Iterate through keys"
+# index=0
+# for key  in data:
+#     print(key)
+#     index+=1
+# 
+# print "Iterate through Ietems (tupels)"
+# index=0
+# for key,column in data.items():
+#     print(key,column)
+#     index+=1
+# 
+# print ("Direct Access of data")
+# print data.c1
+# print data.c2
+# print data.c3
+# 
+# data.c1="loop"
+# print data.c1
+# 
+# print ("Assignment of data to invalid key")
+# try:
+#   data.c31="bob"
+# except Exception as ex:
+#   print ex
+# 
+# print ("Access of data from invalid key")
+# try:
+#   print data.c34
+# except Exception as ex:
+#   print ex

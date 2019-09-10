@@ -4,15 +4,17 @@ import datetime
 import tempfile
 import time
 import tempfile, shutil
+import hashlib
 
 
 class lock:
-    max_lock_time=60
-    max_lock_wait_time=max_lock_time+1
+    #max_lock_time=60
+    #max_lock_wait_time=max_lock_time+1
     sleep_time=0.02
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
+    
     @staticmethod
     def info(msg,data):
         if 1==2:
@@ -26,13 +28,29 @@ class lock:
 
     @staticmethod
     def get_lock_filename(path):
+        """Generate a unique name for a given file path so that if the same file name is used with a different path, the lock file is unique.
+        Possible errors with linked files."""
+        
         norm_path=lock.normalize_path(path)
         temp_dir = tempfile.gettempdir()
-        basename=os.path.basename(norm_path)
+        m = hashlib.md5()
+        m.update(norm_path)
+        basename=os.path.basename(norm_path)+"_"+m.hexdigest()
+        #basename=os.path.basename(norm_path)
         temp_file_name='{0}.lock'.format(basename)
         norm_lock_path = os.path.join(temp_dir, temp_file_name)
         return norm_lock_path
             
+    @staticmethod
+    def check_pid(pid):        
+        """ Check For the existence of a unix pid. """
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        else:
+            return True
+
     @staticmethod
     def is_locked(path,key_uuid):
         lock_path=lock.get_lock_filename(path)
@@ -42,16 +60,21 @@ class lock:
                     file_data=lockfile.readline()
                     timestamp,temp_file_path,owner_uuid=file_data.split('|')
                     # print(timestamp,temp_file_path,owner_uuid)
-                    file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
-                    curent_datetime =datetime.datetime.now()
-                    elapsed_time=curent_datetime-file_lock_time
+                    #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
+                    #curent_datetime =datetime.datetime.now()
+                    #elapsed_time=curent_datetime-file_lock_time
                     # it's an old lock thats failed. time to long. remove it
                     # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
-                    
-                    if elapsed_time.seconds>lock.max_lock_time:
-                        lock.info("Lock","Releasing, lock aged out")
+
+                    # If the lovkfile owner does not exist
+                    if lock.check_pid(owner_uuid)==False:
                         lock.release(path)
                         return lock.LOCK_NONE
+                    #NO lock timeout...
+                    #if elapsed_time.seconds>lock.max_lock_time:
+                    #    lock.info("Lock","Releasing, lock aged out")
+                    #    lock.release(path)
+                    #    return lock.LOCK_NONE
                     if owner_uuid==key_uuid:
                         lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
@@ -84,23 +107,26 @@ class lock:
         lock_cycle=0
         while 1:
             lock_status=lock.is_locked(path,key_uuid)
-            if lock_status<lock.LOCK_OTHER:
+            if lock_status==lock.LOCK_NONE:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
 
             time.sleep(lock.sleep_time)
             lock_time+=lock.sleep_time
             lock_cycle+=1
-            if lock_time>lock.max_lock_wait_time:
-                lock.info("Lock","Cannot aquire lock, timeout")
-                raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_wait_time,lock_cycle))
+            #if lock_time>lock.max_lock_wait_time:
+            #    lock.info("Lock","Cannot aquire lock, timeout")
+            #    raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_wait_time,lock_cycle))
 
         lock_path=lock.get_lock_filename(path)
         #if os.path.exists(lock_path):
         #    lock.info("Lock","Already Exists")
         #    raise Exception ("Lockfile already exists. {0}".format(lock_path))
 
-        with open(lock_path,'w') as lockfile:
+        with open(lock_path,'w+') as lockfile:
+            # allow anyone to modify the lock file
+            os.chmod(lock_path, 0o777)
+
             lock_time=datetime.datetime.now()
             lock_time_str="{0}".format(lock_time)
             
@@ -133,7 +159,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
     except Exception as ex:
-        raise Exception("Temp File Error: {0}".format(ex))
+        raise Exception("Temp File Create Copy Error: {0}".format(ex))
 
 def remove_temp_file(path):
     try:
@@ -142,7 +168,7 @@ def remove_temp_file(path):
         if os.path.exists(path)==True:
             raise Exception("Failed to delete: {0}".format(path))    
     except Exception as ex:
-        raise Exception("Temp File Error: {0}".format(ex))
+        raise Exception("Temp File Remove Lock: {0}".format(ex))
 
         
 # todo move into context with a manager flag        
