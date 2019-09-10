@@ -14,10 +14,12 @@ class lock:
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
-    
+    debug=None
+
     @staticmethod
-    def info(msg,data):
-        if 1==2:
+    def info(msg,data,debug=None):
+        
+        if 1==1:
             print("{0}: {1}".format(msg,data))
     
     @staticmethod
@@ -75,7 +77,7 @@ class lock:
 
                     # If the lockfile owner PID does not exist
                     if lock.check_pid(owner_pid)==False:
-                        print("Lock,is_locked, invalid owner")
+                        lock.info("Lock","invalid owner")
                         lock.release(path)
                         return lock.LOCK_NONE
                     elif owner_uuid==key_uuid:
@@ -97,12 +99,11 @@ class lock:
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
-        #print ("Releasing Lock file: {0}".format(lock_path))
+        lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         
-        #print ("Removing {0}".format(lock_path))
         os.remove(lock_path)
         if os.path.exists(lock_path)==True:
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
@@ -139,7 +140,7 @@ class lock:
             #lock_time_str="{0}".format(lock_time)
             
             #lock.info("Lock Time",lock_time_str)
-            # print("writing",key_uuid)
+            lock.info("Lock","writing {0}|{1}".format(key_uuid))
             #lockfile.write("{0}|{1}|{2}|{3}}".format(lock_time_str,path,key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
@@ -174,7 +175,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
 
 def remove_temp_file(path):
     try:
-        # print("Removing temp copy: {0}".format(path))
+        lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    
@@ -189,7 +190,7 @@ def swap_files(path, temp,key_uuid):
         
         
         lock_status=lock.is_locked(path,key_uuid)
-        print("Lock Status: {0}".format(lock_status))
+        lock.info("Lock","Status: {0}".format(lock_status))
         if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
