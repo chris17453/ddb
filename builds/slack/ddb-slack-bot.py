@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.968'
+__version__='1.2.969'
 
         
 # ############################################################################
@@ -4047,11 +4047,11 @@ def method_system_commit(context):
                 if None== tmp['written']:
                     context.info("Release Lock for {0}".format(tmp['temp_source']))
                     remove_temp_file(tmp['temp_source'])
-                    print "Not Written.."
+                    context.info("Commit NOT Written..")
                     lock.release(table_key)
                 else:
                     context.info("File was written {0}".format(table_key))
-                    print "Written.."
+                    context.info("Commit Written..")
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
                     context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
                     if tmp['table'].data.repo_type=='svn':
@@ -4206,30 +4206,33 @@ class lock:
             return True
     @staticmethod
     def is_locked(path,key_uuid):
-        lock_path=lock.get_lock_filename(path)
-        if os.path.exists(lock_path)==True:
-            with open(lock_path,'r') as lockfile:
-                try:
-                    file_data=lockfile.readline()
-                    owner_uuid,owner_pid=file_data.split('|')
-                    if lock.check_pid(owner_pid)==False:
-                        lock.info("Lock","invalid owner")
+        try:
+            lock_path=lock.get_lock_filename(path)
+            if os.path.exists(lock_path)==True:
+                with open(lock_path,'r') as lockfile:
+                    try:
+                        file_data=lockfile.readline()
+                        owner_uuid,owner_pid=file_data.split('|')
+                        if lock.check_pid(owner_pid)==False:
+                            lock.info("Lock","invalid owner")
+                            lock.release(path)
+                            return lock.LOCK_NONE
+                        elif owner_uuid==key_uuid:
+                            lock.info("Lock","owned by current process")
+                            return lock.LOCK_OWNER
+                        elif owner_uuid==key_uuid:
+                            lock.info("Lock","owned by other process")
+                            return lock.LOCK_OTHER
+                        else:
+                            return lock.LOCK_NONE
+                    except Exception as ex:
+                        lock.info("Lock","error {0}".format(ex))
                         lock.release(path)
-                        return lock.LOCK_NONE
-                    elif owner_uuid==key_uuid:
-                        lock.info("Lock","owned by current process")
-                        return lock.LOCK_OWNER
-                    elif owner_uuid==key_uuid:
-                        lock.info("Lock","owned by other process")
-                        return lock.LOCK_OTHER
-                    else:
-                        return lock.LOCK_NONE
-                except Exception as ex:
-                    lock.info("Lock","error {0}".format(ex))
-                    lock.release(path)
-                    pass
-        lock.info("Lock","No Lock")
-        return lock.LOCK_NONE
+                        pass
+            lock.info("Lock","No Lock")
+            return lock.LOCK_NONE
+        except Exception as ex:
+            lock.info("Lock","Failed to validate file lock: {0}".format(ex))
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
