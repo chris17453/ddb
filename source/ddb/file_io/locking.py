@@ -175,8 +175,11 @@ def remove_temp_file(path):
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
-        #print("Swap File1")
-        if lock.LOCK_OWNER != lock.is_locked(path,key_uuid):
+        
+        
+        lock_status=lock.is_locked(path,key_uuid)
+        print("Lock Status: {0}".format(lock_status))
+        if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
         # DELETE ORIGINAL
