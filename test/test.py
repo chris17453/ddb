@@ -371,12 +371,13 @@ class test_engine(unittest.TestCase):
 
             self.create_table(engine,mode)
 
+            print ("PRE BEGIN")
             results = engine.query("begin")
             self.assertEqual(True, results.success)
             
             print ("PRE DELETE")
             # clean any inserts
-            results = engine.query("delete froom {0} WHERE email='bop@bob.com'".format(self.table_name))
+            results = engine.query("delete from {0} WHERE email='bop@bob.com'".format(self.table_name))
             self.assertEqual(True, results.success)
 
             print ("PRE INSERT")
@@ -396,11 +397,13 @@ class test_engine(unittest.TestCase):
             results = engine.query("commit")
             self.assertEqual(True, results.success)
             
+            print ("PRE SELECT")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             
+            print ("PRE DELETE")
             results = engine.query("delete from {} where id='1001'".format(self.table_name))
             self.assertEqual(True, results.success)
                 
