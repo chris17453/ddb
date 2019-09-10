@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.981'
+__version__='1.2.982'
 
         
 # ############################################################################
@@ -2665,9 +2665,11 @@ def f_cat(context,arg1,arg2):
 logfile='/tmp/ddb.log'
 try:
     if os.path.exists(logfile)==False:
+        print "no logfile"
         with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_CREAT, 0o666), 'w') as handle:
             handle.write("Init ddb log file\n")
-except:
+except Exception as ex:
+    print ex
     pass
 logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 logging.propagate = False
