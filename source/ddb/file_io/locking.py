@@ -19,7 +19,7 @@ class lock:
     @staticmethod
     def info(msg,data):
         
-        if 1==11:
+        if 1==1:
             print("{0}: {1}".format(msg,data))
     
     @staticmethod
@@ -137,7 +137,7 @@ class lock:
         pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             # allow anyone to modify the lock file
-            os.chmod(lock_path, 666)
+            os.chmod(lock_path, 0o666)
 
             #lock_time=datetime.datetime.now()
             #lock_time_str="{0}".format(lock_time)
