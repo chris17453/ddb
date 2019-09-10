@@ -115,7 +115,7 @@ language_data={
 
         { 'name': 'join'  ,'match': "{join_type} join {db_context} on {where_condition}" },
         { 'name': 'value'  ,'match': "$value",'single': True },
-        { 'name': 'values'  ,'match': "$value" },
+        { 'name': 'values'  ,'match': "$values" },
         { 'name': 'assignment_list'  ,'match': "{column} :  {value}" },
         { 'name': 'on_duplicate_key'  ,'match': "on duplicate key {columns} UPDATE {assignment_list}",'single': True, 'optional': True },
 
@@ -341,7 +341,7 @@ class language:
     def get_variables(self,target,path=None):
         variables=[]
         if path==None:
-            path=""
+            path=target.name+"."
         else:
             path+="."
         
@@ -351,13 +351,14 @@ class language:
                 #print item
                 if len(item)>=2 and item[0]=='{' and item[-1]=='}':
                     token=item[1:-1]
-                    variable="."
+                    
                     if token.find('|')>0:
                         variable,segment=token.split("|")
                         variables.append(path+variable)
                         #print "getting ",segment
                     else:
                         segment=token
+                        variable=segment
                     res=self.get_variables(self.segments[segment],path+variable)
                     if res:
                         variables.append(res)
@@ -366,16 +367,61 @@ class language:
                     variables.append(path+item[1:])
         if target.children:
             for child in target.children:
-                res=self.get_variables(child,path)
+                res=self.get_variables(child,path+child.name)
                 if res:
                     variables.append(res)
 
         return variables
                 
+    def get_variable_info(self,item):
+        variable=''
+        segment=''
+        if len(item)>=2 and item[0]=='{' and item[-1]=='}':
+            token=item[1:-1]
+        
+            if token.find('|')>0:
+                variable,segment=token.split("|")
+            else:
+                variable=token
+                segment=token
+
+        return {'name':variable,'class':segment}
+
+
+    def build_class(self,target):
+        variables={}
+        
+
+        if target.match: 
+            for item in target.match:
+                info=self.get_variable_info(item)
+                variables[info['name']]=info
+        if target.children: 
+            for child  in target.children:
+                info=self.segments[child.name]
+                variables[child.name]= {'name':child.name,'class':child.name}
+        
+        defines=[]
+        var_list=[]
+        name='x'
+        for var in variables:
+            var_list.append(  "{0}=None".format(var,name ))
+
+        
+        pad="    "
+        template="""
+        class {0}:
+            {1}
+            
+            def __init__(self)
+                {2}
+            
+                def debug(self):
+                print(self)
+        
+        """.format(var_list,pad.join(defines))
+
     
-
-
-
 
 
 def build_rst():
@@ -398,7 +444,17 @@ def build_meta():
         variables=l.get_variables(segment)
         print variables
 
-build_meta()
+
+def build_class():
+    l=language()
+    for seg in l.segments :
+        segment=l.segments[seg]
+        print segment.name
+        class_tpl=l.build_class(segment)
+        print class_tpl
+
+build_class()
+        
 #    for subclass in l.segments:
 #        name         =None
 #        depends_on   =None
