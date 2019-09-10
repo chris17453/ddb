@@ -305,7 +305,6 @@ class table:
 
 
     def save(self):
-        print "SAVE"
         if None == self.data.name:
             raise Exception("Cannot save a table without a name")
 
@@ -315,16 +314,10 @@ class table:
         # if no config dir given, save in users home dir
         #print self.config_directory
         if None == self.config_directory:
-            home = os.path.expanduser("~")
-            # make app dir
-            if not os.path.exists(os.path.join(home, '.ddb')):
-                os.makedirs(os.path.join(home, '.ddb'))
-            home = os.path.join(home, '.ddb')
-        else:
-            home = self.config_directory
+            raise Exception ("No configuration directory")
 
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
+            self.data.config = os.path.join(self.config_directory, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
         
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
@@ -363,7 +356,6 @@ class table:
                 repo,
                 self.data.strict_columns)
 
-        print ("Saving")
         with open(self.data.config,"w") as config_file:
             config_file.write(sql)
 

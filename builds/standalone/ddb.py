@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.974'
+__version__='1.2.975'
 
         
 # ############################################################################
@@ -2382,14 +2382,9 @@ class table:
             raise Exception("Cannot save a table without a database name")
         self.data.type = "LOCAL"
         if None == self.config_directory:
-            home = os.path.expanduser("~")
-            if not os.path.exists(os.path.join(home, '.ddb')):
-                os.makedirs(os.path.join(home, '.ddb'))
-            home = os.path.join(home, '.ddb')
-        else:
-            home = self.config_directory
+            raise Exception ("No configuration directory")
         if None == self.data.config:
-            self.data.config = os.path.join(home, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
+            self.data.config = os.path.join(self.config_directory, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
         column_str=[]
@@ -2573,7 +2568,7 @@ class database:
         if not temporary:
             if None == self.config_dir:
                 raise Exception("Not using a config file")
-            config_directory = os.path.dirname(self.config_dir)
+            config_directory = self.config_dir
         else:
             config_directory = None
         t = table(  name=table_name,
@@ -5570,7 +5565,7 @@ def cli_main():
     if 'DDB_DATA' in os.environ:
         if not os.environ['DDB_DATA']:
             home = expanduser("~")
-            config_dir = os.path.join(os.path.join(home, '.ddb'))
+            config_dir = os.path.join(home, '.ddb')
         else:
             config_dir=os.path.abspath(os.path.expanduser(os.environ['DDB_DATA']))
     else:
