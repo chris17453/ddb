@@ -17,9 +17,9 @@ class lock:
     debug=None
 
     @staticmethod
-    def info(msg,data,debug=None):
+    def info(msg,data):
         
-        if 1==1:
+        if 1==11:
             print("{0}: {1}".format(msg,data))
     
     @staticmethod
