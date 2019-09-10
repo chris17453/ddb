@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.978'
+__version__='1.2.979'
 
         
 # ############################################################################
@@ -4256,8 +4256,8 @@ class lock:
     LOCK_OTHER=2
     debug=None
     @staticmethod
-    def info(msg,data,debug=None):
-        if 1==1:
+    def info(msg,data):
+        if 1==11:
             print("{0}: {1}".format(msg,data))
     @staticmethod
     def normalize_path(path):

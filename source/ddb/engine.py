@@ -15,7 +15,17 @@ from .configuration.database import database
 from .version import __version__
 
 
-logging.basicConfig(filename='/tmp/ddb.log', filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+logfile='/tmp/ddb.log'
+try:
+    # try to create the log file with world read/writable permissons
+    if os.path.exists(logfile)==False:
+        with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_CREAT, 0o666), 'w') as handle:
+            handle.write("Init ddb log file\n")
+except:
+    pass
+
+logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+
 logging.propagate = False
 
 #methods -> actions
