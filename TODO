@@ -29,7 +29,9 @@ Notes...
 
 # Lock errors
 
-y lock file per unique file path.... 
- - Test this
+ - x lock file per unique file path.... 
+ - x removed time out, will wait until lock file is removed OR lock file PID is nolonger arround (BLOCKING)
+ - x lockfiles can be created/edited by any user. 0o777
+ 
 
 
