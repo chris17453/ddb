@@ -305,6 +305,7 @@ class table:
 
 
     def save(self):
+        print "SAVE"
         if None == self.data.name:
             raise Exception("Cannot save a table without a name")
 
@@ -362,11 +363,10 @@ class table:
                 repo,
                 self.data.strict_columns)
 
-              
+        print ("Saving")
         with open(self.data.config,"w") as config_file:
             config_file.write(sql)
 
-        #yamlf_dump(data=self, file=self.data.config)
         return True
 
 
