@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.982'
+__version__='1.2.983'
 
         
 # ############################################################################
@@ -2657,7 +2657,7 @@ def f_cat(context,arg1,arg2):
 
 logfile='/tmp/ddb.log'
 try:
-    if os.path.exists(logfile)==False:
+    if os.path.exists(logfile)!=True:
         print "no logfile"
         with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_CREAT, 0o666), 'w') as handle:
             handle.write("Init ddb log file\n")

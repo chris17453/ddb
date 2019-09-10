@@ -17,11 +17,8 @@ from .version import __version__
 
 logfile='/tmp/ddb.log'
 try:
-    # try to create the log file with world read/writable permissons
-    if os.path.exists(logfile)!=True:
-        print "no logfile"
-        with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_CREAT, 0o666), 'w') as handle:
-            handle.write("Init ddb log file\n")
+    if os.path.exists(logfile)==True:
+        os.chmod(logfile,0o666)
 except Exception as ex:
     print ex
     pass
