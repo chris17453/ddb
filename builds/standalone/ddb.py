@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.969'
+__version__='1.2.970'
 
         
 # ############################################################################
@@ -4208,7 +4208,7 @@ class lock:
         try:
             lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r') as lockfile:
+                with open(lock_path,'r+') as lockfile:
                     try:
                         file_data=lockfile.readline()
                         owner_uuid,owner_pid=file_data.split('|')
@@ -4258,7 +4258,7 @@ class lock:
         pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             os.chmod(lock_path, 0o777)
-            lock.info("Lock","writing {0}|{1}".format(key_uuid))
+            lock.info("Lock","writing {0}|{1}".format(key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
