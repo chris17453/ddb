@@ -169,7 +169,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         else:
             temp_file_name="{0}".format(temp_base_name)
         temp_path = os.path.join(temp_dir, temp_file_name)
-        lock.info("Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
+        lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         shutil.copy2(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
