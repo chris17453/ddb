@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.977'
+__version__='1.2.978'
 
         
 # ############################################################################
@@ -2363,13 +2363,9 @@ class table:
                 self.ordinals[v.data.name] = v.data.ordinal
     def delete(self):
         try:
-            print "DT MAN"
             if os.path.exists(self.data.config):
-                print "table exists",self.data.config
                 if os.path.isfile(self.data.config):
-                    print "table is file",self.data.config
                     os.remove(self.data.config)
-                    print "table removed",self.data.config
                 else:
                     err_msg="Table config is not a file! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                     raise Exception (err_msg)
