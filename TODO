@@ -32,6 +32,38 @@ Notes...
  - x lock file per unique file path.... 
  - x removed time out, will wait until lock file is removed OR lock file PID is nolonger arround (BLOCKING)
  - x lockfiles can be created/edited by any user. 0o777
- 
 
+
+
+
+
+## Locking and concurency in ddb
+ddb performs all operations in a temporary space. This prevents synchronization and concurrency issues.
+Nothing occurs to the original data except at the end of a commit cycle on a SUCCESFULL Change.
+
+To do this ddb uses the local temp directory with a NON unique lock file per selected data file.
+ddb blocks until the lock is cleared. Internally each ddb engine locked from one instance to another.
+
+Locks are PID/UUID Based.
+
+## AUTO COMMIT
+autocommit is selected by default. Thats is to say as in any other database, each query preforms a full begin/commit per query.
+This can be changed by explicity using begin/commit/rollback commands, as in other databsaes.
+
+
+## CRUD WORKFLOW Locking Strategy
+- BEGIN Transaction 
+    - WAIT FOR FREE LOCK, OR REMOVE DEAD LOCK
+    - LOCK original
+    - COPY original to temp
+    - CRUD ON TEMP  (multiple operations possible)
+    - ON ROLLBACK (original is untouched)
+        - DELETE temp
+        - REMOVE LOCK
+    - ON COMMIT 
+        - IF temp has diverted from the original
+            - DELETE original
+            - COPY temp to original
+        - DELETE temp
+        - REMOVE LOCK
 
