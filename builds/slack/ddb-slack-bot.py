@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.967'
+__version__='1.2.968'
 
         
 # ############################################################################
@@ -4173,9 +4173,10 @@ class lock:
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
+    debug=None
     @staticmethod
-    def info(msg,data):
-        if 1==2:
+    def info(msg,data,debug=None):
+        if 1==1:
             print("{0}: {1}".format(msg,data))
     @staticmethod
     def normalize_path(path):
@@ -4212,7 +4213,7 @@ class lock:
                     file_data=lockfile.readline()
                     owner_uuid,owner_pid=file_data.split('|')
                     if lock.check_pid(owner_pid)==False:
-                        print("Lock,is_locked, invalid owner")
+                        lock.info("Lock","invalid owner")
                         lock.release(path)
                         return lock.LOCK_NONE
                     elif owner_uuid==key_uuid:
@@ -4232,6 +4233,7 @@ class lock:
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
+        lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         os.remove(lock_path)
@@ -4254,6 +4256,7 @@ class lock:
         pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             os.chmod(lock_path, 0o777)
+            lock.info("Lock","writing {0}|{1}".format(key_uuid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
@@ -4276,6 +4279,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
+        lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    
@@ -4285,7 +4289,7 @@ def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
         lock_status=lock.is_locked(path,key_uuid)
-        print("Lock Status: {0}".format(lock_status))
+        lock.info("Lock","Status: {0}".format(lock_status))
         if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
         norm_path=normalize_path(path)

@@ -55,46 +55,49 @@ class lock:
 
     @staticmethod
     def is_locked(path,key_uuid):
-        lock_path=lock.get_lock_filename(path)
-        if os.path.exists(lock_path)==True:
-            with open(lock_path,'r') as lockfile:
-                try:
-                    file_data=lockfile.readline()
-                    #timestamp,temp_file_path,
-                    owner_uuid,owner_pid=file_data.split('|')
-                    # print(timestamp,temp_file_path,owner_uuid)
-                    #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
-                    #curent_datetime =datetime.datetime.now()
-                    #elapsed_time=curent_datetime-file_lock_time
-                    # it's an old lock thats failed. time to long. remove it
-                    # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
+        try:
+            lock_path=lock.get_lock_filename(path)
+            if os.path.exists(lock_path)==True:
+                with open(lock_path,'r') as lockfile:
+                    try:
+                        file_data=lockfile.readline()
+                        #timestamp,temp_file_path,
+                        owner_uuid,owner_pid=file_data.split('|')
+                        # print(timestamp,temp_file_path,owner_uuid)
+                        #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
+                        #curent_datetime =datetime.datetime.now()
+                        #elapsed_time=curent_datetime-file_lock_time
+                        # it's an old lock thats failed. time to long. remove it
+                        # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
 
-                    #NO lock timeout...
-                    #if elapsed_time.seconds>lock.max_lock_time:
-                    #    lock.info("Lock","Releasing, lock aged out")
-                    #    lock.release(path)
-                    #    return lock.LOCK_NONE
+                        #NO lock timeout...
+                        #if elapsed_time.seconds>lock.max_lock_time:
+                        #    lock.info("Lock","Releasing, lock aged out")
+                        #    lock.release(path)
+                        #    return lock.LOCK_NONE
 
-                    # If the lockfile owner PID does not exist
-                    if lock.check_pid(owner_pid)==False:
-                        lock.info("Lock","invalid owner")
+                        # If the lockfile owner PID does not exist
+                        if lock.check_pid(owner_pid)==False:
+                            lock.info("Lock","invalid owner")
+                            lock.release(path)
+                            return lock.LOCK_NONE
+                        elif owner_uuid==key_uuid:
+                            lock.info("Lock","owned by current process")
+                            return lock.LOCK_OWNER
+                        elif owner_uuid==key_uuid:
+                            lock.info("Lock","owned by other process")
+                            # print(owner_uuid,key_uuid)
+                            return lock.LOCK_OTHER
+                        else:
+                            return lock.LOCK_NONE
+                    except Exception as ex:
+                        lock.info("Lock","error {0}".format(ex))
                         lock.release(path)
-                        return lock.LOCK_NONE
-                    elif owner_uuid==key_uuid:
-                        lock.info("Lock","owned by current process")
-                        return lock.LOCK_OWNER
-                    elif owner_uuid==key_uuid:
-                        lock.info("Lock","owned by other process")
-                        # print(owner_uuid,key_uuid)
-                        return lock.LOCK_OTHER
-                    else:
-                        return lock.LOCK_NONE
-                except Exception as ex:
-                    lock.info("Lock","error {0}".format(ex))
-                    lock.release(path)
-                    pass
-        lock.info("Lock","No Lock")
-        return lock.LOCK_NONE
+                        pass
+            lock.info("Lock","No Lock")
+            return lock.LOCK_NONE
+        except Exception as ex:
+            lock.info("Lock","Failed to validate file lock: {0}".format(ex))
 
     @staticmethod
     def release(path):
