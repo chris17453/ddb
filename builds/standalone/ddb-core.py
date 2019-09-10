@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.957'
+__version__='1.2.958'
 
         
 # ############################################################################
@@ -4267,9 +4267,9 @@ def remove_temp_file(path):
     try:
         os.remove(path)
         if os.path.exists(path)==True:
-            raise Exception("Failed to delete: {0}".format(path))    
+            raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    
     except Exception as ex:
-        raise Exception("Temp File Remove Lock: {0}".format(ex))
+        raise Exception("Lock, Temp File Remove Lock: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
@@ -4286,7 +4286,7 @@ def swap_files(path, temp,key_uuid):
         if os.path.exists(temp)==True:
             raise Exception("Deleting temp file {0} failed".format(temp))
     except Exception as ex:
-        raise Exception("File Error: {0}".format(ex))
+        raise Exception("Locking Swap File Error: {0}".format(ex))
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))

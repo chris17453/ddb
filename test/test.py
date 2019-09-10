@@ -373,17 +373,26 @@ class test_engine(unittest.TestCase):
 
             results = engine.query("begin")
             self.assertEqual(True, results.success)
+            
+            print ("PRE DELETE")
+            # clean any inserts
+            results = engine.query("delete froom {0} WHERE email='bop@bob.com'".format(self.table_name))
+            self.assertEqual(True, results.success)
+
+            print ("PRE INSERT")
             # update
-            results = engine.query("insert into {} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
+            results = engine.query("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')".format(self.table_name))
             #results.debug()
             self.assertEqual(True, results.success)
 
+            print ("PRE SELECT")
             results = engine.query("SELECT id FROM {0}".format(self.table_name) )
             #results.debug()
             self.assertEqual(True, results.success)
             self.assertEqual(1001, results.data_length)
             #results.debug()
 
+            print ("PRE COMMIT")
             results = engine.query("commit")
             self.assertEqual(True, results.success)
             
