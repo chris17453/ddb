@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.965'
+__version__='1.2.966'
 
         
 # ############################################################################
@@ -4209,15 +4209,19 @@ class lock:
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
-                    timestamp,temp_file_path,owner_uuid=file_data.split('|')
-                    if owner_uuid==key_uuid:
+                    owner_uuid,owner_pid=file_data.split('|')
+                    if lock.check_pid(owner_pid)==False:
+                        print("Lock,is_locked, invalid owner")
+                        lock.release(path)
+                        return lock.LOCK_NONE
+                    elif owner_uuid==key_uuid:
                         lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
                     elif owner_uuid==key_uuid:
                         lock.info("Lock","owned by other process")
                         return lock.LOCK_OTHER
                     else:
-                        return lock.LOCK_OTHER
+                        return lock.LOCK_NONE
                 except Exception as ex:
                     lock.info("Lock","error {0}".format(ex))
                     lock.release(path)
@@ -4227,7 +4231,6 @@ class lock:
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
-        print ("Releasing Lock file: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         os.remove(lock_path)
@@ -4247,14 +4250,11 @@ class lock:
             lock_time+=lock.sleep_time
             lock_cycle+=1
         lock_path=lock.get_lock_filename(path)
+        pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             os.chmod(lock_path, 0o777)
-            lock_time=datetime.datetime.now()
-            lock_time_str="{0}".format(lock_time)
-            lock.info("Lock Time",lock_time_str)
-            lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
+            lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
-        print("Lockfile: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
@@ -4275,7 +4275,6 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
-        print("Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    

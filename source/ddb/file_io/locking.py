@@ -189,7 +189,7 @@ def swap_files(path, temp,key_uuid):
         
         
         lock_status=lock.is_locked(path,key_uuid)
-        #print("Lock Status: {0}".format(lock_status))
+        print("Lock Status: {0}".format(lock_status))
         if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
