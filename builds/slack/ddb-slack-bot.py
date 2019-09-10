@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.971'
+__version__='1.2.972'
 
         
 # ############################################################################
@@ -4213,7 +4213,7 @@ class lock:
                     try:
                         file_data=lockfile.readline()
                         owner_uuid,owner_pid=file_data.split('|')
-                        if lock.check_pid(owner_pid)==False:
+                        if lock.check_pid(int(owner_pid))==False:
                             lock.info("Lock","invalid owner")
                             lock.release(path)
                             return lock.LOCK_NONE
