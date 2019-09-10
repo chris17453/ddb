@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.966'
+__version__='1.2.967'
 
         
 # ############################################################################
@@ -4371,6 +4371,7 @@ def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
         lock_status=lock.is_locked(path,key_uuid)
+        print("Lock Status: {0}".format(lock_status))
         if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
         norm_path=normalize_path(path)
