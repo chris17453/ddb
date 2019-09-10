@@ -67,9 +67,10 @@ class lock:
                     # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
 
                     # If the lovkfile owner does not exist
-                    if lock.check_pid(owner_uuid)==False:
-                        lock.release(path)
-                        return lock.LOCK_NONE
+                    #if lock.check_pid(owner_uuid)==False:
+                    #    print("Lock,is_locked, invalid owner")
+                    #    lock.release(path)
+                    #23    return lock.LOCK_NONE
                     #NO lock timeout...
                     #if elapsed_time.seconds>lock.max_lock_time:
                     #    lock.info("Lock","Releasing, lock aged out")
@@ -78,9 +79,11 @@ class lock:
                     if owner_uuid==key_uuid:
                         lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
-                    else:
+                    elif owner_uuid==key_uuid:
                         lock.info("Lock","owned by other process")
                         # print(owner_uuid,key_uuid)
+                        return lock.LOCK_OTHER
+                    else:
                         return lock.LOCK_OTHER
                 except Exception as ex:
                     lock.info("Lock","error {0}".format(ex))
