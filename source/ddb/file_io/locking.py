@@ -58,7 +58,7 @@ class lock:
         try:
             lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r') as lockfile:
+                with open(lock_path,'r+') as lockfile:
                     try:
                         file_data=lockfile.readline()
                         #timestamp,temp_file_path,
@@ -143,7 +143,7 @@ class lock:
             #lock_time_str="{0}".format(lock_time)
             
             #lock.info("Lock Time",lock_time_str)
-            lock.info("Lock","writing {0}|{1}".format(key_uuid))
+            lock.info("Lock","writing {0}|{1}".format(key_uuid,pid))
             #lockfile.write("{0}|{1}|{2}|{3}}".format(lock_time_str,path,key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
