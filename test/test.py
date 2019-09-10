@@ -395,6 +395,7 @@ class test_engine(unittest.TestCase):
 
             print ("PRE COMMIT")
             results = engine.query("commit")
+            print (results.error)
             self.assertEqual(True, results.success)
             
             print ("PRE SELECT")
