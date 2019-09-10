@@ -58,7 +58,8 @@ class lock:
             with open(lock_path,'r') as lockfile:
                 try:
                     file_data=lockfile.readline()
-                    timestamp,temp_file_path,owner_uuid=file_data.split('|')
+                    #timestamp,temp_file_path,
+                    owner_uuid,owner_pid=file_data.split('|')
                     # print(timestamp,temp_file_path,owner_uuid)
                     #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                     #curent_datetime =datetime.datetime.now()
@@ -66,17 +67,18 @@ class lock:
                     # it's an old lock thats failed. time to long. remove it
                     # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
 
-                    # If the lovkfile owner does not exist
-                    #if lock.check_pid(owner_uuid)==False:
-                    #    print("Lock,is_locked, invalid owner")
-                    #    lock.release(path)
-                    #23    return lock.LOCK_NONE
                     #NO lock timeout...
                     #if elapsed_time.seconds>lock.max_lock_time:
                     #    lock.info("Lock","Releasing, lock aged out")
                     #    lock.release(path)
                     #    return lock.LOCK_NONE
-                    if owner_uuid==key_uuid:
+
+                    # If the lockfile owner PID does not exist
+                    if lock.check_pid(owner_pid)==False:
+                        print("Lock,is_locked, invalid owner")
+                        lock.release(path)
+                        return lock.LOCK_NONE
+                    elif owner_uuid==key_uuid:
                         lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
                     elif owner_uuid==key_uuid:
@@ -84,7 +86,7 @@ class lock:
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                     else:
-                        return lock.LOCK_OTHER
+                        return lock.LOCK_NONE
                 except Exception as ex:
                     lock.info("Lock","error {0}".format(ex))
                     lock.release(path)
@@ -95,7 +97,7 @@ class lock:
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
-        print ("Releasing Lock file: {0}".format(lock_path))
+        #print ("Releasing Lock file: {0}".format(lock_path))
         
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
@@ -128,18 +130,20 @@ class lock:
         #    lock.info("Lock","Already Exists")
         #    raise Exception ("Lockfile already exists. {0}".format(lock_path))
 
+        pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             # allow anyone to modify the lock file
             os.chmod(lock_path, 0o777)
 
-            lock_time=datetime.datetime.now()
-            lock_time_str="{0}".format(lock_time)
+            #lock_time=datetime.datetime.now()
+            #lock_time_str="{0}".format(lock_time)
             
-            lock.info("Lock Time",lock_time_str)
+            #lock.info("Lock Time",lock_time_str)
             # print("writing",key_uuid)
-            lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
+            #lockfile.write("{0}|{1}|{2}|{3}}".format(lock_time_str,path,key_uuid,pid))
+            lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
-        print("Lockfile: {0}".format(lock_path))
+        # print("Lockfile: {0}".format(lock_path))
 
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
@@ -170,7 +174,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
 
 def remove_temp_file(path):
     try:
-        print("Removing temp copy: {0}".format(path))
+        # print("Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    

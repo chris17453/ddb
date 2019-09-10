@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.964'
+__version__='1.2.965'
 
         
 # ############################################################################
@@ -4297,14 +4297,13 @@ class lock:
                 try:
                     file_data=lockfile.readline()
                     timestamp,temp_file_path,owner_uuid=file_data.split('|')
-                    if lock.check_pid(owner_uuid)==False:
-                        lock.release(path)
-                        return lock.LOCK_NONE
                     if owner_uuid==key_uuid:
                         lock.info("Lock","owned by current process")
                         return lock.LOCK_OWNER
-                    else:
+                    elif owner_uuid==key_uuid:
                         lock.info("Lock","owned by other process")
+                        return lock.LOCK_OTHER
+                    else:
                         return lock.LOCK_OTHER
                 except Exception as ex:
                     lock.info("Lock","error {0}".format(ex))
