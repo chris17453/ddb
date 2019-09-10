@@ -77,7 +77,7 @@ class lock:
                         #    return lock.LOCK_NONE
 
                         # If the lockfile owner PID does not exist
-                        if lock.check_pid(owner_pid)==False:
+                        if lock.check_pid(int(owner_pid))==False:
                             lock.info("Lock","invalid owner")
                             lock.release(path)
                             return lock.LOCK_NONE
