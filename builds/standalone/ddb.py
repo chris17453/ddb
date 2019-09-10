@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.963'
+__version__='1.2.964'
 
         
 # ############################################################################
@@ -4046,9 +4046,11 @@ def method_system_commit(context):
                 if None== tmp['written']:
                     context.info("Release Lock for {0}".format(tmp['temp_source']))
                     remove_temp_file(tmp['temp_source'])
+                    print "Not Written.."
                     lock.release(table_key)
                 else:
                     context.info("File was written {0}".format(table_key))
+                    print "Written.."
                     swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
                     context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
                     if tmp['table'].data.repo_type=='svn':
