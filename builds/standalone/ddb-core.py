@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.961'
+__version__='1.2.962'
 
         
 # ############################################################################
@@ -4245,6 +4245,7 @@ class lock:
             lock.info("Lock Time",lock_time_str)
             lockfile.write("{0}|{1}|{2}".format(lock_time_str,path,key_uuid))
             lockfile.flush()
+        print("Lockfile: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
@@ -4265,6 +4266,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
+        print("Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("Lock, remove temp file failed to delete: {0}".format(path))    
@@ -4274,7 +4276,6 @@ def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     try:
         lock_status=lock.is_locked(path,key_uuid)
-        print("Lock Status: {0}".format(lock_status))
         if lock.LOCK_OWNER != lock_status:
             raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
         norm_path=normalize_path(path)

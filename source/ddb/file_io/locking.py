@@ -92,6 +92,8 @@ class lock:
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
+        print ("Releasing Lock file: {0}".format(lock_path))
+        
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         
