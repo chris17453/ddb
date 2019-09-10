@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.980'
+__version__='1.2.981'
 
         
 # ############################################################################
@@ -4264,7 +4264,7 @@ class lock:
     debug=None
     @staticmethod
     def info(msg,data):
-        if 1==11:
+        if 1==1:
             print("{0}: {1}".format(msg,data))
     @staticmethod
     def normalize_path(path):
@@ -4346,7 +4346,7 @@ class lock:
         lock_path=lock.get_lock_filename(path)
         pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
-            os.chmod(lock_path, 666)
+            os.chmod(lock_path, 0o666)
             lock.info("Lock","writing {0}|{1}".format(key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
