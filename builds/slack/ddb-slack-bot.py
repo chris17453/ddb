@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.983'
+__version__='1.2.984'
 
         
 # ############################################################################
@@ -2665,10 +2665,8 @@ def f_cat(context,arg1,arg2):
 
 logfile='/tmp/ddb.log'
 try:
-    if os.path.exists(logfile)!=True:
-        print "no logfile"
-        with os.fdopen(os.open(logfile, os.O_WRONLY | os.O_CREAT, 0o666), 'w') as handle:
-            handle.write("Init ddb log file\n")
+    if os.path.exists(logfile)==True:
+        os.chmod(logfile,0o666)
 except Exception as ex:
     print ex
     pass
