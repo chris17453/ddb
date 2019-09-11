@@ -15,6 +15,10 @@ from .configuration.database import database
 from .version import __version__
 
 
+logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+logging.propagate = False
+
+
 logfile='/tmp/ddb.log'
 try:
     if os.path.exists(logfile)==True:
@@ -23,9 +27,6 @@ except Exception as ex:
     print ex
     pass
 
-logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
-
-logging.propagate = False
 
 #methods -> actions
 
