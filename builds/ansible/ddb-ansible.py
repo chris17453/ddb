@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.984'
+__version__='1.2.985'
 
         
 # ############################################################################
@@ -2749,6 +2749,8 @@ def f_cat(context,arg1,arg2):
 # File   : ./source/ddb/engine.py
 # ############################################################################
 
+logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+logging.propagate = False
 logfile='/tmp/ddb.log'
 try:
     if os.path.exists(logfile)==True:
@@ -2756,8 +2758,6 @@ try:
 except Exception as ex:
     print ex
     pass
-logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
-logging.propagate = False
 class engine:
     """A serverless flat file database engine"""
     class data_type:

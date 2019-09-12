@@ -15,11 +15,11 @@ from .configuration.database import database
 from .version import __version__
 
 
+logfile='/tmp/ddb.log'
 logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 logging.propagate = False
 
 
-logfile='/tmp/ddb.log'
 try:
     if os.path.exists(logfile)==True:
         os.chmod(logfile,0o666)
