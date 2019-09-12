@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.987'
+__version__='1.2.988'
 
         
 # ############################################################################
@@ -4312,12 +4312,13 @@ class lock:
                             lock.info("Lock","owned by other process")
                             return lock.LOCK_OTHER
                         else:
+                            lock.info("Lock","None {0}".format(ex))
                             return lock.LOCK_NONE
                     except Exception as ex:
                         lock.info("Lock","error {0}".format(ex))
                         lock.release(path)
                         pass
-            lock.info("Lock","No Lock")
+            lock.info("Lock","None")
             return lock.LOCK_NONE
         except Exception as ex:
             lock.info("Lock","Failed to validate file lock: {0}".format(ex))
