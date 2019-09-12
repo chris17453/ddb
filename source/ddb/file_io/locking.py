@@ -89,12 +89,13 @@ class lock:
                             # print(owner_uuid,key_uuid)
                             return lock.LOCK_OTHER
                         else:
+                            lock.info("Lock","None {0}".format(ex))
                             return lock.LOCK_NONE
                     except Exception as ex:
                         lock.info("Lock","error {0}".format(ex))
                         lock.release(path)
                         pass
-            lock.info("Lock","No Lock")
+            lock.info("Lock","None")
             return lock.LOCK_NONE
         except Exception as ex:
             lock.info("Lock","Failed to validate file lock: {0}".format(ex))

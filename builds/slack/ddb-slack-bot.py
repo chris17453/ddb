@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.986'
+__version__='1.2.987'
 
         
 # ############################################################################
@@ -4261,7 +4261,6 @@ class lock:
         pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
             os.chmod(lock_path, 0o666)
-            lock.info("Lock","writing {0}|{1}".format(key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
         if os.path.exists(lock_path)==False:
@@ -4272,7 +4271,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
     try:
         lock.aquire(path,uuid)
         temp_dir = tempfile.gettempdir()
-        temp_base_name=next(tempfile._get_candidate_names())
+        temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
             temp_file_name="{0}_{1}".format(prefix,temp_base_name)
         else:
