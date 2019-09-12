@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.985'
+__version__='1.2.986'
 
         
 # ############################################################################
@@ -2662,9 +2662,9 @@ def f_cat(context,arg1,arg2):
 # File   : ./source/ddb/engine.py
 # ############################################################################
 
+logfile='/tmp/ddb.log'
 logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 logging.propagate = False
-logfile='/tmp/ddb.log'
 try:
     if os.path.exists(logfile)==True:
         os.chmod(logfile,0o666)
