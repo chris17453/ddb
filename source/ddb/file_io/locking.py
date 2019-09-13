@@ -150,6 +150,7 @@ class lock:
             lockfile.flush()
         # print("Lockfile: {0}".format(lock_path))
 
+        lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
