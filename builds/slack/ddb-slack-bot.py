@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.991'
+__version__='1.2.992'
 
         
 # ############################################################################
@@ -4042,6 +4042,7 @@ def method_system_commit(context):
     """Move temp files to source files"""
     context.info("Commit")
     try:
+        print("Commit")
         if context.internal['IN_TRANSACTION']==1:
             context.internal['IN_TRANSACTION']=0
             context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
