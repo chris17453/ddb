@@ -124,7 +124,7 @@ class lock:
             lock_status=lock.is_locked(path,key_uuid)
             if lock_status==lock.LOCK_NONE:
                 break
-            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
+            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
 
         with open(lock_path,'w+') as lockfile:

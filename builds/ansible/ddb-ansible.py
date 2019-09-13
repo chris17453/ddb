@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1001'
+__version__='1.2.1002'
 
         
 # ############################################################################
@@ -4341,22 +4341,18 @@ class lock:
         lock.info("Lock","removed")
     @staticmethod
     def aquire(path,key_uuid):
-        lock_time=0
-        lock_cycle=0
+        lock_path =lock.get_lock_filename(path)
+        pid       =os.getpid()
         while 1:
             lock_status=lock.is_locked(path,key_uuid)
             if lock_status==lock.LOCK_NONE:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
             time.sleep(lock.sleep_time)
-            lock_time+=lock.sleep_time
-            lock_cycle+=1
-        lock_path=lock.get_lock_filename(path)
-        pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
-            os.chmod(lock_path, 0o666)
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
+        os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
