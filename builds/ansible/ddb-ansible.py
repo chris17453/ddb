@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.995'
+__version__='1.2.996'
 
         
 # ############################################################################
@@ -4356,6 +4356,7 @@ class lock:
             os.chmod(lock_path, 0o666)
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
+        lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             lock.info("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
