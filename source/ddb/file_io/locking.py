@@ -55,9 +55,10 @@ class lock:
             return True
 
     @staticmethod
-    def is_locked(path,key_uuid):
+    def is_locked(path,key_uuid,lock_path=None):
         try:
-            lock_path=lock.get_lock_filename(path)
+            if None==lock_path:
+                lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
                 with open(lock_path,'r+') as lockfile:
                     try:
@@ -121,7 +122,7 @@ class lock:
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
         while 1:
-            lock_status=lock.is_locked(path,key_uuid)
+            lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
@@ -130,7 +131,6 @@ class lock:
         lock.info("Lock","Creating, {0}".format(path))
         with open(lock_path,'w+') as lockfile:
             lockfile.write("{0}|{1}".format(key_uuid,pid))
-            lockfile.flush()
 
         lock.info("Lock","MOD, {0}".format(path))
         # allow anyone to modify the lock file
