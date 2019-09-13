@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.993'
+__version__='1.2.994'
 
         
 # ############################################################################
@@ -4154,6 +4154,7 @@ def method_system_commit(context):
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
+        print ("Ex")
         context.info("Commit Error",ex)
         return query_results(success=False,error=ex)
 
