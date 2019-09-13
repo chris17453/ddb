@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.998'
+__version__='1.2.999'
 
         
 # ############################################################################
@@ -4176,8 +4176,10 @@ class lock:
     debug=None
     @staticmethod
     def info(msg,data):
+        from datetime import datetime
+        dt = datetime.datetime.now()
         if 1==1:
-            print("{2}-{0}: {1}".format(msg,data,time.time()))
+            print("{2}-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""

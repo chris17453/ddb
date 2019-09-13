@@ -18,7 +18,6 @@ class lock:
 
     @staticmethod
     def info(msg,data):
-        from datetime import datetime
         dt = datetime.datetime.now()
         
         if 1==1:
