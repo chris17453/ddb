@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.992'
+__version__='1.2.993'
 
         
 # ############################################################################
@@ -4150,6 +4150,7 @@ def method_system_commit(context):
             context.internal['TEMP_FILES']={}
             print ("Temp Flags Files Cleared")
         else:
+            print("Not in transaction")
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
