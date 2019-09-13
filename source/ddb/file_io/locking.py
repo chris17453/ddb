@@ -102,6 +102,7 @@ class lock:
             lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
+            return lock.LOCK_OTHER
             lock.info("Lock","Failed to validate file lock: {0}".format(ex))
 
     @staticmethod
@@ -136,7 +137,7 @@ class lock:
             os.close(fd)
         except Exception as ex:
             lock.info("Lock","error!:{0}".format(ex))
-            
+
         #with open(lock_path,'w') as lockfile:
         #    lockfile.write)
 
