@@ -1,2992 +1,1433 @@
 SELECT
 1
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.06,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.08,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.1,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kqPnLmUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__kqPnLmUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339266.65-Lock: owned by other process
+1568339266.65-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339266.67-Lock: owned by other process
+1568339266.67-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339266.69-Lock: owned by other process
+1568339266.69-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339266.71-Lock: owned by other process
+1568339266.71-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.06,2
+1568339266.73-Lock: owned by other process
+1568339266.73-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.08,2
+1568339266.75-Lock: owned by other process
+1568339266.75-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.1,2
+1568339266.77-Lock: owned by other process
+1568339266.77-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.12,2
+1568339266.79-Lock: None-Fall Through
+1568339266.79-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.79-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__FmezkMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__FmezkMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__kqPnLmUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339266.79-Lock: Removing temp copy: /tmp/ddb__FmezkMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339266.8-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.8-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__56e5sZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__56e5sZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339266.8-Lock: None-Fall Through
+1568339266.8-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.8-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AUPYfhUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__AUPYfhUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__56e5sZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339266.81-Lock: Removing temp copy: /tmp/ddb__AUPYfhUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339266.81-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.81-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__g_5d2vUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__g_5d2vUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339266.81-Lock: None-Fall Through
+1568339266.81-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.81-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__afMdBIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__afMdBIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__g_5d2vUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339266.82-Lock: Removing temp copy: /tmp/ddb__afMdBIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339266.82-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.82-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Cuuy_BUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Cuuy_BUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339266.82-Lock: None-Fall Through
+1568339266.82-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.82-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DDIxD8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__DDIxD8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Cuuy_BUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339266.83-Lock: Removing temp copy: /tmp/ddb__DDIxD8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339266.83-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.83-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Gc7Ja4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Gc7Ja4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339266.83-Lock: owned by other process
+1568339266.83-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339266.85-Lock: owned by other process
+1568339266.85-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339266.87-Lock: owned by other process
+1568339266.87-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339266.89-Lock: owned by other process
+1568339266.89-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.06,2
+1568339266.91-Lock: owned by other process
+1568339266.91-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.08,2
+1568339266.93-Lock: owned by other process
+1568339266.93-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.1,2
+1568339266.95-Lock: owned by other process
+1568339266.95-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.12,2
+1568339266.97-Lock: owned by other process
+1568339266.97-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.14,2
+1568339266.99-Lock: None-Fall Through
+1568339266.99-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339266.99-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wDtR0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__wDtR0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Gc7Ja4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.0-Lock: Removing temp copy: /tmp/ddb__wDtR0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.0-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.0-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SH9HIhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__SH9HIhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.01-Lock: None-Fall Through
+1568339267.01-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.01-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__WiS6SrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__WiS6SrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__SH9HIhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.02-Lock: Removing temp copy: /tmp/ddb__WiS6SrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.02-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.02-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1j80XRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__1j80XRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.02-Lock: None-Fall Through
+1568339267.02-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.02-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9xaDN0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__9xaDN0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__1j80XRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.03-Lock: Removing temp copy: /tmp/ddb__9xaDN0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.03-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.03-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__hTmp8_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__hTmp8_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.03-Lock: None-Fall Through
+1568339267.03-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.03-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__QujVLQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__QujVLQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__hTmp8_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.04-Lock: Removing temp copy: /tmp/ddb__QujVLQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.04-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.04-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qHOiNgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qHOiNgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.04-Lock: None-Fall Through
+1568339267.04-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.04-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oqQUOlUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__oqQUOlUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__qHOiNgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.05-Lock: Removing temp copy: /tmp/ddb__oqQUOlUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.05-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.05-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zax3E3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__zax3E3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.05-Lock: None-Fall Through
+1568339267.05-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.05-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IAyg7cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__IAyg7cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__zax3E3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.06-Lock: Removing temp copy: /tmp/ddb__IAyg7cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.06-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.06-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ntyUmMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ntyUmMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.06-Lock: None-Fall Through
+1568339267.06-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.06-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__x13ZEDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__x13ZEDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ntyUmMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.07-Lock: Removing temp copy: /tmp/ddb__x13ZEDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.07-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.07-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5yalJaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5yalJaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.07-Lock: owned by other process
+1568339267.07-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.09-Lock: None-Fall Through
+1568339267.09-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.09-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__0RHeswUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__0RHeswUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__5yalJaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.11-Lock: Removing temp copy: /tmp/ddb__0RHeswUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.11-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.11-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IUPww8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IUPww8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.11-Lock: None-Fall Through
+1568339267.11-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.11-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__myamZIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__myamZIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IUPww8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.12-Lock: Removing temp copy: /tmp/ddb__myamZIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.12-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.12-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__6nBaeOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__6nBaeOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.12-Lock: None-Fall Through
+1568339267.12-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.12-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__CdMkMUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__CdMkMUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__6nBaeOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.13-Lock: Removing temp copy: /tmp/ddb__CdMkMUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.13-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.13-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HC2ygDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HC2ygDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.13-Lock: None-Fall Through
+1568339267.13-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.13-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SFDY7yUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__SFDY7yUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__HC2ygDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.14-Lock: Removing temp copy: /tmp/ddb__SFDY7yUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.14-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.14-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9jfrSwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__9jfrSwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.14-Lock: None-Fall Through
+1568339267.14-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.14-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__b2tSSqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__b2tSSqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__9jfrSwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.15-Lock: Removing temp copy: /tmp/ddb__b2tSSqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.15-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.15-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__60oYflUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__60oYflUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.15-Lock: None-Fall Through
+1568339267.15-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.15-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ix87bwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__ix87bwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__60oYflUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.16-Lock: Removing temp copy: /tmp/ddb__ix87bwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.16-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.16-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__mbYfh9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__mbYfh9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.16-Lock: None-Fall Through
+1568339267.16-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.16-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___DXfwYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb___DXfwYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__mbYfh9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.17-Lock: Removing temp copy: /tmp/ddb___DXfwYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.17-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.17-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EEns0lUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EEns0lUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.18-Lock: owned by other process
+1568339267.18-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.2-Lock: owned by other process
+1568339267.2-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.22-Lock: None-Fall Through
+1568339267.22-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.22-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OQ8TVAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OQ8TVAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__EEns0lUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.22-Lock: Removing temp copy: /tmp/ddb__OQ8TVAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.22-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.22-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BSF4OFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BSF4OFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.23-Lock: None-Fall Through
+1568339267.23-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.23-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zocfZjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__zocfZjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BSF4OFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.23-Lock: Removing temp copy: /tmp/ddb__zocfZjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.23-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.23-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qcXuOYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qcXuOYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.24-Lock: None-Fall Through
+1568339267.24-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.24-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iTSeTWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__iTSeTWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__qcXuOYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.24-Lock: Removing temp copy: /tmp/ddb__iTSeTWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.24-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.24-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__rhLHk7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__rhLHk7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.25-Lock: None-Fall Through
+1568339267.25-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.25-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jjMFjDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__jjMFjDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__rhLHk7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.26-Lock: Removing temp copy: /tmp/ddb__jjMFjDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.26-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.26-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ftxAbTUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ftxAbTUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.26-Lock: owned by other process
+1568339267.26-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.28-Lock: None-Fall Through
+1568339267.28-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.28-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__rTUE4rUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__rTUE4rUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ftxAbTUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.29-Lock: Removing temp copy: /tmp/ddb__rTUE4rUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.29-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.29-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ES8Q26UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ES8Q26UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.29-Lock: None-Fall Through
+1568339267.29-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.29-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__4qRP0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__4qRP0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ES8Q26UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.3-Lock: Removing temp copy: /tmp/ddb__4qRP0FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.3-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.3-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BwwfrzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BwwfrzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.31-Lock: None-Fall Through
+1568339267.31-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.31-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__u5dR6zUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__u5dR6zUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BwwfrzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.31-Lock: Removing temp copy: /tmp/ddb__u5dR6zUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.31-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.31-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__swIm5YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__swIm5YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.32-Lock: None-Fall Through
+1568339267.32-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.32-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BdECwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__BdECwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__swIm5YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.32-Lock: Removing temp copy: /tmp/ddb__BdECwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.32-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.32-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__0tO7sGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__0tO7sGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.33-Lock: None-Fall Through
+1568339267.33-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.33-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__G3yHKfUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__G3yHKfUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__0tO7sGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.33-Lock: Removing temp copy: /tmp/ddb__G3yHKfUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.33-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.33-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___qRCNPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb___qRCNPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.34-Lock: None-Fall Through
+1568339267.34-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.34-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__8Qq2KxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__8Qq2KxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb___qRCNPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.35-Lock: Removing temp copy: /tmp/ddb__8Qq2KxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.35-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.35-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__3bE3SrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__3bE3SrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.35-Lock: None-Fall Through
+1568339267.35-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.35-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___yp0yQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb___yp0yQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__3bE3SrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.36-Lock: Removing temp copy: /tmp/ddb___yp0yQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.36-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.36-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__yZEqpLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__yZEqpLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.36-Lock: None-Fall Through
+1568339267.36-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.36-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__vldvu9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__vldvu9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__yZEqpLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.37-Lock: Removing temp copy: /tmp/ddb__vldvu9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.37-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.37-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__3z0ADyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__3z0ADyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.38-Lock: None-Fall Through
+1568339267.38-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.38-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__sfjLsBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__sfjLsBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__3z0ADyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.38-Lock: Removing temp copy: /tmp/ddb__sfjLsBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.38-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.38-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DvkIgBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__DvkIgBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.38-Lock: None-Fall Through
+1568339267.39-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.39-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__WGiH3nUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__WGiH3nUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__DvkIgBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.39-Lock: Removing temp copy: /tmp/ddb__WGiH3nUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.39-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.39-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Kr1OGYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Kr1OGYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.39-Lock: None-Fall Through
+1568339267.39-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.39-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UHPIJkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__UHPIJkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Kr1OGYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.4-Lock: Removing temp copy: /tmp/ddb__UHPIJkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.4-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.4-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__s1MdnlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__s1MdnlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.41-Lock: owned by other process
+1568339267.41-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.43-Lock: owned by other process
+1568339267.43-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.45-Lock: owned by other process
+1568339267.45-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339267.47-Lock: None-Fall Through
+1568339267.47-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.47-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__B826_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__B826_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__s1MdnlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.47-Lock: Removing temp copy: /tmp/ddb__B826_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.47-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.47-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__g0Flb8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__g0Flb8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.48-Lock: None-Fall Through
+1568339267.48-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.48-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__U7hTdeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__U7hTdeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__g0Flb8UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.49-Lock: Removing temp copy: /tmp/ddb__U7hTdeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.49-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.49-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wdKgHYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wdKgHYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.49-Lock: owned by other process
+1568339267.49-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.51-Lock: owned by other process
+1568339267.51-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.53-Lock: owned by other process
+1568339267.53-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339267.55-Lock: None-Fall Through
+1568339267.55-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.55-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OeqASDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OeqASDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__wdKgHYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.56-Lock: Removing temp copy: /tmp/ddb__OeqASDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.56-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.56-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__hx9UzbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__hx9UzbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.56-Lock: None-Fall Through
+1568339267.57-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.57-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__4qnzknUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__4qnzknUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__hx9UzbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.57-Lock: Removing temp copy: /tmp/ddb__4qnzknUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.57-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.57-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__FdMiGwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__FdMiGwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.58-Lock: owned by other process
+1568339267.58-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.6-Lock: owned by other process
+1568339267.6-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.62-Lock: None-Fall Through
+1568339267.62-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.62-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Vx6o8hUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Vx6o8hUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__FdMiGwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.62-Lock: Removing temp copy: /tmp/ddb__Vx6o8hUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.62-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.62-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__s5fkc4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__s5fkc4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.63-Lock: None-Fall Through
+1568339267.63-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.63-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kzCUoNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__kzCUoNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__s5fkc4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.63-Lock: Removing temp copy: /tmp/ddb__kzCUoNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.63-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.63-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iX8Sv7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__iX8Sv7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.64-Lock: owned by other process
+1568339267.64-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.66-Lock: None-Fall Through
+1568339267.66-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.66-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XDUVOuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__XDUVOuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__iX8Sv7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.66-Lock: Removing temp copy: /tmp/ddb__XDUVOuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.66-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.66-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__g6YqShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__g6YqShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.67-Lock: None-Fall Through
+1568339267.67-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.67-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__GvuwNDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__GvuwNDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__g6YqShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.68-Lock: Removing temp copy: /tmp/ddb__GvuwNDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.68-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.68-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BWzAqyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BWzAqyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.68-Lock: owned by other process
+1568339267.68-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.7-Lock: owned by other process
+1568339267.7-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.72-Lock: owned by other process
+1568339267.72-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339267.74-Lock: None-Fall Through
+1568339267.74-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.74-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__f48ncvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__f48ncvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BWzAqyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.75-Lock: Removing temp copy: /tmp/ddb__f48ncvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.75-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.75-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wG6IoWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wG6IoWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.76-Lock: None-Fall Through
+1568339267.76-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.76-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__51i0PqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__51i0PqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__wG6IoWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.76-Lock: Removing temp copy: /tmp/ddb__51i0PqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.76-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.76-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__RQvXdwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__RQvXdwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.77-Lock: None-Fall Through
+1568339267.77-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.77-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__egrVtQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__egrVtQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__RQvXdwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.77-Lock: Removing temp copy: /tmp/ddb__egrVtQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.77-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.77-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ptJj4DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ptJj4DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.78-Lock: None-Fall Through
+1568339267.78-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.78-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__A6JO__UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__A6JO__UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ptJj4DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.78-Lock: Removing temp copy: /tmp/ddb__A6JO__UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.78-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.78-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
-Lock: owned by other process
-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AguD60UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__AguD60UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.79-Lock: owned by other process
+1568339267.79-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.81-Lock: owned by other process
+1568339267.81-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.83-Lock: owned by other process
+1568339267.83-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339267.85-Lock: None-Fall Through
+1568339267.85-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.85-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1Tv6m7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__1Tv6m7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__AguD60UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.86-Lock: Removing temp copy: /tmp/ddb__1Tv6m7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.86-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.86-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__YyoSC_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__YyoSC_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.86-Lock: None-Fall Through
+1568339267.86-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.86-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iTczk9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__iTczk9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__YyoSC_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.87-Lock: Removing temp copy: /tmp/ddb__iTczk9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.87-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.87-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SV9xY6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__SV9xY6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.87-Lock: owned by other process
+1568339267.87-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339267.89-Lock: owned by other process
+1568339267.89-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339267.91-Lock: owned by other process
+1568339267.91-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339267.93-Lock: None-Fall Through
+1568339267.93-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.93-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kYVUSQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__kYVUSQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__SV9xY6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.94-Lock: Removing temp copy: /tmp/ddb__kYVUSQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.94-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.94-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__PwKrGIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__PwKrGIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.95-Lock: None-Fall Through
+1568339267.95-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.95-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UN4YwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__UN4YwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__PwKrGIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.95-Lock: Removing temp copy: /tmp/ddb__UN4YwIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.95-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.95-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__g9ET_oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__g9ET_oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.96-Lock: None-Fall Through
+1568339267.96-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.96-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__H0NqVtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__H0NqVtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__g9ET_oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.96-Lock: Removing temp copy: /tmp/ddb__H0NqVtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.96-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.96-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__PY1V8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__PY1V8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.97-Lock: None-Fall Through
+1568339267.97-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.97-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__375d6aUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__375d6aUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__PY1V8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.97-Lock: Removing temp copy: /tmp/ddb__375d6aUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.97-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.97-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__RvGKZFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__RvGKZFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.98-Lock: None-Fall Through
+1568339267.98-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.98-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XEgD31UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__XEgD31UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__RvGKZFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339267.98-Lock: Removing temp copy: /tmp/ddb__XEgD31UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339267.99-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.99-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1a7KDHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__1a7KDHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339267.99-Lock: None-Fall Through
+1568339267.99-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339267.99-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ABHLrxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__ABHLrxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__1a7KDHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.0-Lock: Removing temp copy: /tmp/ddb__ABHLrxUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.0-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.0-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ZB8pSLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ZB8pSLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.0-Lock: None-Fall Through
+1568339268.0-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.0-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__bk5_NrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__bk5_NrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ZB8pSLUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.01-Lock: Removing temp copy: /tmp/ddb__bk5_NrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.01-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.01-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xrttMKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__xrttMKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.02-Lock: owned by other process
+1568339268.02-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.04-Lock: owned by other process
+1568339268.04-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339268.06-Lock: None-Fall Through
+1568339268.06-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.06-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UxEDklUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__UxEDklUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__xrttMKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.06-Lock: Removing temp copy: /tmp/ddb__UxEDklUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.06-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.06-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__sQjn0YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__sQjn0YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.07-Lock: None-Fall Through
+1568339268.07-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.07-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EnL2fVUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__EnL2fVUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__sQjn0YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.07-Lock: Removing temp copy: /tmp/ddb__EnL2fVUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.07-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.07-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Sf1Iw_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Sf1Iw_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.08-Lock: None-Fall Through
+1568339268.08-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.08-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IeMLYEUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__IeMLYEUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Sf1Iw_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.08-Lock: Removing temp copy: /tmp/ddb__IeMLYEUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.08-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.08-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__B4jM_fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__B4jM_fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.09-Lock: None-Fall Through
+1568339268.09-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.09-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__U72zU6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__U72zU6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__B4jM_fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.09-Lock: Removing temp copy: /tmp/ddb__U72zU6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.09-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.09-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__s9sfzwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__s9sfzwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.1-Lock: owned by other process
+1568339268.1-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.12-Lock: owned by other process
+1568339268.12-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339268.14-Lock: owned by other process
+1568339268.14-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339268.16-Lock: None-Fall Through
+1568339268.16-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.16-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__O4YmdNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__O4YmdNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__s9sfzwUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.17-Lock: Removing temp copy: /tmp/ddb__O4YmdNUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.17-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.17-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1jasCAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__1jasCAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.17-Lock: None-Fall Through
+1568339268.17-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.17-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Trii8IUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Trii8IUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__1jasCAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.18-Lock: Removing temp copy: /tmp/ddb__Trii8IUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.18-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.18-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IovgxpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IovgxpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.19-Lock: None-Fall Through
+1568339268.19-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.19-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__tWrXOPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__tWrXOPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IovgxpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.19-Lock: Removing temp copy: /tmp/ddb__tWrXOPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.19-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.19-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kMysPiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__kMysPiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.2-Lock: None-Fall Through
+1568339268.2-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.2-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__F6FWJQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__F6FWJQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__kMysPiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.2-Lock: Removing temp copy: /tmp/ddb__F6FWJQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.2-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.2-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qJCZAsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qJCZAsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.21-Lock: None-Fall Through
+1568339268.21-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.21-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HY9pBPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__HY9pBPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__qJCZAsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.21-Lock: Removing temp copy: /tmp/ddb__HY9pBPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.21-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.21-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__s5pp9DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__s5pp9DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.22-Lock: None-Fall Through
+1568339268.22-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.22-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__YsLx4fUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__YsLx4fUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__s5pp9DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.22-Lock: Removing temp copy: /tmp/ddb__YsLx4fUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.22-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.22-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__F_TPosUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__F_TPosUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.23-Lock: None-Fall Through
+1568339268.23-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.23-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__YlOgfRUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__YlOgfRUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__F_TPosUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.24-Lock: Removing temp copy: /tmp/ddb__YlOgfRUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.24-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.24-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ZmWmkRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ZmWmkRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.24-Lock: None-Fall Through
+1568339268.24-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.24-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__CHX1e4UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__CHX1e4UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ZmWmkRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.25-Lock: Removing temp copy: /tmp/ddb__CHX1e4UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.25-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.25-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__i1wogkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__i1wogkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.25-Lock: None-Fall Through
+1568339268.25-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.25-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__bijV9UUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__bijV9UUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__i1wogkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.26-Lock: Removing temp copy: /tmp/ddb__bijV9UUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.26-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.26-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5xWIA4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5xWIA4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.26-Lock: None-Fall Through
+1568339268.26-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.26-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__LubSI6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__LubSI6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__5xWIA4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.27-Lock: Removing temp copy: /tmp/ddb__LubSI6UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.27-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.27-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__m6kNgEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__m6kNgEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.27-Lock: None-Fall Through
+1568339268.27-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.27-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Mp_oJUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Mp_oJUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__m6kNgEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.28-Lock: Removing temp copy: /tmp/ddb__Mp_oJUUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.28-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.28-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7nCvaiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__7nCvaiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.29-Lock: None-Fall Through
+1568339268.29-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.29-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__34dF_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__34dF_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__7nCvaiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.29-Lock: Removing temp copy: /tmp/ddb__34dF_eUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.29-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.29-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__t5hshBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__t5hshBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.3-Lock: None-Fall Through
+1568339268.3-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.3-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zqm8xtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__zqm8xtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__t5hshBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.31-Lock: Removing temp copy: /tmp/ddb__zqm8xtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.31-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.31-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IRIeUgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IRIeUgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.31-Lock: None-Fall Through
+1568339268.31-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.31-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__cqvwvrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__cqvwvrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IRIeUgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.32-Lock: Removing temp copy: /tmp/ddb__cqvwvrUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.32-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.32-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__GFW8gQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__GFW8gQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.32-Lock: owned by other process
+1568339268.32-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.34-Lock: None-Fall Through
+1568339268.34-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.34-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UITJjuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__UITJjuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__GFW8gQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.35-Lock: Removing temp copy: /tmp/ddb__UITJjuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.35-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.35-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IzJJbfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IzJJbfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.35-Lock: None-Fall Through
+1568339268.35-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.35-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OcuElwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OcuElwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IzJJbfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.36-Lock: Removing temp copy: /tmp/ddb__OcuElwUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.36-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.36-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BX7nYVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BX7nYVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.36-Lock: None-Fall Through
+1568339268.36-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.36-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__77laT8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__77laT8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BX7nYVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.37-Lock: Removing temp copy: /tmp/ddb__77laT8UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.37-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.37-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IvEnfBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IvEnfBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.38-Lock: None-Fall Through
+1568339268.38-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.38-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__D_nhQPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__D_nhQPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IvEnfBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.38-Lock: Removing temp copy: /tmp/ddb__D_nhQPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.38-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.38-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__q_ofyoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__q_ofyoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.39-Lock: owned by other process
+1568339268.39-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.41-Lock: owned by other process
+1568339268.41-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339268.43-Lock: None-Fall Through
+1568339268.43-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.43-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BJDTDIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__BJDTDIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__q_ofyoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.44-Lock: Removing temp copy: /tmp/ddb__BJDTDIUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.44-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.44-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__RkZeoeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__RkZeoeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.44-Lock: None-Fall Through
+1568339268.44-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.44-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kheoc0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__kheoc0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__RkZeoeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.45-Lock: Removing temp copy: /tmp/ddb__kheoc0UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.45-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.45-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__l9c8xgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__l9c8xgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.45-Lock: None-Fall Through
+1568339268.45-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.45-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__yQQ6eDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__yQQ6eDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__l9c8xgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.46-Lock: Removing temp copy: /tmp/ddb__yQQ6eDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.46-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.46-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jkPX8bUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__jkPX8bUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.46-Lock: None-Fall Through
+1568339268.46-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.46-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7gJbuAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__7gJbuAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__jkPX8bUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.47-Lock: Removing temp copy: /tmp/ddb__7gJbuAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.47-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.47-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BR7P47UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BR7P47UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.47-Lock: None-Fall Through
+1568339268.47-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.47-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__6N1ZIWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__6N1ZIWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BR7P47UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.48-Lock: Removing temp copy: /tmp/ddb__6N1ZIWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.48-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.48-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__avpgL7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__avpgL7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.48-Lock: None-Fall Through
+1568339268.48-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.48-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2NEXaCUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__2NEXaCUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__avpgL7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.49-Lock: Removing temp copy: /tmp/ddb__2NEXaCUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.49-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.49-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__S5moKNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__S5moKNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.5-Lock: None-Fall Through
+1568339268.5-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.5-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__U5C6czUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__U5C6czUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__S5moKNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.51-Lock: Removing temp copy: /tmp/ddb__U5C6czUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.51-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.51-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qQuPmDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qQuPmDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.51-Lock: owned by other process
+1568339268.51-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.53-Lock: None-Fall Through
+1568339268.53-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.53-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7jSZXgUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__7jSZXgUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__qQuPmDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.54-Lock: Removing temp copy: /tmp/ddb__7jSZXgUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.54-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.54-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HRQ3pRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HRQ3pRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.54-Lock: None-Fall Through
+1568339268.54-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.54-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__G3USeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__G3USeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__HRQ3pRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.55-Lock: Removing temp copy: /tmp/ddb__G3USeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.55-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.55-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9IILJ2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__9IILJ2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.55-Lock: None-Fall Through
+1568339268.55-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.55-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jGcw1kUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__jGcw1kUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__9IILJ2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.56-Lock: Removing temp copy: /tmp/ddb__jGcw1kUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.56-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.56-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ReRdCcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ReRdCcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.56-Lock: None-Fall Through
+1568339268.56-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.56-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7a75MHUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__7a75MHUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__ReRdCcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.57-Lock: Removing temp copy: /tmp/ddb__7a75MHUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.57-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.57-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__E9MZcUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__E9MZcUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.57-Lock: None-Fall Through
+1568339268.58-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.58-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__nrJXbeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__nrJXbeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__E9MZcUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.58-Lock: Removing temp copy: /tmp/ddb__nrJXbeUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.58-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.58-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__VbnFOAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__VbnFOAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.59-Lock: None-Fall Through
+1568339268.59-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.59-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7JvRUsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__7JvRUsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__VbnFOAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.6-Lock: Removing temp copy: /tmp/ddb__7JvRUsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.6-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.6-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__czz3dOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__czz3dOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.6-Lock: None-Fall Through
+1568339268.6-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.6-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xc8Q4KUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__xc8Q4KUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__czz3dOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.61-Lock: Removing temp copy: /tmp/ddb__xc8Q4KUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.61-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.61-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IR74bUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IR74bUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.61-Lock: None-Fall Through
+1568339268.61-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.61-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iMQpVzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__iMQpVzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__IR74bUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.62-Lock: Removing temp copy: /tmp/ddb__iMQpVzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.62-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.62-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2xQAqhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__2xQAqhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.62-Lock: None-Fall Through
+1568339268.62-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.62-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__o9BWajUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__o9BWajUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__2xQAqhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.63-Lock: Removing temp copy: /tmp/ddb__o9BWajUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.63-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.63-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__hTvpKWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__hTvpKWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.63-Lock: None-Fall Through
+1568339268.63-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.63-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kmzc5FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__kmzc5FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__hTvpKWUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.64-Lock: Removing temp copy: /tmp/ddb__kmzc5FUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.64-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.64-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__D9EcZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__D9EcZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.65-Lock: None-Fall Through
+1568339268.65-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.65-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__MDENZMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__MDENZMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__D9EcZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.65-Lock: Removing temp copy: /tmp/ddb__MDENZMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.65-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.65-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__nRLfKxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__nRLfKxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.66-Lock: None-Fall Through
+1568339268.66-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.66-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__twVg3DUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__twVg3DUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__nRLfKxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.67-Lock: Removing temp copy: /tmp/ddb__twVg3DUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.67-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.67-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Li9ZcQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Li9ZcQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.67-Lock: None-Fall Through
+1568339268.67-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.67-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oT8PXmUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__oT8PXmUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Li9ZcQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.68-Lock: Removing temp copy: /tmp/ddb__oT8PXmUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.68-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.68-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SBzQu3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__SBzQu3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.68-Lock: None-Fall Through
+1568339268.68-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.68-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__gYLte7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__gYLte7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__SBzQu3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.69-Lock: Removing temp copy: /tmp/ddb__gYLte7UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.69-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.69-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xCFGIeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__xCFGIeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.69-Lock: owned by other process
+1568339268.69-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.71-Lock: owned by other process
+1568339268.71-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339268.73-Lock: None-Fall Through
+1568339268.73-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.73-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__vugd1jUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__vugd1jUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__xCFGIeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.74-Lock: Removing temp copy: /tmp/ddb__vugd1jUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.74-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.74-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__il77zvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__il77zvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.74-Lock: None-Fall Through
+1568339268.74-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.74-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Ak0LXGUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Ak0LXGUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__il77zvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.75-Lock: Removing temp copy: /tmp/ddb__Ak0LXGUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.75-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.75-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__fUJHt1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__fUJHt1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.76-Lock: None-Fall Through
+1568339268.76-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.76-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Ut0jaQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Ut0jaQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__fUJHt1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.76-Lock: Removing temp copy: /tmp/ddb__Ut0jaQUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.76-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.76-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AZqWfPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__AZqWfPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.77-Lock: None-Fall Through
+1568339268.77-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.77-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__TiANSjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__TiANSjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__AZqWfPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.78-Lock: Removing temp copy: /tmp/ddb__TiANSjUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.78-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.78-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__x2sgn5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__x2sgn5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.78-Lock: None-Fall Through
+1568339268.78-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.78-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wWKmeWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__wWKmeWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__x2sgn5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.79-Lock: Removing temp copy: /tmp/ddb__wWKmeWUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.79-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.79-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iAoBM4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__iAoBM4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.79-Lock: None-Fall Through
+1568339268.79-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.79-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jJYMkKUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__jJYMkKUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__iAoBM4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.8-Lock: Removing temp copy: /tmp/ddb__jJYMkKUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.8-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.8-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__0glW5EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__0glW5EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.8-Lock: None-Fall Through
+1568339268.8-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.8-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__u4PChDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__u4PChDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__0glW5EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.81-Lock: Removing temp copy: /tmp/ddb__u4PChDUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.81-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.81-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___1tQwBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb___1tQwBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.81-Lock: None-Fall Through
+1568339268.81-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.81-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OD8ikvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OD8ikvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb___1tQwBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.82-Lock: Removing temp copy: /tmp/ddb__OD8ikvUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.82-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.82-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__hyAE7EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__hyAE7EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.83-Lock: None-Fall Through
+1568339268.83-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.83-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Tp8BZqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Tp8BZqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__hyAE7EUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.84-Lock: Removing temp copy: /tmp/ddb__Tp8BZqUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.84-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.84-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__aOx8wHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__aOx8wHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.84-Lock: owned by other process
+1568339268.84-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339268.86-Lock: owned by other process
+1568339268.86-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339268.88-Lock: owned by other process
+1568339268.88-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.04,2
+1568339268.9-Lock: None-Fall Through
+1568339268.9-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.9-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__KtqKeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__KtqKeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__aOx8wHUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.91-Lock: Removing temp copy: /tmp/ddb__KtqKeBUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.91-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.91-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5skNDOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5skNDOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.91-Lock: None-Fall Through
+1568339268.91-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.91-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__On1APtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__On1APtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__5skNDOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.93-Lock: Removing temp copy: /tmp/ddb__On1APtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.93-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.93-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__T_ZTpJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__T_ZTpJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.93-Lock: None-Fall Through
+1568339268.93-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.93-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__4oACR5UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__4oACR5UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__T_ZTpJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.94-Lock: Removing temp copy: /tmp/ddb__4oACR5UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.94-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.94-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wUDk8dUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wUDk8dUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.94-Lock: None-Fall Through
+1568339268.94-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.94-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__fEgZ_cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__fEgZ_cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__wUDk8dUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.95-Lock: Removing temp copy: /tmp/ddb__fEgZ_cUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.95-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.95-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__nCDvSzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__nCDvSzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.95-Lock: None-Fall Through
+1568339268.95-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.95-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1pIlQzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__1pIlQzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__nCDvSzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.96-Lock: Removing temp copy: /tmp/ddb__1pIlQzUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.96-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.96-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oQrn42UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__oQrn42UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.96-Lock: None-Fall Through
+1568339268.96-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.96-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jyhW9XUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__jyhW9XUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__oQrn42UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.97-Lock: Removing temp copy: /tmp/ddb__jyhW9XUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.97-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.97-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EGPHpxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EGPHpxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.97-Lock: None-Fall Through
+1568339268.97-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.97-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__cT_IClUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__cT_IClUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__EGPHpxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.98-Lock: Removing temp copy: /tmp/ddb__cT_IClUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.98-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.98-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__uPiM6cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__uPiM6cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339268.98-Lock: None-Fall Through
+1568339268.98-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.98-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wUhWi3UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__wUhWi3UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__uPiM6cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339268.99-Lock: Removing temp copy: /tmp/ddb__wUhWi3UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339268.99-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339268.99-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__p4SFuvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__p4SFuvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.0-Lock: None-Fall Through
+1568339269.0-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.0-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__nDoxgsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__nDoxgsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__p4SFuvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.0-Lock: Removing temp copy: /tmp/ddb__nDoxgsUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.0-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.0-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__QgZrWbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__QgZrWbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.01-Lock: None-Fall Through
+1568339269.01-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.01-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__617vyMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__617vyMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__QgZrWbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.01-Lock: Removing temp copy: /tmp/ddb__617vyMUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.01-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.01-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Z6EGkJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Z6EGkJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.02-Lock: None-Fall Through
+1568339269.02-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.02-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__mGR1mAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__mGR1mAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Z6EGkJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.02-Lock: Removing temp copy: /tmp/ddb__mGR1mAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.02-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.02-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zUTfSCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__zUTfSCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.03-Lock: None-Fall Through
+1568339269.03-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.03-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Jsj7bYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__Jsj7bYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__zUTfSCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.04-Lock: Removing temp copy: /tmp/ddb__Jsj7bYUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.04-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.04-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__CYN_0KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__CYN_0KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.04-Lock: None-Fall Through
+1568339269.04-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.04-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__JqYS5_UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__JqYS5_UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__CYN_0KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.05-Lock: Removing temp copy: /tmp/ddb__JqYS5_UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.05-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.05-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AmunpUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__AmunpUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.05-Lock: None-Fall Through
+1568339269.05-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.05-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__gM9jWXUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__gM9jWXUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__AmunpUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.06-Lock: Removing temp copy: /tmp/ddb__gM9jWXUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.06-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.06-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XxZEqvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__XxZEqvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.07-Lock: owned by other process
+1568339269.07-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339269.09-Lock: None-Fall Through
+1568339269.09-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.09-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__mz8neLUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__mz8neLUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__XxZEqvUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.09-Lock: Removing temp copy: /tmp/ddb__mz8neLUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.09-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.09-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__lfjn5wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__lfjn5wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.1-Lock: None-Fall Through
+1568339269.1-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.1-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DRwrsuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__DRwrsuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__lfjn5wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.1-Lock: Removing temp copy: /tmp/ddb__DRwrsuUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.1-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.1-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oLAuPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__oLAuPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.11-Lock: None-Fall Through
+1568339269.11-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.11-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AIsB5CUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__AIsB5CUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__oLAuPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.11-Lock: Removing temp copy: /tmp/ddb__AIsB5CUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.11-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.11-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__dOqvUrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__dOqvUrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.12-Lock: None-Fall Through
+1568339269.12-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.12-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__CQzcHAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__CQzcHAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__dOqvUrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.12-Lock: Removing temp copy: /tmp/ddb__CQzcHAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.13-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.13-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__z6HFp0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__z6HFp0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.13-Lock: owned by other process
+1568339269.13-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0,2
+1568339269.15-Lock: owned by other process
+1568339269.15-Lock: File locked, waiting till file timeout, or max lock retry time, /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv,0.02,2
+1568339269.17-Lock: None-Fall Through
+1568339269.17-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.17-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XJ8oMOUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__XJ8oMOUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__z6HFp0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.18-Lock: Removing temp copy: /tmp/ddb__XJ8oMOUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.18-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.18-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Uvp0ABUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Uvp0ABUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.18-Lock: None-Fall Through
+1568339269.18-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.18-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5niViAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__5niViAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__Uvp0ABUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.19-Lock: Removing temp copy: /tmp/ddb__5niViAUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.19-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.19-Lock: removed
 Temp Flags Files Cleared
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__45N1I6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__45N1I6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.2-Lock: None-Fall Through
+1568339269.2-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.2-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__jZbNU2UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__jZbNU2UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__45N1I6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.2-Lock: Removing temp copy: /tmp/ddb__jZbNU2UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.2-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.2-Lock: removed
 Temp Flags Files Cleared
 2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__USp10wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__USp10wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.21-Lock: None-Fall Through
+1568339269.21-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.21-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OQtxMyUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OQtxMyUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__USp10wUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.21-Lock: Removing temp copy: /tmp/ddb__OQtxMyUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.21-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.21-Lock: removed
 Temp Flags Files Cleared
 3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__f_73IjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__f_73IjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.22-Lock: None-Fall Through
+1568339269.22-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.22-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__3obCDkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__3obCDkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__f_73IjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.22-Lock: Removing temp copy: /tmp/ddb__3obCDkUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.22-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.22-Lock: removed
 Temp Flags Files Cleared
 4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SJSJLzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__SJSJLzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.23-Lock: None-Fall Through
+1568339269.23-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.23-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__520xM9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__520xM9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__SJSJLzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.23-Lock: Removing temp copy: /tmp/ddb__520xM9UUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.23-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.23-Lock: removed
 Temp Flags Files Cleared
 5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__BtdfMVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__BtdfMVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.24-Lock: None-Fall Through
+1568339269.24-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.24-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OJnavtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__OJnavtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__BtdfMVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
+1568339269.25-Lock: Removing temp copy: /tmp/ddb__OJnavtUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.25-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.25-Lock: removed
 Temp Flags Files Cleared
 6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__lbt90YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__lbt90YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+1568339269.25-Lock: error need more than 1 value to unpack
+1568339269.25-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.25-Lock: removed
+1568339269.25-Lock: None-Fall Through
+1568339269.25-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+1568339269.25-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__hz9SyPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+Temp File /tmp/ddb__hz9SyPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
 Commit
-Lock: Removing temp copy: /tmp/ddb__lbt90YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
+1568339269.26-Lock: Removing temp copy: /tmp/ddb__hz9SyPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
+1568339269.26-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
+('Ex', Exception('Lockfile cannot be removed, it doesnt exist. /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock',))
 1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HdJcwJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HdJcwJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__HdJcwJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DFP3AgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__DFP3AgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__DFP3AgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__95oJ9YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__95oJ9YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__95oJ9YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__VVHc_GUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__VVHc_GUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__VVHc_GUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Er5RXCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Er5RXCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Er5RXCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__4sOh2fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__4sOh2fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__4sOh2fUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Z_MKEUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Z_MKEUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Z_MKEUUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__aCZE_DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__aCZE_DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__aCZE_DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ZngYPuUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ZngYPuUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ZngYPuUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Pp3DPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Pp3DPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Pp3DPfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__O8AFHzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__O8AFHzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__O8AFHzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zRqcD2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__zRqcD2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__zRqcD2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__m531evUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__m531evUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__m531evUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__deIfFJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__deIfFJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__deIfFJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UywT4PUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__UywT4PUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__UywT4PUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Nal9rNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Nal9rNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Nal9rNUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__w9QNXDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__w9QNXDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__w9QNXDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XPJRAXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__XPJRAXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__XPJRAXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ENyML6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ENyML6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ENyML6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xdvQz9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__xdvQz9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__xdvQz9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__FLLCW5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__FLLCW5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__FLLCW5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5TKE9_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5TKE9_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__5TKE9_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__pXLOreUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__pXLOreUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__pXLOreUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__N1k9xJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__N1k9xJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__N1k9xJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__bd2Y9oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__bd2Y9oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__bd2Y9oUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__CqASD5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__CqASD5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__CqASD5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__JfA8s3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__JfA8s3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__JfA8s3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HHryP6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HHryP6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__HHryP6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__B2D4A0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__B2D4A0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__B2D4A0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__YtCYI6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__YtCYI6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__YtCYI6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__i5Xcb9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__i5Xcb9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__i5Xcb9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ikR_RdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ikR_RdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ikR_RdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__PzfkRBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__PzfkRBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__PzfkRBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EIEqKVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EIEqKVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__EIEqKVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HIBkoVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HIBkoVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__HIBkoVUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__n9zFrtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__n9zFrtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__n9zFrtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__IPRJ7ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__IPRJ7ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__IPRJ7ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__3abxp6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__3abxp6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__3abxp6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__tXKSZhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__tXKSZhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__tXKSZhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__87CX3ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__87CX3ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__87CX3ZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ABZCAQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ABZCAQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ABZCAQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__QHCTNbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__QHCTNbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__QHCTNbUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9J8KYGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__9J8KYGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__9J8KYGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__sESdwIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__sESdwIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__sESdwIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__HofD31UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__HofD31UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__HofD31UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__i8DaGKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__i8DaGKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__i8DaGKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__6wT_7QUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__6wT_7QUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__6wT_7QUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Z50qWJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Z50qWJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Z50qWJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__mKTbMBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__mKTbMBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__mKTbMBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ixotfXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ixotfXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ixotfXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wYokeJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wYokeJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__wYokeJUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__WibC2YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__WibC2YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__WibC2YUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ACz6kBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ACz6kBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ACz6kBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wvSwOrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wvSwOrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__wvSwOrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__4uSFv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__4uSFv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__4uSFv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EUC5XQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EUC5XQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__EUC5XQUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__lp6UnBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__lp6UnBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__lp6UnBUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__gxa5jhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__gxa5jhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__gxa5jhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__FndnKiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__FndnKiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__FndnKiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__VRuu7cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__VRuu7cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__VRuu7cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qJPnvjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qJPnvjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__qJPnvjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__W21rUfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__W21rUfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__W21rUfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__men6JhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__men6JhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__men6JhUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2hTqS_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__2hTqS_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__2hTqS_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__VKSb96UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__VKSb96UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__VKSb96UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EIok3DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EIok3DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__EIok3DUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__tp_q9IUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__tp_q9IUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__tp_q9IUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__epenmoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__epenmoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__epenmoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__NduE9yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__NduE9yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__NduE9yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__bc7zGXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__bc7zGXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__bc7zGXUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Wr2smKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Wr2smKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Wr2smKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__FP46PtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__FP46PtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__FP46PtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__rfP7asUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__rfP7asUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__rfP7asUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__6LNuZpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__6LNuZpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__6LNuZpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xZuIf3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__xZuIf3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__xZuIf3UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__1VCLFEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__1VCLFEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__1VCLFEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__mXEenDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__mXEenDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__mXEenDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2EFmPZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__2EFmPZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__2EFmPZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__6XstsqUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__6XstsqUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__6XstsqUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Thic0OUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Thic0OUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Thic0OUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__SQ6kE7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__SQ6kE7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__SQ6kE7UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__B0mzlCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__B0mzlCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__B0mzlCUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__JTFWSYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__JTFWSYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__JTFWSYUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__61SvxPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__61SvxPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__61SvxPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Z7AJxrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Z7AJxrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Z7AJxrUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__xIp59KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__xIp59KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__xIp59KUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__fZVKEnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__fZVKEnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__fZVKEnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___RcN5cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb___RcN5cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb___RcN5cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OXO9AoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__OXO9AoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__OXO9AoUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7a7tJEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__7a7tJEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__7a7tJEUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__GPXrMdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__GPXrMdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__GPXrMdUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OHcGIjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__OHcGIjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__OHcGIjUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__wEkBAgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__wEkBAgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__wEkBAgUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ow4zVAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ow4zVAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ow4zVAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ofZm2cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ofZm2cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ofZm2cUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___P6QkiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb___P6QkiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb___P6QkiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__b1TRd2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__b1TRd2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__b1TRd2UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__23KUzGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__23KUzGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__23KUzGUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__P0Pq6zUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__P0Pq6zUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__P0Pq6zUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DQv0meUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__DQv0meUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__DQv0meUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__odueyOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__odueyOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__odueyOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__yYSpbAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__yYSpbAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__yYSpbAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5gECv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5gECv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__5gECv1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qJGq4yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qJGq4yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__qJGq4yUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__t_z8OPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__t_z8OPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__t_z8OPUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__kXPHr0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__kXPHr0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__kXPHr0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__JyppaFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__JyppaFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__JyppaFUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EIeyHpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EIeyHpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__EIeyHpUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2hhqItUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__2hhqItUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__2hhqItUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ShB3D1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ShB3D1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ShB3D1UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7uwyXZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__7uwyXZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__7uwyXZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__zW3qShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__zW3qShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__zW3qShUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Qx2Z8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Qx2Z8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Qx2Z8CUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__nASDOZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__nASDOZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__nASDOZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__5BwflKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__5BwflKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__5BwflKUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__u39Z1hUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__u39Z1hUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__u39Z1hUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__JtdBXMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__JtdBXMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__JtdBXMUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__RUmvKtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__RUmvKtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__RUmvKtUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__d5VtC0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__d5VtC0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__d5VtC0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Va251VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Va251VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Va251VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Ry7IYAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Ry7IYAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Ry7IYAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__2b8pkZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__2b8pkZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__2b8pkZUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__UykwwaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__UykwwaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__UykwwaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__YLXCE9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__YLXCE9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__YLXCE9UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__W33GPyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__W33GPyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__W33GPyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__H0yiWxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__H0yiWxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__H0yiWxUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Yp7c0FUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Yp7c0FUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Yp7c0FUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__Fck80uUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__Fck80uUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__Fck80uUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__yWXUigUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__yWXUigUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__yWXUigUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oUTaGeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__oUTaGeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__oUTaGeUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__gr8tPAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__gr8tPAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__gr8tPAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__sPNrR6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__sPNrR6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__sPNrR6UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__I2UNQkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__I2UNQkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__I2UNQkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__N88r04UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__N88r04UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__N88r04UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__ThnEPnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__ThnEPnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__ThnEPnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__oLjKrfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__oLjKrfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__oLjKrfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__AyaEvaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__AyaEvaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__AyaEvaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__OFq7HcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__OFq7HcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__OFq7HcUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9Bqmi0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__9Bqmi0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__9Bqmi0UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__13DHpsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__13DHpsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__13DHpsUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__vJHJqfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__vJHJqfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__vJHJqfUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7xlhybUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__7xlhybUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__7xlhybUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__vlTI_iUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__vlTI_iUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__vlTI_iUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__r1WJNzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__r1WJNzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__r1WJNzUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XuD5ZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__XuD5ZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__XuD5ZyUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__DTchLDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__DTchLDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__DTchLDUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__XC4_g4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__XC4_g4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__XC4_g4UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__M3TQVlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__M3TQVlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__M3TQVlUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__iuR6QOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__iuR6QOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__iuR6QOUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__floKjkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__floKjkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__floKjkUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb___YKr3kUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb___YKr3kUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb___YKr3kUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__8v4uFnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__8v4uFnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__8v4uFnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__7DGw5pUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__7DGw5pUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__7DGw5pUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__8GEh6VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__8GEh6VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__8GEh6VUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__y8q9eaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__y8q9eaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__y8q9eaUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__9MapuRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__9MapuRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__9MapuRUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__EmApJAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__EmApJAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__EmApJAUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__PTvENnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__PTvENnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__PTvENnUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-3
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__THX7Z5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__THX7Z5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__THX7Z5UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-4
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__C7QFueUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__C7QFueUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__C7QFueUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-5
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__A2XGEIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__A2XGEIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__A2XGEIUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-6
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__qDEEXiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__qDEEXiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__qDEEXiUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-1
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__91s5abUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__91s5abUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Commit
-Lock: Removing temp copy: /tmp/ddb__91s5abUUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Lock: Releasing Lock file: /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: removed
-Temp Flags Files Cleared
-2
-Lock: None-Fall Through
-Lock: Aquired /tmp/MOCK_DATA.csv_3a03b67cb87f4a4ce4ee9c141e45621f.lock
-Lock: Creating temporary file: /home/nd/chris17453/ddb/test/data/MOCK_DATA.csv-> /tmp/ddb__NSUaQ_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
-Temp File /tmp/ddb__NSUaQ_UUID-43f2458c-d5c8-11e9-aec0-e96d64d03b25
+Temp File /tmp/ddb__hz9SyPUUID-7c418132-d5c8-11e9-a6d0-39fa92638f34
