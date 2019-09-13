@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1007'
+__version__='1.2.1008'
 
         
 # ############################################################################
@@ -4258,9 +4258,12 @@ class lock:
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
         lock.info("Lock","Creating, {0}".format(path))
-        fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
-        os.write(fd,lock_contents)
-        os.close(fd)
+        try:
+            fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+            os.write(fd,lock_contents)
+            os.close(fd)
+        except Exception as ex:
+            lock.info("Lock","error!:{0}".format(ex))
         lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
