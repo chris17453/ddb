@@ -121,7 +121,7 @@ class lock:
     def aquire(path,key_uuid):
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
-        lock_contents="{0}|{1}".format(key_uuid,pid
+        lock_contents="{0}|{1}".format(key_uuid,pid)
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
