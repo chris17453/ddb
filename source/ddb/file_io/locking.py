@@ -127,10 +127,12 @@ class lock:
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
 
+        lock.info("Lock","Creating, {0}".format(path))
         with open(lock_path,'w+') as lockfile:
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
 
+        lock.info("Lock","MOD, {0}".format(path))
         # allow anyone to modify the lock file
         os.chmod(lock_path, 0o666)
 
