@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1000'
+__version__='1.2.1001'
 
         
 # ############################################################################
@@ -4177,7 +4177,7 @@ def method_system_show_output_modules(context):
 # ############################################################################
 
 class lock:
-    sleep_time=0.02
+    sleep_time=0.002
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
