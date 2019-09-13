@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1009'
+__version__='1.2.1010'
 
         
 # ############################################################################
@@ -4329,6 +4329,7 @@ class lock:
             lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
+            return lock.LOCK_OTHER
             lock.info("Lock","Failed to validate file lock: {0}".format(ex))
     @staticmethod
     def release(path):
