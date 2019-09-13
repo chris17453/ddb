@@ -20,7 +20,7 @@ class lock:
     def info(msg,data):
         
         if 1==1:
-            print("{0}: {1}".format(msg,data))
+            print("{2}-{0}: {1}".format(msg,data,time.time()))
     
     @staticmethod
     def normalize_path(path):
