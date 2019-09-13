@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1003'
+__version__='1.2.1004'
 
         
 # ############################################################################
@@ -4262,9 +4262,11 @@ class lock:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
+        lock.info("Lock","Creating, {0}".format(path))
         with open(lock_path,'w+') as lockfile:
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
+        lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
