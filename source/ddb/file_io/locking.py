@@ -93,7 +93,9 @@ class lock:
                             return lock.LOCK_NONE
                     except Exception as ex:
                         lock.info("Lock","error {0}".format(ex))
-                        lock.release(path)
+                        # because of mid write glitch
+                        return lock.LOCK_OTHER
+                        #lock.release(path)
                         pass
             lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
