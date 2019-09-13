@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.997'
+__version__='1.2.998'
 
         
 # ############################################################################
@@ -4236,7 +4236,7 @@ class lock:
                             return lock.LOCK_NONE
                     except Exception as ex:
                         lock.info("Lock","error {0}".format(ex))
-                        lock.release(path)
+                        return lock.LOCK_OTHER
                         pass
             lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE

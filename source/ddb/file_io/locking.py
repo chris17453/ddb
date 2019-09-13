@@ -18,9 +18,11 @@ class lock:
 
     @staticmethod
     def info(msg,data):
+        from datetime import datetime
+        dt = datetime.datetime.now()
         
         if 1==1:
-            print("{2}-{0}: {1}".format(msg,data,time.time()))
+            print("{2}-{0}: {1}".format(msg,data,dt))
     
     @staticmethod
     def normalize_path(path):
