@@ -130,10 +130,13 @@ class lock:
             time.sleep(lock.sleep_time)
 
         lock.info("Lock","Creating, {0}".format(path))
-        fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
-        os.write(fd,lock_contents)
-        os.close(fd)
-
+        try:
+            fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+            os.write(fd,lock_contents)
+            os.close(fd)
+        except Exception as ex:
+            lock.info("Lock","error!:{0}".format(ex))
+            
         #with open(lock_path,'w') as lockfile:
         #    lockfile.write)
 
