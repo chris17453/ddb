@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.988'
+__version__='1.2.989'
 
         
 # ############################################################################
@@ -4221,17 +4221,17 @@ class lock:
                         elif owner_uuid==key_uuid:
                             lock.info("Lock","owned by current process")
                             return lock.LOCK_OWNER
-                        elif owner_uuid==key_uuid:
+                        elif owner_uuid!=key_uuid:
                             lock.info("Lock","owned by other process")
                             return lock.LOCK_OTHER
                         else:
-                            lock.info("Lock","None {0}".format(ex))
+                            lock.info("Lock","None-err?")
                             return lock.LOCK_NONE
                     except Exception as ex:
                         lock.info("Lock","error {0}".format(ex))
                         lock.release(path)
                         pass
-            lock.info("Lock","None")
+            lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
             lock.info("Lock","Failed to validate file lock: {0}".format(ex))

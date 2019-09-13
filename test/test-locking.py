@@ -64,33 +64,40 @@ class test_engine(unittest.TestCase):
 
         run_length=10
         ellapsed_time=0
+
          # test results length
         while ellapsed_time<run_length:
             curent_time=time.time()
             ellapsed_time=curent_time-start_time
 
+            print ("1")
             results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(10, results.data_length)
 
+            print ("2")
             results = engine.query('select * from {0} LIMIT 1'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
 
+            print ("3")
             results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(0, results.data_length)
             
+            print ("4")
             # WHERE/LIMIT
             results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
             
+            print ("5")
             # WHERE AND/LIMIT
             results = engine.query('select * from {0} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
             self.assertEqual(1, results.data_length)
 
+            print ("6")
             # WHERE / AND / OR/LIMIT
             results = engine.query('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
             self.assertEqual(True, results.success)
