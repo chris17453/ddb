@@ -43,5 +43,6 @@ def method_system_commit(context):
             
         return query_results(success=True)
     except Exception as ex:
+        print ("Ex")
         context.info("Commit Error",ex)
         return query_results(success=False,error=ex)
