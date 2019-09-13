@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.999'
+__version__='1.2.1000'
 
         
 # ############################################################################
@@ -4270,7 +4270,6 @@ class lock:
     debug=None
     @staticmethod
     def info(msg,data):
-        from datetime import datetime
         dt = datetime.datetime.now()
         if 1==1:
             print("{2}-{0}: {1}".format(msg,data,dt))

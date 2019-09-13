@@ -10,7 +10,7 @@ import hashlib
 class lock:
     #max_lock_time=60
     #max_lock_wait_time=max_lock_time+1
-    sleep_time=0.02
+    sleep_time=0.002
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
