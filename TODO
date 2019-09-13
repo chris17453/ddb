@@ -26,7 +26,6 @@ Notes...
 - I feel my efforts are best left to coding in c/c++, and exporting to python
 
 
-
 # Lock errors
 
  - x lock file per unique file path.... 
@@ -35,11 +34,11 @@ Notes...
 
 
 
-
-
 ## Locking and concurency in ddb
 ddb performs all operations in a temporary space. This prevents synchronization and concurrency issues.
 Nothing occurs to the original data except at the end of a commit cycle on a SUCCESFULL Change.
+
+This is a universal standard best practice.
 
 To do this ddb uses the local temp directory with a NON unique lock file per selected data file.
 ddb blocks until the lock is cleared. Internally each ddb engine locked from one instance to another.
