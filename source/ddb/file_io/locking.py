@@ -118,40 +118,21 @@ class lock:
 
     @staticmethod
     def aquire(path,key_uuid):
-        lock_time=0
-        lock_cycle=0
+        lock_path =lock.get_lock_filename(path)
+        pid       =os.getpid()
         while 1:
             lock_status=lock.is_locked(path,key_uuid)
             if lock_status==lock.LOCK_NONE:
                 break
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0},{1},{2}".format(path,lock_time,lock_status))
-
             time.sleep(lock.sleep_time)
-            lock_time+=lock.sleep_time
-            lock_cycle+=1
-            #if lock_time>lock.max_lock_wait_time:
-            #    lock.info("Lock","Cannot aquire lock, timeout")
-            #    raise Exception( "Cannot aquire lock, max timeout of {0} seconds reached. Aproxomatly '{1}' cycles".format(lock.max_lock_wait_time,lock_cycle))
 
-        lock_path=lock.get_lock_filename(path)
-        #if os.path.exists(lock_path):
-        #    lock.info("Lock","Already Exists")
-        #    raise Exception ("Lockfile already exists. {0}".format(lock_path))
-
-        pid=os.getpid()
         with open(lock_path,'w+') as lockfile:
-            # allow anyone to modify the lock file
-            os.chmod(lock_path, 0o666)
-
-            #lock_time=datetime.datetime.now()
-            #lock_time_str="{0}".format(lock_time)
-            
-            #lock.info("Lock Time",lock_time_str)
-            #lock.info("Lock","writing {0}|{1}".format(key_uuid,pid))
-            #lockfile.write("{0}|{1}|{2}|{3}}".format(lock_time_str,path,key_uuid,pid))
             lockfile.write("{0}|{1}".format(key_uuid,pid))
             lockfile.flush()
-        # print("Lockfile: {0}".format(lock_path))
+
+        # allow anyone to modify the lock file
+        os.chmod(lock_path, 0o666)
 
         lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
