@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.990'
+__version__='1.2.991'
 
         
 # ############################################################################
@@ -4053,6 +4053,7 @@ def method_system_commit(context):
                     if tmp['table'].data.repo_type=='svn':
                        context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
+            print ("Temp Flags Files Cleared")
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
