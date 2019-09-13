@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1005'
+__version__='1.2.1006'
 
         
 # ############################################################################
@@ -4250,6 +4250,7 @@ class lock:
     def aquire(path,key_uuid):
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
+        lock_contents="{0}|{1}".format(key_uuid,pid
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
@@ -4257,8 +4258,9 @@ class lock:
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
         lock.info("Lock","Creating, {0}".format(path))
-        with open(lock_path,'w+') as lockfile:
-            lockfile.write("{0}|{1}".format(key_uuid,pid))
+        fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+        os.write(fd,lock_contents)
+        os.close(fd)
         lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
