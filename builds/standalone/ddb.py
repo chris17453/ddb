@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1019'
+__version__='1.2.1020'
 
         
 # ############################################################################
@@ -4314,19 +4314,19 @@ def remove_temp_file(path):
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
-        lock_status=lock.is_locked(path,key_uuid)
-        lock.info("Lock","Status: {0}".format(lock_status))
-        if lock.LOCK_OWNER != lock_status:
-            raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
-        norm_path=normalize_path(path)
-        if os.path.exists(norm_path)==True:
-            lock.remove_temp_file(norm_path)
-        lock.release(path)
-        lock.info("Lock","Copying temp to master")
-        shutil.copy2(temp, norm_path)
-        lock.remove_temp_file(temp)
-        if os.path.exists(temp)==True:
-            raise Exception("Deleting temp file {0} failed".format(temp))
+    lock_status=lock.is_locked(path,key_uuid)
+    lock.info("Lock","Status: {0}".format(lock_status))
+    if lock.LOCK_OWNER != lock_status:
+        raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
+    norm_path=normalize_path(path)
+    if os.path.exists(norm_path)==True:
+        lock.remove_temp_file(norm_path)
+    lock.release(path)
+    lock.info("Lock","Copying temp to master")
+    shutil.copy2(temp, norm_path)
+    lock.remove_temp_file(temp)
+    if os.path.exists(temp)==True:
+        raise Exception("Deleting temp file {0} failed".format(temp))
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
