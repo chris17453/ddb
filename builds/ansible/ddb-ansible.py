@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1023'
+__version__='1.2.1024'
 
         
 # ############################################################################
@@ -4364,7 +4364,7 @@ class lock:
                     os.write(fd,lock_contents)
                     os.close(fd)
                     break
-                except Exception as ex:
+                except OSError as ex:
                     lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
