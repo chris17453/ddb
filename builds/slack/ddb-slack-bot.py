@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1013'
+__version__='1.2.1014'
 
         
 # ############################################################################
@@ -4254,6 +4254,8 @@ class lock:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         os.remove(lock_path)
         if os.path.exists(lock_path)==True:
+            print "Lockfile cannot be removed. {0}".format(lock_path)
+            exit(0)
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
     @staticmethod
