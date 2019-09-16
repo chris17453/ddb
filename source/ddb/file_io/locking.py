@@ -11,7 +11,7 @@ import hashlib
 class lock:
     #max_lock_time=60
     #max_lock_wait_time=max_lock_time+1
-    sleep_time=0.0002
+    sleep_time=0.001
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
@@ -149,7 +149,7 @@ class lock:
                 except OSError as ex:
                     lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-            #time.sleep(lock.sleep_time)
+            time.sleep(lock.sleep_time)
 
 
         #with open(lock_path,'w') as lockfile:
