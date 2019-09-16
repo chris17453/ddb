@@ -126,7 +126,7 @@ class lock:
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
-                lock.info("Lock","Creating, {0}".format(path))
+                lock.info("Lock","Creating Lock for {0}".format(path))
                 try:
                     fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
                     os.write(fd,lock_contents)
