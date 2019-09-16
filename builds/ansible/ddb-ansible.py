@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1016'
+__version__='1.2.1017'
 
         
 # ############################################################################
@@ -4418,6 +4418,7 @@ def swap_files(path, temp,key_uuid):
         if os.path.exists(temp)==True:
             raise Exception("Deleting temp file {0} failed".format(temp))
     except Exception as ex:
+        print ex
         raise Exception("Locking Swap File Error: {0}".format(ex))
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
