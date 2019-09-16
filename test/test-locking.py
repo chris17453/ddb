@@ -1,6 +1,7 @@
 import unittest
 import os
 import sys
+import datetime
 from .context import  ddb
 from pprint import pprint
 import cProfile as profile
@@ -9,12 +10,11 @@ import time
 
 class test_engine(unittest.TestCase):
     temp_config = 'temp_config.yaml'
-    temp_data = 'MOCK_DATA.csv'
-    temp_data2 = 'MOCK_DATA2.csv'
+    temp_data = 'MOCK_DATA_LOCKING.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
     basedir_svn = os.path.dirname(os.path.abspath(__file__))
-    table_name = 'test'
-    table_name2 = 'test2'
+    database_name= 'test'
+    table_name = 'locking'
     debug=None
     config_dir= os.path.dirname(os.path.abspath(__file__))+"/data/"
 
@@ -35,28 +35,28 @@ class test_engine(unittest.TestCase):
                 'user',
                 'password',
                 os.path.join(self.basedir_svn,'svn_test'),
-                'MOCK_DATA.csv')
-            file_name=os.path.join(self.basedir_svn,'svn_test',"MOCK_DATA.csv")
+                self.temp_data)
+            file_name=os.path.join(self.basedir_svn,'svn_test',self.temp_data)
         else:
             repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
-       
-        query="create temporary table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name, file_name,repo)
+
+        if os.path.exists(file_name)==False:
+            open(file_name, 'w').close()
+        else:
+            open(file_name, 'w').truncate()
+
+
+        query="create temporary table {0}.{1} ('id','pid','value','timestamp') file='{2}' {3} data_starts_on=1".format(self.database_name,self.table_name, file_name,repo)
         #print query
-        results = engine.query(query)
-        self.assertEqual(True, results.success)
-        query="create temporary table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name2, file_name,repo)
-        #print ""
-        #print query
-        #print ""
         results = engine.query(query)
         self.assertEqual(True, results.success)
 
-    def test_select(self,mode=None):
-        """Test selecting results using various clauses a table"""
+    def test_locking(self,mode=None):
+        """Test inserting values in a table with locking"""
         #try:
-        print("SELECT")
-        engine = ddb.engine(config_dir=None,debug=None)
+        print("Locking")
+        engine = ddb.engine(config_dir=None,debug=True)
         # fail on existing table
         self.cleanup()
         self.create_table(engine,mode)
@@ -65,45 +65,31 @@ class test_engine(unittest.TestCase):
         run_length=10
         ellapsed_time=0
 
+        id=0
+        pid=os.getpid()
+        value=1
+        
          # test results length
         while ellapsed_time<run_length:
             curent_time=time.time()
             ellapsed_time=curent_time-start_time
 
-            print ("1")
-            results = engine.query('select * from {0} LIMIT 10'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(10, results.data_length)
 
-            print ("2")
-            results = engine.query('select * from {0} LIMIT 1'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
+            timestamp=datetime.datetime.now()
 
-            print ("3")
-            results = engine.query('select * from {0} LIMIT 0'.format(self.table_name))
+            query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
+                    self.database_name,
+                    self.table_name,
+                    id,
+                    pid,
+                    value,
+                    timestamp
+                    )
+            results = engine.query(query)
+            print(query)
             self.assertEqual(True, results.success)
-            self.assertEqual(0, results.data_length)
-            
-            print ("4")
-            # WHERE/LIMIT
-            results = engine.query('select * from {0} where id="1" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
-            
-            print ("5")
-            # WHERE AND/LIMIT
-            results = engine.query('select * from {0} where id="1" and id not "2" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(1, results.data_length)
+            id+=1
 
-            print ("6")
-            # WHERE / AND / OR/LIMIT
-            results = engine.query('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;'.format(self.table_name))
-            self.assertEqual(True, results.success)
-            self.assertEqual(2, results.data_length)
-            #except Exception as ex:
-            #    self.fail(ex)
 
 
 if __name__ == '__main__':

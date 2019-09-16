@@ -76,6 +76,9 @@ test:
 	@cp test/data//MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
 	@python -m test.test
 
+test-locking:
+	@python -m test.test-locking
+
 profile:
 	@python -m test.profile
 

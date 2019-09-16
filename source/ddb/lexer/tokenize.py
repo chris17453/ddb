@@ -16,6 +16,7 @@ class tokenizer:
         # these are solid non depth related blocks
         blocks = [
             ['\'', '\'', 'quote'],   # string block
+            ['`', '`', 'quote'],   # string block
             ['"' , '"' , 'quote'],   # string block
         ]
 
