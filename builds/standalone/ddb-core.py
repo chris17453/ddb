@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1025'
+__version__='1.2.1026'
 
         
 # ############################################################################
@@ -4294,7 +4294,10 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         shutil.copy2(normalize_path(path), temp_path)
         return temp_path
-    except Exception as ex:
+    except:
+        ex = sys.exc_info()[0]
+        print (ex)
+        exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
@@ -4302,8 +4305,10 @@ def remove_temp_file(path):
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("failed to delete: {0}".format(path))    
-    except OSError as ex: 
-        print ex
+    except: 
+        ex = sys.exc_info()[0]
+        print (ex)
+        exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
