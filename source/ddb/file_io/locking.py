@@ -219,15 +219,16 @@ def swap_files(path, temp,key_uuid):
     
     # REMOVE LOCK FROM ORIGINAL PATH
     #print("Swap File2")
-    lock.release(path)
 
     #if os.path.exists(temp):
     #    print ("Exists")
     lock.info("Lock","Copying temp to master")
     shutil.copy2(temp, norm_path)
-    #print  temp,path
 
     remove_temp_file(temp)
+
+    lock.release(path)
+
     #print("$Removed")
     if os.path.exists(temp)==True:
         raise Exception("Deleting temp file {0} failed".format(temp))

@@ -75,7 +75,7 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        for i in range(0,500):
+        for i in range(0,5000):
             print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
             curent_time=time.time()
             ellapsed_time=curent_time-start_time
