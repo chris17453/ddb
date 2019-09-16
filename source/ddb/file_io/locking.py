@@ -201,30 +201,30 @@ def remove_temp_file(path):
 # todo move into context with a manager flag        
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
-        lock_status=lock.is_locked(path,key_uuid)
-        lock.info("Lock","Status: {0}".format(lock_status))
-        if lock.LOCK_OWNER != lock_status:
-            raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
+    lock_status=lock.is_locked(path,key_uuid)
+    lock.info("Lock","Status: {0}".format(lock_status))
+    if lock.LOCK_OWNER != lock_status:
+        raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
-        # DELETE ORIGINAL
-        norm_path=normalize_path(path)
-        if os.path.exists(norm_path)==True:
-            lock.remove_temp_file(norm_path)
-        
-        # REMOVE LOCK FROM ORIGINAL PATH
-        #print("Swap File2")
-        lock.release(path)
+    # DELETE ORIGINAL
+    norm_path=normalize_path(path)
+    if os.path.exists(norm_path)==True:
+        lock.remove_temp_file(norm_path)
+    
+    # REMOVE LOCK FROM ORIGINAL PATH
+    #print("Swap File2")
+    lock.release(path)
 
-        #if os.path.exists(temp):
-        #    print ("Exists")
-        lock.info("Lock","Copying temp to master")
-        shutil.copy2(temp, norm_path)
-        #print  temp,path
+    #if os.path.exists(temp):
+    #    print ("Exists")
+    lock.info("Lock","Copying temp to master")
+    shutil.copy2(temp, norm_path)
+    #print  temp,path
 
-        lock.remove_temp_file(temp)
-        #print("$Removed")
-        if os.path.exists(temp)==True:
-            raise Exception("Deleting temp file {0} failed".format(temp))
+    lock.remove_temp_file(temp)
+    #print("$Removed")
+    if os.path.exists(temp)==True:
+        raise Exception("Deleting temp file {0} failed".format(temp))
 
  
 def normalize_path(path):
