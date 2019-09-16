@@ -145,7 +145,7 @@ class lock:
                     os.write(fd,lock_contents)
                     os.close(fd)
                     break
-                except Exception as ex:
+                except OSError as ex:
                     lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(lock.sleep_time)
