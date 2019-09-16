@@ -209,7 +209,7 @@ def swap_files(path, temp,key_uuid):
     # DELETE ORIGINAL
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
-        lock.remove_temp_file(norm_path)
+        remove_temp_file(norm_path)
     
     # REMOVE LOCK FROM ORIGINAL PATH
     #print("Swap File2")
@@ -221,7 +221,7 @@ def swap_files(path, temp,key_uuid):
     shutil.copy2(temp, norm_path)
     #print  temp,path
 
-    lock.remove_temp_file(temp)
+    remove_temp_file(temp)
     #print("$Removed")
     if os.path.exists(temp)==True:
         raise Exception("Deleting temp file {0} failed".format(temp))
