@@ -76,8 +76,12 @@ test:
 	@cp test/data//MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
 	@python -m test.test
 
-test-locking:
+
+lock-test:
 	@python -m test.test-locking
+
+watch-lock-test:
+	@test/watch_locks.sh
 
 profile:
 	@python -m test.profile

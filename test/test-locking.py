@@ -59,6 +59,16 @@ class test_engine(unittest.TestCase):
         engine = ddb.engine(config_dir=None,debug=None)
         # fail on existing table
         newpid = os.fork()
+
+        if newpid==0:
+            newpid = os.fork()
+
+        if newpid==0:
+            newpid = os.fork()
+
+        if newpid==0:
+            newpid = os.fork()
+
         if newpid==0:
             self.cleanup()
         
