@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1022'
+__version__='1.2.1023'
 
         
 # ############################################################################
@@ -4313,11 +4313,11 @@ def swap_files(path, temp,key_uuid):
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
-        lock.remove_temp_file(norm_path)
+        remove_temp_file(norm_path)
     lock.release(path)
     lock.info("Lock","Copying temp to master")
     shutil.copy2(temp, norm_path)
-    lock.remove_temp_file(temp)
+    remove_temp_file(temp)
     if os.path.exists(temp)==True:
         raise Exception("Deleting temp file {0} failed".format(temp))
 def normalize_path(path):
