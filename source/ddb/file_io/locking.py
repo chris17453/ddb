@@ -221,9 +221,10 @@ def swap_files(path, temp,key_uuid):
 
         #if os.path.exists(temp):
         #    print ("Exists")
+        lock.info("Lock","Copying temp to master")
         shutil.copy2(temp, norm_path)
         #print  temp,path
-        
+        lock.info("Lock","Removing temp swap file")
         os.remove(temp)
         #print("$Removed")
         if os.path.exists(temp)==True:
