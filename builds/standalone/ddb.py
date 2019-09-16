@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1027'
+__version__='1.2.1028'
 
         
 # ############################################################################
@@ -4326,10 +4326,10 @@ def swap_files(path, temp,key_uuid):
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
-    lock.release(path)
     lock.info("Lock","Copying temp to master")
     shutil.copy2(temp, norm_path)
     remove_temp_file(temp)
+    lock.release(path)
     if os.path.exists(temp)==True:
         raise Exception("Deleting temp file {0} failed".format(temp))
 def normalize_path(path):

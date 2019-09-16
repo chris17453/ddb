@@ -149,7 +149,7 @@ class lock:
                 except OSError as ex:
                     lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-            time.sleep(lock.sleep_time)
+            #time.sleep(lock.sleep_time)
 
 
         #with open(lock_path,'w') as lockfile:
