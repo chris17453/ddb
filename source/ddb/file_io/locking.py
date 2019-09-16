@@ -115,7 +115,11 @@ class lock:
         
         os.remove(lock_path)
         if os.path.exists(lock_path)==True:
+            print "Lockfile cannot be removed. {0}".format(lock_path)
+            exit(0)
+            
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
+            
         lock.info("Lock","removed")
 
     @staticmethod
