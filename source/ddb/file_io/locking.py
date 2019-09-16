@@ -231,6 +231,7 @@ def swap_files(path, temp,key_uuid):
             raise Exception("Deleting temp file {0} failed".format(temp))
         
     except Exception as ex:
+        print ex
         raise Exception("Locking Swap File Error: {0}".format(ex))
  
 def normalize_path(path):
