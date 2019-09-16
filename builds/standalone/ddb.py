@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1014'
+__version__='1.2.1015'
 
         
 # ############################################################################
@@ -4251,7 +4251,13 @@ class lock:
         lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
-        os.remove(lock_path)
+        try: 
+            os.remove(lock_path)
+            print("% s removed successfully" % path) 
+        except OSError as error: 
+            print(error) 
+            print("File path can not be removed") 
+            exit(0)
         if os.path.exists(lock_path)==True:
             print "Lockfile cannot be removed. {0}".format(lock_path)
             exit(0)

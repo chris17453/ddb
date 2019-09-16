@@ -75,8 +75,8 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        while ellapsed_time<run_length:
-            print ("Ellapsed: {0}".format(ellapsed_time))
+        for i in range(0,500):
+            print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
             curent_time=time.time()
             ellapsed_time=curent_time-start_time
             timestamp=datetime.datetime.now()
@@ -84,14 +84,13 @@ class test_engine(unittest.TestCase):
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
                     self.database_name,
                     self.table_name,
-                    id,
+                    i,
                     pid,
                     value,
                     timestamp
                     )
             results = engine.query(query)
             self.assertEqual(True, results.success)
-            id+=1
 
 
 
