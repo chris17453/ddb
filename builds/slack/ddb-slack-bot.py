@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1030'
+__version__='1.2.1031'
 
         
 # ############################################################################
@@ -4186,7 +4186,7 @@ class lock:
     @staticmethod
     def info(msg,data):
         dt = datetime.datetime.now()
-        if 1==1:
+        if 1==0:
             print("{2}-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def normalize_path(path):
