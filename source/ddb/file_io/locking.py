@@ -275,7 +275,10 @@ def swap_files(path, temp,key_uuid):
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
-    
+
+    if os.path.exists(norm_path)==True:
+        lock.error("Lock","MASTER FILE WONT DELETE")
+        exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
     time.sleep(.001)
