@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.64'
+__version__='1.3.65'
 
         
 # ############################################################################
@@ -4394,7 +4394,7 @@ class lock:
 def create_temporary_copy(path,uuid,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
-        lock.cat(path,uuid)
+        lock.aquire(path,uuid)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
