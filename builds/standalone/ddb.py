@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1037'
+__version__='1.2.1038'
 
         
 # ############################################################################
@@ -4177,7 +4177,6 @@ class lock:
             print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def error(msg,data):
-        if 1==0:
             dt = datetime.datetime.now()
             print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
     @staticmethod
