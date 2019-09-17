@@ -57,7 +57,7 @@ class lock:
         lock.info("BOB","--")
         src_fh = os.open(src, os.O_DIRECT | os.O_RDONLY | os.O_SYNC)
         lock.info("SAM","--")
-        dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
+        dst_fh = os.open(dst, os.O_CREAT |  os.O_TRUNC | os.O_WRONLY )
         lock.info("PIZZA","--")
         if src_fh!=None and dst_fh!=None:
             while True:
