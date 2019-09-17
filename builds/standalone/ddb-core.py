@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.73'
+__version__='1.3.74'
 
         
 # ############################################################################
@@ -4278,12 +4278,12 @@ class lock:
         if lock.debug: lock.info("Lock","removed")
     @staticmethod
     def aquire(path,key_uuid):
-        file=open("/tmp/ddb.log","a+")
-        file.write("TRYING LOCK FOR {0},{1}".format(pid,datetime.datetime.now()))
-        file.close(fd)
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
+        file=open("/tmp/ddb.log","a+")
+        file.write("TRYING LOCK FOR {0},{1}".format(pid,datetime.datetime.now()))
+        file.close()
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             try:
@@ -4292,7 +4292,7 @@ class lock:
                 os.close(fd)
                 file=open("/tmp/ddb.log","a+")
                 file.write("GOT LOCK FOR {0},{1}".format(pid,datetime.datetime.now()))
-                file.close(fd)
+                file.close()
                 break
             except OSError as ex:
                 pass
