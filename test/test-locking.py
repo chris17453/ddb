@@ -81,7 +81,7 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        for i in range(0,100):
+        for i in range(0,1000):
             timestamp=datetime.datetime.now()
 
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
