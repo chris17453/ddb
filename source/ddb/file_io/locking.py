@@ -196,7 +196,7 @@ class lock:
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
 
-        if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
+        #if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             #lock_status=lock.is_locked(path,key_uuid,lock_path)
             #if lock_status==lock.LOCK_NONE:
@@ -290,8 +290,9 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
     while compare_files(temp,norm_path)==None:
-        lock.error("Lock","Files do not match: {0},{1}".format(temp,norm_path))
+        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
         time.sleep(.001)
+    lock.info("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
 
     lock.release(path)
 
