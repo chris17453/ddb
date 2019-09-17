@@ -19,7 +19,7 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=True
-    BUFFER_SIZE=1048576*10
+    BUFFER_SIZE=4096
     
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
@@ -65,6 +65,7 @@ class lock:
                 if buffer==None:
                     break
                 os.write(dst_fh, buffer)
+
 
         if src_fh:
             os.close(src_fh)
