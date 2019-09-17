@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.70'
+__version__='1.3.71'
 
         
 # ############################################################################
@@ -4297,8 +4297,8 @@ class lock:
                 os.close(fd)
                 break
             except OSError as ex:
+                print ex
                 pass
-            if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
         if lock.debug: lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
