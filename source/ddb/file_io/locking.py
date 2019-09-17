@@ -59,7 +59,7 @@ class lock:
         lock.info("SAM","--")
         dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
         lock.info("PIZZA","--")
-        if src_fh== and dst_fh:
+        if src_fh!=None and dst_fh!=None:
             while True:
                 buffer=os.read(src_fh, lock.BUFFER_SIZE)
                 if buffer==None:
