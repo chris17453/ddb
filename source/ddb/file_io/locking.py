@@ -57,15 +57,17 @@ class lock:
                 
         src_fh = os.open(src, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_RDONLY | os.O_SYNC)
         dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
-        
-        while True:
-            buffer=os.read(src_fh, lock.BUFFER_SIZE)
-            if buffer==None:
-                break
-            os.write(dst_fh, buffer)
+        if src_fh and dst_fh:
+            while True:
+                buffer=os.read(src_fh, lock.BUFFER_SIZE)
+                if buffer==None:
+                    break
+                os.write(dst_fh, buffer)
 
-        os.close(dst_fh)
-        os.close(src_fh)
+        if src_fh:
+            os.close(dst_fh)
+        if dst_fh:
+            os.close(src_fh)
 
           #      shutil.copyfileobj(fsrc, fdst, buffer_size)
 
@@ -305,7 +307,7 @@ def swap_files(path, temp,key_uuid):
     while compare_files(temp,norm_path)==None:
         lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
     
-    time.sleep(1)
+    time.sleep(.001)
 
     lock.release(path)
 
