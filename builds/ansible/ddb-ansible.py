@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.42'
+__version__='1.3.43'
 
         
 # ############################################################################
@@ -4256,8 +4256,9 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=None
+    BUFFER_SIZE=1048576*10
     @staticmethod
-    def copy_file(src, dst, buffer_size=16*1024, perserveFileDate=True):
+    def copy_file(src, dst, buffer_size=lock.BUFFER_SIZE, perserveFileDate=None):
         '''
         Copies a file to a new location. Much faster performance than Apache Commons due to use of larger buffer
         @param src:    Source File
@@ -4265,7 +4266,6 @@ class lock:
         @param buffer_size:    Buffer size to use during copy
         @param perserveFileDate:    Preserve the original file date
         '''
-        print "COPY"
         dstParent, dstFileName = os.path.split(dst)
         if(not(os.path.exists(dstParent))):
             os.makedirs(dstParent)
@@ -4287,7 +4287,6 @@ class lock:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
         if(perserveFileDate):
             shutil.copystat(src, dst)
-        print "COPY DONE"
     @staticmethod
     def info(msg,data):
         dt = datetime.datetime.now()
