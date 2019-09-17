@@ -57,7 +57,6 @@ class test_engine(unittest.TestCase):
         #try:
         process_count=8
         print("Locking")
-        engine = ddb.engine(config_dir=None,debug=None)
         # fail on existing table
         self.cleanup()
         
@@ -67,6 +66,7 @@ class test_engine(unittest.TestCase):
                 break
 
         
+        engine = ddb.engine(config_dir=None,debug=None)
         
         self.create_table(engine,mode)
         start_time=time.time()
