@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1039'
+__version__='1.2.1040'
 
         
 # ############################################################################
@@ -4264,7 +4264,7 @@ class lock:
                     os.close(fd)
                     break
                 except OSError as ex:
-                    lock.error("Lock","error!:{0}".format(ex))
+                    lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
         lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)

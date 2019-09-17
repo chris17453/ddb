@@ -132,11 +132,6 @@ class lock:
             lock.error('Lock release',ex)
             exit(1)
 
-        if os.path.exists(lock_path)==True:
-            lock.error("Lock","lockfile cannot be removed. {0}".format(lock_path))
-            exit(0)
-            
-            raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
             
         lock.info("Lock","removed")
 
