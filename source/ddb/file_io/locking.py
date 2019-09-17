@@ -55,7 +55,7 @@ class lock:
         #with open(src, 'rb',buffering=0) as fsrc:
          #   with open(dst, 'wb',buffering=0) as fdst:
         lock.info("BOB","--")
-        src_fh = os.open(src, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_RDONLY | os.O_SYNC)
+        src_fh = os.open(src, os.O_DIRECT | os.O_RDONLY | os.O_SYNC)
         lock.info("SAM","--")
         dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
         lock.info("PIZZA","--")
@@ -225,7 +225,7 @@ class lock:
                 
                 break
             except OSError as ex:
-                #if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             #time.sleep(lock.sleep_time)
