@@ -193,7 +193,8 @@ class lock:
                 os.close(fd)
                 break
             except OSError as ex:
-                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                #if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                pass
             if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             #time.sleep(lock.sleep_time)
 
@@ -218,7 +219,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
-        lock.aquire(path,uuid)
+        lock.cat(path,uuid)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:

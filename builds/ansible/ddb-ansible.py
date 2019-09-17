@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.61'
+__version__='1.3.62'
 
         
 # ############################################################################
@@ -4376,16 +4376,14 @@ class lock:
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         while 1:
-            lock_status=lock.is_locked(path,key_uuid,lock_path)
-            if lock_status==lock.LOCK_NONE:
-                if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
-                try:
-                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
-                    os.write(fd,lock_contents)
-                    os.close(fd)
-                    break
-                except OSError as ex:
-                    if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+            if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
+            try:
+                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+                os.write(fd,lock_contents)
+                os.close(fd)
+                break
+            except OSError as ex:
+                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
             if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
         if lock.debug: lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
