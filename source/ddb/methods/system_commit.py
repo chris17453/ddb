@@ -35,9 +35,9 @@ def method_system_commit(context):
 
             # clear
             context.internal['TEMP_FILES']={}
-            print ("Temp Flags Files Cleared")
+            #print ("Temp Flags Files Cleared")
         else:
-            print("Not in transaction")
+            #print("Not in transaction")
             raise Exception("Cannot commit, not in a transaction")
             
             
