@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.38'
+__version__='1.3.39'
 
         
 # ############################################################################
@@ -4169,6 +4169,35 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=None
+    def copy_file(src, dst, buffer_size=10485760, perserveFileDate=True):
+        '''
+        Copies a file to a new location. Much faster performance than Apache Commons due to use of larger buffer
+        @param src:    Source File
+        @param dst:    Destination File (not file path)
+        @param buffer_size:    Buffer size to use during copy
+        @param perserveFileDate:    Preserve the original file date
+        '''
+        dstParent, dstFileName = os.path.split(dst)
+        if(not(os.path.exists(dstParent))):
+            os.makedirs(dstParent)
+        buffer_size = min(buffer_size,os.path.getsize(src))
+        if(buffer_size == 0):
+            buffer_size = 1024
+        if shutil._samefile(src, dst):
+            raise shutil.Error("`%s` and `%s` are the same file" % (src, dst))
+        for fn in [src, dst]:
+            try:
+                st = os.stat(fn)
+            except OSError:
+                pass
+            else:
+                if shutil.stat.S_ISFIFO(st.st_mode):
+                    raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
+        with open(src, 'rb') as fsrc:
+            with open(dst, 'wb') as fdst:
+                shutil.copyfileobj(fsrc, fdst, buffer_size)
+        if(perserveFileDate):
+            shutil.copystat(src, dst)
     @staticmethod
     def info(msg,data):
         dt = datetime.datetime.now()
@@ -4289,7 +4318,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
             temp_file_name="{0}".format(temp_base_name)
         temp_path = os.path.join(temp_dir, temp_file_name)
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
-        shutil.copy2(normalize_path(path), temp_path)
+        lock.copy_file(normalize_path(path), temp_path)
         return temp_path
     except:
         ex = sys.exc_info()[0]
@@ -4317,7 +4346,7 @@ def swap_files(path, temp,key_uuid):
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
     if lock.debug: lock.info("Lock","Copying temp to master")
-    shutil.copy2(temp, norm_path)
+    lock.copy_file(temp, norm_path)
     remove_temp_file(temp)
     lock.release(path)
     if os.path.exists(temp)==True:
