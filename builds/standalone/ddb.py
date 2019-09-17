@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.82'
+__version__='1.3.83'
 
         
 # ############################################################################
@@ -4193,8 +4193,8 @@ class lock:
             else:
                 if shutil.stat.S_ISFIFO(st.st_mode):
                     raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
-        with open(src, 'rb') as fsrc:
-            with open(dst, 'wb') as fdst:
+        with open(src, 'rb',buffering=0) as fsrc:
+            with open(dst, 'wb',buffering=0) as fdst:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
         if(perserveFileDate):
             shutil.copystat(src, dst)
@@ -4244,7 +4244,7 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r') as lockfile:
+                with open(lock_path,'r',,buffering=0) as lockfile:
                     try:
                         file_data=lockfile.readline()
                         try:
