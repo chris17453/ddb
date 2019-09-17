@@ -232,7 +232,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
     except:
-        ex = sys.exc_info()[0]
+        ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
