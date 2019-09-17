@@ -194,8 +194,9 @@ class lock:
                 break
             except OSError as ex:
                 #if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                print ex
                 pass
-            if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
+            #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             #time.sleep(lock.sleep_time)
 
 
