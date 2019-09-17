@@ -55,7 +55,7 @@ class lock:
         #with open(src, 'rb',buffering=0) as fsrc:
          #   with open(dst, 'wb',buffering=0) as fdst:
         src_fh = os.open(src, os.O_RDONLY | os.O_SYNC)
-        dst_fh = os.open(dst, os.O_CREAT | os.SYNC|  os.O_TRUNC | os.O_WRONLY )
+        dst_fh = os.open(dst, os.O_CREAT | os.O_SYNC|  os.O_TRUNC | os.O_WRONLY )
         if src_fh!=None and dst_fh!=None:
             while True:
                 buffer=os.read(src_fh, lock.BUFFER_SIZE)
