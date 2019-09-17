@@ -185,7 +185,7 @@ class lock:
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         file=open("/tmp/ddb.log","a+")
-        file.write("TRYING LOCK FOR {0},{1}\n".format(pid,datetime.datetime.now()))
+        file.write("{0},{1},TRYING LOCK  ,\n".format(pid,datetime.datetime.now()))
         file.close()
 
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
@@ -197,7 +197,7 @@ class lock:
                 os.write(fd,lock_contents)
                 os.close(fd)
                 file=open("/tmp/ddb.log","a+")
-                file.write("GOT LOCK FOR {0},{1}\n".format(pid,datetime.datetime.now()))
+                file.write("{0},{1},GOT LOCK FOR \n".format(pid,datetime.datetime.now()))
                 file.close()
                 
                 break
