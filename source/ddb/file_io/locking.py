@@ -201,8 +201,8 @@ class lock:
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except : 
-            ex = sys.exc_info()[1]
-            if lock.debug: lock.error('Lock',"File path can not be removed") 
+            ex = sys.exc_info()
+            if lock.debug: lock.error('Lock',"File path can not be removed {0):{1}:{2}".format(ex[0] , ex[1] , ex[2]))) 
             if lock.debug: lock.error('Lock release',ex)
             exit(1)
 
@@ -266,7 +266,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         return temp_path
     except:
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error",ex[0] +" " + ex[1] + " " +ex[2])
+        if lock.debug: lock.error("Lock Error","{0):{1}:{2}".format(ex[0] , ex[1] , ex[2]))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 
@@ -276,7 +276,7 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error",ex[0] +" " + ex[1] + " " +ex[2])
+        if lock.debug: lock.error("Lock Error","{0):{1}:{2}".format(ex[0], ex[1] , ex[2]))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
