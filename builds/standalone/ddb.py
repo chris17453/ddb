@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.92'
+__version__='1.3.93'
 
         
 # ############################################################################
@@ -4317,7 +4317,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
     try:
         lock.aquire(path,uuid)
         time.sleep(.001)
-        lock.info("LOCK INODE",os.stat(filename).st_ino)
+        lock.info("LOCK INODE",os.stat(path).st_ino)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
