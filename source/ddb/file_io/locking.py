@@ -230,7 +230,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         # or the lock ages and is deleted
         lock.aquire(path,uuid)
         time.sleep(.001)
-        lock.info("LOCK INODE",os.stat(path).st_ino)
+        lock.info("LOCK Modified",os.stat(path).st_mtime)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
