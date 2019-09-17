@@ -17,6 +17,7 @@ class lock:
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
+    LOCK_PARTIAL=3
     debug=None
 
     @staticmethod
@@ -72,7 +73,12 @@ class lock:
                     try:
                         file_data=lockfile.readline()
                         #timestamp,temp_file_path,
-                        owner_uuid,owner_pid=file_data.split('|')
+                        try:
+                            owner_uuid,owner_pid,terminator=file_data.split('|')
+                        except:
+                            lock.info("Lock","lockfile incomplete, likely in progress")
+                            return lock.LOCK_PARTIAL
+                        
                         # print(timestamp,temp_file_path,owner_uuid)
                         #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
                         #curent_datetime =datetime.datetime.now()
@@ -139,7 +145,7 @@ class lock:
     def aquire(path,key_uuid):
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
-        lock_contents="{0}|{1}".format(key_uuid,pid)
+        lock_contents="{0}|{1}|x".format(key_uuid,pid)
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
