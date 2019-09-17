@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1042'
+__version__='1.2.1043'
 
         
 # ############################################################################
@@ -4169,6 +4169,7 @@ class lock:
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
+    LOCK_PARTIAL=3
     debug=None
     @staticmethod
     def info(msg,data):
@@ -4214,7 +4215,11 @@ class lock:
                 with open(lock_path,'r+') as lockfile:
                     try:
                         file_data=lockfile.readline()
-                        owner_uuid,owner_pid=file_data.split('|')
+                        try:
+                            owner_uuid,owner_pid,terminator=file_data.split('|')
+                        except:
+                            lock.info("Lock","lockfile incomplete, likely in progress")
+                            return lock.LOCK_PARTIAL
                         if lock.check_pid(int(owner_pid))==False:
                             lock.info("Lock","invalid owner")
                             lock.release(path)
@@ -4256,7 +4261,7 @@ class lock:
     def aquire(path,key_uuid):
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
-        lock_contents="{0}|{1}".format(key_uuid,pid)
+        lock_contents="{0}|{1}|x".format(key_uuid,pid)
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:

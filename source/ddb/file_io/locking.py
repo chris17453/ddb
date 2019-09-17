@@ -22,15 +22,13 @@ class lock:
 
     @staticmethod
     def info(msg,data):
-        if 1==0:
-            dt = datetime.datetime.now()
-            print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
+        dt = datetime.datetime.now()
+        print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
     
     @staticmethod
     def error(msg,data):
-#        if 1==0:
-            dt = datetime.datetime.now()
-            print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
+        dt = datetime.datetime.now()
+        print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
     
     @staticmethod
     def normalize_path(path):
@@ -76,7 +74,7 @@ class lock:
                         try:
                             owner_uuid,owner_pid,terminator=file_data.split('|')
                         except:
-                            lock.info("Lock","lockfile incomplete, likely in progress")
+                            if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
                         
                         # print(timestamp,temp_file_path,owner_uuid)
@@ -88,41 +86,41 @@ class lock:
 
                         #NO lock timeout...
                         #if elapsed_time.seconds>lock.max_lock_time:
-                        #    lock.info("Lock","Releasing, lock aged out")
+                        #    if lock.debug: lock.info("Lock","Releasing, lock aged out")
                         #    lock.release(path)
                         #    return lock.LOCK_NONE
 
                         # If the lockfile owner PID does not exist
                         if lock.check_pid(int(owner_pid))==False:
-                            lock.info("Lock","invalid owner")
+                            if lock.debug: lock.info("Lock","invalid owner")
                             lock.release(path)
                             return lock.LOCK_NONE
                         elif owner_uuid==key_uuid:
-                            lock.info("Lock","owned by current process")
+                            if lock.debug: lock.info("Lock","owned by current process")
                             return lock.LOCK_OWNER
                         elif owner_uuid!=key_uuid:
-                            lock.info("Lock","owned by other process")
+                            if lock.debug: lock.info("Lock","owned by other process")
                             # print(owner_uuid,key_uuid)
                             return lock.LOCK_OTHER
                         else:
-                            lock.info("Lock","None-err?")
+                            if lock.debug: lock.info("Lock","None-err?")
                             return lock.LOCK_NONE
                     except Exception as ex:
-                        lock.error("Lock","error {0}".format(ex))
+                        if lock.debug: lock.error("Lock","error {0}".format(ex))
                         # because of mid write glitch
                         return lock.LOCK_OTHER
                         #lock.release(path)
                         pass
-            lock.info("Lock","None-Fall Through")
+            if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
             return lock.LOCK_OTHER
-            lock.error("Lock","Failed to validate file lock: {0}".format(ex))
+            if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
 
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
-        lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
+        if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
@@ -131,15 +129,15 @@ class lock:
         
         try: 
             os.remove(lock_path)
-            lock.info('lock',"% s removed successfully" % path) 
+            if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except : 
             ex = sys.exc_info()[0]
-            lock.error('Lock',"File path can not be removed") 
-            lock.error('Lock release',ex)
+            if lock.debug: lock.error('Lock',"File path can not be removed") 
+            if lock.debug: lock.error('Lock release',ex)
             exit(1)
 
             
-        lock.info("Lock","removed")
+        if lock.debug: lock.info("Lock","removed")
 
     @staticmethod
     def aquire(path,key_uuid):
@@ -149,28 +147,28 @@ class lock:
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
-                lock.info("Lock","Creating Lock for {0}".format(path))
+                if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
                 try:
                     fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
                     os.write(fd,lock_contents)
                     os.close(fd)
                     break
                 except OSError as ex:
-                    lock.info("Lock","error!:{0}".format(ex))
-            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
+                    if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+            if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             #time.sleep(lock.sleep_time)
 
 
         #with open(lock_path,'w') as lockfile:
         #    lockfile.write)
 
-        lock.info("Lock","MOD, {0}".format(path))
+        if lock.debug: lock.info("Lock","MOD, {0}".format(path))
         # allow anyone to modify the lock file
         os.chmod(lock_path, 0o666)
 
-        lock.info("Lock","Aquired {0}".format(lock_path))
+        if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
-            lock.error("Lock","Failed to create")
+            if lock.debug: lock.error("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 
   
@@ -189,25 +187,25 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         else:
             temp_file_name="{0}".format(temp_base_name)
         temp_path = os.path.join(temp_dir, temp_file_name)
-        lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
+        if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         shutil.copy2(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         return temp_path
     except:
         ex = sys.exc_info()[0]
-        lock.error("Lock Error",ex)
+        if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 
 def remove_temp_file(path):
     try:
-        lock.info("Lock","Removing temp copy: {0}".format(path))
+        if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("failed to delete: {0}".format(path))    
     except: 
         ex = sys.exc_info()[0]
-        lock.error("Lock Error",ex)
+        if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
@@ -217,7 +215,7 @@ def remove_temp_file(path):
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     lock_status=lock.is_locked(path,key_uuid)
-    lock.info("Lock","Status: {0}".format(lock_status))
+    if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
@@ -231,7 +229,7 @@ def swap_files(path, temp,key_uuid):
 
     #if os.path.exists(temp):
     #    print ("Exists")
-    lock.info("Lock","Copying temp to master")
+    if lock.debug: lock.info("Lock","Copying temp to master")
     shutil.copy2(temp, norm_path)
 
     remove_temp_file(temp)

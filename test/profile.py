@@ -75,7 +75,14 @@ class test_profile:
         self.create_table(engine,mode)
         results = engine.query("select * from {0} where id like '%1' order by id desc limit 10".format(self.table_name))
     
+    def insert(self,mode=None):
+        self.cleanup()
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
+        self.create_table(engine,mode)
     
+        query="INSERT INTO {0} ('id','first_name','last_name','email','gender','ip_address') values ('id','first_name','last_name','email','gender','ip_address')".format(self.table_name)
+        results = engine.query(query)
+            
 
 def os_cmd(cmd,err_msg):
     p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
@@ -88,7 +95,7 @@ def os_cmd(cmd,err_msg):
     return output
     
 
-run=['select','select_w','select_o','select_wo','select_wol']
+run=['select','select_w','select_o','select_wo','select_wol','insert']
 
 dirs=[  "profile/{0}".format(ddb.version.__version__),
         "profile/{0}/proc".format(ddb.version.__version__),
