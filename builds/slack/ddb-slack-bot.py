@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.87'
+__version__='1.3.88'
 
         
 # ############################################################################
@@ -4354,6 +4354,7 @@ def swap_files(path, temp,key_uuid):
         remove_temp_file(norm_path)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
+    time.sleep(.001)
     lock.release(path)
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
