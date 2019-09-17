@@ -56,9 +56,9 @@ class lock:
             with open(dst, 'wb',buffering=0) as fdst:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
 
-         f=open(src, 'rb',buffering=0)
-         lock.info("Lock",f.readlines())
-         f.close()
+        f=open(src, 'rb',buffering=0)
+        lock.info("Lock",f.readlines())
+        f.close()
     
         if(perserveFileDate):
             shutil.copystat(src, dst)

@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.84'
+__version__='1.3.85'
 
         
 # ############################################################################
@@ -4189,6 +4189,9 @@ class lock:
         with open(src, 'rb',buffering=0) as fsrc:
             with open(dst, 'wb',buffering=0) as fdst:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
+         f=open(src, 'rb',buffering=0)
+         lock.info("Lock",f.readlines())
+         f.close()
         if(perserveFileDate):
             shutil.copystat(src, dst)
     @staticmethod
