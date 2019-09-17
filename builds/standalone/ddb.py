@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.44'
+__version__='1.3.45'
 
         
 # ############################################################################
@@ -4169,7 +4169,6 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=None
-    BUFFER_SIZE=1048576*10
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
         '''
