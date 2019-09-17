@@ -22,7 +22,7 @@ class lock:
     BUFFER_SIZE=1048576*10
     
     @staticmethod
-    def copy_file(src, dst, buffer_size=lock.BUFFER_SIZE, perserveFileDate=None):
+    def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
         '''
         Copies a file to a new location. Much faster performance than Apache Commons due to use of larger buffer
         @param src:    Source File
