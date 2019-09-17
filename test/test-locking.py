@@ -63,7 +63,7 @@ class test_engine(unittest.TestCase):
         """Test inserting values in a table with locking"""
         #try:
         process_count=8
-        print("Locking")
+        print("Locking: {0}".format(os.getpid()))
         # fail on existing table
         self.cleanup()
         
@@ -72,6 +72,7 @@ class test_engine(unittest.TestCase):
             if newpid!=0:
                 break
 
+        time.sleep(1)
         
         engine = ddb.engine(config_dir=None,debug=None)
         
