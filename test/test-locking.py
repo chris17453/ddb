@@ -42,9 +42,16 @@ class test_engine(unittest.TestCase):
             file_name=os.path.join(self.basedir, self.temp_data)
 
         if os.path.exists(file_name)==False:
-            open(file_name, 'w').close()
+            file=open(file_name, 'w')
+            file.write("# THIS IS A HEADER\n")
+            
+            file.close()
         else:
-            open(file_name, 'w').truncate()
+            file=open(file_name, 'w')
+            file.truncate()
+            file.write("# THIS IS A HEADER\n")
+            
+            file.close()
 
 
         query="create temporary table {0}.{1} ('id','pid','value','timestamp') file='{2}' {3} data_starts_on=1".format(self.database_name,self.table_name, file_name,repo)
