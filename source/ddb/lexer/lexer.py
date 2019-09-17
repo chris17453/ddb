@@ -1,5 +1,3 @@
-# cython: profile=True
-# cython: linetrace=True
 
 from .language import language
 from .tokenize import tokenizer
