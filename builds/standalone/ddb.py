@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.71'
+__version__='1.3.72'
 
         
 # ############################################################################
@@ -4291,15 +4291,13 @@ class lock:
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             try:
-                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |os.O_DIRECT )
+                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
                 os.write(fd,lock_contents)
                 os.close(fd)
                 break
             except OSError as ex:
                 print ex
                 pass
-        if lock.debug: lock.info("Lock","MOD, {0}".format(path))
-        os.chmod(lock_path, 0o666)
         if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             if lock.debug: lock.error("Lock","Failed to create")
