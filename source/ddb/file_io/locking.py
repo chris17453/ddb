@@ -28,6 +28,7 @@ class lock:
         @param buffer_size:    Buffer size to use during copy
         @param perserveFileDate:    Preserve the original file date
         '''
+        print "COPY"
         #    Check to make sure destination directory exists. If it doesn't create the directory
         dstParent, dstFileName = os.path.split(dst)
         if(not(os.path.exists(dstParent))):
@@ -56,7 +57,8 @@ class lock:
     
         if(perserveFileDate):
             shutil.copystat(src, dst)
-
+        print "COPY DONE"
+        
     @staticmethod
     def info(msg,data):
         dt = datetime.datetime.now()
