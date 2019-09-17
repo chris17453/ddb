@@ -454,9 +454,11 @@ class engine:
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:
             self.internal['TEMP_FILES'][table_key]['written']=True
+            src=self.internal['TEMP_FILES'][table_key]['temp_source']
             # remove the previous source
-            if dest_file and dest_file!=self.internal['TEMP_FILES'][table_key]['temp_source']:
-                remove_temp_file(self.internal['TEMP_FILES'][table_key]['temp_source'])
+            if dest_file and dest_file!=src:
+                lock.info("Lock Remove","Removing Intermediate Source file: {0}".format(src))
+                remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
     def auto_commit(self,table):
