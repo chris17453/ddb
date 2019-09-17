@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.68'
+__version__='1.3.69'
 
         
 # ############################################################################
@@ -4378,7 +4378,7 @@ class lock:
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             try:
-                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |os.O_DIRECT |os.O_EXLOCK)
                 os.write(fd,lock_contents)
                 os.close(fd)
                 break
