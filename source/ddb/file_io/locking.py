@@ -18,7 +18,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=1
+    debug=True
     #BUFFER_SIZE=1048576*10
     
     @staticmethod
@@ -253,10 +253,10 @@ def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     lock_status=lock.is_locked(path,key_uuid)
     if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
+    
     if lock.LOCK_OWNER != lock_status:
         if lock.debug: lock.error("Lock Error","Lock has wrong owner")
         exit(1)
-
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
     # DELETE ORIGINAL
@@ -264,11 +264,6 @@ def swap_files(path, temp,key_uuid):
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
     
-    # REMOVE LOCK FROM ORIGINAL PATH
-    #print("Swap File2")
-
-    #if os.path.exists(temp):
-    #    print ("Exists")
     if lock.debug: lock.info("Lock","Copying temp to master")
     lock.copy_file(temp, norm_path)
 
