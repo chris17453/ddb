@@ -266,10 +266,10 @@ def swap_files(path, temp,key_uuid):
     
     if lock.debug: lock.info("Lock","Copying temp to master")
     lock.copy_file(temp, norm_path)
+    lock.release(path)
 
     remove_temp_file(temp)
 
-    lock.release(path)
 
     if os.path.exists(temp)==True:
         if lock.debug: lock.error("Lock Error","Temp file not deleted")
