@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1031'
+__version__='1.2.1032'
 
         
 # ############################################################################
@@ -3354,22 +3354,13 @@ def method_insert(context, meta):
         visible_errors    = meta.table.visible.errors
         temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
         diff=[]
-        with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="DST_INSERT",delete=False) as temp_file:
-                for line in content_file:
-                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
-                    line_number += 1
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
-                    requires_new_line = False
-                results = create_single(context,meta, temp_file, requires_new_line)
-                if True == results['success']:
-                    diff.append(results['line'])
-                    affected_rows += 1
-                temp_file.close()
-                context.autocommit_write(meta.table,temp_file.name)
+        requires_new_line=False
+        with open(temp_data_file, 'a') as content_file:
+            results = create_single(context,meta, temp_data_file, requires_new_line)
+            if True == results['success']:
+                diff.append(results['line'])
+                affected_rows += 1
+            context.autocommit_write(meta.table,temp_data_file)
         context.auto_commit(meta.table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
 def create_single(context, meta, temp_file, requires_new_line):
