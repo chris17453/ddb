@@ -19,7 +19,7 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=True
-    #BUFFER_SIZE=1048576*10
+    BUFFER_SIZE=1048576*10
     
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
@@ -52,9 +52,22 @@ class lock:
                 # XXX What about other special files? (sockets, devices...)
                 if shutil.stat.S_ISFIFO(st.st_mode):
                     raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
-        with open(src, 'rb',buffering=0) as fsrc:
-            with open(dst, 'wb',buffering=0) as fdst:
-                shutil.copyfileobj(fsrc, fdst, buffer_size)
+        #with open(src, 'rb',buffering=0) as fsrc:
+         #   with open(dst, 'wb',buffering=0) as fdst:
+                
+        src_fh = os.open(src, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_RDONLY | os.O_SYNC)
+        dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
+        
+        while True:
+            buffer=os.read(src_fh, lock.BUFFER_SIZE)
+            if buffer==None:
+                break
+            os.write(dst_fh, buffer)
+
+        os.close(dst_fh)
+        os.close(src_fh)
+
+          #      shutil.copyfileobj(fsrc, fdst, buffer_size)
 
         f=open(src, 'rb',buffering=0)
         lock.info("Lock","\n".join(f.readlines()))
