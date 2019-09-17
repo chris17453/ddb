@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.54'
+__version__='1.3.55'
 
         
 # ############################################################################
@@ -4168,7 +4168,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=1
+    debug=True
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
         '''
