@@ -272,11 +272,11 @@ def swap_files(path, temp,key_uuid):
     #remove_temp_file(temp)
 
 
-    if os.path.exists(temp)==True:
-        if lock.debug: lock.error("Lock Error","Temp file not deleted")
-        exit(1)
+    #if os.path.exists(temp)==True:
+     #   if lock.debug: lock.error("Lock Error","Temp file not deleted")
+     #   exit(1)
 
-        raise Exception("Deleting temp file {0} failed".format(temp))
+     #   raise Exception("Deleting temp file {0} failed".format(temp))
 
  
 def normalize_path(path):

@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.65'
+__version__='1.3.66'
 
         
 # ############################################################################
@@ -4289,8 +4289,8 @@ class lock:
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
+        if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
-            if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
             try:
                 fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
                 os.write(fd,lock_contents)
@@ -4347,7 +4347,6 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Copying temp to master")
     lock.copy_file(temp, norm_path)
     lock.release(path)
-    remove_temp_file(temp)
     if os.path.exists(temp)==True:
         if lock.debug: lock.error("Lock Error","Temp file not deleted")
         exit(1)
