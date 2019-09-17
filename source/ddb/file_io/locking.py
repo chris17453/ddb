@@ -119,10 +119,11 @@ class lock:
         try: 
             os.remove(lock_path)
             print("% s removed successfully" % path) 
-        except OSError as error: 
-            print(error) 
+        except : 
+            ex = sys.exc_info()[0]
             print("File path can not be removed") 
-            exit(0)
+            print (ex)
+            exit(1)
 
         if os.path.exists(lock_path)==True:
             print "Lockfile cannot be removed. {0}".format(lock_path)

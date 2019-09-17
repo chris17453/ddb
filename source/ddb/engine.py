@@ -447,7 +447,7 @@ class engine:
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
-        print ("Temp File {0}".format(temp_source))
+        #print ("Temp File {0}".format(temp_source))
         return temp_source
     
     def autocommit_write(self,table,dest_file):
