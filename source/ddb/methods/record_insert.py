@@ -1,4 +1,3 @@
-# cython: profile=True
 # cython: linetrace=True
 
 import tempfile  # from table import table
