@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.53'
+__version__='1.3.54'
 
         
 # ############################################################################
@@ -4333,7 +4333,7 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
         if lock.debug: lock.error("Lock Error","Lock has wrong owner")
-            exit(1)
+        exit(1)
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
