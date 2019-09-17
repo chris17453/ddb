@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.62'
+__version__='1.3.63'
 
         
 # ############################################################################
@@ -4289,7 +4289,7 @@ class lock:
                 os.close(fd)
                 break
             except OSError as ex:
-                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                pass
             if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
         if lock.debug: lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
@@ -4300,7 +4300,7 @@ class lock:
 def create_temporary_copy(path,uuid,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
-        lock.aquire(path,uuid)
+        lock.cat(path,uuid)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
