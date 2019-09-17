@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.66'
+__version__='1.3.67'
 
         
 # ############################################################################
@@ -4346,10 +4346,6 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Copying temp to master")
     lock.copy_file(temp, norm_path)
     lock.release(path)
-    if os.path.exists(temp)==True:
-        if lock.debug: lock.error("Lock Error","Temp file not deleted")
-        exit(1)
-        raise Exception("Deleting temp file {0} failed".format(temp))
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
