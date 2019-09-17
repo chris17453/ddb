@@ -62,7 +62,7 @@ class test_engine(unittest.TestCase):
     def test_locking(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-        process_count=6
+        process_count=16
         print("Locking")
         # fail on existing table
         self.cleanup()

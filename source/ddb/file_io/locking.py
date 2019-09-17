@@ -226,7 +226,7 @@ class lock:
                 if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-            #time.sleep(lock.sleep_time)
+            time.sleep(lock.sleep_time)
 
 
 
