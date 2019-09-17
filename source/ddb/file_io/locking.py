@@ -219,7 +219,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
-        lock.cat(path,uuid)
+        lock.aquire(path,uuid)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:

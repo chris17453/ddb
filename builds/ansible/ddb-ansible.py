@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.63'
+__version__='1.3.64'
 
         
 # ############################################################################
@@ -4406,7 +4406,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         lock.copy_file(normalize_path(path), temp_path)
         return temp_path
     except:
-        ex = sys.exc_info()[0]
+        ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
