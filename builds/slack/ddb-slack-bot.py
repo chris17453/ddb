@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.80'
+__version__='1.3.81'
 
         
 # ############################################################################
@@ -4349,7 +4349,7 @@ def swap_files(path, temp,key_uuid):
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
-    if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1 }".format(norm_path,temp))
+    if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
     lock.release(path)
 def normalize_path(path):
