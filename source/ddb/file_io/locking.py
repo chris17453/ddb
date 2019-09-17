@@ -258,6 +258,14 @@ def remove_temp_file(path):
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
+def compare_files(file1,file2):
+    hash1=hashlib.md5(open(file1,'rb').read()).hexdigest()
+    hash2=hashlib.md5(open(file2,'rb').read()).hexdigest()
+    lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
+    lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
+    if hash1!=hash2:
+        return None
+    return True
 
         
 # todo move into context with a manager flag        
@@ -281,10 +289,13 @@ def swap_files(path, temp,key_uuid):
         exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
-    time.sleep(.001)
+    while compare_files(temp,norm_path)==None:
+        lock.error("Lock","Files do not match: {0},{1}".format(temp,norm_path))
+        time.sleep(.001)
+
     lock.release(path)
 
-    #remove_temp_file(temp)
+    remove_temp_file(temp)
 
 
     #if os.path.exists(temp)==True:
