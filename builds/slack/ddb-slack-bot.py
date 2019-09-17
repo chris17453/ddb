@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.52'
+__version__='1.3.53'
 
         
 # ############################################################################
@@ -2774,7 +2774,6 @@ class engine:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
-            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
