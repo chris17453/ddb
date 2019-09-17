@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.41'
+__version__='1.3.42'
 
         
 # ############################################################################
@@ -4169,6 +4169,7 @@ class lock:
     LOCK_OTHER=2
     LOCK_PARTIAL=3
     debug=None
+    @staticmethod
     def copy_file(src, dst, buffer_size=16*1024, perserveFileDate=True):
         '''
         Copies a file to a new location. Much faster performance than Apache Commons due to use of larger buffer
