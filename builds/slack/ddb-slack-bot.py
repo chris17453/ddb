@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.74'
+__version__='1.3.75'
 
         
 # ############################################################################
@@ -4290,7 +4290,7 @@ class lock:
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         file=open("/tmp/ddb.log","a+")
-        file.write("TRYING LOCK FOR {0},{1}".format(pid,datetime.datetime.now()))
+        file.write("TRYING LOCK FOR {0},{1}\n".format(pid,datetime.datetime.now()))
         file.close()
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
@@ -4299,7 +4299,7 @@ class lock:
                 os.write(fd,lock_contents)
                 os.close(fd)
                 file=open("/tmp/ddb.log","a+")
-                file.write("GOT LOCK FOR {0},{1}".format(pid,datetime.datetime.now()))
+                file.write("GOT LOCK FOR {0},{1}\n".format(pid,datetime.datetime.now()))
                 file.close()
                 break
             except OSError as ex:
