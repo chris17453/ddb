@@ -106,7 +106,7 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r+') as lockfile:
+                with open(lock_path,'r') as lockfile:
                     try:
                         file_data=lockfile.readline()
                         #timestamp,temp_file_path,
