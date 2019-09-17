@@ -43,7 +43,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.91'
+__version__='1.3.92'
 
         
 # ############################################################################
@@ -4318,6 +4318,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
     try:
         lock.aquire(path,uuid)
         time.sleep(.001)
+        lock.info("LOCK INODE",os.stat(filename).st_ino)
         temp_dir = tempfile.gettempdir()
         temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
         if prefix:
