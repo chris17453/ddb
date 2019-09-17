@@ -55,7 +55,7 @@ class test_engine(unittest.TestCase):
     def test_locking(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-        process_count=5
+        process_count=310
         print("Locking")
         engine = ddb.engine(config_dir=None,debug=None)
         # fail on existing table
@@ -81,7 +81,7 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        for i in range(0,1000):
+        for i in range(0,2):
             timestamp=datetime.datetime.now()
 
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
