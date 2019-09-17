@@ -79,7 +79,7 @@ NB_COMPILE_JOBS = 4
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
-        extensions=cythonize(extensions) #, nthreads=NB_COMPILE_JOBS)
+        extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS)
         #extensions = cythonize(extensions)
     except BaseException as ex:
         print ("No Cython installed",ex)
