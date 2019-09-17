@@ -15,11 +15,11 @@ class test_profile:
 
     def cleanup(self):
         # print ("#--->Fresh init")
-        config_file = os.path.join(self.basedir, self.temp_config)
-        if os.path.exists(config_file):
-           #print "Config file: {}".format(config_file)
-           os.remove(config_file)
-        #if os.path.exists(config_file):
+        config_dir = os.path.join(self.basedir, self.temp_config)
+        if os.path.exists(config_dir):
+           #print "Config file: {}".format(config_dir)
+           os.remove(config_dir)
+        #if os.path.exists(config_dir):
             #print("Still here")
 
     def create_table(self,engine,mode):
@@ -43,37 +43,37 @@ class test_profile:
 
     def select(self,mode=None):
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
         self.create_table(engine,mode)
         for a in range(0,self.loop):
             results = engine.query("select * from {0}".format(self.table_name))
     
     def select_o(self,mode=None):
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
         self.create_table(engine,mode)
         for a in range(0,self.loop):
            results = engine.query("select * from {0} order by id desc".format(self.table_name))
     
     def select_w(self,mode=None):
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
         self.create_table(engine,mode)
         for a in range(0,self.loop):
            results = engine.query("select * from {0} where id like '%1'".format(self.table_name))
 
     def select_wo(self,mode=None):
         self.cleanup()
-        engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
         self.create_table(engine,mode)
         for a in range(0,self.loop):
             results = engine.query("select * from {0} where id like '%1' order by id desc".format(self.table_name))
 
     def select_wol(self,mode=None):
-       self.cleanup()
-       engine = ddb.engine(config_file=os.path.join(self.basedir, self.temp_config),debug=None)
-       self.create_table(engine,mode)
-       results = engine.query("select * from {0} where id like '%1' order by id desc limit 10".format(self.table_name))
+        self.cleanup()
+        engine = ddb.engine(config_dir=self.basedir,debug=None)
+        self.create_table(engine,mode)
+        results = engine.query("select * from {0} where id like '%1' order by id desc limit 10".format(self.table_name))
     
     
 
