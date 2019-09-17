@@ -255,7 +255,7 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
         if lock.debug: lock.error("Lock Error","Lock has wrong owner")
-            exit(1)
+        exit(1)
 
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
