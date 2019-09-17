@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1043'
+__version__='1.3.36'
 
         
 # ############################################################################
@@ -4259,13 +4259,12 @@ class lock:
     debug=None
     @staticmethod
     def info(msg,data):
-        if 1==0:
-            dt = datetime.datetime.now()
-            print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
+        dt = datetime.datetime.now()
+        print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def error(msg,data):
-            dt = datetime.datetime.now()
-            print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
+        dt = datetime.datetime.now()
+        print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
@@ -4304,45 +4303,45 @@ class lock:
                         try:
                             owner_uuid,owner_pid,terminator=file_data.split('|')
                         except:
-                            lock.info("Lock","lockfile incomplete, likely in progress")
+                            if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
                         if lock.check_pid(int(owner_pid))==False:
-                            lock.info("Lock","invalid owner")
+                            if lock.debug: lock.info("Lock","invalid owner")
                             lock.release(path)
                             return lock.LOCK_NONE
                         elif owner_uuid==key_uuid:
-                            lock.info("Lock","owned by current process")
+                            if lock.debug: lock.info("Lock","owned by current process")
                             return lock.LOCK_OWNER
                         elif owner_uuid!=key_uuid:
-                            lock.info("Lock","owned by other process")
+                            if lock.debug: lock.info("Lock","owned by other process")
                             return lock.LOCK_OTHER
                         else:
-                            lock.info("Lock","None-err?")
+                            if lock.debug: lock.info("Lock","None-err?")
                             return lock.LOCK_NONE
                     except Exception as ex:
-                        lock.error("Lock","error {0}".format(ex))
+                        if lock.debug: lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
                         pass
-            lock.info("Lock","None-Fall Through")
+            if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
             return lock.LOCK_OTHER
-            lock.error("Lock","Failed to validate file lock: {0}".format(ex))
+            if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
-        lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
+        if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         try: 
             os.remove(lock_path)
-            lock.info('lock',"% s removed successfully" % path) 
+            if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except : 
             ex = sys.exc_info()[0]
-            lock.error('Lock',"File path can not be removed") 
-            lock.error('Lock release',ex)
+            if lock.debug: lock.error('Lock',"File path can not be removed") 
+            if lock.debug: lock.error('Lock release',ex)
             exit(1)
-        lock.info("Lock","removed")
+        if lock.debug: lock.info("Lock","removed")
     @staticmethod
     def aquire(path,key_uuid):
         lock_path =lock.get_lock_filename(path)
@@ -4351,20 +4350,20 @@ class lock:
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             if lock_status==lock.LOCK_NONE:
-                lock.info("Lock","Creating Lock for {0}".format(path))
+                if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
                 try:
                     fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
                     os.write(fd,lock_contents)
                     os.close(fd)
                     break
                 except OSError as ex:
-                    lock.info("Lock","error!:{0}".format(ex))
-            lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-        lock.info("Lock","MOD, {0}".format(path))
+                    if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+            if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
+        if lock.debug: lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
-        lock.info("Lock","Aquired {0}".format(lock_path))
+        if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
-            lock.error("Lock","Failed to create")
+            if lock.debug: lock.error("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 def create_temporary_copy(path,uuid,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
@@ -4377,35 +4376,35 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         else:
             temp_file_name="{0}".format(temp_base_name)
         temp_path = os.path.join(temp_dir, temp_file_name)
-        lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
+        if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         shutil.copy2(normalize_path(path), temp_path)
         return temp_path
     except:
         ex = sys.exc_info()[0]
-        lock.error("Lock Error",ex)
+        if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
-        lock.info("Lock","Removing temp copy: {0}".format(path))
+        if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
         if os.path.exists(path)==True:
             raise Exception("failed to delete: {0}".format(path))    
     except: 
         ex = sys.exc_info()[0]
-        lock.error("Lock Error",ex)
+        if lock.debug: lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     lock_status=lock.is_locked(path,key_uuid)
-    lock.info("Lock","Status: {0}".format(lock_status))
+    if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
         remove_temp_file(norm_path)
-    lock.info("Lock","Copying temp to master")
+    if lock.debug: lock.info("Lock","Copying temp to master")
     shutil.copy2(temp, norm_path)
     remove_temp_file(temp)
     lock.release(path)
