@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1035'
+__version__='1.2.1036'
 
         
 # ############################################################################
@@ -4241,14 +4241,14 @@ class lock:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         try: 
             os.remove(lock_path)
-            print("% s removed successfully" % path) 
+            lock.info('lock',"% s removed successfully" % path) 
         except : 
             ex = sys.exc_info()[0]
-            print("File path can not be removed") 
-            print (ex)
+            lock.info('Lock',"File path can not be removed") 
+            lock.info('Lock release',ex)
             exit(1)
         if os.path.exists(lock_path)==True:
-            print "Lockfile cannot be removed. {0}".format(lock_path)
+            lock.info("Lock","lockfile cannot be removed. {0}".format(lock_path))
             exit(0)
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
@@ -4291,7 +4291,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         return temp_path
     except:
         ex = sys.exc_info()[0]
-        print (ex)
+        lock.info("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
@@ -4302,7 +4302,7 @@ def remove_temp_file(path):
             raise Exception("failed to delete: {0}".format(path))    
     except: 
         ex = sys.exc_info()[0]
-        print (ex)
+        lock.info("Lock Error",ex)
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
