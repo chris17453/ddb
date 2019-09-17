@@ -106,7 +106,7 @@ class engine:
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         # variables that can be set by the system
         uuid_str=uuid.uuid1()
-        self.system['UUID']= uuid_str.urn[9:]+":"+os.getpid()
+        self.system['UUID']= "{1}:{0}".format(uuid_str.urn[9:],os.getpid())
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
