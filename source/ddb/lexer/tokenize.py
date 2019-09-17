@@ -1,3 +1,4 @@
+# cython: profile=True
 # cython: linetrace=True
 
 
