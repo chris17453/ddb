@@ -79,7 +79,7 @@ NB_COMPILE_JOBS = 4
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
-        cythonize(extensions, nthreads=NB_COMPILE_JOBS)
+        extensions=cythonize(extensions) #, nthreads=NB_COMPILE_JOBS)
         #extensions = cythonize(extensions)
     except BaseException as ex:
         print ("No Cython installed",ex)
@@ -87,6 +87,7 @@ if USE_CYTHON:
         exit(1)
 else:
     print("Not using CYTHON")
+
 
 
 packages=['ddb',
