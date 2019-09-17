@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.50'
+__version__='1.3.51'
 
         
 # ############################################################################
@@ -4323,8 +4323,6 @@ def remove_temp_file(path):
     try:
         if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
-        if os.path.exists(path)==True:
-            raise Exception("failed to delete: {0}".format(path))    
     except: 
         ex = sys.exc_info()
         if lock.debug: lock.error("Lock Error",ex[1])

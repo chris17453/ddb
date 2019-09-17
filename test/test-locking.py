@@ -55,7 +55,7 @@ class test_engine(unittest.TestCase):
     def test_locking(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-        process_count=310
+        process_count=8
         print("Locking")
         engine = ddb.engine(config_dir=None,debug=None)
         # fail on existing table
