@@ -55,22 +55,18 @@ class test_engine(unittest.TestCase):
     def test_locking(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
+        process_count=5
         print("Locking")
         engine = ddb.engine(config_dir=None,debug=None)
         # fail on existing table
-        newpid = os.fork()
-
-        if newpid==0:
+        self.cleanup()
+        
+        for i in range(process_count):
             newpid = os.fork()
+            if newpid!=0:
+                break
 
-        if newpid==0:
-            newpid = os.fork()
-
-        if newpid==0:
-            newpid = os.fork()
-
-        if newpid==0:
-            self.cleanup()
+        
         
         self.create_table(engine,mode)
         start_time=time.time()
@@ -85,10 +81,7 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        for i in range(0,100):
-            print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
-            curent_time=time.time()
-            ellapsed_time=curent_time-start_time
+        for i in range(0,1000):
             timestamp=datetime.datetime.now()
 
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
@@ -101,6 +94,10 @@ class test_engine(unittest.TestCase):
                     )
             results = engine.query(query)
             self.assertEqual(True, results.success)
+
+        curent_time=time.time()
+        ellapsed_time=curent_time-start_time
+        print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
 
 
 
