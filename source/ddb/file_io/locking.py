@@ -196,7 +196,7 @@ class lock:
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except : 
-            ex = sys.exc_info()[0]
+            ex = sys.exc_info()[1]
             if lock.debug: lock.error('Lock',"File path can not be removed") 
             if lock.debug: lock.error('Lock release',ex)
             exit(1)
@@ -308,9 +308,7 @@ def swap_files(path, temp,key_uuid):
     lock.copy_file(temp, norm_path)
     while compare_files(temp,norm_path)==None:
         lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-        exit(1)
-    
-    time.sleep(.001)
+        time.sleep(.001)
 
     lock.release(path)
 
