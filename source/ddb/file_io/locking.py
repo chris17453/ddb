@@ -276,6 +276,7 @@ def swap_files(path, temp,key_uuid):
     
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
+    time.sleep(.001)
     lock.release(path)
 
     #remove_temp_file(temp)
