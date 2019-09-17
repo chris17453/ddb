@@ -61,7 +61,7 @@ class test_engine(unittest.TestCase):
         # fail on existing table
         self.cleanup()
         
-        for i in range(process_count):
+        for i in range(process_count-1):
             newpid = os.fork()
             if newpid!=0:
                 break
@@ -81,7 +81,7 @@ class test_engine(unittest.TestCase):
         
         
          # test results length
-        for i in range(0,1000):
+        for i in range(0,100):
             timestamp=datetime.datetime.now()
 
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
