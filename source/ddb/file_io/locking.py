@@ -13,7 +13,8 @@ import hashlib
 class lock:
     #max_lock_time=60
     #max_lock_wait_time=max_lock_time+1
-    sleep_time=0.001
+    sleep_time_min=0.0001
+    sleep_time_max=0.001
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
@@ -213,8 +214,8 @@ class lock:
 
         #if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
-            #lock_status=lock.is_locked(path,key_uuid,lock_path)
-            #if lock_status==lock.LOCK_NONE:
+            lock_status=lock.is_locked(path,key_uuid,lock_path)
+            if lock_status==lock.LOCK_NONE:
             try:
                 fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
                 os.write(fd,lock_contents)
@@ -226,7 +227,8 @@ class lock:
                 if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-            time.sleep(lock.sleep_time)
+            time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
+                
 
 
 
