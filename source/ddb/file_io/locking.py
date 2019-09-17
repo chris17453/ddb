@@ -254,6 +254,9 @@ def swap_files(path, temp,key_uuid):
     lock_status=lock.is_locked(path,key_uuid)
     if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
+        if lock.debug: lock.error("Lock Error","Lock has wrong owner")
+            exit(1)
+
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
     # DELETE ORIGINAL
@@ -273,8 +276,10 @@ def swap_files(path, temp,key_uuid):
 
     lock.release(path)
 
-    #print("$Removed")
     if os.path.exists(temp)==True:
+        if lock.debug: lock.error("Lock Error","Temp file not deleted")
+        exit(1)
+
         raise Exception("Deleting temp file {0} failed".format(temp))
 
  
