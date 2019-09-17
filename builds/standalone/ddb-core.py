@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1036'
+__version__='1.2.1037'
 
         
 # ############################################################################
@@ -4165,9 +4165,14 @@ class lock:
     debug=None
     @staticmethod
     def info(msg,data):
-        dt = datetime.datetime.now()
         if 1==0:
-            print("{2}-{0}: {1}".format(msg,data,dt))
+            dt = datetime.datetime.now()
+            print("{2}-[INFO]-{0}: {1}".format(msg,data,dt))
+    @staticmethod
+    def error(msg,data):
+        if 1==0:
+            dt = datetime.datetime.now()
+            print("{2}-[ERROR]-{0}: {1}".format(msg,data,dt))
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
@@ -4218,14 +4223,14 @@ class lock:
                             lock.info("Lock","None-err?")
                             return lock.LOCK_NONE
                     except Exception as ex:
-                        lock.info("Lock","error {0}".format(ex))
+                        lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
                         pass
             lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
             return lock.LOCK_OTHER
-            lock.info("Lock","Failed to validate file lock: {0}".format(ex))
+            lock.error("Lock","Failed to validate file lock: {0}".format(ex))
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
@@ -4237,11 +4242,11 @@ class lock:
             lock.info('lock',"% s removed successfully" % path) 
         except : 
             ex = sys.exc_info()[0]
-            lock.info('Lock',"File path can not be removed") 
-            lock.info('Lock release',ex)
+            lock.error('Lock',"File path can not be removed") 
+            lock.error('Lock release',ex)
             exit(1)
         if os.path.exists(lock_path)==True:
-            lock.info("Lock","lockfile cannot be removed. {0}".format(lock_path))
+            lock.error("Lock","lockfile cannot be removed. {0}".format(lock_path))
             exit(0)
             raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
@@ -4260,13 +4265,13 @@ class lock:
                     os.close(fd)
                     break
                 except OSError as ex:
-                    lock.info("Lock","error!:{0}".format(ex))
+                    lock.error("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
         lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
-            lock.info("Lock","Failed to create")
+            lock.error("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 def create_temporary_copy(path,uuid,prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
@@ -4284,7 +4289,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         return temp_path
     except:
         ex = sys.exc_info()[0]
-        lock.info("Lock Error",ex)
+        lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
@@ -4295,7 +4300,7 @@ def remove_temp_file(path):
             raise Exception("failed to delete: {0}".format(path))    
     except: 
         ex = sys.exc_info()[0]
-        lock.info("Lock Error",ex)
+        lock.error("Lock Error",ex)
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
