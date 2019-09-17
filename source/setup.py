@@ -79,14 +79,10 @@ NB_COMPILE_JOBS = 4
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
-        cythonize(EXTENSIONS, nthreads=NB_COMPILE_JOBS)
-        pool = multiprocessing.Pool(processes=NB_COMPILE_JOBS)
-        pool.map(setup_given_extensions, EXTENSIONS)
-        pool.close()
-        pool.join()
+        cythonize(extensions, nthreads=NB_COMPILE_JOBS)
         #extensions = cythonize(extensions)
     except BaseException as ex:
-        print ("No Cython installed")
+        print ("No Cython installed",ex)
         print("Building")
         exit(1)
 else:
