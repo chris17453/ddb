@@ -7,7 +7,6 @@ def method_system_commit(context):
     """Move temp files to source files"""
     context.info("Commit")
     try:
-        print("Commit")
         if context.internal['IN_TRANSACTION']==1:
             # TODO COMIT
             context.internal['IN_TRANSACTION']=0

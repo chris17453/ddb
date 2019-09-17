@@ -129,7 +129,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1040'
+__version__='1.2.1041'
 
         
 # ############################################################################
@@ -4338,10 +4338,6 @@ class lock:
             lock.error('Lock',"File path can not be removed") 
             lock.error('Lock release',ex)
             exit(1)
-        if os.path.exists(lock_path)==True:
-            lock.error("Lock","lockfile cannot be removed. {0}".format(lock_path))
-            exit(0)
-            raise Exception ("Lockfile cannot be removed. {0}".format(lock_path))
         lock.info("Lock","removed")
     @staticmethod
     def aquire(path,key_uuid):
