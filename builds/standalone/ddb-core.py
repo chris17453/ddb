@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1032'
+__version__='1.2.1033'
 
         
 # ############################################################################
@@ -3356,7 +3356,7 @@ def method_insert(context, meta):
         diff=[]
         requires_new_line=False
         with open(temp_data_file, 'a') as content_file:
-            results = create_single(context,meta, temp_data_file, requires_new_line)
+            results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
                 affected_rows += 1
