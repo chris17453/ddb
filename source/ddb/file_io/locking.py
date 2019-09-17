@@ -18,7 +18,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=None
+    debug=1
     #BUFFER_SIZE=1048576*10
     
     @staticmethod
