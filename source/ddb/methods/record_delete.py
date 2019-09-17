@@ -1,4 +1,4 @@
-# cython: profile=True
+# cython: linetrace=True
 
 from .record_core import process_line3, query_results, get_table
 import tempfile
