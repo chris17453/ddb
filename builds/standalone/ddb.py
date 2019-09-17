@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.95'
+__version__='1.3.96'
 
         
 # ############################################################################
@@ -4342,6 +4342,14 @@ def remove_temp_file(path):
         if lock.debug: lock.error("Lock Error",ex[1])
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
+def compare_files(file1,file2):
+    hash1=hashlib.md5(open(file1,'rb').read()).hexdigest()
+    hash2=hashlib.md5(open(file2,'rb').read()).hexdigest()
+    lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
+    lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
+    if hash1!=hash2:
+        return None
+    return True
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     lock_status=lock.is_locked(path,key_uuid)
@@ -4358,8 +4366,11 @@ def swap_files(path, temp,key_uuid):
         exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
-    time.sleep(.001)
+    while compare_files(temp,norm_path)==None:
+        lock.error("Lock","Files do not match: {0},{1}".format(temp,norm_path))
+        time.sleep(.001)
     lock.release(path)
+    remove_temp_file(temp)
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
