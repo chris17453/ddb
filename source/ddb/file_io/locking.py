@@ -54,10 +54,12 @@ class lock:
                     raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
         #with open(src, 'rb',buffering=0) as fsrc:
          #   with open(dst, 'wb',buffering=0) as fdst:
-                
+        lock.info("BOB","--")
         src_fh = os.open(src, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_RDONLY | os.O_SYNC)
+        lock.info("SAM","--")
         dst_fh = os.open(dst, os.O_CREAT | os.O_DIRECT | os.O_TRUNC | os.O_WRONLY | os.O_SYNC)
-        if src_fh and dst_fh:
+        lock.info("PIZZA","--")
+        if src_fh== and dst_fh:
             while True:
                 buffer=os.read(src_fh, lock.BUFFER_SIZE)
                 if buffer==None:
@@ -65,9 +67,9 @@ class lock:
                 os.write(dst_fh, buffer)
 
         if src_fh:
-            os.close(dst_fh)
-        if dst_fh:
             os.close(src_fh)
+        if dst_fh:
+            os.close(dst_fh)
 
           #      shutil.copyfileobj(fsrc, fdst, buffer_size)
 
