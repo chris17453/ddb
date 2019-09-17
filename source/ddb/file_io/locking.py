@@ -21,7 +21,7 @@ class lock:
     def info(msg,data):
         dt = datetime.datetime.now()
         
-        if 1==1:
+        if 1==0:
             print("{2}-{0}: {1}".format(msg,data,dt))
     
     @staticmethod

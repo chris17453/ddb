@@ -35,7 +35,7 @@ from subprocess import Popen,PIPE
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1029'
+__version__='1.2.1030'
 
         
 # ############################################################################
@@ -4170,7 +4170,7 @@ def method_system_show_output_modules(context):
 # ############################################################################
 
 class lock:
-    sleep_time=0.0002
+    sleep_time=0.001
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
@@ -4273,6 +4273,7 @@ class lock:
                 except OSError as ex:
                     lock.info("Lock","error!:{0}".format(ex))
             lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
+            time.sleep(lock.sleep_time)
         lock.info("Lock","MOD, {0}".format(path))
         os.chmod(lock_path, 0o666)
         lock.info("Lock","Aquired {0}".format(lock_path))
