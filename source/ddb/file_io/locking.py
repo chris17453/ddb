@@ -188,7 +188,7 @@ class lock:
             #lock_status=lock.is_locked(path,key_uuid,lock_path)
             #if lock_status==lock.LOCK_NONE:
             try:
-                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL)
+                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |os.O_DIRECT |os.O_EXLOCK)
                 os.write(fd,lock_contents)
                 os.close(fd)
                 break
