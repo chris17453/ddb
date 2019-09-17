@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.2.1034'
+__version__='1.2.1035'
 
         
 # ############################################################################
@@ -2947,7 +2947,6 @@ class engine:
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
-        print ("Temp File {0}".format(temp_source))
         return temp_source
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
@@ -4053,9 +4052,7 @@ def method_system_commit(context):
                     if tmp['table'].data.repo_type=='svn':
                        context.svn_commit_file(tmp['table'])
             context.internal['TEMP_FILES']={}
-            print ("Temp Flags Files Cleared")
         else:
-            print("Not in transaction")
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
@@ -4245,10 +4242,11 @@ class lock:
         try: 
             os.remove(lock_path)
             print("% s removed successfully" % path) 
-        except OSError as error: 
-            print(error) 
+        except : 
+            ex = sys.exc_info()[0]
             print("File path can not be removed") 
-            exit(0)
+            print (ex)
+            exit(1)
         if os.path.exists(lock_path)==True:
             print "Lockfile cannot be removed. {0}".format(lock_path)
             exit(0)
