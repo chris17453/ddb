@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.86'
+__version__='1.3.87'
 
         
 # ############################################################################
@@ -4197,7 +4197,7 @@ class lock:
             with open(dst, 'wb',buffering=0) as fdst:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
         f=open(src, 'rb',buffering=0)
-        lock.info("Lock",f.readlines())
+        lock.info("Lock","\n".join(f.readlines()))
         f.close()
         if(perserveFileDate):
             shutil.copystat(src, dst)
