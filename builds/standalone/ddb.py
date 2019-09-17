@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.98'
+__version__='1.3.99'
 
         
 # ############################################################################
@@ -2945,14 +2945,14 @@ class engine:
             temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
-        return temp_source
+        return temp_source 
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:
             self.internal['TEMP_FILES'][table_key]['written']=True
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             if dest_file and dest_file!=src:
-                lock.info("Lock Remove","Removing Intermediate Source file: {0}".format(src))
+                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):
