@@ -157,14 +157,14 @@ class lock:
 
                         # If the lockfile owner PID does not exist
                         if lock.check_pid(int(owner_pid))==False:
-                            if lock.debug: lock.info("Lock","invalid owner")
+                            if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
                             lock.release(path)
                             return lock.LOCK_NONE
                         elif owner_uuid==key_uuid:
-                            if lock.debug: lock.info("Lock","owned by current process")
+                            if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
                             return lock.LOCK_OWNER
                         elif owner_uuid!=key_uuid:
-                            if lock.debug: lock.info("Lock","owned by other process")
+                            if lock.debug: lock.info("Lock","owned by other process: {0}".format(owner_uuid))
                             # print(owner_uuid,key_uuid)
                             return lock.LOCK_OTHER
                         else:
