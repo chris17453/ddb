@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.99'
+__version__='1.3.100'
 
         
 # ############################################################################
@@ -4300,7 +4300,6 @@ class lock:
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
-        if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             try:
                 fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
@@ -4369,8 +4368,9 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     lock.copy_file(temp, norm_path)
     while compare_files(temp,norm_path)==None:
-        lock.error("Lock","Files do not match: {0},{1}".format(temp,norm_path))
+        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
         time.sleep(.001)
+    lock.info("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
     lock.release(path)
     remove_temp_file(temp)
 def normalize_path(path):
