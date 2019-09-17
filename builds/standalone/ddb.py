@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.40'
+__version__='1.3.41'
 
         
 # ############################################################################
@@ -4177,6 +4177,7 @@ class lock:
         @param buffer_size:    Buffer size to use during copy
         @param perserveFileDate:    Preserve the original file date
         '''
+        print "COPY"
         dstParent, dstFileName = os.path.split(dst)
         if(not(os.path.exists(dstParent))):
             os.makedirs(dstParent)
@@ -4198,6 +4199,7 @@ class lock:
                 shutil.copyfileobj(fsrc, fdst, buffer_size)
         if(perserveFileDate):
             shutil.copystat(src, dst)
+        print "COPY DONE"
     @staticmethod
     def info(msg,data):
         dt = datetime.datetime.now()
