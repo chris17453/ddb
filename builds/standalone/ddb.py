@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.100'
+__version__='1.3.101'
 
         
 # ############################################################################
@@ -4370,7 +4370,6 @@ def swap_files(path, temp,key_uuid):
     while compare_files(temp,norm_path)==None:
         lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
         time.sleep(.001)
-    lock.info("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
     lock.release(path)
     remove_temp_file(temp)
 def normalize_path(path):
