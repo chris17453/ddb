@@ -59,7 +59,7 @@ class lock:
         if src_fh!=None and dst_fh!=None:
             while True:
                 buffer=os.read(src_fh, lock.BUFFER_SIZE)
-                if buffer==None:
+                if buffer=='':
                     break
                 os.write(dst_fh, buffer)
 

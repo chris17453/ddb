@@ -68,10 +68,23 @@ extensions = [
     Extension("ddb.interactive",                        [prefix+"./ddb/interactive" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     #Extension("ddb.cli",                                [prefix+"./ddb/cli" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
 ]
+
+
+
+
+NB_COMPILE_JOBS = 4
+
+
+
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
-        extensions = cythonize(extensions)
+        cythonize(EXTENSIONS, nthreads=NB_COMPILE_JOBS)
+        pool = multiprocessing.Pool(processes=NB_COMPILE_JOBS)
+        pool.map(setup_given_extensions, EXTENSIONS)
+        pool.close()
+        pool.join()
+        #extensions = cythonize(extensions)
     except BaseException:
         print ("No Cython installed")
         print("Building")
