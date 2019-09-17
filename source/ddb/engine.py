@@ -219,7 +219,7 @@ class engine:
             mode=query_object['mode']
 
             
-            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
+            #logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
             
             if meta_class==None:

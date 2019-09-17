@@ -42,7 +42,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.51'
+__version__='1.3.52'
 
         
 # ############################################################################
@@ -4340,6 +4340,8 @@ def swap_files(path, temp,key_uuid):
     lock_status=lock.is_locked(path,key_uuid)
     if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     if lock.LOCK_OWNER != lock_status:
+        if lock.debug: lock.error("Lock Error","Lock has wrong owner")
+            exit(1)
         raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
     norm_path=normalize_path(path)
     if os.path.exists(norm_path)==True:
@@ -4349,6 +4351,8 @@ def swap_files(path, temp,key_uuid):
     remove_temp_file(temp)
     lock.release(path)
     if os.path.exists(temp)==True:
+        if lock.debug: lock.error("Lock Error","Temp file not deleted")
+        exit(1)
         raise Exception("Deleting temp file {0} failed".format(temp))
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
