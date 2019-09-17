@@ -198,7 +198,7 @@ class lock:
             #time.sleep(lock.sleep_time)
 
 
-        #with open(lock_path,'w') as lockfile:
+        #with open(lock_path,'w'cat /) as lockfile:
         #    lockfile.write)
 
         if lock.debug: lock.info("Lock","MOD, {0}".format(path))
