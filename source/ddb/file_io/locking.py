@@ -215,7 +215,7 @@ class lock:
                     if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                     pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-            time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
+            #time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
                 
 
 
@@ -247,7 +247,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
         lock.aquire(path,uuid)
-        time.sleep(.001)
+        #time.sleep(.001)
         lock.info("LOCK Modified",os.stat(path).st_mtime)
 
         temp_path=temp_path_from_file(path,prefix+uuid)
@@ -302,11 +302,11 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
     
    # while compare_files(temp,norm_path)==None:
-    time.sleep(.01)
+    #time.sleep(.01)
 #os.unlink(norm_path)
     if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
     os.rename(temp,norm_path)
-    time.sleep(.01)
+    #time.sleep(.01)
 #os.    
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
     
