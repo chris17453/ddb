@@ -79,31 +79,34 @@ class test_engine:
         self.lock()
         
     def lock(self):
-        engine = ddb.engine(config_dir=None,debug=None)
-        self.create_table(engine,None)
-        start_time=time.time()
-        ellapsed_time=0
-        pid=os.getpid()
-        value=1
-        
-        # test results length
-        for i in range(0,20):
-            timestamp=datetime.datetime.now()
+        try:
+            engine = ddb.engine(config_dir=None,debug=None)
+            self.create_table(engine,None)
+            start_time=time.time()
+            ellapsed_time=0
+            pid=os.getpid()
+            value=1
+            
+            # test results length
+            for i in range(0,20):
+                timestamp=datetime.datetime.now()
 
-            query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
-                    self.database_name,
-                    self.table_name,
-                    i,
-                    pid,
-                    value,
-                    timestamp
-                    )
-            results = engine.query(query)
-            #self.assertEqual(True, results.success)
+                query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
+                        self.database_name,
+                        self.table_name,
+                        i,
+                        pid,
+                        value,
+                        timestamp
+                        )
+                results = engine.query(query)
+                #self.assertEqual(True, results.success)
 
-        curent_time=time.time()
-        ellapsed_time=curent_time-start_time
-        print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
+            curent_time=time.time()
+            ellapsed_time=curent_time-start_time
+            print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
+        except Exception as ex:
+            print ex
 
 
 if __name__ == '__main__':

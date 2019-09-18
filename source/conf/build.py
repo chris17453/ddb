@@ -83,6 +83,9 @@ import pprint
 import uuid
 import logging
 from subprocess import Popen,PIPE
+import hashlib
+import random
+
 
 
 """
@@ -116,6 +119,9 @@ import pprint
 import uuid
 import logging
 from subprocess import Popen,PIPE
+import hashlib
+import random
+
 
 from cmd import Cmd
 import argparse
@@ -155,6 +161,8 @@ import pprint
 import uuid
 import logging
 from subprocess import Popen,PIPE
+import hashlib
+import random
 
 
 
@@ -202,6 +210,9 @@ import pprint
 import uuid
 import logging
 from subprocess import Popen,PIPE
+import hashlib
+import random
+
 
 
 
