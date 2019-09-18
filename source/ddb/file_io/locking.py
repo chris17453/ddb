@@ -301,10 +301,11 @@ def swap_files(path, temp,key_uuid):
     #if os.path.exists(norm_path)==True:
     #    lock.error("Lock","MASTER FILE WONT DELETE")
     #    exit(1)
-    if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
+    if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
     
    # while compare_files(temp,norm_path)==None:
     os.unlink(norm_path)
+    if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
     os.rename(temp,norm_path)
         
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
