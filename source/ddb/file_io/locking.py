@@ -73,7 +73,7 @@ class lock:
 
           #      shutil.copyfileobj(fsrc, fdst, buffer_size)
 
-        if lock.debug: lock.info("Lock","\n".join(f.readlines()))
+        #if lock.debug: lock.info("Lock","\n".join(f.readlines()))
         
         if(perserveFileDate):
             shutil.copystat(src, dst)
