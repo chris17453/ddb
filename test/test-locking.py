@@ -26,19 +26,10 @@ class test_engine(unittest.TestCase):
                 table_path=os.path.join(self.config_dir, file)
                 os.remove(table_path)
 
-
-    def create_table(self,engine,mode):
+    def init(self,mode):
         if mode=='SVN':
-            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
-                'svn',
-                'http://localhost/svn/SampleProject/',
-                'user',
-                'password',
-                os.path.join(self.basedir_svn,'svn_test'),
-                self.temp_data)
             file_name=os.path.join(self.basedir_svn,'svn_test',self.temp_data)
         else:
-            repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
 
         if os.path.exists(file_name)==False:
@@ -54,6 +45,20 @@ class test_engine(unittest.TestCase):
             file.close()
 
 
+    def create_table(self,engine,mode):
+        if mode=='SVN':
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
+                'svn',
+                'http://localhost/svn/SampleProject/',
+                'user',
+                'password',
+                os.path.join(self.basedir_svn,'svn_test'),
+                self.temp_data)
+            file_name=os.path.join(self.basedir_svn,'svn_test',self.temp_data)
+        else:
+            repo=''
+            file_name=os.path.join(self.basedir, self.temp_data)
+
         query="create temporary table {0}.{1} ('id','pid','value','timestamp') file='{2}' {3} data_starts_on=1".format(self.database_name,self.table_name, file_name,repo)
         #print query
         results = engine.query(query)
@@ -62,13 +67,14 @@ class test_engine(unittest.TestCase):
     def test_threads(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-        process_count=5
+        process_count=30
         print("Locking: {0}".format(os.getpid()))
         # fail on existing table
         self.cleanup()
+        self.init(mode)
         
         for i in range(process_count-1):
-            time.sleep(1)
+            #time.sleep(1)
             newpid = os.fork()
             if newpid!=0:
                 break
