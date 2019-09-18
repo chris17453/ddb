@@ -303,9 +303,9 @@ def swap_files(path, temp,key_uuid):
     #    exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
     
-    while compare_files(temp,norm_path)==None:
-        os.unlink(norm_path)
-        os.rename(temp,norm_path)
+   # while compare_files(temp,norm_path)==None:
+    os.unlink(norm_path)
+    os.rename(temp,norm_path)
         
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
         time.sleep(.001)
