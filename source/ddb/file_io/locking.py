@@ -20,7 +20,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=1
+    debug=None
     BUFFER_SIZE=4096
     
     @staticmethod
