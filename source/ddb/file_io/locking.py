@@ -74,7 +74,7 @@ class lock:
           #      shutil.copyfileobj(fsrc, fdst, buffer_size)
 
         f=open(src, 'rb',buffering=0)
-        lock.info("Lock","\n".join(f.readlines()))
+        if lock.debug: lock.info("Lock","\n".join(f.readlines()))
         f.close()
     
         if(perserveFileDate):
@@ -197,7 +197,7 @@ class lock:
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
-        lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
+        if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
 
         #if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
@@ -207,7 +207,7 @@ class lock:
                 fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
                 os.write(fd,lock_contents)
                 os.close(fd)
-                lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
+                if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                 
                 
                 break
@@ -248,7 +248,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         # or the lock ages and is deleted
         lock.aquire(path,uuid)
         #time.sleep(.001)
-        lock.info("LOCK Modified",os.stat(path).st_mtime)
+        if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
 
         temp_path=temp_path_from_file(path,prefix+uuid)
         
@@ -278,8 +278,8 @@ def remove_temp_file(path):
 def compare_files(file1,file2):
     hash1=hashlib.md5(open(file1,'rb').read()).hexdigest()
     hash2=hashlib.md5(open(file2,'rb').read()).hexdigest()
-    lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
-    lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
+    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
+    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
     if hash1!=hash2:
         return None
     return True
