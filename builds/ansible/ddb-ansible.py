@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.188'
+__version__='1.3.189'
 
         
 # ############################################################################
@@ -3041,7 +3041,7 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             if dest_file and dest_file!=src:
-                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
+                if lock.debug: lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):

@@ -63,7 +63,7 @@ class test_engine:
     def test_threads(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-        process_count=30
+        process_count=8
         print("Locking: {0}".format(os.getpid()))
         # fail on existing table
         self.cleanup()
