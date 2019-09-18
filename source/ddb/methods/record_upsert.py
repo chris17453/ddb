@@ -52,7 +52,7 @@ def method_upsert(context, meta,query_object,main_meta):
 
         with open(temp_data_file, 'r') as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=true)
-            with open (dst_temp_filename,"w") as  tempfile:
+            with open (dst_temp_filename,"w") as  temp_file:
       
                 for line in content_file:
                     #print line

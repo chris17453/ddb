@@ -23,7 +23,7 @@ def method_delete(context, meta):
         
         with open(temp_data_file, 'r') as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=true)
-            with open (dst_temp_filename,"w") as  tempfile:
+            with open (dst_temp_filename,"w") as  temp_file:
 
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
