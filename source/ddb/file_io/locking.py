@@ -211,6 +211,7 @@ class lock:
                     os.close(fd)
                     lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     
+                    
                     break
                 except OSError as ex:
                     if lock.debug: lock.info("Lock","error!:{0}".format(ex))
@@ -237,13 +238,19 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         lock.aquire(path,uuid)
         time.sleep(.001)
         lock.info("LOCK Modified",os.stat(path).st_mtime)
+        norm_path = normalize_path(path)
+        
+        base_dir  = os.path.dirname(norm_path)
+        base_file = os.path.basename(norm_path)
+
         temp_dir = tempfile.gettempdir()
-        temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
-        if prefix:
-            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
-        else:
-            temp_file_name="{0}".format(temp_base_name)
-        temp_path = os.path.join(temp_dir, temp_file_name)
+        #temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
+        #if prefix:
+        #    temp_file_name="{0}_{1}".format(prefix,temp_base_name)
+        #else:
+        #    temp_file_name="{0}".format(temp_base_name)
+        temp_file_name="~{0}.swp".format(base_file)
+        temp_path = os.path.join(base_dir, temp_file_name)
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         lock.copy_file(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
@@ -294,14 +301,17 @@ def swap_files(path, temp,key_uuid):
     #    lock.error("Lock","MASTER FILE WONT DELETE")
     #    exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
+    
     while compare_files(temp,norm_path)==None:
-        lock.copy_file(temp, norm_path)
+        os.unlink(norm_path)
+        os.rename(temp,norm_path)
+        
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-#        time.sleep(.001)
+        time.sleep(.001)
 #
     #    exit (1)
 
-    remove_temp_file(temp)
+    #remove_temp_file(temp)
     lock.release(path)
 
 
