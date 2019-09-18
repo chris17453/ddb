@@ -251,7 +251,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         lock.copy_file(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
-        if lock.debug: lock.info("Lock","Created temporary file: {0}-> {1}".format( temp_path))
+        if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
         ex = sys.exc_info()
@@ -266,7 +266,7 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error","{0}".format(ex[0] ))
+        if lock.debug: lock.error("Lock Error","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
