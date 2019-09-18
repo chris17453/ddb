@@ -1,4 +1,4 @@
-# cython: linetrace=True
+# NOcython: linetrace=True
 
 import pprint
 import tempfile  # from table import table
