@@ -183,10 +183,8 @@ class lock:
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except : 
-            ex = sys.exc_info()
-            if lock.debug: lock.error('Lock',"File path can not be removed {0}:{1}:{2}".format(ex[0] , ex[1] , ex[2]))
-            if lock.debug: lock.error('Lock release',ex)
+        except OSError as ex : 
+            if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
 
             
