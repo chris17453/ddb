@@ -457,7 +457,7 @@ class engine:
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             # remove the previous source
             if dest_file and dest_file!=src:
-                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
+                if lock.debug: lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
