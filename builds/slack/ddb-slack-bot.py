@@ -28,6 +28,9 @@ import pprint
 import uuid
 import logging
 from subprocess import Popen,PIPE
+import hashlib
+import random
+
 
 
 
@@ -43,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.102'
+__version__='1.3.183'
 
         
 # ############################################################################
@@ -2943,7 +2946,7 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
-            temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
+            temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         return temp_source 
@@ -3322,21 +3325,21 @@ def method_delete(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'r') as content_file:
-            temp_file=tempfile.NamedTemporaryFile(mode='w', prefix="DST_DELETE",delete=False) 
-            for line in content_file:
-                processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                if None != processed_line['error']:
-                    context.add_error(processed_line['error'])
-                line_number += 1
-                if True == processed_line['match']:
-                    affected_rows += 1
-                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
-                    continue
-                temp_file.write(processed_line['raw'])
-                temp_file.write(meta.table.delimiters.get_new_line())
-            temp_file.close()
-            context.autocommit_write(meta.table,temp_file.name)
+        with open(temp_data_file, 'r', buffering=0) as content_file:
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
+                for line in content_file:
+                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
+                    line_number += 1
+                    if True == processed_line['match']:
+                        affected_rows += 1
+                        diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
+                        continue
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
+            context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
@@ -3362,7 +3365,7 @@ def method_insert(context, meta):
         temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
         diff=[]
         requires_new_line=False
-        with open(temp_data_file, 'a') as content_file:
+        with open(temp_data_file, 'a', buffering=0) as content_file:
             results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
@@ -3742,8 +3745,9 @@ def method_update(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3757,8 +3761,7 @@ def method_update(context, meta):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(meta.table.delimiters.get_new_line())
-                temp_file.close()
-                context.autocommit_write(meta.table,temp_file.name)
+            context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
@@ -3800,8 +3803,9 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_whitespace =meta.table.visible.whitespace
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
-        with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3827,8 +3831,7 @@ def method_upsert(context, meta,query_object,main_meta):
                         diff.append(results['line'])
                 else:
                     context.info("row found in upsert")
-                temp_file.close()
-                context.autocommit_write(meta.table,temp_file.name)
+            context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
 
@@ -4165,12 +4168,14 @@ def method_system_show_output_modules(context):
 # ############################################################################
 
 class lock:
-    sleep_time=0.001
+    sleep_time_min=0.0001
+    sleep_time_max=0.001
     LOCK_NONE=0
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=True
+    debug=None
+    BUFFER_SIZE=4096
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
         '''
@@ -4196,25 +4201,36 @@ class lock:
             else:
                 if shutil.stat.S_ISFIFO(st.st_mode):
                     raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
-        with open(src, 'rb',buffering=0) as fsrc:
-            with open(dst, 'wb',buffering=0) as fdst:
-                shutil.copyfileobj(fsrc, fdst, buffer_size)
+        src_fh = os.open(src, os.O_RDONLY | os.O_SYNC)
+        dst_fh = os.open(dst, os.O_CREAT | os.O_SYNC|  os.O_TRUNC | os.O_WRONLY )
+        if src_fh!=None and dst_fh!=None:
+            while True:
+                buffer=os.read(src_fh, lock.BUFFER_SIZE)
+                if buffer=='':
+                    break
+                os.write(dst_fh, buffer)
+        if src_fh:
+            os.close(src_fh)
+        if dst_fh:
+            os.close(dst_fh)
         f=open(src, 'rb',buffering=0)
-        lock.info("Lock","\n".join(f.readlines()))
+        if lock.debug: lock.info("Lock","\n".join(f.readlines()))
         f.close()
         if(perserveFileDate):
             shutil.copystat(src, dst)
     @staticmethod
     def info(msg,data):
+        pid=os.getpid()
         dt = datetime.datetime.now()
-        log_line="{2}-[INFO]-{0}: {1}\n".format(msg,data,dt)
+        log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
         file=open("/tmp/ddb.log","a+")
         file.write(log_line)
         file.close()
     @staticmethod
     def error(msg,data):
+        pid=os.getpid()
         dt = datetime.datetime.now()
-        log_line="{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt)
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
         file=open("/tmp/ddb.log","a+")
         file.write(log_line)
         file.close()
@@ -4232,7 +4248,7 @@ class lock:
         m = hashlib.md5()
         m.update(norm_path)
         basename=os.path.basename(norm_path)+"_"+m.hexdigest()
-        temp_file_name='{0}.lock'.format(basename)
+        temp_file_name='ddb_{0}.lock'.format(basename)
         norm_lock_path = os.path.join(temp_dir, temp_file_name)
         return norm_lock_path
     @staticmethod
@@ -4242,8 +4258,7 @@ class lock:
             os.kill(pid, 0)
         except OSError:
             return False
-        else:
-            return True
+        return True
     @staticmethod
     def is_locked(path,key_uuid,lock_path=None):
         try:
@@ -4258,19 +4273,18 @@ class lock:
                         except:
                             if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
-                        if lock.check_pid(int(owner_pid))==False:
-                            if lock.debug: lock.info("Lock","invalid owner")
+                        if owner_uuid==key_uuid:
+                            if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
+                            return lock.LOCK_OWNER
+                        elif lock.check_pid(int(owner_pid))==False:
+                            if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
                             lock.release(path)
                             return lock.LOCK_NONE
-                        elif owner_uuid==key_uuid:
-                            if lock.debug: lock.info("Lock","owned by current process")
-                            return lock.LOCK_OWNER
-                        elif owner_uuid!=key_uuid:
-                            if lock.debug: lock.info("Lock","owned by other process")
+                        elif os.getpid()==owner_pid:
+                            if lock.debug: lock.info("Lock","owned by this process, but another instance of ddb: {0}:{1}".format(owner_uuid,key_uuid))
                             return lock.LOCK_OTHER
-                        else:
-                            if lock.debug: lock.info("Lock","None-err?")
-                            return lock.LOCK_NONE
+                        if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
+                        return lock.LOCK_OTHER
                     except Exception as ex:
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
@@ -4289,10 +4303,8 @@ class lock:
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except : 
-            ex = sys.exc_info()[0]
-            if lock.debug: lock.error('Lock',"File path can not be removed") 
-            if lock.debug: lock.error('Lock release',ex)
+        except OSError as ex : 
+            if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
         if lock.debug: lock.info("Lock","removed")
     @staticmethod
@@ -4300,39 +4312,48 @@ class lock:
         lock_path =lock.get_lock_filename(path)
         pid       =os.getpid()
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
-        lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
+        if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
         while 1:
+            lock_status=lock.is_locked(path,key_uuid,lock_path)
             try:
                 fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
                 os.write(fd,lock_contents)
                 os.close(fd)
-                lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
+                if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                 break
             except OSError as ex:
+                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
+            time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
         if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
             if lock.debug: lock.error("Lock","Failed to create")
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
-def create_temporary_copy(path,uuid,prefix='ddb_'):
+def temp_path_from_file(path,prefix='',unique=None):
+    norm_path = normalize_path(path)
+    base_dir  = os.path.dirname(norm_path)
+    base_file = os.path.basename(norm_path)
+    unique_id=''
+    if unique:
+        uuid_str=uuid.uuid1()
+        unique_id='_{0}:{1}'.format(uuid_str.urn[9:],os.getpid())
+    temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
+    temp_path = os.path.join(base_dir, temp_file_name)
+    return temp_path
+def create_temporary_copy(path,uuid='',prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
         lock.aquire(path,uuid)
-        time.sleep(.001)
-        lock.info("LOCK Modified",os.stat(path).st_mtime)
-        temp_dir = tempfile.gettempdir()
-        temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
-        if prefix:
-            temp_file_name="{0}_{1}".format(prefix,temp_base_name)
-        else:
-            temp_file_name="{0}".format(temp_base_name)
-        temp_path = os.path.join(temp_dir, temp_file_name)
-        if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
-        lock.copy_file(normalize_path(path), temp_path)
+        if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
+        temp_path=temp_path_from_file(path,prefix+uuid)
+        norm_path=normalize_path(path)
+        if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
+        lock.copy_file( norm_path, temp_path)
+        if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
-        ex = sys.exc_info()[1]
-        if lock.debug: lock.error("Lock Error",ex)
+        ex = sys.exc_info()
+        if lock.debug: lock.error("Lock Error","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
@@ -4341,38 +4362,25 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error",ex[1])
+        if lock.debug: lock.error("Lock Error","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def compare_files(file1,file2):
     hash1=hashlib.md5(open(file1,'rb').read()).hexdigest()
     hash2=hashlib.md5(open(file2,'rb').read()).hexdigest()
-    lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
-    lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
+    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
+    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
     if hash1!=hash2:
         return None
     return True
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
-    lock_status=lock.is_locked(path,key_uuid)
-    if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
-    if lock.LOCK_OWNER != lock_status:
-        if lock.debug: lock.error("Lock Error","Lock has wrong owner")
-        exit(1)
-        raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
+    if lock.debug: lock.info("Lock","SWAP")
     norm_path=normalize_path(path)
-    if os.path.exists(norm_path)==True:
-        remove_temp_file(norm_path)
-    if os.path.exists(norm_path)==True:
-        lock.error("Lock","MASTER FILE WONT DELETE")
-        exit(1)
-    if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
-    lock.copy_file(temp, norm_path)
-    while compare_files(temp,norm_path)==None:
-        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-    time.sleep(1)
+    if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
+    if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
+    os.rename(temp,norm_path)
     lock.release(path)
-    remove_temp_file(temp)
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
