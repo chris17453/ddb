@@ -4,11 +4,11 @@ import sys
 import datetime
 from .context import  ddb
 from pprint import pprint
-import cProfile as profile
+import cProfile 
 import pstats
 import time
 
-class test_engine(unittest.TestCase):
+class test_engine:
     temp_config = 'temp_config.yaml'
     temp_data = 'MOCK_DATA_LOCKING.csv'
     basedir = os.path.dirname(os.path.abspath(__file__))+"/data/"
@@ -34,14 +34,10 @@ class test_engine(unittest.TestCase):
 
         if os.path.exists(file_name)==False:
             file=open(file_name, 'w')
-            file.write("# THIS IS A HEADER\n")
-            
             file.close()
         else:
             file=open(file_name, 'w')
             file.truncate()
-            file.write("# THIS IS A HEADER\n")
-            
             file.close()
 
 
@@ -62,7 +58,7 @@ class test_engine(unittest.TestCase):
         query="create temporary table {0}.{1} ('id','pid','value','timestamp') file='{2}' {3} data_starts_on=1".format(self.database_name,self.table_name, file_name,repo)
         #print query
         results = engine.query(query)
-        self.assertEqual(True, results.success)
+        #self.assertEqual(True, results.success)
 
     def test_threads(self,mode=None):
         """Test inserting values in a table with locking"""
@@ -79,8 +75,6 @@ class test_engine(unittest.TestCase):
             if newpid!=0:
                 break
 
-        if newpid!=0:
-            time.sleep(1)
         
         self.lock()
         
@@ -93,7 +87,7 @@ class test_engine(unittest.TestCase):
         value=1
         
         # test results length
-        for i in range(0,200):
+        for i in range(0,20):
             timestamp=datetime.datetime.now()
 
             query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
@@ -105,7 +99,7 @@ class test_engine(unittest.TestCase):
                     timestamp
                     )
             results = engine.query(query)
-            self.assertEqual(True, results.success)
+            #self.assertEqual(True, results.success)
 
         curent_time=time.time()
         ellapsed_time=curent_time-start_time
@@ -113,4 +107,10 @@ class test_engine(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    e=test_engine()
+    e.test_threads()
+    #cProfile.run('test_engine().lock()', 'restats')
+    #p = pstats.Stats('restats')
+    #p.strip_dirs().sort_stats(-1).print_stats()
+

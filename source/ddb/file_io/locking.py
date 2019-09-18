@@ -289,39 +289,15 @@ def compare_files(file1,file2):
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     if lock.debug: lock.info("Lock","SWAP")
-    #lock_status=lock.is_locked(path,key_uuid)
-    #if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
-    
-    #if lock.LOCK_OWNER != lock_status:
-    #    if lock.debug: lock.error("Lock","Lock has wrong owner")
-    #    exit(1)
-    #    raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
-    # DELETE ORIGINAL
     norm_path=normalize_path(path)
     if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
     
-   # while compare_files(temp,norm_path)==None:
-    #time.sleep(.01)
-#os.unlink(norm_path)
+
     if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
     os.rename(temp,norm_path)
-    #time.sleep(.01)
-#os.    
-#        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-    
-    #    exit (1)
 
-    #remove_temp_file(temp)
     lock.release(path)
-
-
-
-    #if os.path.exists(temp)==True:
-     #   if lock.debug: lock.error("Lock Error","Temp file not deleted")
-     #   exit(1)
-
-     #   raise Exception("Deleting temp file {0} failed".format(temp))
 
 
  
