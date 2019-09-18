@@ -6,10 +6,10 @@ import sys
 standalone_script=None
 
 # to run test with single file script
-# EXPORT ddb_exe_type=script
+#    export ddb_exe=script
 
-if 'ddb_exe_type' in os.environ:
-    if os.environ['ddb_exe_type'].lower()=='script':
+if 'ddb_exe' in os.environ:
+    if os.environ['ddb_exe'].lower()=='script':
         standalone_script=True
     else:
         standalone_script=None  
