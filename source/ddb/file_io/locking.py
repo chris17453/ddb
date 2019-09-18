@@ -114,7 +114,7 @@ class lock:
         m.update(norm_path)
         basename=os.path.basename(norm_path)+"_"+m.hexdigest()
         #basename=os.path.basename(norm_path)
-        temp_file_name='{0}.lock'.format(basename)
+        temp_file_name='ddb_{0}.lock'.format(basename)
         norm_lock_path = os.path.join(temp_dir, temp_file_name)
         return norm_lock_path
             
@@ -254,6 +254,7 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(normalize_path(path), temp_path))
         lock.copy_file(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
+        if lock.debug: lock.info("Lock","Created temporary file: {0}-> {1}".format( temp_path))
         return temp_path
     except:
         ex = sys.exc_info()

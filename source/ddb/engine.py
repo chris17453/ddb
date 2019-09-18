@@ -444,7 +444,7 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
-            temp_data_file=create_temporary_copy(data_file,self.system['UUID'],prefix)
+            temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         #print ("Temp File {0}".format(temp_source))
