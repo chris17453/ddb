@@ -1,3 +1,5 @@
+# cython: profile=True
+# cython: profile=True
 
 import os
 import tempfile, shutil

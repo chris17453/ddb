@@ -1,3 +1,6 @@
+# cython: profile=True
+# cython: profile=True
+
 
 import pprint
 from .record_core import query_results

@@ -1,3 +1,4 @@
+# cython: profile=True
 # NOcython: linetrace=True
 
 from ..functions.functions import *
