@@ -277,13 +277,13 @@ def compare_files(file1,file2):
 # todo move into context with a manager flag        
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
-    lock_status=lock.is_locked(path,key_uuid)
-    if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
+    #lock_status=lock.is_locked(path,key_uuid)
+    #if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     
-    if lock.LOCK_OWNER != lock_status:
-        if lock.debug: lock.error("Lock Error","Lock has wrong owner")
-        exit(1)
-        raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
+    #if lock.LOCK_OWNER != lock_status:
+    #    if lock.debug: lock.error("Lock","Lock has wrong owner")
+    #    exit(1)
+    #    raise Exception("Cannot swap files, expected lock. Didnt find one {0}".format(path))
 
     # DELETE ORIGINAL
     norm_path=normalize_path(path)
