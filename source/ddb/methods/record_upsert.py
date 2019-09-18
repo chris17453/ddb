@@ -50,9 +50,9 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
 
-        with open(temp_data_file, 'r') as content_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            with open (dst_temp_filename,"w") as  temp_file:
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
       
                 for line in content_file:
                     #print line
