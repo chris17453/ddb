@@ -121,9 +121,6 @@ class lock:
     @staticmethod
     def check_pid(pid):        
         """ Check For the existence of a unix pid. """
-        if os.getpid()==pid:
-            lock.info("Lock","This Thread {0}".format(pid))
-            return True
         try:
             os.kill(pid, 0)
         except OSError:
@@ -155,7 +152,9 @@ class lock:
                             if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
                             lock.release(path)
                             return lock.LOCK_NONE
-                    
+                        elif os.getpid()==pid:
+                            if lock.debug: lock.info("Lock","owned by this process, but another instance of ddb: {0}:{1}".format(owner_uuid,key_uuid))
+                            return lock.LOCK_OTHER
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
