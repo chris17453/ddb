@@ -9,9 +9,9 @@ standalone=None
 
 if 'ddb_exe_type' in os.environ:
     if os.environ['ddb_exe_type'].lower()=='script':
-        standalone=TRUE:
+        standalone=TRUE
     else:
-        standalone=None:     
+        standalone=None  
 
 
 if standalone==TRUE:
