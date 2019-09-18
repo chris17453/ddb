@@ -2,19 +2,20 @@ import os
 import sys
 
 
-standalone=None
+# Default mode is cython
+standalone_script=None
 
 # to run test with single file script
 # EXPORT ddb_exe_type=script
 
 if 'ddb_exe_type' in os.environ:
     if os.environ['ddb_exe_type'].lower()=='script':
-        standalone=TRUE
+        standalone_script=True
     else:
-        standalone=None  
+        standalone_script=None  
 
 
-if standalone==TRUE:
+if standalone_script==True:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..','builds')))
 
     try:
