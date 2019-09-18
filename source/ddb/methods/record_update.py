@@ -2,6 +2,8 @@
 
 import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
+from ..file_io.locking import temp_path_from_file
+
 
 def update_single(context,meta, temp_file, requires_new_line, processed_line):
     err = False
@@ -60,7 +62,8 @@ def method_update(context, meta):
 
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="UPDATE",delete=False) as temp_file:
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=true)
+            with open (dst_temp_filename,"w") as  tempfile:
       
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -76,8 +79,8 @@ def method_update(context, meta):
                         continue
                     temp_file.write(processed_line['raw'])
                     temp_file.write(meta.table.delimiters.get_new_line())
-                temp_file.close()
-                context.autocommit_write(meta.table,temp_file.name)
+
+            context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:

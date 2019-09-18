@@ -7,6 +7,7 @@ import time
 import tempfile, shutil
 import hashlib
 import random
+import uuid
 
 
 
@@ -225,7 +226,19 @@ class lock:
             raise Exception ("Lockfile failed to create {0}".format(lock_path))
 
   
-def create_temporary_copy(path,uuid,prefix='ddb_'):
+def temp_path_from_file(path,prefix='',unique=None):
+    norm_path = normalize_path(path)
+    base_dir  = os.path.dirname(norm_path)
+    base_file = os.path.basename(norm_path)
+    unique_id=''
+    if unique:
+        unique_id='_{0}:{1}'.format(uuid_str.urn[9:],os.getpid())
+    temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
+    temp_path = os.path.join(base_dir, temp_file_name)
+    return temp_path
+        
+
+def create_temporary_copy(path,uuid='',prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
         # dont over look this
@@ -235,19 +248,9 @@ def create_temporary_copy(path,uuid,prefix='ddb_'):
         lock.aquire(path,uuid)
         time.sleep(.001)
         lock.info("LOCK Modified",os.stat(path).st_mtime)
-        norm_path = normalize_path(path)
-        
-        base_dir  = os.path.dirname(norm_path)
-        base_file = os.path.basename(norm_path)
 
-        temp_dir = tempfile.gettempdir()
-        #temp_base_name=next(tempfile._get_candidate_names())+"UUID-"+uuid
-        #if prefix:
-        #    temp_file_name="{0}_{1}".format(prefix,temp_base_name)
-        #else:
-        #    temp_file_name="{0}".format(temp_base_name)
-        temp_file_name="~{0}.swp".format(base_file)
-        temp_path = os.path.join(base_dir, temp_file_name)
+        temp_path=temp_path_from_file(path,prefix+uuid)
+
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         lock.copy_file(normalize_path(path), temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
