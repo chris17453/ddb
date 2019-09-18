@@ -1,4 +1,4 @@
-# cython: linetrace=True
+# NOcython: linetrace=True
 
 from .record_core import process_line3, query_results, get_table
 from ..file_io.locking import temp_path_from_file

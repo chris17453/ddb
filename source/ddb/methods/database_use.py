@@ -1,4 +1,4 @@
-# cython: linetrace=True
+# NOcython: linetrace=True
 
 from .record_core import query_results, get_table
 
