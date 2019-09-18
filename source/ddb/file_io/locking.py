@@ -152,7 +152,7 @@ class lock:
                             if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
                             lock.release(path)
                             return lock.LOCK_NONE
-                        elif os.getpid()==pid:
+                        elif os.getpid()==owner_pid:
                             if lock.debug: lock.info("Lock","owned by this process, but another instance of ddb: {0}:{1}".format(owner_uuid,key_uuid))
                             return lock.LOCK_OTHER
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
