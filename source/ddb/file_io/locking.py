@@ -302,13 +302,14 @@ def swap_files(path, temp,key_uuid):
     if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
     
    # while compare_files(temp,norm_path)==None:
-    os.unlink(norm_path)
+    time.sleep(.01)
+#os.unlink(norm_path)
     if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
     os.rename(temp,norm_path)
-        
+    time.sleep(.01)
+#os.    
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-    time.sleep(.001)
-#
+    
     #    exit (1)
 
     #remove_temp_file(temp)
