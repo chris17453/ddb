@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.190'
+__version__='1.3.191'
 
         
 # ############################################################################
@@ -4118,9 +4118,7 @@ class lock:
             os.close(src_fh)
         if dst_fh:
             os.close(dst_fh)
-        f=open(src, 'rb',buffering=0)
         if lock.debug: lock.info("Lock","\n".join(f.readlines()))
-        f.close()
         if(perserveFileDate):
             shutil.copystat(src, dst)
     @staticmethod
@@ -4253,7 +4251,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         temp_path=temp_path_from_file(path,prefix+uuid)
         norm_path=normalize_path(path)
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
-        lock.copy_file( norm_path, temp_path)
+        os.copy2(norm_path, temp_path)
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
