@@ -285,6 +285,7 @@ def compare_files(file1,file2):
 # todo move into context with a manager flag        
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
+    if lock.debug: lock.info("Lock","SWAP")
     #lock_status=lock.is_locked(path,key_uuid)
     #if lock.debug: lock.info("Lock","Status: {0}".format(lock_status))
     
@@ -295,12 +296,6 @@ def swap_files(path, temp,key_uuid):
 
     # DELETE ORIGINAL
     norm_path=normalize_path(path)
-    #if os.path.exists(norm_path)==True:
-    #    remove_temp_file(norm_path)
-
-    #if os.path.exists(norm_path)==True:
-    #    lock.error("Lock","MASTER FILE WONT DELETE")
-    #    exit(1)
     if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
     
    # while compare_files(temp,norm_path)==None:
