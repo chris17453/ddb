@@ -294,16 +294,16 @@ def swap_files(path, temp,key_uuid):
     #    lock.error("Lock","MASTER FILE WONT DELETE")
     #    exit(1)
     if lock.debug: lock.info("Lock","Copying temp to master {0} <- {1}".format(norm_path,temp))
-    lock.copy_file(temp, norm_path)
-#    while compare_files(temp,norm_path)==None:
+    while compare_files(temp,norm_path)==None:
+        lock.copy_file(temp, norm_path)
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
 #        time.sleep(.001)
 #
     #    exit (1)
 
+    remove_temp_file(temp)
     lock.release(path)
 
-    remove_temp_file(temp)
 
 
     #if os.path.exists(temp)==True:
