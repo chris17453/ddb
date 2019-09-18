@@ -156,7 +156,7 @@ class lock:
                             lock.release(path)
                             return lock.LOCK_NONE
                     
-                        if lock.debug: lock.info("Lock","owned by other process: {0}".format(owner_uuid))
+                        if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
                     except Exception as ex:
