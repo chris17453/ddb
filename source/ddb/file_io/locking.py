@@ -260,7 +260,7 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error","{0):{1}:{2}".format(ex[0], ex[1] , ex[2]))
+        if lock.debug: lock.error("Lock Error","{0}:{1}:{2}".format(ex[0], ex[1] , ex[2]))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
