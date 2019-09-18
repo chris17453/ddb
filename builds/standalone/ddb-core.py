@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.193'
+__version__='1.3.194'
 
         
 # ############################################################################
@@ -4071,7 +4071,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=None
+    debug=1
     BUFFER_SIZE=4096
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
