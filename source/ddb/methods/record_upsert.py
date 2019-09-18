@@ -5,6 +5,8 @@ import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
 from .record_update  import update_single
 from .record_insert  import create_single
+from ..file_io.locking import temp_path_from_file
+
 
 
 def method_upsert(context, meta,query_object,main_meta):
@@ -49,7 +51,8 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_errors     =meta.table.visible.errors
 
         with open(temp_data_file, 'r') as content_file:
-            with tempfile.NamedTemporaryFile(mode='w', prefix="UPSERT",delete=False) as temp_file:
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=true)
+            with open (dst_temp_filename,"w") as  tempfile:
       
                 for line in content_file:
                     #print line
@@ -82,8 +85,7 @@ def method_upsert(context, meta,query_object,main_meta):
                 else:
                     context.info("row found in upsert")
 
-                temp_file.close()
-                context.autocommit_write(meta.table,temp_file.name)
+            context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
