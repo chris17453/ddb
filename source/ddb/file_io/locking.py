@@ -253,7 +253,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         norm_path=normalize_path(path)
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         #lock.copy_file( norm_path, temp_path)
-        os.copy2(norm_path, temp_path)
+        os.copy(norm_path, temp_path)
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path

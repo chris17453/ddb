@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.3.191'
+__version__='1.3.192'
 
         
 # ############################################################################
@@ -4110,7 +4110,6 @@ class lock:
             os.close(src_fh)
         if dst_fh:
             os.close(dst_fh)
-        if lock.debug: lock.info("Lock","\n".join(f.readlines()))
         if(perserveFileDate):
             shutil.copystat(src, dst)
     @staticmethod
