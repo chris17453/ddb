@@ -308,7 +308,7 @@ def swap_files(path, temp,key_uuid):
     os.rename(temp,norm_path)
         
 #        lock.error("Lock HASH","Files do not match: {0},{1}".format(temp,norm_path))
-   time.sleep(.001)
+    time.sleep(.001)
 #
     #    exit (1)
 
