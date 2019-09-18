@@ -1,4 +1,4 @@
-# cython: linetrace=True
+# NOcython: linetrace=True
 import os
 import sys
 import datetime
