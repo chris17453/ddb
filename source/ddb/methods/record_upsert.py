@@ -51,7 +51,7 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_errors     =meta.table.visible.errors
 
         with open(temp_data_file, 'r') as content_file:
-            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=true)
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
             with open (dst_temp_filename,"w") as  temp_file:
       
                 for line in content_file:

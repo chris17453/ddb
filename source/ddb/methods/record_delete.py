@@ -22,7 +22,7 @@ def method_delete(context, meta):
         visible_errors    =meta.table.visible.errors
         
         with open(temp_data_file, 'r') as content_file:
-            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=true)
+            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
             with open (dst_temp_filename,"w") as  temp_file:
 
                 for line in content_file:
