@@ -128,8 +128,8 @@ class lock:
             os.kill(pid, 0)
         except OSError:
             return False
-        else:
-            return True
+        
+        return True
 
     @staticmethod
     def is_locked(path,key_uuid,lock_path=None):
@@ -147,20 +147,7 @@ class lock:
                             if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
                         
-                        # print(timestamp,temp_file_path,owner_uuid)
-                        #file_lock_time=datetime.datetime.strptime(timestamp,'%Y-%m-%d %H:%M:%S.%f')
-                        #curent_datetime =datetime.datetime.now()
-                        #elapsed_time=curent_datetime-file_lock_time
-                        # it's an old lock thats failed. time to long. remove it
-                        # print curent_datetime,file_lock_time,elapsed_time, elapsed_time.seconds,lock.max_lock_time
 
-                        #NO lock timeout...
-                        #if elapsed_time.seconds>lock.max_lock_time:
-                        #    if lock.debug: lock.info("Lock","Releasing, lock aged out")
-                        #    lock.release(path)
-                        #    return lock.LOCK_NONE
-
-                        # If the lockfile owner PID does not exist
                         if owner_uuid==key_uuid:
                             if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
                             return lock.LOCK_OWNER
@@ -168,13 +155,10 @@ class lock:
                             if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
                             lock.release(path)
                             return lock.LOCK_NONE
-                        elif owner_uuid!=key_uuid:
-                            if lock.debug: lock.info("Lock","owned by other process: {0}".format(owner_uuid))
-                            # print(owner_uuid,key_uuid)
-                            return lock.LOCK_OTHER
-                        else:
-                            if lock.debug: lock.info("Lock","None-err?")
-                            return lock.LOCK_NONE
+                    
+                        if lock.debug: lock.info("Lock","owned by other process: {0}".format(owner_uuid))
+                        # print(owner_uuid,key_uuid)
+                        return lock.LOCK_OTHER
                     except Exception as ex:
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         # because of mid write glitch
@@ -202,7 +186,7 @@ class lock:
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except : 
             ex = sys.exc_info()
-            if lock.debug: lock.error('Lock',"File path can not be removed {0):{1}:{2}".format(ex[0] , ex[1] , ex[2]))
+            if lock.debug: lock.error('Lock',"File path can not be removed {0):{1}:{2}".format(ex[0] , ex[1] , ex[2]))bay
             if lock.debug: lock.error('Lock release',ex)
             exit(1)
 
