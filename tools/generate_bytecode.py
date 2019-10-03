@@ -1,6 +1,12 @@
 # This builds the BYTECODE definitions for ddb
-import timeit
+from tpl import tpl
 
+
+template=tpl("templates/bytecode_template.py")
+template.add_var("vars",padding=4)
+template.add_var("code",padding=4)
+template.add_var("get_intermediate_code_2",padding=4)
+template.add_var("get_intermediate_code_3",padding=4)
 
 SECTION_BLOCK_START=1000
 SECTION_BLOCK_INCREMENT=1000
@@ -832,32 +838,6 @@ words=[
 
 
 
-print """import timeit
-
-### ----                                     ----
-### ddb BYTECODE LANGUAGE DEFINITIONS
-### ----                                     ----
-### Automagically generated, dont mess with this.
-### ----  or you will be eaten by unicorns   ----
-### ----                                     ----
-
-# each word is given an integer value based on section, sections increment based on SECTION BLOCK_VALUE
-
-# T=text
-# R=Reserved word
-# K=Key word
-# B=Block    such as comment, text or code
-# O=Operator
-
-# comparisons are ordered to be done in greatest length order, to prevent uneven length but similar values
-# this also doubles as a speed enhancement
-
-
-
-
-"""
-
-
 
 ###
 ###  Template out constant values
@@ -879,316 +859,92 @@ for section in order:
     section_index+=SECTION_BLOCK_INCREMENT
 
 
+for i in range(2):
 
-print("")
-print("#")
-print("# Integer Values")
-print("#")
-print("")
-    
-for section in order:
-    print("")
-    if section=="O":
-        print("# OPERATOR")
-    if section=="B":
-        print("# BLOCK")
-    if section=="R":
-        print("# RESERVED WORD")
-    if section=="K":
-        print("# KEYWORD")
-    if section=="T":
-        print("# TEXT")
-    if section=="A":
-        print("# Alpha")
-    if section=="N":
-        print("# Numeric")
-    if section=="D":
-        print("# Delimiter")
-    print("")
+    template.add('vars',"")
+    template.add('vars',"##")
+    if i==0:
+        template.add('vars',"## Integer Values")
+    else:
+        template.add('vars',"## String Values")
+    template.add('vars',"##")
+    template.add('vars',"")
+        
+    for section in order:
+        template.add('vars',"")
+        if section=="O": template.add('vars',"# OPERATOR")
+        if section=="B": template.add('vars',"# BLOCK")
+        if section=="R": template.add('vars',"# RESERVED WORD")
+        if section=="K": template.add('vars',"# KEYWORD")
+        if section=="T": template.add('vars',"# TEXT")
+        if section=="A": template.add('vars',"# Alpha")
+        if section=="N": template.add('vars',"# Numeric")
+        if section=="D": template.add('vars',"# Delimiter")
+        template.add('vars',"")    
 
-    for item in words:
-        if item[2]==1:
-            if item[0][0]==section:
-                print item[0][2:]+'='+str(item[3])
-
-###
-###  Template out constant strings
-###
+        for item in words:
+            if item[2]==1:
+                if item[0][0]==section:
+                    if i==0:
+                        template.add('vars',item[0][2:]+'='+"0x{0:04X}".format(item[3]))
+                    else:
+                        template.add('vars',item[0][2:]+'_STR='+repr(item[1]))
 
     
-print("")
-print("#")
-print("# String Values")
-print("#")
-print("")
 
-index=0
-for section in order:
-    print("")
-    if section=="O":
-        print("# OPERATOR")
-    if section=="B":
-        print("# BLOCK")
-    if section=="R":
-        print("# RESERVED WORD")
-    if section=="K":
-        print("# KEYWORD")
-    if section=="T":
-        print("# TEXT")
-    if section=="A":
-        print("# Alpha")
-    if section=="N":
-        print("# Numeric")
-    if section=="D":
-        print("# Delimiter")
-    print("")    
-
-    for item in words:
-        if item[2]==1:
-            if item[0][0]==section:
-                print item[0][2:]+'_STR='+repr(item[1])
-    
-
-print("")
-print("#")
-print("# Code")
-print("#")
-print("")
+template.add('code',"")
+template.add('code',"##")
+template.add('code',"##  Code")
+template.add('code',"##")
+template.add('code',"")
 
 
 ###
 ###  Template identifyer for python 2/3
 ###
 
-for version in range(2,4):
+max_len=0
+lengths={}
+for item in words:
+    word_length=len(item[1])
+    if word_length>max_len: 
+        max_len=word_length
+        lengths[max_len]=max_len
+        
+if_type="if  "
 
-    print """
-def get_intermediate_code_"""+str(version)+"""(text):
-    if text==None: return 0
-    text=text.upper()
-    text_length=len(text)
-    text_hash=hash(text)
-    if   text=='': return 0 
+for length in range(max_len,0,-1):
 
-    """
-
-    max_len=0
-    lengths={}
+    found_word=None
     for item in words:
         word_length=len(item[1])
-        if word_length>max_len: 
-            max_len=word_length
-            lengths[max_len]=max_len
+        if item[2]!=1 or word_length!=length:    
+            continue
+        found_word=True
 
-    if_type="if  "
+    if found_word==None: continue
+    template.add("get_intermediate_code_2","    "+if_type+" text_length=="+str(length)+":")
+    template.add("get_intermediate_code_3","    "+if_type+" text_length=="+str(length)+":")
 
-    for length in range(max_len,0,-1):
+    
+    if_type="elif"
+    sub_if_type="if  "
 
-        found_word=None
-        for item in words:
+    for item in words:
+        word_length=len(item[1])
+        if item[0][0]=='N' or  item[0][0]=='A': continue
+        if word_length!=length:    
+            continue
 
-            word_length=len(item[1])
-            if item[2]!=1 or word_length!=length:    
-                continue
-            found_word=True
-        if found_word==None: continue
+        if item[2]==1:
+            statement1="        "+sub_if_type+" text_hash=="+"{0}".format(hash(item[1]))+": return "+"0x{0:04X}".format(item[3])
+            statement2="        "+sub_if_type+" text=="+repr (item[1]) + ": return "+"0x{0:04X}".format(item[3])
+            template.add("get_intermediate_code_2",statement1)            
+            template.add("get_intermediate_code_3",statement2)
+            sub_if_type="elif"
 
-        print "    "+if_type+" text_length=="+str(length)+":"
+# end build loop
         
-        if_type="elif"
-        sub_if_type="if  "
 
-
-        for item in words:
-            word_length=len(item[1])
-            if item[0][0]=='N' or  item[0][0]=='A': continue
-            if word_length!=length:    
-                continue
-
-            if item[2]==1:
-                if version==2:
-                    print "        "+sub_if_type+" text_hash=="+str(hash(item[1]) )+": return "+str(item[3] )
-                else:
-                    print "        "+sub_if_type+" text=="+repr (item[1]) + ": return "+str(item[3] )
-                sub_if_type="elif"
-    print "    return 0"
-        
-print """
-def add_fragment(fragment,fragment_length,bulk=None,depth=0):
-    new_fragments=[]
-    if bulk:
-        if fragment!="":
-            new_fragments.append([fragment,0,depth])
-    else:
-        if fragment!="":
-            right_fragment=""
-            right_fragment_length=0
-    
-            while fragment_length>0:
-                found=0
-                for length in range(fragment_length,0,-1):
-                    code=get_intermediate_code_2(fragment[:length])
-                    if code!=0:
-                        found=True
-                        if code==SPACE or code==TAB or code==NEW_LINE:
-                            pass
-                        else:
-                            new_fragments.append([fragment[:length],code,depth])
-                        fragment_length-=length
-                        if fragment_length>0:
-                            fragment=fragment[length:]
-                        break;
-                
-                # if we looped through all length combiniations and found nothing, add the remainder and shrink the stack
-                if found==0:
-                    new_fragments.append([fragment[0],0,depth])
-                    fragment_length-=1
-                    if fragment_length>0:
-                        fragment=fragment[1:]
-    return new_fragments
-   
-
-def get_BYTECODE(data,depth=0):
-    #print data
-    fragments=[]
-    fragment=""
-    fragment_length=0
- 
-    in_block=None
-    in_alpha=None
-    block_depth=0
-
-    # main loop for tokenizing
-    for c in data:
-        if in_block:
-            in_alpha=None
-            # is it the other side of the block
-            if c==LEFT_PAREN_STR:      
-                block_depth+=1
-                fragment+=c
-                fragment_length+=1
-                continue
-
-            if c==in_block:
-                
-                if in_block==RIGHT_PAREN_STR:
-                    #print block_depth
-                    block_depth-=1
-                    if block_depth!=0:
-                        fragment+=c
-                        fragment_length+=1
-                        continue
-                    pass
-                    sub_code=get_BYTECODE(fragment,depth+1)
-                    fragments+=sub_code
-                else:
-                    fragments+=add_fragment(fragment,fragment_length,True,depth)
-                fragment=""
-                fragment_length=0
-                in_block=None
-                #block_depth=0
-            # no, add the contents
-            else:
-                fragment+=c
-                fragment_length+=1
-        else:
-            # self closing
-            if   c==DOUBLE_QUOTE_STR:    in_block=DOUBLE_QUOTE_STR
-            elif c==SINGLE_QUOTE_STR:    in_block=SINGLE_QUOTE_STR
-            elif c==BACK_TIC_STR:        in_block=BACK_TIC_STR
-            
-            # matched pair
-            elif c==LEFT_COMMENT_STR:    in_block=RIGHT_COMMENT_STR
-            elif c==COMMENT_SINGLE_STR:  in_block=NEW_LINE_STR
-            elif c==LEFT_PAREN_STR:      
-                in_block=RIGHT_PAREN_STR
-                
-                block_depth+=1
-                
-                
-    
-            if in_block:
-                fragments+=add_fragment(fragment,fragment_length,None,depth)
-                fragment=""
-                fragment_length=0
-                continue
-            
-    
-            #not a block, or anything else
-            else:
-                # is this the start of an "WORD"
-                if in_alpha==None:
-                    if ( c>=A_STR and c<=Z_STR ) or ( c>=a_STR and c<=z_STR ) or ( c>=ZERO_STR and c<=NINE_STR ) or c== UNDERSCORE_STR or c==DOLLAR_STR:
-                        fragments+=add_fragment(fragment,fragment_length,None,depth)
-                        fragment=c
-                        fragment_length=1
-                        in_alpha=True
-
-                    # not in a word, none word zone stuff..
-                    else:
-                        fragment+=c
-                        fragment_length+=1
-
-                # Are we in a "WORD"
-                else:
-                    # If we just LEFT ... add the existing word, and start a new one
-                    if not ( c>=A_STR and c<=Z_STR ) and  not ( c>=a_STR and c<=z_STR ) and not ( c>=ZERO_STR and c<=NINE_STR ) and c!=UNDERSCORE_STR and  c!=DOLLAR_STR:
-                        fragments+=add_fragment(fragment,fragment_length,True,depth)
-                        fragment=c
-                        fragment_length=1
-                        in_alpha=None
-
-                    # IF SO append
-                    else:
-                        fragment+=c
-                        fragment_length+=1
-
-    # END Loop                
-    
-    # if anything is still left in the pipeline, cleanup
-    
-    fragments+=add_fragment(fragment,fragment_length,in_alpha,depth)
-    fragment=""
-    fragment_length=0
-
-
-    # err if block mismatch
-    if in_block:
-        err_msg="Missing {0}".format(in_block)
-        raise Exception(err_msg)
-    
-    # reduce groups that are single elements
-    
-    
-    #while len(fragments)==1:
-        #print fragments
-        #eif isinstance(fragments,dict):
-        #    fragments=fragments['sub']
-    #    print fragments
-    #    return fragments
-    
-    return [{"sub":fragments}]
-   
-
-def print_code(codes,root=True):
-    
-    if isinstance(codes,list):
-        for code in codes:
-            if isinstance(code,dict):
-                print_code(code['sub'],None)
-            elif isinstance(code,list):
-                for i in range(code[2]):
-                    print " " , 
-                print(code)
-    
-
-def test(debug=None):
-    codes=get_BYTECODE("SELECT * FROM (PIZ (((o ber )) && == ZAZ) )(hh.'hh')  (f) 'db blah 432%^$#@'.\\"rfdsf table\\" where  && || | >= == &&& === this=that and that not 5")
-    if debug: print_code(codes) 
-
-
-#print(timeit.timeit(test, number=10))
-
-test(True)
-
-"""
+template.build()
+template.dump()
