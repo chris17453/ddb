@@ -287,16 +287,16 @@ class table:
         self.config=config
     
     def update_statistics(self):
-        success           = None
-        affected_rows     = None
-        diff              = None
-        error             = None
-        total_data_length = None
-        delimiter         = None
-        new_line          = None
-        columns           = None
-        data_length       = None
-        column_length     = None
+        self.success           = None
+        self.affected_rows     = None
+        self.diff              = None
+        self.error             = None
+        self.total_data_length = None
+        self.delimiter         = None
+        self.new_line          = None
+        self.columns           = None
+        self.data_length       = None
+        self.column_length     = None
 
     def load(self):
         # prep data

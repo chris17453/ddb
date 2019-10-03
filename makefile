@@ -101,6 +101,10 @@ svn_start:
 #	# @$(MAKE) -f $(THIS_FILE) standalone
 #	@$(MAKE) -f $(THIS_FILE) test
 
+bytecode:
+	@python source/ddb/lexer/reserved_words.py>test/lex_test.py
+	@python test/lex_test.py
+
 build: svn_start meta bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
