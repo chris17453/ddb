@@ -51,11 +51,11 @@ class bytecode:
 
 
     @staticmethod
-    def add_fragment(fragment,fragment_length,bulk=None,depth=0):
+    def add_fragment(fragment,fragment_length,uid,fragment_id,bulk=None,depth=0):
         new_fragments=[]
         if bulk:
             if fragment!="":
-                new_fragments.append([fragment,0,depth])
+                new_fragments.append([fragment,0,depth,uid,fragment_id])
         else:
             if fragment!="":
                 right_fragment=""
@@ -67,10 +67,10 @@ class bytecode:
                         code=bytecode.get_intermediate_code_2(fragment[:length])
                         if code!=0:
                             found=True
-                            if code==bytecode.SPACE or code==bytecode.TAB or code==bytecode.NEW_LINE:
+                            if code==bytecode.SPACE or code==bytecode.TAB or code==bytecode.NEW_LINE or code==bytecode.COMMA:
                                 pass
                             else:
-                                new_fragments.append([fragment[:length],code,depth])
+                                new_fragments.append([fragment[:length],code,depth,uid,fragment_id])
                             fragment_length-=length
                             if fragment_length>0:
                                 fragment=fragment[length:]
@@ -78,7 +78,7 @@ class bytecode:
                     
                     # if we looped through all length combiniations and found nothing, add the remainder and shrink the stack
                     if found==None:
-                        new_fragments.append([fragment[0],0,depth])
+                        new_fragments.append([fragment[0],0,depth,uid,fragment_id])
                         fragment_length-=1
                         if fragment_length>0:
                             fragment=fragment[1:]
@@ -86,16 +86,17 @@ class bytecode:
         return new_fragments
    
     @staticmethod
-    def get_BYTECODE(data,depth=0):
+    def get_BYTECODE(data,depth=0,uid="1"):
         fragments=[]
         fragment=""
         fragment_length=0
         in_block=None
         in_alpha=None
         block_depth=0
-        
+        fragment_id=1
         # main loop for tokenizing
         for c in data:
+            
             if in_block:
                 in_alpha=None
                 # is it the other side of the block
@@ -113,10 +114,12 @@ class bytecode:
                             fragment+=c
                             fragment_length+=1
                             continue
-                        sub_code=bytecode.get_BYTECODE(fragment,depth+1)
+
+                        sub_code=bytecode.get_BYTECODE(fragment,depth+1,"{0}.{1}".format(uid,fragment_id))
                         fragments+=sub_code
                     else:
-                        fragments+=bytecode.add_fragment(fragment,fragment_length,True,depth)
+                        fragment_id+=1
+                        fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,True,depth)
                     fragment=""
                     fragment_length=0
                     in_block=None
@@ -138,7 +141,8 @@ class bytecode:
                     block_depth+=1
         
                 if in_block:
-                    fragments+=bytecode.add_fragment(fragment,fragment_length,None,depth)
+                    fragment_id+=1
+                    fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,None,depth)
                     fragment=""
                     fragment_length=0
                     continue
@@ -154,7 +158,8 @@ class bytecode:
 
                     if in_alpha==None:
                         if u_alpha or l_alpha or numeric or underscore or dollar:
-                            fragments+=bytecode.add_fragment(fragment,fragment_length,in_alpha,depth)
+                            fragment_id+=1
+                            fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,in_alpha,depth)
                             fragment=c
                             fragment_length=1
                             in_alpha=True
@@ -164,7 +169,8 @@ class bytecode:
                     else:
                         # If we just LEFT ... add the existing word, and start a new one
                         if not u_alpha and not l_alpha and not numeric and not underscore and not dollar:
-                            fragments+=bytecode.add_fragment(fragment,fragment_length,True,depth)
+                            fragment_id+=1
+                            fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,True,depth)
                             fragment=c
                             fragment_length=1
                             in_alpha=None
@@ -177,7 +183,8 @@ class bytecode:
         # END Loop                
         # if anything is still left in the pipeline, cleanup
         
-        fragments+=bytecode.add_fragment(fragment,fragment_length,in_alpha,depth)
+        fragment_id+=1
+        fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,in_alpha,depth)
         fragment=""
         fragment_length=0
     
@@ -199,6 +206,8 @@ class bytecode:
 
     @staticmethod
     def print_code(codes,root=True):
+        if root: print("Token                | Code   | Depth | UID         | Fragment ID ")
+        if root: print("---------------------+--------+-------+-------------+-------------")
         if isinstance(codes,list):
             for code in codes:
                 if isinstance(code,dict):
@@ -206,7 +215,7 @@ class bytecode:
                 elif isinstance(code,list):
                     #for i in range(code[2]):
                     #    print " " , 
-                    print("{0:20} 0x{1:04X} {2}".format(code[0],code[1],code[2]))
+                    print("{0:20} | 0x{1:04X} | {2}     | {3:10}  | {4}".format(code[0],code[1],code[2],code[3],code[4]))
 
     
 ##
@@ -214,8 +223,7 @@ class bytecode:
 ##
 
 def test(debug=None):
-    query="""SELECT &&* FROM (PIZ (((o ber )) && == ZAZ) )(hh.'hh')  (f) 'db blah 432%^$#@'."rfdsf table" where  && || | >= == &&& ===         this=that         and that 
-        not 5
+    query="""SELECT * FROM test.mock WHERE first_name='bob' and last_name not 'sam' and gender=F and last_name in (sam,bob,pizza,chicken) 
         """
     codes=bytecode.get_BYTECODE(query)
     if debug: bytecode.print_code(codes) 
