@@ -1,0 +1,153 @@
+[]=ARRAY
+()=OPTIONAL
+: =TYPE
+""=STRING VALUE
+|=COUNT OF RESULTS
+
+single=''
+list=
+
+# CONTROL FLOW
+CASE value WHEN [compare_value] THEN result [WHEN [compare_value] THEN result ...] [ELSE result] END
+IF(expr1,expr2,expr3)
+IFNULL(expr1,expr2)
+NULLIF(expr1,expr2)
+
+
+EXPRESSION:
+    expr OR expr
+  | expr || expr
+  | expr XOR expr
+  | expr AND expr
+  | expr && expr
+  | NOT expr
+  | ! expr
+  | boolean_primary IS [NOT] {TRUE | FALSE | UNKNOWN}
+  | boolean_primary
+
+boolean_primary:
+    boolean_primary IS [NOT] NULL
+  | boolean_primary <=> predicate
+  | boolean_primary comparison_operator predicate
+  | boolean_primary comparison_operator {ALL | ANY} (subquery)
+  | predicate
+
+comparison_operator: = | >= | > | <= | < | <> | !=
+
+predicate:
+    bit_expr [NOT] IN (subquery)
+  | bit_expr [NOT] IN (expr [, expr] ...)
+  | bit_expr [NOT] BETWEEN bit_expr AND predicate
+  | bit_expr SOUNDS LIKE bit_expr
+  | bit_expr [NOT] LIKE simple_expr [ESCAPE simple_expr]
+  | bit_expr [NOT] REGEXP bit_expr
+  | bit_expr
+
+    
+bit_expr:
+    bit_expr | bit_expr
+  | bit_expr & bit_expr
+  | bit_expr << bit_expr
+  | bit_expr >> bit_expr
+  | bit_expr + bit_expr
+  | bit_expr - bit_expr
+  | bit_expr * bit_expr
+  | bit_expr / bit_expr
+  | bit_expr DIV bit_expr
+  | bit_expr MOD bit_expr
+  | bit_expr % bit_expr
+  | bit_expr ^ bit_expr
+  | bit_expr + interval_expr
+  | bit_expr - interval_expr
+  | simple_expr
+
+
+
+
+simple_expr:
+    literal
+  | identifier
+  | function_call
+  | simple_expr COLLATE collation_name
+  | param_marker
+  | variable
+  | simple_expr || simple_expr
+  | + simple_expr
+  | - simple_expr
+  | ~ simple_expr
+  | ! simple_expr
+  | BINARY simple_expr
+  | (expr [, expr] ...)
+  | ROW (expr, expr [, expr] ...)
+  | (subquery)
+  | EXISTS (subquery)
+  | {identifier expr}
+  | match_expr
+  | case_expr
+  | interval_expr
+
+
+IDENTIFYER
+    :STRING
+    :VARIABLE
+ASC
+    "ASC":STRING
+DESC
+    "ASC":STRING
+LENGTH
+    :INT
+OFFSET
+    :INT
+
+
+SELECT_EXPRESSION
+    [
+        [IDENTIFYER]
+        [STRING:EXPRESSION]
+        [INT:EXPRESSION]
+        [FLOAT:EXPRESSION]
+        [DECIMAL:EXPRESSION]
+        [DECIMAL:EXPRESSION]
+    ] ','
+
+GROUP=: [single, tuple]
+
+FROM 
+    IDENTIFYER
+
+JOIN
+    [LEFT JOIN]
+    [RIGHT JOIN]
+    [FULL JOIN]
+    [OUTER JOIN]
+    [INNER JOIN]
+
+WHERE
+    EXPRESSION
+
+GROUP BY
+[
+    (SELECT_EXPRESSION.IDENTIFYER)
+] ' , '
+
+ORDER BY
+  [
+    (SELECT_EXPRESSION.IDENTIFYER)
+    (SELECT_EXPRESSION.IDENTIFYER ASC)
+    (SELECT_EXPRESSION.IDENTIFYER DESC)
+  ] ','
+
+LIMIT 
+  (LENGTH)
+  (OFFSET,LENGTH)
+
+
+
+SELECT
+    SELECT_EXPRESSION
+    (FROM) 
+    (JOIN)
+    (WHERE)
+    (GROUP BY)
+    (ORDER BY)
+    (LIMIT)

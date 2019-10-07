@@ -105,6 +105,11 @@ bytecode:
 	@python tools/generate_bytecode.py>source/ddb/lexer/bytecode.py
 	@python source/ddb/lexer/bytecode.py
 
+lexer:
+	@python tools/generate_bytecode.py>source/ddb/lexer/bytecode.py
+	@python source/ddb/lexer/bytecode.py
+
+
 build: svn_start meta bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
