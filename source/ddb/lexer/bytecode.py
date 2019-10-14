@@ -1401,6 +1401,8 @@ class bytecode:
 
 
 
+# calls the bytecode class and converts the sql into a list of integers and strings
+# which are pattern matched
 class lexer:
     bytecode_index=0
     bytecode_length=0
@@ -1427,9 +1429,20 @@ class lexer:
             for code in codes:
                 if isinstance(code,dict):
                     bytecode.print_code(code['sub'],None)
-                
-    def match(self,pattern):
-        #print pattern,1
+        
+    def pin_index(self):
+        self.bytecode_index_pin=self.bytecode_index
+
+    def resetpin_index(self):
+        self.bytecode_index=self.bytecode_index=pin
+
+    def validate_match_set(self,results):
+        for result in results:
+            if result==None:
+                return None
+        return retults
+
+    def match(self,pattern,optional=None):
         found=None
         bytecode_index=self.bytecode_index
         for sequence in  pattern:
@@ -1447,11 +1460,23 @@ class lexer:
                 raise Exception("Pattern not found, PRE")        
 
             bytecode_index+=1
-
+        
         if found!=None:
+            self.bytecode_index=bytecode_index
             return found
-        self.bytecode_index=bytecode_index
-        raise Exception("Pattern not found, POST")
+        if optional:
+            self.bytecode_index=bytecode_index
+            return None
+        raise Exception ("No Match")
+    
+    # atleast 1 thing must be matched, or it fails
+    def match_or(self,patterns):
+        for pattern in patterns:
+            try:
+                return self.match(pattern)
+            except:
+                pass
+        raise Exception ("No or Match")
 
     def process_bytecode(self,bytecode):
         self.bytecode_index=0
@@ -1486,7 +1511,7 @@ class lexer:
 
     def keyword_FROM(self):
         try:
-            self._from= self.match([bytecode.LIMIT,'F']) 
+            self._from= self.match([bytecode.FROM,'F']) 
         except:
             pass
 
@@ -1535,105 +1560,487 @@ class lexer:
             except:
                 pass
 
+
+
+
     def bit_expression(bytecode):
-          bit_expr | bit_expr
-        | bit_expr & bit_expr
-        | bit_expr << bit_expr
-        | bit_expr >> bit_expr
-        | bit_expr + bit_expr
-        | bit_expr - bit_expr
-        | bit_expr * bit_expr
-        | bit_expr / bit_expr
-        | bit_expr DIV bit_expr
-        | bit_expr MOD bit_expr
-        | bit_expr % bit_expr
-        | bit_expr ^ bit_expr
-        | bit_expr + interval_expr
-        | bit_expr - interval_expr
-        | simple_expr        
-        pass
- 
-    def expression(self):
-        expr OR expr
-        | expr || expr
-        | expr XOR expr
-        | expr AND expr
-        | expr && expr
-        | NOT expr
-        | ! expr
-        | boolean_primary IS [NOT] {TRUE | FALSE | UNKNOWN}
-        | boolean_primary
- 
- boolean_primary:
-     boolean_primary IS [NOT] NULL
-   | boolean_primary <=> predicate
-   | boolean_primary comparison_operator predicate
-   | boolean_primary comparison_operator {ALL | ANY} (subquery)
-   | predicate
- 
- def comparison_operator(self): 
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_OR)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_AND)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_LEFT_SHIFT)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_RIGHT_SHIFT)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_PLUS)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_MINUS)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_MULTIPLY)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_DIVIDE)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.DIV)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.MOD)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_MODULUS)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.XOR)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_PLUS)
+            self.interval_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.O_MINUS)
+            self.interval_expr()
+        except:
+            pass
+
+        try:
+            self.simple_expr()
+        except:
+            pass
+        raise Exception("No BIT_EXPR")
+        # time intercal expression
+
+    def interval_exp(self):
+        try:
+            self.match(bytecode.INTERVAL)
+        except:
+            raise exception("Not an interval")
+
+        patterns=[
+            [bytecode.INTERVAL,INT                                   , bytecode.MICROSECONDS],
+            [bytecode.INTERVAL,INT                                   , bytecode.SECOND],
+            [bytecode.INTERVAL,INT                                   , bytecode.MINUTE],
+            [bytecode.INTERVAL,INT                                   , bytecode.HOUR],
+            [bytecode.INTERVAL,INT                                   , bytecode.DAY],
+            [bytecode.INTERVAL,INT                                   , bytecode.WEEK],
+            [bytecode.INTERVAL,INT                                   , bytecode.MONTH],
+            [bytecode.INTERVAL,INT                                   , bytecode.QUARTER],
+            [bytecode.INTERVAL,INT                                   , bytecode.YEAR],
+            [bytecode.INTERVAL,[INT,DOT,INT                        ] , bytecode.SECOND_MICROSECOND],
+            [bytecode.INTERVAL,[INT,COLON,INT,DOT,INT              ] , bytecode.MINUTE_MICROSECOND],
+            [bytecode.INTERVAL,[INT,COLON,INT                      ] , bytecode.MINUTE_SECOND],
+            [bytecode.INTERVAL,[INT,COLON,INT,COLON,INT,DOT,INT    ] , bytecode.HOUR_MICROSECOND],
+            [bytecode.INTERVAL,[INT,COLON,INT,COLON,INT            ] , bytecode.HOUR_SECOND],
+            [bytecode.INTERVAL,[INT,COLON,INT                      ] , bytecode.HOUR_MINUTE],
+            [bytecode.INTERVAL,[INT,INT,COLON,INT,COLON,INT,DOT,INT] , bytecode.DAY_MICROSECOND],
+            [bytecode.INTERVAL,[INT,INT,COLON,INT,COLON,INT        ] , bytecode.DAY_SECOND],
+            [bytecode.INTERVAL,[INT,INT,COLON,INT                  ] , bytecode.DAY_MINUTE],
+            [bytecode.INTERVAL,[INT,INT                            ] , bytecode.DAY_HOUR],
+            [bytecode.INTERVAL,[INT,DASH,INT                       ] , bytecode.YEAR_MONTH],
+        ]
+
+        for pattern in patterns:
+            results=self.match(pattern)
+            if results:
+                return results
+        raise Exception("Not a interval Expression")    # comparitors
+
+    def comparison_operator(self): 
      # TOD  <> OR !=... fix
-     self.match([EQUALS])
-     self.match([OR])
-     self.match([GREATER_EQ])
-     self.match([GREATER])
-     self.match([LESS_EQ])
-     self.match([LESS])
-     self.match([NOT_EQ])
+     return self.match_or([EQUALS,OR,GREATER_EQ,GREATER,LESS_EQ,LESS,NOT_EQ])
 
+    def expression(self):
+        try:
+            self.expr()
+            self.match(bytecode.OR)
+            self.expr()
+        except:
+            pass
+
+        try:
+            self.expr()
+            self.match(bytecode.SHORT_CIRCUIT_OR)
+            self.expr()
+        except:
+            pass
+
+        try:
+            self.expr()
+            self.match(bytecode.XOR)
+            self.expr()
+        except:
+            pass
+
+
+        try:
+            self.expr()
+            self.match(bytecode.AND)
+            self.expr()
+        except:
+            pass
+
+        try:
+            self.expr()
+            self.match(bytecode.SHORT_CIRCUIT_AND)
+            self.expr()
+        except:
+            pass
+
+        try:
+            self.match(bytecode.NOT)
+            self.expr()
+        except:
+            pass
+        
+        try:
+            self.match(bytecode.NEGATE)
+            self.expr()
+        except:
+            pass
+        
+        try:
+            self.boolean_primary()
+            self.match(bytecode.IS) 
+            self.match(bytecode.NOT,optional=True)
+            self.match_or([bytecode.TRUE,bytecode.FALSE,bytecode.UNKNOWN])
+        except:
+            pass
+
+        try:
+            self.boolean_primary()
+        except:
+            pass
+
+        raise Exception ("No Expression")
+   
+    def boolean_primary(self):
+        try:
+            self.boolean_primary()
+            self.match(bytecode.IS)
+            self.match(bytecode.NOT,optional=True)
+            self.match(bytecode.NULL)
+        except: 
+            pass
+        
+        try:
+            self.boolean_primary()
+            self.match(bytecode.NULL_EQ)
+            self.predicate()
+        except:
+            pass
+    
+        try:
+            self.boolean_primary()
+            self.comparison_operator()
+            self.predicate()
+        except:
+            pass
+
+        try:
+            self.boolean_primary()
+            self.comparison_operator()
+            self.predicate()
+        except:
+            pass
+        try:
+            self.boolean_primary()
+            self.comparison_operator()
+            # {ALL | ANY}
+            self.match_or([bytecode.ALL,bytecode.ANY],optional) 
+            self.subquery()
+        except:
+            pass
+        try:
+            self.predicate()
+        except:
+            pass
+        raise Exception("No boolean primary")
  
- def predicate(self):
-     bit_expr [NOT] IN (subquery)
-   | bit_expr [NOT] IN (expr [, expr] ...)
-   | bit_expr [NOT] BETWEEN bit_expr AND predicate
-   | bit_expr SOUNDS LIKE bit_expr
-   | bit_expr [NOT] LIKE simple_expr [ESCAPE simple_expr]
-   | bit_expr [NOT] REGEXP bit_expr
-   | bit_expr
-# 
-#     
-# bit_expr:
-#     bit_expr | bit_expr
-#   | bit_expr & bit_expr
-#   | bit_expr << bit_expr
-#   | bit_expr >> bit_expr
-#   | bit_expr + bit_expr
-#   | bit_expr - bit_expr
-#   | bit_expr * bit_expr
-#   | bit_expr / bit_expr
-#   | bit_expr DIV bit_expr
-#   | bit_expr MOD bit_expr
-#   | bit_expr % bit_expr
-#   | bit_expr ^ bit_expr
-#   | bit_expr + interval_expr
-#   | bit_expr - interval_expr
-#   | simple_expr
-# 
-# 
-# 
-# 
-# simple_expr:
-#     literal
-#   | identifier
-#   | function_call
-#   | simple_expr COLLATE collation_name
-#   | param_marker
-#   | variable
-#   | simple_expr || simple_expr
-#   | + simple_expr
-#   | - simple_expr
-#   | ~ simple_expr
-#   | ! simple_expr
-#   | BINARY simple_expr
-#   | (expr [, expr] ...)
-#   | ROW (expr, expr [, expr] ...)
-#   | (subquery)
-#   | EXISTS (subquery)
-#   | {identifier expr}
-#   | match_expr
-#   | case_expr
-#   | interval_expr    
+    def predicate(self):
+        try:
+            self.bit_expr()
+            self.match(bytecode.NOT,OPTIONAL)
+            self.match(bytecode.IN)
+            self.subquery()
+        except:
+            pass
 
+        try:
+            self.bit_expr()
+            self.match(bytecode.NOT,optional=True)
+            self.match(bytecode.IN)
+            self.expr_array()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.NOT,optional=True)
+            self.match(bytecode.BETWEEN)
+            self.bit_expr()
+            self.match(bytecode.AND)
+            self.predicate
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.SOUNDS,bytecode.LIKE)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(bytecode.NOT,optional=True)
+            self.match(bytecode.LIKE)
+            self.simple_expr()
+            try:
+                results=self.match(bytecode.ESCAPE,optional=True)
+                if results:
+                    self.simple_expr()
+            except:
+                raise Exception("Escape syntax")
+        except:
+            pass
+
+        try:
+            self.bit_expr()
+            self.match(sbytecode.NOT,optional=True)
+            self.match(bytecode.REGEXP)
+            self.bit_expr()
+        except:
+            pass
+
+        try:
+            return self.bit_expr()
+        except:
+            pass
+        raise Exception ("No predicate")
+
+    def colation_name(self):
+        return self.match_OR([bytecode.COLATION_DATABASE_DEFAULT,bytecode.COLATION_UTF8])
+
+    # strig or numeric literal
+    def literal(self):
+        if is_instance(self.bytecode[self.bytecode_index],str):
+            return True
+        raise Exception("Not Literal")
+
+
+    # TODO
+    def identifier(self):
+        return True
+
+    def function_call(self):
+        return True
+
+    def param_marker(self):
+        return True
+
+    def variable(self):
+        return True
+
+    def expr_array(self):
+        return True
+    
+    def subquery(self):
+        return True        
+    
+    def match_expr(self):
+        return True
+    
+    def case_expr(self):
+        return True
+    
+
+    def simple_expr(self):
+        # sets the restart pointer for the bytecode index
+        self.pin_index()
+        
+        try:   
+            self.resetpin_index()
+            return { self.literal() }
+        except: 
+            pass
+        
+        try:    
+            self.resetpin_index()
+            return { self.identifier() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.function_call() }
+        except: 
+            pass
+        
+        try:    
+            self.resetpin_index()
+            return { self.simple_expr(),self.match(bytecode.COLLATE),self.colation_name() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.param_marker() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.variable() }
+        except: 
+            pass
+        
+        try:    
+            self.resetpin_index()
+            return { self.simple_expr() , self.match(bytecode.O_SHORTCIRCUIT_OR) , self.simple_expr() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(self.bytecode.O_PLUS)  , simple_expr() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(self.bytecode.O_MINUS) , simple_expr() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(self.bytecode.O_NOT)   , simple_expr() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(self.bytecode.O_NEGATE), simple_expr() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(self.bytecode.BINARY)  , simple_expr() }
+        except: 
+            pass
+        
+        try:    
+            self.resetpin_index()
+            return { self.expr_array() }
+        except: 
+            pass
+        
+        # I dont really know what the ROW(expr[,expr ...]) does
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.ROW), (,self.expr_array()) }
+        #except: 
+        #    pass
+
+        try:    
+            self.resetpin_index()
+            return { self.subquery() }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match(bytecode.EXISTS) ,self.subquery() }
+        except: 
+            pass
+        
+
+        try:    
+            self.resetpin_index()
+            return { self.identifier(),self.expr() }  # {}? }
+        except: 
+            pass
+
+        try:    
+            self.resetpin_index()
+            return { self.match_expr() }
+        except: pass
+
+        
+        try:    
+            self.resetpin_index()
+            return { self.case_expr() }
+        except: pass
+
+        
+        try:     
+            self.resetpin_index()
+            return { self.interval_expr() }
+        except:  pass
+
+        # nothing matched. 
+        self.resetpin_index()
+        
 
 # PASS 1 TOKENIZE, and identify
 # pass 2 pattern match
