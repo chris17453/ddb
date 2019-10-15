@@ -1410,7 +1410,7 @@ class lexer:
     _offset=None
     _length=None
     _from  =None
-    _joins =None
+    _joins =[]
     
     def __init__(self,cmd_text,debug=True):
         print ("LEXER")
@@ -1517,23 +1517,23 @@ class lexer:
 
     def keyword_JOIN(self):
         try:
-            self._joins.append(self.match([bytecode.JOIN,'F']) )
+            self._joins.append(self.match([bytecode.JOIN]) )
         except:
             pass
 
     def keyword_LEFT_JOIN(self):
         try:
-            self.joins.append(match([bytecode.LEFT_JOIN,'F']) )
+            self.joins.append(self.match([bytecode.LEFT,bytecode.JOIN]) )
         except:
             pass
         pass
 
     def keyword_RIGHT_JOIN(self):
-        self.joins.append(match([bytecode.RIGHT_JOIN,'F']) )
+        self._joins.append(self.match([bytecode.RIGHT,bytecode.JOIN]) )
         pass
 
     def keyword_FULL_JOIN(self):
-        self._joins.append(self.match([bytecode.FULL_JOIN,'F']) )
+        self._joins.append(self.match([bytecode.FULL,bytecode.JOIN]) )
         pass
 
     def keyword_OUTER_JOIN(self):
@@ -1991,7 +1991,7 @@ class lexer:
         
         try:    
             self.resetpin_index()
-            return { self.expr_array() }
+            return { self.expr_22 }
         except: 
             pass
         
