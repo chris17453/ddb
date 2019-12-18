@@ -235,30 +235,30 @@ def variable_def (command,classes,class_spec):
         if class_spec[_class]['parent']!=None:
                 continue
 
-        #if class_spec[_class]['optional']:
-        #    if '_arguments' in classes[_class] or  class_spec[_class]['storage']=='array':
-        #        class_name='[ {0} ]'.format(class_name)
-        #    template_add ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
-        #    continue
-#
-        ##template_add classes[_class]
-        #if '_arguments' in classes[_class]:
-        #        template_add ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
-        #        continue
-#
-        #if len(classes[_class])>1:
-        #    template_add ("    {0:<20} = _{0}()".format(_class.replace(" ","_")))
-        #    continue
-#
-        #for variable in classes[_class]:
-        #    pad=''
-        #    var=classes[_class][variable]
-        #    value=var['default']
-#
-        #    if var['type']=='string' or var['type']=='char':
-        #        if var['default']!=None:
-        #            value="'{0}'".format(var['default'])
-        #    template_add ("{2}    {0:<20} = {1}".format(variable,value,pad))
+        if class_spec[_class]['optional']:
+            if '_arguments' in classes[_class] or  class_spec[_class]['storage']=='array':
+                class_name='[ {0} ]'.format(class_name)
+            template_add ("    {0:<20} = None        # optional {1}".format(_class.replace(" ","_"),class_name))
+            continue
+ 
+        #template_add classes[_class]
+        if '_arguments' in classes[_class]:
+                template_add ("    {0:<20} = []          #          {1}".format(_class.replace(" ","_"),class_name))
+                continue
+
+        if len(classes[_class])>1:
+            template_add ("    {0:<20} = _{0}()".format(_class.replace(" ","_")))
+            continue
+
+        for variable in classes[_class]:
+            pad=''
+            var=classes[_class][variable]
+            value=var['default']
+
+            if var['type']=='string' or var['type']=='char':
+                if var['default']!=None:
+                    value="'{0}'".format(var['default'])
+            template_add ("{2}    {0:<20} = {1}".format(variable,value,pad))
 
 
 
@@ -318,6 +318,8 @@ def init(command,classes,class_spec):
                         template_add ("                self.{0}=[]".format(_class.replace(" ","_")))
                         template_add ("                for item in meta.gv(so,['meta','{0}']):".format(safe_class))
                         template_add ("                    instance_type=list(item.keys())[0]")
+                        template_add ("                    print(instance_type)")
+                        
                         template_add ("                    safe_instance_type='_'+instance_type")
 #                        template_add ("                    template_add('*'+safe_instance_type+'*')")
 #                        template_add ("                    template_add('*'+instance_type+'*')")
