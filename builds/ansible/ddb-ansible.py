@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.46'
+__version__='1.4.47'
 
         
 # ############################################################################
@@ -4256,7 +4256,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         return temp_path
     except:
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error","{0}".format(ex ))
+        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
@@ -4265,7 +4265,7 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Error","{0}".format(ex))
+        if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def compare_files(file1,file2):
