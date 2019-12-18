@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.27'
+__version__='1.4.28'
 
         
 # ############################################################################
@@ -3860,7 +3860,7 @@ def method_system_set(context, meta):
 # File   : ./source/ddb/methods/system_begin.py
 # ############################################################################
 
-def method_system_begin(context):
+def method_system_begin(context,meta):
     context.info("begin")
     try:
         if context.internal['IN_TRANSACTION']==1:
@@ -3880,7 +3880,7 @@ def method_system_begin(context):
 # File   : ./source/ddb/methods/system_commit.py
 # ############################################################################
 
-def method_system_commit(context):
+def method_system_commit(context,meta):
     """Move temp files to source files"""
     context.info("Commit")
     try:
@@ -3916,7 +3916,7 @@ def method_system_commit(context):
 # File   : ./source/ddb/methods/system_rollback.py
 # ############################################################################
 
-def method_system_rollback(context):
+def method_system_rollback(context,meta):
     context.info("set")
     try:
         if context.internal['IN_TRANSACTION']==1:
@@ -3959,7 +3959,7 @@ def method_system_show_columns(context, meta):
 # File   : ./source/ddb/methods/system_show_tables.py
 # ############################################################################
 
-def method_system_show_tables(context):
+def method_system_show_tables(context,meta):
     try:
         temp_table = context.database.temp_table(columns=['database', 'table'])
         for t in context.database.tables:
@@ -3976,7 +3976,7 @@ def method_system_show_tables(context):
 # File   : ./source/ddb/methods/system_show_variables.py
 # ############################################################################
 
-def method_system_show_variables(context):
+def method_system_show_variables(context,meta):
     context.info("show variables")
     try:
         temp_table = context.database.temp_table(columns=['type','name','value'])
@@ -3997,7 +3997,7 @@ def method_system_show_variables(context):
 # File   : ./source/ddb/methods/system_show_output_modules.py
 # ############################################################################
 
-def method_system_show_output_modules(context):
+def method_system_show_output_modules(context,meta):
     try:
         temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
         for t in context.internal['OUTPUT_MODULES']:
