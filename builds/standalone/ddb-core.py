@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.31'
+__version__='1.4.32'
 
         
 # ############################################################################
@@ -2422,88 +2422,6 @@ try:
 except Exception as ex:
     print (ex)
     pass
-def available_cpu_count():
-    """ Number of available virtual or physical CPUs on this system, i.e.
-    user/real as output by time(1) when called with an optimally scaling
-    userspace-only program"""
-    try:
-        m = re.search(r'(?m)^Cpus_allowed:\s*(.*)$',
-                      open('/proc/self/status').read())
-        if m:
-            res = bin(int(m.group(1).replace(',', ''), 16)).count('1')
-            if res > 0:
-                return res
-    except IOError:
-        pass
-    try:
-        import multiprocessing
-        return multiprocessing.cpu_count()
-    except (ImportError, NotImplementedError):
-        pass
-    try:
-        import psutil
-        return psutil.cpu_count()   # psutil.NUM_CPUS on old versions
-    except (ImportError, AttributeError):
-        pass
-    try:
-        res = int(os.sysconf('SC_NPROCESSORS_ONLN'))
-        if res > 0:
-            return res
-    except (AttributeError, ValueError):
-        pass
-    try:
-        res = int(os.environ['NUMBER_OF_PROCESSORS'])
-        if res > 0:
-            return res
-    except (KeyError, ValueError):
-        pass
-    try:
-        from java.lang import Runtime
-        runtime = Runtime.getRuntime()
-        res = runtime.availableProcessors()
-        if res > 0:
-            return res
-    except ImportError:
-        pass
-    try:
-        sysctl = subprocess.Popen(['sysctl', '-n', 'hw.ncpu'],
-                                  stdout=subprocess.PIPE)
-        scStdout = sysctl.communicate()[0]
-        res = int(scStdout)
-        if res > 0:
-            return res
-    except (OSError, ValueError):
-        pass
-    try:
-        res = open('/proc/cpuinfo').read().count('processor\t:')
-        if res > 0:
-            return res
-    except IOError:
-        pass
-    try:
-        pseudoDevices = os.listdir('/devices/pseudo/')
-        res = 0
-        for pd in pseudoDevices:
-            if re.match(r'^cpuid@[0-9]+$', pd):
-                res += 1
-        if res > 0:
-            return res
-    except OSError:
-        pass
-    try:
-        try:
-            dmesg = open('/var/run/dmesg.boot').read()
-        except IOError:
-            dmesgProcess = subprocess.Popen(['dmesg'], stdout=subprocess.PIPE)
-            dmesg = dmesgProcess.communicate()[0]
-        res = 0
-        while '\ncpu' + str(res) + ':' in dmesg:
-            res += 1
-        if res > 0:
-            return res
-    except OSError:
-        pass
-    raise Exception('Can not determine number of CPUs on this system')
 class engine:
     """A serverless flat file database engine"""
     class data_type:
@@ -2511,20 +2429,19 @@ class engine:
         ERROR=2
         DATA=3
         WHITESPACE=4
-    def info(self,msg, arg1=None, arg2=None, arg3=None):
+    def error(self,msg, arg1=None, arg2=None, arg3=None,level=logging.ERROR):
+        info(self,msg, arg1, arg2, arg3,level=level)
+    def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        if True == self.debug:
-            if isinstance(arg1,str) :
-                print(msg, arg1, arg2, arg3)
-            elif isinstance(arg1,object) :
-                print(msg, arg2, arg3)
-                pp = pprint.PrettyPrinter(indent=4)
-                pp.pprint(arg1)
-            else:    
-                print(msg, arg1, arg2, arg3)
+        if level==level=logging.INFO:
+            logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        elif  level=logging.ERROR:
+            logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
     def __init__(self, config_dir=None, debug=True, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
+        if debug==True:
+            logging.setLevel(logging.INFO)
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -2570,10 +2487,8 @@ class engine:
         self.current_database = self.database.get_default_database()
         if config_dir:
             queries=self.database.get_db_sql()
-            logging.disabled = True
             if queries:
                 self.query(queries)
-            logging.disabled = False
     def init_state_variables(self):
         self.internal['row']=0
     def trigger_debug(self):
@@ -2605,6 +2520,7 @@ class engine:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
+            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
@@ -3171,7 +3087,7 @@ def method_delete(context, meta):
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return  query_results(success=False, error=ex)
 
         
@@ -3235,7 +3151,7 @@ def create_single(context, meta, temp_file, requires_new_line):
         else:
             return {'success':False,'line':new_line}
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return {'success':False,'line':new_line}
 
         
@@ -3260,8 +3176,8 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
-       context.info (meta.mode,ex)
-       return query_results(success=False,error=ex)   
+        context.error (meta.mode,ex)
+        return query_results(success=False,error=ex)   
 def select_process_file(context,meta):
     has_columns = select_has_columns(context,meta)
     has_functions = select_has_functions(context,meta)
@@ -3597,7 +3513,7 @@ def method_update(context, meta):
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3668,7 +3584,7 @@ def method_upsert(context, meta,query_object,main_meta):
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3687,7 +3603,7 @@ def method_use(context, meta):
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
         
 # ############################################################################
@@ -3723,7 +3639,7 @@ def method_create_table(context, meta):
                                                 )
         return query_results(success=results)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False, error=ex)
 
         
@@ -3762,7 +3678,7 @@ def method_describe_table(context, meta):
         temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3780,7 +3696,7 @@ def method_drop_table(context, meta):
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3807,7 +3723,7 @@ def method_update_table(context, meta):
         results=target_table.save()
         return query_results(success=results)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3844,7 +3760,7 @@ def method_system_set(context, meta):
                 context.user[variable]=value
         return query_results(success=True)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3864,7 +3780,7 @@ def method_system_begin(context,meta):
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3900,7 +3816,7 @@ def method_system_commit(context,meta):
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3924,7 +3840,7 @@ def method_system_rollback(context,meta):
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3943,7 +3859,7 @@ def method_system_show_columns(context, meta):
                 temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3960,7 +3876,7 @@ def method_system_show_tables(context,meta):
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3981,7 +3897,7 @@ def method_system_show_variables(context,meta):
             temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
@@ -4001,7 +3917,7 @@ def method_system_show_output_modules(context,meta):
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)
 
         
