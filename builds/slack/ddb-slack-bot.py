@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.117'
+__version__='1.4.118'
 
         
 # ############################################################################
@@ -3625,8 +3625,8 @@ def method_upsert(context, meta,query_object,main_meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode(processed_line['raw']) )
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     query_object['mode']="insert"

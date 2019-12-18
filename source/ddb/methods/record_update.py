@@ -84,7 +84,7 @@ def method_update(context, meta):
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
 

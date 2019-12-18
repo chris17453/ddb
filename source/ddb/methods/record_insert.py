@@ -92,6 +92,6 @@ def create_single(context, meta, temp_file, requires_new_line):
         else:
             return {'success':False,'line':new_line}
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return {'success':False,'line':new_line}
 

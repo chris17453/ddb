@@ -24,6 +24,6 @@ def method_update_table(context, meta):
     
         return query_results(success=results)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
