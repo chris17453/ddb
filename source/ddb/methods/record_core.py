@@ -196,14 +196,20 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                 line_type = context.data_type.COMMENT
             else:
                 try:
+                    context.info(__name__,"1")
                     line_data = line_cleaned.split(table.delimiters.field,column_count)
                     #cur_column_len = len(line_data)
                     
                     #line_data[-1]=line_data[-1].rstrip()
                     cur_column_len = len(line_data)
+                    context.info(__name__,"3")
                     
                     if table.data.strict_columns==True:
+                        context.info(__name__,"3")
+
                         if  cur_column_len != column_count:
+                            context.info(__name__,"4")
+
                             if cur_column_len > column_count:
                                 err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
                             else:
@@ -218,6 +224,8 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                                 line_data = None
                             line_type = context.data_type.ERROR
                     else:
+                        context.info(__name__,"5")
+
                         # add empty columns
                         if  cur_column_len != column_count:
                             i=cur_column_len
