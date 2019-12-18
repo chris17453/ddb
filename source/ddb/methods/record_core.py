@@ -162,7 +162,7 @@ def get_table(context,meta):
 
 
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    line=line.decoded('ascii')
+    line=line.decode('ascii')
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
