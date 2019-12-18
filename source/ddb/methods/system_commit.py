@@ -6,7 +6,7 @@ import pprint
 from .record_core import query_results
 from ..file_io.locking import swap_files, lock, remove_temp_file
 
-def method_system_commit(context):
+def method_system_commit(context,meta):
     """Move temp files to source files"""
     context.info("Commit")
     try:

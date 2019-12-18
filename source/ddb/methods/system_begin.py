@@ -2,7 +2,7 @@
 
 from .record_core import query_results
 
-def method_system_begin(context):
+def method_system_begin(context,meta):
     context.info("begin")
     try:
         if context.internal['IN_TRANSACTION']==1:

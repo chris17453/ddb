@@ -2,7 +2,7 @@
 
 from .record_core import query_results
 
-def method_system_show_tables(context):
+def method_system_show_tables(context,meta):
     try:
         temp_table = context.database.temp_table(columns=['database', 'table'])
         for t in context.database.tables:
