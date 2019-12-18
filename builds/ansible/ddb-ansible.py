@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.76'
+__version__='1.4.77'
 
         
 # ############################################################################
@@ -3225,7 +3225,7 @@ def method_delete(context, meta):
                         diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                         continue
                     temp_file.write(processed_line['raw'])
-                    temp_file.write(str.enode(meta.table.delimiters.get_new_line()))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
