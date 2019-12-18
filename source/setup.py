@@ -1,5 +1,7 @@
 import os
 import sys
+import sysconfig
+
 #from distutils.core import setup, Command
 from setuptools import setup, find_packages
 #from distutils.extension import Extension
