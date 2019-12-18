@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.113'
+__version__='1.4.114'
 
         
 # ############################################################################
@@ -3142,7 +3142,15 @@ def method_delete(context, meta):
             with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
                     line_number += 1
+                    if True == processed_line['match']:
+                        affected_rows += 1
+                        diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
+                        continue
+                    temp_file.write(str.encode(processed_line['raw']))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
