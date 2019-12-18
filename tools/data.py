@@ -154,21 +154,21 @@ def sub_class (command,classes,class_spec):
         
         template_add ("        __slots__=[{0}]".format(",".join(slot_vars)))
 
-
-        for variable in classes[_class]:
-            if variable[0]=='_':
-                continue
-            if len(classes[_class])<2:
-                continue
-            pad='    '
-            var=classes[_class][variable]
-          #  template_add var
-            value=var['default']
-
-            if var['type']=='string' or var['type']=='char':
-                if var['default']!=None:
-                    value="'{0}'".format(var['default'])
-            template_add ("{2}    {0} = {1}".format(variable,value,pad))
+        # removed for slots performance memory savings...
+        #for variable in classes[_class]:
+        #    if variable[0]=='_':
+        #        continue
+        #    if len(classes[_class])<2:
+        #        continue
+        #    pad='    '
+        #    var=classes[_class][variable]
+        #  #  template_add var
+        #    value=var['default']
+#
+        #    if var['type']=='string' or var['type']=='char':
+        #        if var['default']!=None:
+        #            value="'{0}'".format(var['default'])
+        #    template_add ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
         if len(classes[_class])>1:
@@ -197,7 +197,8 @@ def sub_class (command,classes,class_spec):
 
 def variable_def (command,classes,class_spec):
     template_add ("    #variable_def")
-    return
+    #return
+    
     for _class in classes:
         class_name=_class.replace(" ","_")
         if len(classes[_class])>1:
@@ -318,6 +319,7 @@ def init(command,classes,class_spec):
                         template_add ("                self.{0}=[]".format(_class.replace(" ","_")))
                         template_add ("                for item in meta.gv(so,['meta','{0}']):".format(safe_class))
                         template_add ("                    instance_type=list(item.keys())[0]")
+                        
                         template_add ("                    safe_instance_type='_'+instance_type")
 #                        template_add ("                    template_add('*'+safe_instance_type+'*')")
 #                        template_add ("                    template_add('*'+instance_type+'*')")

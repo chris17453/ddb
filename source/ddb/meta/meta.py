@@ -97,13 +97,14 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -114,6 +115,8 @@ class meta:
     class show_tables:
         #variable_def
     
+        #variable_class_def
+    
         def __init__(self,so):
             a=0 # holder
     
@@ -122,6 +125,8 @@ class meta:
     # ****
     class show_variables:
         #variable_def
+    
+        #variable_class_def
     
         def __init__(self,so):
             a=0 # holder
@@ -133,12 +138,6 @@ class meta:
     
         class _columns:
             __slots__=['column','display','function','argument1','argument2','argument3']
-            column = None
-            display = None
-            function = None
-            argument1 = None
-            argument2 = None
-            argument3 = None
     
             def __init__(self,column=None,display=None,function=None,argument1=None,argument2=None,argument3=None):
                 if column:  self.column=column
@@ -150,9 +149,6 @@ class meta:
     
         class _source:
             __slots__=['table','display','database']
-            table = None
-            display = None
-            database = None
     
             def __init__(self,table=None,display=None,database=None):
                 if table:  self.table=table
@@ -161,8 +157,6 @@ class meta:
     
         class _join:
             __slots__=['table','display']
-            table = None
-            display = None
     
             def __init__(self,table=None,display=None):
                 if table:  self.table=table
@@ -170,10 +164,6 @@ class meta:
     
         class _join_on:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -183,10 +173,6 @@ class meta:
     
         class _join_and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -196,10 +182,6 @@ class meta:
     
         class _join_or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -209,10 +191,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -222,10 +200,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -235,10 +209,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -248,15 +218,12 @@ class meta:
     
         class _group_by:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _order_by:
             __slots__=['column','direction']
-            column = None
-            direction = None
     
             def __init__(self,column=None,direction=None):
                 if column:  self.column=column
@@ -264,13 +231,22 @@ class meta:
     
         class _limit:
             __slots__=['length','start']
-            length = 0
-            start = 0
     
             def __init__(self,length=None,start=None):
                 if length:  self.length=length
                 if start:  self.start=start
         #variable_def
+    
+        #variable_class_def
+        distinct             = None        # optional 
+        columns              = []          #          _columns()
+        source               = None        # optional _source()
+        join                 = None        # optional _join()
+        join_on              = None        # optional [ _join_on() ]
+        where                = None        # optional [ _where() ]
+        group_by             = None        # optional [ _group_by() ]
+        order_by             = None        # optional [ _order_by() ]
+        limit                = None        # optional _limit()
     
         def __init__(self,so):
                 self.distinct = meta.gv(so,['meta','distinct','distinct'])
@@ -317,13 +293,14 @@ class meta:
     
         class _set:
             __slots__=['variable','value']
-            variable = None
-            value = None
     
             def __init__(self,variable=None,value=None):
                 if variable:  self.variable=variable
                 if value:  self.value=value
         #variable_def
+    
+        #variable_class_def
+        set                  = None        # optional [ _set() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','set']):
@@ -339,11 +316,13 @@ class meta:
     
         class _parameters:
             __slots__=['parameter']
-            parameter = None
     
             def __init__(self,parameter=None):
                 if parameter:  self.parameter=parameter
         #variable_def
+    
+        #variable_class_def
+        parameters           = None        # optional [ _parameters() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','parameters']):
@@ -358,6 +337,9 @@ class meta:
     class delimiter:
         #variable_def
     
+        #variable_class_def
+        delimiter            = None
+    
         def __init__(self,so):
                 self.delimiter = meta.gv(so,['meta','delimiter','delimiter'])
         def debug(self):
@@ -365,6 +347,8 @@ class meta:
     # ****
     class end:
         #variable_def
+    
+        #variable_class_def
     
         def __init__(self,so):
             a=0 # holder
@@ -375,6 +359,8 @@ class meta:
     class begin:
         #variable_def
     
+        #variable_class_def
+    
         def __init__(self,so):
             a=0 # holder
     
@@ -383,6 +369,8 @@ class meta:
     # ****
     class commit:
         #variable_def
+    
+        #variable_class_def
     
         def __init__(self,so):
             a=0 # holder
@@ -393,6 +381,8 @@ class meta:
     class rollback:
         #variable_def
     
+        #variable_class_def
+    
         def __init__(self,so):
             a=0 # holder
     
@@ -401,6 +391,8 @@ class meta:
     # ****
     class show_output_modules:
         #variable_def
+    
+        #variable_class_def
     
         def __init__(self,so):
             a=0 # holder
@@ -412,8 +404,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -421,10 +411,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -434,10 +420,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -447,10 +429,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -458,6 +436,10 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
+        where                = None        # optional [ _where() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -475,8 +457,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -484,18 +464,21 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
             __slots__=['value']
-            value = None
     
             def __init__(self,value=None):
                 if value:  self.value=value
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
+        columns              = []          #          _columns()
+        values               = []          #          _values()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -519,8 +502,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -528,8 +509,6 @@ class meta:
     
         class _set:
             __slots__=['column','expression']
-            column = None
-            expression = None
     
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
@@ -537,10 +516,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -550,10 +525,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -563,10 +534,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -574,6 +541,11 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
+        set                  = []          #          _set()
+        where                = None        # optional [ _where() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -597,8 +569,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -606,34 +576,36 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
             __slots__=['value']
-            value = None
     
             def __init__(self,value=None):
                 if value:  self.value=value
     
         class _on_duplicate_key:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _set:
             __slots__=['column','expression']
-            column = None
-            expression = None
     
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
                 if expression:  self.expression=expression
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
+        columns              = []          #          _columns()
+        values               = []          #          _values()
+        on_duplicate_key     = []          #          _on_duplicate_key()
+        set                  = []          #          _set()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -668,6 +640,9 @@ class meta:
     class use:
         #variable_def
     
+        #variable_class_def
+        database             = None
+    
         def __init__(self,so):
                 self.database = meta.gv(so,['meta','source','database'])
         def debug(self):
@@ -677,13 +652,14 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -695,8 +671,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -704,19 +678,12 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _repo:
             __slots__=['protocol','url','user','password','directory','file']
-            protocol = 'svn'
-            url = None
-            user = None
-            password = None
-            directory = None
-            file = None
     
             def __init__(self,protocol=None,url=None,user=None,password=None,directory=None,file=None):
                 if protocol:  self.protocol=protocol
@@ -726,6 +693,21 @@ class meta:
                 if directory:  self.directory=directory
                 if file:  self.file=file
         #variable_def
+    
+        #variable_class_def
+        temporary            = None        # optional 
+        source               = _source()
+        columns              = []          #          _columns()
+        file                 = None        # optional 
+        fifo                 = None        # optional 
+        repo                 = None        # optional _repo()
+        mode                 = None        # optional 
+        delimiter            = None        # optional 
+        whitespace           = None        # optional 
+        errors               = None        # optional 
+        comments             = None        # optional 
+        strict               = None        # optional 
+        data_starts_on       = None        # optional 
     
         def __init__(self,so):
                 self.temporary = meta.gv(so,['meta','temporary','temporary'])
@@ -755,8 +737,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -764,11 +744,20 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
+        columns              = None        # optional [ _columns() ]
+        file                 = None        # optional 
+        delimiter            = None        # optional 
+        whitespace           = None        # optional 
+        errors               = None        # optional 
+        comments             = None        # optional 
+        data_starts_on       = None        # optional 
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -792,13 +781,14 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         #variable_def
+    
+        #variable_class_def
+        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
