@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.67'
+__version__='1.4.68'
 
         
 # ############################################################################
@@ -4250,7 +4250,7 @@ def temp_path_from_file(path,prefix='',unique=None):
         uuid_str=uuid.uuid1()
         unique_id='_{0}:{1}'.format(uuid_str.urn[9:],os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
-    temp_path = os.path.join(base_dir, temp_file_name)
+    temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
 def create_temporary_copy(path,uuid='',prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """

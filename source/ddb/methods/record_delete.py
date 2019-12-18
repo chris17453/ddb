@@ -21,9 +21,9 @@ def method_delete(context, meta):
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
         
-        with open(temp_data_file, 'r', buffering=0) as content_file:
+        with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
 
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)

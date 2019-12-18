@@ -308,7 +308,7 @@ class table:
         temp_data_file=self.config.context.get_data_file(self.config.meta.table)
 
         # loop through file as fast as possible
-        with open(temp_data_file, 'r') as content_file:
+        with open(temp_data_file, 'rb') as content_file:
             line_number=0
             for line in content_file:
                 self.config.line_number=line_number

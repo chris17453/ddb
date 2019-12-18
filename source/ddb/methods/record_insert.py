@@ -38,7 +38,7 @@ def method_insert(context, meta):
         #            #    requires_new_line = True
                # meta.debug()
         requires_new_line=False
-        with open(temp_data_file, 'a', buffering=0) as content_file:
+        with open(temp_data_file, 'ab', buffering=0) as content_file:
             results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
