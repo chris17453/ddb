@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.54'
+__version__='1.4.55'
 
         
 # ############################################################################
@@ -4120,9 +4120,13 @@ class lock:
     @staticmethod
     def aquire(path,key_uuid):
         try:
+            lock.info("x","A")
             lock_path =lock.get_lock_filename(path)
+            lock.info("x","B")
             pid       =os.getpid()
+            lock.info("x","C")
             lock_contents="{0}|{1}|x".format(key_uuid,pid)
+            lock.info("x","D")
             if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
             if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
             error=0
