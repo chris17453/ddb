@@ -35,8 +35,7 @@ help:
 	@echo " make svn_stop            | stop svn docker"
 	
 	@echo "[Build]"
-	@echo " make build               | build cython extensions and c files"
-	@echo " make build-dist          | build make pypi package"
+	@echo " make build               | build distribution package"
 	@echo " make meta                | rebuild the meta classes from the language file"
 	@echo " make script              | make standalone single file"
 	@echo " make standalone          | compile into a linux single file executable"
@@ -139,14 +138,6 @@ build: svn_start meta bump
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
-
-build-dist:
-	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
-	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/pypi/  
-	# @$(MAKE) -f $(THIS_FILE) standalone
-	@$(MAKE) -f $(THIS_FILE) test
-
 
 script:
 	@python $(conf_dir)/build.py
