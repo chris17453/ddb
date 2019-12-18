@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.118'
+__version__='1.4.119'
 
         
 # ############################################################################
@@ -3294,7 +3294,7 @@ def create_single(context, meta, temp_file, requires_new_line):
         else:
             return {'success':False,'line':new_line}
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return {'success':False,'line':new_line}
 
         
@@ -3319,7 +3319,7 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)   
 def select_process_file(context,meta):
     has_columns = select_has_columns(context,meta)
@@ -3656,7 +3656,7 @@ def method_update(context, meta):
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3727,7 +3727,7 @@ def method_upsert(context, meta,query_object,main_meta):
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3746,7 +3746,7 @@ def method_use(context, meta):
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
         
 # ############################################################################
@@ -3782,7 +3782,7 @@ def method_create_table(context, meta):
                                                 )
         return query_results(success=results)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False, error=ex)
 
         
@@ -3821,7 +3821,7 @@ def method_describe_table(context, meta):
         temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3839,7 +3839,7 @@ def method_drop_table(context, meta):
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3866,7 +3866,7 @@ def method_update_table(context, meta):
         results=target_table.save()
         return query_results(success=results)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3903,7 +3903,7 @@ def method_system_set(context, meta):
                 context.user[variable]=value
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3923,7 +3923,7 @@ def method_system_begin(context,meta):
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -3983,7 +3983,7 @@ def method_system_rollback(context,meta):
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -4002,7 +4002,7 @@ def method_system_show_columns(context, meta):
                 temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -4019,7 +4019,7 @@ def method_system_show_tables(context,meta):
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -4040,7 +4040,7 @@ def method_system_show_variables(context,meta):
             temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
@@ -4060,7 +4060,7 @@ def method_system_show_output_modules(context,meta):
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         

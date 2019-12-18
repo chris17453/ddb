@@ -7,7 +7,7 @@ def method_show_errors(context, meta):
     try:
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
 
