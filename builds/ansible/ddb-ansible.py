@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.52'
+__version__='1.4.53'
 
         
 # ############################################################################
@@ -4118,7 +4118,7 @@ class lock:
         if(perserveFileDate):
             shutil.copystat(src, dst)
     @staticmethod
-    def info(msg,data):
+    def info(msg,data="Empty"):
         pid=os.getpid()
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
@@ -4208,30 +4208,33 @@ class lock:
         if lock.debug: lock.info("Lock","removed")
     @staticmethod
     def aquire(path,key_uuid):
-        lock_path =lock.get_lock_filename(path)
-        pid       =os.getpid()
-        lock_contents="{0}|{1}|x".format(key_uuid,pid)
-        if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
-        if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
-        error=0
-        while 1:
-            lock_status=lock.is_locked(path,key_uuid,lock_path)
-            try:
-                fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
-                os.write(fd,lock_contents)
-                os.close(fd)
-                if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
-                break
-            except OSError as ex:
-                error+=1
-                if error==1:
-                    if lock.debug: lock.info("Lock","error!:{0}".format(ex))
-                pass
-            time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
-        if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
-        if os.path.exists(lock_path)==False:
-            if lock.debug: lock.error("Lock","Failed to create")
-            raise Exception ("Lockfile failed to create {0}".format(lock_path))
+        try:
+            lock_path =lock.get_lock_filename(path)
+            pid       =os.getpid()
+            lock_contents="{0}|{1}|x".format(key_uuid,pid)
+            if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
+            if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
+            error=0
+            while 1:
+                lock_status=lock.is_locked(path,key_uuid,lock_path)
+                try:
+                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
+                    os.write(fd,lock_contents)
+                    os.close(fd)
+                    if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
+                    break
+                except OSError as ex:
+                    error+=1
+                    if error==1:
+                        if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                    pass
+                time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
+            if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
+            if os.path.exists(lock_path)==False:
+                if lock.debug: lock.error("Lock","Failed to create")
+                raise Exception ("Lockfile failed to create {0}".format(lock_path))
+        except Exception as ex:
+            lock.info("Aquire Lock: {0}".format(ex))
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
     base_dir  = os.path.dirname(norm_path)
