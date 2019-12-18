@@ -12,6 +12,9 @@ from setuptools.command.build_py import build_py as _build_py
 
 import multiprocessing
 
+EXCLUDE_FILES = [
+    'ddb/cli.py'
+]
 
 cmdclass = {}
 
@@ -49,8 +52,7 @@ if '--build-cython' in sys.argv:
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
-    cmdclass.update({'build_py': build_py})
-
+    
 else:
     # if this is a package install, use the c files and build/register modules
     ext = '.c'
@@ -60,6 +62,8 @@ else:
 # cython: linetrace=True
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
+cmdclass.update({'build_py': build_py})
+
 print("Using extension {0},{1}".format(ext,ext2))
 
 extensions = [
@@ -245,16 +249,10 @@ else:
 
 
 
-packages=['ddb',
-          #'ddb.lexer',
-          #'ddb.meta',
-          #'ddb.file_io',
-          #'ddb.methods',
-          #'ddb.functions',
-          #'ddb.configuration',
-          #'ddb.output',
-         ]
-    
+packages=find_packages(exclude=['examples'])
+for package in packages:
+    print("Package: {0}".format(package))
+
 
 exec(open('ddb/version.py').read())
 setup(
