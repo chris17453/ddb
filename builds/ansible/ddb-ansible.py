@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.98'
+__version__='1.4.99'
 
         
 # ############################################################################
@@ -3217,6 +3217,8 @@ def method_delete(context, meta):
             with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
