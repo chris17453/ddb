@@ -24,7 +24,7 @@ try:
     if os.path.exists(logfile)==True:
         os.chmod(logfile,0o666)
 except Exception as ex:
-    print ex
+    print (ex)
     pass
 
 

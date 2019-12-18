@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.18'
+__version__='1.4.19'
 
         
 # ############################################################################
@@ -1418,7 +1418,6 @@ class meta:
                     self.columns=[]
                     for item in meta.gv(so,['meta','columns']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'display': meta.gv(item,['display']),'function': meta.gv(item,['function']),'argument1': meta.gv(item,['argument1']),'argument2': meta.gv(item,['argument2']),'argument3': meta.gv(item,['argument3']) }) )
                 if meta.gv(so,['meta','source']):
@@ -1429,28 +1428,24 @@ class meta:
                     self.join_on=[]
                     for item in meta.gv(so,['meta','join_on']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.join_on.append( type(safe_instance_type,(),{ 'e1': meta.gv(item,[instance_type,'e1']),'c': meta.gv(item,[instance_type,'c']),'e2': meta.gv(item,[instance_type,'e2']),'condition': meta.gv(item,[instance_type,'condition']) }) )
                 if meta.gv(so,['meta','where']):
                     self.where=[]
                     for item in meta.gv(so,['meta','where']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.where.append( type(safe_instance_type,(),{ 'e1': meta.gv(item,[instance_type,'e1']),'c': meta.gv(item,[instance_type,'c']),'e2': meta.gv(item,[instance_type,'e2']),'condition': meta.gv(item,[instance_type,'condition']) }) )
                 if meta.gv(so,['meta','group by']):
                     self.group_by=[]
                     for item in meta.gv(so,['meta','group by']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.group_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 if meta.gv(so,['meta','order by']):
                     self.order_by=[]
                     for item in meta.gv(so,['meta','order by']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.order_by.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'direction': meta.gv(item,['direction']) }) )
                 if meta.gv(so,['meta','limit']):
@@ -1468,7 +1463,6 @@ class meta:
                     self.set=[]
                     for item in meta.gv(so,['meta','set']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.set.append( type(safe_instance_type,(),{ 'variable': meta.gv(item,['variable']),'value': meta.gv(item,['value']) }) )
         def debug(self):
@@ -1483,7 +1477,6 @@ class meta:
                     self.parameters=[]
                     for item in meta.gv(so,['meta','parameters']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.parameters.append( type(safe_instance_type,(),{ 'parameter': meta.gv(item,['parameter']) }) )
         def debug(self):
@@ -1552,7 +1545,6 @@ class meta:
                     self.where=[]
                     for item in meta.gv(so,['meta','where']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.where.append( type(safe_instance_type,(),{ 'e1': meta.gv(item,[instance_type,'e1']),'c': meta.gv(item,[instance_type,'c']),'e2': meta.gv(item,[instance_type,'e2']),'condition': meta.gv(item,[instance_type,'condition']) }) )
         def debug(self):
@@ -1578,14 +1570,12 @@ class meta:
                     self.columns=[]
                     for item in meta.gv(so,['meta','columns']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 if meta.gv(so,['meta','values']):
                     self.values=[]
                     for item in meta.gv(so,['meta','values']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.values.append( type(safe_instance_type,(),{ 'value': meta.gv(item,['value']) }) )
         def debug(self):
@@ -1629,14 +1619,12 @@ class meta:
                     self.set=[]
                     for item in meta.gv(so,['meta','set']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.set.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'expression': meta.gv(item,['expression']) }) )
                 if meta.gv(so,['meta','where']):
                     self.where=[]
                     for item in meta.gv(so,['meta','where']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.where.append( type(safe_instance_type,(),{ 'e1': meta.gv(item,[instance_type,'e1']),'c': meta.gv(item,[instance_type,'c']),'e2': meta.gv(item,[instance_type,'e2']),'condition': meta.gv(item,[instance_type,'condition']) }) )
         def debug(self):
@@ -1671,28 +1659,24 @@ class meta:
                     self.columns=[]
                     for item in meta.gv(so,['meta','columns']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 if meta.gv(so,['meta','values']):
                     self.values=[]
                     for item in meta.gv(so,['meta','values']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.values.append( type(safe_instance_type,(),{ 'value': meta.gv(item,['value']) }) )
                 if meta.gv(so,['meta','on duplicate key']):
                     self.on_duplicate_key=[]
                     for item in meta.gv(so,['meta','on duplicate key']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.on_duplicate_key.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 if meta.gv(so,['meta','set']):
                     self.set=[]
                     for item in meta.gv(so,['meta','set']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.set.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']),'expression': meta.gv(item,['expression']) }) )
         def debug(self):
@@ -1740,7 +1724,6 @@ class meta:
                     self.columns=[]
                     for item in meta.gv(so,['meta','columns']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 self.file = meta.gv(so,['meta','file'])
@@ -1773,7 +1756,6 @@ class meta:
                     self.columns=[]
                     for item in meta.gv(so,['meta','columns']):
                         instance_type=list(item.keys())[0]
-                        print(instance_type)
                         safe_instance_type='_'+instance_type
                         self.columns.append( type(safe_instance_type,(),{ 'column': meta.gv(item,['column']) }) )
                 self.file = meta.gv(so,['meta','file','file'])
