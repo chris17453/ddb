@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.53'
+__version__='1.4.54'
 
         
 # ############################################################################
@@ -4056,14 +4056,18 @@ class lock:
     def get_lock_filename(path):
         """Generate a unique name for a given file path so that if the same file name is used with a different path, the lock file is unique.
         Possible errors with linked files."""
-        norm_path=lock.normalize_path(path)
-        temp_dir = tempfile.gettempdir()
-        m = hashlib.md5()
-        m.update(norm_path.encode('ascii'))
-        basename=os.path.basename(norm_path)+"_"+m.hexdigest()
-        temp_file_name='ddb_{0}.lock'.format(basename)
-        norm_lock_path = os.path.join(temp_dir, temp_file_name)
-        return norm_lock_path
+        try:
+            norm_path=lock.normalize_path(path)
+            temp_dir = tempfile.gettempdir()
+            m = hashlib.md5()
+            m.update(norm_path.encode('ascii'))
+            basename=os.path.basename(norm_path)+"_"+m.hexdigest()
+            temp_file_name='ddb_{0}.lock'.format(basename)
+            norm_lock_path = os.path.join(temp_dir, temp_file_name)
+            return norm_lock_path
+        except Exception as ex:
+            lock.info("Get Lock Filname: {0}".format(ex))
+            exit(1)
     @staticmethod
     def check_pid(pid):        
         """ Check For the existence of a unix pid. """
