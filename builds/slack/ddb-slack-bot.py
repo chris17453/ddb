@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.119'
+__version__='1.4.120'
 
         
 # ############################################################################
@@ -3560,10 +3560,6 @@ def method_update(context, meta):
                         context.add_error(processed_line['error'])
                     line_number += 1
                     if True == processed_line['match']:
-                        results = update_single(context,meta, temp_file,  False, processed_line)
-                        if True == results['success']:
-                            diff.append(results['line'])
-                            affected_rows += 1
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
