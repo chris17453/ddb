@@ -36,14 +36,16 @@ def method_delete(context, meta):
                         diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                         continue
                     
-                    try:
-                        if isinstance(processed_line['raw'],str):
-                            temp_file.write(bytes(processed_line['raw']))
-                    except Exception as ex:
-                        context.error (meta.__class__.__name__+"UGH!",ex)            
-                    
-                        temp_file.write(str.encode(processed_line['raw']))
-                        
+                    #try:
+                    #    if isinstance(processed_line['raw'],str):
+                    #        temp_file.write(str.encode(processed_line['raw']))
+                    #    else:
+                    #        temp_file.write(str.encode(processed_line['raw']))
+                    #except Exception as ex:
+                    #    context.error (meta.__class__.__name__+"UGH!",ex)            
+                    #
+                    #    temp_file.write(str.encode(processed_line['raw']))
+                    #    
                     #temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
                 
             context.autocommit_write(meta.table,dst_temp_filename)

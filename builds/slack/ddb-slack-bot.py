@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.85'
+__version__='1.4.86'
 
         
 # ############################################################################
@@ -2610,7 +2610,7 @@ class engine:
             elif mode == 'rollback':
                 self.results = method_system_rollback(self,meta_class)
             elif mode == 'commit':
-                self.results = method_system_commit(self,meta_class)
+                self.results = method_system_commit(self)
             elif mode == "show tables":
                 self.results = method_system_show_tables(self,meta_class)
             elif mode == "show output modules":
@@ -3145,6 +3145,8 @@ def method_delete(context, meta):
                     except Exception as ex:
                         context.error (meta.__class__.__name__+"UGH!",ex)            
                         temp_file.write(str.encode(processed_line['raw']))
+            context.autocommit_write(meta.table,dst_temp_filename)
+        context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (meta.__class__.__name__,ex)
@@ -3849,7 +3851,7 @@ def method_system_begin(context,meta):
 # File   : ./source/ddb/methods/system_commit.py
 # ############################################################################
 
-def method_system_commit(context,meta):
+def method_system_commit(context):
     """Move temp files to source files"""
     context.info("Commit")
     try:
@@ -3876,7 +3878,7 @@ def method_system_commit(context,meta):
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)
 
         
