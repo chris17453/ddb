@@ -6,6 +6,7 @@ from .record_core import  query_results,get_table, process_line3
 from ..file_io.locking import lock
 from ..version import __version__
 import os
+import sys
 import tempfile
 
 
