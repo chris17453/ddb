@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.62'
+__version__='1.4.63'
 
         
 # ############################################################################
@@ -4064,7 +4064,7 @@ class lock:
             m.update(norm_path)
             basename="{0}_{1}".format( os.path.basename(norm_path), m.hexdigest() )
             temp_file_name='ddb_{0}.lock'.format(basename)
-            norm_lock_path = os.path.join(temp_dir, temp_file_name))
+            norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
         except Exception as ex:
             lock.info("Get Lock Filname: {0}".format(ex))
