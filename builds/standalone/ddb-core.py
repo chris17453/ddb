@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.110'
+__version__='1.4.111'
 
         
 # ############################################################################
@@ -2913,6 +2913,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                 try:
                     context.info(__name__,"1")
                     line_data = line_cleaned.split(table.delimiters.field,column_count)
+                    context.info(__name__,"2")
                     cur_column_len = len(line_data)
                     context.info(__name__,"3")
                     if table.data.strict_columns==True:
