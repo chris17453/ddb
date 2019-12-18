@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.28'
+__version__='1.4.29'
 
         
 # ############################################################################
@@ -2640,19 +2640,19 @@ class engine:
             elif mode == 'set':
                 self.results = method_system_set(self,meta_class)
             elif mode == 'begin':
-                self.results = method_system_begin(self)
+                self.results = method_system_begin(self,meta_class)
             elif mode == 'rollback':
-                self.results = method_system_rollback(self)
+                self.results = method_system_rollback(self,meta_class)
             elif mode == 'commit':
-                self.results = method_system_commit(self)
+                self.results = method_system_commit(self,meta_class)
             elif mode == "show tables":
-                self.results = method_system_show_tables(self)
+                self.results = method_system_show_tables(self,meta_class)
             elif mode == "show output modules":
-                self.results = method_system_show_output_modules(self)
+                self.results = method_system_show_output_modules(self,meta_class)
             elif mode == "show columns":
                 self.results = method_system_show_columns(self, meta_class)
             elif mode == "show variables":
-                self.results = method_system_show_variables(self)
+                self.results = method_system_show_variables(self,meta_class)
             elif mode == "describe table":
                 self.results = method_describe_table(self, meta_class)
             if False==self.results.success:
