@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.84'
+__version__='1.4.85'
 
         
 # ############################################################################
@@ -3143,9 +3143,7 @@ def method_delete(context, meta):
                             temp_file.write(bytes(processed_line['raw']))
                     except Exception as ex:
                         context.error (meta.__class__.__name__+"UGH!",ex)            
-                    finally:
                         temp_file.write(str.encode(processed_line['raw']))
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (meta.__class__.__name__,ex)

@@ -6,7 +6,7 @@ import pprint
 from .record_core import query_results
 from ..file_io.locking import swap_files, lock, remove_temp_file
 
-def method_system_commit(context,meta):
+def method_system_commit(context):
     """Move temp files to source files"""
     context.info("Commit")
     try:
@@ -45,5 +45,5 @@ def method_system_commit(context,meta):
             
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__,ex)
         return query_results(success=False,error=ex)

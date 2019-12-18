@@ -279,7 +279,7 @@ class engine:
                 self.results = method_system_rollback(self,meta_class)
 
             elif mode == 'commit':
-                self.results = method_system_commit(self,meta_class)
+                self.results = method_system_commit(self)
 
             elif mode == "show tables":
                 self.results = method_system_show_tables(self,meta_class)
