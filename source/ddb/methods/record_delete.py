@@ -31,8 +31,8 @@ def method_delete(context, meta):
                         context.add_error(processed_line['error'])
                     line_number += 1
                     # skip matches
-                    if True == processed_line['match']:
-                        affected_rows += 1
+       #             if True == processed_line['match']:
+       #                 affected_rows += 1
        #                 diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
        #                 continue
        #             
