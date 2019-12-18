@@ -96,6 +96,7 @@ class meta:
     class show_columns:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -131,6 +132,7 @@ class meta:
     class select:
     
         class _columns:
+            __slots__=['column','display','function','argument1','argument2','argument3']
             column = None
             display = None
             function = None
@@ -147,6 +149,7 @@ class meta:
                 if argument3:  self.argument3=argument3
     
         class _source:
+            __slots__=['table','display','database']
             table = None
             display = None
             database = None
@@ -157,6 +160,7 @@ class meta:
                 if database:  self.database=database
     
         class _join:
+            __slots__=['table','display']
             table = None
             display = None
     
@@ -165,6 +169,7 @@ class meta:
                 if display:  self.display=display
     
         class _join_on:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -177,6 +182,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _join_and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -189,6 +195,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _join_or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -201,6 +208,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -213,6 +221,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -225,6 +234,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -237,12 +247,14 @@ class meta:
                 if condition:  self.condition=condition
     
         class _group_by:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _order_by:
+            __slots__=['column','direction']
             column = None
             direction = None
     
@@ -251,6 +263,7 @@ class meta:
                 if direction:  self.direction=direction
     
         class _limit:
+            __slots__=['length','start']
             length = 0
             start = 0
     
@@ -303,6 +316,7 @@ class meta:
     class Set:
     
         class _set:
+            __slots__=['variable','value']
             variable = None
             value = None
     
@@ -324,6 +338,7 @@ class meta:
     class create_procedure:
     
         class _parameters:
+            __slots__=['parameter']
             parameter = None
     
             def __init__(self,parameter=None):
@@ -396,6 +411,7 @@ class meta:
     class delete:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -404,6 +420,7 @@ class meta:
                 if database:  self.database=database
     
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -416,6 +433,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -428,6 +446,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -455,6 +474,7 @@ class meta:
     class insert:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -463,12 +483,14 @@ class meta:
                 if database:  self.database=database
     
         class _columns:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
+            __slots__=['value']
             value = None
     
             def __init__(self,value=None):
@@ -496,6 +518,7 @@ class meta:
     class update:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -504,6 +527,7 @@ class meta:
                 if database:  self.database=database
     
         class _set:
+            __slots__=['column','expression']
             column = None
             expression = None
     
@@ -512,6 +536,7 @@ class meta:
                 if expression:  self.expression=expression
     
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -524,6 +549,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -536,6 +562,7 @@ class meta:
                 if condition:  self.condition=condition
     
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -569,6 +596,7 @@ class meta:
     class upsert:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -577,24 +605,28 @@ class meta:
                 if database:  self.database=database
     
         class _columns:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
+            __slots__=['value']
             value = None
     
             def __init__(self,value=None):
                 if value:  self.value=value
     
         class _on_duplicate_key:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _set:
+            __slots__=['column','expression']
             column = None
             expression = None
     
@@ -644,6 +676,7 @@ class meta:
     class drop_table:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -661,6 +694,7 @@ class meta:
     class create_table:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -669,12 +703,14 @@ class meta:
                 if database:  self.database=database
     
         class _columns:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _repo:
+            __slots__=['protocol','url','user','password','directory','file']
             protocol = 'svn'
             url = None
             user = None
@@ -718,6 +754,7 @@ class meta:
     class update_table:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
@@ -726,6 +763,7 @@ class meta:
                 if database:  self.database=database
     
         class _columns:
+            __slots__=['column']
             column = None
     
             def __init__(self,column=None):
@@ -753,6 +791,7 @@ class meta:
     class describe_table:
     
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
     
