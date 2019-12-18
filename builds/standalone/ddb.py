@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.61'
+__version__='1.4.62'
 
         
 # ############################################################################
@@ -4051,7 +4051,7 @@ class lock:
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
         normalized_path=os.path.abspath(os.path.expanduser(path))
-        return normalized_path.encode("ascii")
+        return normalized_path
     @staticmethod
     def get_lock_filename(path):
         """Generate a unique name for a given file path so that if the same file name is used with a different path, the lock file is unique.
@@ -4060,10 +4060,10 @@ class lock:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
             m = hashlib.md5()
-            m.update(norm_path.encode('ascii'))
+            m.update(norm_path)
             basename="{0}_{1}".format( os.path.basename(norm_path), m.hexdigest() )
             temp_file_name='ddb_{0}.lock'.format(basename)
-            norm_lock_path = os.path.join(temp_dir.encode("ascii"), temp_file_name.encode("ascii"))
+            norm_lock_path = os.path.join(temp_dir, temp_file_name))
             return norm_lock_path
         except Exception as ex:
             lock.info("Get Lock Filname: {0}".format(ex))
