@@ -186,7 +186,7 @@ class test_engine(unittest.TestCase):
             print (ex)
             self.fail(ex)
 
-    def _test_select(self,mode=None):
+    def test_select(self,mode=None):
         """Test selecting results using various clauses a table"""
         #try:
         print("SELECT")
@@ -227,7 +227,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def test_update(self,mode=None):
+    def _test_update(self,mode=None):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -252,7 +252,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def test_insert(self,mode=None):
+    def _test_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
@@ -273,7 +273,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def test_delete(self,mode=None):
+    def _test_delete(self,mode=None):
         """Delete a test row in the test file"""
         self.cleanup()
         print("DELETE")

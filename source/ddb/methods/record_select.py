@@ -254,14 +254,10 @@ def order_by(context,meta,data):
         context_sort.append([ordinal, c.direction])
     
     context.info(context_sort)
-    try:
-      # the python2 way
+    if sys.version_info[0]==2
       ordered_data = sorted(data, sort_cmp)
-    except  Exception as ex:
-        raise Exception ("Error sorting. {0}".format(ex))
-      # the python3 way
-      #ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
-      #pass
+    else:
+      ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
 
     return ordered_data
 

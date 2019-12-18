@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.120'
+__version__='1.4.121'
 
         
 # ############################################################################
@@ -3524,9 +3524,9 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
             new_line += '{0}'.format(value)
     if False == err:
         if True == requires_new_line:
-            temp_file.write(meta.table.delimiters.get_new_line())
-        temp_file.write(new_line)
-        temp_file.write(meta.table.delimiters.get_new_line())
+            temp_file.write(str.encode( meta.table.delimiters.get_new_line()))
+        temp_file.write(str.encode( new_line) )
+        temp_file.write(str.encode( meta.table.delimiters.get_new_line()) )
     if False == err:
         return {'success':True,'line':new_line}
     else:
@@ -3552,6 +3552,10 @@ def method_update(context, meta):
                         context.add_error(processed_line['error'])
                     line_number += 1
                     if True == processed_line['match']:
+                        results = update_single(context,meta, temp_file,  False, processed_line)
+                        if True == results['success']:
+                            diff.append(results['line'])
+                            affected_rows += 1
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
