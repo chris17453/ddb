@@ -85,7 +85,7 @@ class engine:
 
         if level==logging.INFO:
             logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
-        elif  level=logging.ERROR:
+        elif  level==logging.ERROR:
             logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
 
         #if True == logging.disable:

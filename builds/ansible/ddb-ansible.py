@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.32'
+__version__='1.4.33'
 
         
 # ############################################################################
@@ -2527,7 +2527,7 @@ class engine:
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        if level==level=logging.INFO:
+        if level==logging.INFO:
             logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         elif  level=logging.ERROR:
             logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
