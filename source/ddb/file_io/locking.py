@@ -32,6 +32,7 @@ class lock:
         @param buffer_size:    Buffer size to use during copy
         @param perserveFileDate:    Preserve the original file date
         '''
+        
         #    Check to make sure destination directory exists. If it doesn't create the directory
         dstParent, dstFileName = os.path.split(dst)
         if(not(os.path.exists(dstParent))):
@@ -247,16 +248,26 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
+        lock.ingo("1")
         lock.aquire(path,uuid)
+        lock.ingo("2")
         #time.sleep(.001)
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
-
+        lock.ingo("3")
+        
         temp_path=temp_path_from_file(path,prefix+uuid)
+        lock.ingo("4")
         
         norm_path=normalize_path(path)
+        lock.ingo("5")
+        
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         #lock.copy_file( norm_path, temp_path)
+        lock.ingo("6")
+        
         shutil.copy2(norm_path, temp_path)
+        lock.ingo("7")
+        
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path

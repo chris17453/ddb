@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.48'
+__version__='1.4.49'
 
         
 # ############################################################################
@@ -4131,7 +4131,7 @@ class lock:
                 break
             except OSError as ex:
                 error+=1
-                if error==0:
+                if error==1:
                     if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
