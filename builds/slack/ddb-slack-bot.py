@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.105'
+__version__='1.4.106'
 
         
 # ############################################################################
@@ -2909,41 +2909,45 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
         line_type = context.data_type.DATA
         try_match=True
     if try_match:
-        if not line_cleaned:
-            if True == visible_whitespace:
-                line_data = ['']
-            line_type = context.data_type.WHITESPACE
-        else:
-            if line_cleaned[0] in table.delimiters.comment:
-                if True == visible_comments:
-                    line_data = [line_cleaned]
-                line_type = context.data_type.COMMENT
+        try:
+            context.info(__name__,"START")
+            if not line_cleaned:
+                if True == visible_whitespace:
+                    line_data = ['']
+                line_type = context.data_type.WHITESPACE
             else:
-                line_data = line_cleaned.split(table.delimiters.field,column_count)
-                cur_column_len = len(line_data)
-                if table.data.strict_columns==True:
-                    if  cur_column_len != column_count:
-                        if cur_column_len > column_count:
-                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
-                        else:
-                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
-                        line_type = context.data_type.ERROR
-                        if True == visible_errors:
-                            line_data = line_cleaned
-                        else:
-                            line_data = None
-                        line_type = context.data_type.ERROR
+                if line_cleaned[0] in table.delimiters.comment:
+                    if True == visible_comments:
+                        line_data = [line_cleaned]
+                    line_type = context.data_type.COMMENT
                 else:
-                    if  cur_column_len != column_count:
-                        i=cur_column_len
-                        while i<column_count:
-                            line_data+=['']
-                            i+=1
-                if None != table.delimiters.block_quote:
-                    line_data_cleaned = []
-                    for d in line_data:
-                        line_data_cleaned+=d[1:-1]
-                    line_data = line_data_cleaned
+                    line_data = line_cleaned.split(table.delimiters.field,column_count)
+                    cur_column_len = len(line_data)
+                    if table.data.strict_columns==True:
+                        if  cur_column_len != column_count:
+                            if cur_column_len > column_count:
+                                err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
+                            else:
+                                err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
+                            line_type = context.data_type.ERROR
+                            if True == visible_errors:
+                                line_data = line_cleaned
+                            else:
+                                line_data = None
+                            line_type = context.data_type.ERROR
+                    else:
+                        if  cur_column_len != column_count:
+                            i=cur_column_len
+                            while i<column_count:
+                                line_data+=['']
+                                i+=1
+                    if None != table.delimiters.block_quote:
+                        line_data_cleaned = []
+                        for d in line_data:
+                            line_data_cleaned+=d[1:-1]
+                        line_data = line_data_cleaned
+        except Exception as ex:
+            context.info(__name__,ex)
         try:
             if not meta.where:
                 match_results = True
@@ -2952,7 +2956,8 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     match_results = match2().evaluate_match(meta=meta, row=line_data)
                 else:
                     match_results = False
-        except:
+        except Exception as ex:
+            context.info(__name__,ex)
             match_results = True
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
             match_results=False
