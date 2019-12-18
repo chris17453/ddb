@@ -227,7 +227,7 @@ class test_engine(unittest.TestCase):
         #except Exception as ex:
         #    self.fail(ex)
 
-    def _test_update(self,mode=None):
+    def test_update(self,mode=None):
         """Update a row in the test file"""
         try:
             self.cleanup()
@@ -252,7 +252,7 @@ class test_engine(unittest.TestCase):
             print(ex)
             self.fail(ex)
 
-    def _test_insert(self,mode=None):
+    def test_insert(self,mode=None):
         """Insert a row in the test file"""
         #try:
         self.cleanup()
