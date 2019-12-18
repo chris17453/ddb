@@ -101,7 +101,7 @@ class lock:
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
         normalized_path=os.path.abspath(os.path.expanduser(path))
-        return normalized_path
+        return normalized_path.encode("ascii")
 
     @staticmethod
     def get_lock_filename(path):
@@ -133,6 +133,7 @@ class lock:
     @staticmethod
     def is_locked(path,key_uuid,lock_path=None):
         try:
+            path=path.encode("ascii")
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
@@ -174,6 +175,7 @@ class lock:
 
     @staticmethod
     def release(path):
+        path=path.encode("ascii")
         lock_path=lock.get_lock_filename(path)
         if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         
@@ -193,12 +195,11 @@ class lock:
         if lock.debug: lock.info("Lock","removed")
 
     @staticmethod
-    def aquire(
-        
-        
-        
-        path,key_uuid):
+    def aquire(path,key_uuid):
         try:
+            path=path.encode("ascii")
+            key_uuid=key_uuid.encode("ascii")
+
             lock.info("x","A")
             lock_path =lock.get_lock_filename(path)
             lock.info("x","B")
