@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.24'
+__version__='1.4.25'
 
         
 # ############################################################################
@@ -2449,7 +2449,7 @@ class engine:
                 pp.pprint(arg1)
             else:    
                 print(msg, arg1, arg2, arg3)
-    def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_dir=None, debug=True, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         self.debug = debug
         self.results = None
@@ -2552,8 +2552,6 @@ class engine:
             elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,meta_class)
             elif mode == 'create table' and self.internal['READONLY']==None:
-                print ("Creating Table")
-                print(meta_class)
                 self.results = method_create_table(self,meta_class)
             elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,meta_class)
