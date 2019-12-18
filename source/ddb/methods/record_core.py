@@ -198,6 +198,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                 try:
                     context.info(__name__,"1")
                     line_data = line_cleaned.split(table.delimiters.field,column_count)
+                    context.info(__name__,"2")
                     #cur_column_len = len(line_data)
                     
                     #line_data[-1]=line_data[-1].rstrip()
