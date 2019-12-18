@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.34'
+__version__='1.4.35'
 
         
 # ############################################################################
@@ -2430,7 +2430,7 @@ class engine:
         DATA=3
         WHITESPACE=4
     def error(self,msg, arg1=None, arg2=None, arg3=None,level=logging.ERROR):
-        info(self,msg, arg1, arg2, arg3,level=level)
+        self.info(self,msg, arg1, arg2, arg3,level=level)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
