@@ -197,7 +197,7 @@ class lock:
         lock_contents="{0}|{1}|x".format(key_uuid,pid)
         if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
 
-        #if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
+        if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             #if lock_status==lock.LOCK_NONE:
@@ -275,8 +275,12 @@ def remove_temp_file(path):
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
 def compare_files(file1,file2):
-    hash1=hashlib.md5(open(file1,'rb').read()).hexdigest()
-    hash2=hashlib.md5(open(file2,'rb').read()).hexdigest()
+    
+    content1=open(file1,'r').read()
+    content2=open(file2,'r').read()
+    
+    hash1=hashlib.md5(content1).hexdigest()
+    hash2=hashlib.md5(content2).hexdigest()
     if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
     if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
     if hash1!=hash2:
