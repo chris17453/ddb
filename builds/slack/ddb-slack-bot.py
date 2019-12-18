@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.96'
+__version__='1.4.97'
 
         
 # ############################################################################
@@ -3135,8 +3135,6 @@ def method_delete(context, meta):
                     if None != processed_line['error']:
                         context.add_error(processed_line['error'])
                     line_number += 1
-                    if True == processed_line['match']:
-                        affected_rows += 1
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
