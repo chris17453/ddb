@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.116'
+__version__='1.4.117'
 
         
 # ############################################################################
@@ -2900,7 +2900,6 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
         line_type = context.data_type.DATA
         try_match=True
     if try_match:
-        context.info(__name__,"START")
         if not line_cleaned:
             if True == visible_whitespace:
                 line_data = ['']
@@ -2911,29 +2910,26 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                try:
-                    line_data = line_cleaned.split(table.delimiters.field,column_count)
-                    cur_column_len = len(line_data)
-                    if table.data.strict_columns==True:
-                        if  cur_column_len != column_count:
-                            if cur_column_len > column_count:
-                                err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
-                            else:
-                                err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
-                            line_type = context.data_type.ERROR
-                            if True == visible_errors:
-                                line_data = line_cleaned
-                            else:
-                                line_data = None
-                            line_type = context.data_type.ERROR
-                    else:
-                        if  cur_column_len != column_count:
-                            i=cur_column_len
-                            while i<column_count:
-                                line_data+=['']
-                                i+=1
-                except Exception as ex:
-                    context.info(__name__,ex)
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
+                cur_column_len = len(line_data)
+                if table.data.strict_columns==True:
+                    if  cur_column_len != column_count:
+                        if cur_column_len > column_count:
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
+                        else:
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
+                        line_type = context.data_type.ERROR
+                        if True == visible_errors:
+                            line_data = line_cleaned
+                        else:
+                            line_data = None
+                        line_type = context.data_type.ERROR
+                else:
+                    if  cur_column_len != column_count:
+                        i=cur_column_len
+                        while i<column_count:
+                            line_data+=['']
+                            i+=1
                 if None != table.delimiters.block_quote:
                     line_data_cleaned = []
                     for d in line_data:
@@ -3561,8 +3557,8 @@ def method_update(context, meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode(processed_line['raw']))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
