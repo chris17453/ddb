@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.7'
+__version__='1.4.8'
 
         
 # ############################################################################
@@ -1407,7 +1407,6 @@ class meta:
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
-        source               = _source()
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1540,15 +1539,6 @@ class meta:
             def __init__(self,length=None,start=None):
                 if length:  self.length=length
                 if start:  self.start=start
-        distinct             = None        # optional 
-        columns              = []          #          _columns()
-        source               = None        # optional _source()
-        join                 = None        # optional _join()
-        join_on              = None        # optional [ _join_on() ]
-        where                = None        # optional [ _where() ]
-        group_by             = None        # optional [ _group_by() ]
-        order_by             = None        # optional [ _order_by() ]
-        limit                = None        # optional _limit()
         def __init__(self,so):
                 self.distinct = meta.gv(so,['meta','distinct','distinct'])
                 if meta.gv(so,['meta','columns']):
@@ -1597,7 +1587,6 @@ class meta:
             def __init__(self,variable=None,value=None):
                 if variable:  self.variable=variable
                 if value:  self.value=value
-        set                  = None        # optional [ _set() ]
         def __init__(self,so):
                 if meta.gv(so,['meta','set']):
                     self.set=[]
@@ -1613,7 +1602,6 @@ class meta:
             parameter = None
             def __init__(self,parameter=None):
                 if parameter:  self.parameter=parameter
-        parameters           = None        # optional [ _parameters() ]
         def __init__(self,so):
                 if meta.gv(so,['meta','parameters']):
                     self.parameters=[]
@@ -1624,7 +1612,6 @@ class meta:
         def debug(self):
             meta.debugger(self,'create procedure')
     class delimiter:
-        delimiter            = None
         def __init__(self,so):
                 self.delimiter = meta.gv(so,['meta','delimiter','delimiter'])
         def debug(self):
@@ -1695,8 +1682,6 @@ class meta:
                 if c:  self.c=c
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
-        source               = _source()
-        where                = None        # optional [ _where() ]
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1726,9 +1711,6 @@ class meta:
             value = None
             def __init__(self,value=None):
                 if value:  self.value=value
-        source               = _source()
-        columns              = []          #          _columns()
-        values               = []          #          _values()
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1794,9 +1776,6 @@ class meta:
                 if c:  self.c=c
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
-        source               = _source()
-        set                  = []          #          _set()
-        where                = None        # optional [ _where() ]
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1844,11 +1823,6 @@ class meta:
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
                 if expression:  self.expression=expression
-        source               = _source()
-        columns              = []          #          _columns()
-        values               = []          #          _values()
-        on_duplicate_key     = []          #          _on_duplicate_key()
-        set                  = []          #          _set()
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1879,7 +1853,6 @@ class meta:
         def debug(self):
             meta.debugger(self,'upsert')
     class use:
-        database             = None
         def __init__(self,so):
                 self.database = meta.gv(so,['meta','source','database'])
         def debug(self):
@@ -1892,7 +1865,6 @@ class meta:
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
-        source               = _source()
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -1926,19 +1898,6 @@ class meta:
                 if password:  self.password=password
                 if directory:  self.directory=directory
                 if file:  self.file=file
-        temporary            = None        # optional 
-        source               = _source()
-        columns              = []          #          _columns()
-        file                 = None        # optional 
-        fifo                 = None        # optional 
-        repo                 = None        # optional _repo()
-        mode                 = None        # optional 
-        delimiter            = None        # optional 
-        whitespace           = None        # optional 
-        errors               = None        # optional 
-        comments             = None        # optional 
-        strict               = None        # optional 
-        data_starts_on       = None        # optional 
         def __init__(self,so):
                 self.temporary = meta.gv(so,['meta','temporary','temporary'])
                 if meta.gv(so,['meta','source']):
@@ -1975,14 +1934,6 @@ class meta:
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
-        source               = _source()
-        columns              = None        # optional [ _columns() ]
-        file                 = None        # optional 
-        delimiter            = None        # optional 
-        whitespace           = None        # optional 
-        errors               = None        # optional 
-        comments             = None        # optional 
-        data_starts_on       = None        # optional 
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
@@ -2008,7 +1959,6 @@ class meta:
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
-        source               = _source()
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
                     self.source= self._source(table = meta.gv(so,['meta','source','table']),database = meta.gv(so,['meta','source','database']))
