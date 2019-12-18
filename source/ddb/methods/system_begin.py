@@ -13,5 +13,5 @@ def method_system_begin(context,meta):
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)

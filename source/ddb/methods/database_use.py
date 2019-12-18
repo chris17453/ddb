@@ -14,5 +14,5 @@ def method_use(context, meta):
         # TODO so.. is this how we want to handle actions not preformed?
         return query_results(success=True,data=temp_table)
     except Exception as ex:
-        context.info (meta.mode,ex)
+        context.error (meta.mode,ex)
         return query_results(success=False,error=ex)

@@ -57,8 +57,8 @@ def method_select(context, meta, parser):
 
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
-       context.info (meta.mode,ex)
-       return query_results(success=False,error=ex)   
+        context.error (meta.mode,ex)
+        return query_results(success=False,error=ex)   
 
 
 def select_process_file(context,meta):
