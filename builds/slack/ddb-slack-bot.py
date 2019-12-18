@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.55'
+__version__='1.4.56'
 
         
 # ############################################################################
@@ -4110,8 +4110,8 @@ class lock:
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except Exception as ex:
-            return lock.LOCK_OTHER
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
+            return lock.LOCK_OTHER
     @staticmethod
     def release(path):
         lock_path=lock.get_lock_filename(path)
@@ -4126,7 +4126,8 @@ class lock:
             exit(1)
         if lock.debug: lock.info("Lock","removed")
     @staticmethod
-    def aquire(path,key_uuid):
+    def aquire(
+        path,key_uuid):
         try:
             lock.info("x","A")
             lock_path =lock.get_lock_filename(path)
