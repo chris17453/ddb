@@ -139,7 +139,7 @@ def sub_class (command,classes,class_spec):
 
         template_add ("")
         template_add ("    class _{0}:".format(_class.replace(" ","_")))
-        template_add ("        __slots__=()")
+        #template_add ("        __slots__=()")
 
         for variable in classes[_class]:
             if variable[0]=='_':

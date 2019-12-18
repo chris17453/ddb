@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.9'
+__version__='1.4.10'
 
         
 # ############################################################################
@@ -1402,6 +1402,8 @@ class meta:
     class show_columns:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
@@ -1423,6 +1425,12 @@ class meta:
     class select:
         class _columns:
             __slots__=()
+            column = None
+            display = None
+            function = None
+            argument1 = None
+            argument2 = None
+            argument3 = None
             def __init__(self,column=None,display=None,function=None,argument1=None,argument2=None,argument3=None):
                 if column:  self.column=column
                 if display:  self.display=display
@@ -1432,17 +1440,26 @@ class meta:
                 if argument3:  self.argument3=argument3
         class _source:
             __slots__=()
+            table = None
+            display = None
+            database = None
             def __init__(self,table=None,display=None,database=None):
                 if table:  self.table=table
                 if display:  self.display=display
                 if database:  self.database=database
         class _join:
             __slots__=()
+            table = None
+            display = None
             def __init__(self,table=None,display=None):
                 if table:  self.table=table
                 if display:  self.display=display
         class _join_on:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1450,6 +1467,10 @@ class meta:
                 if condition:  self.condition=condition
         class _join_and:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1457,6 +1478,10 @@ class meta:
                 if condition:  self.condition=condition
         class _join_or:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1464,6 +1489,10 @@ class meta:
                 if condition:  self.condition=condition
         class _where:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1471,6 +1500,10 @@ class meta:
                 if condition:  self.condition=condition
         class _and:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1478,6 +1511,10 @@ class meta:
                 if condition:  self.condition=condition
         class _or:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1485,15 +1522,20 @@ class meta:
                 if condition:  self.condition=condition
         class _group_by:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _order_by:
             __slots__=()
+            column = None
+            direction = None
             def __init__(self,column=None,direction=None):
                 if column:  self.column=column
                 if direction:  self.direction=direction
         class _limit:
             __slots__=()
+            length = 0
+            start = 0
             def __init__(self,length=None,start=None):
                 if length:  self.length=length
                 if start:  self.start=start
@@ -1540,6 +1582,8 @@ class meta:
     class Set:
         class _set:
             __slots__=()
+            variable = None
+            value = None
             def __init__(self,variable=None,value=None):
                 if variable:  self.variable=variable
                 if value:  self.value=value
@@ -1555,6 +1599,7 @@ class meta:
     class create_procedure:
         class _parameters:
             __slots__=()
+            parameter = None
             def __init__(self,parameter=None):
                 if parameter:  self.parameter=parameter
         def __init__(self,so):
@@ -1599,11 +1644,17 @@ class meta:
     class delete:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _where:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1611,6 +1662,10 @@ class meta:
                 if condition:  self.condition=condition
         class _and:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1618,6 +1673,10 @@ class meta:
                 if condition:  self.condition=condition
         class _or:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1637,15 +1696,19 @@ class meta:
     class insert:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _values:
             __slots__=()
+            value = None
             def __init__(self,value=None):
                 if value:  self.value=value
         def __init__(self,so):
@@ -1668,16 +1731,24 @@ class meta:
     class update:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _set:
             __slots__=()
+            column = None
+            expression = None
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
                 if expression:  self.expression=expression
         class _where:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1685,6 +1756,10 @@ class meta:
                 if condition:  self.condition=condition
         class _and:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1692,6 +1767,10 @@ class meta:
                 if condition:  self.condition=condition
         class _or:
             __slots__=()
+            e1 = None
+            c = None
+            e2 = None
+            condition = None
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
                 if c:  self.c=c
@@ -1717,23 +1796,30 @@ class meta:
     class upsert:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _values:
             __slots__=()
+            value = None
             def __init__(self,value=None):
                 if value:  self.value=value
         class _on_duplicate_key:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _set:
             __slots__=()
+            column = None
+            expression = None
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
                 if expression:  self.expression=expression
@@ -1774,6 +1860,8 @@ class meta:
     class drop_table:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
@@ -1785,15 +1873,24 @@ class meta:
     class create_table:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _repo:
             __slots__=()
+            protocol = 'svn'
+            url = None
+            user = None
+            password = None
+            directory = None
+            file = None
             def __init__(self,protocol=None,url=None,user=None,password=None,directory=None,file=None):
                 if protocol:  self.protocol=protocol
                 if url:  self.url=url
@@ -1827,11 +1924,14 @@ class meta:
     class update_table:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
             __slots__=()
+            column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         def __init__(self,so):
@@ -1854,6 +1954,8 @@ class meta:
     class describe_table:
         class _source:
             __slots__=()
+            table = None
+            database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
