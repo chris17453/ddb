@@ -19,22 +19,38 @@ conf_dir="source/conf"
 .PHONY: all test clean profile script
 
 help:
-	@echo "make build          | build python files and make pypi package(runs unittest and standalone)"
-	@echo "make bump           | bump the package version"
-	@echo "make clean          | delete pypi packages and cython files"
-	@echo "make init           | init git, create base directories"
-	@echo "make install        | install the latest ddb from pypi in your user directory"
-	@echo "make pipfile        | recreate the pipfile"
-	@echo "make standalone     | compile into a linux single file executable"
-	@echo "make unittest       | run unittest "
-	@echo "make upload         | upload any build packages to pypi"
-	@echo "make uninstall      | uninstall ddb from your user directory"
-	@echo "make uninstall      | uninstall ddb from your user directory"
-	@echo "make svn_start      | start svn docker"
-	@echo "make svn_stop       | stop svn docker"
-	@echo "make test           | run unit test"
-	@echo "make profile        | callgraphs and profilling"
-	@echo "make meta           | rebuild the meta classes from the language file"
+	@echo "[Maintenence]"
+	@echo " make bump                | bump the package version"
+	@echo " make clean               | delete pypi packages and cython files"
+	@echo " make set_git             | update the git author config"
+	@echo " make upload              | upload any build packages to pypi"
+	@echo " make init                | init git, create base directories"
+	
+	@echo "[Install]"
+	@echo " make install             | install the latest ddb from pypi in your user directory"
+	@echo " make uninstall           | uninstall ddb from your user directory"
+	
+	@echo "[SVN]"
+	@echo " make svn_start           | start svn docker"
+	@echo " make svn_stop            | stop svn docker"
+	
+	@echo "[Build]"
+	@echo " make build               | build cython extensions and c files"
+	@echo " make build-dist          | build make pypi package"
+	@echo " make meta                | rebuild the meta classes from the language file"
+	@echo " make script              | make standalone single file"
+	@echo " make standalone          | compile into a linux single file executable"
+	@echo " make profile             | callgraphs and profilling"
+
+	@echo "[Test]"
+	@echo " make test                | run unit test"
+	@echo " make lock-test           | locking test"
+	@echo " make watch-lock-test     | watch the locking test"
+
+
+
+
+
 
 
 clean:
@@ -119,10 +135,18 @@ build: svn_start meta bump
 # makes ansible single script
 
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
+	@cd source; python setup.py build_ext --inplace   --dist-dir ../builds/pypi/  --build-cython
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
+
+build-dist:
+	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
+	@python $(conf_dir)/build.py
+	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  
+	# @$(MAKE) -f $(THIS_FILE) standalone
+	@$(MAKE) -f $(THIS_FILE) test
+
 
 script:
 	@python $(conf_dir)/build.py

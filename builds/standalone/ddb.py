@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.124'
+__version__='1.4.125'
 
         
 # ############################################################################
@@ -2495,8 +2495,10 @@ class engine:
             logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         elif  level==logging.ERROR:
             logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
-    def __init__(self, config_dir=None, debug=True, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
+        if debug==True:
+            logging.getLogger().setLevel(logging.ERROR)
         self.debug = debug
         self.results = None
         self.mode = mode

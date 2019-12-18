@@ -63,11 +63,7 @@ class test_engine:
     def test_threads(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
-<<<<<<< HEAD
-        process_count=5
-=======
-        process_count=30
->>>>>>> f1992b1da87f5b02476d2d9fcab47e399357a9cf
+        process_count=90
         print("Locking: {0}".format(os.getpid()))
         # fail on existing table
         self.cleanup()
@@ -110,7 +106,7 @@ class test_engine:
             ellapsed_time=curent_time-start_time
             print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
         except Exception as ex:
-            print ex
+            print (ex)
 
 
 if __name__ == '__main__':
