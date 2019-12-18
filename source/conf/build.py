@@ -262,7 +262,7 @@ def build_standalone(files,headers,footer,dest_file):
                     #headers.append(l)
                     continue
                 build.append(line)
-    print dest_file
+    print ("Writing: {0}".format(dest_file))
     with  open(dest_file,"w") as target:
         if headers:
             target.write(headers)
