@@ -1,4 +1,4 @@
-# NOcython: linetrace=True
+# cython: linetrace=True
 
 from .record_core import process_line3, query_results, get_table
 from ..file_io.locking import temp_path_from_file
@@ -52,7 +52,7 @@ def method_delete(context, meta):
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
-        context.error (__name__+"method...",ex)
+        context.error (__name__,ex)
         return  query_results(success=False, error=ex)
 
 

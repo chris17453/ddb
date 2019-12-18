@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.87'
+__version__='1.4.88'
 
         
 # ############################################################################
@@ -3135,7 +3135,7 @@ def method_delete(context, meta):
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
-        context.error (meta.__class__.__name__,ex)
+        context.error (__name__+"method...",ex)
         return  query_results(success=False, error=ex)
 
         
