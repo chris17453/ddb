@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.70'
+__version__='1.4.71'
 
         
 # ############################################################################
@@ -3129,7 +3129,7 @@ def method_delete(context, meta):
         visible_errors    =meta.table.visible.errors
         with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3139,8 +3139,8 @@ def method_delete(context, meta):
                         affected_rows += 1
                         diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                         continue
-                    temp_file.write(str.encode(processed_line['raw']))
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
@@ -3253,7 +3253,7 @@ def select_process_file(context,meta):
         visible_whitespace=table.visible.whitespace
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
-        with open(temp_data_file, 'rb') as content_file:
+        with open(temp_data_file, 'r') as content_file:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
@@ -3551,9 +3551,9 @@ def method_update(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3565,8 +3565,8 @@ def method_update(context, meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(str.encode(processed_line['raw']) )
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
@@ -3610,9 +3610,9 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_whitespace =meta.table.visible.whitespace
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3625,8 +3625,8 @@ def method_upsert(context, meta,query_object,main_meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(str.encode( processed_line['raw']) )
-                    temp_file.write(str.encode( meta.table.delimiters.get_new_line()) )
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     query_object['mode']="insert"
