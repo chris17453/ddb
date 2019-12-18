@@ -85,7 +85,7 @@ class test_engine(unittest.TestCase):
             self.assertEqual(True, results.success)
             
         except Exception as ex:
-            print ex
+            print( ex)
             self.fail(ex)
     
     def test_use(self,mode=None):
@@ -180,7 +180,7 @@ class test_engine(unittest.TestCase):
            # results=engine.query('drop table {}'.format(self.table_name))
            # self.assertEqual(False, results.success)
         except Exception as ex:
-            print ex
+            print (ex)
             self.fail(ex)
 
     def test_select(self,mode=None):
@@ -359,7 +359,7 @@ class test_engine(unittest.TestCase):
                 
             
         except Exception as ex:
-            print ex
+            print (ex)
             self.fail(ex)
 
     def test_commit(self,mode=None):
