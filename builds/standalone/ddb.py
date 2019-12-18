@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.36'
+__version__='1.4.37'
 
         
 # ############################################################################
@@ -2437,7 +2437,7 @@ class engine:
         DATA=3
         WHITESPACE=4
     def error(self,msg, arg1=None, arg2=None, arg3=None):
-        self.info(self,msg, arg1, arg2, arg3,level=logging.ERROR)
+        self.info(msg, arg1, arg2, arg3,level=logging.ERROR)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
