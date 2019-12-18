@@ -230,13 +230,13 @@ else:
 
 
 packages=['ddb',
-          'ddb.lexer',
-          'ddb.meta',
-          'ddb.file_io',
-          'ddb.methods',
-          'ddb.functions',
-          'ddb.configuration',
-          'ddb.output',
+          #'ddb.lexer',
+          #'ddb.meta',
+          #'ddb.file_io',
+          #'ddb.methods',
+          #'ddb.functions',
+          #'ddb.configuration',
+          #'ddb.output',
          ]
     
 
