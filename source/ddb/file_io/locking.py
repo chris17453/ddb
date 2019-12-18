@@ -198,6 +198,7 @@ class lock:
         if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
 
         if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
+        error=0
         while 1:
             lock_status=lock.is_locked(path,key_uuid,lock_path)
             #if lock_status==lock.LOCK_NONE:
@@ -210,7 +211,9 @@ class lock:
                 
                 break
             except OSError as ex:
-                if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                error+=1
+                if error==0:
+                    if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
             time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
