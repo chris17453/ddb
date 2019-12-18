@@ -41,8 +41,13 @@ clean:
 	@find . -type f -name "*.c" -exec rm -f {} \;
 	@find . -type f -name "*.so" -exec rm -f {} \;
 
+set_git:
+	@git config --global user.email $(git_email)
+	@git config --global user.name $(git_username)
+	@git commit --amend --reset-author
 
-init:
+
+init: set_git
 	@echo dependencies for building...  dnf install python-devel libyaml-devel gcc make
 	@if [[ ! -d 'dist' ]]; then  mkdir dist ; fi
 	@if [[ ! -d '.git' ]]; then  git init; fi
