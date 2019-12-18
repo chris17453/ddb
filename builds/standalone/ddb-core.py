@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.11'
+__version__='1.4.12'
 
         
 # ############################################################################
@@ -1308,6 +1308,7 @@ class meta:
         return name
     class show_columns:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
@@ -1330,6 +1331,7 @@ class meta:
             meta.debugger(self,'show variables')
     class select:
         class _columns:
+            __slots__=['column','display','function','argument1','argument2','argument3']
             column = None
             display = None
             function = None
@@ -1344,6 +1346,7 @@ class meta:
                 if argument2:  self.argument2=argument2
                 if argument3:  self.argument3=argument3
         class _source:
+            __slots__=['table','display','database']
             table = None
             display = None
             database = None
@@ -1352,12 +1355,14 @@ class meta:
                 if display:  self.display=display
                 if database:  self.database=database
         class _join:
+            __slots__=['table','display']
             table = None
             display = None
             def __init__(self,table=None,display=None):
                 if table:  self.table=table
                 if display:  self.display=display
         class _join_on:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1368,6 +1373,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _join_and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1378,6 +1384,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _join_or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1388,6 +1395,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1398,6 +1406,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1408,6 +1417,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1418,16 +1428,19 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _group_by:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _order_by:
+            __slots__=['column','direction']
             column = None
             direction = None
             def __init__(self,column=None,direction=None):
                 if column:  self.column=column
                 if direction:  self.direction=direction
         class _limit:
+            __slots__=['length','start']
             length = 0
             start = 0
             def __init__(self,length=None,start=None):
@@ -1475,6 +1488,7 @@ class meta:
             meta.debugger(self,'select')
     class Set:
         class _set:
+            __slots__=['variable','value']
             variable = None
             value = None
             def __init__(self,variable=None,value=None):
@@ -1491,6 +1505,7 @@ class meta:
             meta.debugger(self,'set')
     class create_procedure:
         class _parameters:
+            __slots__=['parameter']
             parameter = None
             def __init__(self,parameter=None):
                 if parameter:  self.parameter=parameter
@@ -1535,12 +1550,14 @@ class meta:
             meta.debugger(self,'show output modules')
     class delete:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1551,6 +1568,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1561,6 +1579,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1583,16 +1602,19 @@ class meta:
             meta.debugger(self,'delete')
     class insert:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _values:
+            __slots__=['value']
             value = None
             def __init__(self,value=None):
                 if value:  self.value=value
@@ -1615,18 +1637,21 @@ class meta:
             meta.debugger(self,'insert')
     class update:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _set:
+            __slots__=['column','expression']
             column = None
             expression = None
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
                 if expression:  self.expression=expression
         class _where:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1637,6 +1662,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _and:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1647,6 +1673,7 @@ class meta:
                 if e2:  self.e2=e2
                 if condition:  self.condition=condition
         class _or:
+            __slots__=['e1','c','e2','condition']
             e1 = None
             c = None
             e2 = None
@@ -1675,24 +1702,29 @@ class meta:
             meta.debugger(self,'update')
     class upsert:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _values:
+            __slots__=['value']
             value = None
             def __init__(self,value=None):
                 if value:  self.value=value
         class _on_duplicate_key:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _set:
+            __slots__=['column','expression']
             column = None
             expression = None
             def __init__(self,column=None,expression=None):
@@ -1734,6 +1766,7 @@ class meta:
             meta.debugger(self,'use')
     class drop_table:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
@@ -1746,16 +1779,19 @@ class meta:
             meta.debugger(self,'drop table')
     class create_table:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
         class _repo:
+            __slots__=['protocol','url','user','password','directory','file']
             protocol = 'svn'
             url = None
             user = None
@@ -1794,12 +1830,14 @@ class meta:
             meta.debugger(self,'create table')
     class update_table:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
                 if database:  self.database=database
         class _columns:
+            __slots__=['column']
             column = None
             def __init__(self,column=None):
                 if column:  self.column=column
@@ -1822,6 +1860,7 @@ class meta:
             meta.debugger(self,'update table')
     class describe_table:
         class _source:
+            __slots__=['table','database']
             table = None
             database = None
             def __init__(self,table=None,database=None):

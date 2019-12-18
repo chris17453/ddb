@@ -155,20 +155,20 @@ def sub_class (command,classes,class_spec):
         template_add ("        __slots__=[{0}]".format(",".join(slot_vars)))
 
 
-        for variable in classes[_class]:
-            if variable[0]=='_':
-                continue
-            if len(classes[_class])<2:
-                continue
-            pad='    '
-            var=classes[_class][variable]
-          #  template_add var
-            value=var['default']
-
-            if var['type']=='string' or var['type']=='char':
-                if var['default']!=None:
-                    value="'{0}'".format(var['default'])
-            template_add ("{2}    {0} = {1}".format(variable,value,pad))
+        #for variable in classes[_class]:
+        #    if variable[0]=='_':
+        #        continue
+        #    if len(classes[_class])<2:
+        #        continue
+        #    pad='    '
+        #    var=classes[_class][variable]
+        #  #  template_add var
+        #    value=var['default']
+#
+        #    if var['type']=='string' or var['type']=='char':
+        #        if var['default']!=None:
+        #            value="'{0}'".format(var['default'])
+        #    template_add ("{2}    {0} = {1}".format(variable,value,pad))
         
         args=[]
         if len(classes[_class])>1:

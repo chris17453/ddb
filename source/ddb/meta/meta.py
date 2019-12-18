@@ -97,8 +97,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -133,12 +131,6 @@ class meta:
     
         class _columns:
             __slots__=['column','display','function','argument1','argument2','argument3']
-            column = None
-            display = None
-            function = None
-            argument1 = None
-            argument2 = None
-            argument3 = None
     
             def __init__(self,column=None,display=None,function=None,argument1=None,argument2=None,argument3=None):
                 if column:  self.column=column
@@ -150,9 +142,6 @@ class meta:
     
         class _source:
             __slots__=['table','display','database']
-            table = None
-            display = None
-            database = None
     
             def __init__(self,table=None,display=None,database=None):
                 if table:  self.table=table
@@ -161,8 +150,6 @@ class meta:
     
         class _join:
             __slots__=['table','display']
-            table = None
-            display = None
     
             def __init__(self,table=None,display=None):
                 if table:  self.table=table
@@ -170,10 +157,6 @@ class meta:
     
         class _join_on:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -183,10 +166,6 @@ class meta:
     
         class _join_and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -196,10 +175,6 @@ class meta:
     
         class _join_or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -209,10 +184,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -222,10 +193,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -235,10 +202,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -248,15 +211,12 @@ class meta:
     
         class _group_by:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _order_by:
             __slots__=['column','direction']
-            column = None
-            direction = None
     
             def __init__(self,column=None,direction=None):
                 if column:  self.column=column
@@ -264,8 +224,6 @@ class meta:
     
         class _limit:
             __slots__=['length','start']
-            length = 0
-            start = 0
     
             def __init__(self,length=None,start=None):
                 if length:  self.length=length
@@ -317,8 +275,6 @@ class meta:
     
         class _set:
             __slots__=['variable','value']
-            variable = None
-            value = None
     
             def __init__(self,variable=None,value=None):
                 if variable:  self.variable=variable
@@ -339,7 +295,6 @@ class meta:
     
         class _parameters:
             __slots__=['parameter']
-            parameter = None
     
             def __init__(self,parameter=None):
                 if parameter:  self.parameter=parameter
@@ -412,8 +367,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -421,10 +374,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -434,10 +383,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -447,10 +392,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -475,8 +416,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -484,14 +423,12 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
             __slots__=['value']
-            value = None
     
             def __init__(self,value=None):
                 if value:  self.value=value
@@ -519,8 +456,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -528,8 +463,6 @@ class meta:
     
         class _set:
             __slots__=['column','expression']
-            column = None
-            expression = None
     
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
@@ -537,10 +470,6 @@ class meta:
     
         class _where:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -550,10 +479,6 @@ class meta:
     
         class _and:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -563,10 +488,6 @@ class meta:
     
         class _or:
             __slots__=['e1','c','e2','condition']
-            e1 = None
-            c = None
-            e2 = None
-            condition = None
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
                 if e1:  self.e1=e1
@@ -597,8 +518,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -606,29 +525,24 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _values:
             __slots__=['value']
-            value = None
     
             def __init__(self,value=None):
                 if value:  self.value=value
     
         class _on_duplicate_key:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _set:
             __slots__=['column','expression']
-            column = None
-            expression = None
     
             def __init__(self,column=None,expression=None):
                 if column:  self.column=column
@@ -677,8 +591,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -695,8 +607,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -704,19 +614,12 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
     
         class _repo:
             __slots__=['protocol','url','user','password','directory','file']
-            protocol = 'svn'
-            url = None
-            user = None
-            password = None
-            directory = None
-            file = None
     
             def __init__(self,protocol=None,url=None,user=None,password=None,directory=None,file=None):
                 if protocol:  self.protocol=protocol
@@ -755,8 +658,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
@@ -764,7 +665,6 @@ class meta:
     
         class _columns:
             __slots__=['column']
-            column = None
     
             def __init__(self,column=None):
                 if column:  self.column=column
@@ -792,8 +692,6 @@ class meta:
     
         class _source:
             __slots__=['table','database']
-            table = None
-            database = None
     
             def __init__(self,table=None,database=None):
                 if table:  self.table=table
