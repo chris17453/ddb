@@ -105,7 +105,7 @@ class engine:
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
         if debug==True:
-            logging.setLevel(logging.INFO)
+            logging.getLogger().setLevel(logging.ERROR)
         self.debug = debug
         self.results = None
         self.mode = mode
