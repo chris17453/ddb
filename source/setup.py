@@ -6,6 +6,7 @@ from setuptools import setup, find_packages
 #from setuptools.extension import Extension
 from Cython.Build import cythonize
 from Cython.Distutils.extension import Extension
+import multiprocessing
 
 
 if '--build-cython' in sys.argv:
@@ -204,6 +205,9 @@ if USE_CYTHON:
 else:
     print("Not using CYTHON")
 
+
+
+    
 
 
 packages=['ddb',
