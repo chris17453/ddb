@@ -106,7 +106,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -280,15 +279,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        distinct             = None        # optional 
-        columns              = []          #          _columns()
-        source               = None        # optional _source()
-        join                 = None        # optional _join()
-        join_on              = None        # optional [ _join_on() ]
-        where                = None        # optional [ _where() ]
-        group_by             = None        # optional [ _group_by() ]
-        order_by             = None        # optional [ _order_by() ]
-        limit                = None        # optional _limit()
     
         def __init__(self,so):
                 self.distinct = meta.gv(so,['meta','distinct','distinct'])
@@ -344,7 +334,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        set                  = None        # optional [ _set() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','set']):
@@ -367,7 +356,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        parameters           = None        # optional [ _parameters() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','parameters']):
@@ -383,7 +371,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        delimiter            = None
     
         def __init__(self,so):
                 self.delimiter = meta.gv(so,['meta','delimiter','delimiter'])
@@ -497,8 +484,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
-        where                = None        # optional [ _where() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -539,9 +524,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
-        columns              = []          #          _columns()
-        values               = []          #          _values()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -622,9 +604,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
-        set                  = []          #          _set()
-        where                = None        # optional [ _where() ]
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -687,11 +666,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
-        columns              = []          #          _columns()
-        values               = []          #          _values()
-        on_duplicate_key     = []          #          _on_duplicate_key()
-        set                  = []          #          _set()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -727,7 +701,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        database             = None
     
         def __init__(self,so):
                 self.database = meta.gv(so,['meta','source','database'])
@@ -747,7 +720,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -792,19 +764,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        temporary            = None        # optional 
-        source               = _source()
-        columns              = []          #          _columns()
-        file                 = None        # optional 
-        fifo                 = None        # optional 
-        repo                 = None        # optional _repo()
-        mode                 = None        # optional 
-        delimiter            = None        # optional 
-        whitespace           = None        # optional 
-        errors               = None        # optional 
-        comments             = None        # optional 
-        strict               = None        # optional 
-        data_starts_on       = None        # optional 
     
         def __init__(self,so):
                 self.temporary = meta.gv(so,['meta','temporary','temporary'])
@@ -850,14 +809,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
-        columns              = None        # optional [ _columns() ]
-        file                 = None        # optional 
-        delimiter            = None        # optional 
-        whitespace           = None        # optional 
-        errors               = None        # optional 
-        comments             = None        # optional 
-        data_starts_on       = None        # optional 
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
@@ -890,7 +841,6 @@ class meta:
         #variable_def
     
         #variable_class_def
-        source               = _source()
     
         def __init__(self,so):
                 if meta.gv(so,['meta','source']):
