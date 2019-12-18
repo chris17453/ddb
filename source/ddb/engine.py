@@ -91,7 +91,7 @@ class engine:
 
     
    
-    def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+    def __init__(self, config_dir=None, debug=True, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
@@ -254,8 +254,6 @@ class engine:
                 self.results = method_drop_table(self,meta_class)
 
             elif mode == 'create table' and self.internal['READONLY']==None:
-                print ("Creating Table")
-                print(meta_class)
                 self.results = method_create_table(self,meta_class)
 
             elif mode == 'update table' and self.internal['READONLY']==None:
