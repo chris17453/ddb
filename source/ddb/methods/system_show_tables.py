@@ -11,4 +11,5 @@ def method_system_show_tables(context):
        
         return query_results(success=True,data=temp_table)
     except Exception as ex:
+        context.info (meta.mode,ex)
         return query_results(success=False,error=ex)

@@ -287,7 +287,6 @@ class table:
         self.config=config
     
     def update_statistics(self):
-<<<<<<< HEAD
         self.success           = None
         self.affected_rows     = None
         self.diff              = None
@@ -298,18 +297,6 @@ class table:
         self.columns           = None
         self.data_length       = None
         self.column_length     = None
-=======
-        success           = None
-        affected_rows     = None
-        diff              = None
-        error             = None
-        total_data_length = None
-        delimiter         = None
-        new_line          = None
-        columns           = None
-        data_length       = None
-        column_length     = None
->>>>>>> f1992b1da87f5b02476d2d9fcab47e399357a9cf
 
     def load(self):
         # prep data

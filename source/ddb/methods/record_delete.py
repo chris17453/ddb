@@ -42,7 +42,7 @@ def method_delete(context, meta):
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
-        print(ex)
+        context.info (meta.mode,ex)
         return  query_results(success=False, error=ex)
 
 

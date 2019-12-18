@@ -15,7 +15,7 @@ import tempfile
 context_sort=[]
 
 def method_select(context, meta, parser):
-    #try:
+    try:
         # meta.debug()
         context.info(meta)
         # make sure columns are valid, and from is good
@@ -56,10 +56,9 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
-    #except Exception as ex:
-        # something blew up. Bail!
-        #print ex
-    #    return query_results(success=False,error=ex)   
+    except Exception as ex:
+       context.info (meta.mode,ex)
+       return query_results(success=False,error=ex)   
 
 
 def select_process_file(context,meta):

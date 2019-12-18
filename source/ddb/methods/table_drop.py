@@ -13,5 +13,5 @@ def method_drop_table(context, meta):
         # TODO Error Handeling
         return query_results(success=results)
     except Exception as ex:
-        #print ex
+        context.info (meta.mode,ex)
         return query_results(success=False,error=ex)

@@ -10,7 +10,7 @@ from ..file_io.locking import temp_path_from_file
 
 
 def method_upsert(context, meta,query_object,main_meta):
-    #try:
+    try:
         #meta.debug()
         #print(query_object)
         meta.table=get_table(context,meta)
@@ -89,10 +89,9 @@ def method_upsert(context, meta,query_object,main_meta):
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-#    except Exception as ex:
-#        print ("ERR",ex)
-        #Sremove_temp_file(temp_data_file)      
-#        return query_results(success=False,error=ex)
+    except Exception as ex:
+        context.info (meta.mode,ex)
+        return query_results(success=False,error=ex)
 
 
 
