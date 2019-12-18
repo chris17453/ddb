@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.121'
+__version__='1.4.122'
 
         
 # ############################################################################
@@ -3379,10 +3379,10 @@ def order_by(context,meta,data):
         ordinal =meta.ordinals[c.column]
         context_sort.append([ordinal, c.direction])
     context.info(context_sort)
-    try:
+    if sys.version_info[0]==2
       ordered_data = sorted(data, sort_cmp)
-    except  Exception as ex:
-        raise Exception ("Error sorting. {0}".format(ex))
+    else:
+      ordered_data = sorted(data,key=cmp_to_key(sort_cmp))
     return ordered_data
 def group(context,data):
     return data
