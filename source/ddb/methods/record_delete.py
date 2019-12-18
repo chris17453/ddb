@@ -27,8 +27,8 @@ def method_delete(context, meta):
 #
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-        #            if None != processed_line['error']:
-        #                context.add_error(processed_line['error'])
+                    if None != processed_line['error']:
+                        context.add_error(processed_line['error'])
         #            line_number += 1
                     # skip matches
        #             if True == processed_line['match']:
