@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.49'
+__version__='1.4.50'
 
         
 # ############################################################################
@@ -4246,12 +4246,19 @@ def temp_path_from_file(path,prefix='',unique=None):
 def create_temporary_copy(path,uuid='',prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
+        lock.ingo("1")
         lock.aquire(path,uuid)
+        lock.ingo("2")
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
+        lock.ingo("3")
         temp_path=temp_path_from_file(path,prefix+uuid)
+        lock.ingo("4")
         norm_path=normalize_path(path)
+        lock.ingo("5")
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
+        lock.ingo("6")
         shutil.copy2(norm_path, temp_path)
+        lock.ingo("7")
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
