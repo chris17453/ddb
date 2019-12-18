@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.74'
+__version__='1.4.75'
 
         
 # ############################################################################
@@ -3131,7 +3131,7 @@ def method_delete(context, meta):
                         affected_rows += 1
                         diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                         continue
-                    temp_file.write(str.encode(processed_line['raw']))
+                    temp_file.write(processed_line['raw']))
                     temp_file.write(str.enode(meta.table.delimiters.get_new_line()))
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
