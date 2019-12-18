@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.90'
+__version__='1.4.91'
 
         
 # ############################################################################
@@ -3212,6 +3212,7 @@ def method_delete(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
+        context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
