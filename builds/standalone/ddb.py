@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.59'
+__version__='1.4.60'
 
         
 # ############################################################################
@@ -4051,7 +4051,7 @@ class lock:
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
         normalized_path=os.path.abspath(os.path.expanduser(path))
-        return normalized_path
+        return normalized_path.encode("ascii")
     @staticmethod
     def get_lock_filename(path):
         """Generate a unique name for a given file path so that if the same file name is used with a different path, the lock file is unique.
@@ -4079,6 +4079,7 @@ class lock:
     @staticmethod
     def is_locked(path,key_uuid,lock_path=None):
         try:
+            path=path.encode("ascii")
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
@@ -4113,6 +4114,7 @@ class lock:
             return lock.LOCK_OTHER
     @staticmethod
     def release(path):
+        path=path.encode("ascii")
         lock_path=lock.get_lock_filename(path)
         if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         if os.path.exists(lock_path)==False:
@@ -4125,9 +4127,10 @@ class lock:
             exit(1)
         if lock.debug: lock.info("Lock","removed")
     @staticmethod
-    def aquire(
-        path,key_uuid):
+    def aquire(path,key_uuid):
         try:
+            path=path.encode("ascii")
+            key_uuid=key_uuid.encode("ascii")
             lock.info("x","A")
             lock_path =lock.get_lock_filename(path)
             lock.info("x","B")

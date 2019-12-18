@@ -133,7 +133,6 @@ class lock:
     @staticmethod
     def is_locked(path,key_uuid,lock_path=None):
         try:
-            path=path.encode("ascii")
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
@@ -175,7 +174,6 @@ class lock:
 
     @staticmethod
     def release(path):
-        path=path.encode("ascii")
         lock_path=lock.get_lock_filename(path)
         if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
         
@@ -197,16 +195,12 @@ class lock:
     @staticmethod
     def aquire(path,key_uuid):
         try:
-            path=path.encode("ascii")
-            key_uuid=key_uuid.encode("ascii")
+            path="{0}".format(path)
+            key_uuid="{0}".format(key_uuid)
 
-            lock.info("x","A")
             lock_path =lock.get_lock_filename(path)
-            lock.info("x","B")
             pid       =os.getpid()
-            lock.info("x","C")
             lock_contents="{0}|{1}|x".format(key_uuid,pid)
-            lock.info("x","D")
             
             if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
 
