@@ -1,4 +1,3 @@
-# cython: language_level=2
 import os
 import sys
 #from distutils.core import setup, Command
@@ -79,7 +78,7 @@ NB_COMPILE_JOBS = 4
 if USE_CYTHON:
     try:
         from Cython.Build import cythonize
-        extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS)
+        extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS,compiler_directives={'language_level' : sys.version_info[0]}))
         #extensions = cythonize(extensions)
     except BaseException as ex:
         print ("No Cython installed",ex)
@@ -113,7 +112,7 @@ setup(
     long_description_content_type="text/markdown",
     author='Charles Watkins',
     author_email='chris17453@gmail.com',
-    description='A serviceless sql interface for flat files written in python',
+    description='A serviceless sql interface for flat files written in cython',
     ext_modules=extensions,
     classifiers=[
         'Programming Language :: Python :: 2.7',
@@ -126,6 +125,6 @@ setup(
         ddb-pipes = ddb.pipes:cli_main
         ddb-server = ddb.server:cli_main
         ddb-service = ddb.service:cli_main
-        """,
-    compiler_directives={"language_level": "2"},
+        """
 )
+
