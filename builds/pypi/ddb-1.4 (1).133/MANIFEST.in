@@ -1,0 +1,4 @@
+include README.md
+include ddb/ cli.py
+recursive-include ddb/ __init__.py
+recursive-include ddb/ *.c

@@ -4,28 +4,12 @@ import sys
 from setuptools import setup, find_packages
 #from distutils.extension import Extension
 from setuptools.extension import Extension
-from setuptools.command.build_py import build_py as _build_py
-
 
 
 import multiprocessing
 
 
 cmdclass = {}
-
-# noinspection PyPep8Naming
-class build_py(_build_py):
-
-    def find_package_modules(self, package, package_dir):
-        ext_suffix = sysconfig.get_config_var('EXT_SUFFIX')
-        modules = super().find_package_modules(package, package_dir)
-        filtered_modules = []
-        for (pkg, mod, filepath) in modules:
-            if os.path.exists(filepath.replace('.py', ext_suffix)):
-                continue
-            filtered_modules.append((pkg, mod, filepath, ))
-        return filtered_modules
-
 
 
 if '--build-cython' in sys.argv:
@@ -47,7 +31,7 @@ if '--build-cython' in sys.argv:
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
-    cmdclass.update({'build_py': build_py})
+    cmdclass.update({'build_ext': build_ext})
 
 else:
     # if this is a package install, use the c files and build/register modules
@@ -238,6 +222,8 @@ else:
 
 
     
+
+
 
 
 
