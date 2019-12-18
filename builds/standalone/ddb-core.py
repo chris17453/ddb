@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.47'
+__version__='1.4.48'
 
         
 # ############################################################################
@@ -4196,7 +4196,7 @@ def swap_files(path, temp,key_uuid):
 def normalize_path(path):
     """Update a relative or user absed path to an ABS path"""
     normalized_path=os.path.abspath(os.path.expanduser(path))
-    return normalized_path
+    return normalized_path.encode('ascii')
 
         
 # ############################################################################

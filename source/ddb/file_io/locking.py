@@ -212,7 +212,7 @@ class lock:
                 break
             except OSError as ex:
                 error+=1
-                if error==0:
+                if error==1:
                     if lock.debug: lock.info("Lock","error!:{0}".format(ex))
                 pass
             #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
