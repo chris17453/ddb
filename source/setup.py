@@ -1,9 +1,9 @@
 import os
 import sys
 #from distutils.core import setup, Command
-#from distutils.extension import Extension
 from setuptools import setup, find_packages
-#from setuptools.extension import Extension
+#from distutils.extension import Extension
+from setuptools.extension import Extension
 
 
 import multiprocessing
@@ -17,7 +17,7 @@ if '--build-cython' in sys.argv:
         from Cython.Build import cythonize
         from Cython.Distutils import build_ext
         from Cython.Build import cythonize
-        from Cython.Distutils.extension import Extension
+        #from Cython.Distutils.extension import Extension
     except Exception as ex:
         print("Cant build Cython packages. Not installed.")
         exit(1)        
@@ -42,6 +42,7 @@ else:
 # cython: linetrace=True
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
+print("Using extension {0},{1}".format(ext,ext2))
 
 extensions = [
     Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext], define_macros=[('CYTHON_TRACE', '1')]),
@@ -81,7 +82,7 @@ extensions = [
     Extension("ddb.version",                            [prefix+"./ddb/version" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     Extension("ddb.engine",                             [prefix+"./ddb/engine" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
     Extension("ddb.interactive",                        [prefix+"./ddb/interactive" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
-    #Extension("ddb.cli",                                [prefix+"./ddb/cli" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
+    Extension("ddb.cli",                                [prefix+"./ddb/cli" + ext], define_macros=[('CYTHON_TRACE', '1')] ),
 ]
 
 
@@ -230,6 +231,7 @@ else:
 
 
 packages=['ddb',
+          'ddb.cli',
           'ddb.lexer',
           'ddb.meta',
           'ddb.file_io',

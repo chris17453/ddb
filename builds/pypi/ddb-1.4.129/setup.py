@@ -4,12 +4,25 @@ import sys
 #from distutils.extension import Extension
 from setuptools import setup, find_packages
 #from setuptools.extension import Extension
-from Cython.Build import cythonize
-from Cython.Distutils.extension import Extension
+
+
 import multiprocessing
 
 
+cmdclass = {}
+
+
 if '--build-cython' in sys.argv:
+    try:
+        from Cython.Build import cythonize
+        from Cython.Distutils import build_ext
+        from Cython.Build import cythonize
+        from Cython.Distutils.extension import Extension
+    except Exception as ex:
+        print("Cant build Cython packages. Not installed.")
+        exit(1)        
+        pass
+
     # if this is is the system building the package from source, use the py files (or pyx)
     index = sys.argv.index('--build-cython')
     sys.argv.pop(index)  # Removes the '--foo'
@@ -18,6 +31,8 @@ if '--build-cython' in sys.argv:
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
+    cmdclass.update({'build_ext': build_ext})
+
 else:
     # if this is a package install, use the c files and build/register modules
     ext = '.c'
@@ -194,7 +209,6 @@ NB_COMPILE_JOBS =  available_cpu_count()
 
 if USE_CYTHON:
     try:
-        from Cython.Build import cythonize
         print("Compiling using {0} cores:".format(NB_COMPILE_JOBS))
         extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS,compiler_directives={'language_level' : sys.version_info[0]})
         #extensions = cythonize(extensions)
@@ -208,6 +222,11 @@ else:
 
 
     
+
+
+
+
+
 
 
 packages=['ddb',
@@ -235,6 +254,7 @@ setup(
     author_email='chris17453@gmail.com',
     description='A serviceless sql interface for flat files written in cython',
     ext_modules=extensions,
+    cmdclass=cmdclass,
     classifiers=[
         'Programming Language :: Python :: 2.7',
         "Development Status :: 3 - Alpha",

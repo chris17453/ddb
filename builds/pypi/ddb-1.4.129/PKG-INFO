@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: ddb
-Version: 1.4.125
+Version: 1.4.129
 Summary: A serviceless sql interface for flat files written in cython
 Home-page: https://github.com/chris17453/ddb/
 Author: Charles Watkins
