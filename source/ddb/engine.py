@@ -8,6 +8,7 @@ import uuid
 import logging
 import datetime
 import time
+import tempfile
 from subprocess import Popen,PIPE
 from .lexer.lexer import lexer
 from .configuration.table import table

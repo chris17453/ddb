@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.22'
+__version__='1.4.23'
 
         
 # ############################################################################
@@ -2412,7 +2412,8 @@ def f_cat(context,arg1,arg2):
 # File   : ./source/ddb/engine.py
 # ############################################################################
 
-logfile='/tmp/ddb.log'
+temp_dir=tempfile.gettempdir()
+logfile=os.path.join(temp_dir,'ddb.log')
 logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
 logging.propagate = False
 try:
@@ -2543,6 +2544,8 @@ class engine:
             elif mode == 'drop table' and self.internal['READONLY']==None:
                 self.results = method_drop_table(self,meta_class)
             elif mode == 'create table' and self.internal['READONLY']==None:
+                print ("Creating Table")
+                print(meta_class)
                 self.results = method_create_table(self,meta_class)
             elif mode == 'update table' and self.internal['READONLY']==None:
                 self.results = method_update_table(self,meta_class)
