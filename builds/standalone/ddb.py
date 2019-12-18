@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.65'
+__version__='1.4.66'
 
         
 # ############################################################################
@@ -4169,19 +4169,12 @@ def temp_path_from_file(path,prefix='',unique=None):
 def create_temporary_copy(path,uuid='',prefix='ddb_'):
     """ Create a copy of a regular file in a temporary directory """
     try:
-        lock.info("x","1")
         lock.aquire(path,uuid)
-        lock.info("x","2")
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
-        lock.info("x","3")
-        temp_path=temp_path_from_file(path,prefix+uuid)
-        lock.info("x","4")
+        temp_path=temp_path_from_file(path,"{0}{1}".format(prefix,uuid) )
         norm_path=normalize_path(path)
-        lock.ingo("x","5")
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
-        lock.info("x","6")
         shutil.copy2(norm_path, temp_path)
-        lock.info("x","7")
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
