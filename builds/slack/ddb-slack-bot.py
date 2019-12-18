@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.41'
+__version__='1.4.42'
 
         
 # ############################################################################
@@ -2499,7 +2499,7 @@ class engine:
     def __init__(self, config_dir=None, debug=True, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         if debug==True:
-            logging.setLevel(logging.INFO)
+            logging.getLogger().setLevel(logging.ERROR)
         self.debug = debug
         self.results = None
         self.mode = mode
