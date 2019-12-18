@@ -317,7 +317,7 @@ def init(command,classes,class_spec):
                             template_add ("            if meta.gv(so,['meta','{0}']):".format(safe_class))
                         template_add ("                self.{0}=[]".format(_class.replace(" ","_")))
                         template_add ("                for item in meta.gv(so,['meta','{0}']):".format(safe_class))
-                        template_add ("                    instance_type=item.keys()[0]")
+                        template_add ("                    instance_type=item.__slots__[0]")
                         template_add ("                    safe_instance_type='_'+instance_type")
 #                        template_add ("                    template_add('*'+safe_instance_type+'*')")
 #                        template_add ("                    template_add('*'+instance_type+'*')")
