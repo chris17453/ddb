@@ -49,7 +49,7 @@ def method_delete(context, meta):
        #             #temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
        #         
        #     context.autocommit_write(meta.table,dst_temp_filename)
-       # context.auto_commit(meta.table)
+        context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
