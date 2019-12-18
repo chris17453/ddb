@@ -230,7 +230,6 @@ else:
 
 
 packages=['ddb',
-          'ddb.cli',
           'ddb.lexer',
           'ddb.meta',
           'ddb.file_io',
