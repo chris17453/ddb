@@ -2,3 +2,4 @@ include README.md
 recursive-exclude ddb *.py
 recursive-include ddb __init__.py
 recursive-include ddb *.c
+include ddb version.py
