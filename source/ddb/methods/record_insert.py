@@ -84,9 +84,9 @@ def create_single(context, meta, temp_file, requires_new_line):
                 if False == err:
                     #print new_line
                     if True == requires_new_line:
-                        temp_file.write(meta.table.delimiters.get_new_line())
-                    temp_file.write(new_line)
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                        temp_file.write(str.enmcode(meta.table.delimiters.get_new_line()))
+                    temp_file.write(str.encode(new_line))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
         if False == err:
             return {'success':True,'line':new_line}
         else:

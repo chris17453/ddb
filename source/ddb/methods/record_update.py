@@ -77,8 +77,8 @@ def method_update(context, meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode(processed_line['raw']) )
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
 
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)

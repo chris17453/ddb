@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.68'
+__version__='1.4.69'
 
         
 # ############################################################################
@@ -3119,9 +3119,9 @@ def method_delete(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'r', buffering=0) as content_file:
+        with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3159,7 +3159,7 @@ def method_insert(context, meta):
         temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
         diff=[]
         requires_new_line=False
-        with open(temp_data_file, 'a', buffering=0) as content_file:
+        with open(temp_data_file, 'ab', buffering=0) as content_file:
             results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
@@ -3245,7 +3245,7 @@ def select_process_file(context,meta):
         visible_whitespace=table.visible.whitespace
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
-        with open(temp_data_file, 'r') as content_file:
+        with open(temp_data_file, 'rb') as content_file:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
@@ -3543,9 +3543,9 @@ def method_update(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'r', buffering=0) as content_file:
+        with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3602,9 +3602,9 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_whitespace =meta.table.visible.whitespace
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
-        with open(temp_data_file, 'r', buffering=0) as content_file:
+        with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
                 for line in content_file:
                     processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
