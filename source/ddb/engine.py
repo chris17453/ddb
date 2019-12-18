@@ -77,7 +77,7 @@ class engine:
         WHITESPACE=4
 
     def error(self,msg, arg1=None, arg2=None, arg3=None,level=logging.ERROR):
-        info(self,msg, arg1, arg2, arg3,level=level)
+        self.info(self,msg, arg1, arg2, arg3,level=level)
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
