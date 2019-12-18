@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.64'
+__version__='1.4.65'
 
         
 # ############################################################################
@@ -4140,7 +4140,7 @@ class lock:
                 lock_status=lock.is_locked(path,key_uuid,lock_path)
                 try:
                     fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
-                    os.write(fd,lock_contents)
+                    os.write(fd,str.encode(lock_contents))
                     os.close(fd)
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     break

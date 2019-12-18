@@ -257,25 +257,18 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         # it checks for a lock file in the temp dir
         # and blocks this thread/.process until MAX timout occures
         # or the lock ages and is deleted
-        lock.info("x","1")
         lock.aquire(path,uuid)
-        lock.info("x","2")
         #time.sleep(.001)
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
-        lock.info("x","3")
         
-        temp_path=temp_path_from_file(path,prefix+uuid)
-        lock.info("x","4")
+        temp_path=temp_path_from_file(path,"{0}{1}".format(prefix,uuid) )
         
         norm_path=normalize_path(path)
-        lock.ingo("x","5")
         
         if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         #lock.copy_file( norm_path, temp_path)
-        lock.info("x","6")
         
         shutil.copy2(norm_path, temp_path)
-        lock.info("x","7")
         
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
