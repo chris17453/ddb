@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.19'
+__version__='1.4.20'
 
         
 # ############################################################################
@@ -2427,7 +2427,7 @@ try:
     if os.path.exists(logfile)==True:
         os.chmod(logfile,0o666)
 except Exception as ex:
-    print ex
+    print (ex)
     pass
 class engine:
     """A serverless flat file database engine"""
@@ -3160,7 +3160,7 @@ def create_single(context, meta, temp_file, requires_new_line):
         else:
             return {'success':False,'line':new_line}
     except Exception as ex:
-        print ex
+        print (ex)
         return {'success':False,'line':new_line}
 
         
@@ -3639,7 +3639,7 @@ def method_create_table(context, meta):
                                                 )
         return query_results(success=results)
     except Exception as ex:
-        print ex
+        print (ex)
         return query_results(success=False, error=ex)
 
         

@@ -47,9 +47,10 @@ class test_engine(unittest.TestCase):
         self.assertEqual(True, results.success)
         query="create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2".format(self.table_name2, file_name,repo)
         #print ""
-        #print query
+        print query
         #print ""
         results = engine.query(query)
+        print(results)
         self.assertEqual(True, results.success)
 
     def test_set(self):
