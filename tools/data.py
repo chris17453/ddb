@@ -181,7 +181,8 @@ def sub_class (command,classes,class_spec):
             for variable in classes[_class]:
                 if '_arguments' in variable:
                         continue
-                template_add ("            if {0}:  self.{0}={0}".format(variable))
+                #template_add ("            if {0}:  self.{0}={0}".format(variable))
+                template_add ("            self.{0}={0}".format(variable))
 
 
      
@@ -198,7 +199,7 @@ def sub_class (command,classes,class_spec):
 def variable_def (command,classes,class_spec):
     template_add ("    #variable_def")
     #return
-    
+
     for _class in classes:
         class_name=_class.replace(" ","_")
         if len(classes[_class])>1:

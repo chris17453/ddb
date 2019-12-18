@@ -99,8 +99,8 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
         #variable_def
     
         #variable_class_def
@@ -140,101 +140,101 @@ class meta:
             __slots__=['column','display','function','argument1','argument2','argument3']
     
             def __init__(self,column=None,display=None,function=None,argument1=None,argument2=None,argument3=None):
-                if column:  self.column=column
-                if display:  self.display=display
-                if function:  self.function=function
-                if argument1:  self.argument1=argument1
-                if argument2:  self.argument2=argument2
-                if argument3:  self.argument3=argument3
+                self.column=column
+                self.display=display
+                self.function=function
+                self.argument1=argument1
+                self.argument2=argument2
+                self.argument3=argument3
     
         class _source:
             __slots__=['table','display','database']
     
             def __init__(self,table=None,display=None,database=None):
-                if table:  self.table=table
-                if display:  self.display=display
-                if database:  self.database=database
+                self.table=table
+                self.display=display
+                self.database=database
     
         class _join:
             __slots__=['table','display']
     
             def __init__(self,table=None,display=None):
-                if table:  self.table=table
-                if display:  self.display=display
+                self.table=table
+                self.display=display
     
         class _join_on:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _join_and:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _join_or:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _where:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _and:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _or:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _group_by:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
     
         class _order_by:
             __slots__=['column','direction']
     
             def __init__(self,column=None,direction=None):
-                if column:  self.column=column
-                if direction:  self.direction=direction
+                self.column=column
+                self.direction=direction
     
         class _limit:
             __slots__=['length','start']
     
             def __init__(self,length=None,start=None):
-                if length:  self.length=length
-                if start:  self.start=start
+                self.length=length
+                self.start=start
         #variable_def
     
         #variable_class_def
@@ -295,8 +295,8 @@ class meta:
             __slots__=['variable','value']
     
             def __init__(self,variable=None,value=None):
-                if variable:  self.variable=variable
-                if value:  self.value=value
+                self.variable=variable
+                self.value=value
         #variable_def
     
         #variable_class_def
@@ -318,7 +318,7 @@ class meta:
             __slots__=['parameter']
     
             def __init__(self,parameter=None):
-                if parameter:  self.parameter=parameter
+                self.parameter=parameter
         #variable_def
     
         #variable_class_def
@@ -406,35 +406,35 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _where:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _and:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _or:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
         #variable_def
     
         #variable_class_def
@@ -459,20 +459,20 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _columns:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
     
         class _values:
             __slots__=['value']
     
             def __init__(self,value=None):
-                if value:  self.value=value
+                self.value=value
         #variable_def
     
         #variable_class_def
@@ -504,42 +504,42 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _set:
             __slots__=['column','expression']
     
             def __init__(self,column=None,expression=None):
-                if column:  self.column=column
-                if expression:  self.expression=expression
+                self.column=column
+                self.expression=expression
     
         class _where:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _and:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
     
         class _or:
             __slots__=['e1','c','e2','condition']
     
             def __init__(self,e1=None,c=None,e2=None,condition=None):
-                if e1:  self.e1=e1
-                if c:  self.c=c
-                if e2:  self.e2=e2
-                if condition:  self.condition=condition
+                self.e1=e1
+                self.c=c
+                self.e2=e2
+                self.condition=condition
         #variable_def
     
         #variable_class_def
@@ -571,33 +571,33 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _columns:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
     
         class _values:
             __slots__=['value']
     
             def __init__(self,value=None):
-                if value:  self.value=value
+                self.value=value
     
         class _on_duplicate_key:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
     
         class _set:
             __slots__=['column','expression']
     
             def __init__(self,column=None,expression=None):
-                if column:  self.column=column
-                if expression:  self.expression=expression
+                self.column=column
+                self.expression=expression
         #variable_def
     
         #variable_class_def
@@ -654,8 +654,8 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
         #variable_def
     
         #variable_class_def
@@ -673,25 +673,25 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _columns:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
     
         class _repo:
             __slots__=['protocol','url','user','password','directory','file']
     
             def __init__(self,protocol=None,url=None,user=None,password=None,directory=None,file=None):
-                if protocol:  self.protocol=protocol
-                if url:  self.url=url
-                if user:  self.user=user
-                if password:  self.password=password
-                if directory:  self.directory=directory
-                if file:  self.file=file
+                self.protocol=protocol
+                self.url=url
+                self.user=user
+                self.password=password
+                self.directory=directory
+                self.file=file
         #variable_def
     
         #variable_class_def
@@ -739,14 +739,14 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
     
         class _columns:
             __slots__=['column']
     
             def __init__(self,column=None):
-                if column:  self.column=column
+                self.column=column
         #variable_def
     
         #variable_class_def
@@ -783,8 +783,8 @@ class meta:
             __slots__=['table','database']
     
             def __init__(self,table=None,database=None):
-                if table:  self.table=table
-                if database:  self.database=database
+                self.table=table
+                self.database=database
         #variable_def
     
         #variable_class_def
