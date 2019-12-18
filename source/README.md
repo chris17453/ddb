@@ -26,3 +26,8 @@
 - error handeling
 - data is live, never cached
 - optimized for speed using cython
+
+
+## Python 2 / 3 Compliant
+- changes sorting
+- tons of byte vs str (encoding)
