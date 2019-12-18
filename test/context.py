@@ -21,7 +21,7 @@ if standalone_script==True:
     try:
         from standalone import ddb
     except Exception as ex:
-        print ex
+        print (ex)
         exit(1)
     print ("DDB STANDALONE")
 else:
@@ -30,6 +30,6 @@ else:
     try:
         from source import ddb
     except Exception as ex:
-        print ex
+        print (ex)
         exit(1)
     print ("DDB CYTHON")
