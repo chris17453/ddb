@@ -1,7 +1,7 @@
 import sys
 import os
 
-from language import language
+from .language import language
 from .data import meta_str, get_data, variable_def,init,debug,sub_class, template_add, template_get
 
 # meta file header

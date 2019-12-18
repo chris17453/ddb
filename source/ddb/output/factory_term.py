@@ -673,13 +673,14 @@ class flextable:
             if self.display_style=='rst':
                 self.output(row_header_seperator,encode)
 
+        
         for row in rows:
             self.output(row,encode)
             if self.display_style=='rst':
                 self.output(row_seperator,encode)
             if self.header_every>0:                
                 # we want it every N, but not if it bunches up on the footer
-                if index%self.header_every==0 and len(buffer)-index>self.header_every :
+                if index%self.header_every==0 and index>0:
                     self.output(mid_header,encode)
             index+=1
         if self.footer==True:

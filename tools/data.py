@@ -1,5 +1,5 @@
 
-from language import language
+from .language import language
 
 def safe_name(name,no_match=None):
     forbidden=[ 'False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 

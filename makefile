@@ -52,7 +52,7 @@ init:
 	# twine
 	# and other deps should be in the pipfile
 	@pipenv install 
-	
+	@ln -s source/ddb/lexer/language.py tools/language.py
 	#echo [bumpversion]>.bumpversion.cfg
 	#echo current_version = $(shell cat setup.py | grep version | grep -Po "['].*[']" | tr -d "'")>>.bumpversion.cfg
 	##echo files = setup.py>S>.bumpversion.cfg
@@ -103,11 +103,10 @@ svn_start:
 
 bytecode:
 	@python tools/generate_bytecode.py>source/ddb/lexer/bytecode.py
-	@python source/ddb/lexer/bytecode.py
 
 lexer:
 	@python tools/generate_bytecode.py>source/ddb/lexer/bytecode.py
-	@python source/ddb/lexer/bytecode.py
+	@python source/ddb/lexer/lexer-2.py
 
 
 build: svn_start meta bump
@@ -138,7 +137,6 @@ uninstall:
 	pip uninstall ddb -y
 
 meta:
-	@cp source/ddb/lexer/language.py tools/language.py
 	@python -m tools.generate_meta_class >source/ddb/meta/meta.py
 big_data:
 	@python  tools/generate_data.py>test/data/MOCK_DATA_LARGE.csv

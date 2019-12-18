@@ -1184,11 +1184,11 @@ class bytecode:
                 in_alpha=None
 
                 # is it the other side of the block
-                if c==bytecode.LEFT_PAREN_STR and in_block==bytecode.RIGHT_PAREN_STR:      
-                    block_depth+=1
-                    fragment+=c
-                    fragment_length+=1
-                    continue
+                #if c==bytecode.LEFT_PAREN_STR and in_block==bytecode.RIGHT_PAREN_STR:      
+                #    block_depth+=1
+                #    fragment+=c
+                #    fragment_length+=1
+                #    continue
 
                 
                 temp_test=fragment+c
@@ -1204,35 +1204,32 @@ class bytecode:
                 #print '>'+fragment[test_index:]+'.'+in_block
                 if test_index_length>=in_block_len and temp_test[test_index:]==in_block:
                          
-                    if in_block==bytecode.RIGHT_PAREN_STR:
-                        #print 'HI'+fragment+str(block_depth)
+                    #if in_block==bytecode.RIGHT_PAREN_STR:
+                    #    #print 'HI'+fragment+str(block_depth)
+                    #    block_depth-=1
+                    #    if block_depth!=0:
+                    #        fragment+=c
+                    #        fragment_length+=1
+                    #        continue
+                    #    # last character hasnt been added, but maybe others have. pull off the stack
+                    #    #if in_block_len>0:
+                    #    #    #print len(in_block),fragment+"-EDGE"
+                    #    #1    fragment=fragment[0:-1]
+                    #    #print fragment +'---'
+                    #       
+                    #    sub_code=bytecode.get_BYTECODE(fragment,depth+1,"{0}.{1}".format(uid,fragment_id),fragment_id)
+                    #    #fragment_id=sub_code[1]['fragment_id']+1
+                    #    fragment_id=sub_code[1]
+                    #    fragments+=sub_code[0]
+                    #else:
+                    # last character hasnt been added, but maybe others have. pull off the stack
+                    if in_block_len>1:
+                        #print len(in_block),fragment+"-EDGE"
+                        fragment=fragment[:-in_block_len+0]
 
-                        block_depth-=1
-                        if block_depth!=0:
-                            fragment+=c
-                            fragment_length+=1
-                            continue
-
-
-                        # last character hasnt been added, but maybe others have. pull off the stack
-                        #if in_block_len>0:
-                        #    #print len(in_block),fragment+"-EDGE"
-                        #1    fragment=fragment[0:-1]
-                        #print fragment +'---'
-                           
-                        sub_code=bytecode.get_BYTECODE(fragment,depth+1,"{0}.{1}".format(uid,fragment_id),fragment_id)
-                        #fragment_id=sub_code[1]['fragment_id']+1
-                        fragment_id=sub_code[1]
-                        fragments+=sub_code[0]
-                    else:
-                        # last character hasnt been added, but maybe others have. pull off the stack
-                        if in_block_len>1:
-                            #print len(in_block),fragment+"-EDGE"
-                            fragment=fragment[:-in_block_len+0]
-
-                        fragment_id+=1
-                        fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,depth=depth,fragment_type=fragment_type)
-                        fragment_type=None
+                    fragment_id+=1
+                    fragments+=bytecode.add_fragment(fragment,fragment_length,uid,fragment_id,depth=depth,fragment_type=fragment_type)
+                    fragment_type=None
                     fragment=""
                     fragment_length=0
                     in_block=None
@@ -1251,10 +1248,10 @@ class bytecode:
                 elif c==bytecode.BACK_TIC_STR:        
                     in_block  =bytecode.BACK_TIC_STR
                     frag_temp =bytecode.TOKEN_TYPE_FIELD
-                elif c==bytecode.LEFT_PAREN_STR:      
-                    in_block  =bytecode.RIGHT_PAREN_STR
-                    frag_temp =bytecode.TOKEN_TYPE_EXPRESSION
-                    block_depth   +=1
+                #elif c==bytecode.LEFT_PAREN_STR:      
+                #    in_block  =bytecode.RIGHT_PAREN_STR
+                #    frag_temp =bytecode.TOKEN_TYPE_EXPRESSION
+                #    block_depth   +=1
         
                 # matched pair, multi character
                 test_fragment=fragment+c
@@ -1434,7 +1431,7 @@ class lexer:
         self.bytecode_index_pin=self.bytecode_index
 
     def resetpin_index(self):
-        self.bytecode_index=self.bytecode_index=pin
+        self.bytecode_index=self.bytecode_index=self.bytecode_index_pin
 
     def validate_match_set(self,results):
         for result in results:
@@ -1506,9 +1503,7 @@ class lexer:
         self.keyword_GROUP_BY()
         self.keyword_LIMIT()
 
-    def simple_expression(self):
-        pass
-
+    
     def keyword_FROM(self):
         try:
             self._from= self.match([bytecode.FROM,'F']) 
@@ -1882,8 +1877,10 @@ class lexer:
 
     # strig or numeric literal
     def literal(self):
-        if is_instance(self.bytecode[self.bytecode_index],str):
-            return True
+        bytecode=self.bytecode[self.bytecode_index]
+        if bytecode[5]==bytecode.TOKEN_TYPE_BLOCK_STRING or   bytecode[5]==bytecode.TOKEN_TYPE_STRING:
+            print ("Literal : {0}".format(bytecode[0]))
+            return self.bytecode[self.bytecode_index]
         raise Exception("Not Literal")
 
 
@@ -1913,131 +1910,131 @@ class lexer:
         return True
     
 
-    def simple_expr(self):
+    def simple_expression(self):
         # sets the restart pointer for the bytecode index
         self.pin_index()
         
         try:   
-            self.resetpin_index()
+            print " Trying Litteral", self.bytecode[self.bytecode_index]
             return { self.literal() }
         except: 
             pass
         
-        try:    
-            self.resetpin_index()
-            return { self.identifier() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.function_call() }
-        except: 
-            pass
-        
-        try:    
-            self.resetpin_index()
-            return { self.simple_expr(),self.match(bytecode.COLLATE),self.colation_name() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.param_marker() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.variable() }
-        except: 
-            pass
-        
-        try:    
-            self.resetpin_index()
-            return { self.simple_expr() , self.match(bytecode.O_SHORTCIRCUIT_OR) , self.simple_expr() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(self.bytecode.O_PLUS)  , simple_expr() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(self.bytecode.O_MINUS) , simple_expr() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(self.bytecode.O_NOT)   , simple_expr() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(self.bytecode.O_NEGATE), simple_expr() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(self.bytecode.BINARY)  , simple_expr() }
-        except: 
-            pass
-        
-        try:    
-            self.resetpin_index()
-            return { self.expr_22 }
-        except: 
-            pass
-        
-        # I dont really know what the ROW(expr[,expr ...]) does
         #try:    
         #    self.resetpin_index()
-        #    return { self.match(self.bytecode.ROW), (,self.expr_array()) }
+        #    return { self.identifier() }
         #except: 
         #    pass
-
-        try:    
-            self.resetpin_index()
-            return { self.subquery() }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match(bytecode.EXISTS) ,self.subquery() }
-        except: 
-            pass
-        
-
-        try:    
-            self.resetpin_index()
-            return { self.identifier(),self.expr() }  # {}? }
-        except: 
-            pass
-
-        try:    
-            self.resetpin_index()
-            return { self.match_expr() }
-        except: pass
-
-        
-        try:    
-            self.resetpin_index()
-            return { self.case_expr() }
-        except: pass
-
-        
-        try:     
-            self.resetpin_index()
-            return { self.interval_expr() }
-        except:  pass
-
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.function_call() }
+        #except: 
+        #    pass
+        #
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.simple_expr(),self.match(bytecode.COLLATE),self.colation_name() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.param_marker() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.variable() }
+        #except: 
+        #    pass
+        #
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.simple_expr() , self.match(bytecode.O_SHORTCIRCUIT_OR) , self.simple_expr() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.O_PLUS)  , simple_expr() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.O_MINUS) , simple_expr() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.O_NOT)   , simple_expr() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.O_NEGATE), simple_expr() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(self.bytecode.BINARY)  , simple_expr() }
+        #except: 
+        #    pass
+        #
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.expr_22 }
+        #except: 
+        #    pass
+        #
+        ## I dont really know what the ROW(expr[,expr ...]) does
+        ##try:    
+        ##    self.resetpin_index()
+        ##    return { self.match(self.bytecode.ROW), (,self.expr_array()) }
+        ##except: 
+        ##    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.subquery() }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match(bytecode.EXISTS) ,self.subquery() }
+        #except: 
+        #    pass
+        #
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.identifier(),self.expr() }  # {}? }
+        #except: 
+        #    pass
+#
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.match_expr() }
+        #except: pass
+#
+        #
+        #try:    
+        #    self.resetpin_index()
+        #    return { self.case_expr() }
+        #except: pass
+#
+        #
+        #try:     
+        #    self.resetpin_index()
+        #    return { self.interval_expr() }
+        #except:  pass
+#
         # nothing matched. 
         self.resetpin_index()
         
