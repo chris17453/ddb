@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.56'
+__version__='1.4.57'
 
         
 # ############################################################################
@@ -4082,7 +4082,7 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r',buffering=0) as lockfile:
+                with open(lock_path,'rb',buffering=0) as lockfile:
                     try:
                         file_data=lockfile.readline()
                         try:
