@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.57'
+__version__='1.4.58'
 
         
 # ############################################################################
@@ -4061,9 +4061,9 @@ class lock:
             temp_dir = tempfile.gettempdir()
             m = hashlib.md5()
             m.update(norm_path.encode('ascii'))
-            basename=os.path.basename(norm_path)+"_"+m.hexdigest()
+            basename=os.path.basename(norm_path)+"_"+m.hexdigest().encode("ascii")
             temp_file_name='ddb_{0}.lock'.format(basename)
-            norm_lock_path = os.path.join(temp_dir, temp_file_name)
+            norm_lock_path = os.path.join(temp_dir.encode("ascii"), temp_file_name.encode("ascii"))
             return norm_lock_path
         except Exception as ex:
             lock.info("Get Lock Filname: {0}".format(ex))
@@ -4082,7 +4082,7 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'rb',buffering=0) as lockfile:
+                with open(lock_path,'r',) as lockfile: # buffering=0
                     try:
                         file_data=lockfile.readline()
                         try:
