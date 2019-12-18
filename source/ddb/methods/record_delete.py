@@ -41,10 +41,9 @@ def method_delete(context, meta):
                             temp_file.write(bytes(processed_line['raw']))
                     except Exception as ex:
                         context.error (meta.__class__.__name__+"UGH!",ex)            
-                    finally:
                         temp_file.write(str.encode(processed_line['raw']))
                         
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                    #temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
                 
             #context.autocommit_write(meta.table,dst_temp_filename)
         #context.auto_commit(meta.table)
