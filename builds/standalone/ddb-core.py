@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.63'
+__version__='1.4.64'
 
         
 # ############################################################################
@@ -4053,7 +4053,7 @@ class lock:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
             m = hashlib.md5()
-            m.update(norm_path)
+            m.update(norm_path.encode("ascii"))
             basename="{0}_{1}".format( os.path.basename(norm_path), m.hexdigest() )
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)

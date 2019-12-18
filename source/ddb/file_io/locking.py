@@ -211,7 +211,7 @@ class lock:
                 #if lock_status==lock.LOCK_NONE:
                 try:
                     fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
-                    os.write(fd,lock_contents)
+                    os.write(fd,str.encode(lock_contents))
                     os.close(fd)
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     
