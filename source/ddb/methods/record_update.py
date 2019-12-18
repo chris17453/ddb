@@ -61,9 +61,9 @@ def method_update(context, meta):
         visible_errors    =meta.table.visible.errors
 
 
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        with open(temp_data_file, 'r', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            with open (dst_temp_filename,"w", buffering=0) as  temp_file:
       
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -77,8 +77,8 @@ def method_update(context, meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(str.encode(processed_line['raw']) )
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
+                    temp_file.write(processed_line['raw'])
+                    temp_file.write(meta.table.delimiters.get_new_line())
 
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)

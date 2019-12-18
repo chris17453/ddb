@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.69'
+__version__='1.4.70'
 
         
 # ############################################################################
@@ -3131,8 +3131,8 @@ def method_delete(context, meta):
                         affected_rows += 1
                         diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode(processed_line['raw']))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
@@ -3193,9 +3193,9 @@ def create_single(context, meta, temp_file, requires_new_line):
                         break
                 if False == err:
                     if True == requires_new_line:
-                        temp_file.write(meta.table.delimiters.get_new_line())
-                    temp_file.write(new_line)
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                        temp_file.write(str.enmcode(meta.table.delimiters.get_new_line()))
+                    temp_file.write(str.encode(new_line))
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
         if False == err:
             return {'success':True,'line':new_line}
         else:
@@ -3557,8 +3557,8 @@ def method_update(context, meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode(processed_line['raw']) )
+                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
             context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
@@ -3617,8 +3617,8 @@ def method_upsert(context, meta,query_object,main_meta):
                             diff.append(results['line'])
                             affected_rows += 1
                         continue
-                    temp_file.write(processed_line['raw'])
-                    temp_file.write(meta.table.delimiters.get_new_line())
+                    temp_file.write(str.encode( processed_line['raw']) )
+                    temp_file.write(str.encode( meta.table.delimiters.get_new_line()) )
                 if affected_rows==0:
                     context.info("No row found in upsert, creating")
                     query_object['mode']="insert"
