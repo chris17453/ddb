@@ -135,7 +135,7 @@ build: svn_start meta bump
 # makes ansible single script
 
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  --build-cython
+	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/pypi/  --build-cython
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
@@ -143,7 +143,7 @@ build: svn_start meta bump
 build-dist:
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext --inplace sdist  --dist-dir ../builds/pypi/  
+	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/pypi/  
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
 
