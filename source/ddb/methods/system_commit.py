@@ -45,5 +45,5 @@ def method_system_commit(context,meta):
             
         return query_results(success=True)
     except Exception as ex:
-        context.error (meta.mode,ex)
+        context.error (meta.__class__.__name__,ex)
         return query_results(success=False,error=ex)
