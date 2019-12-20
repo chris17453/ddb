@@ -1,5 +1,0 @@
-include README.md
-recursive-include ddb __init__.py
-recursive-exclude ddb *.py
-recursive-include ddb *.c
-include ddb/version.py

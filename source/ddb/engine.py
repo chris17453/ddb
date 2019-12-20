@@ -182,7 +182,7 @@ class engine:
         self.database.debug=self.debug
         
     def reset_parameters(self):
-        self.parameters={}
+        self.parameter={}
         
     def set_param(self,parameter,value):
         # note make safe, strip delimiters quotes that stuff..
@@ -206,6 +206,13 @@ class engine:
         return True
         
 
+    #UNSAFE !!! TODO
+    def prepare_sql(self,sql):
+        for param in self.parameter:
+            sql=sql.replace(param,self.parameter[param])
+        
+        return sql
+
     def query(self, sql_query,parameters=None):
         try:
             start = time.perf_counter()
@@ -220,9 +227,8 @@ class engine:
         if parameters:
             for param in parameters:
                 self.set_param(param,parameters[param])
-        #UNSAFE !!! TODO
-        for param in self.parameters:
-            sql_query=sql_query.replace(param,self.parameter[param])
+        
+        sql_query=self.prepare_sql(sql_query)
 
         if False == self.has_configuration():
             raise Exception("No table found")

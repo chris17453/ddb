@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.144'
+__version__='1.4.145'
 
         
 # ############################################################################
@@ -2507,6 +2507,7 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
+        self.parameter={}
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         uuid_str=uuid.uuid1()
         self.system['UUID']= "{1}:{0}".format(uuid_str.urn[9:],os.getpid())
@@ -2551,6 +2552,10 @@ class engine:
     def trigger_debug(self):
         self.debug=self.system['DEBUG']
         self.database.debug=self.debug
+    def reset_parameters(self):
+        self.parameters={}
+    def set_param(self,parameter,value):
+        self.parameter[parameter]="'{0}'".format(value)
     def debugging(self, debug=False):
         self.debug = debug
     def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None,data_starts_on=None):
@@ -2561,7 +2566,7 @@ class engine:
         if None == self.database:
             return False
         return True
-    def query(self, sql_query):
+    def query(self, sql_query,parameters=None):
         try:
             start = time.perf_counter()
             wall_start = time.perf_counter()
@@ -2570,6 +2575,11 @@ class engine:
             wall_start = time.time()
             pass
         self.results = None
+        if parameters:
+            for param in parameters:
+                self.set_param(param,parameters[param])
+        for param in self.parameters:
+            sql_query=sql_query.replace(param,self.parameter[param])
         if False == self.has_configuration():
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
@@ -2646,6 +2656,7 @@ class engine:
             end = time.clock()
             self.results.wall_end = time.time()
             pass
+        self.reset_parameters()
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
