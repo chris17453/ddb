@@ -114,7 +114,8 @@ class engine:
         self.system={}
         self.system_trigger={}
         self.internal={}
-        
+        self.parameter={}
+
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         # variables that can be set by the system
         uuid_str=uuid.uuid1()
@@ -180,6 +181,12 @@ class engine:
         self.debug=self.system['DEBUG']
         self.database.debug=self.debug
         
+    def reset_parameters(self):
+        self.parameters={}
+        
+    def set_param(self,parameter,value):
+        # note make safe, strip delimiters quotes that stuff..
+        self.parameter[parameter]="'{0}'".format(value)
 
     def debugging(self, debug=False):
         self.debug = debug
@@ -197,8 +204,9 @@ class engine:
         # if table_count==0:
         #    return False
         return True
+        
 
-    def query(self, sql_query):
+    def query(self, sql_query,parameters=None):
         try:
             start = time.perf_counter()
             wall_start = time.perf_counter()
@@ -208,6 +216,14 @@ class engine:
             
             pass
         self.results = None
+
+        if parameters:
+            for param in parameters:
+                self.set_param(param,parameters[param])
+        #UNSAFE !!! TODO
+        for param in self.parameters:
+            sql_query=sql_query.replace(param,self.parameter[param])
+
         if False == self.has_configuration():
             raise Exception("No table found")
         # update table info...
@@ -336,7 +352,7 @@ class engine:
             end = time.clock()
             self.results.wall_end = time.time()
             pass
-        
+        self.reset_parameters()
         self.results.start_time=start
         self.results.end_time=end
         self.results.time=end-start
