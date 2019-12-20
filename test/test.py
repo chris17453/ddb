@@ -186,6 +186,29 @@ class test_engine(unittest.TestCase):
             print (ex)
             self.fail(ex)
 
+    def test_params(self,mode=None):
+        """Test parameterizing a query"""
+        #try:
+        print("PARAMS")
+        self.cleanup()
+        engine = ddb.engine(config_dir=self.config_dir,debug=None)
+        # fail on existing table
+        
+        self.create_table(engine,mode)
+        
+         # test results length
+        engine.set_param("@limit",10)
+        
+        results = engine.query('select * from {0} LIMIT @limit'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(10, results.data_length)
+
+        engine.set_param("@limit",8)
+        results = engine.query('select * from {0} LIMIT @limit'.format(self.table_name))
+        self.assertEqual(True, results.success)
+        self.assertEqual(8, results.data_length)
+
+
     def test_select(self,mode=None):
         """Test selecting results using various clauses a table"""
         #try:

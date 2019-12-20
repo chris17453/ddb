@@ -1,0 +1,1 @@
+create table 'main'.'test2' ('id','first_name','last_name','email','gender','ip_address') file='/home/nd/repos/ddb/test/data/MOCK_DATA.csv'   delimiter=',' whitespace=False errors=True comments=False strict=False data_starts_on=2 

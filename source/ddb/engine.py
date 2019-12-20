@@ -212,6 +212,10 @@ class engine:
             sql=sql.replace(param,self.parameter[param])
         
         return sql
+    
+    def execute(self, sql_query,parameters=None):
+        return self.query(sql_query,parameters)
+    
 
     def query(self, sql_query,parameters=None):
         try:
@@ -228,6 +232,10 @@ class engine:
             for param in parameters:
                 self.set_param(param,parameters[param])
         
+        # this performs parameter substitution before lexing/parsing
+        # it should only replace whole words, not within quotes and only starting with @
+        # this is a TODO HOT feature. UNSAFE
+
         sql_query=self.prepare_sql(sql_query)
 
         if False == self.has_configuration():

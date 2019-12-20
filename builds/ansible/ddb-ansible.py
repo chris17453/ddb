@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.145'
+__version__='1.4.146'
 
         
 # ############################################################################
@@ -2639,7 +2639,7 @@ class engine:
         self.debug=self.system['DEBUG']
         self.database.debug=self.debug
     def reset_parameters(self):
-        self.parameters={}
+        self.parameter={}
     def set_param(self,parameter,value):
         self.parameter[parameter]="'{0}'".format(value)
     def debugging(self, debug=False):
@@ -2652,6 +2652,10 @@ class engine:
         if None == self.database:
             return False
         return True
+    def prepare_sql(self,sql):
+        for param in self.parameter:
+            sql=sql.replace(param,self.parameter[param])
+        return sql
     def query(self, sql_query,parameters=None):
         try:
             start = time.perf_counter()
@@ -2664,8 +2668,7 @@ class engine:
         if parameters:
             for param in parameters:
                 self.set_param(param,parameters[param])
-        for param in self.parameters:
-            sql_query=sql_query.replace(param,self.parameter[param])
+        sql_query=self.prepare_sql(sql_query)
         if False == self.has_configuration():
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
