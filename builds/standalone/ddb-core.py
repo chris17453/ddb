@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.146'
+__version__='1.4.147'
 
         
 # ############################################################################
@@ -2563,6 +2563,8 @@ class engine:
         for param in self.parameter:
             sql=sql.replace(param,self.parameter[param])
         return sql
+    def execute(self, sql_query,parameters=None):
+        return self.query(sql_query,parameters)
     def query(self, sql_query,parameters=None):
         try:
             start = time.perf_counter()
