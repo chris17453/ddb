@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.155'
+__version__='1.4.156'
 
         
 # ############################################################################
@@ -2031,7 +2031,7 @@ class table:
                             header="# {0}\n".format(self.delimiters.field.join(column_text) )
                             new_file.write(header )
                     except Exception as ex:
-                        print("Create Table Error: {0}"format(ex))
+                        print("Create Table Error: {0}".format(ex))
     def update( self,
                 columns         =None,
                 data_file      =None,
