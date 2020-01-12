@@ -62,17 +62,11 @@ class table:
 
         self.update_ordinals()
         if self.data.path:
-            print ("Data Path")
             if repo==None:
-                print ("NO REPO")
-
                 if False == os.path.exists(normalize_path(self.data.path)):
-                    print ("Path invalid")
                     # no file exists.. create it
                     try:
-                        self.touch(self.data.path)
-                        print ("touch")
-
+                        touch(self.data.path)
                         # add a default header, csv safe 
                         with open(self.data.path,"a") as new_file:
                             column_text=[]
