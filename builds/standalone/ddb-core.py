@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.153'
+__version__='1.4.154'
 
         
 # ############################################################################
@@ -2020,7 +2020,7 @@ class table:
                         column_text=[]
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)
-                        header="# {0}\n".format(this.delimiters.field.join(column_text) )
+                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
                         new_file.write(header )
     def update( self,
                 columns         =None,

@@ -65,15 +65,18 @@ class table:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     # no file exists.. create it
-                    self.touch(self.data.path)
+                    try:
+                        self.touch(self.data.path)
 
-                    # add a default header, csv safe 
-                    with open(self.data.path,"a") as new_file:
-                        column_text=[]
-                        for column in self.data.columns:
-                            column_text.append(column.data.display.name)
-                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
-                        new_file.write(header )
+                        # add a default header, csv safe 
+                        with open(self.data.path,"a") as new_file:
+                            column_text=[]
+                            for column in self.data.columns:
+                                column_text.append(column.data.display.name)
+                            header="# {0}\n".format(self.delimiters.field.join(column_text) )
+                            new_file.write(header )
+                    except Exception as ex:
+                        print("Create Table Error: {0}"format(ex))
 
         #data:
         #    self.name = None
