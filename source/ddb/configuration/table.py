@@ -9,6 +9,12 @@ from ..lexer import lexer
 # use the c based parser, or you're going to get massive lag with the python based solution
 
 
+def touch(path):
+        basedir = os.path.dirname(path)
+        if not os.path.exists(basedir):
+            os.makedirs(basedir)
+        open(path, 'a').close()
+
 class table:
     def __init__(self,
                  table_config_file=None,
@@ -58,8 +64,12 @@ class table:
         if self.data.path:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
+                    # no file exists.. create it
+                    self.touch(self.data.path)
                     #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
-                    self.active = False
+                    #self.active = False
+
+    
 
     def update( self,
                 columns         =None,

@@ -129,7 +129,7 @@ lexer:
 	@python source/ddb/lexer/lexer-2.py
 
 
-build: svn_start meta bump
+build: meta bump
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 # makes ansible single script
 
