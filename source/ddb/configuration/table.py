@@ -66,6 +66,44 @@ class table:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     # no file exists.. create it
                     self.touch(self.data.path)
+
+                    # add a default header, csv safe 
+                    with open(self.data.path,"a") as new_File:
+                        column_text=[]
+                        for column in self.data.columns:
+                            column_text.append(column.data.display.name)
+                        
+                        new_file.write("# "+this.delimiters.field.join(column_text))
+
+        #data:
+        #    self.name = None
+        #    self.type = "string"
+        #    self.is_array = False
+        #    self.has_default = False
+        #    self.default_value = None
+        #    self.ordinal = -1
+        #    self.export = False
+        #    self.regex = None
+        #display
+        #    self.name = None
+        #    self.ordinal = -1
+        #    self.visible = True
+        #    self.fixed_width = True
+        #    self.width = 100
+        #    self.max_width = 0
+        #    self.min_width = 0
+        #    self.overflow = False
+        #search
+        #    self.searchable = False
+        #    self.multi_search = False
+        #sort: sortable = False
+        #self.ordinal = 0
+        #self.default = False
+        #self.default_asc = False
+
+
+
+
                     #raise Exception("Data file invalid for table: {}, path:{}".format(self.data.name, self.data.path))
                     #self.active = False
 

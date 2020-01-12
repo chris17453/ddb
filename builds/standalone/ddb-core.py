@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.148'
+__version__='1.4.149'
 
         
 # ############################################################################
@@ -1964,6 +1964,11 @@ class column_sort:
 # File   : ./source/ddb/configuration/table.py
 # ############################################################################
 
+def touch(path):
+        basedir = os.path.dirname(path)
+        if not os.path.exists(basedir):
+            os.makedirs(basedir)
+        open(path, 'a').close()
 class table:
     def __init__(self,
                  table_config_file=None,
@@ -2010,7 +2015,7 @@ class table:
         if self.data.path:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
-                    self.active = False
+                    self.touch(self.data.path)
     def update( self,
                 columns         =None,
                 data_file      =None,
