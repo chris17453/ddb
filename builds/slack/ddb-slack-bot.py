@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.157'
+__version__='1.4.158'
 
         
 # ############################################################################
@@ -1973,10 +1973,10 @@ class column_sort:
 # ############################################################################
 
 def touch(path):
-        basedir = os.path.dirname(path)
-        if not os.path.exists(basedir):
-            os.makedirs(basedir)
-        open(path, 'a').close()
+    basedir = os.path.dirname(path)
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
+    open(path, 'a').close()
 class table:
     def __init__(self,
                  table_config_file=None,
@@ -2021,23 +2021,15 @@ class table:
                     )
         self.update_ordinals()
         if self.data.path:
-            print ("Data Path")
             if repo==None:
-                print ("NO REPO")
                 if False == os.path.exists(normalize_path(self.data.path)):
-                    print ("Path invalid")
-                    try:
-                        self.touch(self.data.path)
-                        print ("touch")
-                        with open(self.data.path,"a") as new_file:
-                            column_text=[]
-                            for column in self.data.columns:
-                                column_text.append(column.data.display.name)
-                            header="# {0}\n".format(self.delimiters.field.join(column_text) )
-                            new_file.write(header )
-                        print ("header")
-                    except Exception as ex:
-                        print("Create Table Error: {0}".format(ex))
+                    touch(self.data.path)
+                    with open(self.data.path,"a") as new_file:
+                        column_text=[]
+                        for column in self.columns:
+                            column_text.append(column.data.name)
+                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
+                        new_file.write(header)
     def update( self,
                 columns         =None,
                 data_file      =None,

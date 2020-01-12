@@ -10,10 +10,10 @@ from ..lexer import lexer
 
 
 def touch(path):
-        basedir = os.path.dirname(path)
-        if not os.path.exists(basedir):
-            os.makedirs(basedir)
-        open(path, 'a').close()
+    basedir = os.path.dirname(path)
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
+    open(path, 'a').close()
 
 class table:
     def __init__(self,
@@ -65,18 +65,15 @@ class table:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     # no file exists.. create it
-                    try:
-                        touch(self.data.path)
-                        # add a default header, csv safe 
-                        with open(self.data.path,"a") as new_file:
-                            column_text=[]
-                            for column in self.data.columns:
-                                column_text.append(column.data.display.name)
-                            header="# {0}\n".format(self.delimiters.field.join(column_text) )
-                            new_file.write(header )
-                        print ("header")
-                    except Exception as ex:
-                        print("Create Table Error: {0}".format(ex))
+                    touch(self.data.path)
+                    # add a default header, csv safe 
+                    with open(self.data.path,"a") as new_file:
+                        column_text=[]
+                        for column in self.columns:
+                            column_text.append(column.data.name)
+                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
+                        new_file.write(header)
+        
 
         #data:
         #    self.name = None
