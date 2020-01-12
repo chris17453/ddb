@@ -106,6 +106,8 @@ class engine:
         # if false, load nothing, if true, load form user dir
         if debug==True:
             logging.getLogger().setLevel(logging.ERROR)
+        else:
+            logging.getLogger().setLevel(logging.CRITICAL)
         self.debug = debug
         self.results = None
         self.mode = mode

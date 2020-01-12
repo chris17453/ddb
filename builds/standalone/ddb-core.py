@@ -38,7 +38,7 @@ import random
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.159'
+__version__='1.4.160'
 
         
 # ############################################################################
@@ -2572,6 +2572,8 @@ class engine:
         return True
     def prepare_sql(self,sql):
         for param in self.parameter:
+            if self.debug:
+                self.info("Setting Parameter: {0}:{1}".format(param,self.parameter[param]))
             sql=sql.replace(param,self.parameter[param])
         return sql
     def execute(self, sql_query,parameters=None):
