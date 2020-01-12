@@ -76,7 +76,7 @@ class table:
                             header="# {0}\n".format(self.delimiters.field.join(column_text) )
                             new_file.write(header )
                     except Exception as ex:
-                        print("Create Table Error: {0}"format(ex))
+                        print("Create Table Error: {0}".format(ex))
 
         #data:
         #    self.name = None

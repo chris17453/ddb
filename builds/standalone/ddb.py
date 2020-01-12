@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.154'
+__version__='1.4.155'
 
         
 # ############################################################################
@@ -2022,13 +2022,16 @@ class table:
         if self.data.path:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
-                    self.touch(self.data.path)
-                    with open(self.data.path,"a") as new_file:
-                        column_text=[]
-                        for column in self.data.columns:
-                            column_text.append(column.data.display.name)
-                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
-                        new_file.write(header )
+                    try:
+                        self.touch(self.data.path)
+                        with open(self.data.path,"a") as new_file:
+                            column_text=[]
+                            for column in self.data.columns:
+                                column_text.append(column.data.display.name)
+                            header="# {0}\n".format(self.delimiters.field.join(column_text) )
+                            new_file.write(header )
+                    except Exception as ex:
+                        print("Create Table Error: {0}"format(ex))
     def update( self,
                 columns         =None,
                 data_file      =None,
