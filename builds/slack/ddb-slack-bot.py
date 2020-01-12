@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.149'
+__version__='1.4.150'
 
         
 # ############################################################################
@@ -2024,6 +2024,11 @@ class table:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     self.touch(self.data.path)
+                    with open(self.data.path,"a") as new_File:
+                        column_text=[]
+                        for column in self.data.columns:
+                            column_text.append(column.data.display.name)
+                        new_file.write("# "+this.delimiters.field.join(column_text))
     def update( self,
                 columns         =None,
                 data_file      =None,

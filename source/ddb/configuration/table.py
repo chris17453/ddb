@@ -73,7 +73,7 @@ class table:
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)
                         
-                        new_file.write("# "+this.delimiters.field.join(column_text))
+                        new_file.write("# {0}".format(this.delimiters.field.join(column_text) ) )
 
         #data:
         #    self.name = None
