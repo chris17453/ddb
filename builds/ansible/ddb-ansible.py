@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.150'
+__version__='1.4.151'
 
         
 # ############################################################################
@@ -2113,7 +2113,7 @@ class table:
                         column_text=[]
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)
-                        new_file.write("# "+this.delimiters.field.join(column_text))
+                        new_file.write("# {0}".format(this.delimiters.field.join(column_text) ) )
     def update( self,
                 columns         =None,
                 data_file      =None,

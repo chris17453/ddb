@@ -72,8 +72,8 @@ class table:
                         column_text=[]
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)
-                        
-                        new_file.write("# {0}".format(this.delimiters.field.join(column_text) ) )
+                        header="# {0}\n".format(this.delimiters.field.join(column_text) )
+                        new_file.write(header )
 
         #data:
         #    self.name = None
