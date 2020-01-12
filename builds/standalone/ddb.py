@@ -45,7 +45,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.152'
+__version__='1.4.153'
 
         
 # ############################################################################
@@ -2023,7 +2023,7 @@ class table:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     self.touch(self.data.path)
-                    with open(self.data.path,"a") as new_File:
+                    with open(self.data.path,"a") as new_file:
                         column_text=[]
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)

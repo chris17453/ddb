@@ -72,7 +72,7 @@ class table:
                         column_text=[]
                         for column in self.data.columns:
                             column_text.append(column.data.display.name)
-                        header="# {0}\n".format(this.delimiters.field.join(column_text) )
+                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
                         new_file.write(header )
 
         #data:
