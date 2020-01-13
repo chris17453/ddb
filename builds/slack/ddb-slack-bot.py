@@ -46,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.160'
+__version__='1.4.161'
 
         
 # ############################################################################
@@ -2511,6 +2511,8 @@ class engine:
         self.pid=os.getpid()
         if debug==True:
             logging.getLogger().setLevel(logging.ERROR)
+        else:
+            logging.getLogger().setLevel(logging.CRITICAL)
         self.debug = debug
         self.results = None
         self.mode = mode

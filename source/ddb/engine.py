@@ -108,6 +108,7 @@ class engine:
             logging.getLogger().setLevel(logging.ERROR)
         else:
             logging.getLogger().setLevel(logging.CRITICAL)
+            
         self.debug = debug
         self.results = None
         self.mode = mode
