@@ -436,7 +436,7 @@ class match2:
 
 
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None,executed_query=None):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
@@ -447,6 +447,7 @@ class query_results:
         self.total_data_length=0
         self.delimiter=delimiter
         self.new_line=new_line
+        self.executed_query=executed_query
         
         self.columns=[]
 

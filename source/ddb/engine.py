@@ -210,11 +210,16 @@ class engine:
         
 
     #UNSAFE !!! TODO
-    def prepare_sql(self,sql):
-        for param in self.parameter:
+    def prepare_sql(self,sql,parameters=None):
+        if parameters==None:
+            param_list=self.parameter
+        else:
+            param_list=parameters
+
+        for param in param_list:
             if self.debug:
-                self.info("Setting Parameter: {0}:{1}".format(param,self.parameter[param]))
-            sql=sql.replace(param,self.parameter[param])
+                self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
+            sql=sql.replace(param,param_list[param])
         
         return sql
     

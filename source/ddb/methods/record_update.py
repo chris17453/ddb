@@ -76,6 +76,8 @@ def method_update(context, meta):
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
+                        else:
+                            raise Exception("Error Updating Line")
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
