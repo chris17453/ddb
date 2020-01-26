@@ -390,7 +390,7 @@ class engine:
                     data=[]
                     for line in self.results.data:
                         data.append(record(data=line['raw']),config=config,line_number=line['line_number'])
-                    results.data=data
+                    self.results.data=data
 
                 else:
                     pass
