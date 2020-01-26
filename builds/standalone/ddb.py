@@ -46,7 +46,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.163'
+__version__='1.4.164'
 
         
 # ############################################################################
@@ -2691,7 +2691,7 @@ class engine:
                     data=[]
                     for line in self.results.data:
                         data.append(record(data=line['raw']),config=config,line_number=line['line_number'])
-                    results.data=data
+                    self.results.data=data
                 else:
                     pass
         if None == self.results:

@@ -389,7 +389,7 @@ class engine:
                     block_quote_delimiter = table.delimiters.block_quote
                     data=[]
                     for line in self.results.data:
-                        data.append(record(data=line['raw']),config=config,line_number=line['line_number'])
+                        data.append(record(data=line['raw'],config=config,line_number=line['line_number']))
                     self.results.data=data
 
                 else:
