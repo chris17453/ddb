@@ -30,6 +30,7 @@ import logging
 from subprocess import Popen,PIPE
 import hashlib
 import random
+from collections import OrderedDict
 
 
 from cmd import Cmd
@@ -45,7 +46,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.161'
+__version__='1.4.162'
 
         
 # ############################################################################
@@ -2509,7 +2510,7 @@ class engine:
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         if debug==True:
-            logging.getLogger().setLevel(logging.ERROR)
+            logging.getLogger().setLevel(logging.INFO)
         else:
             logging.getLogger().setLevel(logging.CRITICAL)
         self.debug = debug
@@ -2579,11 +2580,15 @@ class engine:
         if None == self.database:
             return False
         return True
-    def prepare_sql(self,sql):
-        for param in self.parameter:
+    def prepare_sql(self,sql,parameters=None):
+        if parameters==None:
+            param_list=self.parameter
+        else:
+            param_list=parameters
+        for param in param_list:
             if self.debug:
-                self.info("Setting Parameter: {0}:{1}".format(param,self.parameter[param]))
-            sql=sql.replace(param,self.parameter[param])
+                self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
+            sql=sql.replace(param,param_list[param])
         return sql
     def execute(self, sql_query,parameters=None):
         return self.query(sql_query,parameters)
@@ -2600,6 +2605,7 @@ class engine:
             for param in parameters:
                 self.set_param(param,parameters[param])
         sql_query=self.prepare_sql(sql_query)
+        self.excuted_query=sql_query
         if False == self.has_configuration():
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
@@ -2655,6 +2661,7 @@ class engine:
         if self.results:
             self.results.delimiter=self.internal['FIELD_DELIMITER']
             self.results.new_line=self.internal['NEW_LINE']
+            self.results.excuted_query=self.excuted_query
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns
@@ -2667,6 +2674,26 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+                    print ("OBJECT")
+                elif self.mode=='v2':
+                    print ("RECORD")
+                    config=record_configuration()
+                    config.columns        = self.results.columns
+                    column_count          = len(self.results.columns)
+                    line_number           = 0
+                    data_starts_on_line   = table.data.starts_on_line
+                    remove_block_quotes   = True
+                    render_whitespace     = table.display.whitespace
+                    render_comment        = table.display.comment
+                    comment_delimiter     = table.delimiters.comment
+                    field_delimiter       = table.delimiters.field
+                    block_quote_delimiter = table.delimiters.block_quote
+                    data=[]
+                    for line in self.results.data:
+                        data.append(record(data=line['raw']),config=config,line_number=line['line_number'])
+                    results.data=data
+                else:
+                    pass
         if None == self.results:
             self.results=query_results()
         try:
@@ -2796,6 +2823,231 @@ class engine:
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
             method_system_commit(self)
+
+        
+# ############################################################################
+# Module : methods-records
+# File   : ./source/ddb/methods/record.py
+# ############################################################################
+
+class record_configuration:
+    __slots__=()  
+    columns               = None
+    column_count          = 0
+    line_number           = 0
+    data_starts_on_line   = 0
+    remove_block_quotes   = None
+    render_whitespace     = None
+    render_comment        = None
+    comment_delimiter     = '#'
+    field_delimiter       = ','
+    block_quote_delimiter = "'"
+    meta                  = None
+    context               = None
+    def __init__(self):
+        pass
+class record:
+    __slots__=()
+    __internal={'__type'        : 0,
+              '__raw'         : None,
+              '__line_number' : None,
+              '__error'       : None,
+              '__match'       : None
+              }
+    __data=OrderedDict()
+    def __init__(self, data, config,line_number=None):
+        self.__raw         = data
+        if line_number:
+          self.__line_number = line_number
+        else:
+          self.__line_number = config.line_number
+        for column in config.columns:
+            self.__data[column]=None
+        self.process( data, config)
+    def __getattr__(self, name):
+        try:
+          if   name=='_record__type':        return self.__internal['__type']
+          elif name=='_record__raw':         return self.__internal['__raw']
+          elif name=='_record__line_number': return self.__internal['__line_number']
+          elif name=='_record__error':       return self.__internal['__error']
+          elif name=='_record__match':       return self.__internal['__match']
+          elif name=='_record__data':        return self.__internal['__data']
+          else:
+              return self.__data[name]
+        except :
+            err_msg="Key not valid: '{0}'".format(name)
+            raise Exception (err_msg)
+    def __setattr__(self, name, value):
+        if   name=='_record__type':        self.__internal['__type']       =value
+        elif name=='_record__raw':         self.__internal['__raw']        =value
+        elif name=='_record__line_number': self.__internal['__line_number']=value
+        elif name=='_record__error':       self.__internal['__error']      =value
+        elif name=='_record__match':       self.__internal['__match']      =value
+        elif name=='_record__data':        self.__internal['__data']       =value
+        else:
+          if self.__data.has_key(name)==False:
+             err_msg="Cannot assign data to invalid key: '{0}'".format(name)
+             raise Exception (err_msg)
+          try:
+                self.__data[name]=value
+          except :
+              err_msg="Cannot assign data to Key: '{0}'".format(name)
+              raise Exception (err_msg)
+    def __delattr__(self, name):
+        try:
+            del self.__data[name]
+        except :
+            err_msg="Cannot delete key: '{0}'".format(name)
+            raise Exception (err_msg)
+    def __iter__(self):
+        for key in self.__data:
+            yield key
+    def keys(self):
+      return self.__data.keys()
+    def has_key(self,key):
+      return self.__data.has_key(key)
+    def items(self):
+        for key in self.__data:
+          yield key, self.__data[key]
+    def iteritems(self):
+        for key in self.__data:
+          yield key, self.__data[key]
+    def split_array(self,arr):
+        ARRAY_DELIMITER=','
+        TUPEL_DELIMITER='='
+        split=arr.split(ARRAY_DELIMITER)
+        store={}
+        for item in split:
+          try:
+            setting_key,setting_value=item.split(TUPEL_DELIMITER)
+            store[setting_key]=setting_value
+          except:
+            store[item]=item
+          kv=self.split_key_value(item)
+          store.append(kv)
+        if len(store)==1:
+          return store[0]
+        strings=0
+        dicts=0
+        for item in store:
+          if isinstance(item,str):
+            strings+=1
+          elif isinstance(item,dict):
+            dicts+=1
+        if dicts>=0 and strings==0:
+          store2={}
+          for item in store:
+            store2.update(item)
+          store=store2
+        return store
+    def split_key_value(self,blob):
+        try:
+          setting_key,setting_value=blob.split('=')
+          return {setting_key:setting_value}
+        except:
+          pass
+        return blob
+    def process_rows(self,set,prefix):
+          res={}
+          for row in set.data:
+            data=row['data']
+            for key in data:
+                self.split_array(value)
+          return res
+    def process(self, data, config,date_type=2,error=None,match=True):
+        COMMENT     = 0
+        WHITESPACE  = 1
+        DATA        = 2
+        try:
+            if data[0]==config.comment_delimiter:
+                data_type=COMMENT
+            elif config.data_starts_on_line <config.line_number:
+                data_type=COMMENT
+                if config.render_comment:
+                    match=True
+            elif not data:
+                data_type=WHITESPACE
+                if config.render_whitespace:
+                    match=True
+        except:
+            data_type=COMMENT
+            if config.render_comment:
+                match=True
+        if data_type==DATA:
+            tokens=data.split(config.field_delimiter, config.column_count)
+            if config.remove_block_quotes:
+                i=0
+                for token in tokens:
+                    if len(token)>1 and token[0] == config.block_quote_delimiter and token[-1] == config.block_quote_delimiter:
+                            token=token[1:-1]
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+            else:
+                i=0
+                for token in tokens:
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+        self.__type        = data_type
+        self.__error       = error
+        self.__match       = match
+class table:
+    __slots__=()
+    config             =None
+    rows               =None
+    success           = None
+    affected_rows     = None
+    diff              = None
+    error             = None
+    total_data_length = None
+    delimiter         = None
+    new_line          = None
+    data_length       = None
+    columns           = None
+    column_length     = None
+    def __init__(self,context,meta):
+        self.init_record_config(context,meta)
+    def init_record_config(self,context,meta):
+        config=record_configuration()
+        config.line_number           = 0
+        config.data_starts_on_line   = meta.table.data.starts_on_line
+        config.column_count          = meta.table.column_count()
+        config.field_delimiter       = meta.table.delimiters.field
+        config.render_whitespace     = meta.table.visible.whitespace
+        config.render_comments       = meta.table.visible.comments
+        config.render_errors         = meta.table.visible.errors
+        config.remove_block_quotes   = None
+        config.block_quote_delimiter = "'"
+        config.meta                  = meta
+        config.context               = context
+        self.config=config
+    def update_statistics(self):
+        success           = None
+        affected_rows     = None
+        diff              = None
+        error             = None
+        total_data_length = None
+        delimiter         = None
+        new_line          = None
+        columns           = None
+        data_length       = None
+        column_length     = None
+    def load(self):
+        data=[]
+        self.rows=None
+        temp_data_file=self.config.context.get_data_file(self.config.meta.table)
+        with open(temp_data_file, 'r') as content_file:
+            line_number=0
+            for line in content_file:
+                self.config.line_number=line_number
+                data.append(record(line,self.config))
+                line_number+=1
+        self.config.context.auto_commit(self.config.meta.table)
+        self.rows=data
+    def __iter__(self):
+        for row  in self.rows:
+            yield row
 
         
 # ############################################################################
@@ -3106,7 +3358,7 @@ class match2:
             return False
         return success
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
+    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None,executed_query=None):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
@@ -3117,6 +3369,7 @@ class query_results:
         self.total_data_length=0
         self.delimiter=delimiter
         self.new_line=new_line
+        self.executed_query=executed_query
         self.columns=[]
         if data and data.results:
             self.data=data.results
@@ -3551,6 +3804,7 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
         column_name = meta.set[c2].column
         if None == meta.table.get_column_by_name(column_name):
             context.add_error("column in update statement does not exist in table: {0}".format(column_name))
+            print("column in update statement does not exist in table: {0}".format(column_name))
             err = True
     if False == err:
         for c in range(0, meta.table.column_count()):
@@ -3596,6 +3850,8 @@ def method_update(context, meta):
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
+                        else:
+                            raise Exception("Error Updating Line")
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))

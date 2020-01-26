@@ -449,6 +449,7 @@ class query_results:
         self.new_line=new_line
         self.executed_query=executed_query
         
+        
         self.columns=[]
 
         if data and data.results:

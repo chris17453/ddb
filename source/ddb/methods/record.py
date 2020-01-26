@@ -9,7 +9,7 @@ class record_configuration:
     # data
     columns               = None
     column_count          = 0
-    line_number           = None
+    line_number           = 0
     data_starts_on_line   = 0
     remove_block_quotes   = None
     render_whitespace     = None
@@ -37,9 +37,13 @@ class record:
     
     __data=OrderedDict()
 
-    def __init__(self, data, config):
+    def __init__(self, data, config,line_number=None):
         self.__raw         = data
-        self.__line_number = config.line_number
+        
+        if line_number:
+          self.__line_number = line_number
+        else:
+          self.__line_number = config.line_number
 
         # create empty dataset for row
         for column in config.columns:
@@ -159,14 +163,14 @@ class record:
                 self.split_array(value)
           return res
 
-    def process(self, data, config):
+    def process(self, data, config,date_type=2,error=None,match=True):
         COMMENT     = 0
         WHITESPACE  = 1
         DATA        = 2
         
-        match               = None
-        data_type           = DATA
-        error               = None
+        #match               = None
+        #data_type           = DATA
+        #error               = None
         #Determine line type
         try:
             if data[0]==config.comment_delimiter:
