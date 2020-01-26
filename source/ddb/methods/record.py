@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 
 class record_configuration:
-    __slots__=()  
+    
     # data
     columns               = None
     column_count          = 0
@@ -51,7 +51,12 @@ class record:
 
         # process string into dataset
         self.process( data, config)
+    
+    @classmethod
+    def to_json(self):
+      return self.__data
       
+    @classmethod
     def __getattr__(self, name):
         try:
           if   name=='_record__type':        return self.__internal['__type']
@@ -61,11 +66,15 @@ class record:
           elif name=='_record__match':       return self.__internal['__match']
           elif name=='_record__data':        return self.__internal['__data']
           else:
-              return self.__data[name]
-        except :
-            err_msg="Key not valid: '{0}'".format(name)
-            raise Exception (err_msg)
+                return self.__data[name]
+       
+        except KeyError:
+            #exc_type, exc_value, exc_tb = sys.exc_info()
+            #traceback.print_exception(exc_type, exc_value, exc_tb)
+            raise AttributeError(name)
+    
 
+    @classmethod
     def __setattr__(self, name, value):
         if   name=='_record__type':        self.__internal['__type']       =value
         elif name=='_record__raw':         self.__internal['__raw']        =value
@@ -84,6 +93,7 @@ class record:
               err_msg="Cannot assign data to Key: '{0}'".format(name)
               raise Exception (err_msg)
 
+    @classmethod
     def __delattr__(self, name):
         try:
             del self.__data[name]
@@ -91,26 +101,33 @@ class record:
             err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
 
+    @classmethod
     def __iter__(self):
         for key in self.__data:
             yield key
 
+    @classmethod
     def keys(self):
       return self.__data.keys()
 
+    @classmethod
     def has_key(self,key):
       return self.__data.has_key(key)
 
     # PY3 support
+    @classmethod
     def items(self):
         for key in self.__data:
           yield key, self.__data[key]
 
     # PY2 support
+    @classmethod
     def iteritems(self):
         for key in self.__data:
+          print ("Key"+key)
           yield key, self.__data[key]
 
+    @classmethod
     def split_array(self,arr):
         ARRAY_DELIMITER=','
         TUPEL_DELIMITER='='
@@ -147,6 +164,7 @@ class record:
 
         return store
      
+    @classmethod
     def split_key_value(self,blob):
         try:
           setting_key,setting_value=blob.split('=')
@@ -155,6 +173,7 @@ class record:
           pass
         return blob
 
+    @classmethod
     def process_rows(self,set,prefix):
           res={}
           for row in set.data:
@@ -163,7 +182,8 @@ class record:
                 self.split_array(value)
           return res
 
-    def process(self, data, config,date_type=2,error=None,match=True):
+    @classmethod
+    def process(self, data, config,data_type=2,error=None,match=True):
         COMMENT     = 0
         WHITESPACE  = 1
         DATA        = 2
@@ -172,26 +192,31 @@ class record:
         #data_type           = DATA
         #error               = None
         #Determine line type
-        try:
-            if data[0]==config.comment_delimiter:
-                data_type=COMMENT
-            elif config.data_starts_on_line <config.line_number:
-                data_type=COMMENT
-                if config.render_comment:
-                    match=True
-            elif not data:
-                data_type=WHITESPACE
-                if config.render_whitespace:
-                    match=True
-        # FAIL TO COMMENT
-        except:
-            data_type=COMMENT
-            if config.render_comment:
-                match=True
+        if isinstance(data,str):
+          try:
+              if data[0]==config.comment_delimiter:
+                  data_type=COMMENT
+              elif config.data_starts_on_line <config.line_number:
+                  data_type=COMMENT
+                  if config.render_comment:
+                      match=True
+              elif not data:
+                  data_type=WHITESPACE
+                  if config.render_whitespace:
+                      match=True
+          # FAIL TO COMMENT
+          except:
+              data_type=COMMENT
+              if config.render_comment:
+                  match=True
 
         #if its actual data. lets split it and make some structures
         if data_type==DATA:
-            tokens=data.split(config.field_delimiter, config.column_count)
+            if isinstance(data,str):
+              tokens=data.split(config.field_delimiter, config.column_count)
+            else:
+              tokens=data
+                   
             #print tokens
             if config.remove_block_quotes:
                 i=0
@@ -255,77 +280,78 @@ class record:
 #        return None
 
 
-class table:
-    __slots__=()
-     
-    config             =None
-    rows               =None
-    success           = None
-    affected_rows     = None
-    diff              = None
-    error             = None
-    total_data_length = None
-    delimiter         = None
-    new_line          = None
-    data_length       = None
-    columns           = None
-    column_length     = None
-
-    def __init__(self,context,meta):
-        self.init_record_config(context,meta)
-    
-    # sets up the per record config data
-    def init_record_config(self,context,meta):
-        config=record_configuration()
-        config.line_number           = 0
-        config.data_starts_on_line   = meta.table.data.starts_on_line
-        config.column_count          = meta.table.column_count()
-        config.field_delimiter       = meta.table.delimiters.field
-        config.render_whitespace     = meta.table.visible.whitespace
-        config.render_comments       = meta.table.visible.comments
-        config.render_errors         = meta.table.visible.errors
-        config.remove_block_quotes   = None
-        config.block_quote_delimiter = "'"
-        config.meta                  = meta
-        config.context               = context
-        self.config=config
-    
-    def update_statistics(self):
-        success           = None
-        affected_rows     = None
-        diff              = None
-        error             = None
-        total_data_length = None
-        delimiter         = None
-        new_line          = None
-        columns           = None
-        data_length       = None
-        column_length     = None
-
-    def load(self):
-        # prep data
-        data=[]
-        self.rows=None
-
-        # file reads from a sourced copy of the data file
-        # a manager regulates the creation and vending of this file
-        temp_data_file=self.config.context.get_data_file(self.config.meta.table)
-
-        # loop through file as fast as possible
-        with open(temp_data_file, 'r') as content_file:
-            line_number=0
-            for line in content_file:
-                self.config.line_number=line_number
-                data.append(record(line,self.config))
-                line_number+=1
-        # release lock and swap files if need be.
-        self.config.context.auto_commit(self.config.meta.table)
-        # return the acumulated data
-        self.rows=data
-  
-    # magic iterate method (for loop)
-    def __iter__(self):
-        for row  in self.rows:
-            yield row
-
-
+# class table:
+#     __slots__=()
+#      
+#     config             =None
+#     rows               =None
+#     success           = None
+#     affected_rows     = None
+#     diff              = None
+#     error             = None
+#     total_data_length = None
+#     delimiter         = None
+#     new_line          = None
+#     data_length       = None
+#     columns           = None
+#     column_length     = None
+# 
+#     def __init__(self,context,meta):
+#         self.init_record_config(context,meta)
+#     
+#     # sets up the per record config data
+#     def init_record_config(self,context,meta):
+#         config=record_configuration()
+#         config.line_number           = 0
+#         config.data_starts_on_line   = meta.table.data.starts_on_line
+#         config.column_count          = meta.table.column_count()
+#         config.field_delimiter       = meta.table.delimiters.field
+#         config.render_whitespace     = meta.table.visible.whitespace
+#         config.render_comments       = meta.table.visible.comments
+#         config.render_errors         = meta.table.visible.errors
+#         config.remove_block_quotes   = None
+#         config.block_quote_delimiter = "'"
+#         config.meta                  = meta
+#         config.context               = context
+#         self.config=config
+#     
+#     def update_statistics(self):
+#         success           = None
+#         affected_rows     = None
+#         diff              = None
+#         error             = None
+#         total_data_length = None
+#         delimiter         = None
+#         new_line          = None
+#         columns           = None
+#         data_length       = None
+#         column_length     = None
+# 
+#     def load(self):
+#         # prep data
+#         data=[]
+#         self.rows=None
+# 
+#         # file reads from a sourced copy of the data file
+#         # a manager regulates the creation and vending of this file
+#         temp_data_file=self.config.context.get_data_file(self.config.meta.table)
+# 
+#         # loop through file as fast as possible
+#         with open(temp_data_file, 'r') as content_file:
+#             line_number=0
+#             for line in content_file:
+#                 self.config.line_number=line_number
+#                 data.append(record(line,self.config))
+#                 line_number+=1
+#         # release lock and swap files if need be.
+#         self.config.context.auto_commit(self.config.meta.table)
+#         # return the acumulated data
+#         self.rows=data
+#   
+#     # magic iterate method (for loop)
+#     def __iter__(self):
+#         for row  in self.rows:
+#             yield row
+# 
+# 
+# 

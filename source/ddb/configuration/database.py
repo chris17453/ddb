@@ -157,9 +157,10 @@ class database:
         return True
 
     def temp_table(self, name=None, columns=[], delimiter=None):
-        """Create a temporary table to preform operations in"""
+        #"""Create a temporary table to preform operations in"""
         if None == name:
             name = "#table_temp"  # TODO make unique random name
-        return table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
+        t=table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
+        return t
 
            

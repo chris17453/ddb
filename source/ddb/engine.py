@@ -14,6 +14,7 @@ from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
 from .version import __version__
+import traceback 
 from .methods.record import record, record_configuration  # converting After the fact...
 
 temp_dir=tempfile.gettempdir()
@@ -78,6 +79,9 @@ class engine:
 
     def error(self,msg, arg1=None, arg2=None, arg3=None):
         self.info(msg, arg1, arg2, arg3,level=logging.ERROR)
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        traceback.print_exception(exc_type, exc_value, exc_tb)
+
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
@@ -164,13 +168,15 @@ class engine:
         self.current_database = self.database.get_default_database()
         # load tables
         # dont load empty stuff
-        if config_dir:
-            queries=self.database.get_db_sql()
-            
-            if queries:
-                self.query(queries)
-        #except Exception as ex:
-        #    pass
+        try:
+            if config_dir:
+                queries=self.database.get_db_sql()
+                
+                if queries:
+                    self.query(queries)
+        except Exception as ex:
+            self.error(ex)
+            pass
 
         
     # def set_configuration(self,database_instance):
@@ -292,7 +298,10 @@ class engine:
                 meta_class.debug()
             # RECORDS
             if mode == 'select':
-                self.results = method_select(self,meta_class, parser)
+                try:
+                    self.results = method_select(self,meta_class, parser)
+                except Exception as ex:
+                    print(ex)
             
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
@@ -374,22 +383,34 @@ class engine:
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
                 elif self.mode=='v2':
-                    config=record_configuration()
-                    config.columns        = self.results.columns
-                    column_count          = len(self.results.columns)
-                    line_number           = 0
-                    data_starts_on_line   = table.data.starts_on_line
-                    remove_block_quotes   = True
-                    render_whitespace     = table.display.whitespace
-                    render_comment        = table.display.comment
-                    comment_delimiter     = table.delimiters.comment
-                    field_delimiter       = table.delimiters.field
-                    block_quote_delimiter = table.delimiters.block_quote
-                    data=[]
-                    for line in self.results.data:
-                        data.append(record(data=line['raw'],config=config,line_number=line['line_number']))
-                    self.results.data=data
-
+                    try:
+                        table                 =self.results.table
+                        config=record_configuration()
+                        config.columns        = self.results.columns
+                        column_count          = len(self.results.columns)
+                        line_number           = 0
+                        remove_block_quotes   = True
+                        if table:
+                            data_starts_on_line   = table.data.starts_on_line
+                            render_whitespace     = table.visible.whitespace
+                            render_comment        = table.visible.comments
+                            comment_delimiter     = table.delimiters.comment
+                            field_delimiter       = table.delimiters.field
+                            block_quote_delimiter = table.delimiters.block_quote
+                        data=[]
+                        for line in self.results.data:
+                            #print(line)
+                            #if 'raw' in line:
+                            #    data.append(record(data=line['raw'],config=config,line_number=line['line_number']))
+                            #else:
+                            if 'line_number' in line:
+                                ln='line_number'
+                            else:
+                                ln=-1
+                            data.append(record(data=line['data'],config=config,line_number=ln))
+                        self.results.data=data
+                    except Exception as ex:
+                        self.error(ex)
                 else:
                     pass
 

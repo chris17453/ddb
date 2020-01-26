@@ -91,7 +91,7 @@ def method_upsert(context, meta,query_object,main_meta):
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
 
 

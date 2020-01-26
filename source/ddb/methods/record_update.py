@@ -86,7 +86,7 @@ def method_update(context, meta):
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
 
 

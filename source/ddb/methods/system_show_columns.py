@@ -15,5 +15,5 @@ def method_system_show_columns(context, meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
