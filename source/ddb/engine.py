@@ -14,7 +14,7 @@ from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
 from .version import __version__
-from .methods.record import record record_configuration  # converting After the fact...
+from .methods.record import record, record_configuration  # converting After the fact...
 
 temp_dir=tempfile.gettempdir()
 logfile=os.path.join(temp_dir,'ddb.log')
