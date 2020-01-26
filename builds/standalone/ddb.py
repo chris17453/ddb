@@ -46,7 +46,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.164'
+__version__='1.4.165'
 
         
 # ############################################################################
@@ -2690,7 +2690,7 @@ class engine:
                     block_quote_delimiter = table.delimiters.block_quote
                     data=[]
                     for line in self.results.data:
-                        data.append(record(data=line['raw']),config=config,line_number=line['line_number'])
+                        data.append(record(data=line['raw'],config=config,line_number=line['line_number']))
                     self.results.data=data
                 else:
                     pass
