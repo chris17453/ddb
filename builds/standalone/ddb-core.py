@@ -40,7 +40,7 @@ from collections import OrderedDict
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.166'
+__version__='1.4.167'
 
         
 # ############################################################################
@@ -2668,9 +2668,7 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
-                    print ("OBJECT")
                 elif self.mode=='v2':
-                    print ("RECORD")
                     config=record_configuration()
                     config.columns        = self.results.columns
                     column_count          = len(self.results.columns)
@@ -3513,6 +3511,7 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count)
     except Exception as ex:
+        print(ex)
         context.error (__name__,ex)
         return query_results(success=False,error=ex)   
 def select_process_file(context,meta):

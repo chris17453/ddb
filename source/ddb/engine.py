@@ -373,9 +373,7 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
-                    print ("OBJECT")
                 elif self.mode=='v2':
-                    print ("RECORD")
                     config=record_configuration()
                     config.columns        = self.results.columns
                     column_count          = len(self.results.columns)
