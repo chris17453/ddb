@@ -56,10 +56,10 @@ def method_select(context, meta, parser):
         # assign matched and transformed data to temp table
         temp_table.results=temp_data
 
-        return query_results(success=True,data=temp_table,total_data_length=all_records_count)
+        return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)   
+        return query_results(success=False,error=str(ex))   
 
 
 def select_process_file(context,meta):

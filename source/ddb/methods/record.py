@@ -5,11 +5,11 @@ from collections import OrderedDict
 
 
 class record_configuration:
-    __slots__=()  
+    
     # data
     columns               = None
     column_count          = 0
-    line_number           = None
+    line_number           = 0
     data_starts_on_line   = 0
     remove_block_quotes   = None
     render_whitespace     = None
@@ -26,20 +26,28 @@ class record_configuration:
 
 
 
-class record:
-    __slots__=()
-    __internal={'__type'        : 0,
-              '__raw'         : None,
-              '__line_number' : None,
-              '__error'       : None,
-              '__match'       : None
-              }
-    
-    __data=OrderedDict()
+class record(object):
+    __slots__=['__data','__type','__raw','__line_number','__error','__match']
+    #__slots__=['_record__type','_record__raw','_record__line_number','_record__error','_record__match','_record__data','__data']
 
-    def __init__(self, data, config):
-        self.__raw         = data
-        self.__line_number = config.line_number
+    def __init__(self, data, config,line_number=None):
+        super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__type', None)
+        super().__setattr__('_record__raw', None)
+        super().__setattr__('_record__line_number', None)
+        super().__setattr__('_record__error', None)
+        super().__setattr__('_record__match', None)
+
+        self.__data=OrderedDict()
+        if isinstance(data,str)==True:
+          self.__raw =data
+        else:
+          self.__raw =None
+
+        if line_number:
+          self.__line_number = line_number
+        else:
+          self.__line_number = config.line_number
 
         # create empty dataset for row
         for column in config.columns:
@@ -47,28 +55,33 @@ class record:
 
         # process string into dataset
         self.process( data, config)
+    
+    def to_json(self):
+      return self.__data
       
     def __getattr__(self, name):
         try:
-          if   name=='_record__type':        return self.__internal['__type']
-          elif name=='_record__raw':         return self.__internal['__raw']
-          elif name=='_record__line_number': return self.__internal['__line_number']
-          elif name=='_record__error':       return self.__internal['__error']
-          elif name=='_record__match':       return self.__internal['__match']
-          elif name=='_record__data':        return self.__internal['__data']
+          if   name=='_record__type':        return self.__type
+          elif name=='_record__raw':         return self.__raw
+          elif name=='_record__line_number': return self.__line_number
+          elif name=='_record__error':       return self.__error
+          elif name=='_record__match':       return self.__match
+          elif name=='_record__data':        return self.__data
           else:
-              return self.__data[name]
-        except :
-            err_msg="Key not valid: '{0}'".format(name)
-            raise Exception (err_msg)
-
+                return self.__data[name]
+       
+        except KeyError:
+            #exc_type, exc_value, exc_tb = sys.exc_info()
+            #traceback.print_exception(exc_type, exc_value, exc_tb)
+            raise AttributeError(name)
+    
     def __setattr__(self, name, value):
-        if   name=='_record__type':        self.__internal['__type']       =value
-        elif name=='_record__raw':         self.__internal['__raw']        =value
-        elif name=='_record__line_number': self.__internal['__line_number']=value
-        elif name=='_record__error':       self.__internal['__error']      =value
-        elif name=='_record__match':       self.__internal['__match']      =value
-        elif name=='_record__data':        self.__internal['__data']       =value
+        if   name=='_record__type':        super().__setattr__('_record__type'       , value)
+        elif name=='_record__raw':         super().__setattr__('_record__raw'        , value)
+        elif name=='_record__line_number': super().__setattr__('_record__line_number', value)
+        elif name=='_record__error':       super().__setattr__('_record__error'      , value)
+        elif name=='_record__match':       super().__setattr__('_record__match'      , value)
+        elif name=='_record__data':        super().__setattr__('_record__data'       , value)
         else:
           if self.__data.has_key(name)==False:
              err_msg="Cannot assign data to invalid key: '{0}'".format(name)
@@ -86,6 +99,9 @@ class record:
         except :
             err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
+
+    def __getitem__(self, item):
+         return self.__data[item]
 
     def __iter__(self):
         for key in self.__data:
@@ -105,6 +121,7 @@ class record:
     # PY2 support
     def iteritems(self):
         for key in self.__data:
+          print ("Key"+key)
           yield key, self.__data[key]
 
     def split_array(self,arr):
@@ -159,35 +176,43 @@ class record:
                 self.split_array(value)
           return res
 
-    def process(self, data, config):
+    def process(self, data, config,data_type=2,error=None,match=True):
         COMMENT     = 0
         WHITESPACE  = 1
         DATA        = 2
         
-        match               = None
-        data_type           = DATA
-        error               = None
+        #match               = None
+        #data_type           = DATA
+        #error               = None
         #Determine line type
-        try:
-            if data[0]==config.comment_delimiter:
-                data_type=COMMENT
-            elif config.data_starts_on_line <config.line_number:
-                data_type=COMMENT
-                if config.render_comment:
-                    match=True
-            elif not data:
-                data_type=WHITESPACE
-                if config.render_whitespace:
-                    match=True
-        # FAIL TO COMMENT
-        except:
-            data_type=COMMENT
-            if config.render_comment:
-                match=True
+        if isinstance(data,str)==True:
+          try:
+              if data[0]==config.comment_delimiter:
+                  data_type=COMMENT
+              elif config.data_starts_on_line <config.line_number:
+                  data_type=COMMENT
+                  if config.render_comment:
+                      match=True
+              elif not data:
+                  data_type=WHITESPACE
+                  if config.render_whitespace:
+                      match=True
+          # FAIL TO COMMENT
+          except:
+              data_type=COMMENT
+              if config.render_comment:
+                  match=True
 
         #if its actual data. lets split it and make some structures
         if data_type==DATA:
-            tokens=data.split(config.field_delimiter, config.column_count)
+            if isinstance(data,str)==True:
+              tokens=data.split(config.field_delimiter, config.column_count)
+            else:
+              
+              tokens=[]#copy.deepcopy(data)
+              for i in range(len(data)):
+                tokens.append(data[i])
+                   
             #print tokens
             if config.remove_block_quotes:
                 i=0
@@ -251,77 +276,78 @@ class record:
 #        return None
 
 
-class table:
-    __slots__=()
-     
-    config             =None
-    rows               =None
-    success           = None
-    affected_rows     = None
-    diff              = None
-    error             = None
-    total_data_length = None
-    delimiter         = None
-    new_line          = None
-    data_length       = None
-    columns           = None
-    column_length     = None
-
-    def __init__(self,context,meta):
-        self.init_record_config(context,meta)
-    
-    # sets up the per record config data
-    def init_record_config(self,context,meta):
-        config=record_configuration()
-        config.line_number           = 0
-        config.data_starts_on_line   = meta.table.data.starts_on_line
-        config.column_count          = meta.table.column_count()
-        config.field_delimiter       = meta.table.delimiters.field
-        config.render_whitespace     = meta.table.visible.whitespace
-        config.render_comments       = meta.table.visible.comments
-        config.render_errors         = meta.table.visible.errors
-        config.remove_block_quotes   = None
-        config.block_quote_delimiter = "'"
-        config.meta                  = meta
-        config.context               = context
-        self.config=config
-    
-    def update_statistics(self):
-        success           = None
-        affected_rows     = None
-        diff              = None
-        error             = None
-        total_data_length = None
-        delimiter         = None
-        new_line          = None
-        columns           = None
-        data_length       = None
-        column_length     = None
-
-    def load(self):
-        # prep data
-        data=[]
-        self.rows=None
-
-        # file reads from a sourced copy of the data file
-        # a manager regulates the creation and vending of this file
-        temp_data_file=self.config.context.get_data_file(self.config.meta.table)
-
-        # loop through file as fast as possible
-        with open(temp_data_file, 'r') as content_file:
-            line_number=0
-            for line in content_file:
-                self.config.line_number=line_number
-                data.append(record(line,self.config))
-                line_number+=1
-        # release lock and swap files if need be.
-        self.config.context.auto_commit(self.config.meta.table)
-        # return the acumulated data
-        self.rows=data
-  
-    # magic iterate method (for loop)
-    def __iter__(self):
-        for row  in self.rows:
-            yield row
-
-
+# class table:
+#     __slots__=()
+#      
+#     config             =None
+#     rows               =None
+#     success           = None
+#     affected_rows     = None
+#     diff              = None
+#     error             = None
+#     total_data_length = None
+#     delimiter         = None
+#     new_line          = None
+#     data_length       = None
+#     columns           = None
+#     column_length     = None
+# 
+#     def __init__(self,context,meta):
+#         self.init_record_config(context,meta)
+#     
+#     # sets up the per record config data
+#     def init_record_config(self,context,meta):
+#         config=record_configuration()
+#         config.line_number           = 0
+#         config.data_starts_on_line   = meta.table.data.starts_on_line
+#         config.column_count          = meta.table.column_count()
+#         config.field_delimiter       = meta.table.delimiters.field
+#         config.render_whitespace     = meta.table.visible.whitespace
+#         config.render_comments       = meta.table.visible.comments
+#         config.render_errors         = meta.table.visible.errors
+#         config.remove_block_quotes   = None
+#         config.block_quote_delimiter = "'"
+#         config.meta                  = meta
+#         config.context               = context
+#         self.config=config
+#     
+#     def update_statistics(self):
+#         success           = None
+#         affected_rows     = None
+#         diff              = None
+#         error             = None
+#         total_data_length = None
+#         delimiter         = None
+#         new_line          = None
+#         columns           = None
+#         data_length       = None
+#         column_length     = None
+# 
+#     def load(self):
+#         # prep data
+#         data=[]
+#         self.rows=None
+# 
+#         # file reads from a sourced copy of the data file
+#         # a manager regulates the creation and vending of this file
+#         temp_data_file=self.config.context.get_data_file(self.config.meta.table)
+# 
+#         # loop through file as fast as possible
+#         with open(temp_data_file, 'r') as content_file:
+#             line_number=0
+#             for line in content_file:
+#                 self.config.line_number=line_number
+#                 data.append(record(line,self.config))
+#                 line_number+=1
+#         # release lock and swap files if need be.
+#         self.config.context.auto_commit(self.config.meta.table)
+#         # return the acumulated data
+#         self.rows=data
+#   
+#     # magic iterate method (for loop)
+#     def __iter__(self):
+#         for row  in self.rows:
+#             yield row
+# 
+# 
+# 

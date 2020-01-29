@@ -18,7 +18,7 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
         column_name = meta.set[c2].column
         if None == meta.table.get_column_by_name(column_name):
             context.add_error("column in update statement does not exist in table: {0}".format(column_name))
-            #print "no column"
+            print("column in update statement does not exist in table: {0}".format(column_name))
             err = True
 
     if False == err:
@@ -59,8 +59,7 @@ def method_update(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-
-
+        
         with open(temp_data_file, 'rb', buffering=0) as content_file:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
             with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
@@ -76,6 +75,8 @@ def method_update(context, meta):
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
+                        else:
+                            raise Exception("Error Updating Line")
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
@@ -85,7 +86,7 @@ def method_update(context, meta):
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
 
 

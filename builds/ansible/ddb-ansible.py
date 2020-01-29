@@ -30,6 +30,8 @@ import logging
 from subprocess import Popen,PIPE
 import hashlib
 import random
+from collections import OrderedDict
+import traceback
 
 
 
@@ -131,7 +133,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.161'
+__version__='1.4.169'
 
         
 # ############################################################################
@@ -2442,7 +2444,6 @@ class database:
                 target_table.delete()
                 self.tables.pop(index)
                 return True
-                break
         raise Exception("Failed to drop table. Does not exist")
     def create_table(self, table_name, columns, data_file,
                      database_name=None,
@@ -2496,10 +2497,10 @@ class database:
                 raise Exception("Couldn't save table configuation")
         return True
     def temp_table(self, name=None, columns=[], delimiter=None):
-        """Create a temporary table to preform operations in"""
         if None == name:
             name = "#table_temp"  # TODO make unique random name
-        return table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
+        t=table(name=name, columns=columns, database=self.get_curent_database(), field_delimiter=delimiter)
+        return t
 
         
 # ############################################################################
@@ -2562,6 +2563,187 @@ def f_cat(context,arg1,arg2):
 
         
 # ############################################################################
+# Module : methods-record
+# File   : ./source/ddb/methods/record.py
+# ############################################################################
+
+class record_configuration:
+    columns               = None
+    column_count          = 0
+    line_number           = 0
+    data_starts_on_line   = 0
+    remove_block_quotes   = None
+    render_whitespace     = None
+    render_comment        = None
+    comment_delimiter     = '#'
+    field_delimiter       = ','
+    block_quote_delimiter = "'"
+    meta                  = None
+    context               = None
+    def __init__(self):
+        pass
+class record(object):
+    __slots__=['__data','__type','__raw','__line_number','__error','__match']
+    def __init__(self, data, config,line_number=None):
+        super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__type', None)
+        super().__setattr__('_record__raw', None)
+        super().__setattr__('_record__line_number', None)
+        super().__setattr__('_record__error', None)
+        super().__setattr__('_record__match', None)
+        self.__data=OrderedDict()
+        if isinstance(data,str)==True:
+          self.__raw =data
+        else:
+          self.__raw =None
+        if line_number:
+          self.__line_number = line_number
+        else:
+          self.__line_number = config.line_number
+        for column in config.columns:
+            self.__data[column]=None
+        self.process( data, config)
+    def to_json(self):
+      return self.__data
+    def __getattr__(self, name):
+        try:
+          if   name=='_record__type':        return self.__type
+          elif name=='_record__raw':         return self.__raw
+          elif name=='_record__line_number': return self.__line_number
+          elif name=='_record__error':       return self.__error
+          elif name=='_record__match':       return self.__match
+          elif name=='_record__data':        return self.__data
+          else:
+                return self.__data[name]
+        except KeyError:
+            raise AttributeError(name)
+    def __setattr__(self, name, value):
+        if   name=='_record__type':        super().__setattr__('_record__type'       , value)
+        elif name=='_record__raw':         super().__setattr__('_record__raw'        , value)
+        elif name=='_record__line_number': super().__setattr__('_record__line_number', value)
+        elif name=='_record__error':       super().__setattr__('_record__error'      , value)
+        elif name=='_record__match':       super().__setattr__('_record__match'      , value)
+        elif name=='_record__data':        super().__setattr__('_record__data'       , value)
+        else:
+          if self.__data.has_key(name)==False:
+             err_msg="Cannot assign data to invalid key: '{0}'".format(name)
+             raise Exception (err_msg)
+          try:
+                self.__data[name]=value
+          except :
+              err_msg="Cannot assign data to Key: '{0}'".format(name)
+              raise Exception (err_msg)
+    def __delattr__(self, name):
+        try:
+            del self.__data[name]
+        except :
+            err_msg="Cannot delete key: '{0}'".format(name)
+            raise Exception (err_msg)
+    def __getitem__(self, item):
+         return self.__data[item]
+    def __iter__(self):
+        for key in self.__data:
+            yield key
+    def keys(self):
+      return self.__data.keys()
+    def has_key(self,key):
+      return self.__data.has_key(key)
+    def items(self):
+        for key in self.__data:
+          yield key, self.__data[key]
+    def iteritems(self):
+        for key in self.__data:
+          print ("Key"+key)
+          yield key, self.__data[key]
+    def split_array(self,arr):
+        ARRAY_DELIMITER=','
+        TUPEL_DELIMITER='='
+        split=arr.split(ARRAY_DELIMITER)
+        store={}
+        for item in split:
+          try:
+            setting_key,setting_value=item.split(TUPEL_DELIMITER)
+            store[setting_key]=setting_value
+          except:
+            store[item]=item
+          kv=self.split_key_value(item)
+          store.append(kv)
+        if len(store)==1:
+          return store[0]
+        strings=0
+        dicts=0
+        for item in store:
+          if isinstance(item,str):
+            strings+=1
+          elif isinstance(item,dict):
+            dicts+=1
+        if dicts>=0 and strings==0:
+          store2={}
+          for item in store:
+            store2.update(item)
+          store=store2
+        return store
+    def split_key_value(self,blob):
+        try:
+          setting_key,setting_value=blob.split('=')
+          return {setting_key:setting_value}
+        except:
+          pass
+        return blob
+    def process_rows(self,set,prefix):
+          res={}
+          for row in set.data:
+            data=row['data']
+            for key in data:
+                self.split_array(value)
+          return res
+    def process(self, data, config,data_type=2,error=None,match=True):
+        COMMENT     = 0
+        WHITESPACE  = 1
+        DATA        = 2
+        if isinstance(data,str)==True:
+          try:
+              if data[0]==config.comment_delimiter:
+                  data_type=COMMENT
+              elif config.data_starts_on_line <config.line_number:
+                  data_type=COMMENT
+                  if config.render_comment:
+                      match=True
+              elif not data:
+                  data_type=WHITESPACE
+                  if config.render_whitespace:
+                      match=True
+          except:
+              data_type=COMMENT
+              if config.render_comment:
+                  match=True
+        if data_type==DATA:
+            if isinstance(data,str)==True:
+              tokens=data.split(config.field_delimiter, config.column_count)
+            else:
+              tokens=[]#copy.deepcopy(data)
+              for i in range(len(data)):
+                tokens.append(data[i])
+            if config.remove_block_quotes:
+                i=0
+                for token in tokens:
+                    if len(token)>1 and token[0] == config.block_quote_delimiter and token[-1] == config.block_quote_delimiter:
+                            token=token[1:-1]
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+            else:
+                i=0
+                for token in tokens:
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+        self.__type        = data_type
+        self.__error       = error
+        self.__match       = match
+
+        
+# ############################################################################
 # Module : sql_engine
 # File   : ./source/ddb/engine.py
 # ############################################################################
@@ -2585,6 +2767,8 @@ class engine:
         WHITESPACE=4
     def error(self,msg, arg1=None, arg2=None, arg3=None):
         self.info(msg, arg1, arg2, arg3,level=logging.ERROR)
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        traceback.print_exception(exc_type, exc_value, exc_tb)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
@@ -2595,7 +2779,7 @@ class engine:
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         if debug==True:
-            logging.getLogger().setLevel(logging.ERROR)
+            logging.getLogger().setLevel(logging.INFO)
         else:
             logging.getLogger().setLevel(logging.CRITICAL)
         self.debug = debug
@@ -2642,10 +2826,14 @@ class engine:
         self.internal['IN_TRANSACTION']=0
         self.database = database(config_dir=config_dir)
         self.current_database = self.database.get_default_database()
-        if config_dir:
-            queries=self.database.get_db_sql()
-            if queries:
-                self.query(queries)
+        try:
+            if config_dir:
+                queries=self.database.get_db_sql()
+                if queries:
+                    self.query(queries)
+        except Exception as ex:
+            self.error(ex)
+            pass
     def init_state_variables(self):
         self.internal['row']=0
     def trigger_debug(self):
@@ -2665,11 +2853,15 @@ class engine:
         if None == self.database:
             return False
         return True
-    def prepare_sql(self,sql):
-        for param in self.parameter:
+    def prepare_sql(self,sql,parameters=None):
+        if parameters==None:
+            param_list=self.parameter
+        else:
+            param_list=parameters
+        for param in param_list:
             if self.debug:
-                self.info("Setting Parameter: {0}:{1}".format(param,self.parameter[param]))
-            sql=sql.replace(param,self.parameter[param])
+                self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
+            sql=sql.replace(param,param_list[param])
         return sql
     def execute(self, sql_query,parameters=None):
         return self.query(sql_query,parameters)
@@ -2686,6 +2878,7 @@ class engine:
             for param in parameters:
                 self.set_param(param,parameters[param])
         sql_query=self.prepare_sql(sql_query)
+        self.excuted_query=sql_query
         if False == self.has_configuration():
             raise Exception("No table found")
         parser = lexer(sql_query,debug=self.debug)
@@ -2701,7 +2894,10 @@ class engine:
             if self.debug:
                 meta_class.debug()
             if mode == 'select':
-                self.results = method_select(self,meta_class, parser)
+                try:
+                    self.results = method_select(self,meta_class, parser)
+                except Exception as ex:
+                    print("Select Error: {0}",str(ex))
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
             elif mode == 'update' and self.internal['READONLY']==None:
@@ -2741,6 +2937,7 @@ class engine:
         if self.results:
             self.results.delimiter=self.internal['FIELD_DELIMITER']
             self.results.new_line=self.internal['NEW_LINE']
+            self.results.excuted_query=self.excuted_query
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns
@@ -2753,6 +2950,34 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+                elif self.mode=='v2':
+                    try:
+                        table                 =self.results.table
+                        config=record_configuration()
+                        config.columns        = self.results.columns
+                        column_count          = len(self.results.columns)
+                        line_number           = 0
+                        remove_block_quotes   = True
+                        if table:
+                            data_starts_on_line   = table.data.starts_on_line
+                            render_whitespace     = table.visible.whitespace
+                            render_comment        = table.visible.comments
+                            comment_delimiter     = table.delimiters.comment
+                            field_delimiter       = table.delimiters.field
+                            block_quote_delimiter = table.delimiters.block_quote
+                        data=[]
+                        for line in self.results.data:
+                            if 'line_number' in line:
+                                ln=line['line_number']
+                            else:
+                                ln=-1
+                            r=record(data=line['data'],config=config,line_number=ln)
+                            data.append(r)
+                        self.results.data=data
+                    except Exception as ex:
+                        self.error(ex)
+                else:
+                    pass
         if None == self.results:
             self.results=query_results()
         try:
@@ -3192,7 +3417,17 @@ class match2:
             return False
         return success
 class query_results:
-    def __init__(self,success=False,affected_rows=0,data=None,error=None,diff=None,total_data_length=0,delimiter=None,new_line=None):
+    def __init__(self,
+                success=False,
+                affected_rows=0,
+                data=None,
+                error=None,
+                diff=None,
+                total_data_length=0,
+                delimiter=None,
+                new_line=None,
+                table=None,
+                executed_query=None):
         self.success=success
         self.affected_rows=affected_rows
         self.data=[]
@@ -3203,6 +3438,8 @@ class query_results:
         self.total_data_length=0
         self.delimiter=delimiter
         self.new_line=new_line
+        self.executed_query=executed_query
+        self.table=table
         self.columns=[]
         if data and data.results:
             self.data=data.results
@@ -3264,7 +3501,7 @@ def method_delete(context, meta):
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
-        return  query_results(success=False, error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3328,7 +3565,7 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':False,'line':new_line}
     except Exception as ex:
         context.error (__name__,ex)
-        return {'success':False,'line':new_line}
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3350,10 +3587,10 @@ def method_select(context, meta, parser):
         temp_data=distinct(context,meta,temp_data)
         temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
-        return query_results(success=True,data=temp_table,total_data_length=all_records_count)
+        return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)   
+        return query_results(success=False,error=str(ex))   
 def select_process_file(context,meta):
     has_columns = select_has_columns(context,meta)
     has_functions = select_has_functions(context,meta)
@@ -3637,6 +3874,7 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
         column_name = meta.set[c2].column
         if None == meta.table.get_column_by_name(column_name):
             context.add_error("column in update statement does not exist in table: {0}".format(column_name))
+            print("column in update statement does not exist in table: {0}".format(column_name))
             err = True
     if False == err:
         for c in range(0, meta.table.column_count()):
@@ -3682,6 +3920,8 @@ def method_update(context, meta):
                         if True == results['success']:
                             diff.append(results['line'])
                             affected_rows += 1
+                        else:
+                            raise Exception("Error Updating Line")
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
@@ -3690,7 +3930,7 @@ def method_update(context, meta):
         return query_results(affected_rows=affected_rows,success=True,diff=[])
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3761,7 +4001,7 @@ def method_upsert(context, meta,query_object,main_meta):
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3780,7 +4020,8 @@ def method_use(context, meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
+
         
 # ############################################################################
 # Module : methods-table-structure-create
@@ -3816,7 +4057,7 @@ def method_create_table(context, meta):
         return query_results(success=results)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False, error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3855,7 +4096,7 @@ def method_describe_table(context, meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3873,7 +4114,7 @@ def method_drop_table(context, meta):
         return query_results(success=results)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3900,7 +4141,7 @@ def method_update_table(context, meta):
         return query_results(success=results)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3937,7 +4178,7 @@ def method_system_set(context, meta):
         return query_results(success=True)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3957,7 +4198,7 @@ def method_system_begin(context,meta):
         return query_results(success=True)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -3993,7 +4234,7 @@ def method_system_commit(context):
         return query_results(success=True)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -4017,7 +4258,7 @@ def method_system_rollback(context,meta):
         return query_results(success=True)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -4036,7 +4277,7 @@ def method_system_show_columns(context, meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -4046,14 +4287,15 @@ def method_system_show_columns(context, meta):
 
 def method_system_show_tables(context,meta):
     try:
+        temp_table=None
         temp_table = context.database.temp_table(columns=['database', 'table'])
         for t in context.database.tables:
-            columns = [t.data.database, t .data.name]
+            columns = [t.data.database, t.data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -4074,7 +4316,7 @@ def method_system_show_variables(context,meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################
@@ -4094,7 +4336,7 @@ def method_system_show_output_modules(context,meta):
         return query_results(success=True,data=temp_table)
     except Exception as ex:
         context.error (__name__,ex)
-        return query_results(success=False,error=ex)
+        return query_results(success=False,error=str(ex))   
 
         
 # ############################################################################

@@ -14,7 +14,8 @@ from .lexer.lexer import lexer
 from .configuration.table import table
 from .configuration.database import database
 from .version import __version__
-
+import traceback 
+from .methods.record import record, record_configuration  # converting After the fact...
 
 temp_dir=tempfile.gettempdir()
 logfile=os.path.join(temp_dir,'ddb.log')
@@ -78,6 +79,9 @@ class engine:
 
     def error(self,msg, arg1=None, arg2=None, arg3=None):
         self.info(msg, arg1, arg2, arg3,level=logging.ERROR)
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        traceback.print_exception(exc_type, exc_value, exc_tb)
+
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         ts = time.time()
@@ -99,13 +103,13 @@ class engine:
         #        print(msg, arg1, arg2, arg3)
 
     
-   
+    # mode nested: row.data [ { data,error,raw } ]
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
         if debug==True:
-            logging.getLogger().setLevel(logging.ERROR)
+            logging.getLogger().setLevel(logging.INFO)
         else:
             logging.getLogger().setLevel(logging.CRITICAL)
             
@@ -164,13 +168,15 @@ class engine:
         self.current_database = self.database.get_default_database()
         # load tables
         # dont load empty stuff
-        if config_dir:
-            queries=self.database.get_db_sql()
-            
-            if queries:
-                self.query(queries)
-        #except Exception as ex:
-        #    pass
+        try:
+            if config_dir:
+                queries=self.database.get_db_sql()
+                
+                if queries:
+                    self.query(queries)
+        except Exception as ex:
+            self.error(ex)
+            pass
 
         
     # def set_configuration(self,database_instance):
@@ -210,11 +216,26 @@ class engine:
         
 
     #UNSAFE !!! TODO
-    def prepare_sql(self,sql):
-        for param in self.parameter:
+    def prepare_sql(self,sql,parameters=None):
+        if parameters==None:
+            param_list=self.parameter
+        else:
+            param_list=parameters
+
+        for param in param_list:
             if self.debug:
-                self.info("Setting Parameter: {0}:{1}".format(param,self.parameter[param]))
-            sql=sql.replace(param,self.parameter[param])
+                self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
+            
+            #param=param.replace("\","\\")
+            #param=param.replace("'","\'")
+            #param=param.replace("\r","\\r")
+            #param=param.replace("\n","\\n")
+            #param=param.replace("\t","\\t")
+            #param=param.replace("\b","\\b")
+            #param=param.replace("\a","\\a")
+            #param=param.replace("\"","\\\"")
+           #
+            sql=sql.replace(param,param_list[param])
         
         return sql
     
@@ -241,16 +262,17 @@ class engine:
         # it should only replace whole words, not within quotes and only starting with @
         # this is a TODO HOT feature. UNSAFE
 
+        
         sql_query=self.prepare_sql(sql_query)
-
+        self.excuted_query=sql_query
+        
         if False == self.has_configuration():
             raise Exception("No table found")
         # update table info...
         # it may have changed...
         # self.database.reload_config()
         parser = lexer(sql_query,debug=self.debug)
-     
-
+        
         for query_object in parser.query_objects:
             # clear all per state variables per run
             self.init_state_variables()
@@ -276,7 +298,10 @@ class engine:
                 meta_class.debug()
             # RECORDS
             if mode == 'select':
-                self.results = method_select(self,meta_class, parser)
+                try:
+                    self.results = method_select(self,meta_class, parser)
+                except Exception as ex:
+                    print("Select Error: {0}",str(ex))
             
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
@@ -343,6 +368,7 @@ class engine:
         if self.results:
             self.results.delimiter=self.internal['FIELD_DELIMITER']
             self.results.new_line=self.internal['NEW_LINE']
+            self.results.excuted_query=self.excuted_query
             if self.results.data:
                 if self.mode == 'object':
                     columns = self.results.columns
@@ -356,6 +382,38 @@ class engine:
                                     break
                                 new_dict[columns[i]] = line['data'][i]
                             line['data']=new_dict
+                elif self.mode=='v2':
+                    try:
+                        table                 =self.results.table
+                        config=record_configuration()
+                        config.columns        = self.results.columns
+                        column_count          = len(self.results.columns)
+                        line_number           = 0
+                        remove_block_quotes   = True
+                        if table:
+                            data_starts_on_line   = table.data.starts_on_line
+                            render_whitespace     = table.visible.whitespace
+                            render_comment        = table.visible.comments
+                            comment_delimiter     = table.delimiters.comment
+                            field_delimiter       = table.delimiters.field
+                            block_quote_delimiter = table.delimiters.block_quote
+                        data=[]
+                        for line in self.results.data:
+                            if 'line_number' in line:
+                                ln=line['line_number']
+                            else:
+                                ln=-1
+                            r=record(data=line['data'],config=config,line_number=ln)
+                            
+                            data.append(r)
+                        self.results.data=data
+                        #for row in self.results.data:
+                        #    print("DB-:{0}".format(row.to_json()))
+                    except Exception as ex:
+                        self.error(ex)
+                else:
+                    pass
+
         #except Exception as Ex:
         #    print  Ex
         #    pass

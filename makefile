@@ -142,6 +142,8 @@ build: meta bump
 script:
 	@python $(conf_dir)/build.py
 
+test-script:
+	@python builds/standalone/ddb.py
 
 standalone:
 	@pyinstaller ddb.spec

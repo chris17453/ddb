@@ -44,6 +44,6 @@ def method_delete(context, meta):
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
     except Exception as ex:
         context.error (__name__,ex)
-        return  query_results(success=False, error=ex)
+        return query_results(success=False,error=str(ex))   
 
 
