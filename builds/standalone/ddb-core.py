@@ -30,6 +30,7 @@ import hashlib
 import random
 from collections import OrderedDict
 import traceback
+import copy
 
 
 
@@ -41,7 +42,7 @@ import traceback
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.168'
+__version__='1.4.169'
 
         
 # ############################################################################
@@ -2352,7 +2353,6 @@ class database:
                 target_table.delete()
                 self.tables.pop(index)
                 return True
-                break
         raise Exception("Failed to drop table. Does not exist")
     def create_table(self, table_name, columns, data_file,
                      database_name=None,
@@ -2469,6 +2469,187 @@ def f_cat(context,arg1,arg2):
     if None ==arg2:
         arg2=''
     return '{0}{1}'.format(arg1,arg2)
+
+        
+# ############################################################################
+# Module : methods-record
+# File   : ./source/ddb/methods/record.py
+# ############################################################################
+
+class record_configuration:
+    columns               = None
+    column_count          = 0
+    line_number           = 0
+    data_starts_on_line   = 0
+    remove_block_quotes   = None
+    render_whitespace     = None
+    render_comment        = None
+    comment_delimiter     = '#'
+    field_delimiter       = ','
+    block_quote_delimiter = "'"
+    meta                  = None
+    context               = None
+    def __init__(self):
+        pass
+class record(object):
+    __slots__=['__data','__type','__raw','__line_number','__error','__match']
+    def __init__(self, data, config,line_number=None):
+        super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__type', None)
+        super().__setattr__('_record__raw', None)
+        super().__setattr__('_record__line_number', None)
+        super().__setattr__('_record__error', None)
+        super().__setattr__('_record__match', None)
+        self.__data=OrderedDict()
+        if isinstance(data,str)==True:
+          self.__raw =data
+        else:
+          self.__raw =None
+        if line_number:
+          self.__line_number = line_number
+        else:
+          self.__line_number = config.line_number
+        for column in config.columns:
+            self.__data[column]=None
+        self.process( data, config)
+    def to_json(self):
+      return self.__data
+    def __getattr__(self, name):
+        try:
+          if   name=='_record__type':        return self.__type
+          elif name=='_record__raw':         return self.__raw
+          elif name=='_record__line_number': return self.__line_number
+          elif name=='_record__error':       return self.__error
+          elif name=='_record__match':       return self.__match
+          elif name=='_record__data':        return self.__data
+          else:
+                return self.__data[name]
+        except KeyError:
+            raise AttributeError(name)
+    def __setattr__(self, name, value):
+        if   name=='_record__type':        super().__setattr__('_record__type'       , value)
+        elif name=='_record__raw':         super().__setattr__('_record__raw'        , value)
+        elif name=='_record__line_number': super().__setattr__('_record__line_number', value)
+        elif name=='_record__error':       super().__setattr__('_record__error'      , value)
+        elif name=='_record__match':       super().__setattr__('_record__match'      , value)
+        elif name=='_record__data':        super().__setattr__('_record__data'       , value)
+        else:
+          if self.__data.has_key(name)==False:
+             err_msg="Cannot assign data to invalid key: '{0}'".format(name)
+             raise Exception (err_msg)
+          try:
+                self.__data[name]=value
+          except :
+              err_msg="Cannot assign data to Key: '{0}'".format(name)
+              raise Exception (err_msg)
+    def __delattr__(self, name):
+        try:
+            del self.__data[name]
+        except :
+            err_msg="Cannot delete key: '{0}'".format(name)
+            raise Exception (err_msg)
+    def __getitem__(self, item):
+         return self.__data[item]
+    def __iter__(self):
+        for key in self.__data:
+            yield key
+    def keys(self):
+      return self.__data.keys()
+    def has_key(self,key):
+      return self.__data.has_key(key)
+    def items(self):
+        for key in self.__data:
+          yield key, self.__data[key]
+    def iteritems(self):
+        for key in self.__data:
+          print ("Key"+key)
+          yield key, self.__data[key]
+    def split_array(self,arr):
+        ARRAY_DELIMITER=','
+        TUPEL_DELIMITER='='
+        split=arr.split(ARRAY_DELIMITER)
+        store={}
+        for item in split:
+          try:
+            setting_key,setting_value=item.split(TUPEL_DELIMITER)
+            store[setting_key]=setting_value
+          except:
+            store[item]=item
+          kv=self.split_key_value(item)
+          store.append(kv)
+        if len(store)==1:
+          return store[0]
+        strings=0
+        dicts=0
+        for item in store:
+          if isinstance(item,str):
+            strings+=1
+          elif isinstance(item,dict):
+            dicts+=1
+        if dicts>=0 and strings==0:
+          store2={}
+          for item in store:
+            store2.update(item)
+          store=store2
+        return store
+    def split_key_value(self,blob):
+        try:
+          setting_key,setting_value=blob.split('=')
+          return {setting_key:setting_value}
+        except:
+          pass
+        return blob
+    def process_rows(self,set,prefix):
+          res={}
+          for row in set.data:
+            data=row['data']
+            for key in data:
+                self.split_array(value)
+          return res
+    def process(self, data, config,data_type=2,error=None,match=True):
+        COMMENT     = 0
+        WHITESPACE  = 1
+        DATA        = 2
+        if isinstance(data,str)==True:
+          try:
+              if data[0]==config.comment_delimiter:
+                  data_type=COMMENT
+              elif config.data_starts_on_line <config.line_number:
+                  data_type=COMMENT
+                  if config.render_comment:
+                      match=True
+              elif not data:
+                  data_type=WHITESPACE
+                  if config.render_whitespace:
+                      match=True
+          except:
+              data_type=COMMENT
+              if config.render_comment:
+                  match=True
+        if data_type==DATA:
+            if isinstance(data,str)==True:
+              tokens=data.split(config.field_delimiter, config.column_count)
+            else:
+              tokens=[]#copy.deepcopy(data)
+              for i in range(len(data)):
+                tokens.append(data[i])
+            if config.remove_block_quotes:
+                i=0
+                for token in tokens:
+                    if len(token)>1 and token[0] == config.block_quote_delimiter and token[-1] == config.block_quote_delimiter:
+                            token=token[1:-1]
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+            else:
+                i=0
+                for token in tokens:
+                    column_name=config.columns[i]
+                    self.__data[column_name]=token
+                    i+=1
+        self.__type        = data_type
+        self.__error       = error
+        self.__match       = match
 
         
 # ############################################################################
@@ -2625,7 +2806,7 @@ class engine:
                 try:
                     self.results = method_select(self,meta_class, parser)
                 except Exception as ex:
-                    print(ex)
+                    print("Select Error: {0}",str(ex))
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
             elif mode == 'update' and self.internal['READONLY']==None:
@@ -2696,10 +2877,11 @@ class engine:
                         data=[]
                         for line in self.results.data:
                             if 'line_number' in line:
-                                ln='line_number'
+                                ln=line['line_number']
                             else:
                                 ln=-1
-                            data.append(record(data=line['data'],config=config,line_number=ln))
+                            r=record(data=line['data'],config=config,line_number=ln)
+                            data.append(r)
                         self.results.data=data
                     except Exception as ex:
                         self.error(ex)
@@ -2834,193 +3016,6 @@ class engine:
         if self.system['AUTOCOMMIT']==True:
             self.info("AUTOCOMMIT")
             method_system_commit(self)
-
-        
-# ############################################################################
-# Module : methods-records
-# File   : ./source/ddb/methods/record.py
-# ############################################################################
-
-class record_configuration:
-    columns               = None
-    column_count          = 0
-    line_number           = 0
-    data_starts_on_line   = 0
-    remove_block_quotes   = None
-    render_whitespace     = None
-    render_comment        = None
-    comment_delimiter     = '#'
-    field_delimiter       = ','
-    block_quote_delimiter = "'"
-    meta                  = None
-    context               = None
-    def __init__(self):
-        pass
-class record:
-    __slots__=()
-    __internal={'__type'        : 0,
-              '__raw'         : None,
-              '__line_number' : None,
-              '__error'       : None,
-              '__match'       : None
-              }
-    __data=OrderedDict()
-    def __init__(self, data, config,line_number=None):
-        self.__raw         = data
-        if line_number:
-          self.__line_number = line_number
-        else:
-          self.__line_number = config.line_number
-        for column in config.columns:
-            self.__data[column]=None
-        self.process( data, config)
-    @classmethod
-    def to_json(self):
-      return self.__data
-    @classmethod
-    def __getattr__(self, name):
-        try:
-          if   name=='_record__type':        return self.__internal['__type']
-          elif name=='_record__raw':         return self.__internal['__raw']
-          elif name=='_record__line_number': return self.__internal['__line_number']
-          elif name=='_record__error':       return self.__internal['__error']
-          elif name=='_record__match':       return self.__internal['__match']
-          elif name=='_record__data':        return self.__internal['__data']
-          else:
-                return self.__data[name]
-        except KeyError:
-            raise AttributeError(name)
-    @classmethod
-    def __setattr__(self, name, value):
-        if   name=='_record__type':        self.__internal['__type']       =value
-        elif name=='_record__raw':         self.__internal['__raw']        =value
-        elif name=='_record__line_number': self.__internal['__line_number']=value
-        elif name=='_record__error':       self.__internal['__error']      =value
-        elif name=='_record__match':       self.__internal['__match']      =value
-        elif name=='_record__data':        self.__internal['__data']       =value
-        else:
-          if self.__data.has_key(name)==False:
-             err_msg="Cannot assign data to invalid key: '{0}'".format(name)
-             raise Exception (err_msg)
-          try:
-                self.__data[name]=value
-          except :
-              err_msg="Cannot assign data to Key: '{0}'".format(name)
-              raise Exception (err_msg)
-    @classmethod
-    def __delattr__(self, name):
-        try:
-            del self.__data[name]
-        except :
-            err_msg="Cannot delete key: '{0}'".format(name)
-            raise Exception (err_msg)
-    @classmethod
-    def __iter__(self):
-        for key in self.__data:
-            yield key
-    @classmethod
-    def keys(self):
-      return self.__data.keys()
-    @classmethod
-    def has_key(self,key):
-      return self.__data.has_key(key)
-    @classmethod
-    def items(self):
-        for key in self.__data:
-          yield key, self.__data[key]
-    @classmethod
-    def iteritems(self):
-        for key in self.__data:
-          print ("Key"+key)
-          yield key, self.__data[key]
-    @classmethod
-    def split_array(self,arr):
-        ARRAY_DELIMITER=','
-        TUPEL_DELIMITER='='
-        split=arr.split(ARRAY_DELIMITER)
-        store={}
-        for item in split:
-          try:
-            setting_key,setting_value=item.split(TUPEL_DELIMITER)
-            store[setting_key]=setting_value
-          except:
-            store[item]=item
-          kv=self.split_key_value(item)
-          store.append(kv)
-        if len(store)==1:
-          return store[0]
-        strings=0
-        dicts=0
-        for item in store:
-          if isinstance(item,str):
-            strings+=1
-          elif isinstance(item,dict):
-            dicts+=1
-        if dicts>=0 and strings==0:
-          store2={}
-          for item in store:
-            store2.update(item)
-          store=store2
-        return store
-    @classmethod
-    def split_key_value(self,blob):
-        try:
-          setting_key,setting_value=blob.split('=')
-          return {setting_key:setting_value}
-        except:
-          pass
-        return blob
-    @classmethod
-    def process_rows(self,set,prefix):
-          res={}
-          for row in set.data:
-            data=row['data']
-            for key in data:
-                self.split_array(value)
-          return res
-    @classmethod
-    def process(self, data, config,data_type=2,error=None,match=True):
-        COMMENT     = 0
-        WHITESPACE  = 1
-        DATA        = 2
-        if isinstance(data,str):
-          try:
-              if data[0]==config.comment_delimiter:
-                  data_type=COMMENT
-              elif config.data_starts_on_line <config.line_number:
-                  data_type=COMMENT
-                  if config.render_comment:
-                      match=True
-              elif not data:
-                  data_type=WHITESPACE
-                  if config.render_whitespace:
-                      match=True
-          except:
-              data_type=COMMENT
-              if config.render_comment:
-                  match=True
-        if data_type==DATA:
-            if isinstance(data,str):
-              tokens=data.split(config.field_delimiter, config.column_count)
-            else:
-              tokens=data
-            if config.remove_block_quotes:
-                i=0
-                for token in tokens:
-                    if len(token)>1 and token[0] == config.block_quote_delimiter and token[-1] == config.block_quote_delimiter:
-                            token=token[1:-1]
-                    column_name=config.columns[i]
-                    self.__data[column_name]=token
-                    i+=1
-            else:
-                i=0
-                for token in tokens:
-                    column_name=config.columns[i]
-                    self.__data[column_name]=token
-                    i+=1
-        self.__type        = data_type
-        self.__error       = error
-        self.__match       = match
 
         
 # ############################################################################

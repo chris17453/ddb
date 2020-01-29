@@ -87,7 +87,6 @@ class database:
                 target_table.delete()
                 self.tables.pop(index)
                 return True
-                break
 
         raise Exception("Failed to drop table. Does not exist")
 

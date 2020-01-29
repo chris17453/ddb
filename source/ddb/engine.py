@@ -301,7 +301,7 @@ class engine:
                 try:
                     self.results = method_select(self,meta_class, parser)
                 except Exception as ex:
-                    print(ex)
+                    print("Select Error: {0}",str(ex))
             
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
@@ -399,16 +399,16 @@ class engine:
                             block_quote_delimiter = table.delimiters.block_quote
                         data=[]
                         for line in self.results.data:
-                            #print(line)
-                            #if 'raw' in line:
-                            #    data.append(record(data=line['raw'],config=config,line_number=line['line_number']))
-                            #else:
                             if 'line_number' in line:
-                                ln='line_number'
+                                ln=line['line_number']
                             else:
                                 ln=-1
-                            data.append(record(data=line['data'],config=config,line_number=ln))
+                            r=record(data=line['data'],config=config,line_number=ln)
+                            
+                            data.append(r)
                         self.results.data=data
+                        #for row in self.results.data:
+                        #    print("DB-:{0}".format(row.to_json()))
                     except Exception as ex:
                         self.error(ex)
                 else:

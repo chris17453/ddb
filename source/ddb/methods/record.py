@@ -26,20 +26,24 @@ class record_configuration:
 
 
 
-class record:
-    __slots__=()
-    __internal={'__type'        : 0,
-              '__raw'         : None,
-              '__line_number' : None,
-              '__error'       : None,
-              '__match'       : None
-              }
-    
-    __data=OrderedDict()
+class record(object):
+    __slots__=['__data','__type','__raw','__line_number','__error','__match']
+    #__slots__=['_record__type','_record__raw','_record__line_number','_record__error','_record__match','_record__data','__data']
 
     def __init__(self, data, config,line_number=None):
-        self.__raw         = data
-        
+        super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__type', None)
+        super().__setattr__('_record__raw', None)
+        super().__setattr__('_record__line_number', None)
+        super().__setattr__('_record__error', None)
+        super().__setattr__('_record__match', None)
+
+        self.__data=OrderedDict()
+        if isinstance(data,str)==True:
+          self.__raw =data
+        else:
+          self.__raw =None
+
         if line_number:
           self.__line_number = line_number
         else:
@@ -52,19 +56,17 @@ class record:
         # process string into dataset
         self.process( data, config)
     
-    @classmethod
     def to_json(self):
       return self.__data
       
-    @classmethod
     def __getattr__(self, name):
         try:
-          if   name=='_record__type':        return self.__internal['__type']
-          elif name=='_record__raw':         return self.__internal['__raw']
-          elif name=='_record__line_number': return self.__internal['__line_number']
-          elif name=='_record__error':       return self.__internal['__error']
-          elif name=='_record__match':       return self.__internal['__match']
-          elif name=='_record__data':        return self.__internal['__data']
+          if   name=='_record__type':        return self.__type
+          elif name=='_record__raw':         return self.__raw
+          elif name=='_record__line_number': return self.__line_number
+          elif name=='_record__error':       return self.__error
+          elif name=='_record__match':       return self.__match
+          elif name=='_record__data':        return self.__data
           else:
                 return self.__data[name]
        
@@ -73,15 +75,13 @@ class record:
             #traceback.print_exception(exc_type, exc_value, exc_tb)
             raise AttributeError(name)
     
-
-    @classmethod
     def __setattr__(self, name, value):
-        if   name=='_record__type':        self.__internal['__type']       =value
-        elif name=='_record__raw':         self.__internal['__raw']        =value
-        elif name=='_record__line_number': self.__internal['__line_number']=value
-        elif name=='_record__error':       self.__internal['__error']      =value
-        elif name=='_record__match':       self.__internal['__match']      =value
-        elif name=='_record__data':        self.__internal['__data']       =value
+        if   name=='_record__type':        super().__setattr__('_record__type'       , value)
+        elif name=='_record__raw':         super().__setattr__('_record__raw'        , value)
+        elif name=='_record__line_number': super().__setattr__('_record__line_number', value)
+        elif name=='_record__error':       super().__setattr__('_record__error'      , value)
+        elif name=='_record__match':       super().__setattr__('_record__match'      , value)
+        elif name=='_record__data':        super().__setattr__('_record__data'       , value)
         else:
           if self.__data.has_key(name)==False:
              err_msg="Cannot assign data to invalid key: '{0}'".format(name)
@@ -93,7 +93,6 @@ class record:
               err_msg="Cannot assign data to Key: '{0}'".format(name)
               raise Exception (err_msg)
 
-    @classmethod
     def __delattr__(self, name):
         try:
             del self.__data[name]
@@ -101,33 +100,30 @@ class record:
             err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
 
-    @classmethod
+    def __getitem__(self, item):
+         return self.__data[item]
+
     def __iter__(self):
         for key in self.__data:
             yield key
 
-    @classmethod
     def keys(self):
       return self.__data.keys()
 
-    @classmethod
     def has_key(self,key):
       return self.__data.has_key(key)
 
     # PY3 support
-    @classmethod
     def items(self):
         for key in self.__data:
           yield key, self.__data[key]
 
     # PY2 support
-    @classmethod
     def iteritems(self):
         for key in self.__data:
           print ("Key"+key)
           yield key, self.__data[key]
 
-    @classmethod
     def split_array(self,arr):
         ARRAY_DELIMITER=','
         TUPEL_DELIMITER='='
@@ -164,7 +160,6 @@ class record:
 
         return store
      
-    @classmethod
     def split_key_value(self,blob):
         try:
           setting_key,setting_value=blob.split('=')
@@ -173,7 +168,6 @@ class record:
           pass
         return blob
 
-    @classmethod
     def process_rows(self,set,prefix):
           res={}
           for row in set.data:
@@ -182,7 +176,6 @@ class record:
                 self.split_array(value)
           return res
 
-    @classmethod
     def process(self, data, config,data_type=2,error=None,match=True):
         COMMENT     = 0
         WHITESPACE  = 1
@@ -192,7 +185,7 @@ class record:
         #data_type           = DATA
         #error               = None
         #Determine line type
-        if isinstance(data,str):
+        if isinstance(data,str)==True:
           try:
               if data[0]==config.comment_delimiter:
                   data_type=COMMENT
@@ -212,10 +205,13 @@ class record:
 
         #if its actual data. lets split it and make some structures
         if data_type==DATA:
-            if isinstance(data,str):
+            if isinstance(data,str)==True:
               tokens=data.split(config.field_delimiter, config.column_count)
             else:
-              tokens=data
+              
+              tokens=[]#copy.deepcopy(data)
+              for i in range(len(data)):
+                tokens.append(data[i])
                    
             #print tokens
             if config.remove_block_quotes:

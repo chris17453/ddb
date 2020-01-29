@@ -13,8 +13,8 @@ def src_build():
         {'name':'table','file':source_dir+'/ddb/configuration/table.py'},
         {'name':'database','file':source_dir+'/ddb/configuration/database.py'},
         {'name':'functions','file':source_dir+'/ddb/functions/functions.py'},
+        {'name':'methods-record','file':source_dir+'/ddb/methods/record.py'},
         {'name':'sql_engine','file':source_dir+'/ddb/engine.py'},
-        {'name':'methods-records','file':source_dir+'/ddb/methods/record.py'},
         {'name':'methods-records_core','file':source_dir+'/ddb/methods/record_core.py'},
         {'name':'methods-records-delete','file':source_dir+'/ddb/methods/record_delete.py'},
         {'name':'methods-records-insert','file':source_dir+'/ddb/methods/record_insert.py'},
@@ -88,6 +88,7 @@ import hashlib
 import random
 from collections import OrderedDict
 import traceback
+import copy
 
 
 
@@ -127,6 +128,8 @@ import hashlib
 import random
 from collections import OrderedDict
 import traceback
+import copy
+
 
 
 from cmd import Cmd
