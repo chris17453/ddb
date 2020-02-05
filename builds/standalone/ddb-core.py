@@ -42,7 +42,7 @@ import copy
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.188'
+__version__='1.4.189'
 
         
 # ############################################################################
@@ -3146,10 +3146,7 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    if isinstance(line,str)==False:
-        line=str(line)
-    else:
-        line=line.decode('ascii')
+    line=str(line)
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
