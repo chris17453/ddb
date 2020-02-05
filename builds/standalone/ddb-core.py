@@ -42,7 +42,7 @@ import copy
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.192'
+__version__='1.4.193'
 
         
 # ############################################################################
@@ -3146,7 +3146,7 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    print ("is instance:{0}".format(isinstance(line,str))
+    print ("is instance:{0}".format(isinstance(line,str)))
     if isinstance(line,str)==False:
         line=str(line)
     else:

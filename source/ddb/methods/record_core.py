@@ -165,6 +165,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
     
     
     print ("is instance:{0}".format(isinstance(line,str)))
+    print ("is instance:{0}".format(isinstance(line,unicode)))
 
     if isinstance(line,str)==False:
         line=str(line)
