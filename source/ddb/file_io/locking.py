@@ -81,21 +81,24 @@ class lock:
         
     @staticmethod
     def info(msg,data="Empty"):
-        pid=os.getpid()
-        dt = datetime.datetime.now()
-        log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
-        file=open("/tmp/ddb.log","a+")
-        file.write(log_line)
-        file.close()
+        pass
+
+        #pid=os.getpid()
+        #dt = datetime.datetime.now()
+        #log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
+        #file=open("/tmp/ddb.log","a+")
+        #file.write(log_line)
+        #file.close()
             
     @staticmethod
     def error(msg,data):
-        pid=os.getpid()
-        dt = datetime.datetime.now()
-        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
-        file=open("/tmp/ddb.log","a+")
-        file.write(log_line)
-        file.close()
+        pass
+        #pid=os.getpid()
+        #dt = datetime.datetime.now()
+        #log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        #file=open("/tmp/ddb.log","a+")
+        #file.write(log_line)
+        #file.close()
     
     @staticmethod
     def normalize_path(path):

@@ -18,17 +18,19 @@ import traceback
 from .methods.record import record, record_configuration  # converting After the fact...
 
 temp_dir=tempfile.gettempdir()
-logfile=os.path.join(temp_dir,'ddb.log')
-logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
-logging.propagate = False
 
 
-try:
-    if os.path.exists(logfile)==True:
-        os.chmod(logfile,0o666)
-except Exception as ex:
-    print (ex)
-    pass
+#logfile=os.path.join(temp_dir,'ddb.log')
+#logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
+#logging.propagate = False
+
+
+#try:
+#    if os.path.exists(logfile)==True:
+#        os.chmod(logfile,0o666)
+#except Exception as ex:
+#    print (ex)
+#    pass
 
 
 #methods -> actions
@@ -84,13 +86,14 @@ class engine:
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
-        ts = time.time()
-        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        pass
+        #ts = time.time()
+        #timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
-        if level==logging.INFO:
-            logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
-        elif  level==logging.ERROR:
-            logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        #if level==logging.INFO:
+        #    logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        #elif  level==logging.ERROR:
+        #    logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
 
         #if True == logging.disable:
         #    if isinstance(arg1,str) :
@@ -108,10 +111,10 @@ class engine:
         
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
-        if debug==True:
-            logging.getLogger().setLevel(logging.INFO)
-        else:
-            logging.getLogger().setLevel(logging.CRITICAL)
+        #if debug==True:
+        #    logging.getLogger().setLevel(logging.INFO)
+        #else:
+        #    logging.getLogger().setLevel(logging.CRITICAL)
             
         self.debug = debug
         self.results = None
@@ -287,7 +290,7 @@ class engine:
             mode=query_object['mode']
 
             
-            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
+            #logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
             
             if meta_class==None:
