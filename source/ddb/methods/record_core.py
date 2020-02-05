@@ -162,9 +162,13 @@ def get_table(context,meta):
 
 
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    line=line.decode('ascii')
+    
+    
     if isinstance(line,str)==False:
-        raise Exception("NOT STR!")
+        line=str(line)
+    else:
+        line=line.decode('ascii')
+        
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
