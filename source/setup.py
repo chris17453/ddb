@@ -62,7 +62,7 @@ else:
 # cython: linetrace=True
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
-cmdclass.update({'build_py': my_build_py})
+cmdclass.update({'build_py': new_build_py})
 
 print("Using extension {0},{1}".format(ext,ext2))
 
