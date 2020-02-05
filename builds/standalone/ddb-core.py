@@ -42,7 +42,7 @@ import copy
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.187'
+__version__='1.4.188'
 
         
 # ############################################################################
@@ -3153,6 +3153,8 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
+    print("Line: {0}", type(line) )
+    print("Cleaned: {0}", type(line_cleaned) )
     line_data = None
     match_results=False
     if table.data.starts_on_line > line_number:
