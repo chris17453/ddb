@@ -164,6 +164,8 @@ def get_table(context,meta):
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     
     
+    print ("is instance:{0}".format(isinstance(line,str))
+
     if isinstance(line,str)==False:
         line=str(line)
     else:
