@@ -173,6 +173,8 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
     line_cleaned = line.rstrip()
+    print("Line: {0}", type(line) )
+    print("Cleaned: {0}", type(line_cleaned) )
     line_data = None
     match_results=False
     
