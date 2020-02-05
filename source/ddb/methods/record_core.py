@@ -167,10 +167,10 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
 
     if isinstance(line,str):
         print("string")
-        line=str(line)
+        line=str(line).encode("ascii")
     elif isinstance(line,unicode):
-        print("unicope")
-        line=line.decode('ascii')
+        print("unicode")
+        line=str(line).encode("ascii")
         
     err = None
     table=meta.table
