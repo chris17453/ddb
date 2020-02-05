@@ -23,7 +23,7 @@ class build_py(_build_py):
 
     def find_package_modules(self, package, package_dir):
         ext_suffix = sysconfig.get_config_var('EXT_SUFFIX')
-        modules = _build_py.find_package_modules(self,package, package_dir)
+        modules = _build_py.build_py.find_package_modules(self,package, package_dir)
         filtered_modules = []
         for (pkg, mod, filepath) in modules:
             if os.path.exists(filepath.replace('.py', ext_suffix)):
