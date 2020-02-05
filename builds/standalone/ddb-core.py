@@ -42,7 +42,7 @@ import copy
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.198'
+__version__='1.4.199'
 
         
 # ############################################################################
@@ -2658,15 +2658,6 @@ class record(object):
 # ############################################################################
 
 temp_dir=tempfile.gettempdir()
-logfile=os.path.join(temp_dir,'ddb.log')
-logging.basicConfig(filename=logfile, filemode='a',level=logging.INFO,format='(%(threadName)-10s) %(message)s')
-logging.propagate = False
-try:
-    if os.path.exists(logfile)==True:
-        os.chmod(logfile,0o666)
-except Exception as ex:
-    print (ex)
-    pass
 class engine:
     """A serverless flat file database engine"""
     class data_type:
@@ -2679,18 +2670,9 @@ class engine:
         exc_type, exc_value, exc_tb = sys.exc_info()
         traceback.print_exception(exc_type, exc_value, exc_tb)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
-        ts = time.time()
-        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        if level==logging.INFO:
-            logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
-        elif  level==logging.ERROR:
-            logging.error("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        pass
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
-        if debug==True:
-            logging.getLogger().setLevel(logging.INFO)
-        else:
-            logging.getLogger().setLevel(logging.CRITICAL)
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -2795,7 +2777,6 @@ class engine:
             self.init_state_variables()
             self.info("Engine: query_object", query_object)
             mode=query_object['mode']
-            logging.info("PID:{1} : {0}".format(sql_query,self.pid))
             meta_class=meta().convert_to_class(query_object)
             if meta_class==None:
                 err="Meta class failed to init. [{0}]".format(mode)
@@ -4303,20 +4284,10 @@ class lock:
             shutil.copystat(src, dst)
     @staticmethod
     def info(msg,data="Empty"):
-        pid=os.getpid()
-        dt = datetime.datetime.now()
-        log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
-        file=open("/tmp/ddb.log","a+")
-        file.write(log_line)
-        file.close()
+        pass
     @staticmethod
     def error(msg,data):
-        pid=os.getpid()
-        dt = datetime.datetime.now()
-        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
-        file=open("/tmp/ddb.log","a+")
-        file.write(log_line)
-        file.close()
+        pass
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
