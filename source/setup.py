@@ -26,6 +26,7 @@ class new_build_py(_build_py):
         modules = _build_py.find_package_modules(self,package, package_dir)
         filtered_modules = []
         for (pkg, mod, filepath) in modules:
+            print (filepath)
             if os.path.exists(filepath.replace('.py', ext_suffix)):
                 continue
             filtered_modules.append((pkg, mod, filepath, ))
