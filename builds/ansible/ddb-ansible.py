@@ -133,7 +133,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.196'
+__version__='1.4.197'
 
         
 # ############################################################################
@@ -3237,17 +3237,10 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    if isinstance(line,str):
-        print("string")
-        line=str(line).encode("ascii")
-    elif isinstance(line,unicode):
-        print("unicode")
-        line=str(line).encode("ascii")
+    line=str(line).encode("ascii")
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
-    print("Line: {0}".format( type(line) ))
-    print("Cleaned: {0}".format( type(line_cleaned) ))
     line_data = None
     match_results=False
     if table.data.starts_on_line > line_number:
