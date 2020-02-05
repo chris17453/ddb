@@ -162,22 +162,13 @@ def get_table(context,meta):
 
 
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    
-    
-
-    if isinstance(line,str):
-        print("string")
-        line=str(line).encode("ascii")
-    elif isinstance(line,unicode):
-        print("unicode")
-        line=str(line).encode("ascii")
+    # ensure unicode support
+    line=str(line).encode("ascii")
         
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
     line_cleaned = line.rstrip()
-    print("Line: {0}".format( type(line) ))
-    print("Cleaned: {0}".format( type(line_cleaned) ))
     line_data = None
     match_results=False
     

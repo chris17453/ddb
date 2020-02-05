@@ -49,7 +49,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.195'
+__version__='1.4.196'
 
         
 # ############################################################################
@@ -3155,10 +3155,10 @@ def get_table(context,meta):
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     if isinstance(line,str):
         print("string")
-        line=str(line)
+        line=str(line).encode("ascii")
     elif isinstance(line,unicode):
-        print("unicope")
-        line=line.decode('ascii')
+        print("unicode")
+        line=str(line).encode("ascii")
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
