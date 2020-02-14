@@ -163,8 +163,16 @@ def get_table(context,meta):
 
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     # ensure unicode to ascii support
-    line=str(line).encode("ascii")
-        
+    #if str==bytes:
+        # we are in python2land
+    line=str(line)
+    #else:
+    #    # if its not a byte array (string)
+    #    if isinstance(line,str)==False:
+    #        #line=line.encode("ascii")
+    #        line=str(line)
+            
+    print(type(line))
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
