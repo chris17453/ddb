@@ -248,7 +248,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     match_results = match2().evaluate_match(meta=meta, row=line_data)
                 else:
                     match_results = False
-        except Exception as ex:
+        except Exception, ex:
             context.info(__name__,ex)
             match_results = True
             

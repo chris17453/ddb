@@ -81,7 +81,6 @@ import tempfile
 import shutil
 import time
 import pprint
-import uuid
 import logging
 from subprocess import Popen,PIPE
 import hashlib
@@ -121,7 +120,6 @@ import tempfile
 import shutil
 import time
 import pprint
-import uuid
 import logging
 from subprocess import Popen,PIPE
 import hashlib
@@ -167,7 +165,6 @@ import tempfile
 import shutil
 import time
 import pprint
-import uuid
 import logging
 from subprocess import Popen,PIPE
 import hashlib
@@ -218,7 +215,6 @@ import tempfile
 import shutil
 import time
 import pprint
-import uuid
 import logging
 from subprocess import Popen,PIPE
 import hashlib

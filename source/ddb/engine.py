@@ -4,7 +4,6 @@ import sys
 import os
 import time
 import pprint
-import uuid
 import logging
 import datetime
 import time
@@ -28,7 +27,7 @@ temp_dir=tempfile.gettempdir()
 #try:
 #    if os.path.exists(logfile)==True:
 #        os.chmod(logfile,0o666)
-#except Exception as ex:
+#except Exception, ex:
 #    print (ex)
 #    pass
 
@@ -106,6 +105,17 @@ class engine:
         #        print(msg, arg1, arg2, arg3)
 
     
+    def generate_uuid(self):
+        random_string = ''
+        random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        uuid_format = [8, 4, 4, 4, 12]
+        for n in uuid_format:
+            for i in range(0,n):
+                random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
+            if n != 12:
+                random_string += '-'
+        return random_string
+
     # mode nested: row.data [ { data,error,raw } ]
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         
@@ -128,8 +138,8 @@ class engine:
 
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         # variables that can be set by the system
-        uuid_str=uuid.uuid1()
-        self.system['UUID']= "{1}:{0}".format(uuid_str.urn[9:],os.getpid())
+        uuid_str=self.generate_uuid()
+        self.system['UUID']= "{1}:{0}".format(uuid_str,os.getpid())
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
@@ -177,7 +187,7 @@ class engine:
                 
                 if queries:
                     self.query(queries)
-        except Exception as ex:
+        except Exception, ex:
             self.error(ex)
             pass
 
@@ -303,7 +313,7 @@ class engine:
             if mode == 'select':
                 try:
                     self.results = method_select(self,meta_class, parser)
-                except Exception as ex:
+                except Exception, ex:
                     print("Select Error: {0}",str(ex))
             
             elif mode == 'insert' and self.internal['READONLY']==None:
@@ -412,12 +422,12 @@ class engine:
                         self.results.data=data
                         #for row in self.results.data:
                         #    print("DB-:{0}".format(row.to_json()))
-                    except Exception as ex:
+                    except Exception, ex:
                         self.error(ex)
                 else:
                     pass
 
-        #except Exception as Ex:
+        #except Exception, Ex:
         #    print  Ex
         #    pass
         if None == self.results:
@@ -477,7 +487,7 @@ class engine:
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
-            except Exception as ex:
+            except Exception, ex:
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             #print "?",repo_url

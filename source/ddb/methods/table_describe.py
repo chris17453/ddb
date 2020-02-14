@@ -35,7 +35,7 @@ def method_describe_table(context, meta):
         temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
 
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

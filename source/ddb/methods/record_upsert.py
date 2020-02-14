@@ -50,10 +50,11 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
 
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb', buffering=0)
+        try:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
-      
+            temp_file=open (dst_temp_filename,"wb", buffering=0)
+            try:
                 for line in content_file:
                     #print line
                     processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -85,11 +86,15 @@ def method_upsert(context, meta,query_object,main_meta):
                 else:
                     context.info("row found in upsert")
 
-            context.autocommit_write(meta.table,dst_temp_filename)
+            finally:
+                temp_file.close()
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

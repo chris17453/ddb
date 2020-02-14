@@ -79,7 +79,7 @@ class ddbPrompt(Cmd):
         try:
             self.msg("info", "configuration_dir set to'{0}'".format(inp))
             self.engine = engine(config_dir=inp, debug=self.debug)
-        except Exception as ex:
+        except Exception, ex:
             self.msg("error", "config", ex)
 
     def help_config(self):
@@ -105,7 +105,7 @@ class ddbPrompt(Cmd):
             results = self.engine.query(sql_query=inp)
             o=output_factory(results,output=self.engine.system['OUTPUT_MODULE'],output_style=self.engine.system['OUTPUT_STYLE'],)
             inp = None
-        except Exception as ex:
+        except Exception, ex:
             self.msg("error", ex)
 
     def default_exit(self):

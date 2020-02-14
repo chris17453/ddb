@@ -12,6 +12,6 @@ def method_drop_table(context, meta):
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         # TODO Error Handeling
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   

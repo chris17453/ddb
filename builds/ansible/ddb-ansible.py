@@ -25,7 +25,6 @@ import tempfile
 import shutil
 import time
 import pprint
-import uuid
 import logging
 from subprocess import Popen,PIPE
 import hashlib
@@ -948,7 +947,7 @@ class lexer:
                         try:
                             computed=self.get_argument(word,segment,tokens,token_index,w_index)
                             argument[computed['key']]=computed['value']
-                        except Exception as ex:
+                        except Exception, ex:
                             break
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
@@ -2111,12 +2110,15 @@ class table:
             if repo==None:
                 if False == os.path.exists(normalize_path(self.data.path)):
                     touch(self.data.path)
-                    with open(self.data.path,"a") as new_file:
+                    new_file=open(self.data.path,"a")
+                    try:
                         column_text=[]
                         for column in self.columns:
                             column_text.append(column.data.name)
                         header="# {0}\n".format(self.delimiters.field.join(column_text) )
                         new_file.write(header)
+                    finally:
+                        new_file.close()
     def update( self,
                 columns         =None,
                 data_file      =None,
@@ -2278,7 +2280,7 @@ class table:
             else:
                 err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                 raise Exception (err_msg)
-        except Exception as ex:
+        except Exception, ex:
             err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
             raise Exception (err_msg)
     def save(self):
@@ -2323,8 +2325,11 @@ class table:
                 fifo,
                 repo,
                 self.data.strict_columns)
-        with open(self.data.config,"w") as config_file:
+        config_file=open(self.data.config,"w")
+        try:
             config_file.write(sql)
+        finally:
+            config_file.close()
         return True
 class table_visible_attributes:
     def __init__(self, yaml=None):
@@ -2418,8 +2423,11 @@ class database:
         for sql_path in temp_tables:
             if False==os.path.exists(sql_path):
                 raise Exception ("Path to table '{0}' is invalid".format(sql_path))
-            with open(sql_path,'r') as table_config:
+            table_config=open(sql_path,'r')
+            try:
                 queries.append(table_config.read())
+            finally:
+                table_config.close()
         return ";\n".join(queries)
     def get_sql_definition_paths(self):
         """Return a list of paths to text files containing sql queries"""
@@ -2762,6 +2770,16 @@ class engine:
         traceback.print_exception(exc_type, exc_value, exc_tb)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         pass
+    def generate_uuid(self):
+        random_string = ''
+        random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        uuid_format = [8, 4, 4, 4, 12]
+        for n in uuid_format:
+            for i in range(0,n):
+                random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
+            if n != 12:
+                random_string += '-'
+        return random_string
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
         self.debug = debug
@@ -2774,8 +2792,8 @@ class engine:
         self.internal={}
         self.parameter={}
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
-        uuid_str=uuid.uuid1()
-        self.system['UUID']= "{1}:{0}".format(uuid_str.urn[9:],os.getpid())
+        uuid_str=self.generate_uuid()
+        self.system['UUID']= "{1}:{0}".format(uuid_str,os.getpid())
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
@@ -2813,7 +2831,7 @@ class engine:
                 queries=self.database.get_db_sql()
                 if queries:
                     self.query(queries)
-        except Exception as ex:
+        except Exception, ex:
             self.error(ex)
             pass
     def init_state_variables(self):
@@ -2877,7 +2895,7 @@ class engine:
             if mode == 'select':
                 try:
                     self.results = method_select(self,meta_class, parser)
-                except Exception as ex:
+                except Exception, ex:
                     print("Select Error: {0}",str(ex))
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
@@ -2955,7 +2973,7 @@ class engine:
                             r=record(data=line['data'],config=config,line_number=ln)
                             data.append(r)
                         self.results.data=data
-                    except Exception as ex:
+                    except Exception, ex:
                         self.error(ex)
                 else:
                     pass
@@ -3007,7 +3025,7 @@ class engine:
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
-            except Exception as ex:
+            except Exception, ex:
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             if None==repo_url:
@@ -3275,7 +3293,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     match_results = match2().evaluate_match(meta=meta, row=line_data)
                 else:
                     match_results = False
-        except Exception as ex:
+        except Exception, ex:
             context.info(__name__,ex)
             match_results = True
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
@@ -3463,9 +3481,11 @@ def method_delete(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb', buffering=0)
+        try:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            temp_file=open (dst_temp_filename,"wb", buffering=0)
+            try:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3477,10 +3497,14 @@ def method_delete(context, meta):
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
-            context.autocommit_write(meta.table,dst_temp_filename)
+            finally:
+                temp_file.close()
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3503,12 +3527,15 @@ def method_insert(context, meta):
         temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
         diff=[]
         requires_new_line=False
-        with open(temp_data_file, 'ab', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'ab', buffering=0)
+        try:
             results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
                 affected_rows += 1
-            context.autocommit_write(meta.table,temp_data_file)
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,temp_data_file)
         context.auto_commit(meta.table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
 def create_single(context, meta, temp_file, requires_new_line):
@@ -3544,7 +3571,7 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':True,'line':new_line}
         else:
             return {'success':False,'line':new_line}
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3569,7 +3596,7 @@ def method_select(context, meta, parser):
         temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 def select_process_file(context,meta):
@@ -3589,7 +3616,8 @@ def select_process_file(context,meta):
         visible_whitespace=table.visible.whitespace
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
-        with open(temp_data_file, 'rb',buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb',buffering=0) 
+        try:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                 if False == processed_line['match']:
@@ -3599,6 +3627,8 @@ def select_process_file(context,meta):
                     restructured_line = process_select_row(context,meta,processed_line) 
                     data+=[restructured_line]
                 line_number += 1
+        finally:
+            content_file.close()
         context.auto_commit(table)
     if False == has_columns and True == has_functions:
         row=process_select_row(context,meta,None)
@@ -3888,9 +3918,11 @@ def method_update(context, meta):
         visible_whitespace=meta.table.visible.whitespace
         visible_comments  =meta.table.visible.comments
         visible_errors    =meta.table.visible.errors
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb', buffering=0)
+        try:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            temp_file=open (dst_temp_filename,"wb", buffering=0) 
+            try:
                 for line in content_file:
                     processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3906,10 +3938,14 @@ def method_update(context, meta):
                         continue
                     temp_file.write(str.encode(processed_line['raw']))
                     temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
-            context.autocommit_write(meta.table,dst_temp_filename)
+            finally:
+                temp_file.close()
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3949,9 +3985,11 @@ def method_upsert(context, meta,query_object,main_meta):
         visible_whitespace =meta.table.visible.whitespace
         visible_comments   =meta.table.visible.comments
         visible_errors     =meta.table.visible.errors
-        with open(temp_data_file, 'rb', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb', buffering=0)
+        try:
             dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            with open (dst_temp_filename,"wb", buffering=0) as  temp_file:
+            temp_file=open (dst_temp_filename,"wb", buffering=0)
+            try:
                 for line in content_file:
                     processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
                     if None != processed_line['error']:
@@ -3977,10 +4015,14 @@ def method_upsert(context, meta,query_object,main_meta):
                         diff.append(results['line'])
                 else:
                     context.info("row found in upsert")
-            context.autocommit_write(meta.table,dst_temp_filename)
+            finally:
+                temp_file.close()
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3999,7 +4041,7 @@ def method_use(context, meta):
         data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4036,7 +4078,7 @@ def method_create_table(context, meta):
                                                 mode          = meta.mode
                                                 )
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4075,7 +4117,7 @@ def method_describe_table(context, meta):
         temp_table.append_data( { 'data': [ 'user'               , target_table.data.repo_user      ], 'type': context.data_type.DATA, 'error': None} )
         temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4093,7 +4135,7 @@ def method_drop_table(context, meta):
             raise Exception("Table not found")
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4120,7 +4162,7 @@ def method_update_table(context, meta):
                             data_on        =meta.data_starts_on)
         results=target_table.save()
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4157,7 +4199,7 @@ def method_system_set(context, meta):
             elif var_type=='user':
                 context.user[variable]=value
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4177,7 +4219,7 @@ def method_system_begin(context,meta):
             context.system['AUTOCOMMIT']=False
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4213,7 +4255,7 @@ def method_system_commit(context):
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4237,7 +4279,7 @@ def method_system_rollback(context,meta):
         else:
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4256,7 +4298,7 @@ def method_system_show_columns(context, meta):
                 columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
                 temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4274,7 +4316,7 @@ def method_system_show_tables(context,meta):
             columns = [t.data.database, t.data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4295,7 +4337,7 @@ def method_system_show_variables(context,meta):
             columns = {'data': ['user',c,context.user[c]], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4315,7 +4357,7 @@ def method_system_show_output_modules(context,meta):
             columns = [t['name'], styles]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4397,7 +4439,7 @@ class lock:
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
-        except Exception as ex:
+        except Exception, ex:
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
@@ -4414,7 +4456,8 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r',) as lockfile: # buffering=0
+                lockfile=open(lock_path,'r',) 
+                try:
                     try:
                         file_data=lockfile.readline()
                         try:
@@ -4434,13 +4477,15 @@ class lock:
                             return lock.LOCK_OTHER
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         return lock.LOCK_OTHER
-                    except Exception as ex:
+                    except Exception, ex:
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
                         pass
+                finally:
+                    lockfile.close()
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
-        except Exception as ex:
+        except Exception,  ex:
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
             return lock.LOCK_OTHER
     @staticmethod
@@ -4452,7 +4497,7 @@ class lock:
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except OSError as ex : 
+        except OSError, ex : 
             if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
         if lock.debug: lock.info("Lock","removed")
@@ -4470,12 +4515,12 @@ class lock:
             while 1:
                 lock_status=lock.is_locked(path,key_uuid,lock_path)
                 try:
-                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
+                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,int("666",base=8) )
                     os.write(fd,str.encode(lock_contents))
                     os.close(fd)
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     break
-                except OSError as ex:
+                except OSError, ex:
                     error+=1
                     if error==1:
                         if lock.debug: lock.info("Lock","error!:{0}".format(ex))
@@ -4485,16 +4530,21 @@ class lock:
             if os.path.exists(lock_path)==False:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
-        except Exception as ex:
+        except Exception , ex:
             lock.info("Aquire Lock: {0}".format(ex))
+def get_uuid(self):
+    seed = random.getrandbits(32)
+    while True:
+       yield str(seed)
+       seed += 1
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
     base_dir  = os.path.dirname(norm_path)
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
-        uuid_str=uuid.uuid1()
-        unique_id='_{0}:{1}'.format(uuid_str.urn[9:],os.getpid())
+        uuid_str=self.get_uuid()
+        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
@@ -5044,7 +5094,7 @@ class flextable:
             try:
                 self.row_height,self.column_width =pro.read().split()
                 pro.close()
-            except Exception as ex:
+            except Exception, ex:
                 print (ex)
                 pro.close()
                 self.row_height=25
@@ -5510,14 +5560,20 @@ class factory_yaml:
             raise Exception ("yaml dump requires an object, not a string")
         yaml_data=self.render(data)
         if out_file:
-            with open(out_file, 'w') as yaml_file:
+            yaml_file=open(out_file, 'w')
+            try:
                 yaml_file.write(yaml_data)
+            finally:
+                yaml_file.close()
         else:
             return yaml_data
     def load(self,data=None,in_file=None):
         if in_file:
-            with open(in_file) as content:
+            content=open(in_file)
+            try:
                 data=content.read()
+            finally:
+                content.close()
         lines=data.splitlines()
         root={}
         last_indent=None

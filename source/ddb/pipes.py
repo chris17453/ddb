@@ -49,7 +49,8 @@ class ddb_passthrough(threading.Thread):
             
             logging.info("{0} grabbing data".format(thread_name))
 
-            with open(FIFO,"wr") as fifo:
+            fifo=open(FIFO,"wr")
+            try:
                 # clear the buffer
                 try:
                     res=fifo.readlines()
@@ -64,6 +65,8 @@ class ddb_passthrough(threading.Thread):
                 except:
                     logging.debug("{0} cant write".format(thread_name))            
                     pass
+            finally:
+                fifo.close()
         
         logging.debug("{0} finished".format(thread_name))
 
@@ -112,8 +115,12 @@ class ddb_pipe_runner:
     
     def stop(self):
         if os.path.isfile(self.pidfile):
-            with  open(self.pidfile) as pid_file:
+            pid_file=open(self.pidfile)
+            try:
                 pid=pid_file.read()
+            finally:
+                pid_file.close()
+
             try:
                 logging.info("stopping service: pid {0}".format(pid))
                 os.kill(int(pid), signal.SIGTERM)
@@ -150,7 +157,7 @@ def cli_main():
             p.start()
         else:
             print ("Usage: ddb_fifo [start|stop|restart]")
-    except Exception as ex:
+    except Exception, ex:
         print(ex)
         pass
 

@@ -7,7 +7,6 @@ import time
 import tempfile, shutil
 import hashlib
 import random
-import uuid
 
 
 
@@ -55,8 +54,7 @@ class lock:
                 # XXX What about other special files? (sockets, devices...)
                 if shutil.stat.S_ISFIFO(st.st_mode):
                     raise shutil.SpecialFileError("`%s` is a named pipe" % fn)
-        #with open(src, 'rb',buffering=0) as fsrc:
-         #   with open(dst, 'wb',buffering=0) as fdst:
+
         src_fh = os.open(src, os.O_RDONLY | os.O_SYNC)
         dst_fh = os.open(dst, os.O_CREAT | os.O_SYNC|  os.O_TRUNC | os.O_WRONLY )
         if src_fh!=None and dst_fh!=None:
@@ -119,7 +117,7 @@ class lock:
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
-        except Exception as ex:
+        except Exception, ex:
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
             
@@ -139,7 +137,8 @@ class lock:
             if None==lock_path:
                 lock_path=lock.get_lock_filename(path)
             if os.path.exists(lock_path)==True:
-                with open(lock_path,'r',) as lockfile: # buffering=0
+                lockfile=open(lock_path,'r',) 
+                try:
                     try:
                         file_data=lockfile.readline()
                         #timestamp,temp_file_path,
@@ -163,15 +162,17 @@ class lock:
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
-                    except Exception as ex:
+                    except Exception, ex:
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         # because of mid write glitch
                         return lock.LOCK_OTHER
                         #lock.release(path)
                         pass
+                finally:
+                    lockfile.close()
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
-        except Exception as ex:
+        except Exception,  ex:
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
             return lock.LOCK_OTHER
 
@@ -188,7 +189,7 @@ class lock:
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except OSError as ex : 
+        except OSError, ex : 
             if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
 
@@ -213,14 +214,16 @@ class lock:
                 lock_status=lock.is_locked(path,key_uuid,lock_path)
                 #if lock_status==lock.LOCK_NONE:
                 try:
-                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,0o666 )
+                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,int("666",base=8) )
                     os.write(fd,str.encode(lock_contents))
                     os.close(fd)
+                    #os.chmod(lock_path, )
+
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     
                     
                     break
-                except OSError as ex:
+                except OSError, ex:
                     error+=1
                     if error==1:
                         if lock.debug: lock.info("Lock","error!:{0}".format(ex))
@@ -235,10 +238,15 @@ class lock:
             if os.path.exists(lock_path)==False:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
-        except Exception as ex:
+        except Exception , ex:
             lock.info("Aquire Lock: {0}".format(ex))
 
 
+def get_uuid(self):
+    seed = random.getrandbits(32)
+    while True:
+       yield str(seed)
+       seed += 1
   
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
@@ -246,8 +254,8 @@ def temp_path_from_file(path,prefix='',unique=None):
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
-        uuid_str=uuid.uuid1()
-        unique_id='_{0}:{1}'.format(uuid_str.urn[9:],os.getpid())
+        uuid_str=self.get_uuid()
+        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path

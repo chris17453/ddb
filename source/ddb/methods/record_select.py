@@ -57,7 +57,7 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -85,7 +85,8 @@ def select_process_file(context,meta):
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
 
-        with open(temp_data_file, 'rb',buffering=0) as content_file:
+        content_file=open(temp_data_file, 'rb',buffering=0) 
+        try:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
 
@@ -100,7 +101,8 @@ def select_process_file(context,meta):
                     restructured_line = process_select_row(context,meta,processed_line) 
                     data+=[restructured_line]
                 line_number += 1
-        
+        finally:
+            content_file.close()
         # release lock ans swap files if need be.
         context.auto_commit(table)
     # file is closed at this point, proccess the no "FROM" statement

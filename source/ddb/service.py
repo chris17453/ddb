@@ -69,12 +69,16 @@ NoNewPrivileges=true
 [Install]
 WantedBy=default.target
     """.format(username,user_data_dir,ddb_port,cli_path)
-        with open(service_path,"w",) as service:
+        service=open(service_path,"w",)
+        try:
             service.write(service_template)
+        finally:
+            service.close()
+
         os.chmod(service_path, 0644)
 
         restart_systemd()
-    except Exception as ex:
+    except Exception, ex:
         print ex
         print("Failed to init ddb service for user")
         exit(1)

@@ -48,8 +48,11 @@ class database:
         for sql_path in temp_tables:
             if False==os.path.exists(sql_path):
                 raise Exception ("Path to table '{0}' is invalid".format(sql_path))
-            with open(sql_path,'r') as table_config:
+            table_config=open(sql_path,'r')
+            try:
                 queries.append(table_config.read())
+            finally:
+                table_config.close()
 
         return ";\n".join(queries)
 

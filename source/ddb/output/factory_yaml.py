@@ -373,8 +373,11 @@ class factory_yaml:
         yaml_data=self.render(data)
 
         if out_file:
-            with open(out_file, 'w') as yaml_file:
+            yaml_file=open(out_file, 'w')
+            try:
                 yaml_file.write(yaml_data)
+            finally:
+                yaml_file.close()
         else:
             return yaml_data
 
@@ -382,8 +385,11 @@ class factory_yaml:
 
     def load(self,data=None,in_file=None):
         if in_file:
-            with open(in_file) as content:
+            content=open(in_file)
+            try:
                 data=content.read()
+            finally:
+                content.close()
 
         lines=data.splitlines()
         root={}

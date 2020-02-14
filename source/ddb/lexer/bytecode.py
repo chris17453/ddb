@@ -1486,7 +1486,7 @@ class lexer:
     def keyword_select(self):
         try:
             self.match([bytecode.SELECT])
-        except Exception as ex:
+        except Exception, ex:
             print ex
             return
 

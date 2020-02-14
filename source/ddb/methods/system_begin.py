@@ -12,6 +12,6 @@ def method_system_begin(context,meta):
             context.system['AUTOCOMMIT']=False
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   

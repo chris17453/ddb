@@ -36,6 +36,6 @@ def method_create_table(context, meta):
                                                 )
       
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   

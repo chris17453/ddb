@@ -82,7 +82,7 @@ def cli_main():
             elif results.success==False:
                 exit_code=1
             sys.exit(exit_code)
-        #except Exception as ex:
+        #except Exception, ex:
         #    print("Error:",ex)
 
     # is there something in stdin.. a pipe?

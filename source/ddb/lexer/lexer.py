@@ -322,7 +322,7 @@ class lexer:
                         try:
                             computed=self.get_argument(word,segment,tokens,token_index,w_index)
                             argument[computed['key']]=computed['value']
-                        except Exception as ex:
+                        except Exception, ex:
                             break
                             
                         

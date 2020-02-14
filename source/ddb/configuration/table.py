@@ -67,12 +67,15 @@ class table:
                     # no file exists.. create it
                     touch(self.data.path)
                     # add a default header, csv safe 
-                    with open(self.data.path,"a") as new_file:
+                    new_file=open(self.data.path,"a")
+                    try:
                         column_text=[]
                         for column in self.columns:
                             column_text.append(column.data.name)
                         header="# {0}\n".format(self.delimiters.field.join(column_text) )
                         new_file.write(header)
+                    finally:
+                        new_file.close()
         
 
         #data:
@@ -349,7 +352,7 @@ class table:
             else:
                 err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                 raise Exception (err_msg)
-        except Exception as ex:
+        except Exception, ex:
             err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
             raise Exception (err_msg)
 
@@ -406,8 +409,11 @@ class table:
                 repo,
                 self.data.strict_columns)
 
-        with open(self.data.config,"w") as config_file:
+        config_file=open(self.data.config,"w")
+        try:
             config_file.write(sql)
+        finally:
+            config_file.close()
 
         return True
 

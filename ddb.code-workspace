@@ -2,6 +2,15 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/home/cwatkin1/repos/gitlab/depend-o-nator"
+		},
+		{
+			"path": "/home/cwatkin1/repos/gitlab/nss_ssl_validation"
+		},
+		{
+			"path": "/home/cwatkin1/repos/gitlab"
 		}
 	],
 	"settings": {}

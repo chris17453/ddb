@@ -22,6 +22,6 @@ def method_system_rollback(context,meta):
         else:
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   

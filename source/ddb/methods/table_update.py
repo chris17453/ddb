@@ -23,7 +23,7 @@ def method_update_table(context, meta):
         results=target_table.save()
     
         return query_results(success=results)
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

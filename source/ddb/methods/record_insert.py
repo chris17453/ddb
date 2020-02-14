@@ -38,16 +38,18 @@ def method_insert(context, meta):
         #            #    requires_new_line = True
                # meta.debug()
         requires_new_line=False
-        with open(temp_data_file, 'ab', buffering=0) as content_file:
+        content_file=open(temp_data_file, 'ab', buffering=0)
+        try:
             results = create_single(context,meta, content_file, requires_new_line)
             if True == results['success']:
                 diff.append(results['line'])
                 affected_rows += 1
-            #temp_file.close()
-            context.autocommit_write(meta.table,temp_data_file)
+        finally:
+            content_file.close()
+        context.autocommit_write(meta.table,temp_data_file)
         context.auto_commit(meta.table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
-    #except Exception as ex:
+    #except Exception, ex:
     #    print(ex)
     #    return query_results(success=False, error=ex)
     
@@ -91,7 +93,7 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':True,'line':new_line}
         else:
             return {'success':False,'line':new_line}
-    except Exception as ex:
+    except Exception, ex:
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
