@@ -1,7 +1,3 @@
- 
-from collections import OrderedDict
-
-
 
 
 class record_configuration:
@@ -24,14 +20,12 @@ class record_configuration:
     def __init__(self):
         pass
 
-
-
 class record(object):
-    __slots__=['__data','__type','__raw','__line_number','__error','__match']
-    #__slots__=['_record__type','_record__raw','_record__line_number','_record__error','_record__match','_record__data','__data']
+    __slots__=['__data','__keys','__type','__raw','__line_number','__error','__match']
 
     def __init__(self, data, config,line_number=None):
         super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__keys', list())
         super().__setattr__('_record__type', None)
         super().__setattr__('_record__raw', None)
         super().__setattr__('_record__line_number', None)
@@ -52,6 +46,7 @@ class record(object):
         # create empty dataset for row
         for column in config.columns:
             self.__data[column]=None
+            self.__keys.append(column)
 
         # process string into dataset
         self.process( data, config)
@@ -67,6 +62,7 @@ class record(object):
           elif name=='_record__error':       return self.__error
           elif name=='_record__match':       return self.__match
           elif name=='_record__data':        return self.__data
+          elif name=='_record__keys':        return self.__keys
           else:
                 return self.__data[name]
        
@@ -82,6 +78,7 @@ class record(object):
         elif name=='_record__error':       super().__setattr__('_record__error'      , value)
         elif name=='_record__match':       super().__setattr__('_record__match'      , value)
         elif name=='_record__data':        super().__setattr__('_record__data'       , value)
+        elif name=='_record__keys':        super().__setattr__('_record__keys'       , value)
         else:
           if self.__data.has_key(name)==False:
              err_msg="Cannot assign data to invalid key: '{0}'".format(name)
@@ -96,6 +93,7 @@ class record(object):
     def __delattr__(self, name):
         try:
             del self.__data[name]
+            self.__keys.remove(name)
         except :
             err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
@@ -104,8 +102,8 @@ class record(object):
          return self.__data[item]
 
     def __iter__(self):
-        for key in self.__data:
-            yield key
+        for key in self.__keys:
+            yield self.__data[key]
 
     def keys(self):
       return self.__data.keys()
@@ -115,13 +113,12 @@ class record(object):
 
     # PY3 support
     def items(self):
-        for key in self.__data:
+        for key in self.__keys:
           yield key, self.__data[key]
 
     # PY2 support
     def iteritems(self):
-        for key in self.__data:
-          print ("Key"+key)
+        for key in self.__keys:
           yield key, self.__data[key]
 
     def split_array(self,arr):

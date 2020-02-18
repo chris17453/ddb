@@ -111,9 +111,7 @@ class lock:
         try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
-            m = hashlib.md5()
-            m.update(norm_path.encode("ascii"))
-            basename="{0}_{1}".format( os.path.basename(norm_path), m.hexdigest() )
+            basename="{0}_{1}".format( os.path.basename(norm_path), base64.encode(norm_path) )
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
@@ -301,19 +299,19 @@ def remove_temp_file(path):
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
-def compare_files(file1,file2):
-    
-    content1=open(file1,'r').read()
-    content2=open(file2,'r').read()
-    
-    hash1=hashlib.md5(content1).hexdigest()
-    hash2=hashlib.md5(content2).hexdigest()
-    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
-    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
-    if hash1!=hash2:
-        return None
-    return True
-
+#def compare_files(file1,file2):
+#    
+#    content1=open(file1,'r').read()
+#    content2=open(file2,'r').read()
+#    
+#    hash1=hashlib.md5(content1).hexdigest()
+#    hash2=hashlib.md5(content2).hexdigest()
+#    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
+#    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
+#    if hash1!=hash2:
+#        return None
+#    return True
+#
         
 # todo move into context with a manager flag        
 def swap_files(path, temp,key_uuid):

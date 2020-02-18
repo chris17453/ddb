@@ -83,9 +83,7 @@ import time
 import pprint
 import logging
 from subprocess import Popen,PIPE
-import hashlib
 import random
-from collections import OrderedDict
 import traceback
 import copy
 
@@ -122,9 +120,7 @@ import time
 import pprint
 import logging
 from subprocess import Popen,PIPE
-import hashlib
 import random
-from collections import OrderedDict
 import traceback
 import copy
 
@@ -167,9 +163,7 @@ import time
 import pprint
 import logging
 from subprocess import Popen,PIPE
-import hashlib
 import random
-from collections import OrderedDict
 import traceback
 
 
@@ -217,9 +211,7 @@ import time
 import pprint
 import logging
 from subprocess import Popen,PIPE
-import hashlib
 import random
-from collections import OrderedDict
 import traceback
 
 
@@ -247,14 +239,15 @@ def build_standalone(files,headers,footer,dest_file):
         seperator='''
         
 # ############################################################################
-# Module : {0}
-# File   : {1}
+# Module : %(name)s
+# File   : %(file)s
 # ############################################################################
 
-'''.format(item['name'],item['file'])
+''' % item
     
         build.append(seperator)
-        with  open(item['file']) as content:
+        try:
+            content=open(item['file'])
             for line in content:
                 part=line[0:4]
                 l=line.strip()
@@ -270,8 +263,12 @@ def build_standalone(files,headers,footer,dest_file):
                     #headers.append(l)
                     continue
                 build.append(line)
-    print ("Writing: {0}".format(dest_file))
-    with  open(dest_file,"w") as target:
+        finally:
+            content.close()
+            
+    print ("Writing: %(file)s" % {'file':dest_file} )
+    try:
+        target=open(dest_file,"w")
         if headers:
             target.write(headers)
 
@@ -280,5 +277,7 @@ def build_standalone(files,headers,footer,dest_file):
         
         if footer:
             target.write(footer)
+    finally:
+        target.close()
 
 src_build()
