@@ -88,6 +88,8 @@ import random
 import traceback
 import copy
 
+sys.dont_write_bytecode = True
+
 
 
 
@@ -126,6 +128,7 @@ import random
 import traceback
 import copy
 
+sys.dont_write_bytecode = True
 
 
 from cmd import Cmd
@@ -169,6 +172,7 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 
+sys.dont_write_bytecode = True
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -218,6 +222,7 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 
+sys.dont_write_bytecode = True
 
 
 from slackclient import SlackClient

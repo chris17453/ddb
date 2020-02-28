@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.214'
+__version__='1.4.215'
 
         
 # ############################################################################
@@ -3240,7 +3240,6 @@ def get_table(context,meta):
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     line=str(line)
-    print(type(line))
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
