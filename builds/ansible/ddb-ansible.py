@@ -31,6 +31,7 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 
+sys.dont_write_bytecode = True
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -131,7 +132,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.215'
+__version__='1.4.216'
 
         
 # ############################################################################

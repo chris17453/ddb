@@ -31,6 +31,7 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 
+sys.dont_write_bytecode = True
 
 
 from slackclient import SlackClient
@@ -45,7 +46,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.215'
+__version__='1.4.216'
 
         
 # ############################################################################

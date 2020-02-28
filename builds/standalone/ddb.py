@@ -32,6 +32,7 @@ import random
 import traceback
 import copy
 
+sys.dont_write_bytecode = True
 
 
 from cmd import Cmd
@@ -47,7 +48,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.215'
+__version__='1.4.216'
 
         
 # ############################################################################
