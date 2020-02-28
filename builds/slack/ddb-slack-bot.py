@@ -45,7 +45,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.210'
+__version__='1.4.211'
 
         
 # ############################################################################
@@ -4354,7 +4354,7 @@ class lock:
         try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
-            basename="{0}_{1}".format( os.path.basename(norm_path), base64.encode(norm_path) )
+            basename="{0}_{1}".format( os.path.basename(norm_path), base64.b64encode(norm_path) )
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
