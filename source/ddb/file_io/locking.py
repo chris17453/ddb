@@ -90,10 +90,10 @@ class lock:
             
     @staticmethod
     def error(msg,data):
-        pass
-        #pid=os.getpid()
-        #dt = datetime.datetime.now()
-        #log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        print(log_line)
         #file=open("/tmp/ddb.log","a+")
         #file.write(log_line)
         #file.close()

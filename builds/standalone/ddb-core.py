@@ -19,6 +19,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -39,7 +40,7 @@ import copy
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.204'
+__version__='1.4.205'
 
         
 # ############################################################################
@@ -4286,7 +4287,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=None
+    debug=sys.stdin.isatty()
     BUFFER_SIZE=4096
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
