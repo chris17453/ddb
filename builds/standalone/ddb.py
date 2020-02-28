@@ -47,7 +47,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.207'
+__version__='1.4.208'
 
         
 # ############################################################################
@@ -4361,7 +4361,7 @@ class lock:
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
         except Exception, ex:
-            lock.info("Get Lock Filname: {0}".format(ex))
+            lock.error("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
     def check_pid(pid):        
@@ -4384,7 +4384,7 @@ class lock:
                         try:
                             owner_uuid,owner_pid,terminator=file_data.split('|')
                         except:
-                            if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
+                            if lock.debug: lock.error("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
                         if owner_uuid==key_uuid:
                             if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
@@ -4444,7 +4444,7 @@ class lock:
                 except OSError, ex:
                     error+=1
                     if error==1:
-                        if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                        if lock.debug: lock.error("Lock","error!:{0}".format(ex))
                     pass
                 time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
             if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
@@ -4452,7 +4452,7 @@ class lock:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
         except Exception , ex:
-            lock.info("Aquire Lock: {0}".format(ex))
+            lock.error("Aquire Lock: {0}".format(ex))
 def get_uuid():
     seed = random.getrandbits(32)
     while True:
@@ -4480,7 +4480,8 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         shutil.copy2(norm_path, temp_path)
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
-    except Exception as ex:
+    except:
+        ex = sys.exc_info()
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))

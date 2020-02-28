@@ -116,7 +116,7 @@ class lock:
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
         except Exception, ex:
-            lock.error("Get Lock Filname: {0}".format(ex))
+            lock.error("Get Lock Filname","{0}".format(ex))
             exit(1)
             
     @staticmethod
@@ -237,7 +237,7 @@ class lock:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
         except Exception , ex:
-            lock.error("Aquire Lock: {0}".format(ex))
+            lock.error("Aquire Lock","{0}".format(ex))
 
 
 def get_uuid():
@@ -285,7 +285,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
     except:
         ex = sys.exc_info()
         
-        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
+        if lock.debug: lock.error("Lock","Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 
@@ -295,7 +295,7 @@ def remove_temp_file(path):
         os.remove(path)
     except: 
         ex = sys.exc_info()
-        if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
+        if lock.debug: lock.error("Lock","Remove Temp File","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
