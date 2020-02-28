@@ -131,7 +131,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.213'
+__version__='1.4.214'
 
         
 # ############################################################################
@@ -4437,7 +4437,7 @@ class lock:
     def get_lock_filename(path):
         """Generate a unique name for a given file path so that if the same file name is used with a different path, the lock file is unique.
         Possible errors with linked files."""
-        try:1
+        try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
             basename="{0}_{1}".format( os.path.basename(norm_path), base64.b64encode(norm_path) )

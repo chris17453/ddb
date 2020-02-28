@@ -172,7 +172,8 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
     #        #line=line.encode("ascii")
     #        line=str(line)
             
-    print(type(line))
+    
+    #print(type(line))
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
