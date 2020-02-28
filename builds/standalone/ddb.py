@@ -47,7 +47,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.206'
+__version__='1.4.207'
 
         
 # ############################################################################
@@ -4480,8 +4480,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         shutil.copy2(norm_path, temp_path)
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
-    except:
-        ex = sys.exc_info()
+    except Exception as ex:
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
