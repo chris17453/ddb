@@ -19,7 +19,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=None
+    debug=sys.stdin.isatty()
     BUFFER_SIZE=4096
     
     @staticmethod

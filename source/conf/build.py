@@ -77,6 +77,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -114,6 +115,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -157,6 +159,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -205,6 +208,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
