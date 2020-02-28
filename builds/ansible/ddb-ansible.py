@@ -130,7 +130,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.202'
+__version__='1.4.203'
 
         
 # ############################################################################
@@ -4544,7 +4544,7 @@ def temp_path_from_file(path,prefix='',unique=None):
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
-        uuid_str=locking.get_uuid()
+        uuid_str=lock.get_uuid()
         unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )

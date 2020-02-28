@@ -7,7 +7,7 @@ import time
 import tempfile, shutil
 import hashlib
 import random
-
+import base64
 
 
 class lock:
