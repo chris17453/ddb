@@ -45,7 +45,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.205'
+__version__='1.4.206'
 
         
 # ############################################################################
@@ -4338,7 +4338,10 @@ class lock:
         pass
     @staticmethod
     def error(msg,data):
-        pass
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        print(log_line)
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""

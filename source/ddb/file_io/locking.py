@@ -282,8 +282,8 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
          #print("Deleting: {0} Copying to Deleted: {1}".format(path,temp_path))
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
-    except:
-        ex = sys.exc_info()
+    except Exception as ex:
+        #ex = sys.exc_info()
         
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
