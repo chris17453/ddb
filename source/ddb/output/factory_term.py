@@ -443,7 +443,9 @@ class flextable:
                 self.row_height,self.column_width =pro.read().split()
                 pro.close()
                 
-            except Exception, ex:
+            except:
+                err = sys.exc_info()[1]
+                ex = err.args[0]
                 print (ex)
                 pro.close()
                 self.row_height=25

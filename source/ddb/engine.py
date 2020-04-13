@@ -187,7 +187,9 @@ class engine:
                 
                 if queries:
                     self.query(queries)
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             self.error(ex)
             pass
 
@@ -248,7 +250,17 @@ class engine:
             #param=param.replace("\a","\\a")
             #param=param.replace("\"","\\\"")
            #
-            sql=sql.replace(param,param_list[param])
+            key=param
+            if isinstance(key,bytes):
+                key=param.decode('ascii')
+
+            val=param_list[param]
+            if isinstance(val,bytes):
+                val=param_list[param].decode('ascii')
+                
+                
+            sql=sql.replace(key,val)
+        print(sql)
         
         return sql
     
@@ -269,6 +281,7 @@ class engine:
 
         if parameters:
             for param in parameters:
+                #print ("SET {0}.{1}".format(param,parameters[param]))
                 self.set_param(param,parameters[param])
         
         # this performs parameter substitution before lexing/parsing
@@ -313,7 +326,9 @@ class engine:
             if mode == 'select':
                 try:
                     self.results = method_select(self,meta_class, parser)
-                except Exception, ex:
+                except:
+                    err = sys.exc_info()[1]
+                    ex = err.args[0]
                     print("Select Error: {0}",str(ex))
             
             elif mode == 'insert' and self.internal['READONLY']==None:
@@ -422,7 +437,9 @@ class engine:
                         self.results.data=data
                         #for row in self.results.data:
                         #    print("DB-:{0}".format(row.to_json()))
-                    except Exception, ex:
+                    except:
+                        err = sys.exc_info()[1]
+                        ex = err.args[0]
                         self.error(ex)
                 else:
                     pass
@@ -487,7 +504,9 @@ class engine:
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
-            except Exception, ex:
+            except:
+                err = sys.exc_info()[1]
+                ex = err.args[0]
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             #print "?",repo_url

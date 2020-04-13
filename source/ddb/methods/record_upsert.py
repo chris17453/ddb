@@ -94,7 +94,9 @@ def method_upsert(context, meta,query_object,main_meta):
         context.auto_commit(meta.table)                
 
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

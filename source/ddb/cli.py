@@ -44,7 +44,7 @@ def cli_main():
         try:
             if os.path.exists(config_dir)==False:
                 os.mkdir(config_dir)
-        except Exception:
+        except:
             print("Can not create ddb data directory: {0}".format(config_dir))
             exit(1)
                 

@@ -13,7 +13,9 @@ def method_use(context, meta):
         temp_table.append_data(data)
         # TODO so.. is this how we want to handle actions not preformed?
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
         

@@ -57,7 +57,9 @@ def method_select(context, meta, parser):
         temp_table.results=temp_data
 
         return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

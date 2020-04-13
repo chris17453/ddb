@@ -89,7 +89,9 @@ def method_update(context, meta):
         context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 

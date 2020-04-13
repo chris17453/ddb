@@ -7,6 +7,7 @@ import time
 import tempfile, shutil
 import hashlib
 import random
+import base64
 
 
 
@@ -79,6 +80,10 @@ class lock:
         
     @staticmethod
     def info(msg,data="Empty"):
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        sys.stdout.write(log_line+"\n")
         pass
 
         #pid=os.getpid()
@@ -90,10 +95,12 @@ class lock:
             
     @staticmethod
     def error(msg,data):
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        sys.stderr.write(log_line+"\n")
         pass
-        #pid=os.getpid()
-        #dt = datetime.datetime.now()
-        #log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        
         #file=open("/tmp/ddb.log","a+")
         #file.write(log_line)
         #file.close()
@@ -111,11 +118,13 @@ class lock:
         try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
-            basename="{0}_{1}".format( os.path.basename(norm_path), base64.encode(norm_path) )
+            basename="{0}_{1}".format( os.path.basename(norm_path),"TEMP" )
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
             
@@ -124,7 +133,7 @@ class lock:
         """ Check For the existence of a unix pid. """
         try:
             os.kill(pid, 0)
-        except OSError:
+        except:
             return False
         
         return True
@@ -160,7 +169,9 @@ class lock:
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         # print(owner_uuid,key_uuid)
                         return lock.LOCK_OTHER
-                    except Exception, ex:
+                    except:
+                        err = sys.exc_info()[1]
+                        ex = err.args[0]
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         # because of mid write glitch
                         return lock.LOCK_OTHER
@@ -170,7 +181,9 @@ class lock:
                     lockfile.close()
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
-        except Exception,  ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
             return lock.LOCK_OTHER
 
@@ -182,12 +195,12 @@ class lock:
         if os.path.exists(lock_path)==False:
             raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
         
-        
-        
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except OSError, ex : 
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
 
@@ -221,7 +234,9 @@ class lock:
                     
                     
                     break
-                except OSError, ex:
+                except:
+                    err = sys.exc_info()[1]
+                    ex = err.args[0]
                     error+=1
                     if error==1:
                         if lock.debug: lock.info("Lock","error!:{0}".format(ex))
@@ -230,13 +245,16 @@ class lock:
                 time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
                     
 
+                    
 
 
             if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
             if os.path.exists(lock_path)==False:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
-        except Exception , ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             lock.info("Aquire Lock: {0}".format(ex))
 
 
@@ -253,7 +271,7 @@ def temp_path_from_file(path,prefix='',unique=None):
     unique_id=''
     if unique:
         uuid_str=self.get_uuid()
-        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
+        unique_id="_{0}:{1}".format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
@@ -283,7 +301,8 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
-        ex = sys.exc_info()
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
@@ -294,7 +313,8 @@ def remove_temp_file(path):
         if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
     except: 
-        ex = sys.exc_info()
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))

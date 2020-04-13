@@ -352,7 +352,9 @@ class table:
             else:
                 err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                 raise Exception (err_msg)
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
             raise Exception (err_msg)
 

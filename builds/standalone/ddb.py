@@ -27,12 +27,11 @@ import time
 import pprint
 import logging
 from subprocess import Popen,PIPE
-import hashlib
 import random
-from collections import OrderedDict
 import traceback
 import copy
-
+import base64
+from collections import OrderedDict
 
 
 from cmd import Cmd
@@ -863,7 +862,7 @@ class lexer:
                         try:
                             computed=self.get_argument(word,segment,tokens,token_index,w_index)
                             argument[computed['key']]=computed['value']
-                        except Exception, ex:
+                        except:
                             break
                     if 'arguments' not in curent_object:
                         curent_object['arguments'] = []
@@ -2196,7 +2195,9 @@ class table:
             else:
                 err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                 raise Exception (err_msg)
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
             raise Exception (err_msg)
     def save(self):
@@ -2507,9 +2508,10 @@ class record_configuration:
     def __init__(self):
         pass
 class record(object):
-    __slots__=['__data','__type','__raw','__line_number','__error','__match']
+    __slots__=['__data','__keys','__type','__raw','__line_number','__error','__match']
     def __init__(self, data, config,line_number=None):
         super().__setattr__('_record__data', dict())
+        super().__setattr__('_record__keys', list())
         super().__setattr__('_record__type', None)
         super().__setattr__('_record__raw', None)
         super().__setattr__('_record__line_number', None)
@@ -2526,6 +2528,7 @@ class record(object):
           self.__line_number = config.line_number
         for column in config.columns:
             self.__data[column]=None
+            self.__keys.append(column)
         self.process( data, config)
     def to_json(self):
       return self.__data
@@ -2537,6 +2540,7 @@ class record(object):
           elif name=='_record__error':       return self.__error
           elif name=='_record__match':       return self.__match
           elif name=='_record__data':        return self.__data
+          elif name=='_record__keys':        return self.__keys
           else:
                 return self.__data[name]
         except KeyError:
@@ -2548,6 +2552,7 @@ class record(object):
         elif name=='_record__error':       super().__setattr__('_record__error'      , value)
         elif name=='_record__match':       super().__setattr__('_record__match'      , value)
         elif name=='_record__data':        super().__setattr__('_record__data'       , value)
+        elif name=='_record__keys':        super().__setattr__('_record__keys'       , value)
         else:
           if self.__data.has_key(name)==False:
              err_msg="Cannot assign data to invalid key: '{0}'".format(name)
@@ -2560,24 +2565,24 @@ class record(object):
     def __delattr__(self, name):
         try:
             del self.__data[name]
+            self.__keys.remove(name)
         except :
             err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
     def __getitem__(self, item):
          return self.__data[item]
     def __iter__(self):
-        for key in self.__data:
-            yield key
+        for key in self.__keys:
+            yield self.__data[key]
     def keys(self):
       return self.__data.keys()
     def has_key(self,key):
       return self.__data.has_key(key)
     def items(self):
-        for key in self.__data:
+        for key in self.__keys:
           yield key, self.__data[key]
     def iteritems(self):
-        for key in self.__data:
-          print ("Key"+key)
+        for key in self.__keys:
           yield key, self.__data[key]
     def split_array(self,arr):
         ARRAY_DELIMITER=','
@@ -2747,7 +2752,9 @@ class engine:
                 queries=self.database.get_db_sql()
                 if queries:
                     self.query(queries)
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             self.error(ex)
             pass
     def init_state_variables(self):
@@ -2777,7 +2784,14 @@ class engine:
         for param in param_list:
             if self.debug:
                 self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
-            sql=sql.replace(param,param_list[param])
+            key=param
+            if isinstance(key,bytes):
+                key=param.decode('ascii')
+            val=param_list[param]
+            if isinstance(val,bytes):
+                val=param_list[param].decode('ascii')
+            sql=sql.replace(key,val)
+        print(sql)
         return sql
     def execute(self, sql_query,parameters=None):
         return self.query(sql_query,parameters)
@@ -2811,7 +2825,9 @@ class engine:
             if mode == 'select':
                 try:
                     self.results = method_select(self,meta_class, parser)
-                except Exception, ex:
+                except:
+                    err = sys.exc_info()[1]
+                    ex = err.args[0]
                     print("Select Error: {0}",str(ex))
             elif mode == 'insert' and self.internal['READONLY']==None:
                 self.results = method_insert(self,meta_class)
@@ -2889,7 +2905,9 @@ class engine:
                             r=record(data=line['data'],config=config,line_number=ln)
                             data.append(r)
                         self.results.data=data
-                    except Exception, ex:
+                    except:
+                        err = sys.exc_info()[1]
+                        ex = err.args[0]
                         self.error(ex)
                 else:
                     pass
@@ -2941,7 +2959,9 @@ class engine:
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
-            except Exception, ex:
+            except:
+                err = sys.exc_info()[1]
+                ex = err.args[0]
                 self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             if None==repo_url:
@@ -3152,8 +3172,9 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    line=str(line)
-    print(type(line))
+    if str!=bytes:
+        if isinstance(line,str)==False:
+            line=line.decode("ascii")
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
@@ -3210,7 +3231,9 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     match_results = match2().evaluate_match(meta=meta, row=line_data)
                 else:
                     match_results = False
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             context.info(__name__,ex)
             match_results = True
         if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
@@ -3421,7 +3444,9 @@ def method_delete(context, meta):
         context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return  query_results(success=True,affected_rows=affected_rows,diff=diff)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3488,7 +3513,9 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':True,'line':new_line}
         else:
             return {'success':False,'line':new_line}
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3513,7 +3540,9 @@ def method_select(context, meta, parser):
         temp_data = limit(context, meta, temp_data)
         temp_table.results=temp_data
         return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 def select_process_file(context,meta):
@@ -3862,7 +3891,9 @@ def method_update(context, meta):
         context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)
         return query_results(affected_rows=affected_rows,success=True,diff=[])
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3939,7 +3970,9 @@ def method_upsert(context, meta,query_object,main_meta):
         context.autocommit_write(meta.table,dst_temp_filename)
         context.auto_commit(meta.table)                
         return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3958,7 +3991,9 @@ def method_use(context, meta):
         data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
         temp_table.append_data(data)
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -3995,7 +4030,9 @@ def method_create_table(context, meta):
                                                 mode          = meta.mode
                                                 )
         return query_results(success=results)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4034,7 +4071,9 @@ def method_describe_table(context, meta):
         temp_table.append_data( { 'data': [ 'user'               , target_table.data.repo_user      ], 'type': context.data_type.DATA, 'error': None} )
         temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4052,7 +4091,9 @@ def method_drop_table(context, meta):
             raise Exception("Table not found")
         results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
         return query_results(success=results)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4079,7 +4120,9 @@ def method_update_table(context, meta):
                             data_on        =meta.data_starts_on)
         results=target_table.save()
         return query_results(success=results)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4116,7 +4159,9 @@ def method_system_set(context, meta):
             elif var_type=='user':
                 context.user[variable]=value
         return query_results(success=True)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4136,7 +4181,9 @@ def method_system_begin(context,meta):
             context.system['AUTOCOMMIT']=False
             context.internal['IN_TRANSACTION']=1
         return query_results(success=True)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4172,7 +4219,9 @@ def method_system_commit(context):
         else:
             raise Exception("Cannot commit, not in a transaction")
         return query_results(success=True)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4196,7 +4245,9 @@ def method_system_rollback(context,meta):
         else:
             raise Exception("Cannot rollback, not in a transaction")
         return query_results(success=True)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4215,7 +4266,9 @@ def method_system_show_columns(context, meta):
                 columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
                 temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4233,7 +4286,9 @@ def method_system_show_tables(context,meta):
             columns = [t.data.database, t.data.name]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4254,7 +4309,9 @@ def method_system_show_variables(context,meta):
             columns = {'data': ['user',c,context.user[c]], 'type': context.data_type.DATA, 'error': None}
             temp_table.append_data(columns)
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4274,7 +4331,9 @@ def method_system_show_output_modules(context,meta):
             columns = [t['name'], styles]
             temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
         return query_results(success=True,data=temp_table)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
@@ -4334,9 +4393,17 @@ class lock:
             shutil.copystat(src, dst)
     @staticmethod
     def info(msg,data="Empty"):
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        sys.stdout.write(log_line+"\n")
         pass
     @staticmethod
     def error(msg,data):
+        pid=os.getpid()
+        dt = datetime.datetime.now()
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        sys.stderr.write(log_line+"\n")
         pass
     @staticmethod
     def normalize_path(path):
@@ -4350,13 +4417,13 @@ class lock:
         try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
-            m = hashlib.md5()
-            m.update(norm_path.encode("ascii"))
-            basename="{0}_{1}".format( os.path.basename(norm_path), m.hexdigest() )
+            basename="{0}_{1}".format( os.path.basename(norm_path),"TEMP" )
             temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
@@ -4364,7 +4431,7 @@ class lock:
         """ Check For the existence of a unix pid. """
         try:
             os.kill(pid, 0)
-        except OSError:
+        except:
             return False
         return True
     @staticmethod
@@ -4394,7 +4461,9 @@ class lock:
                             return lock.LOCK_OTHER
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         return lock.LOCK_OTHER
-                    except Exception, ex:
+                    except:
+                        err = sys.exc_info()[1]
+                        ex = err.args[0]
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
                         pass
@@ -4402,7 +4471,9 @@ class lock:
                     lockfile.close()
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
-        except Exception,  ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
             return lock.LOCK_OTHER
     @staticmethod
@@ -4414,7 +4485,9 @@ class lock:
         try: 
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except OSError, ex : 
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
         if lock.debug: lock.info("Lock","removed")
@@ -4437,7 +4510,9 @@ class lock:
                     os.close(fd)
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     break
-                except OSError, ex:
+                except:
+                    err = sys.exc_info()[1]
+                    ex = err.args[0]
                     error+=1
                     if error==1:
                         if lock.debug: lock.info("Lock","error!:{0}".format(ex))
@@ -4447,7 +4522,9 @@ class lock:
             if os.path.exists(lock_path)==False:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
-        except Exception , ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             lock.info("Aquire Lock: {0}".format(ex))
 def get_uuid(self):
     seed = random.getrandbits(32)
@@ -4461,7 +4538,7 @@ def temp_path_from_file(path,prefix='',unique=None):
     unique_id=''
     if unique:
         uuid_str=self.get_uuid()
-        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
+        unique_id="_{0}:{1}".format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
@@ -4477,7 +4554,8 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
-        ex = sys.exc_info()
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
@@ -4486,20 +4564,11 @@ def remove_temp_file(path):
         if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
         os.remove(path)
     except: 
-        ex = sys.exc_info()
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
-def compare_files(file1,file2):
-    content1=open(file1,'r').read()
-    content2=open(file2,'r').read()
-    hash1=hashlib.md5(content1).hexdigest()
-    hash2=hashlib.md5(content2).hexdigest()
-    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
-    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
-    if hash1!=hash2:
-        return None
-    return True
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     if lock.debug: lock.info("Lock","SWAP")
@@ -5011,7 +5080,9 @@ class flextable:
             try:
                 self.row_height,self.column_width =pro.read().split()
                 pro.close()
-            except Exception, ex:
+            except:
+                err = sys.exc_info()[1]
+                ex = err.args[0]
                 print (ex)
                 pro.close()
                 self.row_height=25
@@ -5743,7 +5814,9 @@ class ddbPrompt(Cmd):
         try:
             self.msg("info", "configuration_dir set to'{0}'".format(inp))
             self.engine = engine(config_dir=inp, debug=self.debug)
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             self.msg("error", "config", ex)
     def help_config(self):
         self.msg("info", "Set configuration file.")
@@ -5757,7 +5830,9 @@ class ddbPrompt(Cmd):
             results = self.engine.query(sql_query=inp)
             o=output_factory(results,output=self.engine.system['OUTPUT_MODULE'],output_style=self.engine.system['OUTPUT_STYLE'],)
             inp = None
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             self.msg("error", ex)
     def default_exit(self):
         self.msg("info", 'exit the application. Shorthand: x q Ctrl-D.')
@@ -5787,7 +5862,7 @@ def cli_main():
         try:
             if os.path.exists(config_dir)==False:
                 os.mkdir(config_dir)
-        except Exception:
+        except:
             print("Can not create ddb data directory: {0}".format(config_dir))
             exit(1)
     if len(args.query)!=0 or not sys.stdin.isatty():

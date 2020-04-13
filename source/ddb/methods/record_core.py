@@ -163,16 +163,14 @@ def get_table(context,meta):
 
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     # ensure unicode to ascii support
-    #if str==bytes:
-        # we are in python2land
-    line=str(line)
-    #else:
-    #    # if its not a byte array (string)
-    #    if isinstance(line,str)==False:
-    #        #line=line.encode("ascii")
-    #        line=str(line)
+    #line=str(line)
+    if str!=bytes:
+        # we are in python3land
+        # if its not a byte array (string)
+        if isinstance(line,str)==False:
+            line=line.decode("ascii")
             
-    print(type(line))
+    #print(type(line))
     err = None
     table=meta.table
     # TODO move rstrip to after split for limited data copy operations
@@ -256,7 +254,9 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     match_results = match2().evaluate_match(meta=meta, row=line_data)
                 else:
                     match_results = False
-        except Exception, ex:
+        except:
+            err = sys.exc_info()[1]
+            ex = err.args[0]
             context.info(__name__,ex)
             match_results = True
             

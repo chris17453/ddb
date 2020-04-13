@@ -44,6 +44,8 @@ def method_system_commit(context):
             
             
         return query_results(success=True)
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   

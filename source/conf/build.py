@@ -86,6 +86,8 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 import copy
+import base64
+from collections import OrderedDict
 
 
 
@@ -123,7 +125,8 @@ from subprocess import Popen,PIPE
 import random
 import traceback
 import copy
-
+import base64
+from collections import OrderedDict
 
 
 from cmd import Cmd
@@ -165,7 +168,8 @@ import logging
 from subprocess import Popen,PIPE
 import random
 import traceback
-
+import base64
+from collections import OrderedDict
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -213,7 +217,8 @@ import logging
 from subprocess import Popen,PIPE
 import random
 import traceback
-
+import base64
+from collections import OrderedDict
 
 
 from slackclient import SlackClient

@@ -93,7 +93,9 @@ def create_single(context, meta, temp_file, requires_new_line):
             return {'success':True,'line':new_line}
         else:
             return {'success':False,'line':new_line}
-    except Exception, ex:
+    except:
+        err = sys.exc_info()[1]
+        ex = err.args[0]
         context.error (__name__,ex)
         return query_results(success=False,error=str(ex))   
 
