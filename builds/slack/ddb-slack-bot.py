@@ -48,7 +48,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.236'
+__version__='1.4.237'
 
         
 # ############################################################################
@@ -2822,47 +2822,47 @@ class engine:
                 raise Exception(err)
             if self.debug:
                 meta_class.debug()
-            if mode == 'select':
-                try:
+            try:
+                if mode == 'select': 
                     self.results = method_select(self,meta_class, parser)
-                except:
-                    err = sys.exc_info()[1]
-                    ex = err.args[0]
-                    print("Select Error: {0}",str(ex))
-            elif mode == 'insert' and self.internal['READONLY']==None:
-                self.results = method_insert(self,meta_class)
-            elif mode == 'update' and self.internal['READONLY']==None:
-                self.results = method_update(self,meta_class)
-            elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,meta_class,query_object,meta)
-            elif mode == 'delete' and self.internal['READONLY']==None:
-                self.results = method_delete(self,meta_class)
-            elif mode == 'use':
-                self.results = method_use(self,meta_class)
-            elif mode == 'drop table' and self.internal['READONLY']==None:
-                self.results = method_drop_table(self,meta_class)
-            elif mode == 'create table' and self.internal['READONLY']==None:
-                self.results = method_create_table(self,meta_class)
-            elif mode == 'update table' and self.internal['READONLY']==None:
-                self.results = method_update_table(self,meta_class)
-            elif mode == 'set':
-                self.results = method_system_set(self,meta_class)
-            elif mode == 'begin':
-                self.results = method_system_begin(self,meta_class)
-            elif mode == 'rollback':
-                self.results = method_system_rollback(self,meta_class)
-            elif mode == 'commit':
-                self.results = method_system_commit(self)
-            elif mode == "show tables":
-                self.results = method_system_show_tables(self,meta_class)
-            elif mode == "show output modules":
-                self.results = method_system_show_output_modules(self,meta_class)
-            elif mode == "show columns":
-                self.results = method_system_show_columns(self, meta_class)
-            elif mode == "show variables":
-                self.results = method_system_show_variables(self,meta_class)
-            elif mode == "describe table":
-                self.results = method_describe_table(self, meta_class)
+                elif mode == 'insert' and self.internal['READONLY']==None:
+                    self.results = method_insert(self,meta_class)
+                elif mode == 'update' and self.internal['READONLY']==None:
+                    self.results = method_update(self,meta_class)
+                elif mode == 'upsert' and self.internal['READONLY']==None:
+                    self.results = method_upsert(self,meta_class,query_object,meta)
+                elif mode == 'delete' and self.internal['READONLY']==None:
+                    self.results = method_delete(self,meta_class)
+                elif mode == 'use':
+                    self.results = method_use(self,meta_class)
+                elif mode == 'drop table' and self.internal['READONLY']==None:
+                    self.results = method_drop_table(self,meta_class)
+                elif mode == 'create table' and self.internal['READONLY']==None:
+                    self.results = method_create_table(self,meta_class)
+                elif mode == 'update table' and self.internal['READONLY']==None:
+                    self.results = method_update_table(self,meta_class)
+                elif mode == 'set':
+                    self.results = method_system_set(self,meta_class)
+                elif mode == 'begin':
+                    self.results = method_system_begin(self,meta_class)
+                elif mode == 'rollback':
+                    self.results = method_system_rollback(self,meta_class)
+                elif mode == 'commit':
+                    self.results = method_system_commit(self)
+                elif mode == "show tables":
+                    self.results = method_system_show_tables(self,meta_class)
+                elif mode == "show output modules":
+                    self.results = method_system_show_output_modules(self,meta_class)
+                elif mode == "show columns":
+                    self.results = method_system_show_columns(self, meta_class)
+                elif mode == "show variables":
+                    self.results = method_system_show_variables(self,meta_class)
+                elif mode == "describe table":
+                    self.results = method_describe_table(self, meta_class)
+            except:
+                ex = sys.exc_info()[1]
+                self.error (mode,ex)
+                self.results=query_results(success=False,error=str(ex))   
             if False==self.results.success:
                 break
         if self.results:
@@ -3410,45 +3410,39 @@ class query_results:
 # ############################################################################
 
 def method_delete(context, meta):
+    meta.table=get_table(context,meta)
+    line_number = 1
+    affected_rows = 0
+    temp_data_file=context.get_data_file(meta.table)
+    diff=[]
+    column_count      =meta.table.column_count()
+    delimiter         =meta.table.delimiters.field
+    visible_whitespace=meta.table.visible.whitespace
+    visible_comments  =meta.table.visible.comments
+    visible_errors    =meta.table.visible.errors
+    content_file=open(temp_data_file, 'rb', buffering=0)
     try:
-        meta.table=get_table(context,meta)
-        line_number = 1
-        affected_rows = 0
-        temp_data_file=context.get_data_file(meta.table)
-        diff=[]
-        column_count      =meta.table.column_count()
-        delimiter         =meta.table.delimiters.field
-        visible_whitespace=meta.table.visible.whitespace
-        visible_comments  =meta.table.visible.comments
-        visible_errors    =meta.table.visible.errors
-        content_file=open(temp_data_file, 'rb', buffering=0)
+        dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
+        temp_file=open (dst_temp_filename,"wb", buffering=0)
         try:
-            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-            temp_file=open (dst_temp_filename,"wb", buffering=0)
-            try:
-                for line in content_file:
-                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
-                    line_number += 1
-                    if True == processed_line['match']:
-                        affected_rows += 1
-                        diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
-                        continue
-                    temp_file.write(str.encode(processed_line['raw']))
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
-            finally:
-                temp_file.close()
+            for line in content_file:
+                processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                if None != processed_line['error']:
+                    context.add_error(processed_line['error'])
+                line_number += 1
+                if True == processed_line['match']:
+                    affected_rows += 1
+                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
+                    continue
+                temp_file.write(str.encode(processed_line['raw']))
+                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
         finally:
-            content_file.close()
-        context.autocommit_write(meta.table,dst_temp_filename)
-        context.auto_commit(meta.table)
-        return  query_results(success=True,affected_rows=affected_rows,diff=diff)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+            temp_file.close()
+    finally:
+        content_file.close()
+    context.autocommit_write(meta.table,dst_temp_filename)
+    context.auto_commit(meta.table)
+    return  query_results(success=True,affected_rows=affected_rows,diff=diff)
 
         
 # ############################################################################
@@ -3481,43 +3475,37 @@ def method_insert(context, meta):
         context.auto_commit(meta.table)
         return query_results(success=True,affected_rows=affected_rows,diff=diff)
 def create_single(context, meta, temp_file, requires_new_line):
-    try:
-        err = False
-        new_line = ''
-        if len(meta.columns) != meta.table.column_count():
-            context.add_error("Cannot insert, column count does not match table column count")
+    err = False
+    new_line = ''
+    if len(meta.columns) != meta.table.column_count():
+        context.add_error("Cannot insert, column count does not match table column count")
+    else:
+        if len(meta.values) != meta.table.column_count():
+            context.add_error("Cannot insert, column value count does not match table column count")
         else:
-            if len(meta.values) != meta.table.column_count():
-                context.add_error("Cannot insert, column value count does not match table column count")
-            else:
-                err = False
-                for c in range(0, len(meta.columns)):
-                    column_name =meta.table.get_column_at_data_ordinal(c)
-                    found = False
-                    for c2 in range(0, len(meta.columns)):
-                        if meta.columns[c2].column == column_name:
-                            found = True
-                            if c > 0:
-                                new_line += '{0}'.format(meta.table.delimiters.field)
-                            new_line += '{0}'.format(meta.values[c2].value)
-                    if False == found:
-                        context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
-                        err = True
-                        break
-                if False == err:
-                    if True == requires_new_line:
-                        temp_file.write(str.enmcode(meta.table.delimiters.get_new_line()))
-                    temp_file.write(str.encode(new_line))
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
-        if False == err:
-            return {'success':True,'line':new_line}
-        else:
-            return {'success':False,'line':new_line}
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+            err = False
+            for c in range(0, len(meta.columns)):
+                column_name =meta.table.get_column_at_data_ordinal(c)
+                found = False
+                for c2 in range(0, len(meta.columns)):
+                    if meta.columns[c2].column == column_name:
+                        found = True
+                        if c > 0:
+                            new_line += '{0}'.format(meta.table.delimiters.field)
+                        new_line += '{0}'.format(meta.values[c2].value)
+                if False == found:
+                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
+                    err = True
+                    break
+            if False == err:
+                if True == requires_new_line:
+                    temp_file.write(str.enmcode(meta.table.delimiters.get_new_line()))
+                temp_file.write(str.encode(new_line))
+                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+    if False == err:
+        return {'success':True,'line':new_line}
+    else:
+        return {'success':False,'line':new_line}
 
         
 # ############################################################################
@@ -3527,24 +3515,18 @@ def create_single(context, meta, temp_file, requires_new_line):
 
 context_sort=[]
 def method_select(context, meta, parser):
-    try:
-        context.info(meta)
-        select_validate_columns_and_from(context,meta,parser)
-        temp_table = context.database.temp_table()
-        add_table_columns(context,meta,temp_table)
-        set_ordinals(context,meta)
-        temp_data=select_process_file(context,meta)
-        all_records_count=len(temp_data)
-        temp_data=order_by(context,meta,temp_data)
-        temp_data=distinct(context,meta,temp_data)
-        temp_data = limit(context, meta, temp_data)
-        temp_table.results=temp_data
-        return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    context.info(meta)
+    select_validate_columns_and_from(context,meta,parser)
+    temp_table = context.database.temp_table()
+    add_table_columns(context,meta,temp_table)
+    set_ordinals(context,meta)
+    temp_data=select_process_file(context,meta)
+    all_records_count=len(temp_data)
+    temp_data=order_by(context,meta,temp_data)
+    temp_data=distinct(context,meta,temp_data)
+    temp_data = limit(context, meta, temp_data)
+    temp_table.results=temp_data
+    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
 def select_process_file(context,meta):
     has_columns = select_has_columns(context,meta)
     has_functions = select_has_functions(context,meta)
@@ -3853,49 +3835,43 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
     else:
         return {'success':False,'line':new_line}
 def method_update(context, meta):
+    meta.table=get_table(context,meta)
+    line_number = 1
+    affected_rows = 0
+    temp_data_file=context.get_data_file(meta.table)
+    diff=[]
+    column_count      =meta.table.column_count()
+    delimiter         =meta.table.delimiters.field
+    visible_whitespace=meta.table.visible.whitespace
+    visible_comments  =meta.table.visible.comments
+    visible_errors    =meta.table.visible.errors
+    content_file=open(temp_data_file, 'rb', buffering=0)
     try:
-        meta.table=get_table(context,meta)
-        line_number = 1
-        affected_rows = 0
-        temp_data_file=context.get_data_file(meta.table)
-        diff=[]
-        column_count      =meta.table.column_count()
-        delimiter         =meta.table.delimiters.field
-        visible_whitespace=meta.table.visible.whitespace
-        visible_comments  =meta.table.visible.comments
-        visible_errors    =meta.table.visible.errors
-        content_file=open(temp_data_file, 'rb', buffering=0)
+        dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
+        temp_file=open (dst_temp_filename,"wb", buffering=0) 
         try:
-            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-            temp_file=open (dst_temp_filename,"wb", buffering=0) 
-            try:
-                for line in content_file:
-                    processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
-                    line_number += 1
-                    if True == processed_line['match']:
-                        results = update_single(context,meta, temp_file,  False, processed_line)
-                        if True == results['success']:
-                            diff.append(results['line'])
-                            affected_rows += 1
-                        else:
-                            raise Exception("Error Updating Line")
-                        continue
-                    temp_file.write(str.encode(processed_line['raw']))
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
-            finally:
-                temp_file.close()
+            for line in content_file:
+                processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                if None != processed_line['error']:
+                    context.add_error(processed_line['error'])
+                line_number += 1
+                if True == processed_line['match']:
+                    results = update_single(context,meta, temp_file,  False, processed_line)
+                    if True == results['success']:
+                        diff.append(results['line'])
+                        affected_rows += 1
+                    else:
+                        raise Exception("Error Updating Line")
+                    continue
+                temp_file.write(str.encode(processed_line['raw']))
+                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
         finally:
-            content_file.close()
-        context.autocommit_write(meta.table,dst_temp_filename)
-        context.auto_commit(meta.table)
-        return query_results(affected_rows=affected_rows,success=True,diff=[])
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+            temp_file.close()
+    finally:
+        content_file.close()
+    context.autocommit_write(meta.table,dst_temp_filename)
+    context.auto_commit(meta.table)
+    return query_results(affected_rows=affected_rows,success=True,diff=[])
 
         
 # ############################################################################
@@ -3904,77 +3880,71 @@ def method_update(context, meta):
 # ############################################################################
 
 def method_upsert(context, meta,query_object,main_meta):
-    try:
-        meta.table=get_table(context,meta)
-        if not meta.on_duplicate_key:
-            raise Exception("Upsert missing duplicate keys")
-        where=[]
-        for item in meta.on_duplicate_key:
-            column=item.column
-            for index in range(0,len(meta.columns)):
-                column_compare=meta.columns[index].column
-                if column_compare==column:
-                    value=meta.values[index].value
-                    if len(where)==0:
-                        mode='where'
-                    else:
-                        mode='and'
-                    where.append({mode:{'e1':column,'c':'=','=':'=','e2':value,'condition':mode}})
-        query_object['meta']['where']=where
-        query_object['mode']="update"
-        meta_update=main_meta().convert_to_class(query_object)
-        meta_update.table=meta.table        
-        line_number = 1
-        affected_rows = 0
-        temp_data_file=context.get_data_file(meta.table)
-        diff=[]
-        column_count       =meta.table.column_count()
-        delimiter          =meta.table.delimiters.field
-        visible_whitespace =meta.table.visible.whitespace
-        visible_comments   =meta.table.visible.comments
-        visible_errors     =meta.table.visible.errors
-        content_file=open(temp_data_file, 'rb', buffering=0)
-        try:
-            dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-            temp_file=open (dst_temp_filename,"wb", buffering=0)
-            try:
-                for line in content_file:
-                    processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
-                    if None != processed_line['error']:
-                        context.add_error(processed_line['error'])
-                    line_number += 1
-                    if True == processed_line['match']:
-                        meta_class=main_meta().convert_to_class(query_object)
-                        results = update_single(context,meta_update, temp_file,  False, processed_line)
-                        if True == results['success']:
-                            diff.append(results['line'])
-                            affected_rows += 1
-                        continue
-                    temp_file.write(str.encode(processed_line['raw']) )
-                    temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
-                if affected_rows==0:
-                    context.info("No row found in upsert, creating")
-                    query_object['mode']="insert"
-                    meta_class=main_meta().convert_to_class(query_object)
-                    meta_class.table=meta.table
-                    results = create_single(context,meta_class, temp_file,False)
-                    affected_rows+=1
-                    if True==results['success']:
-                        diff.append(results['line'])
+    meta.table=get_table(context,meta)
+    if not meta.on_duplicate_key:
+        raise Exception("Upsert missing duplicate keys")
+    where=[]
+    for item in meta.on_duplicate_key:
+        column=item.column
+        for index in range(0,len(meta.columns)):
+            column_compare=meta.columns[index].column
+            if column_compare==column:
+                value=meta.values[index].value
+                if len(where)==0:
+                    mode='where'
                 else:
-                    context.info("row found in upsert")
-            finally:
-                temp_file.close()
+                    mode='and'
+                where.append({mode:{'e1':column,'c':'=','=':'=','e2':value,'condition':mode}})
+    query_object['meta']['where']=where
+    query_object['mode']="update"
+    meta_update=main_meta().convert_to_class(query_object)
+    meta_update.table=meta.table        
+    line_number = 1
+    affected_rows = 0
+    temp_data_file=context.get_data_file(meta.table)
+    diff=[]
+    column_count       =meta.table.column_count()
+    delimiter          =meta.table.delimiters.field
+    visible_whitespace =meta.table.visible.whitespace
+    visible_comments   =meta.table.visible.comments
+    visible_errors     =meta.table.visible.errors
+    content_file=open(temp_data_file, 'rb', buffering=0)
+    try:
+        dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
+        temp_file=open (dst_temp_filename,"wb", buffering=0)
+        try:
+            for line in content_file:
+                processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
+                if None != processed_line['error']:
+                    context.add_error(processed_line['error'])
+                line_number += 1
+                if True == processed_line['match']:
+                    meta_class=main_meta().convert_to_class(query_object)
+                    results = update_single(context,meta_update, temp_file,  False, processed_line)
+                    if True == results['success']:
+                        diff.append(results['line'])
+                        affected_rows += 1
+                    continue
+                temp_file.write(str.encode(processed_line['raw']) )
+                temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
+            if affected_rows==0:
+                context.info("No row found in upsert, creating")
+                query_object['mode']="insert"
+                meta_class=main_meta().convert_to_class(query_object)
+                meta_class.table=meta.table
+                results = create_single(context,meta_class, temp_file,False)
+                affected_rows+=1
+                if True==results['success']:
+                    diff.append(results['line'])
+            else:
+                context.info("row found in upsert")
         finally:
-            content_file.close()
-        context.autocommit_write(meta.table,dst_temp_filename)
-        context.auto_commit(meta.table)                
-        return query_results(affected_rows=affected_rows,success=True,diff=diff)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+            temp_file.close()
+    finally:
+        content_file.close()
+    context.autocommit_write(meta.table,dst_temp_filename)
+    context.auto_commit(meta.table)                
+    return query_results(affected_rows=affected_rows,success=True,diff=diff)
 
         
 # ############################################################################
@@ -3983,19 +3953,12 @@ def method_upsert(context, meta,query_object,main_meta):
 # ############################################################################
 
 def method_use(context, meta):
-    context.info("Use")
-    try:
-        target_db=meta.database
-        temp_table = context.database.temp_table()
-        temp_table.add_column('changed_db')
-        data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
-        temp_table.append_data(data)
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    target_db=meta.database
+    temp_table = context.database.temp_table()
+    temp_table.add_column('changed_db')
+    data = {'data': [target_db], 'type': context.data_type.DATA, 'error': None}
+    temp_table.append_data(data)
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################
@@ -4004,37 +3967,30 @@ def method_use(context, meta):
 # ############################################################################
 
 def method_create_table(context, meta):
-    context.info("Create Table")
-    try:
-        columns = []
-        if meta.columns==None:
-            raise Exception("Missing columns, cannot create table")
-        for c in meta.columns:
-            columns.append(c.column)
-        context.info("Columns to create", columns)
-        if None==meta.source.database:
-            meta.source.database=context.database.get_curent_database()
-        results = context.database.create_table(table_name    = meta.source.table,
-                                                database_name = meta.source.database,
-                                                columns       = columns,
-                                                data_file     = meta.file,
-                                                delimiter     = meta.delimiter,
-                                                comments      = meta.comments,
-                                                errors        = meta.errors,
-                                                whitespace    = meta.whitespace,
-                                                data_on       = meta.data_starts_on,
-                                                temporary     = meta.temporary,
-                                                fifo          = meta.fifo,
-                                                repo          = meta.repo,
-                                                strict_columns= meta.strict,
-                                                mode          = meta.mode
-                                                )
-        return query_results(success=results)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    columns = []
+    if meta.columns==None:
+        raise Exception("Missing columns, cannot create table")
+    for c in meta.columns:
+        columns.append(c.column)
+    context.info("Columns to create", columns)
+    if None==meta.source.database:
+        meta.source.database=context.database.get_curent_database()
+    results = context.database.create_table(table_name    = meta.source.table,
+                                            database_name = meta.source.database,
+                                            columns       = columns,
+                                            data_file     = meta.file,
+                                            delimiter     = meta.delimiter,
+                                            comments      = meta.comments,
+                                            errors        = meta.errors,
+                                            whitespace    = meta.whitespace,
+                                            data_on       = meta.data_starts_on,
+                                            temporary     = meta.temporary,
+                                            fifo          = meta.fifo,
+                                            repo          = meta.repo,
+                                            strict_columns= meta.strict,
+                                            mode          = meta.mode
+                                            )
+    return query_results(success=results)
 
         
 # ############################################################################
@@ -4043,39 +3999,30 @@ def method_create_table(context, meta):
 # ############################################################################
 
 def method_describe_table(context, meta):
-    """Populates metadata related to a table
-    returns: table"""
-    context.info("Describe Table")
-    try:
-        target_table=get_table(context,meta)
-        if None ==target_table:
-            raise Exception("Table not found")
-        temp_table = context.database.temp_table(columns=['option','value'])
-        temp_table.append_data( { 'data': [ 'active'             , target_table.active              ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'table_name'         , target_table.data.name           ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'database'           , target_table.data.database       ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'data_file'          , target_table.data.path           ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'fifo'               , target_table.data.fifo           ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'type'               , target_table.data.type           ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'config_file'        , target_table.data.config         ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'data_starts_on'     , target_table.data.starts_on_line ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'field_delimiter'    , target_table.delimiters.field    ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'comments_visible'   , target_table.visible.comments    ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'errors_visible'     , target_table.visible.errors      ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'whitespace_visible' , target_table.visible.whitespace  ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'strict_columns'     , target_table.data.strict_columns ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'repo_type'          , target_table.data.repo_type      ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'repo_url'           , target_table.data.repo_url       ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'repo_dir'           , target_table.data.repo_dir       ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'repo_file'          , target_table.data.repo_file      ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'user'               , target_table.data.repo_user      ], 'type': context.data_type.DATA, 'error': None} )
-        temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    target_table=get_table(context,meta)
+    if None ==target_table:
+        raise Exception("Table not found")
+    temp_table = context.database.temp_table(columns=['option','value'])
+    temp_table.append_data( { 'data': [ 'active'             , target_table.active              ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'table_name'         , target_table.data.name           ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'database'           , target_table.data.database       ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'data_file'          , target_table.data.path           ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'fifo'               , target_table.data.fifo           ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'type'               , target_table.data.type           ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'config_file'        , target_table.data.config         ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'data_starts_on'     , target_table.data.starts_on_line ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'field_delimiter'    , target_table.delimiters.field    ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'comments_visible'   , target_table.visible.comments    ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'errors_visible'     , target_table.visible.errors      ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'whitespace_visible' , target_table.visible.whitespace  ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'strict_columns'     , target_table.data.strict_columns ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'repo_type'          , target_table.data.repo_type      ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'repo_url'           , target_table.data.repo_url       ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'repo_dir'           , target_table.data.repo_dir       ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'repo_file'          , target_table.data.repo_file      ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'user'               , target_table.data.repo_user      ], 'type': context.data_type.DATA, 'error': None} )
+    temp_table.append_data( { 'data': [ 'password'           , target_table.data.repo_password  ], 'type': context.data_type.DATA, 'error': None} )
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################
@@ -4084,18 +4031,11 @@ def method_describe_table(context, meta):
 # ############################################################################
 
 def method_drop_table(context, meta):
-    context.info("Drop Table")
-    try:
-        table=get_table(context,meta)
-        if table==None:
-            raise Exception("Table not found")
-        results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
-        return query_results(success=results)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    table=get_table(context,meta)
+    if table==None:
+        raise Exception("Table not found")
+    results = context.database.drop_table(table_name=table.data.name,database_name=table.data.database)
+    return query_results(success=results)
 
         
 # ############################################################################
@@ -4104,27 +4044,20 @@ def method_drop_table(context, meta):
 # ############################################################################
 
 def method_update_table(context, meta):
-    context.info("Update Table")
-    try:
-        columns=[]
-        for c in meta.columns:
-            columns.append(c.column)
-        context.info("Columns to create", columns)
-        target_table=get_table(context,meta)
-        target_table.update(columns        =columns,
-                            data_file      =meta.file,
-                            field_delimiter=meta.delimiter,
-                            comments       =meta.comments,
-                            whitespace     =meta.whitespace,
-                            errors         =meta.errors,
-                            data_on        =meta.data_starts_on)
-        results=target_table.save()
-        return query_results(success=results)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    columns=[]
+    for c in meta.columns:
+        columns.append(c.column)
+    context.info("Columns to create", columns)
+    target_table=get_table(context,meta)
+    target_table.update(columns        =columns,
+                        data_file      =meta.file,
+                        field_delimiter=meta.delimiter,
+                        comments       =meta.comments,
+                        whitespace     =meta.whitespace,
+                        errors         =meta.errors,
+                        data_on        =meta.data_starts_on)
+    results=target_table.save()
+    return query_results(success=results)
 
         
 # ############################################################################
@@ -4133,37 +4066,30 @@ def method_update_table(context, meta):
 # ############################################################################
 
 def method_system_set(context, meta):
-    context.info("set")
-    try:
-        for item in meta.set:
-            variable=item.variable.upper()
-            value=item.value
-            value_up=value.upper()
-            if len(variable)>0 and variable[0]=='@':
-                var_type='user'
+    for item in meta.set:
+        variable=item.variable.upper()
+        value=item.value
+        value_up=value.upper()
+        if len(variable)>0 and variable[0]=='@':
+            var_type='user'
+        else:
+            var_type='system'
+        if value_up in ['FALSE','NO',"OFF"]:
+            value=False
+        elif value_up in ['TRUE','YES',"ON"]:
+            value=True
+        elif value_up in ['NULL','NILL','NONE']:
+            value=None
+        if var_type=='system':
+            if variable in context.system:
+                context.system[variable]=value
+                if variable in context.system_trigger:
+                    context.system_trigger[variable]()
             else:
-                var_type='system'
-            if value_up in ['FALSE','NO',"OFF"]:
-                value=False
-            elif value_up in ['TRUE','YES',"ON"]:
-                value=True
-            elif value_up in ['NULL','NILL','NONE']:
-                value=None
-            if var_type=='system':
-                if variable in context.system:
-                    context.system[variable]=value
-                    if variable in context.system_trigger:
-                        context.system_trigger[variable]()
-                else:
-                    raise Exception("Cannot set {0}, not a system variable".format(variable))
-            elif var_type=='user':
-                context.user[variable]=value
-        return query_results(success=True)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+                raise Exception("Cannot set {0}, not a system variable".format(variable))
+        elif var_type=='user':
+            context.user[variable]=value
+    return query_results(success=True)
 
         
 # ############################################################################
@@ -4172,20 +4098,13 @@ def method_system_set(context, meta):
 # ############################################################################
 
 def method_system_begin(context,meta):
-    context.info("begin")
-    try:
-        if context.internal['IN_TRANSACTION']==1:
-            raise Exception("Already in a Batch Transaction")
-        else:
-            context.internal['AUTOCOMMIT_HOLODER']=context.system['AUTOCOMMIT']
-            context.system['AUTOCOMMIT']=False
-            context.internal['IN_TRANSACTION']=1
-        return query_results(success=True)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    if context.internal['IN_TRANSACTION']==1:
+        raise Exception("Already in a Batch Transaction")
+    else:
+        context.internal['AUTOCOMMIT_HOLODER']=context.system['AUTOCOMMIT']
+        context.system['AUTOCOMMIT']=False
+        context.internal['IN_TRANSACTION']=1
+    return query_results(success=True)
 
         
 # ############################################################################
@@ -4194,36 +4113,28 @@ def method_system_begin(context,meta):
 # ############################################################################
 
 def method_system_commit(context):
-    """Move temp files to source files"""
-    context.info("Commit")
-    try:
-        if context.internal['IN_TRANSACTION']==1:
-            context.internal['IN_TRANSACTION']=0
-            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
-            for table_key in context.internal['TEMP_FILES']:
-                context.info("Commit {0}".format(table_key))
-                tmp=context.internal['TEMP_FILES'][table_key]
-                if None== tmp['written']:
-                    context.info("Release Lock for {0}".format(tmp['temp_source']))
-                    remove_temp_file(tmp['temp_source'])
-                    context.info("Commit NOT Written..")
-                    lock.release(table_key)
-                else:
-                    context.info("File was written {0}".format(table_key))
-                    context.info("Commit Written..")
-                    swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
-                    context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
-                    if tmp['table'].data.repo_type=='svn':
-                       context.svn_commit_file(tmp['table'])
-            context.internal['TEMP_FILES']={}
-        else:
-            raise Exception("Cannot commit, not in a transaction")
-        return query_results(success=True)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    if context.internal['IN_TRANSACTION']==1:
+        context.internal['IN_TRANSACTION']=0
+        context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
+        for table_key in context.internal['TEMP_FILES']:
+            context.info("Commit {0}".format(table_key))
+            tmp=context.internal['TEMP_FILES'][table_key]
+            if None== tmp['written']:
+                context.info("Release Lock for {0}".format(tmp['temp_source']))
+                remove_temp_file(tmp['temp_source'])
+                context.info("Commit NOT Written..")
+                lock.release(table_key)
+            else:
+                context.info("File was written {0}".format(table_key))
+                context.info("Commit Written..")
+                swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
+                context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
+                if tmp['table'].data.repo_type=='svn':
+                    context.svn_commit_file(tmp['table'])
+        context.internal['TEMP_FILES']={}
+    else:
+        raise Exception("Cannot commit, not in a transaction")
+    return query_results(success=True)
 
         
 # ############################################################################
@@ -4232,24 +4143,17 @@ def method_system_commit(context):
 # ############################################################################
 
 def method_system_rollback(context,meta):
-    context.info("set")
-    try:
-        if context.internal['IN_TRANSACTION']==1:
-            context.internal['IN_TRANSACTION']=0
-            context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']
-            for table_key in context.internal['TEMP_FILES']:
-                tmp=context.internal['TEMP_FILES'][table_key]
-                remove_temp_file(tmp['temp_source'])
-                lock.release(table_key)
-            context.internal['TEMP_FILES']={}
-        else:
-            raise Exception("Cannot rollback, not in a transaction")
-        return query_results(success=True)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    if context.internal['IN_TRANSACTION']==1:
+        context.internal['IN_TRANSACTION']=0
+        context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']
+        for table_key in context.internal['TEMP_FILES']:
+            tmp=context.internal['TEMP_FILES'][table_key]
+            remove_temp_file(tmp['temp_source'])
+            lock.release(table_key)
+        context.internal['TEMP_FILES']={}
+    else:
+        raise Exception("Cannot rollback, not in a transaction")
+    return query_results(success=True)
 
         
 # ############################################################################
@@ -4258,19 +4162,13 @@ def method_system_rollback(context,meta):
 # ############################################################################
 
 def method_system_show_columns(context, meta):
-    try:
-        table =get_table(context,meta)
-        temp_table = context.database.temp_table(columns=['database','table', 'column'])
-        if table:
-            for c in table.columns:
-                columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
-                temp_table.append_data(columns)
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    table =get_table(context,meta)
+    temp_table = context.database.temp_table(columns=['database','table', 'column'])
+    if table:
+        for c in table.columns:
+            columns = {'data': [table.data.database,table.data.name, c.data.name], 'type': context.data_type.DATA, 'error': None}
+            temp_table.append_data(columns)
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################
@@ -4279,18 +4177,12 @@ def method_system_show_columns(context, meta):
 # ############################################################################
 
 def method_system_show_tables(context,meta):
-    try:
-        temp_table=None
-        temp_table = context.database.temp_table(columns=['database', 'table'])
-        for t in context.database.tables:
-            columns = [t.data.database, t.data.name]
-            temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    temp_table=None
+    temp_table = context.database.temp_table(columns=['database', 'table'])
+    for t in context.database.tables:
+        columns = [t.data.database, t.data.name]
+        temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################
@@ -4299,21 +4191,14 @@ def method_system_show_tables(context,meta):
 # ############################################################################
 
 def method_system_show_variables(context,meta):
-    context.info("show variables")
-    try:
-        temp_table = context.database.temp_table(columns=['type','name','value'])
-        for c in context.system:
-            columns = {'data': ['system',c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(columns)
-        for c in context.user:
-            columns = {'data': ['user',c,context.user[c]], 'type': context.data_type.DATA, 'error': None}
-            temp_table.append_data(columns)
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    temp_table = context.database.temp_table(columns=['type','name','value'])
+    for c in context.system:
+        columns = {'data': ['system',c,context.system[c]], 'type': context.data_type.DATA, 'error': None}
+        temp_table.append_data(columns)
+    for c in context.user:
+        columns = {'data': ['user',c,context.user[c]], 'type': context.data_type.DATA, 'error': None}
+        temp_table.append_data(columns)
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################
@@ -4322,20 +4207,14 @@ def method_system_show_variables(context,meta):
 # ############################################################################
 
 def method_system_show_output_modules(context,meta):
-    try:
-        temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
-        for t in context.internal['OUTPUT_MODULES']:
-            styles=""
-            if len(t['styles'])>0:
-                styles=", ".join(t['styles'])
-            columns = [t['name'], styles]
-            temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
-        return query_results(success=True,data=temp_table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    temp_table = context.database.temp_table(columns=['output_module', 'output_style'])
+    for t in context.internal['OUTPUT_MODULES']:
+        styles=""
+        if len(t['styles'])>0:
+            styles=", ".join(t['styles'])
+        columns = [t['name'], styles]
+        temp_table.append_data({'data': columns, 'type': context.data_type.DATA, 'error': None})
+    return query_results(success=True,data=temp_table)
 
         
 # ############################################################################

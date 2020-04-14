@@ -81,7 +81,7 @@ class lock:
     def info(msg,data="Empty"):
         pid=os.getpid()
         dt = datetime.datetime.now()
-        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
+        log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stdout.write(log_line+"\n")
         pass
 
