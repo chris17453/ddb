@@ -89,12 +89,12 @@ comp_directive={
     'language_level':lang_level
 }
 extensions = [
-#    Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext],                 define_macros=macro,compiler_directives=comp_directive),
- #   Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext],                      define_macros=macro,compiler_directives=comp_directive),
- #   Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext],                      define_macros=macro,compiler_directives=comp_directive),
- #   Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext],                         define_macros=macro,compiler_directives=comp_directive),
- #   Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext],                           define_macros=macro,compiler_directives=comp_directive),
- #   Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext],                define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext],                 define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext],                      define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext],                      define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext],                         define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext],                           define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext],                define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext],                 define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext],              define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.output.factory",                     [prefix+"./ddb/output/factory" + ext],                      define_macros=macro,compiler_directives=comp_directive),
@@ -252,7 +252,7 @@ if USE_CYTHON:
     try:
         
         print("Compiling using {0} cores:".format(NB_COMPILE_JOBS))
-        extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS)
+        extensions=cythonize(extensions, nthreads=1)
         #extensions = cythonize(extensions) ###compiler_directives={'language_level' : sys.version_info[0]}
     except BaseException as ex:
         print ("No Cython installed",ex)
