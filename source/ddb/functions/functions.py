@@ -1,4 +1,3 @@
-# cython: linetrace=True
 import datetime
 
 def f_row_number(context):

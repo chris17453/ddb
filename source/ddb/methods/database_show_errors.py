@@ -1,4 +1,3 @@
-# NOcython: linetrace=True
 import sys
 from .record_core import query_results
 

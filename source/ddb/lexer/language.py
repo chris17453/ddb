@@ -1,5 +1,3 @@
-# cython: linetrace=True
-
 #  name: "name"
 #  segments: signature to match against 
 #     arguments: optional, 1 or 0 for unlimited (comma seperated)

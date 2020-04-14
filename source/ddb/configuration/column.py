@@ -1,6 +1,3 @@
-# cython: profile=True
-# cython: linetrace=True
-
 class column_v2:
     def noop(self, *args, **kw):
         pass

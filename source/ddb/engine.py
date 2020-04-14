@@ -1,5 +1,3 @@
-# NOcython: linetrace=True
-
 import sys
 import os
 import time

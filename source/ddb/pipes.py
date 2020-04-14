@@ -1,5 +1,3 @@
-# cython: linetrace=True
-
 import os
 import sys
 import threading

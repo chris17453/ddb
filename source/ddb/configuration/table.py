@@ -1,5 +1,3 @@
-# cython: profile=True
-# cython: linetrace=True
 import sys
 import os
 from .column import column_v2

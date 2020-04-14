@@ -1,4 +1,3 @@
-# cython: linetrace=True
 import sys
 from .record_core import query_results
 from ..file_io.locking import lock, remove_temp_file

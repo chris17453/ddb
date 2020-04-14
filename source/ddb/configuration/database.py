@@ -1,5 +1,3 @@
-# cython: profile=True
-# cython: linetrace=True
 import os
 from .table import table
 import warnings

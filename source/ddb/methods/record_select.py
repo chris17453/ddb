@@ -1,6 +1,3 @@
-# cython: profile=True
-# NOcython: linetrace=True
-
 from ..functions.functions import *
 from .record_core import  query_results,get_table, process_line3
 from ..file_io.locking import lock

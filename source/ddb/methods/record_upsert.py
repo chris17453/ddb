@@ -1,4 +1,3 @@
-# NOcython: linetrace=True
 import sys
 import pprint
 import tempfile  # from table import table

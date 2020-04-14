@@ -1,6 +1,3 @@
-# cython: profile=True
-# cython: profile=True
-
 class tokenizer:
 
     def chomp(self,text, discard_delimiters=False, discard_whitespace=True, debug=None):
