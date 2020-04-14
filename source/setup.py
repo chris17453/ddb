@@ -1,7 +1,7 @@
 import os
 import sys
 import sysconfig
-
+from pprint import pprint 
 #from distutils.core import setup, Command
 from setuptools import setup, find_packages
 #from distutils.extension import Extension
@@ -31,8 +31,21 @@ class new_build_py(_build_py):
                 continue
             filtered_modules.append((pkg, mod, filepath, ))
         return filtered_modules
+ddb_name=None
+try:
+    for arg in sys.argv:
+        tokens=arg.split("=")
+        if tokens[0].strip()=="--name":
+            ddb_name=tokens[1]
+            sys.argv.pop(sys.argv.index(arg))  
+            break
 
+except:
+    pass
+if ddb_name==None:
+    ddb_name="ddb"
 
+print ("** BUILDING: "+ddb_name)
 
 if '--build-cython' in sys.argv:
     try:
@@ -263,7 +276,7 @@ for package in packages:
 
 exec(open('ddb/version.py').read())
 setup(
-    name='ddb',
+    name=ddb_name,
     version=__version__,
     packages=packages,
     include_package_data=True,
@@ -287,6 +300,6 @@ setup(
         ddb-pipes = ddb.pipes:cli_main
         ddb-server = ddb.server:cli_main
         ddb-service = ddb.service:cli_main
-        """
+        """.replace("ddb",ddb_name)
 )
 

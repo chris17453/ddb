@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  ddb27:
+    build:
+        context: .
+        dockerfile: ddb27
+    image: watkinslabs/ddb27

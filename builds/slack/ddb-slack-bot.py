@@ -48,7 +48,7 @@ logging.basicConfig()
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.238'
+__version__='1.4.242'
 
         
 # ############################################################################
@@ -2704,6 +2704,8 @@ class engine:
         return random_string
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
         self.pid=os.getpid()
+        if debug==True:
+            lock.debug+=1
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -3034,7 +3036,7 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             if dest_file and dest_file!=src:
-                if lock.debug: lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
+                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):
@@ -4229,7 +4231,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=sys.stdin.isatty()
+    debug=0
     BUFFER_SIZE=4096
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
@@ -4272,6 +4274,8 @@ class lock:
             shutil.copystat(src, dst)
     @staticmethod
     def info(msg,data="Empty"):
+        if lock.debug==0: 
+            return
         pid=os.getpid()
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)

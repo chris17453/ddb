@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  ddb24:
+    build:
+        context: .
+        dockerfile: ddb24
+    image: watkinslabs/ddb24
+    volumes:
+      - ../../:/ddb
+    command: make release24
+  ddb26:
+    build:
+        context: .
+        dockerfile: ddb26
+    image: watkinslabs/ddb26
+    volumes:
+      - ../../:/ddb
+    command: make release26
+  ddb27:
+    build:
+        context: .
+        dockerfile: ddb27
+    image: watkinslabs/ddb27
+    volumes:
+      - ../../:/ddb
+    command: make release27
+  ddb37:
+    build:
+        context: .
+        dockerfile: ddb37
+    image: watkinslabs/ddb37
+    volumes:
+      - ../../:/ddb
+    command: make release37    
+                

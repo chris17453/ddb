@@ -1,0 +1,26 @@
+FROM centos:5
+
+
+RUN  sed -i -e 's/^#baseurl=/baseurl=/' \
+            -e 's/^mirrorlist=/#mirrorlist=/' \
+            -e 's!http://mirror.centos.org/centos/$releasever/!http://vault.centos.org/5.11/!' \
+                /etc/yum.repos.d/*.repo && \
+     sed -i -e 's/enabled=1/enabled=0/' \
+                /etc/yum.repos.d/libselinux.repo /etc/yum/pluginconf.d/fastestmirror.conf 
+RUN rpm -ivh --nodeps http://vault.centos.org/5.11/os/x86_64/CentOS/libselinux-python-1.33.4-5.7.el5.`uname -m`.rpm
+RUN yum install epel-release -y
+RUN yum -y install python-devel python-pip gcc  make git
+RUN yum -y install python-setuptools wget
+
+RUN mkdir ~/src/ &&\
+ cd ~/src/ &&\
+ wget https://www.openssl.org/source/openssl-1.0.2a.tar.gz &&\
+ tar -zxvf openssl-*.tar.gz &&\
+ cd openssl-* &&\
+ ./config -fpic shared && make && make install 
+RUN yum -y install Cython
+
+
+
+WORKDIR /ddb/
+

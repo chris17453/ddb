@@ -13,10 +13,15 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 git_username="Charles Watkins" 
 git_email="chris17453@gmail.com"
 conf_dir="source/conf"
- 
+
+RELEASE_DIR=pypy
+DDB_NAME=ddb
+
+
+
 .DEFAULT: help
 
-.PHONY: all test clean profile script
+.PHONY: all test clean profile script build release24 release26 release27 release37
 
 help:
 	@echo "[Maintenence]"
@@ -128,16 +133,43 @@ lexer:
 	@python tools/generate_bytecode.py>source/ddb/lexer/bytecode.py
 	@python source/ddb/lexer/lexer-2.py
 
+# builds the docker iamges
+setup_docker:
+	docker-compose -f source/docker/docker-compose.yml build
 
-build: meta bump
+build_release:
+	docker run -v /home/nd/repos/ddb/:/ddb/ -it 8095ee28e4dd  bash
+
+
+
+release: 
+	@echo "This should be ran inside of a the build containers"
+	@echo "Building " $(DDB_NAME) in $(RELEASE_DIR)
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
-# makes ansible single script
 
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/pypi/  --build-cython
+	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
+
+
+
+build: meta bump release
+24: meta 
+RELEASE_DIR=release/2.4
+DDB_NAME=ddb24
+26: 	meta 
+RELEASE_DIR=release/2.6
+DDB_NAME=ddb26
+27: meta
+RELEASE_DIR=release/2.7
+DDB_NAME=ddb27
+37: meta 
+RELEASE_DIR=release/3.7
+DDB_NAME=ddb37
+
+
 
 script:
 	@python $(conf_dir)/build.py
