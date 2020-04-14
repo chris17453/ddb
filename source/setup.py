@@ -69,7 +69,7 @@ print("Using extension {0},{1}".format(ext,ext2))
 lang_level=2
 macro={'CYTHON_TRACE':'1'}
 comp_directive={
-    'embedsignature':true,
+    'embedsignature':True,
     'language_level':lang_level
 }
 extensions = [
