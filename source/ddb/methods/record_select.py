@@ -13,52 +13,46 @@ import tempfile
 context_sort=[]
 
 def method_select(context, meta, parser):
-    try:
-        # meta.debug()
-        context.info(meta)
-        # make sure columns are valid, and from is good
-        select_validate_columns_and_from(context,meta,parser)
+    # meta.debug()
+    context.info(meta)
+    # make sure columns are valid, and from is good
+    select_validate_columns_and_from(context,meta,parser)
 
-        #create data destinaton
-        temp_table = context.database.temp_table()
-        
-        # add columns, as renamed
-        add_table_columns(context,meta,temp_table)
-       
-        # setup column ordinals
-        set_ordinals(context,meta)
+    #create data destinaton
+    temp_table = context.database.temp_table()
+    
+    # add columns, as renamed
+    add_table_columns(context,meta,temp_table)
+    
+    # setup column ordinals
+    set_ordinals(context,meta)
 
-        # TODO Unique column names, no ambiguious index, name, alias,functions
-        # TODO Columns with the same name can be renamed, but fail. Key issue?
+    # TODO Unique column names, no ambiguious index, name, alias,functions
+    # TODO Columns with the same name can be renamed, but fail. Key issue?
 
-        # scan the table for matches and collect the data
-        temp_data=select_process_file(context,meta)
-        
-        all_records_count=len(temp_data)
+    # scan the table for matches and collect the data
+    temp_data=select_process_file(context,meta)
+    
+    all_records_count=len(temp_data)
 
-        # TODO Join code here.....
+    # TODO Join code here.....
 
-        # order the data by columns, aliases or indexes
-        temp_data=order_by(context,meta,temp_data)
+    # order the data by columns, aliases or indexes
+    temp_data=order_by(context,meta,temp_data)
 
-        # Distinct, a custom grouping
-        temp_data=distinct(context,meta,temp_data)
-        
-        # Grouping
-        # group(context, data)
-        
-        # Limit / Filter the data
-        temp_data = limit(context, meta, temp_data)
+    # Distinct, a custom grouping
+    temp_data=distinct(context,meta,temp_data)
+    
+    # Grouping
+    # group(context, data)
+    
+    # Limit / Filter the data
+    temp_data = limit(context, meta, temp_data)
 
-        # assign matched and transformed data to temp table
-        temp_table.results=temp_data
+    # assign matched and transformed data to temp table
+    temp_table.results=temp_data
 
-        return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
-    except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
-        context.error (__name__,ex)
-        return query_results(success=False,error=str(ex))   
+    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
 
 
 def select_process_file(context,meta):

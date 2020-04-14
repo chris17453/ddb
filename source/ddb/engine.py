@@ -267,6 +267,7 @@ class engine:
     def execute(self, sql_query,parameters=None):
         return self.query(sql_query,parameters)
     
+            
 
     def query(self, sql_query,parameters=None):
         try:
@@ -322,67 +323,74 @@ class engine:
             
             if self.debug:
                 meta_class.debug()
-            # RECORDS
-            if mode == 'select':
-                try:
+            
+            
+            
+                        
+            try:
+                # RECORDS
+                if mode == 'select': 
                     self.results = method_select(self,meta_class, parser)
-                except:
-                    err = sys.exc_info()[1]
-                    ex = err.args[0]
-                    print("Select Error: {0}",str(ex))
-            
-            elif mode == 'insert' and self.internal['READONLY']==None:
-                self.results = method_insert(self,meta_class)
+                
+                elif mode == 'insert' and self.internal['READONLY']==None:
+                    self.results = method_insert(self,meta_class)
 
-            elif mode == 'update' and self.internal['READONLY']==None:
-                self.results = method_update(self,meta_class)
+                elif mode == 'update' and self.internal['READONLY']==None:
+                    self.results = method_update(self,meta_class)
 
-            elif mode == 'upsert' and self.internal['READONLY']==None:
-                self.results = method_upsert(self,meta_class,query_object,meta)
-            
-            elif mode == 'delete' and self.internal['READONLY']==None:
-                self.results = method_delete(self,meta_class)
+                elif mode == 'upsert' and self.internal['READONLY']==None:
+                    self.results = method_upsert(self,meta_class,query_object,meta)
+                
+                elif mode == 'delete' and self.internal['READONLY']==None:
+                    self.results = method_delete(self,meta_class)
 
-            # TABLE 
-            elif mode == 'use':
-                self.results = method_use(self,meta_class)
+                # TABLE 
+                elif mode == 'use':
+                    self.results = method_use(self,meta_class)
 
-            elif mode == 'drop table' and self.internal['READONLY']==None:
-                self.results = method_drop_table(self,meta_class)
+                elif mode == 'drop table' and self.internal['READONLY']==None:
+                    self.results = method_drop_table(self,meta_class)
 
-            elif mode == 'create table' and self.internal['READONLY']==None:
-                self.results = method_create_table(self,meta_class)
+                elif mode == 'create table' and self.internal['READONLY']==None:
+                    self.results = method_create_table(self,meta_class)
 
-            elif mode == 'update table' and self.internal['READONLY']==None:
-                self.results = method_update_table(self,meta_class)
+                elif mode == 'update table' and self.internal['READONLY']==None:
+                    self.results = method_update_table(self,meta_class)
 
-            # SYSTEM 
-            elif mode == 'set':
-                self.results = method_system_set(self,meta_class)
+                # SYSTEM 
+                elif mode == 'set':
+                    self.results = method_system_set(self,meta_class)
 
-            elif mode == 'begin':
-                self.results = method_system_begin(self,meta_class)
+                elif mode == 'begin':
+                    self.results = method_system_begin(self,meta_class)
 
-            elif mode == 'rollback':
-                self.results = method_system_rollback(self,meta_class)
+                elif mode == 'rollback':
+                    self.results = method_system_rollback(self,meta_class)
 
-            elif mode == 'commit':
-                self.results = method_system_commit(self)
+                elif mode == 'commit':
+                    self.results = method_system_commit(self)
 
-            elif mode == "show tables":
-                self.results = method_system_show_tables(self,meta_class)
+                elif mode == "show tables":
+                    self.results = method_system_show_tables(self,meta_class)
 
-            elif mode == "show output modules":
-                self.results = method_system_show_output_modules(self,meta_class)
+                elif mode == "show output modules":
+                    self.results = method_system_show_output_modules(self,meta_class)
 
-            elif mode == "show columns":
-                self.results = method_system_show_columns(self, meta_class)
+                elif mode == "show columns":
+                    self.results = method_system_show_columns(self, meta_class)
 
-            elif mode == "show variables":
-                self.results = method_system_show_variables(self,meta_class)
+                elif mode == "show variables":
+                    self.results = method_system_show_variables(self,meta_class)
 
-            elif mode == "describe table":
-                self.results = method_describe_table(self, meta_class)
+                elif mode == "describe table":
+                    self.results = method_describe_table(self, meta_class)
+
+            except:
+                ex = sys.exc_info()[1]
+                self.error (mode,ex)
+                self.results=query_results(success=False,error=str(ex))   
+
+
 
             if False==self.results.success:
 

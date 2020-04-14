@@ -44,7 +44,7 @@ sys.dont_write_bytecode = True
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.235'
+__version__='1.4.236'
 
         
 # ############################################################################
@@ -4520,8 +4520,8 @@ class lock:
     def get_uuid():
         seed = random.getrandbits(32)
         while True:
-        yield str(seed)
-        seed += 1
+            yield str(seed)
+            seed += 1
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
     base_dir  = os.path.dirname(norm_path)
