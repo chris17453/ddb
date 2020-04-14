@@ -255,7 +255,7 @@ if USE_CYTHON:
         extensions=cythonize(extensions, nthreads=1)
         #extensions = cythonize(extensions) ###compiler_directives={'language_level' : sys.version_info[0]}
     except BaseException as ex:
-        print ("No Cython installed {}".format(ex))
+        print ("No Cython installed {0}".format(ex))
         print("Building")
         exit(1)
 else:
