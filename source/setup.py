@@ -130,7 +130,8 @@ extensions = [
 ]
 
 
-
+extensions=[    Extension("builds/standalone/ddb.py",                                [prefix+"./ddb/cli" + ext])
+]
 
 def available_cpu_count():
     """ Number of available virtual or physical CPUs on this system, i.e.
