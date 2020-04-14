@@ -1,6 +1,6 @@
-Metadata-Version: 2.1
-Name: ddb27
-Version: 1.4.242
+Metadata-Version: 1.1
+Name: ddb36
+Version: 1.4.243
 Summary: A serviceless sql interface for flat files written in cython
 Home-page: https://github.com/chris17453/ddb/
 Author: Charles Watkins
@@ -44,4 +44,3 @@ Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 2.7
 Classifier: Development Status :: 3 - Alpha
 Classifier: Operating System :: OS Independent
-Description-Content-Type: text/markdown

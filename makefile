@@ -16,12 +16,13 @@ conf_dir="source/conf"
 
 RELEASE_DIR=pypy
 DDB_NAME=ddb
-
+PYTHON=python
 
 
 .DEFAULT: help
 
-.PHONY: all test clean profile script build release24 release26 release27 release37
+
+.PHONY: all test clean profile script build 24 26 27 34 36 
 
 help:
 	@echo "[Maintenence]"
@@ -134,21 +135,21 @@ lexer:
 	@python source/ddb/lexer/lexer-2.py
 
 # builds the docker iamges
-setup_docker:
+setup-docker:
 	docker-compose -f source/docker/docker-compose.yml build
 
-build_release:
-	docker run -v /home/nd/repos/ddb/:/ddb/ -it 8095ee28e4dd  bash
+build-release:
+	docker-compose -f source/docker/docker-compose.yml up
 
 
-
-release: 
+release:  meta
 	@echo "This should be ran inside of a the build containers"
-	@echo "Building " $(DDB_NAME) in $(RELEASE_DIR)
+	@echo "USING PYTHON " $(PYTHON)
+	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
 
 	@python $(conf_dir)/build.py
-	@cd source; python setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
+	@cd source; $(PYTHON) setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
@@ -156,18 +157,37 @@ release:
 
 
 build: meta bump release
-24: meta 
-RELEASE_DIR=release/2.4
-DDB_NAME=ddb24
-26: 	meta 
-RELEASE_DIR=release/2.6
-DDB_NAME=ddb26
-27: meta
-RELEASE_DIR=release/2.7
-DDB_NAME=ddb27
-37: meta 
-RELEASE_DIR=release/3.7
-DDB_NAME=ddb37
+
+
+# build python 2.4 on cent 5
+24: RELEASE_DIR = release/2.4
+24: DDB_NAME = ddb24
+24: PYTHON = python
+24: release
+
+# build python 2.6 on cent 6
+26: RELEASE_DIR = release/2.6
+26: DDB_NAME = ddb26
+26: PYTHON = python
+26: release
+
+# build python 2.7 on cent 7
+27: RELEASE_DIR = release/2.7
+27: DDB_NAME = ddb27
+27: PYTHON = python
+27: release
+
+# build python 3.4 on cent 7
+34: RELEASE_DIR = release/3.4
+34: DDB_NAME = ddb34
+34: PYTHON = python3.4
+34: release
+
+# build python 3.6 on cent 7
+36: RELEASE_DIR = release/3.6
+36: DDB_NAME = ddb36
+36: PYTHON = python3.6
+36: release
 
 
 

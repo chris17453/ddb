@@ -86,8 +86,8 @@ ddb/output/factory_json.c
 ddb/output/factory_term.c
 ddb/output/factory_xml.c
 ddb/output/factory_yaml.c
-ddb27.egg-info/PKG-INFO
-ddb27.egg-info/SOURCES.txt
-ddb27.egg-info/dependency_links.txt
-ddb27.egg-info/entry_points.txt
-ddb27.egg-info/top_level.txt
+ddb36.egg-info/PKG-INFO
+ddb36.egg-info/SOURCES.txt
+ddb36.egg-info/dependency_links.txt
+ddb36.egg-info/entry_points.txt
+ddb36.egg-info/top_level.txt

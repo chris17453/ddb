@@ -1,7 +1,0 @@
-
-        [console_scripts]
-        ddb27 = ddb27.cli:cli_main
-        ddb27-pipes = ddb27.pipes:cli_main
-        ddb27-server = ddb27.server:cli_main
-        ddb27-service = ddb27.service:cli_main
-        

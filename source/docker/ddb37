@@ -1,9 +1,0 @@
-FROM centos:7
-
-RUN yum install epel-release -y
-RUN yum -y install python3-devel python3-pip gcc  make git
-RUN yum -y install Cython
-
-
-WORKDIR /ddb/
-

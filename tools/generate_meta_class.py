@@ -130,6 +130,3 @@ for command in language['commands']:
 meta_str()
 
 print ( template_get() )
-
-
-    

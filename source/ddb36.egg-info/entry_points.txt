@@ -1,0 +1,7 @@
+
+        [console_scripts]
+        ddb36 = ddb36.cli:cli_main
+        ddb36-pipes = ddb36.pipes:cli_main
+        ddb36-server = ddb36.server:cli_main
+        ddb36-service = ddb36.service:cli_main
+        

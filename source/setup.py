@@ -1,12 +1,14 @@
 import os
 import sys
-import sysconfig
+#import sysconfig
+import re
+import subprocess
 from pprint import pprint 
-#from distutils.core import setup, Command
-from setuptools import setup, find_packages
-#from distutils.extension import Extension
-from setuptools.extension import Extension
-from setuptools.command.build_py import build_py as _build_py
+from distutils.core import setup, Command
+#from setuptools import setup, find_packages
+from distutils.extension import Extension
+#from setuptools.extension import Extension
+#from setuptools.command.build_py import build_py as _build_py
 
 
 
@@ -18,19 +20,19 @@ EXCLUDE_FILES = [
 
 cmdclass = {}
 
-# noinspection PyPep8Naming
-class new_build_py(_build_py):
-
-    def find_package_modules(self, package, package_dir):
-        ext_suffix = sysconfig.get_config_var('EXT_SUFFIX')
-        modules = _build_py.find_package_modules(self,package, package_dir)
-        filtered_modules = []
-        for (pkg, mod, filepath) in modules:
-            file2=filepath.replace(str('.py'), str(ext_suffix))
-            if os.path.exists(file2):
-                continue
-            filtered_modules.append((pkg, mod, filepath, ))
-        return filtered_modules
+# #noinspection PyPep8Naming
+#class new_build_py(_build_py):
+#
+#    def find_package_modules(self, package, package_dir):
+#        ext_suffix = sysconfig.get_config_var('EXT_SUFFIX')
+#        modules = _build_py.find_package_modules(self,package, package_dir)
+#        filtered_modules = []
+#        for (pkg, mod, filepath) in modules:
+#            file2=filepath.replace(str('.py'), str(ext_suffix))
+#            if os.path.exists(file2):
+#                continue
+#            filtered_modules.append((pkg, mod, filepath, ))
+#        return filtered_modules
 ddb_name=None
 try:
     for arg in sys.argv:
@@ -76,7 +78,8 @@ else:
 # cython: linetrace=True
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
-cmdclass.update({'build_py': new_build_py})
+
+#cmdclass.update({'build_py': new_build_py})
 
 print("Using extension {0},{1}".format(ext,ext2))
 lang_level=2
@@ -127,10 +130,6 @@ extensions = [
 ]
 
 
-
-import os
-import re
-import subprocess
 
 
 def available_cpu_count():
@@ -262,16 +261,19 @@ else:
     print("Not using CYTHON")
 
 
+# manually updated
+packages=   ['ddb',
+            'ddb.configuration',
+            'ddb.output',
+            'ddb.functions',
+            'ddb.methods',
+            'ddb.meta',
+            'ddb.lexer',
+            'ddb.file_io']
 
-    
-
-
-
-
-
-packages=find_packages(exclude=['examples'])
-for package in packages:
-    print("Package: {0}".format(package))
+#packages=find_packages(exclude=['examples'])
+#for package in packages:
+#    print("Package: {0}".format(package))
 
 
 exec(open('ddb/version.py').read())
