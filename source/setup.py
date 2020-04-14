@@ -130,7 +130,7 @@ extensions = [
 ]
 
 
-extensions=[    Extension("builds/standalone/ddb.py",                                [prefix+"./ddb/cli" + ext])
+extensions=[    Extension("ddb",                                [prefix+"../builds/standalone/ddb" + ext])
 ]
 
 def available_cpu_count():
