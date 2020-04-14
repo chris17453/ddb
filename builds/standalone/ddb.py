@@ -47,7 +47,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.207'
+__version__='1.4.208'
 
         
 # ############################################################################
@@ -4525,7 +4525,7 @@ class lock:
             err = sys.exc_info()[1]
             ex = err.args[0]
             lock.info("Aquire Lock: {0}".format(ex))
-def get_uuid(self):
+def get_uuid():
     seed = random.getrandbits(32)
     while True:
        yield str(seed)
@@ -4536,7 +4536,7 @@ def temp_path_from_file(path,prefix='',unique=None):
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
-        uuid_str=self.get_uuid()
+        uuid_str=get_uuid()
         unique_id="_{0}:{1}".format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
