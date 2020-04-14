@@ -250,7 +250,7 @@ NB_COMPILE_JOBS =  available_cpu_count()
 
 if USE_CYTHON:
     try:
-        sys.setrecursionlimit(1500)
+        sys.setrecursionlimit(10500)
 
         print("Compiling using {0} cores:".format(NB_COMPILE_JOBS))
         extensions=cythonize(extensions, nthreads=NB_COMPILE_JOBS)
