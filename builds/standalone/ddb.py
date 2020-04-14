@@ -2791,7 +2791,6 @@ class engine:
             if isinstance(val,bytes):
                 val=param_list[param].decode('ascii')
             sql=sql.replace(key,val)
-        print(sql)
         return sql
     def execute(self, sql_query,parameters=None):
         return self.query(sql_query,parameters)
