@@ -134,7 +134,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.232'
+__version__='1.4.233'
 
         
 # ############################################################################
@@ -4508,8 +4508,7 @@ class lock:
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
         except:
-            err = sys.exc_info()[1]
-            ex = err.args[0]
+            ex = sys.exc_info()[1]
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
@@ -4548,8 +4547,7 @@ class lock:
                         if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
                         return lock.LOCK_OTHER
                     except:
-                        err = sys.exc_info()[1]
-                        ex = err.args[0]
+                        ex = sys.exc_info()[1]
                         if lock.debug: lock.error("Lock","error {0}".format(ex))
                         return lock.LOCK_OTHER
                         pass
@@ -4558,8 +4556,7 @@ class lock:
             if lock.debug: lock.info("Lock","None-Fall Through")
             return lock.LOCK_NONE
         except:
-            err = sys.exc_info()[1]
-            ex = err.args[0]
+            ex = sys.exc_info()[1]
             if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
             return lock.LOCK_OTHER
     @staticmethod
@@ -4572,8 +4569,7 @@ class lock:
             os.remove(lock_path)
             if lock.debug: lock.info('lock',"% s removed successfully" % path) 
         except:
-            err = sys.exc_info()[1]
-            ex = err.args[0]
+            ex = sys.exc_info()[1]
             if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
             exit(1)
         if lock.debug: lock.info("Lock","removed")
@@ -4597,8 +4593,7 @@ class lock:
                     if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
                     break
                 except:
-                    err = sys.exc_info()[1]
-                    ex = err.args[0]
+                    ex = sys.exc_info()[1]
                     error+=1
                     if error==1:
                         if lock.debug: lock.error("Lock","error!:{0}".format(ex))
@@ -4609,8 +4604,7 @@ class lock:
                 if lock.debug: lock.error("Lock","Failed to create")
                 raise Exception ("Lockfile failed to create {0}".format(lock_path))
         except:
-            err = sys.exc_info()[1]
-            ex = err.args[0]
+            ex = sys.exc_info()[1]
             lock.info("Aquire Lock: {0}".format(ex))
 def get_uuid():
     seed = random.getrandbits(32)
@@ -4640,8 +4634,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
-        err = sys.exc_info()[1]
-        ex = err.args[0]
+        ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
@@ -4650,8 +4643,7 @@ def remove_temp_file(path):
         if lock.debug: lock.info("Lock Removing temp copy: {0}".format(path))
         os.remove(path)
     except: 
-        err = sys.exc_info()[1]
-        ex = err.args[0]
+        ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
