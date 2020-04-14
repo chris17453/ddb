@@ -105,16 +105,26 @@ class engine:
         #        print(msg, arg1, arg2, arg3)
 
     
-    def generate_uuid(self):
-        random_string = ''
-        random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        uuid_format = [8, 4, 4, 4, 12]
-        for n in uuid_format:
-            for i in range(0,n):
-                random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
-            if n != 12:
-                random_string += '-'
-        return random_string
+    @staticmethod
+    def generate_uuid():
+        try: # TODO unix/linux specific UUID generation
+            f=open('/proc/sys/kernel/random/uuid') 
+            uuid=f.read()
+            f.close()
+            return uuid
+        except:
+            pass
+
+    #def generate_uuid(self):
+    #    random_string = ''
+    #    random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    #    uuid_format = [8, 4, 4, 4, 12]
+    #    for n in uuid_format:
+    #        for i in range(0,n):
+    #            random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
+    #        if n != 12:
+    #            random_string += '-'
+    #    return random_string
 
     # mode nested: row.data [ { data,error,raw } ]
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):

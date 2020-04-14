@@ -258,10 +258,13 @@ class lock:
 
     @staticmethod
     def get_uuid():
-        seed = random.getrandbits(32)
-        while True:
-            yield str(seed)
-            seed += 1
+        try: # TODO unix/linux specific UUID generation
+            f=open('/proc/sys/kernel/random/uuid') 
+            uuid=f.read()
+            f.close()
+            return uuid
+        except:
+            pass
 
   
 def temp_path_from_file(path,prefix='',unique=None):

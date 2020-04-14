@@ -134,7 +134,7 @@ def run_module():
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.253'
+__version__='1.4.254'
 
         
 # ############################################################################
@@ -2711,7 +2711,7 @@ class record(object):
           for row in set.data:
             data=row['data']
             for key in data:
-                self.split_array(value)
+                self.split_array(key) #TODO was value are we using this?
           return res
     def process(self, data, config,data_type=2,error=None,match=True):
         COMMENT     = 0
