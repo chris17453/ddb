@@ -77,6 +77,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -88,6 +89,8 @@ import traceback
 import copy
 import base64
 from collections import OrderedDict
+
+sys.dont_write_bytecode = True
 
 
 
@@ -116,6 +119,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -127,6 +131,8 @@ import traceback
 import copy
 import base64
 from collections import OrderedDict
+
+sys.dont_write_bytecode = True
 
 
 from cmd import Cmd
@@ -160,6 +166,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -170,6 +177,8 @@ import random
 import traceback
 import base64
 from collections import OrderedDict
+
+sys.dont_write_bytecode = True
 
 
 from ansible.module_utils.basic import AnsibleModule
@@ -209,6 +218,7 @@ import os
 import fileinput
 import warnings
 import datetime
+import base64
 import tempfile
 import shutil
 import time
@@ -219,6 +229,8 @@ import random
 import traceback
 import base64
 from collections import OrderedDict
+
+sys.dont_write_bytecode = True
 
 
 from slackclient import SlackClient

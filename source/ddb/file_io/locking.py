@@ -10,7 +10,6 @@ import random
 import base64
 
 
-
 class lock:
     #max_lock_time=60
     #max_lock_wait_time=max_lock_time+1
@@ -20,7 +19,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=None
+    debug=sys.stdin.isatty()
     BUFFER_SIZE=4096
     
     @staticmethod
@@ -126,6 +125,7 @@ class lock:
             err = sys.exc_info()[1]
             ex = err.args[0]
             lock.info("Get Lock Filname: {0}".format(ex))
+
             exit(1)
             
     @staticmethod
@@ -152,7 +152,7 @@ class lock:
                         try:
                             owner_uuid,owner_pid,terminator=file_data.split('|')
                         except:
-                            if lock.debug: lock.info("Lock","lockfile incomplete, likely in progress")
+                            if lock.debug: lock.error("Lock","lockfile incomplete, likely in progress")
                             return lock.LOCK_PARTIAL
                         
 
@@ -239,7 +239,7 @@ class lock:
                     ex = err.args[0]
                     error+=1
                     if error==1:
-                        if lock.debug: lock.info("Lock","error!:{0}".format(ex))
+                        if lock.debug: lock.error("Lock","error!:{0}".format(ex))
                     pass
                 #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
                 time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
@@ -263,6 +263,7 @@ def get_uuid():
     while True:
        yield str(seed)
        seed += 1
+
   
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
@@ -270,8 +271,8 @@ def temp_path_from_file(path,prefix='',unique=None):
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
-        uuid_str=get_uuid()
-        unique_id="_{0}:{1}".format(uuid_str,os.getpid())
+        uuid_str=lock.get_uuid()
+        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
@@ -310,7 +311,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
 
 def remove_temp_file(path):
     try:
-        if lock.debug: lock.info("Lock","Removing temp copy: {0}".format(path))
+        if lock.debug: lock.info("Lock Removing temp copy: {0}".format(path))
         os.remove(path)
     except: 
         err = sys.exc_info()[1]
