@@ -257,8 +257,8 @@ class lock:
     def get_uuid():
         seed = random.getrandbits(32)
         while True:
-        yield str(seed)
-        seed += 1
+            yield str(seed)
+            seed += 1
 
   
 def temp_path_from_file(path,prefix='',unique=None):
