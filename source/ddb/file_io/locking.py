@@ -19,7 +19,7 @@ class lock:
     LOCK_OWNER=1
     LOCK_OTHER=2
     LOCK_PARTIAL=3
-    debug=sys.stdin.isatty()
+    debug=0
     BUFFER_SIZE=4096
     
     @staticmethod
@@ -79,6 +79,9 @@ class lock:
         
     @staticmethod
     def info(msg,data="Empty"):
+        if lock.debug==0: 
+            return
+            
         pid=os.getpid()
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)

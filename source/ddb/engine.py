@@ -125,7 +125,8 @@ class engine:
         #    logging.getLogger().setLevel(logging.INFO)
         #else:
         #    logging.getLogger().setLevel(logging.CRITICAL)
-            
+        if debug==True:
+            lock.debug+=1
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -601,7 +602,7 @@ class engine:
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             # remove the previous source
             if dest_file and dest_file!=src:
-                if lock.debug: lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
+                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
         
