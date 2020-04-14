@@ -1,5 +1,5 @@
 # cython: linetrace=True
-
+import sys
 from cmd import Cmd
 from .engine import engine
 from .version import __version__
