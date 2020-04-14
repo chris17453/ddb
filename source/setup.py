@@ -73,14 +73,14 @@ comp_directive={
     'language_level':lang_level
 }
 extensions = [
-    Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext],                 define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext],                      define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext],                      define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext],                         define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext],                           define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext],                define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext],                 define_macros=macro,compiler_directives=comp_directive,
-    Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext],              define_macros=macro,compiler_directives=comp_directive,
+    Extension("ddb.functions.functions",                [prefix+"./ddb/functions/functions" + ext],                 define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.language",                     [prefix+"./ddb/lexer/language" + ext],                      define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.tokenize",                     [prefix+"./ddb/lexer/tokenize" + ext],                      define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.lexer.lexer",                        [prefix+"./ddb/lexer/lexer" + ext],                         define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.meta.meta",                          [prefix+"./ddb/meta/meta" + ext],                           define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.configuration.column",               [prefix+"./ddb/configuration/column" + ext],                define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.configuration.table",                [prefix+"./ddb/configuration/table" + ext],                 define_macros=macro,compiler_directives=comp_directive),
+    Extension("ddb.configuration.database",             [prefix+"./ddb/configuration/database" + ext],              define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.output.factory",                     [prefix+"./ddb/output/factory" + ext],                      define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.output.factory_yaml",                [prefix+"./ddb/output/factory_yaml" + ext],                 define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.output.factory_xml",                 [prefix+"./ddb/output/factory_xml" + ext],                  define_macros=macro,compiler_directives=comp_directive),
