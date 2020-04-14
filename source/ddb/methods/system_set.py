@@ -1,5 +1,5 @@
 # cython: linetrace=True
-
+import sys
 from .record_core import query_results
 
 def method_system_set(context, meta):

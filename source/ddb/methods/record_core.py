@@ -1,6 +1,6 @@
 # cython: profile=True
 # cython: profile=True
-
+import sys
 import os
 import tempfile, shutil
 from ..file_io.locking import lock

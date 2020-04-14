@@ -1,5 +1,6 @@
 # cython: linetrace=True
 from .record_core import query_results
+import sys
 
 def method_system_show_tables(context,meta):
     try:

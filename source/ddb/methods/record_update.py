@@ -1,5 +1,5 @@
 # NOcython: linetrace=True
-
+import sys
 import tempfile  # from table import table
 from .record_core import process_line3, query_results, get_table
 from ..file_io.locking import temp_path_from_file

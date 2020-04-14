@@ -1,4 +1,4 @@
- 
+import sys
 from collections import OrderedDict
 
 
@@ -170,7 +170,9 @@ class record:
         #Determine line type
         try:
             if data[0]==config.comment_delimiter:
-                data_type=COMMENT
+   en(temp_data_file, 'rb', buffering=0)
+        try:
+            dst             data_type=COMMENT
             elif config.data_starts_on_line <config.line_number:
                 data_type=COMMENT
                 if config.render_comment:

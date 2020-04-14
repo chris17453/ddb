@@ -1,5 +1,5 @@
 # cython: linetrace=True
-
+import sys
 from .record_core import query_results, get_table
 
 def method_describe_table(context, meta):
