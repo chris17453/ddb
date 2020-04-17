@@ -17,7 +17,7 @@ MOCK_DATA_LARGE.csv
 __pycache__/
 svn_test/
 ddb.egg-info/
-
+*egg*/
 profile/
 builds/Python/
 Python-2.7.16/

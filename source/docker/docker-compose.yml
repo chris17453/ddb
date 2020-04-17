@@ -17,30 +17,28 @@ services:
     volumes:
       - ../../:/ddb
     command: make 26
-
-#    ddb27:
-#    build:
-#        context: .
-#        dockerfile: ddb27
-#    image: watkinslabs/ddb27
-#    volumes:
-#      - ../../:/ddb
-#    command: make 27
-#  ddb34:
-#    build:
-#        context: .
-#        dockerfile: ddb34
-#    image: watkinslabs/ddb34
-#    volumes:
-#      - ../../:/ddb
-#    command: make 34
-#                
-#  ddb36:
-#    build:
-#        context: .
-#        dockerfile: ddb36
-#    image: watkinslabs/ddb36
-#    volumes:
-#      - ../../:/ddb
-#    command: make 36
+  ddb27:
+    build:
+        context: .
+        dockerfile: ddb27
+    image: watkinslabs/ddb27
+    volumes:
+      - ../../:/ddb
+    command: make 27
+  ddb34:
+    build:
+        context: .
+        dockerfile: ddb34
+    image: watkinslabs/ddb34
+    volumes:
+      - ../../:/ddb
+    command: make 34
+  ddb36:
+    build:
+        context: .
+        dockerfile: ddb36
+    image: watkinslabs/ddb36
+    volumes:
+      - ../../:/ddb
+    command: make 36
                 

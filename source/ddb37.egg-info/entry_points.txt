@@ -1,7 +1,0 @@
-
-        [console_scripts]
-        ddb37 = ddb37.cli:cli_main
-        ddb37-pipes = ddb37.pipes:cli_main
-        ddb37-server = ddb37.server:cli_main
-        ddb37-service = ddb37.service:cli_main
-        

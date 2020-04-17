@@ -1,6 +1,6 @@
 import sys
 import tempfile  # from table import table
-from .record_core import process_line3, query_results, get_table
+from .record_core import process_line3, query_results, get_table, file_writer
 from ..file_io.locking import temp_path_from_file
 
 
@@ -36,9 +36,9 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
     if False == err:
         #print new_line
         if True == requires_new_line:
-            temp_file.write(str.encode( meta.table.delimiters.get_new_line()))
-        temp_file.write(str.encode( new_line) )
-        temp_file.write(str.encode( meta.table.delimiters.get_new_line()) )
+            temp_file.write(meta.table.delimiters.get_new_line())
+        temp_file.write( new_line)
+        temp_file.write( meta.table.delimiters.get_new_line())
     if False == err:
         return {'success':True,'line':new_line}
     else:
@@ -61,7 +61,7 @@ def method_update(context, meta):
     content_file=open(temp_data_file, 'rb', buffering=0)
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-        temp_file=open (dst_temp_filename,"wb", buffering=0) 
+        temp_file=file_writer(dst_temp_filename,'w')
         try:
             for line in content_file:
                 processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -77,8 +77,8 @@ def method_update(context, meta):
                     else:
                         raise Exception("Error Updating Line")
                     continue
-                temp_file.write(str.encode(processed_line['raw']))
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                temp_file.write(processed_line['raw'])
+                temp_file.write(meta.table.delimiters.get_new_line())
         finally:
             temp_file.close()
     finally:

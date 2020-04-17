@@ -171,5 +171,3 @@ class tokenizer:
             print("[{0}]".format(msg))
 
 
-#t=tokenizer()
-#t.chomp("create temporary table etmeta.addresses2      (node,hostname,interface,ip,network,defaultroute,'routeset','MAC','link_setting') repo='svn' url='http://localhost/svn/etrade/etc' user='user' password='password' repo_dir='/home/nd/chris17453/ddd]/Funhouse/etmeta' repo_file='addresses.2' delimiter=':';",debug=True)

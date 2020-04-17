@@ -163,12 +163,16 @@ def get_table(context,meta):
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
     # ensure unicode to ascii support
     #line=str(line)
-    if str!=bytes:
-        # we are in python3land
-        # if its not a byte array (string)
-        if isinstance(line,str)==False:
+
+    try:
+        if isinstance(line,unicode)==True:
+            line=line.encode("ascii")
+        elif isinstance(line,str)==False:
             line=line.decode("ascii")
-            
+
+    except:
+        pass
+        
     #print(type(line))
     err = None
     table=meta.table
@@ -498,3 +502,38 @@ class query_results:
     def debug(self):
         print("Query Results")
         debugger(self,"Query Results")
+
+
+
+class file_writer:
+    def __init__(self,path,mode='w'):
+        if mode=='a':
+            file_mode='ab'
+        elif mode=='w':
+            file_mode='wb'
+        else:
+            raise Exception ("Bad file mode")
+
+        self.file=open(path, file_mode, buffering=0)
+
+    
+    def write(self,data):
+        if isinstance(data,unicode)==True:
+            dest_data=data.encode("ascii")
+            self.file.write(dest_data)
+        elif isinstance(data,str)==True:
+            dest_data=data.decode("ascii")
+            self.file.write(dest_data)
+        else:
+            try:
+                if isinstance(data,bytes)==True:
+                    dest_data=data.decode("ascii")
+                    self.file.write(dest_data)
+                else:
+                    raise Exception("File Writer: I dont know what this is")
+            except:
+                raise Exception("File Writer: I dont know what this is")
+
+    def close(self):
+        if self.file:
+            self.file.close()

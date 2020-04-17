@@ -6,9 +6,11 @@ import tempfile, shutil
 import hashlib
 import random
 import base64
+import socket
+import stat
 
-
-            
+# global dict of held locks
+lock_sockets={}
 
 class lock:
     #max_lock_time=60
@@ -86,7 +88,7 @@ class lock:
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stdout.write(log_line+"\n")
-        pass
+        #pass
 
         #pid=os.getpid()
         #dt = datetime.datetime.now()
@@ -101,7 +103,7 @@ class lock:
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stderr.write(log_line+"\n")
-        pass
+        #pass
         
         #file=open("/tmp/ddb.log","a+")
         #file.write(log_line)
@@ -129,7 +131,10 @@ class lock:
             lock.info("Get Lock Filname: {0}".format(ex))
 
             exit(1)
-            
+    @staticmethod
+    def file_age_in_seconds(pathname):
+        return time.time() - os.stat(pathname)[stat.ST_MTIME]            
+    
     @staticmethod
     def check_pid(pid):        
         """ Check For the existence of a unix pid. """
@@ -141,128 +146,47 @@ class lock:
         return True
 
     @staticmethod
-    def is_locked(path,key_uuid,lock_path=None):
-        try:
-            if None==lock_path:
-                lock_path=lock.get_lock_filename(path)
-            if os.path.exists(lock_path)==True:
-                lockfile=open(lock_path,'r',) 
-                try:
-                    try:
-                        file_data=lockfile.readline()
-                        #timestamp,temp_file_path,
-                        try:
-                            owner_uuid,owner_pid,terminator=file_data.split('|')
-                        except:
-                            if lock.debug: lock.error("Lock","lockfile incomplete, likely in progress")
-                            return lock.LOCK_PARTIAL
-                        
-
-                        if owner_uuid==key_uuid:
-                            if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
-                            return lock.LOCK_OWNER
-                        elif lock.check_pid(int(owner_pid))==False:
-                            if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
-                            lock.release(path)
-                            return lock.LOCK_NONE
-                        elif os.getpid()==owner_pid:
-                            if lock.debug: lock.info("Lock","owned by this process, but another instance of ddb: {0}:{1}".format(owner_uuid,key_uuid))
-                            return lock.LOCK_OTHER
-                        if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
-                        # print(owner_uuid,key_uuid)
-                        return lock.LOCK_OTHER
-                    except:
-                        ex = sys.exc_info()[1]
-                        if lock.debug: lock.error("Lock","error {0}".format(ex))
-                        # because of mid write glitch
-                        return lock.LOCK_OTHER
-                        #lock.release(path)
-                        pass
-                finally:
-                    lockfile.close()
-            if lock.debug: lock.info("Lock","None-Fall Through")
-            return lock.LOCK_NONE
-        except:
-            ex = sys.exc_info()[1]
-            if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
-            return lock.LOCK_OTHER
-
-    @staticmethod
     def release(path):
-        lock_path=lock.get_lock_filename(path)
-        if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
-        
-        if os.path.exists(lock_path)==False:
-            raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
-        
-        try: 
-            os.remove(lock_path)
-            if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except:
-            ex = sys.exc_info()[1]
-            if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
-            exit(1)
-
-            
-        if lock.debug: lock.info("Lock","removed")
-
+        global lock_sockets
+        if path in lock_sockets:
+            lock_sockets[path].close()
+            lock_sockets.pop(path)
+            if lock.debug: lock.info("lock closed")
+        else:
+            if lock.debug: lock.info("no lock to close")
+    
     @staticmethod
     def aquire(path,key_uuid):
         try:
-            path="{0}".format(path)
-            key_uuid="{0}".format(key_uuid)
+            if lock.debug: lock.info ("Aquiring Lock on {0}".format(path)) # TODO eh?
+            global lock_sockets
+            if path in lock_sockets:
+                if lock.debug: lock.info ("lock already in use locally. success") # TODO eh?
+                return
 
-            lock_path =lock.get_lock_filename(path)
-            pid       =os.getpid()
-            lock_contents="{0}|{1}|x".format(key_uuid,pid)
-            
-            if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
-
-            if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
-            error=0
+            lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+            lock_sockets[path]=lock_socket
             while 1:
-                lock_status=lock.is_locked(path,key_uuid,lock_path)
-                #if lock_status==lock.LOCK_NONE:
                 try:
-                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,int("666",base=8) )
-                    os.write(fd,str.encode(lock_contents))
-                    os.close(fd)
-                    #os.chmod(lock_path, )
-
-                    if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
-                    
-                    
+                    lock_socket.bind('\0' + path)
+                    if lock.debug: lock.info('I got the lock')
                     break
-                except:
-                    ex = sys.exc_info()[1]
-                    error+=1
-                    if error==1:
-                        if lock.debug: lock.error("Lock","error!:{0}".format(ex))
-                    pass
-                #if lock.debug: lock.info("Lock","File locked, waiting till file timeout, or max lock retry time, {0}".format(path))
-                time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
-                    
+                except socket.error:
+                    if lock.debug: lock.info('lock exists')
+                    time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
 
-                    
-
-
-            if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
-            if os.path.exists(lock_path)==False:
-                if lock.debug: lock.error("Lock","Failed to create")
-                raise Exception ("Lockfile failed to create {0}".format(lock_path))
         except:
-            
             ex = sys.exc_info()[1]
-            lock.info("Aquire Lock: {0}".format(ex))
+            if lock.debug: lock.error("Aquire Lock: {0}".format(ex))
 
-
+    
     @staticmethod
     def get_uuid():
         try: # TODO unix/linux specific UUID generation
             f=open('/proc/sys/kernel/random/uuid') 
             uuid=f.read()
             f.close()
-            return uuid
+            return uuid.strip("\n")
         except:
             pass
 
@@ -320,20 +244,7 @@ def remove_temp_file(path):
         exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
         
-#def compare_files(file1,file2):
-#    
-#    content1=open(file1,'r').read()
-#    content2=open(file2,'r').read()
-#    
-#    hash1=hashlib.md5(content1).hexdigest()
-#    hash2=hashlib.md5(content2).hexdigest()
-#    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file1,hash1))
-#    if lock.debug: lock.info("Lock","FileHash for {0}: {1}".format(file2,hash2))
-#    if hash1!=hash2:
-#        return None
-#    return True
-#
-        
+
 # todo move into context with a manager flag        
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
@@ -356,3 +267,6 @@ def normalize_path(path):
     return normalized_path.encode('ascii')
 
         
+
+
+

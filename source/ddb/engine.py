@@ -1,6 +1,7 @@
 import sys
 import os
 import time
+import signal
 import pprint
 import random
 import logging
@@ -15,6 +16,10 @@ from .configuration.database import database
 from .version import __version__
 import traceback 
 from .methods.record import record, record_configuration  # converting After the fact...
+try:
+    import cython
+except:
+    pass
 
 temp_dir=tempfile.gettempdir()
 
@@ -127,16 +132,21 @@ class engine:
     #    return random_string
 
     # mode nested: row.data [ { data,error,raw } ]
+    def signal_handler(self,sig, frame):
+
+        print('ddb forcefully exited. Temp file cleanup needs to happen.')
+        sys.exit(0)
+
+
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
-        
+        signal.signal(signal.SIGINT, self.signal_handler)
+
         self.pid=os.getpid()
         # if false, load nothing, if true, load form user dir
         #if debug==True:
         #    logging.getLogger().setLevel(logging.INFO)
         #else:
         #    logging.getLogger().setLevel(logging.CRITICAL)
-        if debug==True:
-            lock.debug+=1
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -169,6 +179,13 @@ class engine:
             self.system['PYTHON_MICRO']=sys.version_info[2]
             self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
             self.system['PYTHON_SERIAL']=sys.version_info[4]
+            pass
+        
+        self.system['CYTHON_ENABLED']=False
+        try:
+            if cython.compiled:
+                self.system['CYTHON_ENABLED']=True
+        except:
             pass
         
 
@@ -262,12 +279,18 @@ class engine:
             #param=param.replace("\"","\\\"")
            #
             key=param
-            if isinstance(key,bytes):
-                key=param.decode('ascii')
+            try:
+                if isinstance(key,bytes)==True:
+                    key=param.decode('ascii')
+            except:
+                pass
 
             val=param_list[param]
-            if isinstance(val,bytes):
-                val=param_list[param].decode('ascii')
+            try:
+                if isinstance(val,bytes)==True:
+                    val=param_list[param].decode('ascii')
+            except:
+                pass
                 
                 
             sql=sql.replace(key,val)

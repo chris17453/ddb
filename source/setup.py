@@ -5,10 +5,10 @@ import re
 import subprocess
 from pprint import pprint 
 from distutils.core import setup, Command
-#from setuptools import setup, find_packages
-from distutils.extension import Extension
-#from setuptools.extension import Extension
-#from setuptools.command.build_py import build_py as _build_py
+from setuptools import setup, find_packages
+#from distutils.extension import Extension
+from setuptools.extension import Extension
+from setuptools.command.build_py import build_py as _build_py
 
 
 
@@ -19,6 +19,9 @@ EXCLUDE_FILES = [
 ]
 
 cmdclass = {}
+ddb_name=None
+USE_CYTHON=None    
+no_extensions=None
 
 # #noinspection PyPep8Naming
 #class new_build_py(_build_py):
@@ -33,7 +36,8 @@ cmdclass = {}
 #                continue
 #            filtered_modules.append((pkg, mod, filepath, ))
 #        return filtered_modules
-ddb_name=None
+
+
 try:
     for arg in sys.argv:
         tokens=arg.split("=")
@@ -49,7 +53,15 @@ if ddb_name==None:
 
 print ("** BUILDING: "+ddb_name)
 
-if '--build-cython' in sys.argv:
+
+if '--build-python' in sys.argv:
+    index = sys.argv.index('--build-python')
+    sys.argv.pop(index)  # Removes the '--foo'
+    no_extensions=True
+    ext='.py'
+    ext2='.py'
+    prefix=''
+elif '--build-cython' in sys.argv:
     try:
         from Cython.Build import cythonize
         from Cython.Distutils import build_ext
@@ -68,13 +80,16 @@ if '--build-cython' in sys.argv:
     prefix=''
     print("Using Cython")
     USE_CYTHON=True
-    
 else:
-    # if this is a package install, use the c files and build/register modules
-    ext = '.c'
-    ext2 = '.c'
-    prefix=''
-    USE_CYTHON=None    
+    # this is for pip installs... if its an realy old env use the py files
+    if sys.version_info[0]==2 and sys.version_info[1]<7:
+        no_extensions=True
+    else:
+    # if its > =2.7 compile it as an executable lib
+        # if this is a package install, use the c files and build/register modules
+        ext = '.c'
+        ext2 = '.c'
+        prefix=''
 # cython: linetrace=True
 # cython: binding=True
 # distutils: define_macros=CYTHON_TRACE_NOGIL=1
@@ -130,8 +145,9 @@ extensions = [
 ]
 
 
-extensions=[    Extension("ddb",                                [prefix+"../builds/standalone/ddb" + ext])
-]
+if no_extensions==True:
+    print("No extensions")
+    extensions=[]
 
 def available_cpu_count():
     """ Number of available virtual or physical CPUs on this system, i.e.

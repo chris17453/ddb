@@ -17,7 +17,9 @@
 # ############################################################################
         
 import sys
+import signal
 import os
+import stat
 import fileinput
 import warnings
 import datetime
@@ -27,12 +29,20 @@ import shutil
 import time
 import pprint
 import logging
+import socket
 from subprocess import Popen,PIPE
 import random
 import traceback
 import copy
 import base64
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
+
 
 sys.dont_write_bytecode = True
 
@@ -50,7 +60,7 @@ from os.path import expanduser
 # File   : ./source/ddb/version.py
 # ############################################################################
 
-__version__='1.4.254'
+__version__='1.4.255'
 
         
 # ############################################################################
@@ -2680,6 +2690,10 @@ class record(object):
 # File   : ./source/ddb/engine.py
 # ############################################################################
 
+try:
+    import cython
+except:
+    pass
 temp_dir=tempfile.gettempdir()
 class engine:
     """A serverless flat file database engine"""
@@ -2694,20 +2708,21 @@ class engine:
         traceback.print_exception(exc_type, exc_value, exc_tb)
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         pass
-    def generate_uuid(self):
-        random_string = ''
-        random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        uuid_format = [8, 4, 4, 4, 12]
-        for n in uuid_format:
-            for i in range(0,n):
-                random_string += str(random_str_seq[random.randint(0, len(random_str_seq) - 1)])
-            if n != 12:
-                random_string += '-'
-        return random_string
+    @staticmethod
+    def generate_uuid():
+        try: # TODO unix/linux specific UUID generation
+            f=open('/proc/sys/kernel/random/uuid') 
+            uuid=f.read()
+            f.close()
+            return uuid
+        except:
+            pass
+    def signal_handler(self,sig, frame):
+        print('ddb forcefully exited. Temp file cleanup needs to happen.')
+        sys.exit(0)
     def __init__(self, config_dir=None, debug=None, mode='array',output='TERM',output_style='single',readonly=None,output_file=None,field_delimiter=',',new_line='\n'):
+        signal.signal(signal.SIGINT, self.signal_handler)
         self.pid=os.getpid()
-        if debug==True:
-            lock.debug+=1
         self.debug = debug
         self.results = None
         self.mode = mode
@@ -2737,6 +2752,12 @@ class engine:
             self.system['PYTHON_MICRO']=sys.version_info[2]
             self.system['PYTHON_RELEASELEVEL']=sys.version_info[3]
             self.system['PYTHON_SERIAL']=sys.version_info[4]
+            pass
+        self.system['CYTHON_ENABLED']=False
+        try:
+            if cython.compiled:
+                self.system['CYTHON_ENABLED']=True
+        except:
             pass
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
@@ -2790,11 +2811,17 @@ class engine:
             if self.debug:
                 self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
             key=param
-            if isinstance(key,bytes):
-                key=param.decode('ascii')
+            try:
+                if isinstance(key,bytes)==True:
+                    key=param.decode('ascii')
+            except:
+                pass
             val=param_list[param]
-            if isinstance(val,bytes):
-                val=param_list[param].decode('ascii')
+            try:
+                if isinstance(val,bytes)==True:
+                    val=param_list[param].decode('ascii')
+            except:
+                pass
             sql=sql.replace(key,val)
         return sql
     def execute(self, sql_query,parameters=None):
@@ -3176,9 +3203,13 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    if str!=bytes:
-        if isinstance(line,str)==False:
+    try:
+        if isinstance(line,unicode)==True:
+            line=line.encode("ascii")
+        elif isinstance(line,str)==False:
             line=line.decode("ascii")
+    except:
+        pass
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
@@ -3406,6 +3437,34 @@ class query_results:
     def debug(self):
         print("Query Results")
         debugger(self,"Query Results")
+class file_writer:
+    def __init__(self,path,mode='w'):
+        if mode=='a':
+            file_mode='ab'
+        elif mode=='w':
+            file_mode='wb'
+        else:
+            raise Exception ("Bad file mode")
+        self.file=open(path, file_mode, buffering=0)
+    def write(self,data):
+        if isinstance(data,unicode)==True:
+            dest_data=data.encode("ascii")
+            self.file.write(dest_data)
+        elif isinstance(data,str)==True:
+            dest_data=data.decode("ascii")
+            self.file.write(dest_data)
+        else:
+            try:
+                if isinstance(data,bytes)==True:
+                    dest_data=data.decode("ascii")
+                    self.file.write(dest_data)
+                else:
+                    raise Exception("File Writer: I dont know what this is")
+            except:
+                raise Exception("File Writer: I dont know what this is")
+    def close(self):
+        if self.file:
+            self.file.close()
 
         
 # ############################################################################
@@ -3427,7 +3486,7 @@ def method_delete(context, meta):
     content_file=open(temp_data_file, 'rb', buffering=0)
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
-        temp_file=open (dst_temp_filename,"wb", buffering=0)
+        temp_file=file_writer(dst_temp_filename,'w')
         try:
             for line in content_file:
                 processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -3438,8 +3497,8 @@ def method_delete(context, meta):
                     affected_rows += 1
                     diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                     continue
-                temp_file.write(str.encode(processed_line['raw']))
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                temp_file.write(processed_line['raw'])
+                temp_file.write(meta.table.delimiters.get_new_line())
         finally:
             temp_file.close()
     finally:
@@ -3455,29 +3514,29 @@ def method_delete(context, meta):
 # ############################################################################
 
 def method_insert(context, meta):
-        meta.table=get_table(context,meta)
-        line_number = 1
-        affected_rows = 0
-        requires_new_line = False
-        column_count      = meta.table.column_count()
-        delimiter         = meta.table.delimiters.field
-        visible_whitespace= meta.table.visible.whitespace
-        visible_comments  = meta.table.visible.comments
-        visible_errors    = meta.table.visible.errors
-        temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
-        diff=[]
-        requires_new_line=False
-        content_file=open(temp_data_file, 'ab', buffering=0)
-        try:
-            results = create_single(context,meta, content_file, requires_new_line)
-            if True == results['success']:
-                diff.append(results['line'])
-                affected_rows += 1
-        finally:
-            content_file.close()
-        context.autocommit_write(meta.table,temp_data_file)
-        context.auto_commit(meta.table)
-        return query_results(success=True,affected_rows=affected_rows,diff=diff)
+    meta.table=get_table(context,meta)
+    line_number = 1
+    affected_rows = 0
+    requires_new_line = False
+    column_count      = meta.table.column_count()
+    delimiter         = meta.table.delimiters.field
+    visible_whitespace= meta.table.visible.whitespace
+    visible_comments  = meta.table.visible.comments
+    visible_errors    = meta.table.visible.errors
+    temp_data_file=context.get_data_file(meta.table,"SRC_INSERT")
+    diff=[]
+    requires_new_line=False
+    content_file=file_writer(temp_data_file,'a')
+    try:
+        results = create_single(context,meta, content_file, requires_new_line)
+        if True == results['success']:
+            diff.append(results['line'])
+            affected_rows += 1
+    finally:
+        content_file.close()
+    context.autocommit_write(meta.table,temp_data_file)
+    context.auto_commit(meta.table)
+    return query_results(success=True,affected_rows=affected_rows,diff=diff)
 def create_single(context, meta, temp_file, requires_new_line):
     err = False
     new_line = ''
@@ -3503,9 +3562,9 @@ def create_single(context, meta, temp_file, requires_new_line):
                     break
             if False == err:
                 if True == requires_new_line:
-                    temp_file.write(str.enmcode(meta.table.delimiters.get_new_line()))
-                temp_file.write(str.encode(new_line))
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                    temp_file.write(meta.table.delimiters.get_new_line())
+                temp_file.write(new_line)
+                temp_file.write(meta.table.delimiters.get_new_line())
     if False == err:
         return {'success':True,'line':new_line}
     else:
@@ -3530,7 +3589,11 @@ def method_select(context, meta, parser):
     temp_data=distinct(context,meta,temp_data)
     temp_data = limit(context, meta, temp_data)
     temp_table.results=temp_data
-    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
+    try:
+        table=meta.table
+    except:
+        table=None
+    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=table)
 def select_process_file(context,meta):
     has_columns = select_has_columns(context,meta)
     has_functions = select_has_functions(context,meta)
@@ -3831,9 +3894,9 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
             new_line += '{0}'.format(value)
     if False == err:
         if True == requires_new_line:
-            temp_file.write(str.encode( meta.table.delimiters.get_new_line()))
-        temp_file.write(str.encode( new_line) )
-        temp_file.write(str.encode( meta.table.delimiters.get_new_line()) )
+            temp_file.write(meta.table.delimiters.get_new_line())
+        temp_file.write( new_line)
+        temp_file.write( meta.table.delimiters.get_new_line())
     if False == err:
         return {'success':True,'line':new_line}
     else:
@@ -3852,7 +3915,7 @@ def method_update(context, meta):
     content_file=open(temp_data_file, 'rb', buffering=0)
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
-        temp_file=open (dst_temp_filename,"wb", buffering=0) 
+        temp_file=file_writer(dst_temp_filename,'w')
         try:
             for line in content_file:
                 processed_line = process_line3(context,meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -3867,8 +3930,8 @@ def method_update(context, meta):
                     else:
                         raise Exception("Error Updating Line")
                     continue
-                temp_file.write(str.encode(processed_line['raw']))
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()))
+                temp_file.write(processed_line['raw'])
+                temp_file.write(meta.table.delimiters.get_new_line())
         finally:
             temp_file.close()
     finally:
@@ -3915,7 +3978,7 @@ def method_upsert(context, meta,query_object,main_meta):
     content_file=open(temp_data_file, 'rb', buffering=0)
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-        temp_file=open (dst_temp_filename,"wb", buffering=0)
+        temp_file=file_writer(dst_temp_filename,'w')
         try:
             for line in content_file:
                 processed_line = process_line3(context,meta_update, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -3923,14 +3986,13 @@ def method_upsert(context, meta,query_object,main_meta):
                     context.add_error(processed_line['error'])
                 line_number += 1
                 if True == processed_line['match']:
-                    meta_class=main_meta().convert_to_class(query_object)
                     results = update_single(context,meta_update, temp_file,  False, processed_line)
                     if True == results['success']:
                         diff.append(results['line'])
                         affected_rows += 1
                     continue
-                temp_file.write(str.encode(processed_line['raw']) )
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
+                temp_file.write(processed_line['raw'])
+                temp_file.write(meta.table.delimiters.get_new_line())
             if affected_rows==0:
                 context.info("No row found in upsert, creating")
                 query_object['mode']="insert"
@@ -4226,6 +4288,7 @@ def method_system_show_output_modules(context,meta):
 # File   : ./source/ddb/file_io/locking.py
 # ############################################################################
 
+lock_sockets={}
 class lock:
     sleep_time_min=0.0001
     sleep_time_max=0.001
@@ -4282,14 +4345,12 @@ class lock:
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stdout.write(log_line+"\n")
-        pass
     @staticmethod
     def error(msg,data):
         pid=os.getpid()
         dt = datetime.datetime.now()
         log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stderr.write(log_line+"\n")
-        pass
     @staticmethod
     def normalize_path(path):
         """Update a relative or user absed path to an ABS path"""
@@ -4311,6 +4372,9 @@ class lock:
             lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
+    def file_age_in_seconds(pathname):
+        return time.time() - os.stat(pathname)[stat.ST_MTIME]            
+    @staticmethod
     def check_pid(pid):        
         """ Check For the existence of a unix pid. """
         try:
@@ -4319,98 +4383,44 @@ class lock:
             return False
         return True
     @staticmethod
-    def is_locked(path,key_uuid,lock_path=None):
-        try:
-            if None==lock_path:
-                lock_path=lock.get_lock_filename(path)
-            if os.path.exists(lock_path)==True:
-                lockfile=open(lock_path,'r',) 
-                try:
-                    try:
-                        file_data=lockfile.readline()
-                        try:
-                            owner_uuid,owner_pid,terminator=file_data.split('|')
-                        except:
-                            if lock.debug: lock.error("Lock","lockfile incomplete, likely in progress")
-                            return lock.LOCK_PARTIAL
-                        if owner_uuid==key_uuid:
-                            if lock.debug: lock.info("Lock","owned by current process: {0}".format(owner_uuid))
-                            return lock.LOCK_OWNER
-                        elif lock.check_pid(int(owner_pid))==False:
-                            if lock.debug: lock.info("Lock","invalid owner : {0}".format(owner_pid))
-                            lock.release(path)
-                            return lock.LOCK_NONE
-                        elif os.getpid()==owner_pid:
-                            if lock.debug: lock.info("Lock","owned by this process, but another instance of ddb: {0}:{1}".format(owner_uuid,key_uuid))
-                            return lock.LOCK_OTHER
-                        if lock.debug: lock.info("Lock","owned by other process: {0}:{1}".format(owner_uuid,key_uuid))
-                        return lock.LOCK_OTHER
-                    except:
-                        ex = sys.exc_info()[1]
-                        if lock.debug: lock.error("Lock","error {0}".format(ex))
-                        return lock.LOCK_OTHER
-                        pass
-                finally:
-                    lockfile.close()
-            if lock.debug: lock.info("Lock","None-Fall Through")
-            return lock.LOCK_NONE
-        except:
-            ex = sys.exc_info()[1]
-            if lock.debug: lock.error("Lock","Failed to validate file lock: {0}".format(ex))
-            return lock.LOCK_OTHER
-    @staticmethod
     def release(path):
-        lock_path=lock.get_lock_filename(path)
-        if lock.debug: lock.info ("Lock", "Releasing Lock file: {0}".format(lock_path))
-        if os.path.exists(lock_path)==False:
-            raise Exception ("Lockfile cannot be removed, it doesnt exist. {0}".format(lock_path))
-        try: 
-            os.remove(lock_path)
-            if lock.debug: lock.info('lock',"% s removed successfully" % path) 
-        except:
-            ex = sys.exc_info()[1]
-            if lock.debug: lock.error('Lock',"File path can not be removed {0}".format(ex))
-            exit(1)
-        if lock.debug: lock.info("Lock","removed")
+        global lock_sockets
+        if path in lock_sockets:
+            lock_sockets[path].close()
+            lock_sockets.pop(path)
+            if lock.debug: lock.info("lock closed")
+        else:
+            if lock.debug: lock.info("no lock to close")
     @staticmethod
     def aquire(path,key_uuid):
         try:
-            path="{0}".format(path)
-            key_uuid="{0}".format(key_uuid)
-            lock_path =lock.get_lock_filename(path)
-            pid       =os.getpid()
-            lock_contents="{0}|{1}|x".format(key_uuid,pid)
-            if lock.debug: lock.info("LOCK","{0},{1},TRYING LOCK".format(pid,datetime.datetime.now()))
-            if lock.debug: lock.info("Lock","Creating Lock for {0}".format(path))
-            error=0
+            if lock.debug: lock.info ("Aquiring Lock on {0}".format(path)) # TODO eh?
+            global lock_sockets
+            if path in lock_sockets:
+                if lock.debug: lock.info ("lock already in use locally. success") # TODO eh?
+                return
+            lock_socket = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+            lock_sockets[path]=lock_socket
             while 1:
-                lock_status=lock.is_locked(path,key_uuid,lock_path)
                 try:
-                    fd=os.open(lock_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL,int("666",base=8) )
-                    os.write(fd,str.encode(lock_contents))
-                    os.close(fd)
-                    if lock.debug: lock.info("Lock","{0},{1},GOT LOCK".format(pid,datetime.datetime.now()))
+                    lock_socket.bind('\0' + path)
+                    if lock.debug: lock.info('I got the lock')
                     break
-                except:
-                    ex = sys.exc_info()[1]
-                    error+=1
-                    if error==1:
-                        if lock.debug: lock.error("Lock","error!:{0}".format(ex))
-                    pass
-                time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
-            if lock.debug: lock.info("Lock","Aquired {0}".format(lock_path))
-            if os.path.exists(lock_path)==False:
-                if lock.debug: lock.error("Lock","Failed to create")
-                raise Exception ("Lockfile failed to create {0}".format(lock_path))
+                except socket.error:
+                    if lock.debug: lock.info('lock exists')
+                    time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
         except:
             ex = sys.exc_info()[1]
-            lock.info("Aquire Lock: {0}".format(ex))
+            if lock.debug: lock.error("Aquire Lock: {0}".format(ex))
     @staticmethod
     def get_uuid():
-        seed = random.getrandbits(32)
-        while True:
-            yield str(seed)
-            seed += 1
+        try: # TODO unix/linux specific UUID generation
+            f=open('/proc/sys/kernel/random/uuid') 
+            uuid=f.read()
+            f.close()
+            return uuid.strip("\n")
+        except:
+            pass
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
     base_dir  = os.path.dirname(norm_path)
@@ -4503,9 +4513,9 @@ class output_factory:
             res=None
         if True == query_results.success:
             if res:
-                res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+                res.append("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
-                print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+                print("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             if res:
                 res.append("Query Failed")
@@ -4570,6 +4580,23 @@ class output_factory:
 # File   : ./source/ddb/output/factory_term.py
 # ############################################################################
 
+def stringer(base,*args):
+    index=0
+    o=base
+    for arg in args:
+        term=u"{"+str(index)+"}"
+        if isinstance(arg,float)==True:
+            replacment=u"%f" % arg
+        elif isinstance(arg,int)==True:
+            replacment=u"%d" % arg
+        else:
+            try:
+                replacment=u"%s" % arg.decode("utf-8")
+            except:
+                replacment=u"%s" % arg
+        o=o.replace(term,replacment)
+        index+=1
+    return o
 class tty_code:
     class attributes:
         BOLD         ='\033[{0}m'.format(1)
@@ -4733,406 +4760,6 @@ class flextable:
                 text=self.text
             if None == text:
                 text=''
-            try:
-                if isinstance(text,bool):
-                    text=str(text)
-                if isinstance(text,int):
-                    text=str(text)
-                elif not isinstance(text,unicode):
-                    text=str(text)
-            except:
-                pass
-            if text.find('\t')>-1:
-                text=text.replace('\t','       ')
-            text=text.rstrip()
-            if length!=None:
-                length=int(length)
-                text=text[:length].ljust(length,fill_character)
-            if use_color is False or use_color is None:
-                return text
-            if None!=override:
-                return u"{0}{1}".format(override.color,text)    
-            return u"{0}{1}{2}".format(self.color,text,self.reset)
-    class modes:
-        def __init__(self):
-            self.default  =flextable.color('blue'      )
-            self.error    =flextable.color('red'        ,bold=True,default=self.default)
-            self.overflow =flextable.color('yellow'     ,default=self.default)
-            self.comment  =flextable.color('yellow'     ,default=self.default)
-            self.data     =flextable.color('light gray' ,default=self.default)
-            self.active   =flextable.color('white'      ,default=self.default)
-            self.edit     =flextable.color('cyan'       ,default=self.default)
-            self.disabled =flextable.color('dark gray'  ,default=self.default)
-    class characters:
-        class char_walls:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'│'
-                    r=u'│'
-                    t=u'─'
-                    b=u'─'
-                elif style=='double':
-                    l=u'║'
-                    r=u'║'
-                    t=u'═'
-                    b=u'═'
-                elif style=='rst':
-                    l=u'|'
-                    r=u'|'
-                    t=u'-'
-                    b=u'-'
-                self.left   =flextable.color(text=l,default=default)
-                self.right  =flextable.color(text=r,default=default)
-                self.top    =flextable.color(text=t,default=default)
-                self.bottom =flextable.color(text=b,default=default)
-        class char_center:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'├'
-                    c=u'┼'
-                    r=u'┤'
-                elif style=='double':
-                    l=u'╠'
-                    c=u'╬'
-                    r=u'╣'
-                elif style=='rst':
-                    l=u'|'
-                    c=u'|'
-                    r=u'|'
-                self.center = flextable.color(text=c,default=default)
-                self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)
-        class char_rst:
-            def __init__(self,default=None):
-                self.edge   =flextable.color(text='+',default=default)
-                self.space  =flextable.color(text=' ',default=default)
-                self.header =flextable.color(text='=',default=default)
-                self.row    =flextable.color(text='-',default=default)
-        class char_bottom:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'└'
-                    c=u'┴'
-                    r=u'┘'
-                elif style=='double':
-                    l=u'╚'
-                    c=u'╩'
-                    r=u'╝'
-                elif style=='rst':
-                    l=u'+'
-                    c=u'+'
-                    r=u'+'
-                self.left   = flextable.color(text=l,default=default)
-                self.center = flextable.color(text=c,default=default)
-                self.right  = flextable.color(text=r,default=default)
-        class char_top:
-            def __init__(self,default=None,style='rst'):
-                if style == 'single':
-                    l=u'┌'
-                    c=u'┬'
-                    r=u'┐'
-                elif style=='double':
-                    l=u'╔'
-                    c=u'╦'
-                    r=u'╗'
-                elif style=='rst':
-                    l=u'|'
-                    c=u'|'
-                    r=u'|'
-                self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)
-                self.center = flextable.color(text=c,default=default)
-        class char_header:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'┤'
-                    c=u' '
-                    r=u'├'
-                elif style=='double':
-                    l=u'╡'
-                    c=u' '
-                    r=u'╞'
-                elif style=='rst':
-                    l=u''
-                    c=u' '
-                    r=u''
-                self.left   = flextable.color(text=l,default=default,foreground='White')
-                self.right  = flextable.color(text=r,default=default,foreground='White')
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        class char_mid_header:
-            def __init__(self,default=None,style='rst'):
-                if style == 'single':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                elif style== 'double':
-                    l=u'-'
-                    r=u'-'
-                    c=u' '
-                elif style=='rst':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                self.left   = flextable.color(text=l,default=default,foreground='White')
-                self.right  = flextable.color(text=r,default=default,foreground='White')
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        class char_footer:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'['
-                    c=u' '
-                    r=u']'
-                elif style=='double':
-                    l=u'['
-                    c=u' '
-                    r=u']'
-                elif style=='rst':
-                    l=None
-                    c=u' '
-                    r=None
-                self.left   = flextable.color(text=l,default=default,foreground='White') #╡
-                self.right  = flextable.color(text=r,default=default,foreground='White') #╞
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        def __init__(self,default=None,style='rst'):
-            self.walls      =self.char_walls(default=default,style=style)
-            self.center     =self.char_center(default=default,style=style)
-            self.bottom     =self.char_bottom(default=default,style=style)
-            self.top        =self.char_top(default=default,style=style)
-            self.mid_header =self.char_mid_header(default=default,style=style)
-            self.header     =self.char_header(default=default,style=style)
-            self.footer     =self.char_footer(default=default,style=style)
-            self.rst        =self.char_rst(default=default)
-    class data_type:
-        COMMENT=1
-        ERROR=2
-        DATA=3
-        WHITESPACE=4
-    def __init__(self,      data,
-                            display_style='single',
-                            column_count=0,
-                            hide_comments=False,
-                            hide_errors=False,
-                            hide_whitespace=False,
-                            columns=None,
-                            length=None,
-                            line=0,
-                            page=0,
-                            header=True,
-                            footer=True,
-                            header_every=-1,
-                            tab_width=4,
-                            tab_stop=8,
-                            row_height=-1,
-                            column_width=-1,
-                            render_color=True,
-                            output_stream='STDIO'
-                        ):
-        self.column_count=column_count
-        self.hide_comments=hide_comments
-        self.hide_errors=hide_errors
-        self.hide_whitespace=hide_whitespace
-        self.columns=columns
-        self.length=length
-        self.line=line
-        self.page=page
-        self.header=header
-        self.footer=footer
-        self.header_every=header_every
-        self.tab_width=tab_width
-        self.tab_stop=tab_stop
-        self.row_height=row_height
-        self.column_width=column_width
-        self.render_color=render_color
-        self.is_temp_file=False
-        if display_style not in ['single','double','rst']:
-            display_style='single'    
-        self.display_style=display_style
-        if output_stream=='STDIO':
-            self.output_destination=None
-        elif output_stream=='STRING':
-            self.output_destination=[]
-        else:
-            self.output_destination=None
-        if self.column_width==-1:
-            pro=os.popen('stty -F /dev/tty size', 'r')
-            try:
-                self.row_height,self.column_width =pro.read().split()
-                pro.close()
-            except:
-                err = sys.exc_info()[1]
-                ex = err.args[0]
-                print (ex)
-                pro.close()
-                self.row_height=25
-                self.column_width=80
-                pass
-        if column_count>-1 and columns == None:
-            self.columns=[]
-            for n in range(0,self.column_count):
-                self.columns.append("column{0}".format(n+1))
-        else:
-            self.column_count=len(columns)
-        if page>-1 and length:
-            if length>0:
-                self.starts_on=page*length+1
-        if self.line>-1:
-            self.starts_on=line
-        if display_style=='rst':
-            self.footer=False
-            self.header_every=0
-        self.style=self.flextable_style(style=self.display_style)
-        self.results=[]
-        self.data=data
-        self.format()
-    def calculate_limits(self):
-        tty_min_column_width=1
-        data_column_count=len(self.columns)
-        pad=data_column_count+1
-        if data_column_count==0:
-            self.column_character_width=-1
-        else:
-            if self.column_width!=-1:
-                self.column_character_width=int((int(self.column_width)-1-pad)/data_column_count)
-                if self.column_character_width<tty_min_column_width:
-                    self.column_character_width=tty_min_column_width
-        self.total_width=self.column_character_width*data_column_count+data_column_count-1
-    def build_header(self,footer=False,mid=False):
-        if False==footer:
-            base=self.style.characters.top
-            column=self.style.characters.header
-        else:
-                base=self.style.characters.bottom
-                column=self.style.characters.footer
-        if mid==True:
-                base=self.style.characters.center
-                column=self.style.characters.mid_header
-        header=base.left.render(use_color=self.render_color)
-        column_pad=0
-        if column.left.text:
-            column_pad+=1
-        if column.right.text:
-            column_pad+=1
-        if None != self.columns:
-            index=0
-            for c in self.columns:
-                column_display=''
-                if column.left.text:
-                    column_display=column.left.render(use_color=self.render_color)
-                column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
-                if column.right.text:
-                    column_display+=column.right.render(use_color=self.render_color)
-                header+=column_display
-                if index<len(self.columns)-1:
-                    if len('{0}'.format(c))>self.column_character_width-2:
-                        header+=base.center.render(use_color=self.render_color,override=self.style.color.overflow)
-                    else:
-                        header+=base.center.render(use_color=self.render_color)
-                index+=1
-        header+=base.right.render(use_color=self.render_color)
-        if self.render_color==True:
-            header+='{0}'.format(tty_code.reset.ALL)
-        return header
-    def build_rows(self,buffer):
-        rows=[]
-        index=0
-        if True == isinstance(buffer,list):
-            for line in buffer:
-                data_len=len(line['data'])
-                columns=self.style.characters.walls.left.render(use_color=self.render_color)
-                if self.data_type.DATA == line['type']:
-                    for c in line['data']:
-                        columns+=self.style.color.data.render(c,use_color=self.render_color,length=self.column_character_width)
-                        if len('{0}'.format(c))>self.column_character_width:
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.overflow)
-                        else:
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color)
-                    if data_len < self.column_count:
-                        wall_color=tty_code.background.LIGHT_BLUE
-                        for c in range(data_len,self.column_count):
-                            columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
-                elif self.data_type.COMMENT ==  line['type'] or self.data_type.WHITESPACE==line['type']:
-                    left  =self.style.characters.walls.left.render(use_color=self.render_color)
-                    center=self.style.color.comment.render(line['raw'],use_color=self.render_color,length=self.total_width)
-                    right =self.style.characters.walls.right.render(use_color=self.render_color)
-                    columns=u"{0}{1}{2}".format( left,
-                                                center,
-                                                right)
-                elif self.data_type.ERROR ==  line['type']:
-                    left  =self.style.characters.walls.left.render(use_color=self.render_color)
-                    center=self.style.color.error.render(line['raw'],use_color=self.render_color,length=self.total_width)
-                    right =self.style.characters.walls.right.render(use_color=self.render_color)
-                    columns=u"{0}{1}{2}".format( left,
-                                                center,
-                                                right)
-                if self.render_color==True:
-                    columns+='{0}'.format(tty_code.reset.ALL)
-                rows.append(columns)
-                index+=1
-        else:
-            raise Exception ("data is invalid: -> {0}".format(buffer))
-        return rows
-    def build_row_seperator(self,header=None):
-        index=0
-        if header:
-            char=self.style.characters.rst.header.text
-        else:
-            char=self.style.characters.rst.row.text
-        row=self.style.characters.rst.edge.render()
-        for i in range(0,self.column_count):
-            row+=self.style.characters.rst.row.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
-            row+=self.style.characters.rst.edge.render()
-        if self.render_color==True:
-            row+='{0}'.format(tty_code.reset.ALL)
-        return row
-    def output(self,text,encode):
-        if isinstance(self.output_destination,list):
-            if encode:
-                self.output_destination.append(text.encode('utf-8'))
-            else:
-                self.output_destination.append(text)
-        else:
-            if encode:
-                print(text.encode('utf-8'))
-            else:
-                print (text)
-    def print_errors(self,table):
-        for e in table.errors:
-            print(e.encode('utf-8'))
-    def format(self):
-        self.calculate_limits()
-        header=self.build_header()
-        mid_header=self.build_header(mid=True)
-        footer=self.build_header(footer=True)
-        rows=self.build_rows(self.data)
-        row_seperator=self.build_row_seperator()
-        row_header_seperator=self.build_row_seperator(header=True)
-        index=1
-        try:
-            if sys.version_info.major>2:
-                encode=False
-            else:
-                encode=True
-        except:
-            encode=False
-            pass
-        self.output('',encode)
-        if self.header==True:
-            if self.display_style=='rst':
-                self.output(row_seperator,encode)
-            self.output(header,encode)
-            if self.display_style=='rst':
-                self.output(row_header_seperator,encode)
-        for row in rows:
-            self.output(row,encode)
-            if self.display_style=='rst':
-                self.output(row_seperator,encode)
-            if self.header_every>0:                
-                if index%self.header_every==0 and index>0:
-                    self.output(mid_header,encode)
-            index+=1
-        if self.footer==True:
-            self.output(footer,encode)
 
         
 # ############################################################################

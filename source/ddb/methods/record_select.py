@@ -51,8 +51,12 @@ def method_select(context, meta, parser):
 
     # assign matched and transformed data to temp table
     temp_table.results=temp_data
-
-    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=meta.table)
+    # might not have a table if its just functions
+    try:
+        table=meta.table
+    except:
+        table=None
+    return query_results(success=True,data=temp_table,total_data_length=all_records_count,table=table)
 
 
 def select_process_file(context,meta):

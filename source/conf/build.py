@@ -1,4 +1,4 @@
-
+import sys
 
 def src_build():
     source_dir='./source'
@@ -73,7 +73,9 @@ def src_build():
 # ############################################################################
         
 import sys
+import signal
 import os
+import stat
 import fileinput
 import warnings
 import datetime
@@ -83,12 +85,20 @@ import shutil
 import time
 import pprint
 import logging
+import socket
 from subprocess import Popen,PIPE
 import random
 import traceback
 import copy
 import base64
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
+
 
 sys.dont_write_bytecode = True
 
@@ -115,7 +125,9 @@ sys.dont_write_bytecode = True
 # ############################################################################
         
 import sys
+import signal
 import os
+import stat
 import fileinput
 import warnings
 import datetime
@@ -125,12 +137,20 @@ import shutil
 import time
 import pprint
 import logging
+import socket
 from subprocess import Popen,PIPE
 import random
 import traceback
 import copy
 import base64
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
+
 
 sys.dont_write_bytecode = True
 
@@ -162,7 +182,9 @@ from os.path import expanduser
 # ############################################################################
         
 import sys
+import signal
 import os
+import stat
 import fileinput
 import warnings
 import datetime
@@ -172,11 +194,18 @@ import shutil
 import time
 import pprint
 import logging
+import socket
 from subprocess import Popen,PIPE
 import random
 import traceback
 import base64
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
 
 sys.dont_write_bytecode = True
 
@@ -214,7 +243,9 @@ if __name__ == '__main__':
 # ############################################################################
         
 import sys
+import signal
 import os
+import stat
 import fileinput
 import warnings
 import datetime
@@ -224,11 +255,18 @@ import shutil
 import time
 import pprint
 import logging
+import socket
 from subprocess import Popen,PIPE
 import random
 import traceback
 import base64
-from collections import OrderedDict
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
 
 sys.dont_write_bytecode = True
 
@@ -264,8 +302,11 @@ def build_standalone(files,headers,footer,dest_file):
     
         build.append(seperator)
         try:
-            content=open(item['file'])
+            #print(sys.version_info)
+            content=open(item['file'],mode='rt') #,encoding="utf-8"
+        
             for line in content:
+                line=line
                 part=line[0:4]
                 l=line.strip()
                 if len(l) >0 and l[0]=='#':
@@ -280,12 +321,13 @@ def build_standalone(files,headers,footer,dest_file):
                     #headers.append(l)
                     continue
                 build.append(line)
-        finally:
             content.close()
-            
+        except:
+            print(sys.exc_info()[1])
+            pass
     print ("Writing: %(file)s" % {'file':dest_file} )
     try:
-        target=open(dest_file,"w")
+        target=open(dest_file,mode="wt") # ,encoding="utf-8"
         if headers:
             target.write(headers)
 
@@ -294,7 +336,8 @@ def build_standalone(files,headers,footer,dest_file):
         
         if footer:
             target.write(footer)
-    finally:
         target.close()
+    except:
+        pass
 
 src_build()

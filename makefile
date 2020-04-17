@@ -22,7 +22,7 @@ PYTHON=python
 .DEFAULT: help
 
 
-.PHONY: all test clean profile script build 24 26 27 34 36 
+.PHONY: all test clean profile script build 24 26 27 34 36 build24 build26 build27 build34 build36
 
 help:
 	@echo "[Maintenence]"
@@ -51,6 +51,14 @@ help:
 	@echo " make test                | run unit test"
 	@echo " make lock-test           | locking test"
 	@echo " make watch-lock-test     | watch the locking test"
+
+
+	@echo "[Docker]"
+	@echo " make build24               | build python distribution package"
+	@echo " make build26               | build python distribution package"
+	@echo " make build27               | build cython distribution package"
+	@echo " make build34               | build cython distribution package"
+	@echo " make build36               | build cython distribution package"
 
 
 
@@ -90,7 +98,6 @@ pipfile:
 	pipenv install ctyhon --dev
 	# for binary executable
 	pipenv install pyinstaller --dev
-	pipenv install flextable
 	
 bump:
 	@./$(conf_dir)/bump.sh
@@ -99,9 +106,19 @@ bump:
 
 
 test:
-	@cp test/data//MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
+	@echo "Resetting Database"
+	@cp test/data/MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
+	@echo "Running test"
 	@python -m test.test
+	@echo "Test done"
 
+
+test-single:
+	@echo "Resetting Database"
+	@cp test/data/MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
+	@echo "Running test"
+	@python test/test.py
+	@echo "Test done"
 
 lock-test:
 	@python -m test.test-locking
@@ -138,61 +155,113 @@ lexer:
 setup-docker:
 	docker-compose -f source/docker/docker-compose.yml build
 
-build-release:
-	docker-compose -f source/docker/docker-compose.yml up
+build:
+	@$(MAKE) -f $(THIS_FILE) build24
+	@$(MAKE) -f $(THIS_FILE) build26
+	@$(MAKE) -f $(THIS_FILE) build27
+	@$(MAKE) -f $(THIS_FILE) build34
+	@$(MAKE) -f $(THIS_FILE) build36
 
 
-release:  meta
+release:  meta script
 	@echo "This should be ran inside of a the build containers"
 	@echo "USING PYTHON " $(PYTHON)
 	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
 	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
+	@cd source; $(PYTHON) setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-python --name=$(DDB_NAME)
+	
+	# @$(MAKE) -f $(THIS_FILE) standalone
+	@$(MAKE) -f $(THIS_FILE) test
 
-	@python $(conf_dir)/build.py
+cython-release:  meta
+	@echo "This should be ran inside of a the build containers"
+	@echo "USING PYTHON BINARY: " $(PYTHON)
+	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
+	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
+
+	@$(PYTHON) $(conf_dir)/build.py
 	@cd source; $(PYTHON) setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
 	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
 
+single: export DDB_RELEASE_DIR=../builds/single
+single: script
+	@echo "START Single Buid"
+	@echo "Making Project Directory"
+	@mkdir -p  builds/single/ddb
+	@echo "Making Release Directory"
+	@mkdir -p  builds/$(RELEASE_DIR)
+	@echo "Copying files"
+	@cp source/setup-single.py builds/single/ -f
+	@cp source/README.md builds/single/ -f
+	@cp builds/standalone/ddb.py builds/single/ddb/ -f
+	@cp source/ddb/version.py builds/single/ddb/ -f
+	@touch builds/single/ddb/__init__.py
+	@echo "Running Setup"
+	@cd builds/single; $(PYTHON) setup-single.py build_ext sdist  --dist-dir ../$(RELEASE_DIR)/  --name=$(DDB_NAME)
+	@echo "Done Building"
+	@$(MAKE) -f $(THIS_FILE) test-single
 
+#build: meta bump cython-release
 
-build: meta bump release
-
-
+#internal docker build commands
 # build python 2.4 on cent 5
 24: RELEASE_DIR = release/2.4
 24: DDB_NAME = ddb24
 24: PYTHON = python
-24: release
+24: single
 
 # build python 2.6 on cent 6
 26: RELEASE_DIR = release/2.6
 26: DDB_NAME = ddb26
 26: PYTHON = python
-26: release
+26: single
 
 # build python 2.7 on cent 7
 27: RELEASE_DIR = release/2.7
 27: DDB_NAME = ddb27
 27: PYTHON = python
-27: release
+27: cython-release
 
 # build python 3.4 on cent 7
 34: RELEASE_DIR = release/3.4
 34: DDB_NAME = ddb34
 34: PYTHON = python3.4
-34: release
+34: cython-release
 
 # build python 3.6 on cent 7
 36: RELEASE_DIR = release/3.6
 36: DDB_NAME = ddb36
 36: PYTHON = python3.6
-36: release
+36: cython-release
 
 
+#Individual docker build commands ran from host
+
+build24:
+	@docker-compose -f source/docker/docker-compose.yml up ddb24
+
+build26:
+	@docker-compose -f source/docker/docker-compose.yml up ddb26
+
+build27:
+	@docker-compose -f source/docker/docker-compose.yml up ddb27
+
+build34:
+	@docker-compose -f source/docker/docker-compose.yml up ddb34
+
+build36:
+	@docker-compose -f source/docker/docker-compose.yml up ddb36
 
 script:
 	@python $(conf_dir)/build.py
+	@sed -i "s/u'\([^']*\)*'.format(/stringer(u'\1',/g" builds/standalone/ddb.py
+	@sed -i 's/u"\([^"]*\)*".format(/stringer(u"\1",/g' builds/standalone/ddb.py	
+
+	@sed -i "s/'\([^']*\)*'.format(/stringer('\1',/g" builds/standalone/ddb.py
+	@sed -i 's/"\([^"]*\)*".format(/stringer("\1",/g' builds/standalone/ddb.py	
+
 
 test-script:
 	@python builds/standalone/ddb.py

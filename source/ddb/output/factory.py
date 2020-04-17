@@ -53,9 +53,9 @@ class output_factory:
             res=None
         if True == query_results.success:
             if res:
-                res.append("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+                res.append("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
-                print("executed in {0:.6f}, {1} rows returned".format(query_results.time,query_results.data_length))
+                print("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             # may never get here...
             if res:

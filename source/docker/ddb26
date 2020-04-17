@@ -1,11 +1,18 @@
 FROM centos:6
 
+# Add the user UID:1000, GID:1000, home at /ddb
+RUN groupadd -r ddb -g 1000 && useradd -u 1000 -r -g ddb -m -d /ddb -s /sbin/nologin -c "DDB user" ddb && \
+    chmod 755 /ddb
+
+
+
 RUN yum install epel-release -y
 RUN yum -y install python-devel python-pip gcc  make git
-RUN yum -y install Cython
-RUN yum -y install python2-requests
+RUN yum -y install python-ordereddict
+RUN yum -y install python-argparse
+#RUN yum -y install python-unittest2
 
 
 
 WORKDIR /ddb/
-
+USER ddb

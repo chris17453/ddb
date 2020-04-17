@@ -1,7 +1,7 @@
 import sys
 import pprint
 import tempfile  # from table import table
-from .record_core import process_line3, query_results, get_table
+from .record_core import process_line3, query_results, get_table, file_writer
 from .record_update  import update_single
 from .record_insert  import create_single
 from ..file_io.locking import temp_path_from_file
@@ -51,7 +51,8 @@ def method_upsert(context, meta,query_object,main_meta):
     content_file=open(temp_data_file, 'rb', buffering=0)
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
-        temp_file=open (dst_temp_filename,"wb", buffering=0)
+        temp_file=file_writer(dst_temp_filename,'w')
+
         try:
             for line in content_file:
                 #print line
@@ -61,15 +62,13 @@ def method_upsert(context, meta,query_object,main_meta):
                 line_number += 1
                 # skip matches
                 if True == processed_line['match']:
-                    meta_class=main_meta().convert_to_class(query_object)
-                    
                     results = update_single(context,meta_update, temp_file,  False, processed_line)
                     if True == results['success']:
                         diff.append(results['line'])
                         affected_rows += 1
                     continue
-                temp_file.write(str.encode(processed_line['raw']) )
-                temp_file.write(str.encode(meta.table.delimiters.get_new_line()) )
+                temp_file.write(processed_line['raw'])
+                temp_file.write(meta.table.delimiters.get_new_line())
             # NO update occured.. Lets Insert...
             if affected_rows==0:
                 context.info("No row found in upsert, creating")
