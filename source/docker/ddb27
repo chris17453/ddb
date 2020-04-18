@@ -7,8 +7,8 @@ RUN groupadd -r ddb -g 1000 && useradd -u 1000 -r -g ddb -m -d /ddb -s /sbin/nol
 
 RUN yum install epel-release -y
 RUN yum -y install python2-devel python2-pip gcc  make git
-RUN yum -y install python2-ordereddict
-RUN yum -y install python2-argparse
+RUN pip install argparse
+RUN pip install ordereddict
 RUN pip install cython
 
 

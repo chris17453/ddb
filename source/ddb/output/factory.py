@@ -8,7 +8,7 @@ from .factory_xml import factory_xml
 
 class output_factory:
 
-    def __init__(self,query_results,output='term',output_style="flextable",output_file=None,output_stream='STDIO',color=True): # style single double rst
+    def __init__(self,query_results,output='term',output_style="single",output_file=None,output_stream='STDIO',color=True): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
 

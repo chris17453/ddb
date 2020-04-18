@@ -16,6 +16,7 @@ setup.py
 ./ddb/meta/meta.c
 ./ddb/methods/database_show_errors.c
 ./ddb/methods/database_use.c
+./ddb/methods/record.c
 ./ddb/methods/record_core.c
 ./ddb/methods/record_delete.c
 ./ddb/methods/record_insert.c
@@ -62,6 +63,7 @@ ddb/meta/meta.c
 ddb/methods/__init__.py
 ddb/methods/database_show_errors.c
 ddb/methods/database_use.c
+ddb/methods/record.c
 ddb/methods/record_core.c
 ddb/methods/record_delete.c
 ddb/methods/record_insert.c

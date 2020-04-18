@@ -10,7 +10,7 @@ endif
 
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
-git_username="Charles Watkins" 
+git_username="Charles Watkins" pip install build27
 git_email="chris17453@gmail.com"
 conf_dir="source/conf"
 
@@ -54,11 +54,17 @@ help:
 
 
 	@echo "[Docker]"
-	@echo " make build24               | build python distribution package"
-	@echo " make build26               | build python distribution package"
-	@echo " make build27               | build cython distribution package"
-	@echo " make build34               | build cython distribution package"
-	@echo " make build36               | build cython distribution package"
+	@echo " make build24               | build python 2.4 (cent5) distribution package"
+	@echo " make build26               | build python 2.6 (cent6) distribution package"
+	@echo " make build27               | build cython 2.7 (cent7) distribution package"
+	@echo " make build34               | build cython 3.4 (cent7) distribution package"
+	@echo " make build36               | build cython 3.6 (cent7) distribution package"
+
+	@echo " make dev24                 | run a container with the python 2.4 (cent5) build"
+	@echo " make dev26                 | run a container with the python 2.6 (cent6) build"
+	@echo " make dev27                 | run a container with the cython 2.7 (cent7) build"
+	@echo " make dev34                 | run a container with the cython 3.4 (cent7) build"
+	@echo " make dev36                 | run a container with the cython 3.6 (cent7) build"
 
 
 
@@ -108,8 +114,8 @@ bump:
 test:
 	@echo "Resetting Database"
 	@cp test/data/MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
-	@echo "Running test"
-	@python -m test.test
+	@echo "Running test with $(DDB_PYTHON)" 
+	@$(DDB_PYTHON) -m test.test
 	@echo "Test done"
 
 
@@ -176,12 +182,11 @@ release:  meta script
 cython-release:  meta
 	@echo "This should be ran inside of a the build containers"
 	@echo "USING PYTHON BINARY: " $(PYTHON)
+	@echo "Removing old release packages"
+	@find builds/$(RELEASE_DIR) -type f -name "*.tar.gz" -exec rm -f {} \;
 	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
-	@find . -type f -name "*.tar.gz" -exec rm -f {} \;
-
 	@$(PYTHON) $(conf_dir)/build.py
 	@cd source; $(PYTHON) setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
-	
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
 
@@ -198,6 +203,8 @@ single: script
 	@cp builds/standalone/ddb.py builds/single/ddb/ -f
 	@cp source/ddb/version.py builds/single/ddb/ -f
 	@touch builds/single/ddb/__init__.py
+	@echo "Removing old release packages"
+	@find builds/$(RELEASE_DIR) -type f -name "*.tar.gz" -exec rm -f {} \;
 	@echo "Running Setup"
 	@cd builds/single; $(PYTHON) setup-single.py build_ext sdist  --dist-dir ../$(RELEASE_DIR)/  --name=$(DDB_NAME)
 	@echo "Done Building"
@@ -210,30 +217,35 @@ single: script
 24: RELEASE_DIR = release/2.4
 24: DDB_NAME = ddb24
 24: PYTHON = python
+24: export DDB_PYTHON=python
 24: single
 
 # build python 2.6 on cent 6
 26: RELEASE_DIR = release/2.6
 26: DDB_NAME = ddb26
 26: PYTHON = python
+26: export DDB_PYTHON=python
 26: single
 
 # build python 2.7 on cent 7
 27: RELEASE_DIR = release/2.7
 27: DDB_NAME = ddb27
 27: PYTHON = python
+27: export DDB_PYTHON=python
 27: cython-release
 
 # build python 3.4 on cent 7
 34: RELEASE_DIR = release/3.4
 34: DDB_NAME = ddb34
 34: PYTHON = python3.4
+34: export DDB_PYTHON=python3.4
 34: cython-release
 
 # build python 3.6 on cent 7
 36: RELEASE_DIR = release/3.6
 36: DDB_NAME = ddb36
 36: PYTHON = python3.6
+36: export DDB_PYTHON=python3.6
 36: cython-release
 
 
@@ -253,6 +265,25 @@ build34:
 
 build36:
 	@docker-compose -f source/docker/docker-compose.yml up ddb36
+
+
+dev24:
+	@docker run -v $(shell pwd):/ddb -it  watkinslabs/ddb24  bash
+
+dev26:
+	@docker run -v $(shell pwd):/ddb -it  watkinslabs/ddb26  bash
+
+dev27:
+	@docker run -v $(shell pwd):/ddb -it  watkinslabs/ddb27  bash
+
+dev34:
+	@docker run -v $(shell pwd):/ddb -it  watkinslabs/ddb34  bash
+
+dev36:
+	@docker run -v $(shell pwd):/ddb -it  watkinslabs/ddb36  bash
+
+
+
 
 script:
 	@python $(conf_dir)/build.py

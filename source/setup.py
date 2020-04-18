@@ -120,6 +120,7 @@ extensions = [
     Extension("ddb.file_io.locking",                    [prefix+"./ddb/file_io/locking" + ext],                     define_macros=macro,compiler_directives=comp_directive),
     Extension("ddb.methods.database_show_errors",       [prefix+"./ddb/methods/database_show_errors" + ext],        define_macros=macro,compiler_directives=comp_directive),            
     Extension("ddb.methods.database_use",               [prefix+"./ddb/methods/database_use" + ext],                define_macros=macro,compiler_directives=comp_directive),    
+    Extension("ddb.methods.record",                     [prefix+"./ddb/methods/record" + ext2],                     define_macros=macro,compiler_directives=comp_directive),   
     Extension("ddb.methods.record_core",                [prefix+"./ddb/methods/record_core" + ext2],                define_macros=macro,compiler_directives=comp_directive),   
     Extension("ddb.methods.record_delete",              [prefix+"./ddb/methods/record_delete" + ext],               define_macros=macro,compiler_directives=comp_directive),     
     Extension("ddb.methods.record_insert",              [prefix+"./ddb/methods/record_insert" + ext],               define_macros=macro,compiler_directives=comp_directive),     

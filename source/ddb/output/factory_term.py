@@ -25,6 +25,27 @@ def stringer(base,*args):
         index+=1
     return o
 
+def mprint(text):
+    encode_target='utf-8'
+    try:   
+        #pprint.pprint(sys.version_info)
+        try:
+            major=sys.version_info.major
+        except:
+            major=sys.version_info[0]
+
+        if major==2:
+            sys.stdout.write(text.encode(encode_target))
+            sys.stdout.write("\n".encode(encode_target))
+        elif major==3:
+            # DIRECT BUFFER, std out wont let you do this
+            # the buffer takes direct byte, like writing to the screen directly
+            sys.stdout.buffer.write(text.encode(encode_target))
+            sys.stdout.buffer.write("\n".encode(encode_target))
+    except:
+        print ("mprint:  ERROR")
+        print (sys.exc_info()[1])
+
 
 class tty_code:
  
@@ -215,17 +236,19 @@ class flextable:
             #text='{0}'.format(text)
             # make sure its a string
             try:
-                if isinstance(text,bool):
+                if isinstance(text,bool)==True:
                     text=str(text)
-                if isinstance(text,int):
+                elif isinstance(text,int)==True:
                     text=str(text)
-                elif not isinstance(text,unicode):
+                elif isinstance(text,float)==True:
+                    text=str(text)
+                elif isinstance(text,str)==False:
                     text=str(text)
             except:
                 pass
             
             if text.find('\t')>-1:
-                text=text.replace('\t','       ')
+                text=text.replace('\t','    ')
             
             text=text.rstrip()
             if length!=None:
@@ -268,6 +291,11 @@ class flextable:
                     r=u'|'
                     t=u'-'
                     b=u'-'
+                elif style=='ascii':
+                    l=u'|'
+                    r=u'|'
+                    t=u'-'
+                    b=u'-'
 
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
@@ -284,6 +312,10 @@ class flextable:
                     c=u'╬'
                     r=u'╣'
                 elif style=='rst':
+                    l=u'|'
+                    c=u'|'
+                    r=u'|'
+                elif style=='ascii':
                     l=u'|'
                     c=u'|'
                     r=u'|'
@@ -313,6 +345,10 @@ class flextable:
                     l=u'+'
                     c=u'+'
                     r=u'+'
+                elif style=='ascii':
+                    l=u'-'
+                    c=u'-'
+                    r=u'-'
 
                 self.left   = flextable.color(text=l,default=default)
                 self.center = flextable.color(text=c,default=default)
@@ -331,6 +367,10 @@ class flextable:
                     l=u'|'
                     c=u'|'
                     r=u'|'
+                elif style=='ascii':
+                    l=u'-'
+                    c=u'-'
+                    r=u'-'
 
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=r,default=default)
@@ -349,6 +389,10 @@ class flextable:
                     l=u''
                     c=u' '
                     r=u''
+                elif style=='ascii':
+                    l=u''
+                    c=u' '
+                    r=u''
                        
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
@@ -361,9 +405,13 @@ class flextable:
                     r=u'-'
                 elif style== 'double':
                     l=u'-'
-                    r=u'-'
                     c=u' '
+                    r=u'-'
                 elif style=='rst':
+                    l=u'-'
+                    c=u' '
+                    r=u'-'
+                elif style=='ascii':
                     l=u'-'
                     c=u' '
                     r=u'-'
@@ -383,6 +431,10 @@ class flextable:
                     c=u' '
                     r=u']'
                 elif style=='rst':
+                    l=None
+                    c=u' '
+                    r=None
+                elif style=='ascii':
                     l=None
                     c=u' '
                     r=None
@@ -446,7 +498,7 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
-        if display_style not in ['single','double','rst']:
+        if display_style not in ['single','double','rst','ascii']:
             display_style='single'    
         self.display_style=display_style
         if output_stream=='STDIO':
@@ -457,18 +509,16 @@ class flextable:
             self.output_destination=None
 
         if self.column_width==-1:
-            #try:
-            #    pro=os.popen('stty -F /dev/tty size', 'r')
-            #    self.row_height,self.column_width =pro.read().split()
-            #    pro.close()
-            #    
-            #except:
-            #    ex = sys.exc_info()[1]
-            #    print (ex)
-            #    #pro.close()
-
             self.row_height=25
             self.column_width=80
+            try:
+                pro=os.popen('stty -F /dev/tty size', 'r')
+                self.row_height,self.column_width =pro.read().split()
+                pro.close()
+                
+            except:
+                pass
+
             #pass
         #auto name columns
         if column_count>-1 and columns == None:
@@ -647,68 +697,51 @@ class flextable:
 
         return row
      
-    def output(self,text,encode):
-        try:
-            if isinstance(text,str):
-                text=text.encode("utf-8")
-            if isinstance(text,unicode):
-                text=text.encode("utf-8")
                 
-            if isinstance(self.output_destination,list):
-                self.output_destination.append(text)
-            else:
-                print (text)
-        except:
-            print ("YOOOO")
-
     def print_errors(self,table):
         for e in table.errors:
             print(e.encode('utf-8'))
                         
     # with no columns, everything will be run on, not well formated
     def format(self):
+        # now we have a file, from stdin or a file on the system that we can access    
+        # print buffer
+        self.calculate_limits()
+        header=self.build_header()
+        mid_header=self.build_header(mid=True)
+        footer=self.build_header(footer=True)
+        rows=self.build_rows(self.data)
+        row_seperator=self.build_row_seperator()
+        row_header_seperator=self.build_row_seperator(header=True)
+        index=1
+
         try:
-            # now we have a file, from stdin or a file on the system that we can access    
-            # print buffer
-            self.calculate_limits()
-            header=self.build_header()
-            mid_header=self.build_header(mid=True)
-            footer=self.build_header(footer=True)
-            rows=self.build_rows(self.data)
-            row_seperator=self.build_row_seperator()
-            row_header_seperator=self.build_row_seperator(header=True)
-            index=1
-
-            try:
-                if sys.version_info.major>2:
-                    encode=False
-                else:
-                    encode=True
-            except:
+            if sys.version_info.major>2:
                 encode=False
-                pass
-
-            self.output('',encode)
-
-            if self.header==True:
-                if self.display_style=='rst':
-                    self.output(row_seperator,encode)
-                self.output(header,encode)
-                if self.display_style=='rst':
-                    self.output(row_header_seperator,encode)
-
-            
-            for row in rows:
-                self.output(row,encode)
-                if self.display_style=='rst':
-                    self.output(row_seperator,encode)
-                if self.header_every>0:                
-                    # we want it every N, but not if it bunches up on the footer
-                    if index%self.header_every==0 and index>0:
-                        self.output(mid_header,encode)
-                index+=1
-            if self.footer==True:
-                self.output(footer,encode)
+            else:
+                encode=True
         except:
-            ex = sys.exc_info()[1]
-            raise Exception ("WHAT! {0}".format(ex))
+            encode=False
+            pass
+
+        mprint('')
+
+        if self.header==True:
+            if self.display_style=='rst':
+                mprint(row_seperator)
+            mprint(header)
+            if self.display_style=='rst':
+                mprint(row_header_seperator)
+
+        
+        for row in rows:
+            mprint(row)
+            if self.display_style=='rst':
+                mprint(row_seperator)
+            if self.header_every>0:                
+                # we want it every N, but not if it bunches up on the footer
+                if index%self.header_every==0 and index>0:
+                    mprint(mid_header)
+            index+=1
+        if self.footer==True:
+            mprint(footer)

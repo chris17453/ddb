@@ -67,18 +67,18 @@ def update_stats(test,status):
     data, err = p.communicate(None)
     rc = p.returncode
     #print(data)
-    data=data.split("\n")
+    data=data.split("\n".encode("ascii"))
 
 
     engine=ddb.engine()
-    version=engine.system['VERSION']
-    date=time.strftime('%Y-%m-%d %H:%M:%S')
-    commit=data[0]
-    log=data[4].strip()
+    version =str(engine.system['VERSION'])
+    date    =str(time.strftime('%Y-%m-%d %H:%M:%S'))
+    commit  =str(data[0])
+    log     =str(data[4].strip())
     py_major=str(engine.system['PYTHON_MAJOR'])
     py_minor=str(engine.system['PYTHON_MINOR'])
     py_micro=str(engine.system['PYTHON_MICRO'])
-    cython=str(engine.system['CYTHON_ENABLED'])
+    cython  =str(engine.system['CYTHON_ENABLED'])
     row=[test,version,commit,log,status,date,py_major,py_minor,py_micro,cython]
     csv_row=",".join(row)
     
@@ -106,7 +106,6 @@ class test_engine(unittest.TestCase):
             if file.endswith(".table.sql"):
                 table_path=os.path.join(self.config_dir, file)
                 os.remove(table_path)
-
     def create_table(self,engine,mode):
         print ("Create table")
         if mode=='SVN':
@@ -125,7 +124,7 @@ class test_engine(unittest.TestCase):
         query=stringer("create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2",self.table_name, file_name,repo)
         #print query
         results = engine.query(query)
-        results.debug()
+        #results.debug()
         print ("QUERY ->")
         print (query)
         print ("---")
@@ -135,8 +134,6 @@ class test_engine(unittest.TestCase):
         query=stringer("create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2",self.table_name2, file_name,repo)
         results = engine.query(query)
         self.assertEqual(True, results.success)
-
-
     def test_set(self):
         """Set a database variable """
         print ("SET")
@@ -171,7 +168,6 @@ class test_engine(unittest.TestCase):
             ddb.output_factory(query_results=results,output='TERM')
 
         self.assertEqual(True, results.success)
-        
     def test_use(self,mode=None):
         """Test changing database context"""
         print("USE")
@@ -185,7 +181,6 @@ class test_engine(unittest.TestCase):
         self.assertEqual(True, results.success)
         results = engine.query("select database()")
         self.assertEqual(True, results.success)
-    
     def test_show_output_modules(self):
         """Test showint output modules and styles"""
         # single db change from default
@@ -197,7 +192,6 @@ class test_engine(unittest.TestCase):
         except:
             ddb.output_factory(query_results=results,output='TERM')
         self.assertEqual(True, results.success)
-
     def test_show_tables(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
@@ -211,7 +205,6 @@ class test_engine(unittest.TestCase):
             ddb.output.factory.output_factory(query_results=results,output='term')
         except:
             ddb.output_factory(query_results=results,output='term')
-
     def test_describe_table(self,mode=None):
         """Show table configuration"""
         print ("DESCRIBE TABLE")
@@ -226,8 +219,6 @@ class test_engine(unittest.TestCase):
         except:
             ddb.output_factory(query_results=results,output='TERM')
         self.assertEqual(True, results.success)
-
-
     def test_create_table(self,mode=None):
         """Test creating a table"""
         try:
@@ -242,8 +233,6 @@ class test_engine(unittest.TestCase):
         # fail on existing table
         results=engine.query(stringer("create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' data_starts_on=2",self.table_name, os.path.join(self.basedir, self.temp_data)))
         self.assertEqual(False, results.success)
-
-
     def test_drop_table(self,mode=None):
         """Test dropping a table"""
         self.cleanup()
@@ -258,7 +247,6 @@ class test_engine(unittest.TestCase):
             # fail on dropping non existant table
            # results=engine.query('drop table {0}'stringer(self.table_name))
            # self.assertEqual(False, results.success)
-
     def test_params(self,mode=None):
         """Test parameterizing a query"""
         print("PARAMS")
@@ -279,8 +267,6 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer('select * from {0} LIMIT @limit',self.table_name))
         self.assertEqual(True, results.success)
         self.assertEqual(8, results.data_length)
-
-
     def test_select(self,mode=None):
         """Test selecting results using various clauses a table"""
         print("SELECT")
@@ -306,6 +292,7 @@ class test_engine(unittest.TestCase):
         
         # WHERE/LIMIT
         results = engine.query(stringer('select * from {0} where id="1" order by id LIMIT 100;',self.table_name))
+        results.debug()
         self.assertEqual(True, results.success)
         self.assertEqual(1, results.data_length)
         
@@ -318,7 +305,6 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer('select * from {0} where id="1" and id not "2" or id="3" order by id LIMIT 100;',self.table_name))
         self.assertEqual(True, results.success)
         self.assertEqual(2, results.data_length)
-
     def test_update(self,mode=None):
         """Update a row in the test file"""
         self.cleanup()
@@ -338,7 +324,6 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("delete from {0} where id='1002'",self.table_name))
         print("UPDATE 3")
         self.assertEqual(True, results.success)
-
     def test_insert(self,mode=None):
         """Insert a row in the test file"""
         self.cleanup()
@@ -355,7 +340,6 @@ class test_engine(unittest.TestCase):
         # Delete
         results = engine.query(stringer("delete from {0} where id='1001'",self.table_name))
         self.assertEqual(True, results.success)
-
     def test_delete(self,mode=None):
         """Delete a test row in the test file"""
         self.cleanup()
@@ -373,7 +357,6 @@ class test_engine(unittest.TestCase):
         # delete non existing
         results = engine.query(stringer("delete from {0} where email like 'bop@%'",self.table_name))
         self.assertEqual(True, results.success)
-
     def test_upsert(self,mode=None):
         """Show all tables in the database"""
         self.cleanup()
@@ -400,7 +383,6 @@ class test_engine(unittest.TestCase):
             ddb.output.factory.output_factory(query_results=results,output='term')
         except:
             ddb.output_factory(query_results=results,output='TERM')
-
     def test_rollback(self,mode=None):
         """Rollback db changes"""
         self.cleanup()
@@ -412,6 +394,13 @@ class test_engine(unittest.TestCase):
         print ("Begin")
         results = engine.query("begin")
         self.assertEqual(True, results.success)
+
+        # get the length of all rows
+        print ("Select")
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
+        self.assertEqual(True, results.success)
+        target_length=results.data_length
+
         # update
         print ("Insert")
         results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name))
@@ -423,7 +412,7 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
         
         self.assertEqual(True, results.success)
-        self.assertEqual(1002, results.data_length)
+        self.assertEqual(target_length+2, results.data_length)
         #results.debug()
 
         print ("rollback")
@@ -433,8 +422,7 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
         #results.debug()
         self.assertEqual(True, results.success)
-        self.assertEqual(1000, results.data_length)
-
+        self.assertEqual(target_length, results.data_length)
     def test_commit(self,mode=None):
         """Rollback db changes"""
         self.cleanup()
@@ -446,11 +434,19 @@ class test_engine(unittest.TestCase):
         print ("PRE BEGIN")
         results = engine.query("begin")
         self.assertEqual(True, results.success)
+
         
+
         print ("PRE DELETE")
         # clean any inserts
         results = engine.query(stringer("delete from {0} WHERE email='bop@bob.com'",self.table_name))
         self.assertEqual(True, results.success)
+
+        print ("Get length")
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        target_length=results.data_length
 
         print ("PRE INSERT")
         # update
@@ -462,7 +458,7 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
         #results.debug()
         self.assertEqual(True, results.success)
-        self.assertEqual(1001, results.data_length)
+        self.assertEqual(target_length+1, results.data_length)
         #results.debug()
 
         print ("PRE COMMIT")
@@ -474,7 +470,7 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
         #results.debug()
         self.assertEqual(True, results.success)
-        self.assertEqual(1001, results.data_length)
+        self.assertEqual(target_length+1, results.data_length)
         
         print ("PRE DELETE")
         results = engine.query(stringer("delete from {0} where id='1001'",self.table_name))
@@ -568,7 +564,7 @@ class test_engine(unittest.TestCase):
 #   print ex
 
 def get_name(data):
-    tokens=str(x).split(" ")
+    tokens=str(data).split(" ")
     return tokens[0][5:]
 if __name__ == '__main__':
     print("Testing")
@@ -588,8 +584,10 @@ if __name__ == '__main__':
     #print(results.errors)
     #print(results.failures)
     test_results={}
+    #print (results.failures)
     for err in results.failures:
         test=get_name(err[0])
+        print(test)
         test_results[test]='Failed'
     for err in results.errors:
         test=get_name(err[0])
@@ -601,6 +599,7 @@ if __name__ == '__main__':
 
     # this appends a results row to a csv per test
     for test in test_results:
+        print(" %s - %s "%(test,test_results[test]))
         update_stats(test,test_results[test])
 
     

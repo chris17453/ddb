@@ -164,6 +164,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
+        self.system['OUTPUT_CODE']='UTF-8'
         self.system['DATA_DIRECTORY']=config_dir
         self.system['VERSION']=__version__
         
@@ -192,7 +193,7 @@ class engine:
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
             {'name':'bash','styles':[]},
-            {'name':'term','styles':['single','double','rst','time']},
+            {'name':'term','styles':['ascii','single','double','rst','time']},
             {'name':'raw' ,'styles':[]},
             {'name':'yaml','styles':[]},
             {'name':'json','styles':[]},

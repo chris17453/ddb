@@ -1,4 +1,12 @@
 
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
+
 
 class record_configuration:
     

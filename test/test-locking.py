@@ -2,11 +2,44 @@ import unittest
 import os
 import sys
 import datetime
-from .context import  ddb
 from pprint import pprint
 import cProfile 
 import pstats
 import time
+
+
+standalone_script=None
+
+pprint(os.environ,indent=4)
+print ("TESTING")
+if 'DDB_RELEASE_DIR' in os.environ:
+    print ("Found test dir")
+    standalone_script=os.environ['DDB_RELEASE_DIR']
+
+
+if standalone_script!=None:
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),standalone_script)))
+
+    try:
+        from ddb import ddb
+    except:
+        print ("DDB STANDALONE FAILED")
+        ex=sys.exc_info()[1]
+        print (ex)
+        sys.exit(1)
+    print ("DDB STANDALONE")
+else:
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+    try:
+        from source import ddb
+    except:
+        print ("DDB CYTHON FAILED")
+        ex=sys.exc_info()[1]
+        print (ex)
+        sys.exit(1)
+    print ("DDB CYTHON")
+
 
 class test_engine:
     temp_config = 'temp_config.yaml'
@@ -55,16 +88,28 @@ class test_engine:
             repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
 
-        query="create temporary table {0}.{1} ('id','pid','value','timestamp') file='{2}' {3} data_starts_on=1".format(self.database_name,self.table_name, file_name,repo)
+        
+        if repo=="":
+            query="create table @db.@table (`id`,`pid`,`value`,`timestamp`) file='@path' data_starts_on=1"
+        else:
+            query="create table @db.@table (`id`,`pid`,`value`,`timestamp`) file='/ddb/bb' @repo data_starts_on=1"
+        params={'@db':self.database_name,
+                '@table':self.table_name, 
+                '@path':file_name,
+                '@repo':repo}
         #print query
-        results = engine.query(query)
+        print(engine.prepare_sql(query,params))
+        results = engine.query(query,params)
+        
+        results.debug()
         #self.assertEqual(True, results.success)
 
     def test_threads(self,mode=None):
         """Test inserting values in a table with locking"""
         #try:
         process_count=90
-        print("Locking: {0}".format(os.getpid()))
+        pid=os.getpid()
+        print("Locking: %d"% pid)
         # fail on existing table
         self.cleanup()
         self.init(mode)
@@ -91,26 +136,28 @@ class test_engine:
             for i in range(0,100):
                 timestamp=datetime.datetime.now()
 
-                query="INSERT INTO {0}.{1} (`id`,`pid`,`value`,`timestamp`) values ('{2}','{3}','{4}','{5}')".format(
-                        self.database_name,
-                        self.table_name,
-                        i,
-                        pid,
-                        value,
-                        timestamp
-                        )
-                results = engine.query(query)
+                query="INSERT INTO @db.@table (`id`,`pid`,`value`,`timestamp`) values ('@id','@pid','@value','@timestamp')"
+                params={
+                        '@db'       :self.database_name,
+                        '@table'    :self.table_name,
+                        '@id'       :i,
+                        '@pid'      :pid,
+                        '@value'    :value,
+                        '@timestamp':timestamp
+                        }
+                        
+                results = engine.query(query,params)
                 #self.assertEqual(True, results.success)
 
             curent_time=time.time()
             ellapsed_time=curent_time-start_time
-            print ("Ellapsed: {0},{1}".format(ellapsed_time,i))
-        except Exception as ex:
+            print ("Ellapsed: %d ,%d" % (ellapsed_time,i))
+        except:
+            ex=sys.exc_info()[1]
             print (ex)
 
 
 if __name__ == '__main__':
-    #unittest.main()
     e=test_engine()
     e.test_threads()
     #cProfile.run('test_engine().lock()', 'restats')

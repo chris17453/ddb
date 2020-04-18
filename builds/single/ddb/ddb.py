@@ -2505,6 +2505,13 @@ def f_cat(context,arg1,arg2):
 # File   : ./source/ddb/methods/record.py
 # ############################################################################
 
+try:
+    from collections import OrderedDict
+except:
+    try:
+        from ordereddict import OrderedDict
+    except:
+        pass
 class record_configuration:
     columns               = None
     column_count          = 0
@@ -2738,6 +2745,7 @@ class engine:
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
+        self.system['OUTPUT_CODE']='UTF-8'
         self.system['DATA_DIRECTORY']=config_dir
         self.system['VERSION']=__version__
         try:
@@ -2762,7 +2770,7 @@ class engine:
         self.system['OUTPUT_STYLE']=output_style
         self.internal['OUTPUT_MODULES']=[
             {'name':'bash','styles':[]},
-            {'name':'term','styles':['single','double','rst','time']},
+            {'name':'term','styles':['ascii','single','double','rst','time']},
             {'name':'raw' ,'styles':[]},
             {'name':'yaml','styles':[]},
             {'name':'json','styles':[]},
@@ -3082,7 +3090,7 @@ class engine:
 
 class debugger:
     def __init__(self,obj,name,depth=0):
-        pad=''
+        pad=' '
         for i in range(0,depth):
             pad+=' '
         if depth==0:
@@ -3119,74 +3127,6 @@ class debugger:
             print (stringer("{1}Empty Vars: {0}",",".join(empty),pad))
         if var_count==0:
             print(stringer("{2}{0} {1}","No attributes"+':',"",pad))
-def process_line(context, query_object, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    err = None
-    table=query_object['table']
-    line_cleaned = line.rstrip()
-    line_data = None
-    match_results=False
-    if table.data.starts_on_line > line_number:
-        line_type = context.data_type.COMMENT
-        line_data = line
-        try_match=False
-    else:
-        line_type = context.data_type.DATA
-        try_match=True
-    if try_match:
-        if not line_cleaned:
-            if True == visible_whitespace:
-                line_data = ['']
-            line_type = context.data_type.WHITESPACE
-        else:
-            if line_cleaned[0] in table.delimiters.comment:
-                if True == visible_comments:
-                    line_data = [line_cleaned]
-                line_type = context.data_type.COMMENT
-            else:
-                line_data = line_cleaned.split(table.delimiters.field,column_count)
-                cur_column_len = len(line_data)
-                if table.data.strict_columns==True:
-                    if  cur_column_len != column_count:
-                        if cur_column_len > column_count:
-                            err = stringer("Table {2}: Line #{0}, {1} extra Column(s)",line_number, cur_column_len -column_count, table.data.name)
-                        else:
-                            err = stringer("Table {2}: Line #{0}, missing {1} Column(s)",line_number, column_count - cur_column_len, table.data.name)
-                        line_type = context.data_type.ERROR
-                        if True == visible_errors:
-                            line_data = line_cleaned
-                        else:
-                            line_data = None
-                        line_type = context.data_type.ERROR
-                else:
-                    if  cur_column_len != column_count:
-                        i=cur_column_len
-                        while i<column_count:
-                            line_data+=['']
-                            i+=1
-                if None != table.delimiters.block_quote:
-                    line_data_cleaned = []
-                    for d in line_data:
-                        line_data_cleaned+=d[1:-1]
-                    line_data = line_data_cleaned
-        if 'where' not in query_object['meta']:
-            match_results = True
-        else:
-            if line_type == context.data_type.DATA:
-                match_results = context.match.evaluate_match(context,query_object, line_data)
-            else:
-                match_results = False
-        if visible_whitespace is False and line_type==context.data_type.WHITESPACE:
-            match_results=False
-        elif visible_comments is False and line_type==context.data_type.COMMENT:
-            match_results=False
-        elif visible_errors is False and line_type==context.data_type.ERROR:
-            match_results=False
-    return {'data': line_data, 
-            'type': line_type, 
-            'raw': line_cleaned, 
-            'line_number': line_number, 
-            'match': match_results, 
-            'error': err}
 def get_table(context,meta):
     if meta.source:
         if meta.source.database:
@@ -3203,13 +3143,6 @@ def get_table(context,meta):
         return table
     return None
 def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=',',visible_whitespace=None,visible_comments=None, visible_errors=None):
-    try:
-        if isinstance(line,unicode)==True:
-            line=line.encode("ascii")
-        elif isinstance(line,str)==False:
-            line=line.decode("ascii")
-    except:
-        pass
     err = None
     table=meta.table
     line_cleaned = line.rstrip()
@@ -3233,7 +3166,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(table.delimiters.field,column_count)
+                line_data = line_cleaned.split(table.delimiters.field.encode("ascii"),column_count)
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
@@ -3297,16 +3230,16 @@ class match2:
                 compare1_is_column = True
             elif column.data.name == test.e2:
                 index = table.ordinals[column.data.name]
-                compare2 = row[index]  # table.get_data_from_column(column,row)
+                compare2 = row[index] # table.get_data_from_column(column,row)
                 compare2_is_column = True
             if None != compare1 and None != compare2:
                 break
         if not compare1_is_column and not compare2_is_column:
             raise Exception(stringer("expression invalid {0}",test))
         if None == compare1:
-            compare1 = test.e1
+            compare1 = test.e1.encode('ascii')
         if None == compare2:
-            compare2 = test.e2
+            compare2 = test.e2.encode('ascii')
         if comparitor == '=' or comparitor == 'is':
             if compare1 == compare2:
                 return True
@@ -3447,19 +3380,20 @@ class file_writer:
             raise Exception ("Bad file mode")
         self.file=open(path, file_mode, buffering=0)
     def write(self,data):
-        if isinstance(data,unicode)==True:
+        try:
+            if isinstance(data,unicode)==True:
+                dest_data=data.encode("ascii")
+                self.file.write(dest_data)
+                return
+        except:
+            pass
+        if  isinstance(data,str)==True:
             dest_data=data.encode("ascii")
             self.file.write(dest_data)
-        elif isinstance(data,str)==True:
-            dest_data=data.decode("ascii")
-            self.file.write(dest_data)
+            return
         else:
             try:
-                if isinstance(data,bytes)==True:
-                    dest_data=data.decode("ascii")
-                    self.file.write(dest_data)
-                else:
-                    raise Exception("File Writer: I dont know what this is")
+                self.file.write(data)
             except:
                 raise Exception("File Writer: I dont know what this is")
     def close(self):
@@ -4477,7 +4411,7 @@ def normalize_path(path):
 # ############################################################################
 
 class output_factory:
-    def __init__(self,query_results,output='term',output_style="flextable",output_file=None,output_stream='STDIO',color=True): # style single double rst
+    def __init__(self,query_results,output='term',output_style="single",output_file=None,output_stream='STDIO',color=True): # style single double rst
             """display results in different formats
             if output_file==None then everything is directed to stdio
             output=(bash|term|yaml|json|xml)
@@ -4597,6 +4531,22 @@ def stringer(base,*args):
         o=o.replace(term,replacment)
         index+=1
     return o
+def mprint(text):
+    encode_target='utf-8'
+    try:   
+        try:
+            major=sys.version_info.major
+        except:
+            major=sys.version_info[0]
+        if major==2:
+            sys.stdout.write(text.encode(encode_target))
+            sys.stdout.write("\n".encode(encode_target))
+        elif major==3:
+            sys.stdout.buffer.write(text.encode(encode_target))
+            sys.stdout.buffer.write("\n".encode(encode_target))
+    except:
+        print ("mprint:  ERROR")
+        print (sys.exc_info()[1])
 class tty_code:
     class attributes:
         BOLD         =stringer('\033[{0}m',1)
@@ -4761,16 +4711,18 @@ class flextable:
             if None == text:
                 text=''
             try:
-                if isinstance(text,bool):
+                if isinstance(text,bool)==True:
                     text=str(text)
-                if isinstance(text,int):
+                elif isinstance(text,int)==True:
                     text=str(text)
-                elif not isinstance(text,unicode):
+                elif isinstance(text,float)==True:
+                    text=str(text)
+                elif isinstance(text,str)==False:
                     text=str(text)
             except:
                 pass
             if text.find('\t')>-1:
-                text=text.replace('\t','       ')
+                text=text.replace('\t','    ')
             text=text.rstrip()
             if length!=None:
                 length=int(length)
@@ -4808,6 +4760,11 @@ class flextable:
                     r=u'|'
                     t=u'-'
                     b=u'-'
+                elif style=='ascii':
+                    l=u'|'
+                    r=u'|'
+                    t=u'-'
+                    b=u'-'
                 self.left   =flextable.color(text=l,default=default)
                 self.right  =flextable.color(text=r,default=default)
                 self.top    =flextable.color(text=t,default=default)
@@ -4823,6 +4780,10 @@ class flextable:
                     c=u'╬'
                     r=u'╣'
                 elif style=='rst':
+                    l=u'|'
+                    c=u'|'
+                    r=u'|'
+                elif style=='ascii':
                     l=u'|'
                     c=u'|'
                     r=u'|'
@@ -4849,6 +4810,10 @@ class flextable:
                     l=u'+'
                     c=u'+'
                     r=u'+'
+                elif style=='ascii':
+                    l=u'-'
+                    c=u'-'
+                    r=u'-'
                 self.left   = flextable.color(text=l,default=default)
                 self.center = flextable.color(text=c,default=default)
                 self.right  = flextable.color(text=r,default=default)
@@ -4866,6 +4831,10 @@ class flextable:
                     l=u'|'
                     c=u'|'
                     r=u'|'
+                elif style=='ascii':
+                    l=u'-'
+                    c=u'-'
+                    r=u'-'
                 self.left   = flextable.color(text=l,default=default)
                 self.right  = flextable.color(text=r,default=default)
                 self.center = flextable.color(text=c,default=default)
@@ -4883,6 +4852,10 @@ class flextable:
                     l=u''
                     c=u' '
                     r=u''
+                elif style=='ascii':
+                    l=u''
+                    c=u' '
+                    r=u''
                 self.left   = flextable.color(text=l,default=default,foreground='White')
                 self.right  = flextable.color(text=r,default=default,foreground='White')
                 self.center = flextable.color(text=c,default=default,foreground='green')
@@ -4894,9 +4867,13 @@ class flextable:
                     r=u'-'
                 elif style== 'double':
                     l=u'-'
-                    r=u'-'
                     c=u' '
+                    r=u'-'
                 elif style=='rst':
+                    l=u'-'
+                    c=u' '
+                    r=u'-'
+                elif style=='ascii':
                     l=u'-'
                     c=u' '
                     r=u'-'
@@ -4914,6 +4891,10 @@ class flextable:
                     c=u' '
                     r=u']'
                 elif style=='rst':
+                    l=None
+                    c=u' '
+                    r=None
+                elif style=='ascii':
                     l=None
                     c=u' '
                     r=None
@@ -4971,7 +4952,7 @@ class flextable:
         self.column_width=column_width
         self.render_color=render_color
         self.is_temp_file=False
-        if display_style not in ['single','double','rst']:
+        if display_style not in ['single','double','rst','ascii']:
             display_style='single'    
         self.display_style=display_style
         if output_stream=='STDIO':
@@ -4983,6 +4964,12 @@ class flextable:
         if self.column_width==-1:
             self.row_height=25
             self.column_width=80
+            try:
+                pro=os.popen('stty -F /dev/tty size', 'r')
+                self.row_height,self.column_width =pro.read().split()
+                pro.close()
+            except:
+                pass
         if column_count>-1 and columns == None:
             self.columns=[]
             for n in range(0,self.column_count):
@@ -5102,59 +5089,43 @@ class flextable:
         if self.render_color==True:
             row+=stringer('{0}',tty_code.reset.ALL)
         return row
-    def output(self,text,encode):
-        try:
-            if isinstance(text,str):
-                text=text.encode("utf-8")
-            if isinstance(text,unicode):
-                text=text.encode("utf-8")
-            if isinstance(self.output_destination,list):
-                self.output_destination.append(text)
-            else:
-                print (text)
-        except:
-            print ("YOOOO")
     def print_errors(self,table):
         for e in table.errors:
             print(e.encode('utf-8'))
     def format(self):
+        self.calculate_limits()
+        header=self.build_header()
+        mid_header=self.build_header(mid=True)
+        footer=self.build_header(footer=True)
+        rows=self.build_rows(self.data)
+        row_seperator=self.build_row_seperator()
+        row_header_seperator=self.build_row_seperator(header=True)
+        index=1
         try:
-            self.calculate_limits()
-            header=self.build_header()
-            mid_header=self.build_header(mid=True)
-            footer=self.build_header(footer=True)
-            rows=self.build_rows(self.data)
-            row_seperator=self.build_row_seperator()
-            row_header_seperator=self.build_row_seperator(header=True)
-            index=1
-            try:
-                if sys.version_info.major>2:
-                    encode=False
-                else:
-                    encode=True
-            except:
+            if sys.version_info.major>2:
                 encode=False
-                pass
-            self.output('',encode)
-            if self.header==True:
-                if self.display_style=='rst':
-                    self.output(row_seperator,encode)
-                self.output(header,encode)
-                if self.display_style=='rst':
-                    self.output(row_header_seperator,encode)
-            for row in rows:
-                self.output(row,encode)
-                if self.display_style=='rst':
-                    self.output(row_seperator,encode)
-                if self.header_every>0:                
-                    if index%self.header_every==0 and index>0:
-                        self.output(mid_header,encode)
-                index+=1
-            if self.footer==True:
-                self.output(footer,encode)
+            else:
+                encode=True
         except:
-            ex = sys.exc_info()[1]
-            raise Exception (stringer("WHAT! {0}",ex))
+            encode=False
+            pass
+        mprint('')
+        if self.header==True:
+            if self.display_style=='rst':
+                mprint(row_seperator)
+            mprint(header)
+            if self.display_style=='rst':
+                mprint(row_header_seperator)
+        for row in rows:
+            mprint(row)
+            if self.display_style=='rst':
+                mprint(row_seperator)
+            if self.header_every>0:                
+                if index%self.header_every==0 and index>0:
+                    mprint(mid_header)
+            index+=1
+        if self.footer==True:
+            mprint(footer)
 
         
 # ############################################################################
