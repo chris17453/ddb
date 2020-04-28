@@ -19,7 +19,7 @@ def method_delete(context, meta):
     visible_comments  =meta.table.visible.comments
     visible_errors    =meta.table.visible.errors
     
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')

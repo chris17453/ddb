@@ -317,10 +317,10 @@ setup(
     ],
     entry_points="""
         [console_scripts]
-        ddb = ddb.cli:cli_main
-        ddb-pipes = ddb.pipes:cli_main
-        ddb-server = ddb.server:cli_main
-        ddb-service = ddb.service:cli_main
-        """.replace("ddb",ddb_name)
+        ddb_name = ddb.cli:cli_main
+        ddb_name-pipes = ddb.pipes:cli_main
+        ddb_name-server = ddb.server:cli_main
+        ddb_name-service = ddb.service:cli_main
+        """.replace("ddb_name",ddb_name)
 )
 

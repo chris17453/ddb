@@ -127,7 +127,7 @@ test-single:
 	@echo "Test done"
 
 lock-test:
-	@python -m test.test-locking
+	@cd test; python test-locking.py
 
 watch-lock-test:
 	@test/watch_locks.sh
@@ -165,9 +165,12 @@ build:
 	@$(MAKE) -f $(THIS_FILE) build24
 	@$(MAKE) -f $(THIS_FILE) build26
 	@$(MAKE) -f $(THIS_FILE) build27
-	@$(MAKE) -f $(THIS_FILE) build34
+	#@$(MAKE) -f $(THIS_FILE) build34
 	@$(MAKE) -f $(THIS_FILE) build36
+	#@$(MAKE) -f $(THIS_FILE) pypi
 
+pyc:
+	@find . -type f -name "*.pyc" -exec rm -f {} \;
 
 release:  meta script
 	@echo "This should be ran inside of a the build containers"
@@ -215,37 +218,42 @@ single: script
 #internal docker build commands
 # build python 2.4 on cent 5
 24: RELEASE_DIR = release/2.4
-24: DDB_NAME = ddb24
+24: DDB_NAME = ddb24python
 24: PYTHON = python
 24: export DDB_PYTHON=python
+24: export DDB_RELEASE=2.4
 24: single
 
 # build python 2.6 on cent 6
 26: RELEASE_DIR = release/2.6
-26: DDB_NAME = ddb26
+26: DDB_NAME = ddb26python
 26: PYTHON = python
 26: export DDB_PYTHON=python
+26: export DDB_RELEASE=2.6
 26: single
 
 # build python 2.7 on cent 7
 27: RELEASE_DIR = release/2.7
-27: DDB_NAME = ddb27
+27: DDB_NAME = ddb27cython
 27: PYTHON = python
 27: export DDB_PYTHON=python
+27: export DDB_RELEASE=2.7
 27: cython-release
 
 # build python 3.4 on cent 7
 34: RELEASE_DIR = release/3.4
-34: DDB_NAME = ddb34
+34: DDB_NAME = ddb34cython
 34: PYTHON = python3.4
 34: export DDB_PYTHON=python3.4
+34: export DDB_RELEASE=3.4
 34: cython-release
 
 # build python 3.6 on cent 7
 36: RELEASE_DIR = release/3.6
-36: DDB_NAME = ddb36
+36: DDB_NAME = ddb3cython
 36: PYTHON = python3.6
 36: export DDB_PYTHON=python3.6
+36: export DDB_RELEASE=3.6
 36: cython-release
 
 
@@ -301,7 +309,12 @@ standalone:
 	@pyinstaller ddb.spec
 
 upload:
-	@pipenv run twine upload  builds/pypi/*.gz
+	#@pipenv run twine upload  builds/pypi/*.gz
+	@pipenv run twine upload  builds/release/2.4/*.gz
+	@pipenv run twine upload  builds/release/2.6/*.gz
+	@pipenv run twine upload  builds/release/2.7/*.gz
+	@pipenv run twine upload  builds/release/3.4/*.gz
+	@pipenv run twine upload  builds/release/3.6/*.gz
 
 install: uninstall
 	pip install source/. --user

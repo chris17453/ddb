@@ -18,7 +18,7 @@ RUN yum -y install python-devel python-pip gcc  make git
 RUN yum -y install python-setuptools wget
 RUN yum -y install python-ordereddict
 RUN yum -y install python-argparse
-
+ENV DDB_RELEASE=24
 
 WORKDIR /ddb/
 USER ddb

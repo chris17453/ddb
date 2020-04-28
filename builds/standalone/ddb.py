@@ -721,7 +721,7 @@ class lexer:
                     tokens[token_index + w_index]['data'] = int(variable_data)
                     argument = tokens[token_index + w_index]['data'] 
                 except BaseException:
-                    err_msg=stringer("Variable data not an integer '{0}'",variable_data,)
+                    err_msg="Variable data not an integer '{0}'".format(variable_data,)
                     raise Exception (err_msg)
             elif variable_type=='bool':
                 if variable_data.lower()=='true':
@@ -809,11 +809,11 @@ class lexer:
         segment = {}
         token_list=[]
         for i in range(0,len(tokens)):
-            token_list.append(stringer("{0}-{1}",i,tokens[i]['data']))
+            token_list.append("{0}-{1}".format(i,tokens[i]['data']))
         self.info(",".join(token_list))
         while segment_index < len(command['segments']) and token_index < len(tokens):
             segment = command['segments'][segment_index]
-            self.info(stringer("############# TESTING : {0}.{1}",command['name'],segment['name']))
+            self.info("############# TESTING : {0}.{1}".format(command['name'],segment['name']))
             segment_index += 1
             curent_object = {}
             base_argument={}
@@ -829,7 +829,7 @@ class lexer:
                     if len(depends_on)>0:
                         if depends_on[0]=='.':
                             depends_on=depends_on[1:]
-                    self.info(stringer("Depends on key: '{0}'",depends_on))
+                    self.info("Depends on key: '{0}'".format(depends_on))
                 else:
                     depends_on = None
                 if depends_on:
@@ -867,7 +867,7 @@ class lexer:
                     base_argument={}
                     if 'vars' in signature:
                         for var_name in signature['vars']:
-                            self.info("var",stringer("'{0}'='{1}'",var_name,signature['vars'][var_name]))
+                            self.info("var","'{0}'='{1}'".format(var_name,signature['vars'][var_name]))
                             base_argument[var_name]=signature['vars'][var_name]
                     argument = base_argument
                     for w_index in range(0,len(match)):
@@ -985,11 +985,11 @@ class lexer:
         for index in range(0,len(tokens)):
             if index==token_index:
                 query_err.append(" >>> ")    
-                query_err.append(stringer('{0}',tokens[index]['data']))
+                query_err.append('{0}'.format(tokens[index]['data']))
                 query_err.append(" <<< ")    
             else:
-                query_err.append(stringer('{0}',tokens[index]['data']))
-        query_err.append(stringer("\n Syntax error near word {0}",token_index))
+                query_err.append('{0}'.format(tokens[index]['data']))
+        query_err.append("\n Syntax error near word {0}".format(token_index))
         err_msg=" ".join(query_err)
         self.info("FAILED MATCH")
         return {'success':None,'results':None,'match':token_index,'msg':err_msg}
@@ -1033,21 +1033,21 @@ class lexer:
                                 if f['arguments'] is not None:
                                     for arg in f['arguments']:
                                         if arg['required']:
-                                            if stringer('argument{0}',argindex) not in node:
+                                            if 'argument{0}'.format(argindex) not in node:
                                                 msg="Missing arguments"
                                                 self.info(msg)
                                                 return {'success':None,'msg':msg}
                                         argindex += 1
                                 else:
                                     argindex = 0
-                                if stringer('argument{0}',argindex + 1) in node:
+                                if 'argument{0}'.format(argindex + 1) in node:
                                     msg="Too many arguments"
                                     self.info(msg)
                                     return {'success':None,'msg':msg}
                             valid_function_name = True
                             break
                     if False == valid_function_name and True == is_function:
-                        msg=stringer("'{0}' isn't a valid function",node['function'])
+                        msg="'{0}' isn't a valid function".format(node['function'])
                         self.info(msg)
                         return {'success':None,'msg':msg}
             else:
@@ -1106,15 +1106,15 @@ class lexer:
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             if arg3 is None and arg2 is None:
-                print(stringer("{0} {1}",msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
             if arg3 is None:
-                print(stringer("{0} {1} {2}",msg, arg1, arg2))
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
             if arg2 is None:
-                print(stringer("{0} {1}",msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
-            print(stringer("[{0}]",msg))
+            print("[{0}]".format(msg))
 
         
 # ############################################################################
@@ -1215,7 +1215,7 @@ class tokenizer:
         if self.debug==True:
             self.info("-[Tokens]----------------")
             for t in tokens:
-                self.info(stringer("  -{0}     -{1}",t['data'],t['type']) )
+                self.info("  -{0}     -{1}".format(t['data'],t['type']) )
             self.info("-[End-Tokens]------------")     
         return tokens
     def compare(self,text,string_index,fragment):
@@ -1240,15 +1240,15 @@ class tokenizer:
     def info(self,msg, arg1=None, arg2=None, arg3=None):
         if True == self.debug:
             if arg1 is None:
-                print(stringer("{0}",msg))
+                print("{0}".format(msg))
                 return
             if arg2 is None:
-                print(stringer("{0} {1}",msg, arg1))
+                print("{0} {1}".format(msg, arg1))
                 return
             if arg3 is None:
-                print(stringer("{0} {1} {2}",msg, arg1, arg2))
+                print("{0} {1} {2}".format(msg, arg1, arg2))
                 return
-            print(stringer("[{0}]",msg))
+            print("[{0}]".format(msg))
 
         
 # ############################################################################
@@ -1263,23 +1263,23 @@ class meta:
             for i in range(0,depth):
                 pad+=' '
             if depth==0:
-                print (stringer("\n\033[31;1;4mDebug: {0}\033[0m",name))
+                print ("\n\033[31;1;4mDebug: {0}\033[0m".format(name))
             variables = [i for i in dir(obj) if not i.startswith('__')]
             empty=[]
             var_count=0
             for var in variables:
                 value=getattr(obj,var)
                 if  isinstance(value,str):
-                    print(stringer("{2}{0} {1}",var+':',value,pad))
+                    print("{2}{0} {1}".format(var+':',value,pad))
                     var_count+=1
                 elif  isinstance(value,int):
-                    print(stringer("{2}{0} {1}",var+':',value,pad))
+                    print("{2}{0} {1}".format(var+':',value,pad))
                     var_count+=1
                 elif  isinstance(value,float):
-                    print(stringer("{2}{0} {1}",var+':',value,pad))
+                    print("{2}{0} {1}".format(var+':',value,pad))
                     var_count+=1
                 elif isinstance(value,list):
-                    print (stringer("{0}- {1} :",pad,var))
+                    print ("{0}- {1} :".format(pad,var))
                     for item in value:
                         var_count+=1
                         meta.debugger(item,var,depth+4)
@@ -1290,12 +1290,12 @@ class meta:
                     empty.append(var)
                 else:
                     var_count+=1
-                    print (stringer("{0}- {1} :",pad,var))
+                    print ("{0}- {1} :".format(pad,var))
                     meta.debugger(value,var,depth+4)
             if len(empty)>0:
-                print (stringer("{1}Empty Vars: {0}",",".join(empty),pad))
+                print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
             if var_count==0:
-                print(stringer("{2}{0} {1}","No attributes"+':',"",pad))
+                print("{2}{0} {1}".format("No attributes"+':',"",pad))
     @staticmethod
     def gv(o,keys):
         if o:
@@ -2043,7 +2043,7 @@ class table:
                         column_text=[]
                         for column in self.columns:
                             column_text.append(column.data.name)
-                        header=stringer("# {0}\n",self.delimiters.field.join(column_text) )
+                        header="# {0}\n".format(self.delimiters.field.join(column_text) )
                         new_file.write(header)
                     finally:
                         new_file.close()
@@ -2203,15 +2203,15 @@ class table:
                 if os.path.isfile(self.data.config):
                     os.remove(self.data.config)
                 else:
-                    err_msg=stringer("Table config is not a file! {1}:{0}:{3}",self.data.name,self.data.database,self.data.config)
+                    err_msg="Table config is not a file! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                     raise Exception (err_msg)
             else:
-                err_msg=stringer("Table config does not exist! {1}:{0}:{3}",self.data.name,self.data.database,self.data.config)
+                err_msg="Table config does not exist! {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
                 raise Exception (err_msg)
         except:
             err = sys.exc_info()[1]
             ex = err.args[0]
-            err_msg=stringer("Error removing  {1}:{0}:{3}",self.data.name,self.data.database,self.data.config)
+            err_msg="Error removing  {1}:{0}:{3}".format(self.data.name,self.data.database,self.data.config)
             raise Exception (err_msg)
     def save(self):
         if None == self.data.name:
@@ -2222,18 +2222,18 @@ class table:
         if None == self.config_directory:
             raise Exception ("No configuration directory")
         if None == self.data.config:
-            self.data.config = os.path.join(self.config_directory, stringer("{0}.{1}.table.sql",self.data.database,self.data.name))
+            self.data.config = os.path.join(self.config_directory, "{0}.{1}.table.sql".format(self.data.database,self.data.name))
         if len(self.columns)==0:
             raise Exception("No columns in the table. Cant save")
         column_str=[]
         for column in self.columns:
-            column_str.append(stringer("'{0}'",column.data.name))
+            column_str.append("'{0}'".format(column.data.name))
         column_str=",".join(column_str)
         fifo=""
         if self.data.fifo:
-            fifo=stringer("fifo='{0}'",self.data.fifo)
+            fifo="fifo='{0}'".format(self.data.fifo)
         if self.data.repo_type:
-            repo=stringer("repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'",
+            repo="repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'".format(
             self.data.repo_type,
             self.data.repo_url,
             self.data.repo_user,
@@ -2242,7 +2242,7 @@ class table:
             self.data.repo_file)
         else:
             repo=""
-        sql=stringer("create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict={11} data_starts_on={8} ",
+        sql="create table '{0}'.'{1}' ({2}) file='{3}' {9} {10} delimiter='{4}' whitespace={5} errors={6} comments={7} strict={11} data_starts_on={8} ".format(
                 self.data.database,
                 self.data.name,
                 column_str,
@@ -2352,7 +2352,7 @@ class database:
         queries=[]
         for sql_path in temp_tables:
             if False==os.path.exists(sql_path):
-                raise Exception (stringer("Path to table '{0}' is invalid",sql_path))
+                raise Exception ("Path to table '{0}' is invalid".format(sql_path))
             table_config=open(sql_path,'r')
             try:
                 queries.append(table_config.read())
@@ -2406,7 +2406,7 @@ class database:
                 protocol_svn='svn'
                 abs_data_file=normalize_path(data_file)
                 if False == os.path.isfile(abs_data_file):
-                    err=stringer("Data file does not exist. {0}",abs_data_file)
+                    err="Data file does not exist. {0}".format(abs_data_file)
                     raise Exception(err)
         if not temporary:
             if None == self.config_dir:
@@ -2497,7 +2497,7 @@ def f_cat(context,arg1,arg2):
         arg1=''
     if None ==arg2:
         arg2=''
-    return stringer('{0}{1}',arg1,arg2)
+    return '{0}{1}'.format(arg1,arg2)
 
         
 # ############################################################################
@@ -2575,19 +2575,19 @@ class record(object):
         elif name=='_record__keys':        super().__setattr__('_record__keys'       , value)
         else:
           if self.__data.has_key(name)==False:
-             err_msg=stringer("Cannot assign data to invalid key: '{0}'",name)
+             err_msg="Cannot assign data to invalid key: '{0}'".format(name)
              raise Exception (err_msg)
           try:
                 self.__data[name]=value
           except :
-              err_msg=stringer("Cannot assign data to Key: '{0}'",name)
+              err_msg="Cannot assign data to Key: '{0}'".format(name)
               raise Exception (err_msg)
     def __delattr__(self, name):
         try:
             del self.__data[name]
             self.__keys.remove(name)
         except :
-            err_msg=stringer("Cannot delete key: '{0}'",name)
+            err_msg="Cannot delete key: '{0}'".format(name)
             raise Exception (err_msg)
     def __getitem__(self, item):
          return self.__data[item]
@@ -2741,7 +2741,7 @@ class engine:
         self.parameter={}
         self.internal={'READONLY':readonly,'TEMP_FILES':{},'FIELD_DELIMITER':field_delimiter,'NEW_LINE':'\n'}
         uuid_str=self.generate_uuid()
-        self.system['UUID']= stringer("{1}:{0}",uuid_str,os.getpid())
+        self.system['UUID']= "{1}:{0}".format(uuid_str,os.getpid())
         self.system['DEBUG']=False
         self.system['AUTOCOMMIT']=True
         self.system['OUTPUT_MODULE']=output
@@ -2799,7 +2799,7 @@ class engine:
     def reset_parameters(self):
         self.parameter={}
     def set_param(self,parameter,value):
-        self.parameter[parameter]=stringer("'{0}'",value)
+        self.parameter[parameter]="'{0}'".format(value)
     def debugging(self, debug=False):
         self.debug = debug
     def define_table(self, table_name, database_name, columns, data_file, field_delimiter=None,data_starts_on=None):
@@ -2817,7 +2817,7 @@ class engine:
             param_list=parameters
         for param in param_list:
             if self.debug:
-                self.info(stringer("Setting Parameter: {0}:{1}",param,param_list[param]))
+                self.info("Setting Parameter: {0}:{1}".format(param,param_list[param]))
             key=param
             try:
                 if isinstance(key,bytes)==True:
@@ -2857,7 +2857,7 @@ class engine:
             mode=query_object['mode']
             meta_class=meta().convert_to_class(query_object)
             if meta_class==None:
-                err=stringer("Meta class failed to init. [{0}]",mode)
+                err="Meta class failed to init. [{0}]".format(mode)
                 raise Exception(err)
             if self.debug:
                 meta_class.debug()
@@ -2945,8 +2945,7 @@ class engine:
                             data.append(r)
                         self.results.data=data
                     except:
-                        err = sys.exc_info()[1]
-                        ex = err.args[0]
+                        ex = sys.exc_info()[1]
                         self.error(ex)
                 else:
                     pass
@@ -2967,7 +2966,7 @@ class engine:
         self.results.wall_time=self.results.wall_start-self.results.wall_end
         return self.results
     def change_database(self, database_name):
-        query = stringer("use {0}",database_name)
+        query = "use {0}".format(database_name)
         results = self.query(query)
         if None == results:
             return False
@@ -2975,16 +2974,16 @@ class engine:
     def add_error(self,error):
         self.info(error)
     def os_cmd(self,cmd,err_msg):
-        self.info("OSCMD INFO",stringer("{0}"," ".join(cmd)))
+        self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
-        self.info("OSCMD INFO",stringer("{0}",output),stringer("{0}",err))
+        self.info("OSCMD INFO","{0}".format(output),"{0}".format(err))
         if rc!=0:
             self.info(output)
             self.info(err)
             self.info("OS CMD"," ".join(cmd))
-            raise Exception(stringer("{0}: Exit Code {1}",err_msg,rc))
+            raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
         return output
     def svn_checkout_file(self,table):
         self.info("IN SVN PULL")
@@ -3001,14 +3000,14 @@ class engine:
             except:
                 err = sys.exc_info()[1]
                 ex = err.args[0]
-                self.info("SVN INFO -Initial Check",stringer("{0}",ex))
+                self.info("SVN INFO -Initial Check","{0}".format(ex))
                 pass
             if None==repo_url:
                 self.info("SVN INFO","No repo present attempt, init")
                 cmd=[   'svn',
                         '--no-auth-cache',
-                        '--username',stringer('{0}',table.data.repo_user),
-                        '--password',stringer('{0}',table.data.repo_password),
+                        '--username','{0}'.format(table.data.repo_user),
+                        '--password','{0}'.format(table.data.repo_password),
                         'co',
                         table.data.repo_url,
                         table.data.repo_dir,
@@ -3017,18 +3016,18 @@ class engine:
                 self.os_cmd(cmd,"SVN Repo Err")
             else:
                 if table.data.repo_url!=repo_url and table.data.repo_url!=repo_url+"/" :
-                    err_msg=stringer("SVN Repo is already initialized to a different location Want:{0},Have:{1}",table.data.repo_url, repo_url)
+                    err_msg="SVN Repo is already initialized to a different location Want:{0},Have:{1}".format(table.data.repo_url, repo_url)
                     self.info("SVN ERROR",err_msg)
                     raise Exception (err_msg)
-            self.info("SVN INFO",stringer("SVN Present, update file {0}",table.data.repo_file))
+            self.info("SVN INFO","SVN Present, update file {0}".format(table.data.repo_file))
             os.chdir(table.data.repo_dir)
-            self.info("SVN INFO",stringer("CHDIR  {0}",table.data.repo_dir))
+            self.info("SVN INFO","CHDIR  {0}".format(table.data.repo_dir))
             cmd=[   'svn',
                     'revert',
                     table.data.repo_file,
                     '--no-auth-cache',
-                    '--username',stringer('{0}',table.data.repo_user),
-                    '--password',stringer('{0}',table.data.repo_password),
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
                     '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Revert File Err")
@@ -3036,15 +3035,15 @@ class engine:
                     'up',
                     table.data.repo_file,
                     '--no-auth-cache',
-                    '--username',stringer('{0}',table.data.repo_user),
-                    '--password',stringer('{0}',table.data.repo_password),
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
                     '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
         if False==os.path.exists(table.data.repo_dir):
-            self.info(stringer("Creating svn directory that does not exist {0}",table.dir.repo_dir))
+            self.info("Creating svn directory that does not exist {0}".format(table.dir.repo_dir))
             os.mkdir(table.data.repo_dir)
         os.chdir(table.data.repo_dir)
         cmd=[   'svn',
@@ -3052,8 +3051,8 @@ class engine:
                 table.data.repo_file,
                 '-m','ddb',
                 '--no-auth-cache',
-                '--username',stringer('{0}',table.data.repo_user),
-                '--password',stringer('{0}',table.data.repo_password),
+                '--username','{0}'.format(table.data.repo_user),
+                '--password','{0}'.format(table.data.repo_password),
                 '--non-interactive','--trust-server-cert'
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
@@ -3073,7 +3072,7 @@ class engine:
             self.internal['TEMP_FILES'][table_key]['written']=True
             src=self.internal['TEMP_FILES'][table_key]['temp_source']
             if dest_file and dest_file!=src:
-                lock.info("Lock Remove",stringer("Removing Intermediate Source file: {0}->{1}",src,dest_file))
+                lock.info("Lock Remove","Removing Intermediate Source file: {0}->{1}".format(src,dest_file))
                 remove_temp_file(src)
                 self.internal['TEMP_FILES'][table_key]['temp_source']=dest_file
     def auto_commit(self,table):
@@ -3094,23 +3093,23 @@ class debugger:
         for i in range(0,depth):
             pad+=' '
         if depth==0:
-            print (stringer("\n\033[31;1;4mDebug: {0}\033[0m",name))
+            print ("\n\033[31;1;4mDebug: {0}\033[0m".format(name))
         variables = [i for i in dir(obj) if not i.startswith('__')]
         empty=[]
         var_count=0
         for var in variables:
             value=getattr(obj,var)
             if  isinstance(value,str):
-                print(stringer("{2}{0} {1}",var+':',value,pad))
+                print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
             elif  isinstance(value,int):
-                print(stringer("{2}{0} {1}",var+':',value,pad))
+                print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
             elif  isinstance(value,float):
-                print(stringer("{2}{0} {1}",var+':',value,pad))
+                print("{2}{0} {1}".format(var+':',value,pad))
                 var_count+=1
             elif isinstance(value,list):
-                print (stringer("{0}- {1} :",pad,var))
+                print ("{0}- {1} :".format(pad,var))
                 for item in value:
                     var_count+=1
                     debugger(item,var,depth+4)
@@ -3121,12 +3120,12 @@ class debugger:
                 empty.append(var)
             else:
                 var_count+=1
-                print (stringer("{0}- {1} :",pad,var))
+                print ("{0}- {1} :".format(pad,var))
                 debugger(value,var,depth+4)
         if len(empty)>0:
-            print (stringer("{1}Empty Vars: {0}",",".join(empty),pad))
+            print ("{1}Empty Vars: {0}".format(",".join(empty),pad))
         if var_count==0:
-            print(stringer("{2}{0} {1}","No attributes"+':',"",pad))
+            print("{2}{0} {1}".format("No attributes"+':',"",pad))
 def get_table(context,meta):
     if meta.source:
         if meta.source.database:
@@ -3138,7 +3137,7 @@ def get_table(context,meta):
         table_name = meta.source.table
         table= context.database.get(table_name,database_name)
         if None == table:
-            except_str=stringer("Table '{0}' does not exist.",table_name)
+            except_str="Table '{0}' does not exist.".format(table_name)
             raise Exception(except_str)
         return table
     return None
@@ -3166,14 +3165,14 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(table.delimiters.field.encode("ascii"),column_count)
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
                         if cur_column_len > column_count:
-                            err = stringer("Table {2}: Line #{0}, {1} extra Column(s)",line_number, cur_column_len -column_count, table.data.name)
+                            err = "Table {2}: Line #{0}, {1} extra Column(s)".format(line_number, cur_column_len -column_count, table.data.name)
                         else:
-                            err = stringer("Table {2}: Line #{0}, missing {1} Column(s)",line_number, column_count - cur_column_len, table.data.name)
+                            err = "Table {2}: Line #{0}, missing {1} Column(s)".format(line_number, column_count - cur_column_len, table.data.name)
                         line_type = context.data_type.ERROR
                         if True == visible_errors:
                             line_data = line_cleaned
@@ -3235,17 +3234,17 @@ class match2:
             if None != compare1 and None != compare2:
                 break
         if not compare1_is_column and not compare2_is_column:
-            raise Exception(stringer("expression invalid {0}",test))
+            raise Exception("expression invalid {0}".format(test))
         if None == compare1:
-            compare1 = test.e1.encode('ascii')
+            compare1 = test.e1
         if None == compare2:
-            compare2 = test.e2.encode('ascii')
+            compare2 = test.e2
         if comparitor == '=' or comparitor == 'is':
             if compare1 == compare2:
                 return True
         elif comparitor == 'like':  # paritial match
             if True == compare1_is_column and True == compare2_is_column:
-                raise Exception(stringer("Where invalid {0}, like cant be between 2 columns",test))
+                raise Exception("Where invalid {0}, like cant be between 2 columns".format(test))
             if True == compare1_is_column:
                 like = compare2
                 data = compare1
@@ -3373,29 +3372,31 @@ class query_results:
 class file_writer:
     def __init__(self,path,mode='w'):
         if mode=='a':
-            file_mode='ab'
+            file_mode='a'
         elif mode=='w':
-            file_mode='wb'
+            file_mode='w'
         else:
             raise Exception ("Bad file mode")
-        self.file=open(path, file_mode, buffering=0)
+        self.file=open(path, file_mode) #, buffering=0
     def write(self,data):
-        try:
-            if isinstance(data,unicode)==True:
-                dest_data=data.encode("ascii")
-                self.file.write(dest_data)
-                return
-        except:
-            pass
-        if  isinstance(data,str)==True:
-            dest_data=data.encode("ascii")
-            self.file.write(dest_data)
+        if sys.version_info[0]==3:
+            self.file.write(data)
             return
         else:
             try:
-                self.file.write(data)
+                if isinstance(data,unicode)==True:
+                    self.file.write(data)
+                    return
             except:
-                raise Exception("File Writer: I dont know what this is")
+                pass
+            if  isinstance(data,str)==True:
+                self.file.write(data)
+                return
+            else:
+                try:
+                    self.file.write(data)
+                except:
+                    raise Exception("File Writer: I dont know what this is")
     def close(self):
         if self.file:
             self.file.close()
@@ -3417,7 +3418,7 @@ def method_delete(context, meta):
     visible_whitespace=meta.table.visible.whitespace
     visible_comments  =meta.table.visible.comments
     visible_errors    =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')
@@ -3429,7 +3430,7 @@ def method_delete(context, meta):
                 line_number += 1
                 if True == processed_line['match']:
                     affected_rows += 1
-                    diff.append(stringer("Deleted Line: {0}, {1}",line_number-1,line))
+                    diff.append("Deleted Line: {0}, {1}".format(line_number-1,line))
                     continue
                 temp_file.write(processed_line['raw'])
                 temp_file.write(meta.table.delimiters.get_new_line())
@@ -3488,10 +3489,10 @@ def create_single(context, meta, temp_file, requires_new_line):
                     if meta.columns[c2].column == column_name:
                         found = True
                         if c > 0:
-                            new_line += stringer('{0}',meta.table.delimiters.field)
-                        new_line += stringer('{0}',meta.values[c2].value)
+                            new_line += '{0}'.format(meta.table.delimiters.field)
+                        new_line += '{0}'.format(meta.values[c2].value)
                 if False == found:
-                    context.add_error(stringer("Cannot insert, column in query not found in table: {0}",column_name))
+                    context.add_error("Cannot insert, column in query not found in table: {0}".format(column_name))
                     err = True
                     break
             if False == err:
@@ -3545,7 +3546,7 @@ def select_process_file(context,meta):
         visible_whitespace=table.visible.whitespace
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
-        content_file=open(temp_data_file, 'rb',buffering=0) 
+        content_file=open(temp_data_file, 'r')#,buffering=0) 
         try:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -3567,10 +3568,10 @@ def select_validate_columns_and_from(context, meta, parser):
     has_functions = select_has_functions(context,meta)
     has_columns = select_has_columns(context,meta)
     if False == has_columns and meta.source:
-        err_msg=stringer("Invalid FROM, all columns are functions. Columns:{0}, Functions:{1}, Source:{2}",has_columns,has_functions,meta.source)
+        err_msg="Invalid FROM, all columns are functions. Columns:{0}, Functions:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
         raise Exception(err_msg)
     if False == has_columns and False == has_functions:
-        err_msg=stringer("No columns defined in query. Columns:{0}, Functions:{1}, Source:{2}",has_columns,has_functions,meta.source)
+        err_msg="No columns defined in query. Columns:{0}, Functions:{1}, Source:{2}".format(has_columns,has_functions,meta.source)
         raise Exception(err_msg)
     if True == has_columns:
         if meta.source:
@@ -3625,22 +3626,22 @@ def set_ordinals(context,meta):
     for column in meta.columns:
         if  column.display:
             name=column.display
-            if stringer('{0}',name) in ordinals:
-                raise Exception(stringer("ambigious column {0}",name))
-            ordinals[stringer('{0}',name)]=index                
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
         if  column.function:
             name=column.function
-            if stringer('{0}',name) in ordinals:
-                raise Exception(stringer("ambigious column {0}",name))
-            ordinals[stringer('{0}',name)]=index                
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
         if  column.column:
             name=column.column
-            if stringer('{0}',name) in ordinals:
-                raise Exception(stringer("ambigious column {0}",name))
-            ordinals[stringer('{0}',name)]=index                
+            if '{0}'.format(name) in ordinals:
+                raise Exception("ambigious column {0}".format(name))
+            ordinals['{0}'.format(name)]=index                
         else:
             continue
-        ordinals[stringer('{0}',name)]=index                
+        ordinals['{0}'.format(name)]=index                
         index+=1
     meta.ordinals=ordinals ##################################################
 def cmp_to_key(mycmp):
@@ -3670,7 +3671,7 @@ def order_by(context,meta,data):
     context_sort = []
     for c in meta.order_by:
         if c.column not in meta.ordinals:
-            err=stringer("ORDER BY column not present in the result set '{0}'",c.column)
+            err="ORDER BY column not present in the result set '{0}'".format(c.column)
             raise Exception (err)
         ordinal =meta.ordinals[c.column]
         context_sort.append([ordinal, c.direction])
@@ -3762,12 +3763,12 @@ def limit(context, meta, data):
         if meta.limit.length:
             length = meta.limit.length
             if length<0:
-                raise Exception(stringer("Limit: range index invalid, Value:'{0}'",index))
+                raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
     else:
         return data
-    context.info(stringer("Limit:{0},Length:{1}",index, length))
+    context.info("Limit:{0},Length:{1}".format(index, length))
     if index<0:
-        raise Exception(stringer("Limit: range index invalid, Value:'{0}'",index))
+        raise Exception("Limit: range index invalid, Value:'{0}'".format(index))
     if meta.limit.start==0 and meta.limit.length==None:
         return []
     if meta.limit.length==0:
@@ -3813,8 +3814,8 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
     for c2 in range(0, len(meta.set)):
         column_name = meta.set[c2].column
         if None == meta.table.get_column_by_name(column_name):
-            context.add_error(stringer("column in update statement does not exist in table: {0}",column_name))
-            print(stringer("column in update statement does not exist in table: {0}",column_name))
+            context.add_error("column in update statement does not exist in table: {0}".format(column_name))
+            print("column in update statement does not exist in table: {0}".format(column_name))
             err = True
     if False == err:
         for c in range(0, meta.table.column_count()):
@@ -3824,8 +3825,8 @@ def update_single(context,meta, temp_file, requires_new_line, processed_line):
                 if meta.set[c2].column == column_name:
                     value = meta.set[c2].expression
             if c > 0:
-                new_line += stringer('{0}',meta.table.delimiters.field)
-            new_line += stringer('{0}',value)
+                new_line += '{0}'.format(meta.table.delimiters.field)
+            new_line += '{0}'.format(value)
     if False == err:
         if True == requires_new_line:
             temp_file.write(meta.table.delimiters.get_new_line())
@@ -3846,7 +3847,7 @@ def method_update(context, meta):
     visible_whitespace=meta.table.visible.whitespace
     visible_comments  =meta.table.visible.comments
     visible_errors    =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')
@@ -3909,7 +3910,7 @@ def method_upsert(context, meta,query_object,main_meta):
     visible_whitespace =meta.table.visible.whitespace
     visible_comments   =meta.table.visible.comments
     visible_errors     =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')
@@ -4086,7 +4087,7 @@ def method_system_set(context, meta):
                 if variable in context.system_trigger:
                     context.system_trigger[variable]()
             else:
-                raise Exception(stringer("Cannot set {0}, not a system variable",variable))
+                raise Exception("Cannot set {0}, not a system variable".format(variable))
         elif var_type=='user':
             context.user[variable]=value
     return query_results(success=True)
@@ -4117,18 +4118,18 @@ def method_system_commit(context):
         context.internal['IN_TRANSACTION']=0
         context.system['AUTOCOMMIT']=context.internal['AUTOCOMMIT_HOLODER']=True
         for table_key in context.internal['TEMP_FILES']:
-            context.info(stringer("Commit {0}",table_key))
+            context.info("Commit {0}".format(table_key))
             tmp=context.internal['TEMP_FILES'][table_key]
             if None== tmp['written']:
-                context.info(stringer("Release Lock for {0}",tmp['temp_source']))
+                context.info("Release Lock for {0}".format(tmp['temp_source']))
                 remove_temp_file(tmp['temp_source'])
                 context.info("Commit NOT Written..")
                 lock.release(table_key)
             else:
-                context.info(stringer("File was written {0}",table_key))
+                context.info("File was written {0}".format(table_key))
                 context.info("Commit Written..")
                 swap_files(tmp['origin'],tmp['temp_source'],context.system['UUID'])
-                context.info(stringer("Swap Files finished {0}->{1}",tmp['origin'],tmp['temp_source']))
+                context.info("Swap Files finished {0}->{1}".format(tmp['origin'],tmp['temp_source']))
                 if tmp['table'].data.repo_type=='svn':
                     context.svn_commit_file(tmp['table'])
         context.internal['TEMP_FILES']={}
@@ -4277,13 +4278,13 @@ class lock:
             return
         pid=os.getpid()
         dt = datetime.datetime.now()
-        log_line=stringer("{3}-{2}-[INFO]-{0}: {1}\n",msg,data,dt,pid)
+        log_line="{3}-{2}-[INFO]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stdout.write(log_line+"\n")
     @staticmethod
     def error(msg,data):
         pid=os.getpid()
         dt = datetime.datetime.now()
-        log_line=stringer("{3}-{2}-[ERROR]-{0}: {1}\n",msg,data,dt,pid)
+        log_line="{3}-{2}-[ERROR]-{0}: {1}\n".format(msg,data,dt,pid)
         sys.stderr.write(log_line+"\n")
     @staticmethod
     def normalize_path(path):
@@ -4297,13 +4298,13 @@ class lock:
         try:
             norm_path=lock.normalize_path(path)
             temp_dir = tempfile.gettempdir()
-            basename=stringer("{0}_{1}", os.path.basename(norm_path),"TEMP" )
-            temp_file_name=stringer('ddb_{0}.lock',basename)
+            basename="{0}_{1}".format( os.path.basename(norm_path),"TEMP" )
+            temp_file_name='ddb_{0}.lock'.format(basename)
             norm_lock_path = os.path.join(temp_dir, temp_file_name)
             return norm_lock_path
         except:
             ex = sys.exc_info()[1]
-            lock.info(stringer("Get Lock Filname: {0}",ex))
+            lock.info("Get Lock Filname: {0}".format(ex))
             exit(1)
     @staticmethod
     def file_age_in_seconds(pathname):
@@ -4328,7 +4329,7 @@ class lock:
     @staticmethod
     def aquire(path,key_uuid):
         try:
-            if lock.debug: lock.info (stringer("Aquiring Lock on {0}",path)) # TODO eh?
+            if lock.debug: lock.info ("Aquiring Lock on {0}".format(path)) # TODO eh?
             global lock_sockets
             if path in lock_sockets:
                 if lock.debug: lock.info ("lock already in use locally. success") # TODO eh?
@@ -4345,7 +4346,7 @@ class lock:
                     time.sleep(random.uniform(lock.sleep_time_min,lock.sleep_time_max))
         except:
             ex = sys.exc_info()[1]
-            if lock.debug: lock.error(stringer("Aquire Lock: {0}",ex))
+            if lock.debug: lock.error("Aquire Lock: {0}".format(ex))
     @staticmethod
     def get_uuid():
         try: # TODO unix/linux specific UUID generation
@@ -4362,8 +4363,8 @@ def temp_path_from_file(path,prefix='',unique=None):
     unique_id=''
     if unique:
         uuid_str=lock.get_uuid()
-        unique_id=stringer('_{0}:{1}',uuid_str,os.getpid())
-    temp_file_name=stringer("~{1}{0}{2}.swp",base_file,prefix,unique_id)
+        unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
+    temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
     temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
     return temp_path
 def create_temporary_copy(path,uuid='',prefix='ddb_'):
@@ -4371,32 +4372,32 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
     try:
         lock.aquire(path,uuid)
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
-        temp_path=temp_path_from_file(path,stringer("{0}{1}",prefix,uuid) )
+        temp_path=temp_path_from_file(path,"{0}{1}".format(prefix,uuid) )
         norm_path=normalize_path(path)
-        if lock.debug: lock.info("Lock",stringer("Creating temporary file: {0}-> {1}",norm_path, temp_path))
+        if lock.debug: lock.info("Lock","Creating temporary file: {0}-> {1}".format(norm_path, temp_path))
         shutil.copy2(norm_path, temp_path)
-        if lock.debug: lock.info("Lock",stringer("Created temporary file: {0}", temp_path))
+        if lock.debug: lock.info("Lock","Created temporary file: {0}".format( temp_path))
         return temp_path
     except:
         ex = sys.exc_info()[1]
-        if lock.debug: lock.error("Lock Error Create Temp Copy",stringer("{0}",ex ))
+        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
         exit(1)
-        raise Exception(stringer("Temp File Create Copy Error: {0}",ex))
+        raise Exception("Temp File Create Copy Error: {0}".format(ex))
 def remove_temp_file(path):
     try:
-        if lock.debug: lock.info(stringer("Lock Removing temp copy: {0}",path))
+        if lock.debug: lock.info("Lock Removing temp copy: {0}".format(path))
         os.remove(path)
     except: 
         ex = sys.exc_info()[1]
-        if lock.debug: lock.error("Lock Remove Temp File",stringer("{0}",ex))
+        if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
         exit(1)
-        raise Exception(stringer("Lock, Delete file  failed: {0}",ex))
+        raise Exception("Lock, Delete file  failed: {0}".format(ex))
 def swap_files(path, temp,key_uuid):
     """ Swap a temporary file with a regular file, by deleting the regular file, and copying the temp to its location """
     if lock.debug: lock.info("Lock","SWAP")
     norm_path=normalize_path(path)
-    if lock.debug: lock.info("Lock",stringer("Removing master {0} ",norm_path))
-    if lock.debug: lock.info("Lock",stringer("Renaming temp to master {0} <- {1}",norm_path,temp))
+    if lock.debug: lock.info("Lock","Removing master {0} ".format(norm_path))
+    if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
     os.rename(temp,norm_path)
     lock.release(path)
 def normalize_path(path):
@@ -4434,8 +4435,8 @@ class output_factory:
             elif 'xml'==mode:
                 self.output=self.format_xml(query_results)
             elif 'time'==mode:
-                self.output =stringer("User Time:Start:{0}, End:{1}, Elapsed:{2}",query_results.start_time,query_results.end_time,query_results.time)
-                self.output+=stringer("Wall Time:Start:{0}, End:{1}, Elapsed:{2}",query_results.wall_start,query_results.wall_end,query_results.wall_time)            #default
+                self.output ="User Time:Start:{0}, End:{1}, Elapsed:{2}".format(query_results.start_time,query_results.end_time,query_results.time)
+                self.output+="Wall Time:Start:{0}, End:{1}, Elapsed:{2}".format(query_results.wall_start,query_results.wall_end,query_results.wall_time)            #default
             else: 
                 self.output=self.format_term(query_results)
     def format_term(self,query_results,output_style=None,output_stream=None,color=True):
@@ -4447,9 +4448,9 @@ class output_factory:
             res=None
         if True == query_results.success:
             if res:
-                res.append(stringer("executed in {0}, {1} rows returned",query_results.time,query_results.data_length))
+                res.append("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
             else:
-                print(stringer("executed in {0}, {1} rows returned",query_results.time,query_results.data_length))
+                print("executed in {0}, {1} rows returned".format(query_results.time,query_results.data_length))
         else:
             if res:
                 res.append("Query Failed")
@@ -4460,17 +4461,17 @@ class output_factory:
         """ouput results data in the bash format"""
         data=query_results.data
         name="ddb"
-        print (stringer("{0}_row_length={1}",name,len(data)))
-        print (stringer("{0}_column_length={1}",name,len(query_results.columns)))
+        print ("{0}_row_length={1}".format(name,len(data)))
+        print ("{0}_column_length={1}".format(name,len(query_results.columns)))
         print ("")
         column_index=0
         for column in query_results.columns:
-            print(stringer("{0}_columns['{1}']='{2}'",name,column_index,column))
+            print("{0}_columns['{1}']='{2}'".format(name,column_index,column))
             column_index+=1
         row_index=0
         for row in data:
             for column_index in range(0,len(query_results.columns)):
-                print(stringer('{0}_data[{1}][{2}]="{3}"',name,row_index,column_index,row['data'][column_index]))
+                print('{0}_data[{1}][{2}]="{3}"'.format(name,row_index,column_index,row['data'][column_index]))
             row_index+=1
         return ""
     def format_raw(self,query_results,output_stream):
@@ -4549,56 +4550,56 @@ def mprint(text):
         print (sys.exc_info()[1])
 class tty_code:
     class attributes:
-        BOLD         =stringer('\033[{0}m',1)
-        DIM          =stringer('\033[{0}m',2)
-        UNDERLINED   =stringer('\033[{0}m',4)
-        BLINK        =stringer('\033[{0}m',5)
-        REVERSE      =stringer('\033[{0}m',7)
-        HIDDEN       =stringer('\033[{0}m',8)
+        BOLD         ='\033[{0}m'.format(1)
+        DIM          ='\033[{0}m'.format(2)
+        UNDERLINED   ='\033[{0}m'.format(4)
+        BLINK        ='\033[{0}m'.format(5)
+        REVERSE      ='\033[{0}m'.format(7)
+        HIDDEN       ='\033[{0}m'.format(8)
     class reset:
-        ALL          =stringer('\033[{0}m',0)
-        BOLD         =stringer('\033[{0}m',21)
-        DIM          =stringer('\033[{0}m',22)
-        UNDERLINED   =stringer('\033[{0}m',24)
-        BLINK        =stringer('\033[{0}m',25)
-        REVERSE      =stringer('\033[{0}m',27)
-        HIDDEN       =stringer('\033[{0}m',28)
+        ALL          ='\033[{0}m'.format(0)
+        BOLD         ='\033[{0}m'.format(21)
+        DIM          ='\033[{0}m'.format(22)
+        UNDERLINED   ='\033[{0}m'.format(24)
+        BLINK        ='\033[{0}m'.format(25)
+        REVERSE      ='\033[{0}m'.format(27)
+        HIDDEN       ='\033[{0}m'.format(28)
     class foreground:
-        DEFAULT      =stringer('\033[{0}m',39)
-        BLACK        =stringer('\033[{0}m',30)
-        RED          =stringer('\033[{0}m',31)
-        GREEN        =stringer('\033[{0}m',32)
-        YELLOW       =stringer('\033[{0}m',33)
-        BLUE         =stringer('\033[{0}m',34)
-        MAGENTA      =stringer('\033[{0}m',35)
-        CYAN         =stringer('\033[{0}m',36)
-        LIGHT_GRAY   =stringer('\033[{0}m',37)
-        DARK_GRAY    =stringer('\033[{0}m',90)
-        LIGHT_RED    =stringer('\033[{0}m',91)
-        LIGHT_GREEN  =stringer('\033[{0}m',92)
-        LIGHT_YELLOW =stringer('\033[{0}m',93)
-        LIGHT_BLUE   =stringer('\033[{0}m',94)
-        LIGHT_MAGENTA=stringer('\033[{0}m',95)
-        LIGHT_CYAN   =stringer('\033[{0}m',96)
-        WHITE        =stringer('\033[{0}m',97)
+        DEFAULT      ='\033[{0}m'.format(39)
+        BLACK        ='\033[{0}m'.format(30)
+        RED          ='\033[{0}m'.format(31)
+        GREEN        ='\033[{0}m'.format(32)
+        YELLOW       ='\033[{0}m'.format(33)
+        BLUE         ='\033[{0}m'.format(34)
+        MAGENTA      ='\033[{0}m'.format(35)
+        CYAN         ='\033[{0}m'.format(36)
+        LIGHT_GRAY   ='\033[{0}m'.format(37)
+        DARK_GRAY    ='\033[{0}m'.format(90)
+        LIGHT_RED    ='\033[{0}m'.format(91)
+        LIGHT_GREEN  ='\033[{0}m'.format(92)
+        LIGHT_YELLOW ='\033[{0}m'.format(93)
+        LIGHT_BLUE   ='\033[{0}m'.format(94)
+        LIGHT_MAGENTA='\033[{0}m'.format(95)
+        LIGHT_CYAN   ='\033[{0}m'.format(96)
+        WHITE        ='\033[{0}m'.format(97)
     class background:
-        DEFAULT      =stringer('\033[{0}m',49)
-        BLACK        =stringer('\033[{0}m',40)
-        RED          =stringer('\033[{0}m',41)
-        GREEN        =stringer('\033[{0}m',42)
-        YELLOW       =stringer('\033[{0}m',43)
-        BLUE         =stringer('\033[{0}m',44)
-        MAGENTA      =stringer('\033[{0}m',45)
-        CYAN         =stringer('\033[{0}m',46)
-        LIGHT_GRAY   =stringer('\033[{0}m',47)
-        DARK_GRAY    =stringer('\033[{0}m',100)
-        LIGHT_RED    =stringer('\033[{0}m',101)
-        LIGHT_GREEN  =stringer('\033[{0}m',102)
-        LIGHT_YELLOW =stringer('\033[{0}m',103)
-        LIGHT_BLUE   =stringer('\033[{0}m',104)
-        LIGHT_MAGENTA=stringer('\033[{0}m',105)
-        LIGHT_CYAN   =stringer('\033[{0}m',106)
-        WHITE        =stringer('\033[{0}m',107)
+        DEFAULT      ='\033[{0}m'.format(49)
+        BLACK        ='\033[{0}m'.format(40)
+        RED          ='\033[{0}m'.format(41)
+        GREEN        ='\033[{0}m'.format(42)
+        YELLOW       ='\033[{0}m'.format(43)
+        BLUE         ='\033[{0}m'.format(44)
+        MAGENTA      ='\033[{0}m'.format(45)
+        CYAN         ='\033[{0}m'.format(46)
+        LIGHT_GRAY   ='\033[{0}m'.format(47)
+        DARK_GRAY    ='\033[{0}m'.format(100)
+        LIGHT_RED    ='\033[{0}m'.format(101)
+        LIGHT_GREEN  ='\033[{0}m'.format(102)
+        LIGHT_YELLOW ='\033[{0}m'.format(103)
+        LIGHT_BLUE   ='\033[{0}m'.format(104)
+        LIGHT_MAGENTA='\033[{0}m'.format(105)
+        LIGHT_CYAN   ='\033[{0}m'.format(106)
+        WHITE        ='\033[{0}m'.format(107)
 class flextable:
     @staticmethod
     def colors(foreground,background,dim=None,bold=None):
@@ -4697,435 +4698,6 @@ class flextable:
                 if None== background:
                     background=default.background
                 if None== dim:
-                    dim=default.dim
-                if None == bold:
-                    bold=default.bold
-            self.color=flextable.colors(foreground=foreground,background=background,dim=dim,bold=bold)
-            if None !=text:
-                if text.isspace(): 
-                    text=None
-            self.text=text
-        def render(self,text=None, length=None,fill_character=' ',override=None,use_color=True):
-            if text==None:
-                text=self.text
-            if None == text:
-                text=''
-            try:
-                if isinstance(text,bool)==True:
-                    text=str(text)
-                elif isinstance(text,int)==True:
-                    text=str(text)
-                elif isinstance(text,float)==True:
-                    text=str(text)
-                elif isinstance(text,str)==False:
-                    text=str(text)
-            except:
-                pass
-            if text.find('\t')>-1:
-                text=text.replace('\t','    ')
-            text=text.rstrip()
-            if length!=None:
-                length=int(length)
-                text=text[:length].ljust(length,fill_character)
-            if use_color is False or use_color is None:
-                return text
-            if None!=override:
-                return stringer(u"{0}{1}",override.color,text)    
-            return stringer(u"{0}{1}{2}",self.color,text,self.reset)
-    class modes:
-        def __init__(self):
-            self.default  =flextable.color('blue'      )
-            self.error    =flextable.color('red'        ,bold=True,default=self.default)
-            self.overflow =flextable.color('yellow'     ,default=self.default)
-            self.comment  =flextable.color('yellow'     ,default=self.default)
-            self.data     =flextable.color('light gray' ,default=self.default)
-            self.active   =flextable.color('white'      ,default=self.default)
-            self.edit     =flextable.color('cyan'       ,default=self.default)
-            self.disabled =flextable.color('dark gray'  ,default=self.default)
-    class characters:
-        class char_walls:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'│'
-                    r=u'│'
-                    t=u'─'
-                    b=u'─'
-                elif style=='double':
-                    l=u'║'
-                    r=u'║'
-                    t=u'═'
-                    b=u'═'
-                elif style=='rst':
-                    l=u'|'
-                    r=u'|'
-                    t=u'-'
-                    b=u'-'
-                elif style=='ascii':
-                    l=u'|'
-                    r=u'|'
-                    t=u'-'
-                    b=u'-'
-                self.left   =flextable.color(text=l,default=default)
-                self.right  =flextable.color(text=r,default=default)
-                self.top    =flextable.color(text=t,default=default)
-                self.bottom =flextable.color(text=b,default=default)
-        class char_center:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'├'
-                    c=u'┼'
-                    r=u'┤'
-                elif style=='double':
-                    l=u'╠'
-                    c=u'╬'
-                    r=u'╣'
-                elif style=='rst':
-                    l=u'|'
-                    c=u'|'
-                    r=u'|'
-                elif style=='ascii':
-                    l=u'|'
-                    c=u'|'
-                    r=u'|'
-                self.center = flextable.color(text=c,default=default)
-                self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)
-        class char_rst:
-            def __init__(self,default=None):
-                self.edge   =flextable.color(text='+',default=default)
-                self.space  =flextable.color(text=' ',default=default)
-                self.header =flextable.color(text='=',default=default)
-                self.row    =flextable.color(text='-',default=default)
-        class char_bottom:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'└'
-                    c=u'┴'
-                    r=u'┘'
-                elif style=='double':
-                    l=u'╚'
-                    c=u'╩'
-                    r=u'╝'
-                elif style=='rst':
-                    l=u'+'
-                    c=u'+'
-                    r=u'+'
-                elif style=='ascii':
-                    l=u'-'
-                    c=u'-'
-                    r=u'-'
-                self.left   = flextable.color(text=l,default=default)
-                self.center = flextable.color(text=c,default=default)
-                self.right  = flextable.color(text=r,default=default)
-        class char_top:
-            def __init__(self,default=None,style='rst'):
-                if style == 'single':
-                    l=u'┌'
-                    c=u'┬'
-                    r=u'┐'
-                elif style=='double':
-                    l=u'╔'
-                    c=u'╦'
-                    r=u'╗'
-                elif style=='rst':
-                    l=u'|'
-                    c=u'|'
-                    r=u'|'
-                elif style=='ascii':
-                    l=u'-'
-                    c=u'-'
-                    r=u'-'
-                self.left   = flextable.color(text=l,default=default)
-                self.right  = flextable.color(text=r,default=default)
-                self.center = flextable.color(text=c,default=default)
-        class char_header:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'┤'
-                    c=u' '
-                    r=u'├'
-                elif style=='double':
-                    l=u'╡'
-                    c=u' '
-                    r=u'╞'
-                elif style=='rst':
-                    l=u''
-                    c=u' '
-                    r=u''
-                elif style=='ascii':
-                    l=u''
-                    c=u' '
-                    r=u''
-                self.left   = flextable.color(text=l,default=default,foreground='White')
-                self.right  = flextable.color(text=r,default=default,foreground='White')
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        class char_mid_header:
-            def __init__(self,default=None,style='rst'):
-                if style == 'single':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                elif style== 'double':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                elif style=='rst':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                elif style=='ascii':
-                    l=u'-'
-                    c=u' '
-                    r=u'-'
-                self.left   = flextable.color(text=l,default=default,foreground='White')
-                self.right  = flextable.color(text=r,default=default,foreground='White')
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        class char_footer:
-            def __init__(self,default=None,style='rst'):
-                if style=='single':
-                    l=u'['
-                    c=u' '
-                    r=u']'
-                elif style=='double':
-                    l=u'['
-                    c=u' '
-                    r=u']'
-                elif style=='rst':
-                    l=None
-                    c=u' '
-                    r=None
-                elif style=='ascii':
-                    l=None
-                    c=u' '
-                    r=None
-                self.left   = flextable.color(text=l,default=default,foreground='White') #╡
-                self.right  = flextable.color(text=r,default=default,foreground='White') #╞
-                self.center = flextable.color(text=c,default=default,foreground='green')
-        def __init__(self,default=None,style='rst'):
-            self.walls      =self.char_walls(default=default,style=style)
-            self.center     =self.char_center(default=default,style=style)
-            self.bottom     =self.char_bottom(default=default,style=style)
-            self.top        =self.char_top(default=default,style=style)
-            self.mid_header =self.char_mid_header(default=default,style=style)
-            self.header     =self.char_header(default=default,style=style)
-            self.footer     =self.char_footer(default=default,style=style)
-            self.rst        =self.char_rst(default=default)
-    class data_type:
-        COMMENT=1
-        ERROR=2
-        DATA=3
-        WHITESPACE=4
-    def __init__(self,      data,
-                            display_style='single',
-                            column_count=0,
-                            hide_comments=False,
-                            hide_errors=False,
-                            hide_whitespace=False,
-                            columns=None,
-                            length=None,
-                            line=0,
-                            page=0,
-                            header=True,
-                            footer=True,
-                            header_every=-1,
-                            tab_width=4,
-                            tab_stop=8,
-                            row_height=-1,
-                            column_width=-1,
-                            render_color=True,
-                            output_stream='STDIO'
-                        ):
-        self.column_count=column_count
-        self.hide_comments=hide_comments
-        self.hide_errors=hide_errors
-        self.hide_whitespace=hide_whitespace
-        self.columns=columns
-        self.length=length
-        self.line=line
-        self.page=page
-        self.header=header
-        self.footer=footer
-        self.header_every=header_every
-        self.tab_width=tab_width
-        self.tab_stop=tab_stop
-        self.row_height=row_height
-        self.column_width=column_width
-        self.render_color=render_color
-        self.is_temp_file=False
-        if display_style not in ['single','double','rst','ascii']:
-            display_style='single'    
-        self.display_style=display_style
-        if output_stream=='STDIO':
-            self.output_destination=None
-        elif output_stream=='STRING':
-            self.output_destination=[]
-        else:
-            self.output_destination=None
-        if self.column_width==-1:
-            self.row_height=25
-            self.column_width=80
-            try:
-                pro=os.popen('stty -F /dev/tty size', 'r')
-                self.row_height,self.column_width =pro.read().split()
-                pro.close()
-            except:
-                pass
-        if column_count>-1 and columns == None:
-            self.columns=[]
-            for n in range(0,self.column_count):
-                self.columns.append(stringer("column{0}",n+1))
-        else:
-            self.column_count=len(columns)
-        if page>-1 and length:
-            if length>0:
-                self.starts_on=page*length+1
-        if self.line>-1:
-            self.starts_on=line
-        if display_style=='rst':
-            self.footer=False
-            self.header_every=0
-        self.style=self.flextable_style(style=self.display_style)
-        self.results=[]
-        self.data=data
-        self.format()
-    def calculate_limits(self):
-        tty_min_column_width=1
-        data_column_count=len(self.columns)
-        pad=data_column_count+1
-        if data_column_count==0:
-            self.column_character_width=-1
-        else:
-            if self.column_width!=-1:
-                self.column_character_width=int((int(self.column_width)-1-pad)/data_column_count)
-                if self.column_character_width<tty_min_column_width:
-                    self.column_character_width=tty_min_column_width
-        self.total_width=self.column_character_width*data_column_count+data_column_count-1
-    def build_header(self,footer=False,mid=False):
-        if False==footer:
-            base=self.style.characters.top
-            column=self.style.characters.header
-        else:
-                base=self.style.characters.bottom
-                column=self.style.characters.footer
-        if mid==True:
-                base=self.style.characters.center
-                column=self.style.characters.mid_header
-        header=base.left.render(use_color=self.render_color)
-        column_pad=0
-        if column.left.text:
-            column_pad+=1
-        if column.right.text:
-            column_pad+=1
-        if None != self.columns:
-            index=0
-            for c in self.columns:
-                column_display=''
-                if column.left.text:
-                    column_display=column.left.render(use_color=self.render_color)
-                column_display+=column.center.render(use_color=self.render_color,text=c,length=self.column_character_width-column_pad)
-                if column.right.text:
-                    column_display+=column.right.render(use_color=self.render_color)
-                header+=column_display
-                if index<len(self.columns)-1:
-                    if len(stringer('{0}',c))>self.column_character_width-2:
-                        header+=base.center.render(use_color=self.render_color,override=self.style.color.overflow)
-                    else:
-                        header+=base.center.render(use_color=self.render_color)
-                index+=1
-        header+=base.right.render(use_color=self.render_color)
-        if self.render_color==True:
-            header+=stringer('{0}',tty_code.reset.ALL)
-        return header
-    def build_rows(self,buffer):
-        rows=[]
-        index=0
-        if True == isinstance(buffer,list):
-            for line in buffer:
-                data_len=len(line['data'])
-                columns=self.style.characters.walls.left.render(use_color=self.render_color)
-                if self.data_type.DATA == line['type']:
-                    for c in line['data']:
-                        columns+=self.style.color.data.render(c,use_color=self.render_color,length=self.column_character_width)
-                        if len(stringer('{0}',c))>self.column_character_width:
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.overflow)
-                        else:
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color)
-                    if data_len < self.column_count:
-                        wall_color=tty_code.background.LIGHT_BLUE
-                        for c in range(data_len,self.column_count):
-                            columns+=self.style.color.comment.render('',use_color=self.render_color,length=self.column_character_width)
-                            columns+=self.style.characters.walls.right.render(use_color=self.render_color,override=self.style.color.error)
-                elif self.data_type.COMMENT ==  line['type'] or self.data_type.WHITESPACE==line['type']:
-                    left  =self.style.characters.walls.left.render(use_color=self.render_color)
-                    center=self.style.color.comment.render(line['raw'],use_color=self.render_color,length=self.total_width)
-                    right =self.style.characters.walls.right.render(use_color=self.render_color)
-                    columns=stringer(u"{0}{1}{2}", left,
-                                                center,
-                                                right)
-                elif self.data_type.ERROR ==  line['type']:
-                    left  =self.style.characters.walls.left.render(use_color=self.render_color)
-                    center=self.style.color.error.render(line['raw'],use_color=self.render_color,length=self.total_width)
-                    right =self.style.characters.walls.right.render(use_color=self.render_color)
-                    columns=stringer(u"{0}{1}{2}", left,
-                                                center,
-                                                right)
-                if self.render_color==True:
-                    columns+=stringer('{0}',tty_code.reset.ALL)
-                rows.append(columns)
-                index+=1
-        else:
-            raise Exception (stringer("data is invalid: -> {0}",buffer))
-        return rows
-    def build_row_seperator(self,header=None):
-        index=0
-        if header:
-            char=self.style.characters.rst.header.text
-        else:
-            char=self.style.characters.rst.row.text
-        row=self.style.characters.rst.edge.render()
-        for i in range(0,self.column_count):
-            row+=self.style.characters.rst.row.render('',fill_character=char,use_color=self.render_color,length=self.column_character_width)
-            row+=self.style.characters.rst.edge.render()
-        if self.render_color==True:
-            row+=stringer('{0}',tty_code.reset.ALL)
-        return row
-    def print_errors(self,table):
-        for e in table.errors:
-            print(e.encode('utf-8'))
-    def format(self):
-        self.calculate_limits()
-        header=self.build_header()
-        mid_header=self.build_header(mid=True)
-        footer=self.build_header(footer=True)
-        rows=self.build_rows(self.data)
-        row_seperator=self.build_row_seperator()
-        row_header_seperator=self.build_row_seperator(header=True)
-        index=1
-        try:
-            if sys.version_info.major>2:
-                encode=False
-            else:
-                encode=True
-        except:
-            encode=False
-            pass
-        mprint('')
-        if self.header==True:
-            if self.display_style=='rst':
-                mprint(row_seperator)
-            mprint(header)
-            if self.display_style=='rst':
-                mprint(row_header_seperator)
-        for row in rows:
-            mprint(row)
-            if self.display_style=='rst':
-                mprint(row_seperator)
-            if self.header_every>0:                
-                if index%self.header_every==0 and index>0:
-                    mprint(mid_header)
-            index+=1
-        if self.footer==True:
-            mprint(footer)
 
         
 # ############################################################################
@@ -5145,7 +4717,7 @@ class factory_yaml:
         self.debug=debug
     def info(self,msg,data):
         if self.debug:
-            print(stringer("{0} : {1}",msg,data))
+            print("{0} : {1}".format(msg,data))
     def walk_path(self,path,root):
         obj=root
         if path and len(path)>0:
@@ -5182,24 +4754,24 @@ class factory_yaml:
         self.info("Path", ".".join([ str(arr) for arr in path]))
         if isinstance(fragment,list):
             for i,value in enumerate(fragment):
-                self.info("Yaml",stringer("List:{0}",i))
+                self.info("Yaml","List:{0}".format(i))
                 path.append(i)
                 return {'key':i,'type':'list','obj':value,'depth':len(path)}
         elif isinstance(fragment,dict):
             for i in fragment:
-                self.info("Yaml",stringer("Dict:{0}",i))
+                self.info("Yaml","Dict:{0}".format(i))
                 path.append(i)
                 return {'key':i,'type':'dict','obj':fragment[i],'depth':len(path)}
         elif hasattr(fragment, '__dict__'):
             self.info("Yaml","In Class")
             for key in fragment.__dict__.keys():
-                self.info("Yaml",stringer("Class:{0}",key))
+                self.info("Yaml","Class:{0}".format(key))
                 value=getattr(fragment,key)
                 path.append(key)
                 return {'key':key,'type':'class','obj': value,'depth':len(path)}
         self.info("Yaml","Cant go deeper")
         while len(path)>0:
-            self.info("Yaml",stringer("loop - looking {0}",len(path)))
+            self.info("Yaml","loop - looking {0}".format(len(path)))
             last_path=path.pop()
             if len(path)==0:
                 temp_obj=root
@@ -5226,7 +4798,7 @@ class factory_yaml:
             elif hasattr(temp_obj, '__dict__'):
                 self.info("Yaml","Next - In Class")
                 for key in temp_obj.__dict__.keys():
-                    self.info("Yaml",stringer("Attr:{0}",key))
+                    self.info("Yaml","Attr:{0}".format(key))
                     value=getattr(temp_obj,key)
                     if grab_next:
                         path.append(key)
@@ -5282,7 +4854,7 @@ class factory_yaml:
                     line=self.padding(len(path),indent,arr_depth)
                 else:
                     newline=0
-                line+=stringer("{0}: ",fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
             if fragment['type']=='dict':
                 if newline==0:
                     if len(line)>0:
@@ -5291,9 +4863,9 @@ class factory_yaml:
                 else:
                     newline=0
                 if not fragment['key']:
-                    line+=stringer("{0}: -{1}",fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                    line+="{0}: -{1}".format(fragment['key'],'{'+'}')#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
                 else:
-                    line+=stringer("{0}: ",fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
+                    line+="{0}: ".format(fragment['key'])#+""+str(arr_depth)+'-'+str(len(path))+"-"+str(indent)
             if fragment['type']=='list':
                 if parent_fragment and fragment:
                     if parent_fragment['type']!='list' and  fragment['key']==0:
@@ -5314,7 +4886,7 @@ class factory_yaml:
                 if obj==None:
                     line+="null"
                 elif isinstance(obj,int):
-                    line+=stringer("{0}",obj)
+                    line+="{0}".format(obj)
                 elif obj==True:
                     line+="true"
                 elif obj==False:
@@ -5322,9 +4894,9 @@ class factory_yaml:
                 elif isinstance(obj,str):
                     obj=obj.replace("'","''")
                     obj=obj.replace("\"","\\\"")
-                    line+=stringer("'{0}'",obj)
+                    line+="'{0}'".format(obj)
                 else:
-                    line+=stringer("{0}",obj)
+                    line+="{0}".format(obj)
                 if len(line)>0:
                     lines.append(line)
                 line=""
@@ -5457,7 +5029,7 @@ class factory_yaml:
                 while is_array:
                     make_new_array=True
                     if None==obj:
-                        self.info("Encode-Array",stringer("made a new object at start (root index) @ {0}",len(hash_map)))
+                        self.info("Encode-Array","made a new object at start (root index) @ {0}".format(len(hash_map)))
                         obj_parent[obj_parent_key]=[]
                         obj=obj_parent[obj_parent_key]
                         obj_hash['obj']=obj
@@ -5493,14 +5065,14 @@ class factory_yaml:
                     for index in range(len(hash_map)-1,-1,-1):
                         if hash_map[index]['indent']<=indent:
                             obj=hash_map[index]['obj']
-                            self.info("Encode",stringer("Found it: {0}",index))
+                            self.info("Encode","Found it: {0}".format(index))
                             found=True
                             break
                     if None==found:
                         self.info("Encode","Didn't Find it")
             line_tuple=self.get_tuple(line_cleaned)
             if line_tuple:
-                self.info("Encode",stringer("In Tuple :{0}",line_tuple['key']))
+                self.info("Encode","In Tuple :{0}".format(line_tuple['key']))
                 if None == obj:
                     self.info("Encode","OBJ needs ")
                     obj_parent[obj_parent_key]={}
@@ -5638,7 +5210,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 class ddbPrompt(Cmd):
     prompt = 'ddb> '
-    intro = stringer("Welcome! Type ? to list commands. Version: {0}",__version__)
+    intro = "Welcome! Type ? to list commands. Version: {0}".format(__version__)
     def cmdloop_with_keyboard_interrupt(self):
         doQuit = False
         while doQuit != True:
@@ -5665,7 +5237,7 @@ class ddbPrompt(Cmd):
             color = bcolors.WARNING
         if type == 'error':
             color = bcolors.FAIL
-        print(stringer("{2}>>>{3} {4}{0}{3} {1}",name, message, bcolors.OKBLUE, bcolors.ENDC, color))
+        print("{2}>>>{3} {4}{0}{3} {1}".format(name, message, bcolors.OKBLUE, bcolors.ENDC, color))
     def do_exit(self, inp):
         self.msg("info", "Bye")
         return True
@@ -5683,7 +5255,7 @@ class ddbPrompt(Cmd):
         self.msg("info", 'Toggle debugging on or off')
     def do_config(self, inp):
         try:
-            self.msg("info", stringer("configuration_dir set to'{0}'",inp))
+            self.msg("info", "configuration_dir set to'{0}'".format(inp))
             self.engine = engine(config_dir=inp, debug=self.debug)
         except:
             err = sys.exc_info()[1]
@@ -5734,7 +5306,7 @@ def cli_main():
             if os.path.exists(config_dir)==False:
                 os.mkdir(config_dir)
         except:
-            print(stringer("Can not create ddb data directory: {0}",config_dir))
+            print("Can not create ddb data directory: {0}".format(config_dir))
             exit(1)
     if len(args.query)!=0 or not sys.stdin.isatty():
             if not sys.stdin.isatty():

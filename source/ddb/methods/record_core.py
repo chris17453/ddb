@@ -114,7 +114,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(table.delimiters.field.encode("ascii"),column_count)
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
                 #cur_column_len = len(line_data)
                 
                 #line_data[-1]=line_data[-1].rstrip()
@@ -228,9 +228,9 @@ class match2:
         # the file data in ROW is already bytes (py2)/str(py3)
         # convert the decoded lex data to the same format...
         if None == compare1:
-            compare1 = test.e1.encode('ascii')
+            compare1 = test.e1
         if None == compare2:
-            compare2 = test.e2.encode('ascii')
+            compare2 = test.e2
 
 
         if comparitor == '=' or comparitor == 'is':
@@ -417,33 +417,37 @@ class query_results:
 class file_writer:
     def __init__(self,path,mode='w'):
         if mode=='a':
-            file_mode='ab'
+            file_mode='a'
         elif mode=='w':
-            file_mode='wb'
+            file_mode='w'
         else:
             raise Exception ("Bad file mode")
 
-        self.file=open(path, file_mode, buffering=0)
+        self.file=open(path, file_mode) #, buffering=0
 
     
     def write(self,data):
-        try:
-            if isinstance(data,unicode)==True:
-                dest_data=data.encode("ascii")
-                self.file.write(dest_data)
-                return
-        except:
-            pass
-
-        if  isinstance(data,str)==True:
-            dest_data=data.encode("ascii")
-            self.file.write(dest_data)
+        if sys.version_info[0]==3:
+            self.file.write(data)
             return
         else:
             try:
-                self.file.write(data)
+                if isinstance(data,unicode)==True:
+                    #dest_data=data.encode("ascii")
+                    self.file.write(data)
+                    return
             except:
-                raise Exception("File Writer: I dont know what this is")
+                pass
+
+            if  isinstance(data,str)==True:
+                #dest_data=data.encode("ascii")
+                self.file.write(data)
+                return
+            else:
+                try:
+                    self.file.write(data)
+                except:
+                    raise Exception("File Writer: I dont know what this is")
 
     def close(self):
         if self.file:

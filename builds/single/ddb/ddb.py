@@ -2945,8 +2945,7 @@ class engine:
                             data.append(r)
                         self.results.data=data
                     except:
-                        err = sys.exc_info()[1]
-                        ex = err.args[0]
+                        ex = sys.exc_info()[1]
                         self.error(ex)
                 else:
                     pass
@@ -3166,7 +3165,7 @@ def process_line3(context,meta, line, line_number=0,column_count=0,delimiter=','
                     line_data = [line_cleaned]
                 line_type = context.data_type.COMMENT
             else:
-                line_data = line_cleaned.split(table.delimiters.field.encode("ascii"),column_count)
+                line_data = line_cleaned.split(table.delimiters.field,column_count)
                 cur_column_len = len(line_data)
                 if table.data.strict_columns==True:
                     if  cur_column_len != column_count:
@@ -3237,9 +3236,9 @@ class match2:
         if not compare1_is_column and not compare2_is_column:
             raise Exception(stringer("expression invalid {0}",test))
         if None == compare1:
-            compare1 = test.e1.encode('ascii')
+            compare1 = test.e1
         if None == compare2:
-            compare2 = test.e2.encode('ascii')
+            compare2 = test.e2
         if comparitor == '=' or comparitor == 'is':
             if compare1 == compare2:
                 return True
@@ -3373,29 +3372,31 @@ class query_results:
 class file_writer:
     def __init__(self,path,mode='w'):
         if mode=='a':
-            file_mode='ab'
+            file_mode='a'
         elif mode=='w':
-            file_mode='wb'
+            file_mode='w'
         else:
             raise Exception ("Bad file mode")
-        self.file=open(path, file_mode, buffering=0)
+        self.file=open(path, file_mode) #, buffering=0
     def write(self,data):
-        try:
-            if isinstance(data,unicode)==True:
-                dest_data=data.encode("ascii")
-                self.file.write(dest_data)
-                return
-        except:
-            pass
-        if  isinstance(data,str)==True:
-            dest_data=data.encode("ascii")
-            self.file.write(dest_data)
+        if sys.version_info[0]==3:
+            self.file.write(data)
             return
         else:
             try:
-                self.file.write(data)
+                if isinstance(data,unicode)==True:
+                    self.file.write(data)
+                    return
             except:
-                raise Exception("File Writer: I dont know what this is")
+                pass
+            if  isinstance(data,str)==True:
+                self.file.write(data)
+                return
+            else:
+                try:
+                    self.file.write(data)
+                except:
+                    raise Exception("File Writer: I dont know what this is")
     def close(self):
         if self.file:
             self.file.close()
@@ -3417,7 +3418,7 @@ def method_delete(context, meta):
     visible_whitespace=meta.table.visible.whitespace
     visible_comments  =meta.table.visible.comments
     visible_errors    =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_DELETE",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')
@@ -3545,7 +3546,7 @@ def select_process_file(context,meta):
         visible_whitespace=table.visible.whitespace
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
-        content_file=open(temp_data_file, 'rb',buffering=0) 
+        content_file=open(temp_data_file, 'r')#,buffering=0) 
         try:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)
@@ -3846,7 +3847,7 @@ def method_update(context, meta):
     visible_whitespace=meta.table.visible.whitespace
     visible_comments  =meta.table.visible.comments
     visible_errors    =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')
@@ -3909,7 +3910,7 @@ def method_upsert(context, meta,query_object,main_meta):
     visible_whitespace =meta.table.visible.whitespace
     visible_comments   =meta.table.visible.comments
     visible_errors     =meta.table.visible.errors
-    content_file=open(temp_data_file, 'rb', buffering=0)
+    content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPSERT",unique=True)
         temp_file=file_writer(dst_temp_filename,'w')

@@ -10,6 +10,7 @@ RUN yum -y install python2-devel python2-pip gcc  make git
 RUN pip install argparse
 RUN pip install ordereddict
 RUN pip install cython
+ENV DDB_RELEASE=27
 
 
 WORKDIR /ddb/

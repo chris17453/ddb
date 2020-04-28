@@ -9,12 +9,16 @@ from pprint import pprint
 
 
 standalone_script=None
+ddb_release=None
 
 pprint(os.environ,indent=4)
 print ("TESTING")
+if 'DDB_RELEASE' in os.environ:
+    ddb_release=os.environ['DDB_RELEASE']
 if 'DDB_RELEASE_DIR' in os.environ:
     print ("Found test dir")
     standalone_script=os.environ['DDB_RELEASE_DIR']
+    
 
 
 if standalone_script!=None:
@@ -29,10 +33,10 @@ if standalone_script!=None:
         sys.exit(1)
     print ("DDB STANDALONE")
 else:
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../source')))
 
     try:
-        from source import ddb
+        import ddb
     except:
         print ("DDB CYTHON FAILED")
         ex=sys.exc_info()[1]
@@ -79,7 +83,7 @@ def update_stats(test,status):
     py_minor=str(engine.system['PYTHON_MINOR'])
     py_micro=str(engine.system['PYTHON_MICRO'])
     cython  =str(engine.system['CYTHON_ENABLED'])
-    row=[test,version,commit,log,status,date,py_major,py_minor,py_micro,cython]
+    row=[ddb_release,test,version,commit,log,status,py_major,py_minor,py_micro,cython,date]
     csv_row=",".join(row)
     
     file=open("profile/stats.csv","at")
@@ -280,6 +284,7 @@ class test_engine(unittest.TestCase):
         
         results = engine.query(stringer('select * from {0} LIMIT 10',self.table_name))
         self.assertEqual(True, results.success)
+        #results.debug()
         self.assertEqual(10, results.data_length)
 
         results = engine.query(stringer('select * from {0} LIMIT 1',self.table_name))
@@ -581,10 +586,7 @@ if __name__ == '__main__':
     runner = unittest.TextTestRunner()
     results=runner.run(suite)
     
-    #print(results.errors)
-    #print(results.failures)
     test_results={}
-    #print (results.failures)
     for err in results.failures:
         test=get_name(err[0])
         print(test)

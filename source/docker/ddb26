@@ -11,6 +11,7 @@ RUN yum -y install python-devel python-pip gcc  make git
 RUN yum -y install python-ordereddict
 RUN yum -y install python-argparse
 #RUN yum -y install python-unittest2
+ENV DDB_RELEASE=26
 
 
 

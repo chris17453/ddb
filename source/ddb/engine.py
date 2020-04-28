@@ -481,8 +481,7 @@ class engine:
                         #for row in self.results.data:
                         #    print("DB-:{0}".format(row.to_json()))
                     except:
-                        err = sys.exc_info()[1]
-                        ex = err.args[0]
+                        ex = sys.exc_info()[1]
                         self.error(ex)
                 else:
                     pass

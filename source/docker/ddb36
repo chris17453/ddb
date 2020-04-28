@@ -7,6 +7,7 @@ RUN groupadd -r ddb -g 1000 && useradd -u 1000 -r -g ddb -m -d /ddb -s /sbin/nol
 
 RUN yum install epel-release -y
 RUN yum -y install python36-devel python36-pip python36-Cython gcc  make git
+ENV DDB_RELEASE=36
 
 WORKDIR /ddb/
 USER ddb

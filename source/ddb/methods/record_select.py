@@ -82,7 +82,7 @@ def select_process_file(context,meta):
         visible_comments=table.visible.comments
         visible_errors=table.visible.errors
 
-        content_file=open(temp_data_file, 'rb',buffering=0) 
+        content_file=open(temp_data_file, 'r')#,buffering=0) 
         try:
             for line in content_file:
                 processed_line = process_line3(context, meta, line, line_number,column_count,delimiter,visible_whitespace,visible_comments, visible_errors)

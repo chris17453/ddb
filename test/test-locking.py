@@ -2,15 +2,17 @@ import unittest
 import os
 import sys
 import datetime
+import signal
 from pprint import pprint
-import cProfile 
-import pstats
+#import cProfile 
+#import pstats
 import time
 
+print ("Locking Test")
 
 standalone_script=None
 
-pprint(os.environ,indent=4)
+#pprint(os.environ,indent=4)
 print ("TESTING")
 if 'DDB_RELEASE_DIR' in os.environ:
     print ("Found test dir")
@@ -18,8 +20,9 @@ if 'DDB_RELEASE_DIR' in os.environ:
 
 
 if standalone_script!=None:
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),standalone_script)))
-
+    path= os.path.abspath(os.path.join(os.path.dirname(__file__),standalone_script))
+    sys.path.insert(0,path)
+    print (path)
     try:
         from ddb import ddb
     except:
@@ -29,16 +32,22 @@ if standalone_script!=None:
         sys.exit(1)
     print ("DDB STANDALONE")
 else:
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    path= os.path.abspath(os.path.join(os.path.dirname(__file__), '../source/'))
+    #path= os.path.abspath(os.path.join(os.path.dirname(__file__), '../builds/single/ddb/'))
+    print(path)
+    sys.path.insert(0,path)
 
     try:
-        from source import ddb
+        import ddb
     except:
         print ("DDB CYTHON FAILED")
         ex=sys.exc_info()[1]
         print (ex)
         sys.exit(1)
     print ("DDB CYTHON")
+
+running=0
+
 
 
 class test_engine:
@@ -90,76 +99,114 @@ class test_engine:
 
         
         if repo=="":
-            query="create table @db.@table (`id`,`pid`,`value`,`timestamp`) file='@path' data_starts_on=1"
+            query="create temporary table @db.@table (`id`,`pid`,`value`,`timestamp`) file=@path data_starts_on=1"
         else:
-            query="create table @db.@table (`id`,`pid`,`value`,`timestamp`) file='/ddb/bb' @repo data_starts_on=1"
+            query="create temporary table @db.@table (`id`,`pid`,`value`,`timestamp`) file='@path' @repo data_starts_on=1"
         params={'@db':self.database_name,
                 '@table':self.table_name, 
                 '@path':file_name,
                 '@repo':repo}
-        #print query
-        print(engine.prepare_sql(query,params))
+
         results = engine.query(query,params)
         
-        results.debug()
+        #results.debug()
         #self.assertEqual(True, results.success)
 
+ 
     def test_threads(self,mode=None):
+        global running
         """Test inserting values in a table with locking"""
         #try:
-        process_count=90
+        process_count=30
         pid=os.getpid()
         print("Locking: %d"% pid)
         # fail on existing table
         self.cleanup()
         self.init(mode)
-        
+
         for i in range(process_count-1):
             #time.sleep(1)
             newpid = os.fork()
-            if newpid!=0:
+            if newpid:
+                running+=1
+            else:
                 break
-
         
-        self.lock()
+        if newpid==0: self.lock()
+        else:
+            for i in range(process_count-1):
+                running -=1
+                pid, status = os.wait()
+                status_calc=(status >> 8)
+                print('Parent got', pid, status, status_calc,running)
+                if status_calc!=0:
+                    print("Failed")
+            
+        return newpid
+        
         
     def lock(self):
-        try:
-            engine = ddb.engine(config_dir=None,debug=None)
-            self.create_table(engine,None)
-            start_time=time.time()
-            ellapsed_time=0
-            pid=os.getpid()
-            value=1
-            
-            # test results length
-            for i in range(0,100):
-                timestamp=datetime.datetime.now()
+        engine = ddb.engine(config_dir=None,debug=None)
+        self.create_table(engine,None)
+        start_time=time.time()
+        ellapsed_time=0
+        pid=os.getpid()
+        value=1
+        # test results length
+        insert_count=100
+        for i in range(0,insert_count):
+            timestamp=datetime.datetime.now()
 
-                query="INSERT INTO @db.@table (`id`,`pid`,`value`,`timestamp`) values ('@id','@pid','@value','@timestamp')"
-                params={
-                        '@db'       :self.database_name,
-                        '@table'    :self.table_name,
-                        '@id'       :i,
-                        '@pid'      :pid,
-                        '@value'    :value,
-                        '@timestamp':timestamp
-                        }
-                        
-                results = engine.query(query,params)
-                #self.assertEqual(True, results.success)
+            query="INSERT INTO @db.@table (`id`,`pid`,`value`,`timestamp`) values (@id,@pid,@value,@timestamp)"
+            params={
+                    '@db'       :self.database_name,
+                    '@table'    :self.table_name,
+                    '@id'       :i,
+                    '@pid'      :pid,
+                    '@value'    :value,
+                    '@timestamp':timestamp
+                    }
+                    
+            results = engine.query(query,params)
+            #self.assertEqual(True, results.success)
 
-            curent_time=time.time()
-            ellapsed_time=curent_time-start_time
-            print ("Ellapsed: %d ,%d" % (ellapsed_time,i))
-        except:
-            ex=sys.exc_info()[1]
-            print (ex)
+        query="SELECT id FROM  @db.@table WHERE `pid`=@pid"
+        params={
+                '@db'       :self.database_name,
+                '@table'    :self.table_name,
+                '@id'       :i,
+                '@pid'      :pid,
+                }
+                
+        results = engine.query(query,params)
+        if results.data_length!=insert_count:
+            sys.exit(-1)
+        
 
+        curent_time=time.time()
+        ellapsed_time=curent_time-start_time
+        #print ("Ellapsed: %d ,%d" % (ellapsed_time,i))
+    
 
+        
 if __name__ == '__main__':
     e=test_engine()
-    e.test_threads()
+    pid=e.test_threads()
+
+    #def chld_handler(signo, frame):
+    #    global running
+    #    running -= 1
+    #    if running<=0:
+    #        print("Lock Test Complete")
+    #        sys.exit()
+#
+    #signal.signal(signal.SIGCHLD, chld_handler)
+
+    #if pid!=0:
+    #   while(1): time.sleep(1)
+
+
+
     #cProfile.run('test_engine().lock()', 'restats')
     #p = pstats.Stats('restats')
     #p.strip_dirs().sort_stats(-1).print_stats()
