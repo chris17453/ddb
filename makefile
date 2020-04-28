@@ -182,14 +182,28 @@ release:  meta script
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
 
-cython-release:  meta
+create-cython-package:
+	# create build dir if needed
+	@rm -rf builds/$(DDB_NAME)
+	@mkdir -p builds/$(DDB_NAME)/$(DDB_NAME)
+	# remove everything from the build dir
+	@cp source/setup.py builds/$(DDB_NAME)/
+	@cp source/README.md builds/$(DDB_NAME)/
+	@cp source/MANIFEST.in builds/$(DDB_NAME)/
+	@sed -i 's/ddb/$(DDB_NAME)/g'  builds/$(DDB_NAME)/MANIFEST.in
+	@cd source/ddb; find . -name '*.py' | cpio -pdm ../../builds/$(DDB_NAME)/$(DDB_NAME)/
+	
+
+cython-release:  meta create-cython-package
 	@echo "This should be ran inside of a the build containers"
 	@echo "USING PYTHON BINARY: " $(PYTHON)
 	@echo "Removing old release packages"
 	@find builds/$(RELEASE_DIR) -type f -name "*.tar.gz" -exec rm -f {} \;
 	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
-	@$(PYTHON) $(conf_dir)/build.py
-	@cd source; $(PYTHON) setup.py build_ext sdist  --dist-dir ../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
+	#@$(PYTHON) $(conf_dir)/build.py
+
+	
+	@cd builds/$(DDB_NAME); $(PYTHON) setup.py build_ext sdist  --dist-dir ../../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test
 

@@ -331,3 +331,68 @@ make 27
 exit
 make 36
 exit
+build 36
+make 36
+ls builds
+ls builds/ddb3cython/ddb3cython/
+ls builds/ddb3cython/
+ls builds/ddb3cython/ddb3cython/
+ls builds/ddb3cython/ddb3cython/source/
+ls builds/ddb3cython/ddb3cython/source/ddb/
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+find .
+find builds/ddb3cython/
+make 36
+make 36
+make 36
+find builds/ddb3cython/
+make 36
+find builds/ddb3cython/
+make 36
+find builds/ddb3cython/
+make 36
+find builds/ddb3cython/
+make 36
+find builds/ddb3cython/
+make 36
+make 36
+find builds/ddb3cython/
+make 36
+find builds/ddb3cython/
+cat builds/ddb3cython/MANIFEST.
+make 36
+make 36
+make 36
+ack 'setup-single' ==py
+ack 'setup-single' --py
+cd builds/
+cd ddb3cython/
+ls
+python3 setup.py build_ext sdist  --dist-dir builds/bob  --build-cython --name=ddb3cython
+python3 setup.py build_ext sdist  --dist-dir builds/bob  --build-cython --name=ddb3cython
+ls
+find . -name "*.c"
+find . -name "*.c" -exec rm -f {} \;
+find . -name "*.c"
+python3 setup.py build_ext sdist  --dist-dir builds/bob  --build-cython --name=ddb3cython
+ls
+cd ..
+cd ..
+ls
+pwd
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make bump
+exit
