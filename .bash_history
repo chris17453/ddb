@@ -329,3 +329,5 @@ make 36
 exit
 make 27
 exit
+make 36
+exit
