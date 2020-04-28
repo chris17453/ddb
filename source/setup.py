@@ -300,6 +300,7 @@ setup(
     name=ddb_name,
     version=__version__,
     packages=packages,
+    install_requires=[],
     include_package_data=True,
     url='https://github.com/chris17453/ddb/',
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
