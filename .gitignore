@@ -18,6 +18,8 @@ __pycache__/
 svn_test/
 ddb.egg-info/
 *egg*/
+builds/
+build/
 profile/
 builds/Python/
 Python-2.7.16/
