@@ -9,34 +9,32 @@ from setuptools import setup, find_packages
 #from distutils.extension import Extension
 from setuptools.extension import Extension
 from setuptools.command.build_py import build_py as _build_py
-
-
-
 import multiprocessing
 
-EXCLUDE_FILES = [
-    'ddb/cli.py'
-]
+
+# Dynamicaly getting the package directory, which is the name of the package
+d = '.'
+dirs=[os.path.join(d, o) for o in os.listdir(d) 
+                    if os.path.isdir(os.path.join(d,o))]
+
+package_dir=None
+for d in dirs:
+    
+    if "egg" in d:
+        continue
+    if "." in d[2:]:
+        continue
+    package_dir=d[2:]
+
+if package_dir==None:
+    raise Exception ("I have no clue what my name is!")
+else:
+    print ("Package "+package_dir)
 
 cmdclass = {}
-ddb_name=None
+ddb_name=package_dir
 USE_CYTHON=None    
 no_extensions=None
-
-# #noinspection PyPep8Naming
-#class new_build_py(_build_py):
-#
-#    def find_package_modules(self, package, package_dir):
-#        ext_suffix = sysconfig.get_config_var('EXT_SUFFIX')
-#        modules = _build_py.find_package_modules(self,package, package_dir)
-#        filtered_modules = []
-#        for (pkg, mod, filepath) in modules:
-#            file2=filepath.replace(str('.py'), str(ext_suffix))
-#            if os.path.exists(file2):
-#                continue
-#            filtered_modules.append((pkg, mod, filepath, ))
-#        return filtered_modules
-
 
 try:
     for arg in sys.argv:
@@ -48,8 +46,6 @@ try:
 
 except:
     pass
-if ddb_name==None:
-    ddb_name="ddb"
 
 print ("** BUILDING: "+ddb_name)
 
@@ -267,11 +263,6 @@ packages=   [ddb_name,
             ddb_name+'.lexer',
             ddb_name+'.file_io']
 
-#packages=find_packages(exclude=['examples'])
-#for package in packages:
-#    print("Package: {0}".format(package))
-
-#install_requires=[],
 
 exec(open(prefix+'/version.py').read())
 

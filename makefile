@@ -19,6 +19,7 @@ DDB_NAME=ddb
 PYTHON=python
 
 
+
 .DEFAULT: help
 
 
@@ -201,8 +202,6 @@ cython-release:  meta create-cython-package
 	@find builds/$(RELEASE_DIR) -type f -name "*.tar.gz" -exec rm -f {} \;
 	@echo "Building $(DDB_NAME)  in  $(RELEASE_DIR)"
 	#@$(PYTHON) $(conf_dir)/build.py
-
-	
 	@cd builds/$(DDB_NAME); $(PYTHON) setup.py build_ext sdist  --dist-dir ../../builds/$(RELEASE_DIR)/  --build-cython --name=$(DDB_NAME)
 	# @$(MAKE) -f $(THIS_FILE) standalone
 	@$(MAKE) -f $(THIS_FILE) test

@@ -396,3 +396,18 @@ make 36
 make 36
 make bump
 exit
+make 36
+exit
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+make 36
+exit

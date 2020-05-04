@@ -1,0 +1,5 @@
+include README.md
+recursive-exclude ddb27cython *.py
+recursive-include ddb27cython __init__.py
+recursive-include ddb27cython *.c
+include ddb27cython/version.py

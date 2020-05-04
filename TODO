@@ -1,5 +1,9 @@
 # MyTODO LIST
 
+
+- make file fix single and all others re unify....
+
+
 - create compare funciton for 2 tables / generate inserts
 - add test for non strict rows
 - suspect failing lengths in lexer match other items and excute those
