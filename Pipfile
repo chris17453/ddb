@@ -9,6 +9,7 @@ graphviz = "*"
 gprof2dot = "*"
 
 [packages]
+twine = "*"
 
 [requires]
 
