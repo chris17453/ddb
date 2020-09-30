@@ -623,7 +623,51 @@ class engine:
         self.os_cmd(cmd,"SVN Commit File Err")        
     
 
-    
+    def svn_commit_files(self,tables):
+        """
+          repo_files is a list of files in the repo_dir that need to be committed
+        """
+        self.info("IN SVN MULTI-COMMIT")
+
+        base_dir     ={}
+        files        =[]
+        repo_dir     =None
+        repo_user    =None
+        repo_password=None
+        
+        # validate directory
+        # create file list
+        # realy dumb way to do this.. need a unified cred committing sequence
+        # blackhole/fencepost errors could occur
+        for table in tables:
+            if False==os.path.exists(table.data.repo_dir):
+                raise Exception("SVN Repo Directory not found {0}".format(table.data.repo_dir))
+            base_dir[table.data.repo_dir]=1
+            files.append(table.data.repo_file)
+            repo_dir      =table.data.repo_dir
+            repo_user     =table.data.repo_user
+            repo_password =table.data.repo_password
+        
+        # only 1 directory at a time
+        if len(base_dir)!=1:
+                raise Exception("SVN Cannot commit multiple SVN directories at once '{0}'".format(",".join(base_dir)))
+
+        self.info("SVN Committing {0}".format(",".join(files)))
+
+        os.chdir(repo_dir)
+        cmd=[   'svn',
+                'commit',
+                ' '.join(files),
+                '-m','ddb',
+                '--no-auth-cache',
+                '--username','{0}'.format(repo_user),
+                '--password','{0}'.format(repo_password),
+                '--non-interactive','--trust-server-cert'
+                ]
+        self.os_cmd(cmd,"SVN Commit File Err")
+
+
+
     def s3_checkout_file(self,table):
         self.info("IN S3 PULL")
         if table.data.repo_type!='s3':
