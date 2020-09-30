@@ -20,6 +20,12 @@ try:
     import cython
 except:
     pass
+try:
+    import boto3
+    import botocore
+except:
+    pass
+
 
 temp_dir=tempfile.gettempdir()
 
@@ -116,7 +122,7 @@ class engine:
             f=open('/proc/sys/kernel/random/uuid') 
             uuid=f.read()
             f.close()
-            return uuid
+            return uuid.strip('\n')
         except:
             pass
 
@@ -615,6 +621,31 @@ class engine:
                 '--non-interactive','--trust-server-cert'
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
+    
+
+    
+    def s3_checkout_file(self,table):
+        self.info("IN S3 PULL")
+        if table.data.repo_type!='s3':
+            raise Exception ("Not a s3 bucket")
+        
+        uuid_str=self.generate_uuid()
+        temp_file="/tmp/ddb_s3_"+uuid_str
+        BUCKET_NAME = table.data.repo_url
+        
+        s3 = boto3.resource('s3')
+
+        try:
+            
+            s3_file=os.path.join(table.data.repo_dir,table.data.repo_file)
+            s3.Bucket(BUCKET_NAME).download_file(s3_file,temp_file)
+            return temp_file
+        except botocore.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == "404":
+                raise Exception("The object does not exist. "+s3_file)
+            else:
+                raise Exception(e)
+
 
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
@@ -622,7 +653,13 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
-            temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+                temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+            elif table.data.repo_type=='s3':
+                temp_data_file=self.s3_checkout_file(table)
+                
+            else:
+                temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         #print ("Temp File {0}".format(temp_source))

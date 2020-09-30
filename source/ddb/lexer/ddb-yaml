@@ -1,0 +1,116 @@
+
+source:
+    {database}.{table} |
+    {table}
+
+show columns:
+    show columns from {source} |
+    show columns
+
+show tables:
+           show tables
+
+show variables:
+    show variables
+              
+
+select_list:
+    {column} |
+    {column} as {$alias}
+
+where_comparitor:
+    {expression} {operator} {expression}
+
+
+limit:
+    limit {$index},{$range} |
+    limit {$range}
+    
+
+select:
+    select [distinct] select_list
+    [from {source}]
+    [where 
+            {where_comparitor}
+            [and {where_comparitor}]
+            [or  {where_comparitor}]
+    ]
+    [group by ]
+    [order by ]
+    [limit]
+                             
+set:
+    set $variable=$value
+
+delimiter:
+    delimiter=$delimiter
+
+end:
+    end
+begin:
+    begin
+commit:
+    commit
+rollback:
+    rollback
+         
+    
+show output modules:
+    show output modules
+
+delete:
+    delete from {source} {where_comparitor}
+
+
+insert:
+    insert into {source}
+    ( {column_list} ) VALUES ({value_list})
+
+update:
+    update {source} set {set_expr}
+    where {where_comparitor}                        
+
+upsert:
+    upsert into {source} ( {column_list} ) values ( {value_list} )  on duplicate key {where_comparitor}
+
+use:
+    use {source}
+
+drop table:
+    drop table {source}
+
+
+create table:
+    create [temporart] table {source} ( {column_list} )
+    [file={$file}]
+    [fifo={$fifo}]
+    [   repo={protocol}
+        url={url}
+        user={user}
+        password={password}
+        repo_dir={directory}
+        repo_file={file}],
+    mode={mode}
+    delimiter={delimiter}
+    whitespace={whitespace}
+    errors={errors}
+    comments={comments}
+    strict={strict}
+    data_starts_on={data_starts_on}
+                             
+describe table:
+    describe {source}
+
+operators:
+  >    |  
+  <    |  
+  >=   |   
+  <=   |   
+  !=   |   
+  <>   |   
+  not  |    
+  is   |   
+  like |     
+  =    |  
+  in
+

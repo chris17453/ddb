@@ -151,8 +151,7 @@ class table:
             self.data.mode = mode
 
         if repo:
-            if repo.protocol=='svn':
-
+            if repo.protocol=='svn' or repo.protocol=='s3':
                 self.data.path=os.path.join(repo.directory,repo.file)
                 self.data.repo_type=repo.protocol
                 self.data.repo_url=repo.url
