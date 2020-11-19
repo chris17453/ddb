@@ -1,0 +1,41 @@
+#!/bin/bash
+default_start="2001-01-01"
+default_end="2002-10-07 01:38:01"
+
+start_date=${1:-$default_start}
+end_date=${2:-$default_end}
+
+echo "Beginning the creation of the git repo"
+echo "Timestamps $start_date to $end_date"
+
+
+end_date=$(date -d "$end_date" +'%s')
+git init
+git remote add origin https://github.com/chris17453/redblue.git
+
+cur_date=$(date)
+d=$(date -s "$start_date")
+
+git config user.name "Charles Watkins"
+git config user.email "chris17453@gmail.com"
+while [[ $(date +"%s") > $end_date  ]]; do 
+  
+  if [ 1 ==  $((1 + RANDOM % 10)) ] ; 
+  then
+     d=$(date -s "$d + 2 day")
+  else
+    if [ 4 -gt  $((1 + RANDOM % 10)) ] ; 
+    then
+        d=$(date -s "$d + 4 hour")
+    else
+        d=$(date -s "$d + 1 day")
+        echo "$d">todays_date.txt
+        #echo "$d">>dates_coded.txt
+        git add -A >de
+        git commit -m "Internal commit history"
+    fi
+  fi
+done
+echo "DONE"
+date -s "$cur_date"
+

@@ -449,7 +449,7 @@ language={'commands': [{'name': 'show columns',
                                                'password','=','{password}',
                                                'repo_dir','=','{directory}',
                                                'repo_file','=','{file}']}],
-                             'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git']}},
+                             'specs': {'protocol': {'default': 'svn','type': 'string','values':['svn','git','s3']}},
                              'name': 'repo',
                              'optional': True,
                               'type': 'array'

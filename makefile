@@ -114,18 +114,25 @@ bump:
 
 test:
 	@echo "Resetting Database"
-	@cp test/data/MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
+	@cp test/data/MOCK_DATA_MASTER.csv test/data/MOCK_DATA.csv -f
+	@cp test/data/MOCK_DATA_MASTER.csv test/data/MOCK_DATA2.csv -f
 	@echo "Running test with $(DDB_PYTHON)" 
 	@$(DDB_PYTHON) -m test.test
 	@echo "Test done"
 
 
+test-single:export RELEASE_DIR = standalone
+test-single:export DDB_RELEASE = standalone
+test-single:export DDB_NAME = ddb
 test-single:
 	@echo "Resetting Database"
-	@cp test/data/MOCK_DATA_MASTER.csv test/data//MOCK_DATA.csv -f
-	@echo "Running test"
-	@python test/test.py
+	@cp test/data/MOCK_DATA_MASTER.csv test/data/MOCK_DATA.csv -f
+	@cp test/data/MOCK_DATA_MASTER.csv test/data/MOCK_DATA2.csv -f
+	@echo "Running test with python" 
+	@python -m test.test
 	@echo "Test done"
+
+
 
 lock-test:
 	@cd test; python test-locking.py
@@ -326,7 +333,7 @@ upload:
 	@pipenv run twine upload  builds/release/2.4/*.gz
 	@pipenv run twine upload  builds/release/2.6/*.gz
 	@pipenv run twine upload  builds/release/2.7/*.gz
-	@pipenv run twine upload  builds/release/3.4/*.gz
+	@pipenv run twine upload  builds/release/3.4/*.gz                             +
 	@pipenv run twine upload  builds/release/3.6/*.gz
 
 install: uninstall

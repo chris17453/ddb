@@ -101,12 +101,15 @@ class test_engine:
         if repo=="":
             query="create temporary table @db.@table (`id`,`pid`,`value`,`timestamp`) file=@path data_starts_on=1"
         else:
-            query="create temporary table @db.@table (`id`,`pid`,`value`,`timestamp`) file='@path' @repo data_starts_on=1"
+            query="create temporary table @db.@table (`id`,`pid`,`value`,`timestamp`) file=@path {0} data_starts_on=1".format(repo)
         params={'@db':self.database_name,
                 '@table':self.table_name, 
                 '@path':file_name,
                 '@repo':repo}
 
+        print(query)
+        print(params)
+            
         results = engine.query(query,params)
         
         #results.debug()
@@ -132,7 +135,7 @@ class test_engine:
             else:
                 break
         
-        if newpid==0: self.lock()
+        if newpid==0: self.lock(mode)
         else:
             for i in range(process_count-1):
                 running -=1
@@ -145,9 +148,9 @@ class test_engine:
         return newpid
         
         
-    def lock(self):
+    def lock(self,mode=None):
         engine = ddb.engine(config_dir=None,debug=None)
-        self.create_table(engine,None)
+        self.create_table(engine,mode)
         start_time=time.time()
         ellapsed_time=0
         pid=os.getpid()
@@ -191,7 +194,7 @@ class test_engine:
         
 if __name__ == '__main__':
     e=test_engine()
-    pid=e.test_threads()
+    pid=e.test_threads("SVN")
 
     #def chld_handler(signo, frame):
     #    global running

@@ -9,10 +9,16 @@ from pprint import pprint
 
 
 standalone_script=None
-ddb_release=None
+ddb_release="UNK"
+ddb_project_dir=None
 
 pprint(os.environ,indent=4)
 print ("TESTING")
+if 'DDB_PROJECT_DIR' in os.environ:
+    ddb_project_dir=os.environ['DDB_PROJECT_DIR']
+else:
+    ddb_project_dir=os.getcwd()
+
 if 'DDB_RELEASE' in os.environ:
     ddb_release=os.environ['DDB_RELEASE']
 if 'DDB_RELEASE_DIR' in os.environ:
@@ -85,8 +91,9 @@ def update_stats(test,status):
     cython  =str(engine.system['CYTHON_ENABLED'])
     row=[ddb_release,test,version,commit,log,status,py_major,py_minor,py_micro,cython,date]
     csv_row=",".join(row)
-    
-    file=open("profile/stats.csv","at")
+    #print (os.getcwd())
+    stats_file_path=os.path.join(ddb_project_dir,"profile/stats.csv")
+    file=open(stats_file_path,"at")
     file.write(csv_row+"\n")
     file.close()
 
@@ -120,23 +127,39 @@ class test_engine(unittest.TestCase):
                 'password',
                 os.path.join(self.basedir_svn,'svn_test'),
                 'MOCK_DATA.csv')
+            
             file_name=os.path.join(self.basedir_svn,'svn_test',"MOCK_DATA.csv")
         else:
             repo=''
             file_name=os.path.join(self.basedir, self.temp_data)
-       
+    
         query=stringer("create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2",self.table_name, file_name,repo)
         #print query
         results = engine.query(query)
         #results.debug()
-        print ("QUERY ->")
-        print (query)
-        print ("---")
-        
-        
-        self.assertEqual(True, results.success)
+        #print ("QUERY ->")
+        #print (query)
+
+        if mode=='SVN':
+            repo=stringer("repo='{0}' url='{1}' user='{2}' password='{3}' repo_dir='{4}' repo_file='{5}'",
+                'svn',
+                'http://localhost/svn/SampleProject/',
+                'user',
+                'password',
+                os.path.join(self.basedir_svn,'svn_test'),
+                self.temp_data2)
+            
+            file_name=os.path.join(self.basedir_svn,'svn_test',self.temp_data2)
+        else:
+            repo=''
+            file_name=os.path.join(self.basedir, self.temp_data2)
+    
         query=stringer("create table {0} ('id','first_name','last_name','email','gender','ip_address') file='{1}' {2} data_starts_on=2",self.table_name2, file_name,repo)
+        #print query
         results = engine.query(query)
+        #results.debug()
+        #print ("QUERY ->")
+        #print (query)
         self.assertEqual(True, results.success)
     def test_set(self):
         """Set a database variable """
@@ -329,6 +352,21 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("delete from {0} where id='1002'",self.table_name))
         print("UPDATE 3")
         self.assertEqual(True, results.success)
+
+
+        results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1002,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name2))
+        print("UPDATE 1")
+        self.assertEqual(True, results.success)
+        # update
+        results = engine.query(stringer('update {0} set email="test@test.com" where id="1002"',self.table_name2))
+        print("UPDATE 2")
+        self.assertEqual(True, results.success)
+        
+        results = engine.query(stringer("delete from {0} where id='1002'",self.table_name2))
+        print("UPDATE 3")
+        self.assertEqual(True, results.success)
+
+
     def test_insert(self,mode=None):
         """Insert a row in the test file"""
         self.cleanup()
@@ -405,19 +443,28 @@ class test_engine(unittest.TestCase):
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
         self.assertEqual(True, results.success)
         target_length=results.data_length
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        self.assertEqual(True, results.success)
+        target_length2=results.data_length
 
         # update
         print ("Insert")
         results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name))
-        print ("Insert")
+        self.assertEqual(True, results.success)
+        results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name))
+        self.assertEqual(True, results.success)
+        results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name2))
+        self.assertEqual(True, results.success)
         results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name2))
         self.assertEqual(True, results.success)
 
         print ("Select")
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
-        
         self.assertEqual(True, results.success)
         self.assertEqual(target_length+2, results.data_length)
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        self.assertEqual(True, results.success)
+        self.assertEqual(target_length2+2, results.data_length)
         #results.debug()
 
         print ("rollback")
@@ -428,6 +475,12 @@ class test_engine(unittest.TestCase):
         #results.debug()
         self.assertEqual(True, results.success)
         self.assertEqual(target_length, results.data_length)
+
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(target_length2, results.data_length)
+
     def test_commit(self,mode=None):
         """Rollback db changes"""
         self.cleanup()
@@ -446,6 +499,8 @@ class test_engine(unittest.TestCase):
         # clean any inserts
         results = engine.query(stringer("delete from {0} WHERE email='bop@bob.com'",self.table_name))
         self.assertEqual(True, results.success)
+        results = engine.query(stringer("delete from {0} WHERE email='bop@bob.com'",self.table_name2))
+        self.assertEqual(True, results.success)
 
         print ("Get length")
         results = engine.query(stringer("SELECT id FROM {0}",self.table_name) )
@@ -453,9 +508,18 @@ class test_engine(unittest.TestCase):
         self.assertEqual(True, results.success)
         target_length=results.data_length
 
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        target_length2=results.data_length
+
+
         print ("PRE INSERT")
         # update
         results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name))
+        #results.debug()
+        self.assertEqual(True, results.success)
+        results = engine.query(stringer("insert into {0} ('id','first_name','last_name','email','gender','ip_address') values (1001,test_name,test_lname,'bop@bob.com','m','0.0.0.0')",self.table_name2))
         #results.debug()
         self.assertEqual(True, results.success)
 
@@ -464,6 +528,11 @@ class test_engine(unittest.TestCase):
         #results.debug()
         self.assertEqual(True, results.success)
         self.assertEqual(target_length+1, results.data_length)
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(target_length2+1, results.data_length)
+
         #results.debug()
 
         print ("PRE COMMIT")
@@ -476,10 +545,19 @@ class test_engine(unittest.TestCase):
         #results.debug()
         self.assertEqual(True, results.success)
         self.assertEqual(target_length+1, results.data_length)
+        results = engine.query(stringer("SELECT id FROM {0}",self.table_name2) )
+        #results.debug()
+        self.assertEqual(True, results.success)
+        self.assertEqual(target_length2+1, results.data_length)
         
         print ("PRE DELETE")
         results = engine.query(stringer("delete from {0} where id='1001'",self.table_name))
         self.assertEqual(True, results.success)
+        results = engine.query(stringer("delete from {0} where id='1001'",self.table_name2))
+        self.assertEqual(True, results.success)
+        
+
+
         
 
      
@@ -487,38 +565,38 @@ class test_engine(unittest.TestCase):
     ##### SVN
     ##### SVN
 
-#    def test_svn_create_table(self):
-#        self.test_create_table(mode='SVN')
-#
-#    def test_svn_drop_table(self):
-#        self.test_drop_table(mode='SVN')
-#
-#    def test_svn_select(self):
-#        self.test_select(mode='SVN')
-#
-#    def test_svn_update(self):
-#        self.test_update(mode='SVN')
-#
-#    def test_svn_insert(self):
-#        self.test_insert(mode='SVN')
-#
-#    def test_svn_delete(self):
-#        self.test_delete(mode='SVN')
-#
-#    def test_svn_upsert(self):
-#        self.test_upsert(mode='SVN')
-#
-#    def test_svn_rollback(self):
-#        self.test_rollback(mode='SVN')
-#
-#    def test_svn_commit(self):
-#        self.test_commit(mode='SVN')
-#
-#    def test_svn_describe_table(self):
-#        self.test_describe_table(mode='SVN')
-#    
-#    def test_svn_show_tables(self):
-#        self.test_show_tables(mode='SVN')
+    def test_svn_create_table(self):
+        self.test_create_table(mode='SVN')
+
+    def test_svn_drop_table(self):
+        self.test_drop_table(mode='SVN')
+
+    def test_svn_select(self):
+        self.test_select(mode='SVN')
+
+    def test_svn_update(self):
+        self.test_update(mode='SVN')
+
+    def test_svn_insert(self):
+        self.test_insert(mode='SVN')
+
+    def test_svn_delete(self):
+        self.test_delete(mode='SVN')
+
+    def test_svn_upsert(self):
+        self.test_upsert(mode='SVN')
+
+    def test_svn_rollback(self):
+        self.test_rollback(mode='SVN')
+
+    def test_svn_commit(self):
+        self.test_commit(mode='SVN')
+
+    def test_svn_describe_table(self):
+        self.test_describe_table(mode='SVN')
+    
+    def test_svn_show_tables(self):
+        self.test_show_tables(mode='SVN')
 
 
 
@@ -601,7 +679,7 @@ if __name__ == '__main__':
 
     # this appends a results row to a csv per test
     for test in test_results:
-        print(" %s - %s "%(test,test_results[test]))
+        print(" %s - %s "%(test.ljust(20),test_results[test]))
         update_stats(test,test_results[test])
 
     

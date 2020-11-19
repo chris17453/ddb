@@ -20,6 +20,12 @@ try:
     import cython
 except:
     pass
+try:
+    import boto3
+    import botocore
+except:
+    pass
+
 
 temp_dir=tempfile.gettempdir()
 
@@ -116,7 +122,7 @@ class engine:
             f=open('/proc/sys/kernel/random/uuid') 
             uuid=f.read()
             f.close()
-            return uuid
+            return uuid.strip('\n')
         except:
             pass
 
@@ -522,6 +528,7 @@ class engine:
     
     def os_cmd(self,cmd,err_msg):
         self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
+        print(cmd)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
@@ -615,6 +622,77 @@ class engine:
                 '--non-interactive','--trust-server-cert'
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
+    
+
+    def svn_commit_files(self,tables):
+        """
+          repo_files is a list of files in the repo_dir that need to be committed
+        """
+        self.info("IN SVN MULTI-COMMIT")
+
+        base_dir     ={}
+        files        =[]
+        repo_dir     =None
+        repo_user    =None
+        repo_password=None
+        
+        # validate directory
+        # create file list
+        # realy dumb way to do this.. need a unified cred committing sequence
+        # blackhole/fencepost errors could occur
+        for table_name in tables:
+            table=tables[table_name]
+            if False==os.path.exists(table.data.repo_dir):
+                raise Exception("SVN Repo Directory not found {0}".format(table.data.repo_dir))
+            base_dir[table.data.repo_dir]=1
+            files.append(table.data.repo_file)
+            repo_dir      =table.data.repo_dir
+            repo_user     =table.data.repo_user
+            repo_password =table.data.repo_password
+        
+        # only 1 directory at a time
+        if len(base_dir)!=1:
+                raise Exception("SVN Cannot commit multiple SVN directories at once '{0}'".format(",".join(base_dir)))
+
+        self.info("SVN Committing {0}".format(",".join(files)))
+
+        os.chdir(repo_dir)
+        print(repo_dir)
+        cmd=[   'svn',
+                'commit',
+                ' '.join(files),
+                '-m','ddb',
+                '--no-auth-cache',
+                '--username','{0}'.format(repo_user),
+                '--password','{0}'.format(repo_password),
+                '--non-interactive','--trust-server-cert'
+                ]
+        self.os_cmd(cmd,"SVN Commit File Err")
+
+
+
+    def s3_checkout_file(self,table):
+        self.info("IN S3 PULL")
+        if table.data.repo_type!='s3':
+            raise Exception ("Not a s3 bucket")
+        
+        uuid_str=self.generate_uuid()
+        temp_file="/tmp/ddb_s3_"+uuid_str
+        BUCKET_NAME = table.data.repo_url
+        
+        s3 = boto3.resource('s3')
+
+        try:
+            
+            s3_file=os.path.join(table.data.repo_dir,table.data.repo_file)
+            s3.Bucket(BUCKET_NAME).download_file(s3_file,temp_file)
+            return temp_file
+        except botocore.exceptions.ClientError as e:
+            if e.response['Error']['Code'] == "404":
+                raise Exception("The object does not exist. "+s3_file)
+            else:
+                raise Exception(e)
+
 
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
@@ -622,7 +700,13 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             if table.data.repo_type=='svn':
                 self.svn_checkout_file(table)
-            temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+                temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+            elif table.data.repo_type=='s3':
+                temp_data_file=self.s3_checkout_file(table)
+                
+            else:
+                temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
+
             self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         #print ("Temp File {0}".format(temp_source))

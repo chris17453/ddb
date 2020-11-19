@@ -528,6 +528,8 @@ class engine:
     
     def os_cmd(self,cmd,err_msg):
         self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
+        # this is where you would see the executed OS cmd array for the svn action
+        # print(cmd)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
@@ -639,7 +641,8 @@ class engine:
         # create file list
         # realy dumb way to do this.. need a unified cred committing sequence
         # blackhole/fencepost errors could occur
-        for table in tables:
+        for table_name in tables:
+            table=tables[table_name]
             if False==os.path.exists(table.data.repo_dir):
                 raise Exception("SVN Repo Directory not found {0}".format(table.data.repo_dir))
             base_dir[table.data.repo_dir]=1
@@ -655,15 +658,17 @@ class engine:
         self.info("SVN Committing {0}".format(",".join(files)))
 
         os.chdir(repo_dir)
+        # print(repo_dir)
         cmd=[   'svn',
-                'commit',
-                ' '.join(files),
+                'commit']
+        cmd.extend(files)
+        cmd.extend([
                 '-m','ddb',
                 '--no-auth-cache',
                 '--username','{0}'.format(repo_user),
                 '--password','{0}'.format(repo_password),
                 '--non-interactive','--trust-server-cert'
-                ]
+                ])
         self.os_cmd(cmd,"SVN Commit File Err")
 
 

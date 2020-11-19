@@ -186,21 +186,25 @@ class lock:
             f=open('/proc/sys/kernel/random/uuid') 
             uuid=f.read()
             f.close()
-            return uuid.strip("\n")
+            return uuid.strip('\n')
         except:
             pass
 
   
 def temp_path_from_file(path,prefix='',unique=None):
     norm_path = normalize_path(path)
-    base_dir  = os.path.dirname(norm_path)
+#    base_dir  = os.path.dirname(norm_path)
+    base_dir= tempfile.gettempdir()
     base_file = os.path.basename(norm_path)
     unique_id=''
     if unique:
         uuid_str=lock.get_uuid()
         unique_id='_{0}:{1}'.format(uuid_str,os.getpid())
     temp_file_name="~{1}{0}{2}.swp".format(base_file,prefix,unique_id)
-    temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
+    if sys.version_info[0]==2:
+        temp_path = os.path.join(base_dir, temp_file_name.encode("ascii") )
+    else:
+        temp_path = os.path.join(base_dir, temp_file_name)
     return temp_path
         
 
@@ -214,7 +218,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         lock.aquire(path,uuid)
         #time.sleep(.001)
         if lock.debug: lock.info("LOCK Modified",os.stat(path).st_mtime)
-        
+            
         temp_path=temp_path_from_file(path,"{0}{1}".format(prefix,uuid) )
         
         norm_path=normalize_path(path)
@@ -230,7 +234,7 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
     except:
         ex = sys.exc_info()[1]
         
-        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex ))
+        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
 
@@ -255,7 +259,11 @@ def swap_files(path, temp,key_uuid):
     
 
     if lock.debug: lock.info("Lock","Renaming temp to master {0} <- {1}".format(norm_path,temp))
-    os.rename(temp,norm_path)
+# this is for same device (tmp isnt the same device)
+#    os.rename(temp,norm_path)
+  
+    shutil.copy2(temp,norm_path)
+    os.unlink(temp)
 
     lock.release(path)
 

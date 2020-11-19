@@ -51,7 +51,7 @@ def method_system_commit(context):
         for repo_dir in svn_repos_by_dir:
             context.info("Commit {0}".format(repo_dir))
             # individually commit each repo directory and all of its changed files
-            svn_commit_files(svn_repos_by_dir[repo_dir])
+            context.svn_commit_files(svn_repos_by_dir[repo_dir])
 
 
                 

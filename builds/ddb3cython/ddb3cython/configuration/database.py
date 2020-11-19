@@ -113,14 +113,13 @@ class database:
         if None != exists:
             raise Exception("table already exists")
 
-        if repo:
-            
-            if repo.protocol!='svn':
-                protocol_svn='svn'
-                abs_data_file=normalize_path(data_file)
-                if False == os.path.isfile(abs_data_file):
-                    err="Data file does not exist. {0}".format(abs_data_file)
-                    raise Exception(err)
+        #if repo:
+        #    if repo.protocol!='svn'
+        #        protocol_svn='svn'
+        #        abs_data_file=normalize_path(data_file)
+        #        if False == os.path.isfile(abs_data_file):
+        #            err="Data file does not exist. {0}".format(abs_data_file)
+        #            raise Exception(err)
             
 
         if not temporary:
