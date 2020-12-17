@@ -16,6 +16,7 @@ from .configuration.database import database
 from .version import __version__
 import traceback 
 from .methods.record import record, record_configuration  # converting After the fact...
+
 try:
     import cython
 except:
@@ -96,10 +97,10 @@ class engine:
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
-        pass
-        #ts = time.time()
-        #timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-
+        #pass
+        ts = time.time()
+        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #if level==logging.INFO:
         #    logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #elif  level==logging.ERROR:
@@ -538,7 +539,7 @@ class engine:
             self.info(output)
             self.info(err)
             self.info("OS CMD"," ".join(cmd))
-            raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
+            raise Exception("# {0}: Exit Code {1} - {2} - {3} ".format(err_msg,rc,output,err,cmd))
         return output
     
     def svn_checkout_file(self,table):
@@ -624,7 +625,6 @@ class engine:
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
     
-
     def svn_commit_files(self,tables):
         """
           repo_files is a list of files in the repo_dir that need to be committed
@@ -671,8 +671,6 @@ class engine:
                 ])
         self.os_cmd(cmd,"SVN Commit File Err")
 
-
-
     def s3_checkout_file(self,table):
         self.info("IN S3 PULL")
         if table.data.repo_type!='s3':
@@ -695,7 +693,6 @@ class engine:
             else:
                 raise Exception(e)
 
-
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -714,8 +711,6 @@ class engine:
         #print ("Temp File {0}".format(temp_source))
         return temp_source 
 
-
-
     def duplicate_local_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -724,10 +719,10 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             raise Exception("File not in use, cannot duplicate")
 
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
         file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
-        lock.copy(data_file,file_dst)
-
-    
+        lock.copy(file_src,file_dst)
+  
     def delete_local_backup_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -738,7 +733,6 @@ class engine:
 
         file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
         lock.remove_temp_file(file_dst)
-
    
     def revert_local_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
@@ -748,13 +742,28 @@ class engine:
         if data_file not in self.internal['TEMP_FILES']:
             raise Exception("File not in use, cannot revert local")
 
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
         file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
 
         # reverse copy
-        lock.copy(file_dst,data_file)
+        lock.copy(file_src,file_dst)
         # delete temp file
         lock.remove_temp_file(file_dst)
 
+    def move_svn_temp_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot revert local")
+
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        self.info("Copying {0} -> {1}".format(file_dst,data_file))
+        # move temp file in temp dir to repo dir
+        lock.copy(file_dst,data_file)
+        
 
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path

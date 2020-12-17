@@ -24,6 +24,31 @@ class lock:
     debug=0
     BUFFER_SIZE=4096
     
+        
+    @staticmethod
+    def copy(file_src,file_dst):        
+        try:
+            norm_src=normalize_path(file_src)
+            norm_dst=normalize_path(file_dst)
+            shutil.copy2(norm_src, norm_dst)
+        except:
+            ex = sys.exc_info()[1]
+            if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
+            raise Exception("Temp File Create Copy Error: {0}".format(ex))
+            exit(1)
+
+    @staticmethod
+    def remove_temp_file(path):
+        try:
+            if lock.debug: lock.info("Lock Removing temp copy: {0}".format(path))
+            os.remove(path)
+        except: 
+            ex = sys.exc_info()[1]
+            if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
+            raise Exception("Lock, Delete file  failed: {0}".format(ex))
+            exit(1)
+        
+
     @staticmethod
     def copy_file(src, dst, buffer_size=10485760, perserveFileDate=None):
         '''
@@ -235,8 +260,8 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         ex = sys.exc_info()[1]
         
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
-        exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
+        exit(1)
         
 def copy(file_src,file_dst):        
     try:
@@ -246,8 +271,8 @@ def copy(file_src,file_dst):
     except:
         ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
-        exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
+        exit(1)
 
 
 def remove_temp_file(path):
@@ -257,8 +282,8 @@ def remove_temp_file(path):
     except: 
         ex = sys.exc_info()[1]
         if lock.debug: lock.error("Lock Remove Temp File","{0}".format(ex))
-        exit(1)
         raise Exception("Lock, Delete file  failed: {0}".format(ex))
+        exit(1)
         
 
 # todo move into context with a manager flag        
