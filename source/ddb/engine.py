@@ -709,11 +709,53 @@ class engine:
             else:
                 temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
 
-            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'temp_local':temp_data_file+".temp",'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         #print ("Temp File {0}".format(temp_source))
         return temp_source 
+
+
+
+    def duplicate_local_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been uesd errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot duplicate")
+
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        lock.copy(data_file,file_dst)
+
     
+    def delete_local_backup_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been uesd errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use cannot delete backup")
+
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        lock.remove_temp_file(file_dst)
+
+   
+    def revert_local_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot revert local")
+
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+
+        # reverse copy
+        lock.copy(file_dst,data_file)
+        # delete temp file
+        lock.remove_temp_file(file_dst)
+
+
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:

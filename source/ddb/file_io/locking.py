@@ -237,6 +237,18 @@ def create_temporary_copy(path,uuid='',prefix='ddb_'):
         if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
         exit(1)
         raise Exception("Temp File Create Copy Error: {0}".format(ex))
+        
+def copy(file_src,file_dst):        
+    try:
+        norm_src=normalize_path(file_src)
+        norm_dst=normalize_path(file_dst)
+        shutil.copy2(norm_src, norm_dst)
+    except:
+        ex = sys.exc_info()[1]
+        if lock.debug: lock.error("Lock Error Create Temp Copy","{0}".format(ex))
+        exit(1)
+        raise Exception("Temp File Create Copy Error: {0}".format(ex))
+
 
 def remove_temp_file(path):
     try:
