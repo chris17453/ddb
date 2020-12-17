@@ -97,10 +97,11 @@ class engine:
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
-        #pass
-        ts = time.time()
-        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        
+        if self.debug==True:
+            ts = time.time()
+            timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #if level==logging.INFO:
         #    logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #elif  level==logging.ERROR:
@@ -606,7 +607,36 @@ class engine:
                     '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
-    
+
+
+    def svn_UP_file(self,table):
+        self.info("IN SVN UPDATE")
+        if table.data.repo_type=='svn':
+            cmd=[   'svn',
+                    'up',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
+                    ]
+            self.os_cmd(cmd,"SVN Checkout File Err")
+
+
+    def svn_revert_file(self,table):
+        self.info("IN SVN REVERT")
+        if table.data.repo_type=='svn':
+            cmd=[   'svn',
+                    'revert',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
+                    ]
+            self.os_cmd(cmd,"SVN Checkout File Err")
+
+
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
         if False==os.path.exists(table.data.repo_dir):
@@ -660,6 +690,17 @@ class engine:
         os.chdir(repo_dir)
         # print(repo_dir)
         cmd=[   'svn',
+                'up']
+        cmd.extend(files)
+        cmd.extend([
+                '--no-auth-cache',
+                '--username','{0}'.format(repo_user),
+                '--password','{0}'.format(repo_password),
+                '--non-interactive','--trust-server-cert'
+                ])
+        self.os_cmd(cmd,"SVN UP File Err")
+
+        cmd=[   'svn',
                 'commit']
         cmd.extend(files)
         cmd.extend([
@@ -670,6 +711,8 @@ class engine:
                 '--non-interactive','--trust-server-cert'
                 ])
         self.os_cmd(cmd,"SVN Commit File Err")
+
+
 
     def s3_checkout_file(self,table):
         self.info("IN S3 PULL")
