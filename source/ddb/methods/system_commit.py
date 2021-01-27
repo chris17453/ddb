@@ -55,11 +55,11 @@ def revert_local_source_files(context):
         # no need to swap files if nothing was written yea? Just delete the temp data
         if None != tmp['written']:
             #print(tmp)
-        if tmp['table'].data.repo_type!='svn':
-            context.revert_local_data_file(table)
-            context.info("Source file restored, temp file deleted {0}->{1}".format(tmp['temp_local'],tmp['origin']))
-        if tmp['table'].data.repo_type=='svn':
-            context.svn_revert_file(table)
+            if tmp['table'].data.repo_type!='svn':
+                context.revert_local_data_file(table)
+                context.info("Source file restored, temp file deleted {0}->{1}".format(tmp['temp_local'],tmp['origin']))
+            if tmp['table'].data.repo_type=='svn':
+                context.svn_revert_files(table)
 
   # commit local files
 def commit_local_files(context):
@@ -111,7 +111,6 @@ def commit_svn_files(context):
 # the base system command for commiting a transaction or set of transactions from temp files back to the master source (local or remote)
 def method_system_commit(context):
     debug_holder=context.debug
-    context.debug=True
     if context.internal['IN_TRANSACTION']!=1:
         return query_results(success=False,error="Cannot commit, Not in transaction")
 

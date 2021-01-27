@@ -98,10 +98,12 @@ class engine:
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
         
-        if self.debug==True:
-            ts = time.time()
-            timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-            print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        pass
+        #if self.debug==True:
+        #    ts = time.time()
+        #    timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        #    print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        
         #if level==logging.INFO:
         #    logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #elif  level==logging.ERROR:
@@ -175,7 +177,9 @@ class engine:
         self.system['OUTPUT_CODE']='UTF-8'
         self.system['DATA_DIRECTORY']=config_dir
         self.system['VERSION']=__version__
+        # this is where all the queries and parameters for each are stored per commitjookie
         
+        self.query_cache=[]
         try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
             self.system['PYTHON_MINOR']=sys.version_info.minor 
@@ -332,7 +336,8 @@ class engine:
         # it should only replace whole words, not within quotes and only starting with @
         # this is a TODO HOT feature. UNSAFE
 
-        
+        self.query_cache.append({'query':query,'parameters':parameters})
+
         sql_query=self.prepare_sql(sql_query)
         self.excuted_query=sql_query
         
@@ -541,7 +546,7 @@ class engine:
             self.info(err)
             self.info("OS CMD"," ".join(cmd))
             raise Exception("# {0}: Exit Code {1} - {2} - {3} ".format(err_msg,rc,output,err,cmd))
-        return output
+        return {'exit_code':rc,'error':err,'output':output}
     
     def svn_checkout_file(self,table):
         self.info("IN SVN PULL")
@@ -552,7 +557,7 @@ class engine:
             repo_url=None
             try:
                 response=self.os_cmd(cmd,"SVN Repo Test").strip()
-                url_index=response.find("URL:")
+                url_index=response['output'].find("URL:")
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
@@ -608,7 +613,6 @@ class engine:
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
 
-
     def svn_UP_file(self,table):
         self.info("IN SVN UPDATE")
         if table.data.repo_type=='svn':
@@ -622,7 +626,6 @@ class engine:
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
 
-
     def svn_revert_file(self,table):
         self.info("IN SVN REVERT")
         if table.data.repo_type=='svn':
@@ -635,7 +638,6 @@ class engine:
                     '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
-
 
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
@@ -711,8 +713,6 @@ class engine:
                 '--non-interactive','--trust-server-cert'
                 ])
         self.os_cmd(cmd,"SVN Commit File Err")
-
-
 
     def s3_checkout_file(self,table):
         self.info("IN S3 PULL")
@@ -806,8 +806,7 @@ class engine:
         self.info("Copying {0} -> {1}".format(file_dst,data_file))
         # move temp file in temp dir to repo dir
         lock.copy(file_dst,data_file)
-        
-
+      
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:
