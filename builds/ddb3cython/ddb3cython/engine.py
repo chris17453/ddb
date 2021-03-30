@@ -16,6 +16,7 @@ from .configuration.database import database
 from .version import __version__
 import traceback 
 from .methods.record import record, record_configuration  # converting After the fact...
+
 try:
     import cython
 except:
@@ -96,10 +97,13 @@ class engine:
 
     
     def info(self,msg, arg1=None, arg2=None, arg3=None,level=logging.INFO):
+        
         pass
-        #ts = time.time()
-        #timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-
+        #if self.debug==True:
+        #    ts = time.time()
+        #    timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        #    print("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
+        
         #if level==logging.INFO:
         #    logging.info("PID:{0}: {4}: {1}, {2}, {3}".format(self.pid,msg,pprint.pformat(arg1,indent=4),arg2,timestamp))
         #elif  level==logging.ERROR:
@@ -173,7 +177,9 @@ class engine:
         self.system['OUTPUT_CODE']='UTF-8'
         self.system['DATA_DIRECTORY']=config_dir
         self.system['VERSION']=__version__
+        # this is where all the queries and parameters for each are stored per commitjookie
         
+        self.query_cache=[]
         try:
             self.system['PYTHON_MAJOR']=sys.version_info.major
             self.system['PYTHON_MINOR']=sys.version_info.minor 
@@ -330,7 +336,8 @@ class engine:
         # it should only replace whole words, not within quotes and only starting with @
         # this is a TODO HOT feature. UNSAFE
 
-        
+        self.query_cache.append({'query':query,'parameters':parameters})
+
         sql_query=self.prepare_sql(sql_query)
         self.excuted_query=sql_query
         
@@ -528,7 +535,8 @@ class engine:
     
     def os_cmd(self,cmd,err_msg):
         self.info("OSCMD INFO","{0}".format(" ".join(cmd)))
-        print(cmd)
+        # this is where you would see the executed OS cmd array for the svn action
+        # print(cmd)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output, err = p.communicate()
         rc = p.returncode
@@ -537,8 +545,8 @@ class engine:
             self.info(output)
             self.info(err)
             self.info("OS CMD"," ".join(cmd))
-            raise Exception("{0}: Exit Code {1}".format(err_msg,rc))
-        return output
+            raise Exception("# {0}: Exit Code {1} - {2} - {3} ".format(err_msg,rc,output,err,cmd))
+        return {'exit_code':rc,'error':err,'output':output}
     
     def svn_checkout_file(self,table):
         self.info("IN SVN PULL")
@@ -549,7 +557,7 @@ class engine:
             repo_url=None
             try:
                 response=self.os_cmd(cmd,"SVN Repo Test").strip()
-                url_index=response.find("URL:")
+                url_index=response['output'].find("URL:")
                 url_index+=4
                 tokens=response[url_index:].split("\n")
                 repo_url=tokens[0].strip()
@@ -604,7 +612,33 @@ class engine:
                     '--non-interactive','--trust-server-cert'
                     ]
             self.os_cmd(cmd,"SVN Checkout File Err")
-    
+
+    def svn_UP_file(self,table):
+        self.info("IN SVN UPDATE")
+        if table.data.repo_type=='svn':
+            cmd=[   'svn',
+                    'up',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
+                    ]
+            self.os_cmd(cmd,"SVN Checkout File Err")
+
+    def svn_revert_file(self,table):
+        self.info("IN SVN REVERT")
+        if table.data.repo_type=='svn':
+            cmd=[   'svn',
+                    'revert',
+                    table.data.repo_file,
+                    '--no-auth-cache',
+                    '--username','{0}'.format(table.data.repo_user),
+                    '--password','{0}'.format(table.data.repo_password),
+                    '--non-interactive','--trust-server-cert'
+                    ]
+            self.os_cmd(cmd,"SVN Checkout File Err")
+
     def svn_commit_file(self,table):
         self.info("IN SVN COMMIT",table.data.name)
         if False==os.path.exists(table.data.repo_dir):
@@ -623,7 +657,6 @@ class engine:
                 ]
         self.os_cmd(cmd,"SVN Commit File Err")        
     
-
     def svn_commit_files(self,tables):
         """
           repo_files is a list of files in the repo_dir that need to be committed
@@ -657,19 +690,29 @@ class engine:
         self.info("SVN Committing {0}".format(",".join(files)))
 
         os.chdir(repo_dir)
-        print(repo_dir)
+        # print(repo_dir)
         cmd=[   'svn',
-                'commit',
-                ' '.join(files),
+                'up']
+        cmd.extend(files)
+        cmd.extend([
+                '--no-auth-cache',
+                '--username','{0}'.format(repo_user),
+                '--password','{0}'.format(repo_password),
+                '--non-interactive','--trust-server-cert'
+                ])
+        self.os_cmd(cmd,"SVN UP File Err")
+
+        cmd=[   'svn',
+                'commit']
+        cmd.extend(files)
+        cmd.extend([
                 '-m','ddb',
                 '--no-auth-cache',
                 '--username','{0}'.format(repo_user),
                 '--password','{0}'.format(repo_password),
                 '--non-interactive','--trust-server-cert'
-                ]
+                ])
         self.os_cmd(cmd,"SVN Commit File Err")
-
-
 
     def s3_checkout_file(self,table):
         self.info("IN S3 PULL")
@@ -693,7 +736,6 @@ class engine:
             else:
                 raise Exception(e)
 
-
     def get_data_file(self,table,prefix="ddb_"):
         self.internal['IN_TRANSACTION']=1
         data_file=table.data.path
@@ -707,11 +749,64 @@ class engine:
             else:
                 temp_data_file=create_temporary_copy(data_file,"ddb_"+self.system['UUID'],prefix)
 
-            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'written':None,'table':table}
+            self.internal['TEMP_FILES'][data_file]={'origin':data_file,'temp_source':temp_data_file,'temp_local':temp_data_file+".temp",'written':None,'table':table}
         temp_source=self.internal['TEMP_FILES'][data_file]['temp_source']
         #print ("Temp File {0}".format(temp_source))
         return temp_source 
-    
+
+    def duplicate_local_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been uesd errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot duplicate")
+
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        lock.copy(file_src,file_dst)
+  
+    def delete_local_backup_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been uesd errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use cannot delete backup")
+
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        lock.remove_temp_file(file_dst)
+   
+    def revert_local_data_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot revert local")
+
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+
+        # reverse copy
+        lock.copy(file_src,file_dst)
+        # delete temp file
+        lock.remove_temp_file(file_dst)
+
+    def move_svn_temp_file(self,table,prefix="ddb_"):
+        self.internal['IN_TRANSACTION']=1
+        data_file=table.data.path
+
+        # if the file hasnt been errr
+        if data_file not in self.internal['TEMP_FILES']:
+            raise Exception("File not in use, cannot revert local")
+
+        file_src=self.internal['TEMP_FILES'][data_file]['temp_source']
+        file_dst=self.internal['TEMP_FILES'][data_file]['temp_local']
+        self.info("Copying {0} -> {1}".format(file_dst,data_file))
+        # move temp file in temp dir to repo dir
+        lock.copy(file_dst,data_file)
+      
     def autocommit_write(self,table,dest_file):
         table_key=table.data.path
         if table_key in self.internal['TEMP_FILES']:

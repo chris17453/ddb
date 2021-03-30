@@ -61,6 +61,8 @@ def method_update(context, meta):
     content_file=open(temp_data_file, 'r')
     try:
         dst_temp_filename=temp_path_from_file(meta.table.data.path,"ddb_DST_UPDATE",unique=True)
+        context.info("UPDATE MASTER",meta.table.data.path)
+        context.info("UPDATE FILE",dst_temp_filename)
         temp_file=file_writer(dst_temp_filename,'w')
         try:
             for line in content_file:
